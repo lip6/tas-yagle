@@ -22,7 +22,6 @@ MCC_MOD_BIN = parsetech
 MCC_HEADER   = mcc_lib.h
 
 READ_L = -leditline
-TERM_L = -ltermcap
 
 LOCAL_INC = $(INCLUDE64BIT) \
             -I$(TARGET_INCLUDE)
@@ -97,7 +96,6 @@ LOCAL_LIB  = $(FLEXOBJS) $(STATIC_LIB) \
              $(AVT_L) \
              $(RPC_L) \
              $(READ_L) \
-             $(TERM_L) \
              -lm $(FLEXLIBS) -ldl
 
 all : lib 
