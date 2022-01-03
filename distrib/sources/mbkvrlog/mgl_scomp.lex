@@ -35,7 +35,9 @@ extern "C" {
 }
 
 #include "mgl_type.h"
+extern "C" {
 #include "mgl_scomp.tab.h"
+}
 #include "mgl_parse.h"
 #include "mgl_util.h"
 #include "mgl_class.h"
