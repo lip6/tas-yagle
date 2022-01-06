@@ -136,7 +136,7 @@ REGULAR_LIB = $(XYA_L) \
 			  $(RPC_L)
 			  
 LOCAL_LIB =  $(FLEXOBJS) $(STATIC_LIB) -L$(TARGET_LIB) $(WHOLE) $(REGULAR_LIB) $(NOWHOLE) $(TCL_L)\
-            -L$(MOTIF_LIB) -lXm -L$(XPM_LIB) -lXpm -L$(X11_LIB) -ledit -ltermcap -lXt -lX11 -lpthread  -ldl -lm $(FLEXLIBS) $(PSP_L)
+            -L$(MOTIF_LIB) -lXm -L$(XPM_LIB) -lXpm -L$(X11_LIB) -ledit -lXt -lX11 -lpthread  -ldl -lm $(FLEXLIBS) $(PSP_L)
 			
 API_LIB = $(WHOLE) $(APIALL_L) $(NOWHOLE)
 	

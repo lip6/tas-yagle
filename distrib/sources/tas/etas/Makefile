@@ -10,7 +10,6 @@ SHELL = /bin/sh
 ETAS_OBJ = etas.o
 
 READ_L = -leditline
-TERM_L = -ltermcap
 
 LOCAL_INC = $(INCLUDE64BIT) \
             -I$(TARGET_INCLUDE) \
@@ -82,7 +81,6 @@ LOCAL_LIB  = $(FLEXOBJS) $(STATIC_LIB) \
              $(MUT_L) \
              $(READ_L) \
              $(RPC_L) \
-             $(TERM_L) \
              -lm  $(FLEXLIBS) -ldl
 
 $(TARGET_BIN)/etas : $(ETAS_OBJ) 

@@ -123,6 +123,6 @@ SWIG             = /usr/bin/swig
 WHOLE            = -Xlinker --whole-archive
 NOWHOLE          = -Xlinker --no-whole-archive
 
-TCL_L            = -ltcl8.5
+TCL_L            = $(shell pkg-config --libs tcl)
 
 # EOF

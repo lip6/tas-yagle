@@ -170,11 +170,14 @@ XyagInitializeGraphicContext()
 
     XyagLargeTextGC = XCreateGC(XyagGraphicDisplay, Root, (GCForeground|GCBackground|GCPlaneMask), &GraphicValue);
 
-    XSetFont(XyagGraphicDisplay, XyagSmallTextGC, XyagSmallTextFont->fid);
+    if (XyagSmallTextFont)
+        XSetFont(XyagGraphicDisplay, XyagSmallTextGC, XyagSmallTextFont->fid);
 
-    XSetFont(XyagGraphicDisplay, XyagMediumTextGC, XyagMediumTextFont->fid);
+    if (XyagMediumTextFont)
+        XSetFont(XyagGraphicDisplay, XyagMediumTextGC, XyagMediumTextFont->fid);
 
-    XSetFont(XyagGraphicDisplay, XyagLargeTextGC, XyagLargeTextFont->fid);
+    if (XyagLargeTextFont)
+        XSetFont(XyagGraphicDisplay, XyagLargeTextGC, XyagLargeTextFont->fid);
 
     GraphicValue.background = XyagColor[2];     /* Xor Color */
     GraphicValue.foreground = XyagColor[2];     /* Xor Color */

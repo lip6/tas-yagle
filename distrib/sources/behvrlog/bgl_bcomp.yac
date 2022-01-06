@@ -13,16 +13,17 @@
 /*                                                                          */
 /****************************************************************************/
 
+%parse-param {void *parm}
+%lex-param {void *parm}
+
 %{
 
 #define YYDEBUG 1
-#define YYPARSE_PARAM parm
-#define YYLEX_PARAM parm
 
 #define BGL_CONTEXT(x) ((bgl_getcontext(parm))->x)
 
 #undef yyerror
-#define yyerror(x) bgl_bcomperror(x, (bgl_getcontext(parm)))
+#define yyerror(parm, x) bgl_bcomperror(x, (bgl_getcontext(parm)))
 
 #include <stdio.h>
 #include <string.h>

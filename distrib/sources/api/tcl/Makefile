@@ -106,7 +106,7 @@ LIB =  -L$(TARGET_LIB) $(STATIC_LIB) \
 			  $(VCD_L) \
 			  $(RPC_L) -ledit
 
-API_STATICLIB  = -L$(TARGET_LIB) $(STATIC_LIB) $(WHOLE) $(LIB) $(TCL_L) $(APIALL_L) $(NOWHOLE) -ledit -ltermcap -lpthread -ldl -lm 
+API_STATICLIB  = -L$(TARGET_LIB) $(STATIC_LIB) $(WHOLE) $(LIB) $(TCL_L) $(APIALL_L) $(NOWHOLE) -ledit -lpthread -ldl -lm 
 
 WRAP = $(TARGET_BIN)/wrap -silent
 

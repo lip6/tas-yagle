@@ -1340,7 +1340,7 @@ static void NameAlloc_rehash(NameAllocator *na)
   //  fprintf(stdout,"done\n");
 }
 
-inline char *NameAlloc_sub(NameAllocator *na, char *inputname, int find)
+char *NameAlloc_sub(NameAllocator *na, char *inputname, int find)
 {
   chain_list *pt;
   char buffer[BUFSIZ];
