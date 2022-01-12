@@ -465,7 +465,7 @@ total_cap            : par_value { $$ = $1; } ;
 .routing_conf.         : empty { }
                      | _E_V _POS_INTEGER { } ;
 
-.conn_sec.           : _E_CONN conn_def conn_def_list .internal_node_coord_list. { }
+.conn_sec.           : _E_CONN conn_def_list .internal_node_coord_list. { }
                      | 
                      ;
 
