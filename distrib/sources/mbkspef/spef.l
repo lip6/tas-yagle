@@ -42,7 +42,7 @@ v2           (\{{digit}+\})
 v3           (\({digit}+\))
 v4           (\\\[{digit}+\\\])
 vector       ({v0}|{v1}|{v2}|{v3}|{v4})
-hdiv         ([[./:_|@#\$%\-!+\\'`~,;=\?\^\&\*])
+hdiv         ([[./:_|@#\$%\-!+\\'`~,;=\?\^\&\*()])
 identifier   {alpha}({hdiv}|{alpha}|{digit}|{vector})*
 identifier2  {integer}{hdiv}?({hdiv}|{alpha}|{digit}|{vector})*
 qstring      "\"".*"\"" 
