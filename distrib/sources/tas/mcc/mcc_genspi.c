@@ -3522,6 +3522,9 @@ int mcc_modeltype_known ( int modeltype )
     case MCC_BSIM4 :
     case MCC_MPSP :
     case MCC_MPSPB :
+    case MCC_PSPVA :
+    case MCC_PSPTVA :
+    case MCC_PSPNQSVA :
     case MCC_EXTMOD :
                      res = 1;
                      break;

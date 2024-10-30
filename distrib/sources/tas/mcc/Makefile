@@ -13,7 +13,8 @@ MCC_OBJ_LIB = mcc_util.o mcc_optim.o mcc_curv.o mcc_fit.o mcc_debug.o mcc_genspi
 
 MCC_MOD_OBJ = lex.mcc_mod.o mcc_mod.tab.o mcc_mod_util.o mcc_mod_spice.o \
               mcc_mod_bsim3v3.o mcc_mod_bsim4.o mcc_mod_mos2.o mcc_mod_mm9.o mcc_tsort.o \
-			  mcc_mod_psp.o mcc_mod_psp_interface.o mcc_mod_ext.o
+			  mcc_mod_psp.o mcc_mod_psp_interface.o mcc_mod_ext.o \
+			  mcc_mod_osdi.o mcc_mod_osdi_interface.o
 
 MCC_MOD_MAIN_OBJ = mcc_main.o
 
