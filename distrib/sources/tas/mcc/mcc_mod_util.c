@@ -2665,6 +2665,12 @@ void mcc_drvmod()
                modeltype = "PSP" ;
            else if ((ptmodel->MODELTYPE == MCC_MPSPB))
                modeltype = "PSPB" ;
+           else if ((ptmodel->MODELTYPE == MCC_PSPVA))
+               modeltype = "PSP103VA" ;
+           else if ((ptmodel->MODELTYPE == MCC_PSPTVA))
+               modeltype = "PSP103TVA" ;
+           else if ((ptmodel->MODELTYPE == MCC_PSPNQSVA))
+               modeltype = "PSPNQS103VA" ;
            else if ((ptmodel->MODELTYPE == MCC_EXTMOD))
                modeltype = "EXT" ;
            

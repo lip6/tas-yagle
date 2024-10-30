@@ -84,6 +84,9 @@ modcfglist* mcc_parsecfg( char *fname )
                              { "BSIM4",   MCC_BSIM4   }, \
                              { "PSP",     MCC_MPSP    }, \
                              { "PSPB",    MCC_MPSPB   }, \
+                             { "PSP103VA",   MCC_PSPVA    }, \
+                             { "PSP103TVA",   MCC_PSPTVA    }, \
+                             { "PSPNQS103VA",MCC_PSPNQSVA   }, \
                              { "EXT",     MCC_EXTMOD   }  \
                            } ;
 

@@ -133,6 +133,8 @@ eqt_ctx *GLOBAL_CTX = NULL;
 extern eqt_param *MBK_GLOBALPARAMS;
 extern chain_list *MBK_GLOBALFUNC;
 
+chain_list* OSDI_HANDLE;
+
 #define KEEP__TRANSISTOR  0x1
 #define KEEP__RESISTANCE  0x2
 #define KEEP__INSTANCE  0x4
@@ -3378,6 +3380,33 @@ int spi_parse_model (circuit * ptcir, chain_list * ligne, spifile * df)
       TPMOS = addchain (TPMOS, modname);
       if (df->encrypted) CRYPTMOS = addchain (CRYPTMOS, modname);
   }
+  else if (strncasecmp (typestr, "psp", 3) == 0) {
+    elem = elem->NEXT;
+    if (!elem)
+      avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+    if (strncasecmp ((char*)elem->DATA, "type", 4) == 0) {
+      elem = elem->NEXT;
+      if (!elem)
+        avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+      if (((char*)elem->DATA)[0] == '=') {
+        elem = elem->NEXT;
+        if (!elem)
+          avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+        if (atoi((char*)elem->DATA) > 0 ) {
+          modtype = MCC_NMOS;
+          if (!mbk_istransn (modname))
+            TNMOS = addchain (TNMOS, modname);
+            if (df->encrypted) CRYPTMOS = addchain (CRYPTMOS, modname);
+        }
+        if (atoi((char*)elem->DATA) < 0 ) {
+          modtype = MCC_PMOS;
+          if (!mbk_istransp (modname))
+            TPMOS = addchain (TPMOS, modname);
+            if (df->encrypted) CRYPTMOS = addchain (CRYPTMOS, modname);
+        }
+      }
+    }
+  }
   //else if (strcasecmp(typestr, "d") == 0) {
   else if (tolower(typestr[0])=='d') {
     if (!mbk_isdioden (modname) && !mbk_isdiodep (modname))
@@ -4486,6 +4515,13 @@ spi_load_global *globalinfo;
                 spi_parse_comment (ptcir, &(df->lines[0]), df, TRUE);
             }
             else if (strchr ("Mm", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
+                if (usetopcir) {
+                    ptcir = SPI_TOPCIR;
+                    ptcir->sf = df;
+                }
+                spi_parse_transistor (ptcir, ligne, df, com_x, com_y);
+            }
+            else if (strchr ("Nn", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
                 if (usetopcir) {
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
