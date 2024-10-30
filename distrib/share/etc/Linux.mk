@@ -81,11 +81,11 @@ CPLUSPLUS        = /usr/bin/g++
 CFLAGS           =
 CPPFLAGS         =
 
-ifeq ($(findstring Ubuntu,$(shell uname -v)),Ubuntu)
-  CC            += -I/usr/include/tcl8.5 
-  SCC           += -I/usr/include/tcl8.5 
-  CPLUSPLUS     += -I/usr/include/tcl8.5 
-endif
+#ifeq ($(findstring Ubuntu,$(shell uname -v)),Ubuntu)
+  CC            += -I/usr/include/tcl
+  SCC           += -I/usr/include/tcl
+  CPLUSPLUS     += -I/usr/include/tcl
+#endif
 
 ifeq ($(PACKAGING_TOP),)
   CC            += -I${HOME}/softs/$(BUILD_VARIANT)$(LIB_SUFFIX_)/install/include
