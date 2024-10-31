@@ -3479,6 +3479,9 @@ int spi_parse_model (circuit * ptcir, chain_list * ligne, spifile * df)
   }
 
   if (ptmodel) {
+    if( typestr && (strncasecmp( typestr, "psp", 3 ) == 0 ))
+      modeltype = mcc_get_modeltype (ptmodel,typestr);
+    else
     if( typestr && strlen( typestr ) > 4 )
       modeltype = mcc_get_modeltype (ptmodel,typestr+4);
     else
@@ -3539,6 +3542,27 @@ int spi_parse_model_montecarlo (circuit * ptcir, chain_list * ligne, spifile * d
   }
   else if (strncasecmp (typestr, "pmos", 4) == 0) {
     modtype = MCC_PMOS;
+  }
+  else if (strncasecmp (typestr, "psp", 3) == 0) {
+    elem = elem->NEXT;
+    if (!elem)
+      avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+    if (strncasecmp ((char*)elem->DATA, "type", 4) == 0) {
+      elem = elem->NEXT;
+      if (!elem)
+        avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+      if (((char*)elem->DATA)[0] == '=') {
+        elem = elem->NEXT;
+        if (!elem)
+          avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+        if (atoi((char*)elem->DATA) > 0 ) {
+          modtype = MCC_NMOS;
+        }
+        if (atoi((char*)elem->DATA) < 0 ) {
+          modtype = MCC_PMOS;
+        }
+      }
+    }
   }
   //else if (strcasecmp(typestr, "d") == 0) {
   else if (tolower(typestr[0])=='d') {

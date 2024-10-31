@@ -430,7 +430,7 @@ int osdi_initialize( osdi_trs             *ptr,
   }
 
   if( !ptr->mdata ) {
-    ptr->mdata = malloc( ptr->model->model_size );
+    ptr->mdata = calloc( 1, ptr->model->model_size );
     ptr->model->setup_model( NULL, ptr->mdata, NULL, &info_model );
     if (info_model.num_errors)
     for(int i=0; i<info_model.num_errors; i++)
@@ -445,7 +445,7 @@ int osdi_initialize( osdi_trs             *ptr,
       break ;
     }
     
-    ptr->idata = malloc( ptr->model->instance_size );
+    ptr->idata = calloc( 1, ptr->model->instance_size );
 
     ptr->model->setup_instance( NULL,
                                     ptr->idata, 

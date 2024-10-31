@@ -314,6 +314,7 @@ V_BOOL V_BOOL_TAB[] = {
     {"CPE_PRECHARGED_MEMSYM"          , __CPE_PRECHARGED_MEMSYM         , 0, 1, 0, "cpePrechargedMemsym"                   , NULL                             , bool_init_check},
     {"AVT_ENBALE_MULTI_CON_ON_NET"    , __AVT_ENBALE_MULTI_CON_ON_NET   , 0, 1, 0, "avtEnableMultipleConnectorsOnNet"      , NULL                             , bool_init_check},
     {"MCC_USE_CACHE_PSP"              , __AVT_USE_CACHE_PSP             , 1, 1, 0, "avtUseCachePsp"                        , NULL                             , bool_init_check},
+    {"MCC_USE_CACHE_OSDI"              , __AVT_USE_CACHE_OSDI             , 1, 1, 0, "avtUseCacheOsdi"                        , NULL                             , bool_init_check},
     {"TMA_ALLOW_ACCESS_AS_CLOCKPATH"  , __TMA_ALLOW_ACCESS_AS_CLOCKPATH , 0, 0, 0, "tmaAllowAccessAsClockPath"             , NULL                             , bool_init_check},
     {"LIB_DRIVE_TABLE_INDEX"          , __LIB_DRIVE_TABLE_INDEX         , 0, 0, 0, "tmaLibDriveTableIndex"                 , NULL                             , bool_init_check},
     {"AVT_ENABLE_STAT"                , __AVT_ENABLE_STAT               , 0, 0, 0, "spiActivateStatisticalFunctions"       , NULL                             , bool_init_check},
