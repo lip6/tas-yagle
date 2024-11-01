@@ -394,7 +394,7 @@ int osdi_initialize( osdi_trs             *ptr,
   int         i ;
   ptype_list *ptl ;
   osdicachemodel *cache ;
-  OsdiInitInfo  info_inst, info_model;
+  OsdiInitInfo  *info_inst, *info_model;
   double *charge, *solve, *info_state;
   uint32_t from, to, tmp;
 
@@ -411,6 +411,8 @@ int osdi_initialize( osdi_trs             *ptr,
 
   ptr->mccmodel = mccmodel ;
 
+  info_inst = (OsdiInitInfo*)calloc(1,sizeof(OsdiInitInfo));
+  info_model = (OsdiInitInfo*)calloc(1,sizeof(OsdiInitInfo));
   charge = (double*)calloc(ptr->model->num_nodes, sizeof(double));
   solve  = (double*)calloc(ptr->model->num_nodes, sizeof(double));
   info_state = (double*)calloc(ptr->model->num_states, sizeof(double));
@@ -431,10 +433,10 @@ int osdi_initialize( osdi_trs             *ptr,
 
   if( !ptr->mdata ) {
     ptr->mdata = calloc( 1, ptr->model->model_size );
-    ptr->model->setup_model( NULL, ptr->mdata, NULL, &info_model );
-    if (info_model.num_errors)
-    for(int i=0; i<info_model.num_errors; i++)
-    switch( info_model.errors[i].code ) {
+    ptr->model->setup_model( NULL, ptr->mdata, NULL, info_model );
+    if (info_model->num_errors)
+    for(int i=0; i<info_model->num_errors; i++)
+    switch( info_model->errors[i].code ) {
     case INIT_ERR_OUT_OF_BOUNDS :
       printf( "  ->Init out of bounds error\n\n" );
       return 0 ;
@@ -453,11 +455,11 @@ int osdi_initialize( osdi_trs             *ptr,
                                     temp,
                                     ptr->model->num_nodes,
                                     NULL,
-                                    &info_inst
+                                    info_inst
                                   );
-    if (info_inst.num_errors)
-    for(int i=0; i<info_model.num_errors; i++)
-    switch( info_model.errors[i].code ) {
+    if (info_inst->num_errors)
+    for(int i=0; i<info_inst->num_errors; i++)
+    switch( info_inst->errors[i].code ) {
     case INIT_ERR_OUT_OF_BOUNDS :
       printf( "  ->Init out of bounds error\n\n" );
       return 0 ;

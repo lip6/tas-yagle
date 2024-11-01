@@ -593,6 +593,7 @@ double mcc_calcVTH(char *technoname, char *transname,
               case MCC_PSPVA    :
               case MCC_PSPTVA   :
               case MCC_PSPNQSVA : vth = mcc_calcVTH_osdi(ptmodel, L, W, temp, vbs, vds,lotrsparam);
+                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : vth = mcc_calcVTH_psp(ptmodel, L, W, temp, vbs, vds,lotrsparam);
                                   break;
@@ -633,6 +634,7 @@ double mcc_calcIDS(char *technoname, char *transname,
                                  ids = mcc_calcIDS_osdi (ptmodel, vbs, vgs,
                                                         vds, W, L, 
                                                         temp,lotrsparam) ;
+                                 break ;
               case MCC_MPSPB    :
               case MCC_MPSP   :
                                  ids = mcc_calcIDS_psp (ptmodel, vbs, vgs,
@@ -727,6 +729,7 @@ double mcc_calcCGD( char *technoname,
               case MCC_PSPVA    :
               case MCC_PSPTVA   :
               case MCC_PSPNQSVA : cgd = mcc_calcCGD_osdi( ptmodel, L, W, temp, vgs0, vgs1, vbs, vds,lotrsparam) ;
+                                 break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : cgd = mcc_calcCGD_psp( ptmodel, L, W, temp, vgs0, vgs1, vbs, vds,lotrsparam) ;
                                   break ;
