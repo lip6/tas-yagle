@@ -309,9 +309,11 @@ void osdi_loadmodel( osdi_trs             *ptr,
   osdimodelparam  *iparam ;
   osdimodelparam  *tmparam ;
   osdimodelparam  *tiparam ;
+  OsdiInitInfo  *info_inst, *info_model;
   ptype_list     *ptl ;
   int  flag;
   void *aptr;
+  double temp = 25.0;
 
   ptl = getptype( ptr->mccmodel->USER, OSDICACHEMODEL );
   if( !ptl ) {
@@ -342,6 +344,18 @@ void osdi_loadmodel( osdi_trs             *ptr,
   tmparam = duposdimodelparam( mparam );
   tiparam = duposdimodelparam( iparam );
 
+  if(ptr->mdata) memset(ptr->mdata, 0, ptr->model->model_size);
+  if(ptr->idata) memset(ptr->idata, 0, ptr->model->instance_size);
+
+#if 1
+  int typeidx = osdi_getindexparam( ptr, namealloc("TYPE"), OSDI_FIND_MPARAM );
+  aptr = osdi_access_ptr(ptr, typeidx, &flag, 1);
+  if( ptr->mccmodel->TYPE == MCC_TRANS_P )
+    *(int*) aptr = -1;
+  else
+    *(int*) aptr = +1;
+#endif
+
   osdi_tuneparam( ptr, tuned, tmparam, tiparam );
   for(int i=0; i<tmparam->n; i++) {
     aptr = osdi_access_ptr(ptr, tmparam->index[i], &flag, 1);
@@ -357,6 +371,20 @@ void osdi_loadmodel( osdi_trs             *ptr,
         exit(1);
     }
   }
+  info_model = (OsdiInitInfo*)calloc(1,sizeof(OsdiInitInfo));
+  ptr->model->setup_model( NULL, ptr->mdata, NULL, info_model );
+    if (info_model->num_errors)
+    for(int i=0; i<info_model->num_errors; i++)
+    switch( info_model->errors[i].code ) {
+    case INIT_ERR_OUT_OF_BOUNDS :
+      printf( "  ->Model Init out of bounds error %s:%d\n\n" , ptr->mccmodel->NAME, info_model->errors[i].payload.parameter_id);
+      return 0 ;
+      break ;
+    default :
+      printf( "  ->unknown error\n\n" );
+      return 0 ;
+      break ;
+  }
 
   for(int i=0; i<tiparam->n; i++) {
     aptr = osdi_access_ptr(ptr, tiparam->index[i], &flag, 1);
@@ -371,6 +399,27 @@ void osdi_loadmodel( osdi_trs             *ptr,
         printf("Not supported type detected\n");
         exit(1);
     }
+  }
+  info_inst = (OsdiInitInfo*)calloc(1,sizeof(OsdiInitInfo));
+  ptr->model->setup_instance( NULL,
+                                    ptr->idata, 
+                                    ptr->mdata, 
+                                    temp,
+                                    ptr->model->num_nodes,
+                                    NULL,
+                                    info_inst
+                                  );
+  if (info_inst->num_errors)
+  for(int i=0; i<info_inst->num_errors; i++)
+  switch( info_inst->errors[i].code ) {
+    case INIT_ERR_OUT_OF_BOUNDS :
+      printf( "  ->Inst Init out of bounds error %s:%d\n\n" , ptr->mccmodel->NAME, info_inst->errors[i].payload.parameter_id);
+      return 0 ;
+      break ;
+    default :
+      printf( "  ->unknown error\n\n" );
+      return 0 ;
+      break ;
   }
 
   freeosdiparam( tmparam );
@@ -430,15 +479,21 @@ int osdi_initialize( osdi_trs             *ptr,
       ptr->cleanmidata = 0 ;
     }
   }
+  if( !ptr->mdata ) 
+    ptr->mdata = calloc( 1, ptr->model->model_size );
+  ptr->model->setup_model( NULL, ptr->mdata, NULL, info_model );
+  if( !ptr->idata ) 
+  ptr->idata = calloc( 1, ptr->model->instance_size );
+
+  osdi_loadmodel( ptr, L, W, tuned, lotrsparam );
 
   if( !ptr->mdata ) {
-    ptr->mdata = calloc( 1, ptr->model->model_size );
     ptr->model->setup_model( NULL, ptr->mdata, NULL, info_model );
     if (info_model->num_errors)
     for(int i=0; i<info_model->num_errors; i++)
     switch( info_model->errors[i].code ) {
     case INIT_ERR_OUT_OF_BOUNDS :
-      printf( "  ->Init out of bounds error\n\n" );
+      printf( "  ->Model Init out of bounds error %s:%d\n\n" , ptr->mccmodel->NAME, info_model->errors[i].payload.parameter_id);
       return 0 ;
       break ;
     default :
@@ -447,8 +502,6 @@ int osdi_initialize( osdi_trs             *ptr,
       break ;
     }
     
-    ptr->idata = calloc( 1, ptr->model->instance_size );
-
     ptr->model->setup_instance( NULL,
                                     ptr->idata, 
                                     ptr->mdata, 
@@ -461,7 +514,7 @@ int osdi_initialize( osdi_trs             *ptr,
     for(int i=0; i<info_inst->num_errors; i++)
     switch( info_inst->errors[i].code ) {
     case INIT_ERR_OUT_OF_BOUNDS :
-      printf( "  ->Init out of bounds error\n\n" );
+      printf( "  ->Inst Init out of bounds error %s:%d\n\n" , ptr->mccmodel->NAME, info_inst->errors[i].payload.parameter_id);
       return 0 ;
       break ;
     default :
@@ -501,8 +554,6 @@ int osdi_initialize( osdi_trs             *ptr,
     }
   }
 
-
-    osdi_loadmodel( ptr, L, W, tuned, lotrsparam );
 
     uint32_t code = ptr->model->eval (  NULL,
                         ptr->idata, 
