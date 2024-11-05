@@ -345,7 +345,9 @@ void osdi_loadmodel( osdi_trs             *ptr,
   tiparam = duposdimodelparam( iparam );
 
   if(ptr->mdata) memset(ptr->mdata, 0, ptr->model->model_size);
+  else  ptr->mdata = calloc(1, ptr->model->model_size);
   if(ptr->idata) memset(ptr->idata, 0, ptr->model->instance_size);
+  else  ptr->idata = calloc(1, ptr->model->instance_size);
 
 #if 1
   int typeidx = osdi_getindexparam( ptr, namealloc("TYPE"), OSDI_FIND_MPARAM );
@@ -481,13 +483,9 @@ int osdi_initialize( osdi_trs             *ptr,
   }
   if( !ptr->mdata ) 
     ptr->mdata = calloc( 1, ptr->model->model_size );
-  ptr->model->setup_model( NULL, ptr->mdata, NULL, info_model );
-  if( !ptr->idata ) 
-  ptr->idata = calloc( 1, ptr->model->instance_size );
 
   osdi_loadmodel( ptr, L, W, tuned, lotrsparam );
 
-  if( !ptr->mdata ) {
     ptr->model->setup_model( NULL, ptr->mdata, NULL, info_model );
     if (info_model->num_errors)
     for(int i=0; i<info_model->num_errors; i++)
@@ -501,8 +499,17 @@ int osdi_initialize( osdi_trs             *ptr,
       return 0 ;
       break ;
     }
+
+  if( !ptr->idata ) 
+  ptr->idata = calloc( 1, ptr->model->instance_size );
+
+  uint32_t *node_mapping = 
+       (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
+  for(i=0;i<ptr->model->num_nodes;i++)
+       node_mapping[i] = i;
+
     
-    ptr->model->setup_instance( NULL,
+  ptr->model->setup_instance( NULL,
                                     ptr->idata, 
                                     ptr->mdata, 
                                     temp,
@@ -510,7 +517,7 @@ int osdi_initialize( osdi_trs             *ptr,
                                     NULL,
                                     info_inst
                                   );
-    if (info_inst->num_errors)
+  if (info_inst->num_errors)
     for(int i=0; i<info_inst->num_errors; i++)
     switch( info_inst->errors[i].code ) {
     case INIT_ERR_OUT_OF_BOUNDS :
@@ -522,12 +529,7 @@ int osdi_initialize( osdi_trs             *ptr,
       return 0 ;
       break ;
     }
-    uint32_t *node_mapping = 
-       (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
-    for(i=0;i<ptr->model->num_nodes;i++)
-       node_mapping[i] = i;
-
-    for(i=0; i < ptr->model->num_collapsible; i++) {
+  for(i=0; i < ptr->model->num_collapsible; i++) {
       if (! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] )
         continue;
       from = ptr->model->collapsible[i].node_1;
@@ -578,7 +580,6 @@ int osdi_initialize( osdi_trs             *ptr,
     }
     else
       ptr->cleanmidata = 1 ;
-  }
 
   for( i=0 ; i<OSDI_OP_PARAM_NB ; i++ )
     ptr->tabid[i] = OSDI_UNDEF ;
