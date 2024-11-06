@@ -101,17 +101,11 @@ void osdi_mcc_addtuneeffect( mcc_modellist *mccmodel,
   }
   
   if( ( flag & MCC_OSDI_TUNE_NO_EXTRINSIC ) == MCC_OSDI_TUNE_NO_EXTRINSIC ) {
-  char  *name;
-
-  name = namealloc( osdi_op_param_label[ OSDI_OP_PARAM_SWGEO ]);
-
-      int swgeooff = osdi_getindexparam(model, name, OSDI_FIND_MPARAM), accflag, swgeo;
-      int *ptr = osdi_access_ptr(model,swgeooff,&accflag, 0);
-      if (ptr && (accflag & PARA_TY_MASK) == PARA_TY_INT)
-        swgeo = *(int*)ptr;
-      else
-        swgeo = 0;
-
+      int  swgeo;
+      char name = namealloc("swgeo");
+      for (mcc_paramlist *p=mccmodel->PARAM; p; p=p->NEXT) {
+	if(p->NAME == name) swgeo = p->VALUE;
+      }
       switch (swgeo) {
       case 2: 
      /* level==1038 Binning models*/
@@ -340,15 +334,15 @@ void osdi_mcc_getcharge( mcc_modellist   *mccmodel,
 
       tparam.n = 0 ;
       
-      osdi_initialize( &model, mccmodel, lotrsparam, L, W, temp, &tparam );
+      memset(&model, 0, sizeof(osdi_trs));
       osdi_mcc_addtuneeffect( mccmodel, &model, &tparam, calc[n], juncapconfig );
+      osdi_initialize( &model, mccmodel, lotrsparam, L, W, temp, &tparam );
       if( model.model->num_terminals != 4 ) {
         printf( "number of external nodes differs than 4. can't extract charge values\n" );
         return ;
       }
-      
-      osdi_set_polarization( &model, vgs, vds, vbs );
 
+      osdi_set_polarization( &model, vgs, vds, vbs );
       i_charge = (double*)calloc(model.model->num_nodes, sizeof(double));
       model.model->load_residual_react(model.idata, model.mdata, i_charge);
       osdi_terminate( &model );

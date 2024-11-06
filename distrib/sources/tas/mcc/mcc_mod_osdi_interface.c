@@ -152,7 +152,11 @@ void osdi_loadmodelparameter( osdi_trs *ptr, osdimodelparam *param )
         printf( "too many model parameters ! can't set param %s\n", mccparam->NAME );
     }
     else {
-      printf( "model parameter %s isn't supported in osdi model\n", mccparam->NAME );
+      i = osdi_getindexparam( ptr, mccparam->NAME, OSDI_FIND_IPARAM );
+      if( i != OSDI_UNDEF ) 
+          printf( "instance parameter %s is found in osdi model parameters list\n", mccparam->NAME );
+      else
+          printf( "model parameter %s isn't supported in osdi model\n", mccparam->NAME );
     }
   }
 }
@@ -344,10 +348,8 @@ void osdi_loadmodel( osdi_trs             *ptr,
   tmparam = duposdimodelparam( mparam );
   tiparam = duposdimodelparam( iparam );
 
-  if(ptr->mdata) memset(ptr->mdata, 0, ptr->model->model_size);
-  else  ptr->mdata = calloc(1, ptr->model->model_size);
-  if(ptr->idata) memset(ptr->idata, 0, ptr->model->instance_size);
-  else  ptr->idata = calloc(1, ptr->model->instance_size);
+  if(!ptr->mdata) ptr->mdata = calloc(1, ptr->model->model_size);
+  if(!ptr->idata) ptr->idata = calloc(1, ptr->model->instance_size);
 
 #if 1
   int typeidx = osdi_getindexparam( ptr, namealloc("TYPE"), OSDI_FIND_MPARAM );
@@ -422,6 +424,38 @@ void osdi_loadmodel( osdi_trs             *ptr,
       printf( "  ->unknown error\n\n" );
       return 0 ;
       break ;
+  }
+  uint32_t *node_mapping = 
+       (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
+  for(int i=0;i<ptr->model->num_nodes;i++)
+       node_mapping[i] = i;
+
+  for(int i=0; i < ptr->model->num_collapsible; i++) {
+      int to,from,tmp;
+      if (0&& ! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] )
+        continue;
+      from = ptr->model->collapsible[i].node_1;
+      to   = ptr->model->collapsible[i].node_2;
+
+      if (to == UINT32_MAX || node_mapping[to] == UINT32_MAX)
+        continue;
+
+
+      if ( to != UINT32_MAX && node_mapping[from] < node_mapping[to] ) {
+        tmp  = from;
+        from = to;
+        to   = tmp;
+      }
+     from = node_mapping[from];
+     if (to != UINT32_MAX) 
+       to = node_mapping[to];
+
+    for (uint32_t j = 0; j< ptr->model->num_nodes; j++) {
+        if (node_mapping[j] == from)
+          node_mapping[j] = to;
+        else if (node_mapping[j] > from && node_mapping[j] != UINT32_MAX) 
+          node_mapping[j] -= 1;
+    }
   }
 
   freeosdiparam( tmparam );
@@ -530,7 +564,7 @@ int osdi_initialize( osdi_trs             *ptr,
       break ;
     }
   for(i=0; i < ptr->model->num_collapsible; i++) {
-      if (! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] )
+      if (0&& ! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] )
         continue;
       from = ptr->model->collapsible[i].node_1;
       to   = ptr->model->collapsible[i].node_2;
@@ -590,8 +624,8 @@ int osdi_initialize( osdi_trs             *ptr,
 void osdi_terminate( osdi_trs *ptr )
 {
   if( ptr->cleanmidata ) {
-    free( ptr->mdata );
-    free( ptr->idata );
+      mbkfree( ptr->mdata );
+      mbkfree( ptr->idata );
   }
 }
 
@@ -708,8 +742,6 @@ void mcc_clean_osdi_interface( mcc_modellist *mccmodel, int check )
     if( check )
       printf( "warning : non empty model cache.\n" );
     cache = (osdicachemodel*)ptl->DATA ;
-    mbkfree( cache->mdata );
-    mbkfree( cache->idata );
     mbkfree( cache );
     mccmodel->USER = delptype( mccmodel->USER, OSDICACHETRS );
   }
