@@ -672,6 +672,7 @@ double mcc_calcCDW_osdi( mcc_modellist *ptmodel,
   cjdgat2 = *ptr;
     
   cdw = fabs( (cjdgat1-cjdgat2)/2.0 )/juncapconfig.lg ;
+  osdi_terminate( &model );
 
   return cdw ;
 }

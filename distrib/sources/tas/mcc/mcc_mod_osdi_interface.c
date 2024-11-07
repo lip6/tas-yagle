@@ -478,7 +478,7 @@ int osdi_initialize( osdi_trs             *ptr,
 {
   int         i ;
   ptype_list *ptl ;
-  osdicachemodel *cache ;
+  osdicachemodel *cache = NULL;
   OsdiInitInfo  *info_inst, *info_model;
   double *charge, *solve, *info_state;
   uint32_t from, to, tmp;
@@ -607,10 +607,12 @@ int osdi_initialize( osdi_trs             *ptr,
 
     if( V_BOOL_TAB[ __AVT_USE_CACHE_OSDI ].VALUE && !tuned ) {
       ptr->cleanmidata = 0 ;
-      cache = (osdicachemodel*)mbkalloc( sizeof( osdicachemodel ) );
-      cache->mdata     = ptr->mdata ;
-      cache->idata     = ptr->idata ;
-      mccmodel->USER = addptype( mccmodel->USER, OSDICACHETRS, cache );
+      if(!cache) {
+         cache = (osdicachemodel*)mbkalloc( sizeof( osdicachemodel ) );
+         cache->mdata     = ptr->mdata ;
+         cache->idata     = ptr->idata ;
+         mccmodel->USER = addptype( mccmodel->USER, OSDICACHETRS, cache );
+      }
     }
     else
       ptr->cleanmidata = 1 ;
@@ -742,6 +744,8 @@ void mcc_clean_osdi_interface( mcc_modellist *mccmodel, int check )
     if( check )
       printf( "warning : non empty model cache.\n" );
     cache = (osdicachemodel*)ptl->DATA ;
+    mbkfree( cache->mdata );
+    mbkfree( cache->idata );
     mbkfree( cache );
     mccmodel->USER = delptype( mccmodel->USER, OSDICACHETRS );
   }
