@@ -1,4 +1,3 @@
-
 #define _GNU_SOURCE 1
 #include <dlfcn.h>
 
@@ -17,6 +16,45 @@ OsdiDescriptor
      *dyn_osdi_psp103va = NULL,
      *dyn_osdi_psp103tva = NULL,
      *dyn_osdi_pspnqs103va = NULL;
+
+/* borrow from ngspice */
+
+void collapse_nodes(osdi_trs *ptr) {
+  uint32_t num_nodes= ptr->model->num_nodes;;
+  uint32_t *node_mapping = 
+       (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
+  for(int i=0;i<ptr->model->num_nodes;i++)
+       node_mapping[i] = i;
+
+  for(int i=0; i < ptr->model->num_collapsible; i++) {
+      int to,from,tmp;
+      // For DC operation, we will ignore the non collapsible condition
+      if (0 && ! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] )
+        continue;
+      from = ptr->model->collapsible[i].node_1;
+      to   = ptr->model->collapsible[i].node_2;
+
+      if (to == UINT32_MAX || node_mapping[to] == UINT32_MAX)
+        continue;
+      if ( to != UINT32_MAX && node_mapping[from] < node_mapping[to] ) {
+        tmp  = from;
+        from = to;
+        to   = tmp;
+      }
+     from = node_mapping[from];
+     if (to != UINT32_MAX) 
+       to = node_mapping[to];
+
+    for (uint32_t j = 0; j< ptr->model->num_nodes; j++) {
+        if (node_mapping[j] == from)
+          node_mapping[j] = to;
+        else if (node_mapping[j] > from && node_mapping[j] != UINT32_MAX) 
+          node_mapping[j] -= 1;
+    }
+  num_nodes -=1 ;
+  }
+  return num_nodes;
+}
 
 int addosdimodelparam( osdimodelparam *param, uint32_t index, double value ) {
 
@@ -425,38 +463,7 @@ void osdi_loadmodel( osdi_trs             *ptr,
       return 0 ;
       break ;
   }
-  uint32_t *node_mapping = 
-       (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
-  for(int i=0;i<ptr->model->num_nodes;i++)
-       node_mapping[i] = i;
-
-  for(int i=0; i < ptr->model->num_collapsible; i++) {
-      int to,from,tmp;
-      if (0&& ! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] )
-        continue;
-      from = ptr->model->collapsible[i].node_1;
-      to   = ptr->model->collapsible[i].node_2;
-
-      if (to == UINT32_MAX || node_mapping[to] == UINT32_MAX)
-        continue;
-
-
-      if ( to != UINT32_MAX && node_mapping[from] < node_mapping[to] ) {
-        tmp  = from;
-        from = to;
-        to   = tmp;
-      }
-     from = node_mapping[from];
-     if (to != UINT32_MAX) 
-       to = node_mapping[to];
-
-    for (uint32_t j = 0; j< ptr->model->num_nodes; j++) {
-        if (node_mapping[j] == from)
-          node_mapping[j] = to;
-        else if (node_mapping[j] > from && node_mapping[j] != UINT32_MAX) 
-          node_mapping[j] -= 1;
-    }
-  }
+  collapse_nodes(ptr);
 
   freeosdiparam( tmparam );
   freeosdiparam( tiparam );
@@ -520,78 +527,7 @@ int osdi_initialize( osdi_trs             *ptr,
 
   osdi_loadmodel( ptr, L, W, tuned, lotrsparam );
 
-    ptr->model->setup_model( NULL, ptr->mdata, NULL, info_model );
-    if (info_model->num_errors)
-    for(int i=0; i<info_model->num_errors; i++)
-    switch( info_model->errors[i].code ) {
-    case INIT_ERR_OUT_OF_BOUNDS :
-      printf( "  ->Model Init out of bounds error %s:%d\n\n" , ptr->mccmodel->NAME, info_model->errors[i].payload.parameter_id);
-      return 0 ;
-      break ;
-    default :
-      printf( "  ->unknown error\n\n" );
-      return 0 ;
-      break ;
-    }
-
-  if( !ptr->idata ) 
-  ptr->idata = calloc( 1, ptr->model->instance_size );
-
-  uint32_t *node_mapping = 
-       (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
-  for(i=0;i<ptr->model->num_nodes;i++)
-       node_mapping[i] = i;
-
-    
-  ptr->model->setup_instance( NULL,
-                                    ptr->idata, 
-                                    ptr->mdata, 
-                                    temp,
-                                    ptr->model->num_nodes,
-                                    NULL,
-                                    info_inst
-                                  );
-  if (info_inst->num_errors)
-    for(int i=0; i<info_inst->num_errors; i++)
-    switch( info_inst->errors[i].code ) {
-    case INIT_ERR_OUT_OF_BOUNDS :
-      printf( "  ->Inst Init out of bounds error %s:%d\n\n" , ptr->mccmodel->NAME, info_inst->errors[i].payload.parameter_id);
-      return 0 ;
-      break ;
-    default :
-      printf( "  ->unknown error\n\n" );
-      return 0 ;
-      break ;
-    }
-  for(i=0; i < ptr->model->num_collapsible; i++) {
-      if (0&& ! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] )
-        continue;
-      from = ptr->model->collapsible[i].node_1;
-      to   = ptr->model->collapsible[i].node_2;
-
-      if (to == UINT32_MAX || node_mapping[to] == UINT32_MAX)
-        continue;
-
-
-      if ( to != UINT32_MAX && node_mapping[from] < node_mapping[to] ) {
-        tmp  = from;
-        from = to;
-        to   = tmp;
-      }
-     from = node_mapping[from];
-     if (to != UINT32_MAX) 
-       to = node_mapping[to];
-
-    for (uint32_t j = 0; j< ptr->model->num_nodes; j++) {
-        if (node_mapping[j] == from)
-          node_mapping[j] = to;
-        else if (node_mapping[j] > from && node_mapping[j] != UINT32_MAX) 
-          node_mapping[j] -= 1;
-    }
-  }
-
-
-    uint32_t code = ptr->model->eval (  NULL,
+  uint32_t code = ptr->model->eval (  NULL,
                         ptr->idata, 
                         ptr->mdata, 
                         &(ptr->simdata)
@@ -683,8 +619,6 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
       printf( "  eval FINISH\n\n" );
     if (code & EVAL_RET_FLAG_STOP)
       printf( "  eval STOP\n\n" );
-
-
 }
 
 int osdi_loaddynamiclibrary( void )
