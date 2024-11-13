@@ -4472,7 +4472,7 @@ spi_load_global *globalinfo;
                 else if (*((char *)(ligne->DATA)) == '*') {
                   if (V_BOOL_TAB[__AVT_ENABLE_STAT].VALUE) spi_parse_comment (ptcir, &(df->lines[0]), df, TRUE);
                 }
-                else if (strcasecmp ((char *)ligne->DATA, ".PARAM") == 0) {
+                else if (strcasecmp ((char *)ligne->DATA, ".PARAM") == 0 || strcasecmp((char *)ligne->DATA, ".PARAMETERS") == 0) {
                   if (V_BOOL_TAB[__AVT_ENABLE_STAT].VALUE) spi_parse_param_or_dist_montecarlo(ptcir, ligne, df, 0);
                 }
                 else if (strcasecmp ((char *)ligne->DATA, ".DIST") == 0) {
@@ -4523,7 +4523,7 @@ spi_load_global *globalinfo;
                 ptname = (char *)elem->DATA;
                 spi_include_file(ptname, fifodf, &df);
             }
-            else if (strcasecmp ((char *)ligne->DATA, ".PARAM") == 0) {
+            else if (strcasecmp ((char *)ligne->DATA, ".PARAM") == 0 || strcasecmp((char *)ligne->DATA, ".PARAMETERS") == 0) {
                 if (!ptcir)
                     spi_parse_param (ptcir,ligne, GLOBAL_CTX, df, NULL,&ligne);
                 else {
