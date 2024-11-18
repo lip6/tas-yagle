@@ -66,8 +66,6 @@ void mcc_clean_osdi( mcc_modellist *mccmodel )
 }
 
 void osdi_mcc_addtuneeffect( mcc_modellist *mccmodel, 
-                        osdi_trs *model,
-
                         osditunedparam *tparam, 
                         int flag, 
                         osdijuncapconfig *juncapconfig
@@ -335,7 +333,7 @@ void osdi_mcc_getcharge( mcc_modellist   *mccmodel,
       tparam.n = 0 ;
       
       memset(&model, 0, sizeof(osdi_trs));
-      osdi_mcc_addtuneeffect( mccmodel, &model, &tparam, calc[n], juncapconfig );
+      osdi_mcc_addtuneeffect( mccmodel, &tparam, calc[n], juncapconfig );
       osdi_initialize( &model, mccmodel, lotrsparam, L, W, temp, &tparam );
       if( model.model->num_terminals != 4 ) {
         printf( "number of external nodes differs than 4. can't extract charge values\n" );
@@ -595,7 +593,7 @@ double mcc_calcCDS_osdi( mcc_modellist   *ptmodel,
   osdi_set_polarization( &model, 0.0,vbx1, 0.0 );
   cjd2 = *ptr;
   // here we will use the average of cjd for the two conditions
-  cds = fabs( (cjd1+cjd2)/2.0 )/juncapconfig.ab ;
+  cds = fabs( (cjd2*vbx1-cjd1*vbx0)/(vbx1-vbx0) )/juncapconfig.ab ;
 
   osdi_terminate( &model );
   return cds ;
@@ -633,7 +631,7 @@ double mcc_calcCDP_osdi( mcc_modellist *ptmodel,
   osdi_set_polarization( &model, 0.0, vbx1, 0.0 );
   cjdsti2 = *ptr;
   // here we use the averate of cjdsti
-  cdp = fabs( (cjdsti1-cjdsti2)/2.0 )/juncapconfig.ls ;
+  cdp = fabs( (cjdsti1*vbx0-cjdsti2*vbx1)/(vbx1-vbx0) )/juncapconfig.ls ;
   osdi_terminate( &model );
 
   return cdp ;
@@ -671,7 +669,7 @@ double mcc_calcCDW_osdi( mcc_modellist *ptmodel,
   osdi_set_polarization( &model, 0.0,vbx1, 0.0 );
   cjdgat2 = *ptr;
     
-  cdw = fabs( (cjdgat1-cjdgat2)/2.0 )/juncapconfig.lg ;
+  cdw = fabs( (cjdgat2*vbx1-cjdgat1*vbx0)/(vbx1-vbx0) )/juncapconfig.lg ;
   osdi_terminate( &model );
 
   return cdw ;

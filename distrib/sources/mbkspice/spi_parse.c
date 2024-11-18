@@ -3381,24 +3381,24 @@ int spi_parse_model (circuit * ptcir, chain_list * ligne, spifile * df)
       if (df->encrypted) CRYPTMOS = addchain (CRYPTMOS, modname);
   }
   else if (strncasecmp (typestr, "psp", 3) == 0) {
-    elem = elem->NEXT;
-    if (!elem)
+    elem1 = elem->NEXT;
+    if (!elem1)
       avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
-    if (strncasecmp ((char*)elem->DATA, "type", 4) == 0) {
-      elem = elem->NEXT;
-      if (!elem)
+    if (strncasecmp ((char*)elem1->DATA, "type", 4) == 0) {
+      elem1 = elem1->NEXT;
+      if (!elem1)
         avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
-      if (((char*)elem->DATA)[0] == '=') {
-        elem = elem->NEXT;
-        if (!elem)
+      if (((char*)elem1->DATA)[0] == '=') {
+        elem1 = elem1->NEXT;
+        if (!elem1)
           avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
-        if (atoi((char*)elem->DATA) > 0 ) {
+        if (atoi((char*)elem1->DATA) > 0 ) {
           modtype = MCC_NMOS;
           if (!mbk_istransn (modname))
             TNMOS = addchain (TNMOS, modname);
             if (df->encrypted) CRYPTMOS = addchain (CRYPTMOS, modname);
         }
-        if (atoi((char*)elem->DATA) < 0 ) {
+        if (atoi((char*)elem1->DATA) < 0 ) {
           modtype = MCC_PMOS;
           if (!mbk_istransp (modname))
             TPMOS = addchain (TPMOS, modname);

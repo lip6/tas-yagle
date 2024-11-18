@@ -222,11 +222,33 @@ void osdi_loadinstanceparameter( osdi_trs             *ptr,
 
   if( lotrsparam ) {
     label[n  ] = "SA" ;
-    value[n++] = lotrsparam->PARAM[elpSA] ;
+    if(lotrsparam->PARAM[elpSA] == ELPINITVALUE )
+       value[n++] = 0.0 ;
+    else
+       value[n++] = lotrsparam->PARAM[elpSA] ;
     label[n  ] = "SB" ;
-    value[n++] = lotrsparam->PARAM[elpSB] ;
+    if(lotrsparam->PARAM[elpSB] == ELPINITVALUE )
+       value[n++] = 0.0 ;
+    else
+       value[n++] = lotrsparam->PARAM[elpSB] ;
     label[n  ] = "MULT" ;
     value[n++] = lotrsparam->PARAM[elpM] ;
+  }
+  if( lotrsparam->opt_param ) {
+    char *key;
+    for(
+       optparam_list *optparams = getptype(lotrsparam->opt_param, OPT_PARAMS)->DATA;
+       optparams; optparams = optparams->NEXT) {
+       if(isknowntrsparam(optparams->UNAME.STANDARD)) continue;
+       key = strdup(optparams->UNAME.SPECIAL);
+       char *s = key;
+       while (*s) {
+         *s = toupper((unsigned char)*s);
+         s++;
+       }
+       label[n ] = key;
+       value[n++] = optparams->UDATA.VALUE;
+    }
   }
 
   for( j=0 ; j<n ; j++ ) {
@@ -389,7 +411,7 @@ void osdi_loadmodel( osdi_trs             *ptr,
   if(!ptr->mdata) ptr->mdata = calloc(1, ptr->model->model_size);
   if(!ptr->idata) ptr->idata = calloc(1, ptr->model->instance_size);
 
-#if 1
+#if 0
   int typeidx = osdi_getindexparam( ptr, namealloc("TYPE"), OSDI_FIND_MPARAM );
   aptr = osdi_access_ptr(ptr, typeidx, &flag, 1);
   if( ptr->mccmodel->TYPE == MCC_TRANS_P )
@@ -603,6 +625,7 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
   vd = vds + vs ;
   vb = vbs + vs ;
 
+  memset(ptr->simdata.prev_solve, 0, sizeof(double)*ptr->model->num_nodes);
   ptr->simdata.prev_solve[0] = vd;
   ptr->simdata.prev_solve[1] = vg;
   ptr->simdata.prev_solve[2] = vs;

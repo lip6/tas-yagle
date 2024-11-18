@@ -21,6 +21,8 @@
 
 typedef struct {
   double qg, qb, qd, qs ;
+  double qgsov, qgdov, qgb ;
+  double qjbd, qjbs ;
 } osdicharge ;
 
 typedef struct scacheosdicharge {

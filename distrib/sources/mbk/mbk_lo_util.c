@@ -1051,24 +1051,72 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
             trans_as = value;
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
+#if 1
+            ptopt->UNAME.SPECIAL = namealloc (var);
+            ptopt->UDATA.VALUE = value;
+            ptopt->TAG = ' ';
+            ptopt->NEXT = saveparams;
+            saveparams = ptopt;
+            if (ptprev == NULL)
+               ptype->DATA = ptnext;
+            else
+               ptprev->NEXT = ptnext;
+            continue;
+#endif
          }
          else if (!strcasecmp (var, "ad")) {
             value*=scale*scale;
             trans_ad = value;
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
+#if 1
+            ptopt->UNAME.SPECIAL = namealloc (var);
+            ptopt->UDATA.VALUE = value;
+            ptopt->TAG = ' ';
+            ptopt->NEXT = saveparams;
+            saveparams = ptopt;
+            if (ptprev == NULL)
+               ptype->DATA = ptnext;
+            else
+               ptprev->NEXT = ptnext;
+            continue;
+#endif
          }
          else if (!strcasecmp (var, "ps")) {
             value*=scale;
             pttrs->PS = (long)(value * SCALE_X * 1E6 * SPI_SCALE_TRANSFACTOR + 0.5);
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
+#if 1
+            ptopt->UNAME.SPECIAL = namealloc (var);
+            ptopt->UDATA.VALUE = value;
+            ptopt->TAG = ' ';
+            ptopt->NEXT = saveparams;
+            saveparams = ptopt;
+            if (ptprev == NULL)
+               ptype->DATA = ptnext;
+            else
+               ptprev->NEXT = ptnext;
+            continue;
+#endif
          }
          else if (!strcasecmp (var, "pd")) {
             value*=scale;
             pttrs->PD = (long)(value * SCALE_X * 1E6 * SPI_SCALE_TRANSFACTOR + 0.5);
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
+#if 1
+            ptopt->UNAME.SPECIAL = namealloc (var);
+            ptopt->UDATA.VALUE = value;
+            ptopt->TAG = ' ';
+            ptopt->NEXT = saveparams;
+            saveparams = ptopt;
+            if (ptprev == NULL)
+               ptype->DATA = ptnext;
+            else
+               ptprev->NEXT = ptnext;
+            continue;
+#endif
          }
          else if (!strcasecmp (var, "diode_area")) {
             value*=scale*scale;
