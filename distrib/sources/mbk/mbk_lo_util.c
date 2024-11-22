@@ -1052,16 +1052,18 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
 #if 1
-            ptopt->UNAME.SPECIAL = namealloc (var);
-            ptopt->UDATA.VALUE = value;
-            ptopt->TAG = ' ';
-            ptopt->NEXT = saveparams;
-            saveparams = ptopt;
-            if (ptprev == NULL)
-               ptype->DATA = ptnext;
-            else
-               ptprev->NEXT = ptnext;
-            continue;
+            if (param_tab ) {
+                ptopt->UNAME.SPECIAL = namealloc (var);
+                ptopt->UDATA.VALUE = value;
+                ptopt->TAG = ' ';
+                ptopt->NEXT = saveparams;
+                saveparams = ptopt;
+                if (ptprev == NULL)
+                   ptype->DATA = ptnext;
+                else
+                   ptprev->NEXT = ptnext;
+                continue;
+            }
 #endif
          }
          else if (!strcasecmp (var, "ad")) {
@@ -1070,16 +1072,18 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
 #if 1
-            ptopt->UNAME.SPECIAL = namealloc (var);
-            ptopt->UDATA.VALUE = value;
-            ptopt->TAG = ' ';
-            ptopt->NEXT = saveparams;
-            saveparams = ptopt;
-            if (ptprev == NULL)
-               ptype->DATA = ptnext;
-            else
-               ptprev->NEXT = ptnext;
-            continue;
+            if (param_tab ) {
+                ptopt->UNAME.SPECIAL = namealloc (var);
+                ptopt->UDATA.VALUE = value;
+                ptopt->TAG = ' ';
+                ptopt->NEXT = saveparams;
+                saveparams = ptopt;
+                if (ptprev == NULL)
+                   ptype->DATA = ptnext;
+                else
+                   ptprev->NEXT = ptnext;
+                continue;
+            }
 #endif
          }
          else if (!strcasecmp (var, "ps")) {
@@ -1088,16 +1092,18 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
 #if 1
-            ptopt->UNAME.SPECIAL = namealloc (var);
-            ptopt->UDATA.VALUE = value;
-            ptopt->TAG = ' ';
-            ptopt->NEXT = saveparams;
-            saveparams = ptopt;
-            if (ptprev == NULL)
-               ptype->DATA = ptnext;
-            else
-               ptprev->NEXT = ptnext;
-            continue;
+            if (param_tab ) {
+                ptopt->UNAME.SPECIAL = namealloc (var);
+                ptopt->UDATA.VALUE = value;
+                ptopt->TAG = ' ';
+                ptopt->NEXT = saveparams;
+                saveparams = ptopt;
+                if (ptprev == NULL)
+                   ptype->DATA = ptnext;
+                else
+                   ptprev->NEXT = ptnext;
+                continue;
+            }
 #endif
          }
          else if (!strcasecmp (var, "pd")) {
@@ -1106,16 +1112,18 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
 #if 1
-            ptopt->UNAME.SPECIAL = namealloc (var);
-            ptopt->UDATA.VALUE = value;
-            ptopt->TAG = ' ';
-            ptopt->NEXT = saveparams;
-            saveparams = ptopt;
-            if (ptprev == NULL)
-               ptype->DATA = ptnext;
-            else
-               ptprev->NEXT = ptnext;
-            continue;
+            if (param_tab ) {
+                ptopt->UNAME.SPECIAL = namealloc (var);
+                ptopt->UDATA.VALUE = value;
+                ptopt->TAG = ' ';
+                ptopt->NEXT = saveparams;
+                saveparams = ptopt;
+                if (ptprev == NULL)
+                   ptype->DATA = ptnext;
+                else
+                   ptprev->NEXT = ptnext;
+                continue;
+            }
 #endif
          }
          else if (!strcasecmp (var, "diode_area")) {
