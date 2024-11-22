@@ -2690,7 +2690,7 @@ if(model->elpTransModel == elpMOS)
     }
     cdsval = ab*cds ; 
     cdpval = ls*cdp ;
-    cdwval = lg*cdw + cgp*w ; 
+    cdwval = lg*cdw + cgp*w/(double)SCALE_X ; 
   }
   else {
     if ( model->elpTransTechno == elpBSIM3V3 &&  pd_s < wcj ) {
@@ -2839,7 +2839,7 @@ if(model->elpTransModel == elpMOS)
     }
     cssval = ab*css ; 
     cspval = ls*csp ;
-    cswval = lg*csw + cgp*w ;
+    cswval = lg*csw + cgp*w/(double)SCALE_X ;
   }
   else {
   
