@@ -20,9 +20,9 @@
 /* USER field of mcc_modellist* */
 
 typedef struct {
-  double qg, qb, qd, qs ;
-  double qgsov, qgdov, qgb ;
-  double qjbd, qjbs ;
+  float qg, qb, qd, qs ;
+  float qgsov, qgdov, qgb ;
+  float qjbd, qjbs ;
 } osdicharge ;
 
 typedef struct scacheosdicharge {
@@ -32,9 +32,7 @@ typedef struct scacheosdicharge {
 } cacheosdicharge ;
 
 typedef struct {
-  int   nplus ;
-  int   nminus ;
-  float charge ;
+  float charge[4] ;
 } osdibrcharge ;
 
 typedef struct {

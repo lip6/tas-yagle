@@ -100,7 +100,7 @@ void osdi_mcc_addtuneeffect( mcc_modellist *mccmodel,
   
   if( ( flag & MCC_OSDI_TUNE_NO_EXTRINSIC ) == MCC_OSDI_TUNE_NO_EXTRINSIC ) {
       int  swgeo;
-      char name = namealloc("swgeo");
+      char *name = namealloc("swgeo");
       for (mcc_paramlist *p=mccmodel->PARAM; p; p=p->NEXT) {
 	if(p->NAME == name) swgeo = p->VALUE;
       }
@@ -187,6 +187,11 @@ void osdi_copycharge( osdicharge *chargeorg, osdicharge *chargedest )
     chargedest->qb    = chargeorg->qb ;
     chargedest->qd    = chargeorg->qd ;
     chargedest->qs    = chargeorg->qs ;
+    chargedest->qgsov = chargeorg->qgsov ;
+    chargedest->qgdov = chargeorg->qgdov ;
+    chargedest->qgb   = chargeorg->qgb ;
+    chargedest->qjbd  = chargeorg->qjbd ;
+    chargedest->qjbs  = chargeorg->qjbs ;
 }
 
 char* osdi_cachechargegenkey( double           vgs,
@@ -287,13 +292,13 @@ void osdi_mcc_getcharge( mcc_modellist   *mccmodel,
   osditunedparam  tparam ;
   int            base ;
   double         *i_charge;
-  osdibrcharge   *qq[3] ;
+  osdibrcharge   qq[3] ;
   int            calc[3] ;
   int            n ;
   int            p ;
   int            nbbr ;
-  float         *qint[4] ;
-  osdibrcharge    qout[3] ;
+  double         qint[4] ;
+  osdibrcharge   qout[3] ;
   osdicharge     *cache ;
 
   if( V_BOOL_TAB[__AVT_USE_CACHE_PSP].VALUE )
@@ -328,7 +333,7 @@ void osdi_mcc_getcharge( mcc_modellist   *mccmodel,
     calc[2] = MCC_OSDI_TUNE_NO_EXTRINSIC ;
 
 /* osdi psp, we get only intrinsic charge */
-    n=0 ;  {
+    for( n=0 ; n<3 ; n++) {
 
       tparam.n = 0 ;
       
@@ -343,15 +348,23 @@ void osdi_mcc_getcharge( mcc_modellist   *mccmodel,
       osdi_set_polarization( &model, vgs, vds, vbs );
       i_charge = (double*)calloc(model.model->num_nodes, sizeof(double));
       model.model->load_residual_react(model.idata, model.mdata, i_charge);
+      for(int i=0;i<4;i++) qq[n].charge[i] = i_charge[i];
       osdi_terminate( &model );
     }
 
 
     /* fill intrinsic component */
-    charge->qd = i_charge[0];
-    charge->qg = i_charge[1];
-    charge->qs = i_charge[2];
-    charge->qb = i_charge[3];
+    charge->qd = qq[0].charge[0];
+    charge->qg = qq[0].charge[1];
+    charge->qs = qq[0].charge[2];
+    charge->qb = qq[0].charge[3];
+    /* fill overlap component */
+    charge->qgdov = qq[1].charge[0] - qq[0].charge[0];
+    charge->qgb   = qq[1].charge[3] - qq[0].charge[3];
+    charge->qgsov = qq[1].charge[2] - qq[0].charge[2];
+    /* fill junction component */
+    charge->qjbd  = qq[2].charge[0] - qq[0].charge[0];
+    charge->qjbs  = qq[2].charge[2] - qq[0].charge[2];
 
     free(i_charge);
 
@@ -401,30 +414,21 @@ double mcc_calcCGP_osdi( mcc_modellist   *ptmodel,
                         double          *ptQov 
                       )
 {
-  osdi_trs	model ;
   osdicharge charge ;
   double    cgp ;
-  int id_cgdol, accflag;
-  char  *name;
 
-  name = namealloc( osdi_op_param_label[ OSDI_OP_PARAM_CGDOL ]);
-  
-  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
-  id_cgdol = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
-  osdi_set_polarization( &model, vgx, 0.0, 0.0 );
-  double *ptr = osdi_access_ptr(&model,id_cgdol,&accflag, 0);
-  cgp = *ptr ;
-  
-  if( ptQov )
-    *ptQov = fabs(cgp*vgx/W) ;
+  osdi_mcc_getcharge( ptmodel, L, W, temp, vgx, 0.0, 0.0, lotrsparam, NULL, &charge);
 
   if( vgx > EPSILON || vgx < -EPSILON )
-    cgp = fabs(cgp) ;
+    cgp = fabs(charge.qgdov/vgx) ;
   else
     cgp = 0.0 ;
+  
+  
+  if( ptQov )
+    *ptQov = fabs(charge.qgdov/W);
 
-  osdi_terminate( &model );
-  return cgp/W ;
+  return cgp / W;
 }
 
 double mcc_calcCGD_osdi( mcc_modellist *ptmodel, 
@@ -442,6 +446,7 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
   osdicharge charge1 ;
   double    cgd ;
   double    s ;
+  
 
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs0, vds, vbs, lotrsparam, NULL, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs1, vds, vbs, lotrsparam, NULL, &charge1 );
@@ -464,8 +469,8 @@ double mcc_calcCGSI_osdi( mcc_modellist *ptmodel,
 {
   osdicharge charge0 ;
   osdicharge charge1 ;
-  double    cgs ;
-  double    s ;
+  double cgs ;
+  double s ;
 
   osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vds, vbs, lotrsparam, NULL, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs, vds, vbs, lotrsparam, NULL, &charge1 );
@@ -569,33 +574,21 @@ double mcc_calcCDS_osdi( mcc_modellist   *ptmodel,
                         double           W
                       )
 {
-  osdi_trs	model;
   osdijuncapconfig  juncapconfig ;
   double            cds ;
   osdicharge        charge0 ;
   osdicharge        charge1 ;
-  double            cjd1, cjd2;
-  uint32_t          accflag;
-  char  *name;
-
-  name = namealloc( osdi_op_param_label[ OSDI_OP_PARAM_CJD ]);
 
   juncapconfig.ab = W*W ;
   juncapconfig.ls = 0.0 ;
   juncapconfig.lg = 0.0 ;
 
-  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
-  uint32_t id_cjd = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
-  osdi_set_polarization( &model, 0.0,vbx0, 0.0 );
-  double *ptr = osdi_access_ptr(&model,id_cjd,&accflag, 0);
-  cjd1 = *ptr ;
+  osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx0, 0.0, lotrsparam, &juncapconfig, &charge0 );
+  osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx1, 0.0, lotrsparam, &juncapconfig, &charge1 );
+  
+  cds = fabs( (charge1.qjbd-charge0.qjbd)/(vbx1-vbx0) )/juncapconfig.ab ;
 
-  osdi_set_polarization( &model, 0.0,vbx1, 0.0 );
-  cjd2 = *ptr;
-  // here we will use the average of cjd for the two conditions
-  cds = fabs( (cjd2*vbx1-cjd1*vbx0)/(vbx1-vbx0) )/juncapconfig.ab ;
 
-  osdi_terminate( &model );
   return cds ;
 }
 
@@ -608,31 +601,20 @@ double mcc_calcCDP_osdi( mcc_modellist *ptmodel,
                         double W
                       )
 {
-  osdi_trs	model ;
   osdijuncapconfig  juncapconfig ;
   double           cdp ;
   osdicharge        charge0 ;
   osdicharge        charge1 ;
-  double           cjdsti1, cjdsti2;
-  uint32_t              accflag;
-  char  *name;
-
-  name = namealloc( osdi_op_param_label[ OSDI_OP_PARAM_CJDSTI ]);
 
   juncapconfig.ab = 0.0 ;
   juncapconfig.ls = W ;
   juncapconfig.lg = 0.0 ;
 
-  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
-  uint32_t id_cjdsti = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
-  osdi_set_polarization( &model, 0.0, vbx0, 0.0 );
-  double *ptr = osdi_access_ptr(&model,id_cjdsti,&accflag, 0);
-  cjdsti1 = *ptr ;
-  osdi_set_polarization( &model, 0.0, vbx1, 0.0 );
-  cjdsti2 = *ptr;
-  // here we use the averate of cjdsti
-  cdp = fabs( (cjdsti1*vbx0-cjdsti2*vbx1)/(vbx1-vbx0) )/juncapconfig.ls ;
-  osdi_terminate( &model );
+  osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx0, 0.0, lotrsparam, &juncapconfig, &charge0 );
+  osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx1, 0.0, lotrsparam, &juncapconfig, &charge1 );
+  
+  cdp = fabs( (charge1.qjbd-charge0.qjbd)/(vbx1-vbx0) )/juncapconfig.ls ;
+
 
   return cdp ;
 }
@@ -646,31 +628,19 @@ double mcc_calcCDW_osdi( mcc_modellist *ptmodel,
                         double W 
                       )
 {
-  osdi_trs      model ;
   osdicharge        charge0 ;
   osdicharge        charge1 ;
   double           cdw ;
   osdijuncapconfig  juncapconfig ;
-  double            cjdgat1, cjdgat2;
-  uint32_t          accflag;
-  char  *name;
 
-  name = namealloc( osdi_op_param_label[ OSDI_OP_PARAM_CJDGAT ]);
   
   juncapconfig.ab = 0.0 ;
   juncapconfig.ls = 0.0 ;
   juncapconfig.lg = W ;
 
-  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
-  uint32_t id_cjdgat = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
-  osdi_set_polarization( &model, 0.0,vbx0, 0.0 );
-  double *ptr = osdi_access_ptr(&model,id_cjdgat,&accflag, 0);
-  cjdgat1 = *ptr;
-  osdi_set_polarization( &model, 0.0,vbx1, 0.0 );
-  cjdgat2 = *ptr;
-    
-  cdw = fabs( (cjdgat2*vbx1-cjdgat1*vbx0)/(vbx1-vbx0) )/juncapconfig.lg ;
-  osdi_terminate( &model );
+  osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx0, 0.0, lotrsparam, &juncapconfig, &charge0 );
+  osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx1, 0.0, lotrsparam, &juncapconfig, &charge1 );
+  cdw = fabs( (charge1.qjbd-charge0.qjbd)/(vbx1-vbx0) )/juncapconfig.lg ;
 
   return cdw ;
 }
