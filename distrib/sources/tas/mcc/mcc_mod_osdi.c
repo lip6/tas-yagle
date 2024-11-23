@@ -78,23 +78,29 @@ void osdi_mcc_addtuneeffect( mcc_modellist *mccmodel,
     tparam->value[ tparam->n++ ] = 0.0 ;
   }
   else {
-    if( juncapconfig ) {
+      int  swjuncap=3;
+      char *name = namealloc("swjuncap");
+      for (mcc_paramlist *p=mccmodel->PARAM; p; p=p->NEXT) {
+	if(p->NAME == name) swjuncap = p->VALUE;
+      }
       tparam->param[ tparam->n   ] = namealloc("SWJUNCAP") ; 
-      tparam->value[ tparam->n++ ] = 1.0 ;
+      tparam->value[ tparam->n++ ] = swjuncap ;
+      if( juncapconfig ) {
+        if(swjuncap == 1) {
+          tparam->param[ tparam->n   ] = namealloc("ABDRAIN") ; 
+          tparam->value[ tparam->n++ ] = juncapconfig->ab ;
+          tparam->param[ tparam->n   ] = namealloc("LSDRAIN") ; 
+          tparam->value[ tparam->n++ ] = juncapconfig->ls ;
+          tparam->param[ tparam->n   ] = namealloc("LGDRAIN") ; 
+          tparam->value[ tparam->n++ ] = juncapconfig->lg ;
 
-      tparam->param[ tparam->n   ] = namealloc("ABDRAIN") ; 
-      tparam->value[ tparam->n++ ] = juncapconfig->ab ;
-      tparam->param[ tparam->n   ] = namealloc("LSDRAIN") ; 
-      tparam->value[ tparam->n++ ] = juncapconfig->ls ;
-      tparam->param[ tparam->n   ] = namealloc("LGDRAIN") ; 
-      tparam->value[ tparam->n++ ] = juncapconfig->lg ;
-
-      tparam->param[ tparam->n   ] = namealloc("ABSOURCE") ; 
-      tparam->value[ tparam->n++ ] = juncapconfig->ab ;
-      tparam->param[ tparam->n   ] = namealloc("LSSOURCE") ; 
-      tparam->value[ tparam->n++ ] = juncapconfig->ls ;
-      tparam->param[ tparam->n   ] = namealloc("LGSOURCE") ; 
-      tparam->value[ tparam->n++ ] = juncapconfig->lg ;
+          tparam->param[ tparam->n   ] = namealloc("ABSOURCE") ; 
+          tparam->value[ tparam->n++ ] = juncapconfig->ab ;
+          tparam->param[ tparam->n   ] = namealloc("LSSOURCE") ; 
+          tparam->value[ tparam->n++ ] = juncapconfig->ls ;
+          tparam->param[ tparam->n   ] = namealloc("LGSOURCE") ; 
+          tparam->value[ tparam->n++ ] = juncapconfig->lg ;
+        }
     }
   }
   
