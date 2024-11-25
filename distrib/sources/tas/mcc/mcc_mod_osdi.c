@@ -354,7 +354,8 @@ void osdi_mcc_getcharge( mcc_modellist   *mccmodel,
       osdi_set_polarization( &model, vgs, vds, vbs );
       i_charge = (double*)calloc(model.model->num_nodes, sizeof(double));
       model.model->load_residual_react(model.idata, model.mdata, i_charge);
-      for(int i=0;i<4;i++) qq[n].charge[i] = i_charge[i];
+      for(int i=0;i<4;i++) qq[n].charge[i] = i_charge[i] + i_charge[i+4]; 
+      // collapsible node charge added.
       osdi_terminate( &model );
     }
 
@@ -650,3 +651,71 @@ double mcc_calcCDW_osdi( mcc_modellist *ptmodel,
 
   return cdw ;
 }
+
+
+double osdi_print_jacob ( mcc_modellist   *mccmodel,
+                        double           L,
+                        double           W,
+                        double           temp,
+                        double           vbs,
+                        double           vdd,
+                        elp_lotrs_param *lotrsparam 
+                      )
+{
+  osdi_trs      model ;
+  double   vth ;
+  uint32_t id_vth,accflag ;
+  char  *name;
+  double   *jacob_resist;
+  double   *jacob_react ;
+  double   *residual_resist;
+  double   *residual_react;
+
+  name = namealloc( osdi_op_param_label[ OSDI_OP_PARAM_VTH ]);
+  osdi_initialize( &model, mccmodel, lotrsparam, L, W, temp, NULL );
+
+  double **jacobian_ptr_resist = (double**)((char*)model.idata+model.model->jacobian_ptr_resist_offset);
+  jacob_resist = (double*)calloc(model.model->num_jacobian_entries, sizeof(double));
+  jacob_react  = (double*)calloc(model.model->num_jacobian_entries, sizeof(double));
+  residual_resist  = (double*)calloc(model.model->num_nodes, sizeof(double));
+  residual_react   = (double*)calloc(model.model->num_nodes, sizeof(double));
+  for(int i=0; i<model.model->num_jacobian_entries; i++ ) {
+     jacobian_ptr_resist[i] = &jacob_resist[i];
+     if(model.model->jacobian_entries[i].react_ptr_off != UINT32_MAX) {
+        double **jptr = (double**)((char*)model.idata+model.model->jacobian_entries[i].react_ptr_off);
+        *jptr = &jacob_react[i];
+     }
+  }
+
+  id_vth = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
+  double *ptr = (double*)osdi_access_ptr(&model,id_vth, &accflag, 0);
+  osdi_set_polarization( &model, vdd, vdd, vbs );
+  vth = *ptr ;
+
+  printf("vbs=%e, vdd=%e, vth=%e\n", vbs,vdd,vth);
+  model.model->load_jacobian_resist(model.idata, model.mdata);
+  model.model->load_jacobian_react(model.idata, model.mdata,1.0);
+  model.model->load_residual_resist(model.idata, model.mdata, residual_resist);
+  model.model->load_residual_react (model.idata, model.mdata, residual_react);
+  for(int i=0; i<model.model->num_nodes; i++ ) {
+   printf("residual %s - %e : %e \n", model.model->nodes[i].name, residual_resist[i], residual_react[i]);
+  }
+  for(int i=0; i<model.model->num_jacobian_entries; i++ ) {
+    printf("%s - %s  :",
+           model.model->nodes[model.model->jacobian_entries[i].nodes.node_1].name,
+           model.model->nodes[model.model->jacobian_entries[i].nodes.node_2].name);
+    int flag = model.model->jacobian_entries[i].flags ;
+    if(flag & JACOBIAN_ENTRY_RESIST_CONST || flag & JACOBIAN_ENTRY_RESIST) printf("%e :", jacob_resist[i]);
+    else printf("    :  ");
+    if(flag & JACOBIAN_ENTRY_REACT_CONST || flag & JACOBIAN_ENTRY_REACT) printf("%e \n", jacob_react[i]);
+    else printf("    \n");
+  }
+ 
+  osdi_terminate( &model );
+
+  if( mccmodel->TYPE == MCC_TRANS_P )
+    vth = -vth ;
+    
+  return vth ;
+}
+

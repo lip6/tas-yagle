@@ -19,18 +19,25 @@ OsdiDescriptor
 
 /* borrow from ngspice */
 
+int non_collapsed_node;
+
 void collapse_nodes(osdi_trs *ptr) {
   uint32_t num_nodes= ptr->model->num_nodes;;
   uint32_t *node_mapping = 
        (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
   for(int i=0;i<ptr->model->num_nodes;i++)
        node_mapping[i] = i;
-
+  non_collapsed_node = 0;
   for(int i=0; i < ptr->model->num_collapsible; i++) {
       int to,from,tmp;
-      // For DC operation, we will ignore the non collapsible condition
-      if (0 && ! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] )
+      // For calculate collaped GP, we get the node number
+      if (! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] ) {
+        if(ptr->model->collapsible[i].node_1 > ptr->model->collapsible[i].node_2) 
+            non_collapsed_node = ptr->model->collapsible[i].node_1;
+        else
+            non_collapsed_node = ptr->model->collapsible[i].node_2;
         continue;
+      }
       from = ptr->model->collapsible[i].node_1;
       to   = ptr->model->collapsible[i].node_2;
 
@@ -617,21 +624,31 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
   uint32_t       i ;
   int            j ;
   double         v[2];
-  double         vg, vd, vs, vb ;
+  double         vg, vd, vs, vb , vgp , ggp;
   int            flag ;
+  double   *jacob_resist;
 
   vs = 0.0 ;
   vg = vgs + vs ;
   vd = vds + vs ;
   vb = vbs + vs ;
+  vgp = 0.0 ;
 
+  if (non_collapsed_node ) {
+    double **jacobian_ptr_resist = (double**)((char*)ptr->idata+ptr->model->jacobian_ptr_resist_offset);
+    jacob_resist = (double*)calloc(ptr->model->num_jacobian_entries, sizeof(double));
+    for(int i=0; i<ptr->model->num_jacobian_entries; i++ ) {
+       jacobian_ptr_resist[i] = &jacob_resist[i];
+    }
+  }
   memset(ptr->simdata.prev_solve, 0, sizeof(double)*ptr->model->num_nodes);
   ptr->simdata.prev_solve[0] = vd;
   ptr->simdata.prev_solve[1] = vg;
   ptr->simdata.prev_solve[2] = vs;
   ptr->simdata.prev_solve[3] = vb;
   
-  ptr->simdata.flags = CALC_REACT_RESIDUAL | CALC_RESIST_RESIDUAL | CALC_OP ;
+  ptr->simdata.flags = CALC_REACT_RESIDUAL | CALC_RESIST_RESIDUAL | CALC_OP |
+                       CALC_RESIST_JACOBIAN | CALC_REACT_JACOBIAN;
 
   uint32_t code = ptr->model->eval( NULL, ptr->idata, ptr->mdata, &ptr->simdata );
     if (code & EVAL_RET_FLAG_LIM)
@@ -642,6 +659,39 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
       printf( "  eval FINISH\n\n" );
     if (code & EVAL_RET_FLAG_STOP)
       printf( "  eval STOP\n\n" );
+  
+  if (non_collapsed_node ) {
+    uint32_t *node_mapping = 
+       (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
+    ptr->model->load_jacobian_resist(ptr->idata, ptr->mdata);
+    for(int i=0; i<ptr->model->num_jacobian_entries; i++ ) {
+       if(ptr->model->jacobian_entries[i].nodes.node_1 == non_collapsed_node) {
+         if(ptr->model->jacobian_entries[i].nodes.node_2 == non_collapsed_node)
+           ggp = jacob_resist[i];
+         else
+           vgp += ptr->simdata.prev_solve[node_mapping[ptr->model->jacobian_entries[i].nodes.node_2]]*jacob_resist[i];
+       }
+    }
+    vgp = - vgp / ggp;
+// recalculate with new vgp
+    ptr->simdata.prev_solve[0] = vd;
+    ptr->simdata.prev_solve[1] = vg;
+    ptr->simdata.prev_solve[2] = vs;
+    ptr->simdata.prev_solve[3] = vb;
+    ptr->simdata.prev_solve[non_collapsed_node] = vgp ;
+    ptr->simdata.flags = CALC_REACT_RESIDUAL | CALC_RESIST_RESIDUAL | CALC_OP |
+                       CALC_RESIST_JACOBIAN | CALC_REACT_JACOBIAN;
+    uint32_t code = ptr->model->eval( NULL, ptr->idata, ptr->mdata, &ptr->simdata );
+    if (code & EVAL_RET_FLAG_LIM)
+      printf( "  eval LIM\n\n" );
+    if (code & EVAL_RET_FLAG_FATAL)
+      printf( "  eval FATAL\n\n" );
+    if (code & EVAL_RET_FLAG_FINISH)
+      printf( "  eval FINISH\n\n" );
+    if (code & EVAL_RET_FLAG_STOP)
+      printf( "  eval STOP\n\n" );
+  }
+
 }
 
 int osdi_loaddynamiclibrary( void )
