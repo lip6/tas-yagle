@@ -769,7 +769,7 @@ double mcc_calcCGSI(char *technoname, char *transname,
               case MCC_PSPVA    :
               case MCC_PSPTVA   :
               case MCC_PSPNQSVA : cgsi= mcc_calcCGSI_osdi( ptmodel, L, W, temp, 
-                                                          vgs, vbs, vds,lotrsparam) ;
+                                                          vgs, vgs, vbs, vds, vds,lotrsparam) ;
                                   break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : cgsi= mcc_calcCGSI_psp( ptmodel, L, W, temp, 
@@ -2904,9 +2904,6 @@ double mcc_calcCGS( char *technoname,
             case MCC_MPSP     :
             case MCC_MPSPB    :
             case MCC_EXTMOD   :
-            case MCC_PSPVA    :
-            case MCC_PSPTVA   :
-            case MCC_PSPNQSVA : 
                                 // DOWN transition
                                 if ( mcc_getparam_quick(ptmodel,__MCC_QUICK_XPART) < 0.0)
                                   return 1.0e-30;
@@ -2919,6 +2916,11 @@ double mcc_calcCGS( char *technoname,
                                               temp, vgsf, vbs, vdsf, 
                                               &Qfinal, NULL, NULL, NULL,lotrsparam);
                                 cgs = fabs((Qfinal-Qinit)/(vgsf-vgsi));
+                                break ;
+            case MCC_PSPVA    :
+            case MCC_PSPTVA   :
+            case MCC_PSPNQSVA : 
+                                cgs = mcc_calcCGD_osdi(ptmodel, L, W, temp, vgsf, vgsi, vbs, (vdsf+vdsi)/2.0, lotrsparam)*(W*L);
                                 break ;
             case MCC_MM9      :
             case MCC_MOS2     : cgs = mcc_calcCGS_com (ptmodel) ;
@@ -2983,9 +2985,6 @@ double mcc_calcCGSD (char *technoname, char *transname,
             case MCC_MPSP     :
             case MCC_MPSPB    :
             case MCC_EXTMOD   :
-            case MCC_PSPVA    :
-            case MCC_PSPTVA   :
-            case MCC_PSPNQSVA :
                                 mcc_calcQint (technoname, transname,
                                                  transtype,transcase,L, W,
                                                  temp, vddrv, vbs, vdsi,
@@ -2995,6 +2994,11 @@ double mcc_calcCGSD (char *technoname, char *transname,
                                                  temp, vfinal, vbs, vdsf, 
                                                  &Qfinal, NULL, NULL, NULL,lotrsparam);
                                 cgs = fabs((Qfinal-Qinit)/(vdd/2.0));
+                                break ;
+            case MCC_PSPVA    :
+            case MCC_PSPTVA   :
+            case MCC_PSPNQSVA :
+                                cgs = mcc_calcCGD_osdi(ptmodel, L, W, temp, vfinal, vddrv, vbs, (vdsf+vdsi)/2.0, lotrsparam)*(W*L);
                                 break ;
             case MCC_MM9      :
             case MCC_MOS2     : cgs = mcc_calcCGS_com (ptmodel) ;
@@ -3057,9 +3061,6 @@ double mcc_calcCGSU (char *technoname, char *transname,
             case MCC_BSIM3V3  :
             case MCC_MPSP     :
             case MCC_MPSPB    :
-            case MCC_PSPVA    :
-            case MCC_PSPTVA   :
-            case MCC_PSPNQSVA :
             case MCC_EXTMOD   :
             case MCC_BSIM4    : // UP transition
                                    mcc_calcQint (technoname, transname,
@@ -3073,6 +3074,11 @@ double mcc_calcCGSU (char *technoname, char *transname,
                                                  &Qfinal, NULL, NULL, NULL,
                                                  lotrsparam);
                                 cgs = fabs((Qfinal-Qinit)/(vdd/2.0));
+                                break ;
+            case MCC_PSPVA    :
+            case MCC_PSPTVA   :
+            case MCC_PSPNQSVA :
+                                cgs = mcc_calcCGD_osdi(ptmodel, L, W, temp, vfinal, vddrv, vbs, (vdsf+vdsi)/2.0, lotrsparam)*(W*L);
                                 break ;
             case MCC_MM9      :
             case MCC_MOS2     : cgs = mcc_calcCGS_com (ptmodel) ;
@@ -3145,19 +3151,28 @@ void mcc_GetInputCapa ( char *technoname, char *transname,
       vbs = 0.0;
     
     // ===> initial charges
-    mcc_calcQint (technoname, transname,
+    switch( ptmodel->MODELTYPE ) {
+    case MCC_PSPVA    :
+    case MCC_PSPTVA   :
+    case MCC_PSPNQSVA :
+        cgs = mcc_calcCGG_osdi(ptmodel, L, W, temp, vgs1, vgs2, vbs, vds1,vds2, lotrsparam);
+        cgd = mcc_calcCGD_osdi(ptmodel, L, W, temp, vgs1, vgs2, vbs, (vds1+vds2)/2.0, lotrsparam)*(W*L);
+    default:
+        mcc_calcQint (technoname, transname,
                  transtype, transcase, L, W, 
                  temp, vgs1,vbs,vds1,
                  &ptQg1,NULL, &ptQd1, NULL,
                  lotrsparam);
     // ===> final charges
-    mcc_calcQint (technoname, transname,
+        mcc_calcQint (technoname, transname,
                  transtype, transcase, L, W, 
                  temp, vgs2,vbs,vds2,
                  &ptQg2,NULL, &ptQd2, NULL,
                  lotrsparam);
-    cgs = ( ptQg2-ptQg1 ) / delta_vg;
-    cgd = fabs (( ptQd2-ptQd1 ) / delta_vg );
+        cgs = ( ptQg2-ptQg1 ) / delta_vg;
+        cgd = fabs (( ptQd2-ptQd1 ) / delta_vg );
+    break;
+    }
   }
   
   if ( ptcgp ) {

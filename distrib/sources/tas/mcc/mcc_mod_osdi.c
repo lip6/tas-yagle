@@ -423,7 +423,28 @@ double mcc_calcCGP_osdi( mcc_modellist   *ptmodel,
 {
   osdicharge charge ;
   double    cgp ;
+  osdi_trs      model ;
+  uint32_t id_cgp,accflag ;
+  char  *name;
 
+  name = namealloc( "cgdol" );
+ 
+  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
+  id_cgp = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
+  double *ptr = (double*)osdi_access_ptr(&model,id_cgp, &accflag, 0);
+  osdi_set_polarization( &model, vgx, 0.0, 0.0 );
+  cgp = *ptr ;
+
+  osdi_terminate( &model );
+  if( vgx > EPSILON || vgx < -EPSILON )
+    cgp = fabs(cgp) ;
+  else
+    cgp = 0.0 ;
+  
+  if( ptQov )
+    *ptQov = fabs(cgp*vgx/W);
+
+#if 0
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgx, 0.0, 0.0, lotrsparam, NULL, &charge);
 
   if( vgx > EPSILON || vgx < -EPSILON )
@@ -431,9 +452,9 @@ double mcc_calcCGP_osdi( mcc_modellist   *ptmodel,
   else
     cgp = 0.0 ;
   
-  
   if( ptQov )
     *ptQov = fabs(charge.qgdov/W);
+#endif  
 
   return cgp / W;
 }
@@ -453,24 +474,77 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
   osdicharge charge1 ;
   double    cgd ;
   double    s ;
+  osdi_trs      model ;
+  uint32_t id_cgd,accflag ;
+  char  *name;
+
+  name = namealloc( "cdg" );
+ 
+  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
+  id_cgd = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
+  double *ptr = (double*)osdi_access_ptr(&model,id_cgd, &accflag, 0);
+  osdi_set_polarization( &model, (vgs1+vgs0)/2.0, vds, vbs );
+  cgd = *ptr ;
+
+  osdi_terminate( &model );
+  s = W*L ;
+  cgd = fabs( cgd )/s ;
   
 
+#if 0
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs0, vds, vbs, lotrsparam, NULL, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs1, vds, vbs, lotrsparam, NULL, &charge1 );
 
   s = W*L ;
   cgd = fabs( ( charge1.qd - charge0.qd ) / ( vgs1 - vgs0 ) )/s ;
+#endif
   
   return cgd ;
+}
+
+double mcc_calcCGG_osdi( mcc_modellist *ptmodel, 
+                         double L, 
+                         double W, 
+                         double temp, 
+                         double vgsf,
+                         double vgsi, 
+                         double vbs, 
+                         double vdsf,
+                         double vdsi,
+                         elp_lotrs_param *lotrsparam
+                       )
+{
+  osdicharge charge0 ;
+  osdicharge charge1 ;
+  double cgg ;
+  double s ;
+  osdi_trs      model ;
+  uint32_t id_cgg,accflag ;
+  char  *name;
+
+  name = namealloc( "cgg" );
+ 
+  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
+  id_cgg = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
+  double *ptr = (double*)osdi_access_ptr(&model,id_cgg, &accflag, 0);
+  osdi_set_polarization( &model, (vgsf+vgsi)/2.0, (vdsf+vdsi)/2.0, vbs );
+  cgg = *ptr ;
+  cgg = fabs( cgg ) ;
+
+  osdi_terminate( &model );
+
+  return cgg ;
 }
 
 double mcc_calcCGSI_osdi( mcc_modellist *ptmodel, 
                          double L, 
                          double W, 
                          double temp, 
-                         double vgs, 
+                         double vgsf,
+                         double vgsi, 
                          double vbs, 
-                         double vds,
+                         double vdsf,
+                         double vdsi,
                          elp_lotrs_param *lotrsparam
                        )
 {
@@ -478,12 +552,29 @@ double mcc_calcCGSI_osdi( mcc_modellist *ptmodel,
   osdicharge charge1 ;
   double cgs ;
   double s ;
+  osdi_trs      model ;
+  uint32_t id_cgs,accflag ;
+  char  *name;
 
+  name = namealloc( "csg" );
+ 
+  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
+  id_cgs = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
+  double *ptr = (double*)osdi_access_ptr(&model,id_cgs, &accflag, 0);
+  osdi_set_polarization( &model, (vgsf+vgsi)/2.0, (vdsf+vdsi)/2.0, vbs );
+  cgs = *ptr ;
+  s = W*L ;
+  cgs = fabs( cgs )/s ;
+
+  osdi_terminate( &model );
+
+#if 0
   osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vds, vbs, lotrsparam, NULL, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs, vds, vbs, lotrsparam, NULL, &charge1 );
 
   s = W*L ;
   cgs = fabs( ( charge1.qs - charge0.qs ) / vgs )/s ;
+#endif
 
   return cgs ;
 }
@@ -585,15 +676,31 @@ double mcc_calcCDS_osdi( mcc_modellist   *ptmodel,
   double            cds ;
   osdicharge        charge0 ;
   osdicharge        charge1 ;
+  osdi_trs      model ;
+  uint32_t id_cds,accflag ;
+  char  *name;
+
+  name = namealloc( "cjd" );
+ 
+  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
+  id_cds = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
+  double *ptr = (double*)osdi_access_ptr(&model,id_cds, &accflag, 0);
+  osdi_set_polarization( &model, 0.0, (vbx1+vbx0)/2.0, 0.0 );
+
+  osdi_terminate( &model );
 
   juncapconfig.ab = W*W ;
   juncapconfig.ls = 0.0 ;
   juncapconfig.lg = 0.0 ;
 
+  cds = fabs(*ptr)/juncapconfig.ab ;
+
+#if 0
   osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx0, 0.0, lotrsparam, &juncapconfig, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx1, 0.0, lotrsparam, &juncapconfig, &charge1 );
   
   cds = fabs( (charge1.qjbd-charge0.qjbd)/(vbx1-vbx0) )/juncapconfig.ab ;
+#endif
 
 
   return cds ;
@@ -612,15 +719,30 @@ double mcc_calcCDP_osdi( mcc_modellist *ptmodel,
   double           cdp ;
   osdicharge        charge0 ;
   osdicharge        charge1 ;
+  osdi_trs      model ;
+  uint32_t id_cdp,accflag ;
+  char  *name;
+
+  name = namealloc( "cjdgat" );
+ 
+  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
+  id_cdp = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
+  double *ptr = (double*)osdi_access_ptr(&model,id_cdp, &accflag, 0);
+  osdi_set_polarization( &model, 0.0, (vbx1+vbx0)/2.0, 0.0 );
+
+  osdi_terminate( &model );
 
   juncapconfig.ab = 0.0 ;
   juncapconfig.ls = W ;
   juncapconfig.lg = 0.0 ;
 
+  cdp = fabs(*ptr)/juncapconfig.ls ;
+#if 0
   osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx0, 0.0, lotrsparam, &juncapconfig, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx1, 0.0, lotrsparam, &juncapconfig, &charge1 );
   
   cdp = fabs( (charge1.qjbd-charge0.qjbd)/(vbx1-vbx0) )/juncapconfig.ls ;
+#endif
 
 
   return cdp ;
@@ -639,15 +761,31 @@ double mcc_calcCDW_osdi( mcc_modellist *ptmodel,
   osdicharge        charge1 ;
   double           cdw ;
   osdijuncapconfig  juncapconfig ;
+  osdi_trs      model ;
+  uint32_t id_cdw,accflag ;
+  char  *name;
+
+  name = namealloc( "cjsgat" );
+ 
+  osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
+  id_cdw = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
+  double *ptr = (double*)osdi_access_ptr(&model,id_cdw, &accflag, 0);
+  osdi_set_polarization( &model, 0.0, (vbx1+vbx0)/2.0, 0.0 );
+
+  osdi_terminate( &model );
 
   
   juncapconfig.ab = 0.0 ;
   juncapconfig.ls = 0.0 ;
   juncapconfig.lg = W ;
 
+  cdw = *ptr ;
+
+#if 0
   osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx0, 0.0, lotrsparam, &juncapconfig, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vbx1, 0.0, lotrsparam, &juncapconfig, &charge1 );
   cdw = fabs( (charge1.qjbd-charge0.qjbd)/(vbx1-vbx0) )/juncapconfig.lg ;
+#endif
 
   return cdw ;
 }
@@ -670,6 +808,7 @@ double osdi_print_jacob ( mcc_modellist   *mccmodel,
   double   *jacob_react ;
   double   *residual_resist;
   double   *residual_react;
+  double   *spice_rhs_tran;
 
   name = namealloc( osdi_op_param_label[ OSDI_OP_PARAM_VTH ]);
   osdi_initialize( &model, mccmodel, lotrsparam, L, W, temp, NULL );
@@ -679,6 +818,7 @@ double osdi_print_jacob ( mcc_modellist   *mccmodel,
   jacob_react  = (double*)calloc(model.model->num_jacobian_entries, sizeof(double));
   residual_resist  = (double*)calloc(model.model->num_nodes, sizeof(double));
   residual_react   = (double*)calloc(model.model->num_nodes, sizeof(double));
+  spice_rhs_tran   = (double*)calloc(model.model->num_nodes, sizeof(double));
   for(int i=0; i<model.model->num_jacobian_entries; i++ ) {
      jacobian_ptr_resist[i] = &jacob_resist[i];
      if(model.model->jacobian_entries[i].react_ptr_off != UINT32_MAX) {
@@ -697,8 +837,10 @@ double osdi_print_jacob ( mcc_modellist   *mccmodel,
   model.model->load_jacobian_react(model.idata, model.mdata,1.0);
   model.model->load_residual_resist(model.idata, model.mdata, residual_resist);
   model.model->load_residual_react (model.idata, model.mdata, residual_react);
+  model.model->load_spice_rhs_tran (model.idata, model.mdata, spice_rhs_tran, model.simdata.prev_solve, 1.0);
   for(int i=0; i<model.model->num_nodes; i++ ) {
-   printf("residual %s - %e : %e \n", model.model->nodes[i].name, residual_resist[i], residual_react[i]);
+   printf("residual %s - %e : %e ", model.model->nodes[i].name, residual_resist[i], residual_react[i]);
+   printf("spice_rhs_tran -  %e \n",   spice_rhs_tran[i]);
   }
   for(int i=0; i<model.model->num_jacobian_entries; i++ ) {
     printf("%s - %s  :",
