@@ -70,18 +70,17 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
                         double vgs0, 
                         double vgs1, 
                         double vbs, 
-                        double vds,
+                        double vds0,
+                        double vds1,
                         elp_lotrs_param *lotrsparam
                       );
 double mcc_calcCGSI_osdi( mcc_modellist *ptmodel, 
                          double L, 
                          double W, 
                          double temp, 
-                         double vgsf, 
-                         double vgsi, 
+                         double vgs, 
                          double vbs, 
-                         double vdsf,
-                         double vdsi,
+                         double vds,
                          elp_lotrs_param *lotrsparam
                        );
 double mcc_calcCGG_osdi( mcc_modellist *ptmodel, 

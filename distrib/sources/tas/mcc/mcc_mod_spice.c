@@ -728,7 +728,7 @@ double mcc_calcCGD( char *technoname,
                                   break ;
               case MCC_PSPVA    :
               case MCC_PSPTVA   :
-              case MCC_PSPNQSVA : cgd = mcc_calcCGD_osdi( ptmodel, L, W, temp, vgs0, vgs1, vbs, vds, lotrsparam) ;
+              case MCC_PSPNQSVA : cgd = mcc_calcCGD_osdi( ptmodel, L, W, temp, vgs0, vgs1, vbs, vds, vds, lotrsparam) ;
                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : cgd = mcc_calcCGD_psp( ptmodel, L, W, temp, vgs0, vgs1, vbs, vds,lotrsparam) ;
@@ -769,7 +769,7 @@ double mcc_calcCGSI(char *technoname, char *transname,
               case MCC_PSPVA    :
               case MCC_PSPTVA   :
               case MCC_PSPNQSVA : cgsi= mcc_calcCGSI_osdi( ptmodel, L, W, temp, 
-                                                          vgs, vgs, vbs, vds, vds,lotrsparam) ;
+                                                          vgs, vbs, vds,lotrsparam) ;
                                   break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : cgsi= mcc_calcCGSI_psp( ptmodel, L, W, temp, 
@@ -2920,7 +2920,7 @@ double mcc_calcCGS( char *technoname,
             case MCC_PSPVA    :
             case MCC_PSPTVA   :
             case MCC_PSPNQSVA : 
-                                cgs = mcc_calcCGD_osdi(ptmodel, L, W, temp, vgsf, vgsi, vbs, (vdsf+vdsi)/2.0, lotrsparam)*(W*L);
+                                cgs = mcc_calcCGD_osdi(ptmodel, L, W, temp, vgsf, vgsi, vbs, vdsf, vdsi, lotrsparam)*(W*L);
                                 break ;
             case MCC_MM9      :
             case MCC_MOS2     : cgs = mcc_calcCGS_com (ptmodel) ;
@@ -2998,7 +2998,7 @@ double mcc_calcCGSD (char *technoname, char *transname,
             case MCC_PSPVA    :
             case MCC_PSPTVA   :
             case MCC_PSPNQSVA :
-                                cgs = mcc_calcCGD_osdi(ptmodel, L, W, temp, vfinal, vddrv, vbs, (vdsf+vdsi)/2.0, lotrsparam)*(W*L);
+                                cgs = mcc_calcCGD_osdi(ptmodel, L, W, temp, vfinal, vddrv, vbs, vdsf, vdsi, lotrsparam)*(W*L);
                                 break ;
             case MCC_MM9      :
             case MCC_MOS2     : cgs = mcc_calcCGS_com (ptmodel) ;
@@ -3078,7 +3078,7 @@ double mcc_calcCGSU (char *technoname, char *transname,
             case MCC_PSPVA    :
             case MCC_PSPTVA   :
             case MCC_PSPNQSVA :
-                                cgs = mcc_calcCGD_osdi(ptmodel, L, W, temp, vfinal, vddrv, vbs, (vdsf+vdsi)/2.0, lotrsparam)*(W*L);
+                                cgs = mcc_calcCGD_osdi(ptmodel, L, W, temp, vfinal, vddrv, vbs, vdsf, vdsi, lotrsparam)*(W*L);
                                 break ;
             case MCC_MM9      :
             case MCC_MOS2     : cgs = mcc_calcCGS_com (ptmodel) ;
@@ -3155,8 +3155,8 @@ void mcc_GetInputCapa ( char *technoname, char *transname,
     case MCC_PSPVA    :
     case MCC_PSPTVA   :
     case MCC_PSPNQSVA :
-        cgs = mcc_calcCGG_osdi(ptmodel, L, W, temp, vgs1, vgs2, vbs, vds1,vds2, lotrsparam);
-        cgd = mcc_calcCGD_osdi(ptmodel, L, W, temp, vgs1, vgs2, vbs, (vds1+vds2)/2.0, lotrsparam)*(W*L);
+        cgs = mcc_calcCGG_osdi(ptmodel, L, W, temp, vgs1, vgs2, vbs, vds1, vds2, lotrsparam) / delta_vg;
+        cgd = mcc_calcCGD_osdi(ptmodel, L, W, temp, vgs1, vgs2, vbs, vds1, vds2, lotrsparam)*(W*L)*(vgs2-vgs1)/delta_vg;
     default:
         mcc_calcQint (technoname, transname,
                  transtype, transcase, L, W, 
