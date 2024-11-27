@@ -423,7 +423,7 @@ double mcc_calcCGP_osdi( mcc_modellist   *ptmodel,
 {
   osdicharge charge ;
   double    cgp ;
-#if 0
+#if 1
   osdi_trs      model ;
   uint32_t id_cgp,accflag ;
   char  *name;
@@ -447,6 +447,8 @@ double mcc_calcCGP_osdi( mcc_modellist   *ptmodel,
 
 #else  
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgx, 0.0, 0.0, lotrsparam, NULL, &charge);
+
+  printf("CGP %e,%e\n", *ptr, fabs(charge.qgdov/vgx));
 
   if( vgx > EPSILON || vgx < -EPSILON )
     cgp = fabs(charge.qgdov/vgx) ;
@@ -478,6 +480,7 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
   double    s ;
   s = W*L ;
 
+// DLL extracted cdg was stable and returns zero for this function. So we use charge model.
 #if 0
   osdi_trs      model ;
   uint32_t id_cgd,accflag ;
@@ -496,8 +499,8 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
 
   osdi_terminate( &model );
   cgd = fabs( (cgd1*vds1 - cgd0*vds0)/(vgs1 - vgs0) )/s ;
-#else
 
+#else
 
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs0, vds0, vbs, lotrsparam, NULL, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs1, vds1, vbs, lotrsparam, NULL, &charge1 );
@@ -560,7 +563,7 @@ double mcc_calcCGSI_osdi( mcc_modellist *ptmodel,
   osdicharge charge1 ;
   double cgs ,cgs0, cgs1;
   double s ;
-#if 0
+#if 1
   osdi_trs      model ;
   uint32_t id_cgs,accflag ;
   char  *name;
@@ -578,13 +581,15 @@ double mcc_calcCGSI_osdi( mcc_modellist *ptmodel,
   cgs = fabs( cgs1 )/s ;
 
   osdi_terminate( &model );
-#endif
+
+#else
 
   osdi_mcc_getcharge( ptmodel, L, W, temp, 0.0, vds, vbs, lotrsparam, NULL, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs, vds, vbs, lotrsparam, NULL, &charge1 );
 
   s = W*L ;
   cgs = fabs( ( charge1.qs - charge0.qs ) / vgs )/s ;
+#endif
 
   return cgs ;
 }
