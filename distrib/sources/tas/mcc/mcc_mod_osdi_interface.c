@@ -27,7 +27,7 @@ void collapse_nodes(osdi_trs *ptr) {
        (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
   for(int i=0;i<ptr->model->num_nodes;i++)
        node_mapping[i] = i;
-  non_collapsed_node = 0;
+  non_collapsed_node = UINT32_MAX;
   for(int i=0; i < ptr->model->num_collapsible; i++) {
       int to,from,tmp;
       // For calculate collaped GP, we get the node number
@@ -626,7 +626,7 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
   double         v[2];
   double         vg, vd, vs, vb , vgp , ggp;
   int            flag ;
-  double   *jacob_resist;
+  double   *jacob_resist, *rhs;
 
   vs = 0.0 ;
   vg = vgs + vs ;
@@ -634,9 +634,10 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
   vb = vbs + vs ;
   vgp = 0.0 ;
 
-  if (non_collapsed_node ) {
+  if (non_collapsed_node != UINT32_MAX ) {
     double **jacobian_ptr_resist = (double**)((char*)ptr->idata+ptr->model->jacobian_ptr_resist_offset);
     jacob_resist = (double*)calloc(ptr->model->num_jacobian_entries, sizeof(double));
+    rhs          = (double*)calloc(ptr->model->num_nodes, sizeof(double));
     for(int i=0; i<ptr->model->num_jacobian_entries; i++ ) {
        jacobian_ptr_resist[i] = &jacob_resist[i];
     }
@@ -660,25 +661,31 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
     if (code & EVAL_RET_FLAG_STOP)
       printf( "  eval STOP\n\n" );
   
-  if (non_collapsed_node ) {
+  // we assume that the non_collapsed_node is only GP
+  if (non_collapsed_node != UINT32_MAX ) {
     uint32_t *node_mapping = 
        (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
+  int niter = 1000; // max iteration to find vgp
+  double epsilon = 1.0e-16; // convergence threshold.
+  do { // Gauss iteration to find the voltage of GP
+    if (niter-- == 0) {
+       printf("GP voltage did not converged\n");
+       break;
+    }
     ptr->model->load_jacobian_resist(ptr->idata, ptr->mdata);
     for(int i=0; i<ptr->model->num_jacobian_entries; i++ ) {
-       if(ptr->model->jacobian_entries[i].nodes.node_1 == non_collapsed_node) {
-         if(ptr->model->jacobian_entries[i].nodes.node_2 == non_collapsed_node)
+       if((ptr->model->jacobian_entries[i].nodes.node_1 == non_collapsed_node) &&
+         (ptr->model->jacobian_entries[i].nodes.node_2 == non_collapsed_node))
            ggp = jacob_resist[i];
-         else
-           vgp += ptr->simdata.prev_solve[node_mapping[ptr->model->jacobian_entries[i].nodes.node_2]]*jacob_resist[i];
        }
-    }
-    vgp = - vgp / ggp;
+    ptr->model->load_residual_resist(ptr->idata, ptr->mdata, rhs); 
+    vgp = rhs[non_collapsed_node] / ggp;
 // recalculate with new vgp
     ptr->simdata.prev_solve[0] = vd;
     ptr->simdata.prev_solve[1] = vg;
     ptr->simdata.prev_solve[2] = vs;
     ptr->simdata.prev_solve[3] = vb;
-    ptr->simdata.prev_solve[non_collapsed_node] = vgp ;
+    ptr->simdata.prev_solve[non_collapsed_node] -= vgp ;
     ptr->simdata.flags = CALC_REACT_RESIDUAL | CALC_RESIST_RESIDUAL | CALC_OP |
                        CALC_RESIST_JACOBIAN | CALC_REACT_JACOBIAN;
     uint32_t code = ptr->model->eval( NULL, ptr->idata, ptr->mdata, &ptr->simdata );
@@ -690,6 +697,9 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
       printf( "  eval FINISH\n\n" );
     if (code & EVAL_RET_FLAG_STOP)
       printf( "  eval STOP\n\n" );
+    memset(rhs,0,sizeof(double)*ptr->model->num_nodes);
+    ptr->model->load_residual_resist(ptr->idata, ptr->mdata, rhs); 
+   } while(fabs(rhs[non_collapsed_node]) > epsilon);
   }
 
 }
