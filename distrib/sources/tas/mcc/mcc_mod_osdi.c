@@ -26,6 +26,12 @@
 
 #define EPSILON 0.001
 
+#define CalcCGP_OP   1
+#define CalcCGD_OP   0 //must be 0
+#define CalcCGSI_OP  1
+#define CalcCDP_OP   1
+#define CalcCDW_OP   1
+
 void mcc_initparam_osdi( mcc_modellist *ptmodel )
 {
   static int  f = 0 ;
@@ -354,7 +360,18 @@ void osdi_mcc_getcharge( mcc_modellist   *mccmodel,
       osdi_set_polarization( &model, vgs, vds, vbs );
       i_charge = (double*)calloc(model.model->num_nodes, sizeof(double));
       model.model->load_residual_react(model.idata, model.mdata, i_charge);
-      for(int i=0;i<4;i++) qq[n].charge[i] = i_charge[i] + i_charge[i+4]; 
+      for(int i=0;i<model.model->num_collapsible;i++) {
+        uint32_t node1, node2, tmp;
+        uint32_t *node_mapping = 
+         (uint32_t *)((char*)model.idata + model.model->node_mapping_offset);
+        node1 = model.model->collapsible[i].node_1;
+        node2 = model.model->collapsible[i].node_2;
+        if(node1>node2) { tmp = node1; node1 = node2; node2=tmp; }
+         if( ! (bool)((char*)model.idata + model.model->collapsed_offset)[i])
+            qq[n].charge[node_mapping[node1]] = i_charge[node_mapping[node1]] + i_charge[node_mapping[node2]]; 
+         else
+            qq[n].charge[node_mapping[node1]] = i_charge[node_mapping[node1]]; 
+      }
       // collapsible node charge added.
       osdi_terminate( &model );
     }
@@ -423,7 +440,7 @@ double mcc_calcCGP_osdi( mcc_modellist   *ptmodel,
 {
   osdicharge charge ;
   double    cgp ;
-#if 1
+#if CalcCGP_OP
   osdi_trs      model ;
   uint32_t id_cgp,accflag ;
   char  *name;
@@ -447,8 +464,6 @@ double mcc_calcCGP_osdi( mcc_modellist   *ptmodel,
 
 #else  
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgx, 0.0, 0.0, lotrsparam, NULL, &charge);
-
-  printf("CGP %e,%e\n", *ptr, fabs(charge.qgdov/vgx));
 
   if( vgx > EPSILON || vgx < -EPSILON )
     cgp = fabs(charge.qgdov/vgx) ;
@@ -481,7 +496,7 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
   s = W*L ;
 
 // DLL extracted cdg was stable and returns zero for this function. So we use charge model.
-#if 0
+#if CalcCGD_OP
   osdi_trs      model ;
   uint32_t id_cgd,accflag ;
   char  *name;
@@ -499,7 +514,6 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
 
   osdi_terminate( &model );
   cgd = fabs( (cgd1*vds1 - cgd0*vds0)/(vgs1 - vgs0) )/s ;
-
 #else
 
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs0, vds0, vbs, lotrsparam, NULL, &charge0 );
@@ -563,7 +577,7 @@ double mcc_calcCGSI_osdi( mcc_modellist *ptmodel,
   osdicharge charge1 ;
   double cgs ,cgs0, cgs1;
   double s ;
-#if 1
+#if CalcCGSI_OP
   osdi_trs      model ;
   uint32_t id_cgs,accflag ;
   char  *name;
@@ -742,7 +756,12 @@ double mcc_calcCDP_osdi( mcc_modellist *ptmodel,
   double           cdp, cdp0, cdp1 ;
   osdicharge        charge0 ;
   osdicharge        charge1 ;
-#if 1
+
+  juncapconfig.ab = 0.0 ;
+  juncapconfig.ls = W ;
+  juncapconfig.lg = 0.0 ;
+
+#if CalcCDP_OP
   osdi_trs      model ;
   uint32_t id_cdp,accflag ;
   char  *name;
@@ -757,10 +776,6 @@ double mcc_calcCDP_osdi( mcc_modellist *ptmodel,
   osdi_set_polarization( &model, 0.0, vbx1, 0.0 );
   cdp1 = *ptr;
   osdi_terminate( &model );
-
-  juncapconfig.ab = 0.0 ;
-  juncapconfig.ls = W ;
-  juncapconfig.lg = 0.0 ;
 
   cdp = fabs((cdp1*vbx1-cdp0*vbx0)/(vbx1-vbx0))/juncapconfig.ls ;
 #else
@@ -792,7 +807,7 @@ double mcc_calcCDW_osdi( mcc_modellist *ptmodel,
   juncapconfig.ls = 0.0 ;
   juncapconfig.lg = W ;
 
-#if 1
+#if CalcCDW_OP
   osdi_trs      model ;
   uint32_t id_cdw,accflag ;
   char  *name;
