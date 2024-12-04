@@ -1396,17 +1396,18 @@ double mbk_compute_curve_error( int na, double *xa, double *ya,
 int mbk_cmpdouble(double a, double b, double precision)
 {
   int expa, expb;
+  int sa=signbit(a), sb=signbit(b);
   double mta, mtb;
   long ia, ib;
 
-  if (a<0 && b>0) return -1;
-  if (a>0 && b<0) return 1;
+  if (a<=0 && b>0) return -1;
+  if (a>0 && b<=0) return 1;
 
   mta=frexp(a, &expa);
   mtb=frexp(b, &expb);
 //  printf("%d %d\n", expa, expb);
-  if (expa<expb) return -1;
-  if (expa>expb) return 1;
+  if (expa<expb) return sa? -1: 1;
+  if (expa>expb) return sa?  1:-1;
 //  printf("%.20g %.20g\n", mta, mtb);
 
 //  printf("%.20g\n",mta*pow(2, expa));

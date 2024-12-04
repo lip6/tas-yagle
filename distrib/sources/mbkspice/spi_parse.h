@@ -167,6 +167,7 @@ typedef struct s_trans
   float			 PD;
   float			 X;
   float			 Y;
+  char                  *COND;
 } trans;
 
 typedef struct insparam {
@@ -189,6 +190,7 @@ typedef struct s_inst
   int                   Ty;
   short                 R;
   short                 A;
+  char                  *COND;
 } inst;
 
 typedef struct s_diode
@@ -202,6 +204,7 @@ typedef struct s_diode
   float                 A;
   float			        X;
   float			        Y;
+  char                  *COND;
   optparam_list         *PARAM;
 } diode;
 
@@ -213,6 +216,7 @@ typedef struct s_valim
   struct s_noeud        *N2;
   char                  *NOM;
   char                  *EXPR;
+  char                  *COND;
 } valim;
 
 typedef struct s_interf
@@ -222,6 +226,7 @@ typedef struct s_interf
    chain_list           *GINTERF;        /* DATA field : char* nom des locons */
    chain_list           *DUPCON;
    chain_list           *CORRESPINTERFNAME;
+  char                  *COND;
 } ginterf;
 
 typedef struct s_allinterf
@@ -270,6 +275,13 @@ typedef struct spi_load_global
   chain_list *ptcir_stack;
   int blackboxed;
 } spi_load_global;
+
+typedef struct spi_if_struct {
+  int ifactivate;
+  char * if_expr;
+  int elseactivate;
+  char * else_expr;
+};
 
 /* Fonctions d'allocation mémoire pour un circuit */
 
