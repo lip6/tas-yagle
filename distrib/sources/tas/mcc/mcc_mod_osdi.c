@@ -90,39 +90,6 @@ void osdi_mcc_addtuneeffect( mcc_modellist *mccmodel,
      if(p->NAME == name_juncap) swjuncap = p->VALUE;
      if(p->NAME == name_geo) swgeo = p->VALUE;
   }
-  // remove inner fringe capacitance
-  if (PSP1038) switch (swgeo) {
-  case 0:
-     tparam->param[ tparam->n   ] = namealloc("CINR") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     tparam->param[ tparam->n   ] = namealloc("CINRD") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     break;
-  case 1:
-     tparam->param[ tparam->n   ] = namealloc("CINRW") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     tparam->param[ tparam->n   ] = namealloc("CINRDW") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     break;
-  default:
-     tparam->param[ tparam->n   ] = namealloc("POCINR") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     tparam->param[ tparam->n   ] = namealloc("PLCINR") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     tparam->param[ tparam->n   ] = namealloc("PWCINR") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     tparam->param[ tparam->n   ] = namealloc("PLWCINR") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     tparam->param[ tparam->n   ] = namealloc("POCINRD") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     tparam->param[ tparam->n   ] = namealloc("PLCINRD") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     tparam->param[ tparam->n   ] = namealloc("PWCINRD") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     tparam->param[ tparam->n   ] = namealloc("PLWCINRD") ; 
-     tparam->value[ tparam->n++ ] = 0.0 ;
-     break;
-  }
 
   if( ( flag & MCC_OSDI_TUNE_NO_JUNCTION ) == MCC_OSDI_TUNE_NO_JUNCTION ) {
     /* desactivate junction capacitance calculation 
@@ -371,8 +338,8 @@ void osdi_mcc_getcharge( mcc_modellist   *mccmodel,
        Other values will be used in capacitor forms, and we will get the capacitor vlaues from operational paraeters, later.
     */
     
-    tparam.param = (char**)alloca( sizeof( char* ) * 16 );
-    tparam.value = (double*)alloca( sizeof( double ) * 16 );
+    tparam.param = (char**)alloca( sizeof( char* ) * 32 );
+    tparam.value = (double*)alloca( sizeof( double ) * 32 );
 
     
     calc[0] = MCC_OSDI_TUNE_NO_JUNCTION | MCC_OSDI_TUNE_NO_EXTRINSIC ;
@@ -606,7 +573,7 @@ double mcc_calcCGG_osdi( mcc_modellist *ptmodel,
   uint32_t id_cgg,accflag ;
   char  *name;
 
-  name = namealloc( "cgg" );
+  name = namealloc( "cgs" );
  
   osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
   id_cgg = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
@@ -615,11 +582,11 @@ double mcc_calcCGG_osdi( mcc_modellist *ptmodel,
   cgg0 = *ptr ;
   osdi_set_polarization( &model, vgsf, vdsf, vbs );
   cgg1 = *ptr ;
-  cgg = fabs( (cgg0*vgsi - cgg1*vgsf) ) ;
+  cgg = fabs( (cgg0*vgsi - cgg1*vgsf) / (vgsi - vgsf)) ;
 
   osdi_terminate( &model );
 
-  return cgg ;
+  return cgg/(L*W) ;
 }
 
 double mcc_calcCGSI_osdi( mcc_modellist *ptmodel, 
@@ -794,7 +761,7 @@ double mcc_calcCDS_osdi( mcc_modellist   *ptmodel,
   osdi_mcc_addtuneeffect( ptmodel, &tparam, calc, NULL );
 
 
-  name = namealloc( "cjd" );
+  name = namealloc( "cjdbot" );
  
   osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
   id_cds = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
@@ -865,7 +832,7 @@ double mcc_calcCDP_osdi( mcc_modellist *ptmodel,
   osdi_mcc_addtuneeffect( ptmodel, &tparam, calc, NULL );
 
 
-  name = namealloc( "cjdbot" );
+  name = namealloc( "cjdsti" );
  
   osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
   id_cdp = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
