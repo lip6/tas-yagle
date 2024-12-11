@@ -3144,6 +3144,14 @@ void mcc_GetInputCapa ( char *technoname, char *transname,
     else
       vbs = 0.0;
     
+    switch ( ptmodel->MODELTYPE ) {
+      case MCC_PSPVA    :
+      case MCC_PSPTVA   :
+      case MCC_PSPNQSVA :
+        cgs = mcc_calcCGS_osdi( ptmodel, L, W, temp, vgs2, vgs1, vbs, vds2, vds1, lotrsparam); 
+        cgd = mcc_calcCGD_osdi( ptmodel, L, W, temp, vgs2, vgs1, vbs, vds2, vds1, lotrsparam); 
+        break;
+      defalut:
     // ===> initial charges
         mcc_calcQint (technoname, transname,
                  transtype, transcase, L, W, 
@@ -3158,6 +3166,8 @@ void mcc_GetInputCapa ( char *technoname, char *transname,
                  lotrsparam);
         cgs = ( ptQg2-ptQg1 ) / delta_vg;
         cgd = fabs (( ptQd2-ptQd1 ) / delta_vg );
+        break;
+    }
   }
   
   if ( ptcgp ) {

@@ -31,7 +31,7 @@ void collapse_nodes(osdi_trs *ptr) {
   for(int i=0; i < ptr->model->num_collapsible; i++) {
       int to,from,tmp;
       // For calculate collaped GP, we get the node number
-      if (! (bool*)((char*) ptr->idata + ptr->model->collapsed_offset)[i] ) {
+      if (! (bool)((char*) ptr->idata + ptr->model->collapsed_offset)[i] ) {
         if(ptr->model->collapsible[i].node_1 > ptr->model->collapsible[i].node_2) 
             non_collapsed_node = ptr->model->collapsible[i].node_1;
         else
@@ -60,7 +60,7 @@ void collapse_nodes(osdi_trs *ptr) {
     }
   num_nodes -=1 ;
   }
-  return num_nodes;
+  return ;
 }
 
 int addosdimodelparam( osdimodelparam *param, uint32_t index, double value ) {
@@ -360,7 +360,7 @@ osdimodelparam* duposdimodelparam( osdimodelparam *p )
 
 void *osdi_access_ptr(osdi_trs *ptr, int index, int *aflag, int write) {
     int flag = ptr->model->param_opvar[index].flags;
-    int access_flg;
+    int access_flg = 0;
     if(write) access_flg = ACCESS_FLAG_SET;
     *aflag = flag; //return parameter flag
     if (index < ptr->model->num_instance_params)
@@ -369,9 +369,37 @@ void *osdi_access_ptr(osdi_trs *ptr, int index, int *aflag, int write) {
     return ptr->model->access(ptr->idata, ptr->mdata, index, access_flg );
 }
 
+void print_params(osdi_trs *ptr ) {
+  int i;
+  int flag;
+  double *value, val;
+  OsdiParamOpvar *pParOpVar = ptr->model->param_opvar;
+printf("--- INSTANCE PARAMS ---\n");
+  for (i=0; i<ptr->model->num_params; i++) {
+    if(i==ptr->model->num_instance_params) 
+       printf("--- MODEL PARAMS ---\n");
+    value = (double*)osdi_access_ptr(ptr, i, &flag, 0);
+    if((flag&PARA_TY_MASK) == PARA_TY_INT) val=*(int*)value;
+    else val=*value;
+    printf("%s:%e\n", *pParOpVar[i].name, val);
+  }
+printf("--- Operational Vars ---\n");
+  for (i=ptr->model->num_params; i<ptr->model->num_params+ptr->model->num_opvars; i++) {
+    value = (double*)osdi_access_ptr(ptr, i, &flag, 0);
+    if((flag&PARA_TY_MASK) == PARA_TY_INT) val=*(int*)value;
+    else val=*value;
+    printf("%s:%e\n", *pParOpVar[i].name, val);
+  }
+printf("--- MCCMODEL PARAMS ---\n");
+  for (mcc_paramlist *p=ptr->mccmodel->PARAM; p; p=p->NEXT) {
+     printf("mcc:%s:%e\n", p->NAME, p->VALUE);
+  }
+}
+
 void osdi_loadmodel( osdi_trs             *ptr,
                 double           L,
                 double           W,
+                double           temp,
                 osditunedparam   *tuned,
                 elp_lotrs_param *lotrsparam
               )
@@ -384,7 +412,6 @@ void osdi_loadmodel( osdi_trs             *ptr,
   ptype_list     *ptl ;
   int  flag;
   void *aptr;
-  double temp = 25.0;
 
   ptl = getptype( ptr->mccmodel->USER, OSDICACHEMODEL );
   if( !ptl ) {
@@ -449,11 +476,11 @@ void osdi_loadmodel( osdi_trs             *ptr,
     switch( info_model->errors[i].code ) {
     case INIT_ERR_OUT_OF_BOUNDS :
       printf( "  ->Model Init out of bounds error %s:%d\n\n" , ptr->mccmodel->NAME, info_model->errors[i].payload.parameter_id);
-      return 0 ;
+      return  ;
       break ;
     default :
       printf( "  ->unknown error\n\n" );
-      return 0 ;
+      return  ;
       break ;
   }
 
@@ -472,10 +499,11 @@ void osdi_loadmodel( osdi_trs             *ptr,
     }
   }
   info_inst = (OsdiInitInfo*)calloc(1,sizeof(OsdiInitInfo));
+#define KEVINTEMP 273.15
   ptr->model->setup_instance( NULL,
                                     ptr->idata, 
                                     ptr->mdata, 
-                                    temp,
+                                    temp + KEVINTEMP,
                                     ptr->model->num_nodes,
                                     NULL,
                                     info_inst
@@ -485,11 +513,11 @@ void osdi_loadmodel( osdi_trs             *ptr,
   switch( info_inst->errors[i].code ) {
     case INIT_ERR_OUT_OF_BOUNDS :
       printf( "  ->Inst Init out of bounds error %s:%d\n\n" , ptr->mccmodel->NAME, info_inst->errors[i].payload.parameter_id);
-      return 0 ;
+      return  ;
       break ;
     default :
       printf( "  ->unknown error\n\n" );
-      return 0 ;
+      return  ;
       break ;
   }
   collapse_nodes(ptr);
@@ -554,7 +582,7 @@ int osdi_initialize( osdi_trs             *ptr,
   if( !ptr->mdata ) 
     ptr->mdata = calloc( 1, ptr->model->model_size );
 
-  osdi_loadmodel( ptr, L, W, tuned, lotrsparam );
+  osdi_loadmodel( ptr, L, W, temp, tuned, lotrsparam );
 
   uint32_t code = ptr->model->eval (  NULL,
                         ptr->idata, 
@@ -626,7 +654,7 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
   double         v[2];
   double         vg, vd, vs, vb , vgp , ggp;
   int            flag ;
-  double   *jacob_resist, *rhs;
+  double   *jacob_resist, *rhs, *diag, norm=0.0;
 
   vs = 0.0 ;
   vg = vgs + vs ;
@@ -638,6 +666,7 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
     double **jacobian_ptr_resist = (double**)((char*)ptr->idata+ptr->model->jacobian_ptr_resist_offset);
     jacob_resist = (double*)calloc(ptr->model->num_jacobian_entries, sizeof(double));
     rhs          = (double*)calloc(ptr->model->num_nodes, sizeof(double));
+    diag         = (double*)calloc(ptr->model->num_nodes, sizeof(double));
     for(int i=0; i<ptr->model->num_jacobian_entries; i++ ) {
        jacobian_ptr_resist[i] = &jacob_resist[i];
     }
@@ -648,44 +677,12 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
   ptr->simdata.prev_solve[2] = vs;
   ptr->simdata.prev_solve[3] = vb;
   
-  ptr->simdata.flags = CALC_REACT_RESIDUAL | CALC_RESIST_RESIDUAL | CALC_OP |
-                       CALC_RESIST_JACOBIAN | CALC_REACT_JACOBIAN;
-
-  uint32_t code = ptr->model->eval( NULL, ptr->idata, ptr->mdata, &ptr->simdata );
-    if (code & EVAL_RET_FLAG_LIM)
-      printf( "  eval LIM\n\n" );
-    if (code & EVAL_RET_FLAG_FATAL)
-      printf( "  eval FATAL\n\n" );
-    if (code & EVAL_RET_FLAG_FINISH)
-      printf( "  eval FINISH\n\n" );
-    if (code & EVAL_RET_FLAG_STOP)
-      printf( "  eval STOP\n\n" );
-  
   // we assume that the non_collapsed_node is only GP
-  if (non_collapsed_node != UINT32_MAX ) {
-    uint32_t *node_mapping = 
+  uint32_t *node_mapping = 
        (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
   int niter = 1000; // max iteration to find vgp
-  double epsilon = 1.0e-16; // convergence threshold.
+  double epsilon = 1.0e-12; // convergence threshold.
   do { // Gauss iteration to find the voltage of GP
-    if (niter-- == 0) {
-       printf("GP voltage did not converged\n");
-       break;
-    }
-    ptr->model->load_jacobian_resist(ptr->idata, ptr->mdata);
-    for(int i=0; i<ptr->model->num_jacobian_entries; i++ ) {
-       if((ptr->model->jacobian_entries[i].nodes.node_1 == non_collapsed_node) &&
-         (ptr->model->jacobian_entries[i].nodes.node_2 == non_collapsed_node))
-           ggp = jacob_resist[i];
-       }
-    ptr->model->load_residual_resist(ptr->idata, ptr->mdata, rhs); 
-    vgp = rhs[non_collapsed_node] / ggp;
-// recalculate with new vgp
-    ptr->simdata.prev_solve[0] = vd;
-    ptr->simdata.prev_solve[1] = vg;
-    ptr->simdata.prev_solve[2] = vs;
-    ptr->simdata.prev_solve[3] = vb;
-    ptr->simdata.prev_solve[non_collapsed_node] -= vgp ;
     ptr->simdata.flags = CALC_REACT_RESIDUAL | CALC_RESIST_RESIDUAL | CALC_OP |
                        CALC_RESIST_JACOBIAN | CALC_REACT_JACOBIAN;
     uint32_t code = ptr->model->eval( NULL, ptr->idata, ptr->mdata, &ptr->simdata );
@@ -697,10 +694,24 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
       printf( "  eval FINISH\n\n" );
     if (code & EVAL_RET_FLAG_STOP)
       printf( "  eval STOP\n\n" );
+  if (non_collapsed_node != UINT32_MAX ) {
+    if (niter-- == 0) {
+       printf("GP voltage did not converged vgp:%e\n", vgp);
+       break;
+    }
+    ptr->model->load_jacobian_resist(ptr->idata, ptr->mdata);
+    memset(diag, 0,sizeof(double)*ptr->model->num_nodes);
+    for(int i=0; i<ptr->model->num_jacobian_entries; i++ ) {
+       uint32_t node = ptr->model->jacobian_entries[i].nodes.node_1;
+       if (ptr->model->jacobian_entries[i].nodes.node_1 == ptr->model->jacobian_entries[i].nodes.node_2)
+           diag[node_mapping[node]] += jacob_resist[i];
+    }
     memset(rhs,0,sizeof(double)*ptr->model->num_nodes);
     ptr->model->load_residual_resist(ptr->idata, ptr->mdata, rhs); 
-   } while(fabs(rhs[non_collapsed_node]) > epsilon);
-  }
+    vgp = rhs[non_collapsed_node] / diag[non_collapsed_node];
+    ptr->simdata.prev_solve[non_collapsed_node] -= vgp ;
+    }
+  } while(fabs(vgp) > epsilon );
 
 }
 

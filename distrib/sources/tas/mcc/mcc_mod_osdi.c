@@ -533,7 +533,7 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
   cgd1 = *ptr ;
 
   osdi_terminate( &model );
-  cgd = fabs( (cgd1*(vds1-vgs1) - cgd0*(vds0-vgs0))/(vgs1 - vgs0) )/s ;
+  cgd = fabs( (cgd1*(vds1-vgs1) - cgd0*(vds0-vgs0))/((vds1-vgs1) - (vds0-vgs0)) )/s ;
 #if 0
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs0, vds0, vbs, lotrsparam, NULL, &charge0 );
   osdi_mcc_getcharge( ptmodel, L, W, temp, vgs1, vds1, vbs, lotrsparam, NULL, &charge1 );
@@ -553,7 +553,7 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
 }
 
 // CGG return the charge to calculate input capa
-double mcc_calcCGG_osdi( mcc_modellist *ptmodel, 
+double mcc_calcCGS_osdi( mcc_modellist *ptmodel, 
                          double L, 
                          double W, 
                          double temp, 
@@ -567,26 +567,26 @@ double mcc_calcCGG_osdi( mcc_modellist *ptmodel,
 {
   osdicharge charge0 ;
   osdicharge charge1 ;
-  double cgg, cgg0, cgg1 ;
+  double cgs, cgs0, cgs1 ;
   double s ;
   osdi_trs      model ;
-  uint32_t id_cgg,accflag ;
+  uint32_t id_cgs,accflag ;
   char  *name;
 
   name = namealloc( "cgs" );
  
   osdi_initialize( &model, ptmodel, lotrsparam, L, W, temp, NULL );
-  id_cgg = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
-  double *ptr = (double*)osdi_access_ptr(&model,id_cgg, &accflag, 0);
+  id_cgs = osdi_getindexparam( &model, name, OSDI_FIND_OPARAM );
+  double *ptr = (double*)osdi_access_ptr(&model,id_cgs, &accflag, 0);
   osdi_set_polarization( &model, vgsi, vdsi, vbs );
-  cgg0 = *ptr ;
+  cgs0 = *ptr ;
   osdi_set_polarization( &model, vgsf, vdsf, vbs );
-  cgg1 = *ptr ;
-  cgg = fabs( (cgg0*vgsi - cgg1*vgsf) / (vgsi - vgsf)) ;
+  cgs1 = *ptr ;
+  cgs = fabs( (cgs0*vgsi - cgs1*vgsf) / (vgsi - vgsf)) ;
 
   osdi_terminate( &model );
 
-  return cgg/(L*W) ;
+  return cgs/(L*W) ;
 }
 
 double mcc_calcCGSI_osdi( mcc_modellist *ptmodel, 
