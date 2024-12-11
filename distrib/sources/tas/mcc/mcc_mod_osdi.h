@@ -83,7 +83,7 @@ double mcc_calcCGSI_osdi( mcc_modellist *ptmodel,
                          double vds,
                          elp_lotrs_param *lotrsparam
                        );
-double mcc_calcCGG_osdi( mcc_modellist *ptmodel, 
+double mcc_calcCGS_osdi( mcc_modellist *ptmodel, 
                          double L, 
                          double W, 
                          double temp, 
