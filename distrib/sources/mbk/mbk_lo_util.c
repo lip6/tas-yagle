@@ -586,12 +586,25 @@ static void flatten_eval_montecarlo(eqt_ctx *evalctx, eqt_ctx *origctx, char *su
     }
 }
 
+int  lotrs_cond_check(char* cond, eqt_ctx *ctx) {
+   double value;
+   value = eqt_eval(ctx, cond, EQTNORMAL );
+   if (!eqt_resistrue(ctx))
+        {
+          avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, ".if evaluation" , cond, " : set to 0");
+        }
+      else if (!finite(value))
+          avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, ".if evaluation", cond, " : returned NaN or Inf");
+   if ( value == 0.0 ) return 0;
+   else return 1;
+}
+
 void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param * param_tab, int x, int y, 
         int Tx, int Ty, int R, int A, eqt_ctx **mc_ctx)
 {
    optparam_list *optparams, *saveparams, *ptopt, *ptprev, *ptnext;
    loins_list *ptins, *ptnewloins, *ptnewloinslist=NULL;
-   lotrs_list *pttrs;
+   lotrs_list *pttrs, **ptpttrs_prev;
    lotrs_list *ptnewlotrs, *ptnewlotrslist = NULL;
    ptype_list *ptduptrs, *ptduptrslist = NULL;
    ptype_list *ptduploins, *ptduploinslist = NULL;
@@ -971,7 +984,13 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
    }
 
    // update transistor sizes
+   ptpttrs_prev = &fig->LOTRS;
    for (pttrs = fig->LOTRS; pttrs; pttrs = pttrs->NEXT) {
+     if(lotrs_cond_check(pttrs->COND, ctx) == 0) {
+           *ptpttrs_prev = pttrs->NEXT;
+           continue;
+     }
+     ptpttrs_prev = &pttrs->NEXT;
      if (pttrs->X!=LONG_MIN) pttrs->X += x;
      if (pttrs->Y!=LONG_MIN) pttrs->Y += y;
       if (!(ptype = getptype (pttrs->USER, OPT_PARAMS)))
@@ -1051,24 +1070,80 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
             trans_as = value;
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
+#if 1
+            if (param_tab ) {
+                ptopt->UNAME.SPECIAL = namealloc (var);
+                ptopt->UDATA.VALUE = value;
+                ptopt->TAG = ' ';
+                ptopt->NEXT = saveparams;
+                saveparams = ptopt;
+                if (ptprev == NULL)
+                   ptype->DATA = ptnext;
+                else
+                   ptprev->NEXT = ptnext;
+                continue;
+            }
+#endif
          }
          else if (!strcasecmp (var, "ad")) {
             value*=scale*scale;
             trans_ad = value;
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
+#if 1
+            if (param_tab ) {
+                ptopt->UNAME.SPECIAL = namealloc (var);
+                ptopt->UDATA.VALUE = value;
+                ptopt->TAG = ' ';
+                ptopt->NEXT = saveparams;
+                saveparams = ptopt;
+                if (ptprev == NULL)
+                   ptype->DATA = ptnext;
+                else
+                   ptprev->NEXT = ptnext;
+                continue;
+            }
+#endif
          }
          else if (!strcasecmp (var, "ps")) {
             value*=scale;
             pttrs->PS = (long)(value * SCALE_X * 1E6 * SPI_SCALE_TRANSFACTOR + 0.5);
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
+#if 1
+            if (param_tab ) {
+                ptopt->UNAME.SPECIAL = namealloc (var);
+                ptopt->UDATA.VALUE = value;
+                ptopt->TAG = ' ';
+                ptopt->NEXT = saveparams;
+                saveparams = ptopt;
+                if (ptprev == NULL)
+                   ptype->DATA = ptnext;
+                else
+                   ptprev->NEXT = ptnext;
+                continue;
+            }
+#endif
          }
          else if (!strcasecmp (var, "pd")) {
             value*=scale;
             pttrs->PD = (long)(value * SCALE_X * 1E6 * SPI_SCALE_TRANSFACTOR + 0.5);
             if (MLU_TRACE_EQT)
                fprintf (stdout, "TRANS ---> %s: '%s' = %g\n", var, ptopt->UDATA.EXPR, value);
+#if 1
+            if (param_tab ) {
+                ptopt->UNAME.SPECIAL = namealloc (var);
+                ptopt->UDATA.VALUE = value;
+                ptopt->TAG = ' ';
+                ptopt->NEXT = saveparams;
+                saveparams = ptopt;
+                if (ptprev == NULL)
+                   ptype->DATA = ptnext;
+                else
+                   ptprev->NEXT = ptnext;
+                continue;
+            }
+#endif
          }
          else if (!strcasecmp (var, "diode_area")) {
             value*=scale*scale;
@@ -4523,6 +4598,7 @@ lotrs_list *lotrs_ptr;
    lotrs_rpt->TYPE = lotrs_ptr->TYPE;
    lotrs_rpt->MODINDEX = lotrs_ptr->MODINDEX;
    lotrs_rpt->USER = NULL;      /* The ptype_list is not duplicated */
+   lotrs_rpt->COND = lotrs_ptr->COND;
 
    if ((ptuser = getptype (lotrs_ptr->USER, OPT_PARAMS)) != NULL) {
       lotrs_rpt->USER = addptype (lotrs_rpt->USER, OPT_PARAMS, dupoptparamlst ((optparam_list *) ptuser->DATA));

@@ -13,6 +13,7 @@
 #include BGL_H
 
 #include <tcl.h>
+#include <dlfcn.h>
 #define API_USE_REAL_TYPES
 #include "avt_API.h"
 #include "../ttv/ttv_API_LOCAL.h"
@@ -167,6 +168,20 @@ BehavioralFigure *avt_LoadBehavior(char *name, char *format)
     return NULL;
 }
 
+void loadosdi(char *name) {
+  char *filename;
+  void *handle;
+  extern chain_list* OSDI_HANDLE;
+  filename = filepath(name,"osdi");
+  if (!filename )
+      avt_errmsg(AVT_ERRMSG, "045", AVT_ERROR, name);
+  handle = dlopen(filename, RTLD_LAZY);
+  if (!handle )
+      avt_errmsg(AVT_ERRMSG, "045", AVT_ERROR, dlerror());
+  OSDI_HANDLE = addchain(OSDI_HANDLE, handle);
+  return;
+}
+
 void 
 avt_DriveBehavior(befig_list *befig, char *format)
 {
@@ -270,6 +285,12 @@ void avt_LoadFile(char *filename, char *format)
           parsespef(filename);
           spef_quiet=0;
           enastat=1;
+        }
+      else if (strcasecmp(format,"osdi")==0)
+        {
+          avt_log(LOGFILEACCESS, 0, "Loading OSDI device model \"%s\"\n", filename);
+          loadosdi(filename);
+          enastat=0;
         }
       else if (strcasecmp(format,"inf")==0)
         {

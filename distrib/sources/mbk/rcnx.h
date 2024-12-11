@@ -76,6 +76,7 @@ struct lowire     *PWIRE;                     /* wire list                    */
 long               NBNODE;                    /* number of lonode             */
 chain_list        *PCTC;                      /* cross talk capacitance       */
 ptype_list        *USER;                      /* Application specific         */
+char              *COND;
 }
 lorcnet_list;
 
@@ -88,6 +89,7 @@ unsigned char            FLAG;          /* flags                              */
 float                    RESI;          /* wire resistance                    */
 float                    CAPA;          /* wire capacitance                   */
 ptype_list              *USER;          /* Application specific               */
+char                    *COND;
 }
 lowire_list;
 
@@ -98,6 +100,7 @@ struct chain            *CTCLIST;       /* cross talk capacitance list        */
 long                     FLAG;          /* Flags                              */
 long                     INDEX;         /* node index                         */
 ptype_list              *USER;          /* wire list                          */
+char                    *COND;
 }
 lonode_list;
 
@@ -111,6 +114,7 @@ chain_list    *PREV1;
 chain_list    *PREV2;
 float          CAPA;                           /* cross talk capacitance      */
 ptype_list    *USER;                           /* application specific        */
+char          *COND;
 } loctc_list;
 
 #define RCN_SIZEOFLOWIRE (sizeof(lowire_list))

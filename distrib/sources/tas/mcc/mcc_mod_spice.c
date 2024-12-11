@@ -24,6 +24,7 @@
 #include "mcc_mod_bsim3v3.h"
 #include "mcc_mod_bsim4.h"
 #include "mcc_mod_psp.h"
+#include "mcc_mod_osdi.h"
 #include "mcc_mod_ext.h"
 #include "mcc_mod_mos2.h"
 #include "mcc_mod_mm9.h"
@@ -310,6 +311,10 @@ void mcc_initallparam ( char *technoname )
                                break ;
            case MCC_MOS2     : mcc_initparam_mos2 (ptmodel) ;
                                break ;
+           case MCC_PSPVA    :
+           case MCC_PSPTVA    :
+           case MCC_PSPNQSVA : mcc_initparam_osdi( ptmodel );
+                               break ;
            case MCC_MPSPB    :
            case MCC_MPSP     : mcc_initparam_psp( ptmodel );
                                break ;
@@ -340,6 +345,10 @@ void mcc_initmodel ( mcc_modellist *ptmodel )
             case MCC_MM9      : mcc_initparam_mm9 (ptmodel) ;
                                 break ;
             case MCC_MOS2     : mcc_initparam_mos2 (ptmodel) ;
+                                break ;
+            case MCC_PSPVA    :
+            case MCC_PSPTVA    :
+            case MCC_PSPNQSVA : mcc_initparam_osdi( ptmodel );
                                 break ;
             case MCC_MPSPB    :
             case MCC_MPSP     : mcc_initparam_psp( ptmodel );
@@ -438,6 +447,9 @@ double mcc_calcDL (char *technoname, char *transname,
               case MCC_MM9      : 
               case MCC_MOS2     : dl = mcc_calcDL_com(ptmodel) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA    :
+              case MCC_PSPNQSVA : 
               case MCC_MPSPB    :
               case MCC_MPSP     : dl = 0.0 ;
                                   break ;
@@ -470,6 +482,9 @@ double mcc_calcDW (char *technoname, char *transname,
               case MCC_MM9      :
               case MCC_MOS2     : dw = mcc_calcDW_com(ptmodel) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA :
               case MCC_MPSPB    :
               case MCC_MPSP     : dw = 0.0 ;
                                   break ;
@@ -501,6 +516,9 @@ double mcc_calcDLC (char *technoname, char *transname,
               case MCC_MM9      : 
               case MCC_MOS2     : dlc = mcc_calcDL_com(ptmodel) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA :
               case MCC_MPSPB    :
               case MCC_MPSP     : dlc = 0.0 ;
                                   break ;
@@ -533,6 +551,9 @@ double mcc_calcDWC (char *technoname, char *transname,
               case MCC_MM9      : 
               case MCC_MOS2     : dwc = mcc_calcDW_com(ptmodel) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA :
               case MCC_MPSPB    :
               case MCC_MPSP     : dwc = 0.0 ;
                                   break ;
@@ -569,6 +590,10 @@ double mcc_calcVTH(char *technoname, char *transname,
                                   break ;
               case MCC_MOS2     : vth = mcc_calcVTH_mos2(ptmodel) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : vth = mcc_calcVTH_osdi(ptmodel, L, W, temp, vbs, vds,lotrsparam);
+                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : vth = mcc_calcVTH_psp(ptmodel, L, W, temp, vbs, vds,lotrsparam);
                                   break;
@@ -602,6 +627,13 @@ double mcc_calcIDS(char *technoname, char *transname,
                                  ids = mcc_calcIDS_bsim4 (ptmodel, vbs, vgs,
                                                           vds, W, L, 
                                                           temp,lotrsparam) ;
+                                 break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA :
+                                 ids = mcc_calcIDS_osdi (ptmodel, vbs, vgs,
+                                                        vds, W, L, 
+                                                        temp,lotrsparam) ;
                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP   :
@@ -694,6 +726,10 @@ double mcc_calcCGD( char *technoname,
               case MCC_MM9      :
               case MCC_MOS2     : cgd = 0.0 ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : cgd = mcc_calcCGD_osdi( ptmodel, L, W, temp, vgs0, vgs1, vbs, vds, vds, lotrsparam) ;
+                                 break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : cgd = mcc_calcCGD_psp( ptmodel, L, W, temp, vgs0, vgs1, vbs, vds,lotrsparam) ;
                                   break ;
@@ -730,9 +766,15 @@ double mcc_calcCGSI(char *technoname, char *transname,
               case MCC_MM9      :
               case MCC_MOS2     : cgsi= 0.0 ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : cgsi= mcc_calcCGSI_osdi( ptmodel, L, W, temp, 
+                                                          vgs, vbs, vds,lotrsparam) ;
+                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : cgsi= mcc_calcCGSI_psp( ptmodel, L, W, temp, 
                                                           vgs, vbs, vds,lotrsparam) ;
+                                  break ;
               case MCC_EXTMOD   : cgsi= mcc_calcCGSI_ext( ptmodel, L, W, temp, 
                                                           vgs, vbs, vds,lotrsparam) ;
                                   break ;
@@ -819,9 +861,15 @@ double mcc_calcCGP(char *technoname, char *transname,
               case MCC_MM9      : 
               case MCC_MOS2     : cgp = mcc_calcCGP_com(ptmodel) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA :
+                                  cgp = mcc_calcCGP_osdi (ptmodel, lotrsparam, vgx, L, W, temp, ptQov) ;
+                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP     :
                                   cgp = mcc_calcCGP_psp (ptmodel, lotrsparam, vgx, L, W, temp, ptQov) ;
+                                  break ;
               case MCC_EXTMOD   :
                                   cgp = mcc_calcCGP_ext(ptmodel, lotrsparam, vgx, L, W, temp, ptQov);
                                   break ;
@@ -852,6 +900,10 @@ double mcc_calcCDS(char *technoname, char *transname,
               case MCC_MOS2     : cds = mcc_calcCDS_com(ptmodel, temp, vbx1, vbx2) ;
                                   break ;
               case MCC_BSIM4    : cds = mcc_calcCDS_bsim4 (ptmodel, temp, vbx1, vbx2) ;
+                                  break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : cds = mcc_calcCDS_osdi( ptmodel, lotrsparam, temp, vbx1, vbx2, L, W );
                                   break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : cds = mcc_calcCDS_psp( ptmodel, lotrsparam, temp, vbx1, vbx2, L, W );
@@ -885,6 +937,10 @@ double mcc_calcCDP(char *technoname, char *transname,
               case MCC_MOS2     : cdp = mcc_calcCDP_com(ptmodel, temp, vbx1, vbx2) ;
                                   break ;
               case MCC_BSIM4    : cdp = mcc_calcCDP_bsim4( ptmodel, lotrsparam,temp, vbx1, vbx2 );
+                                  break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : cdp = mcc_calcCDP_osdi( ptmodel, lotrsparam,temp, vbx1, vbx2, L, W );
                                   break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : cdp = mcc_calcCDP_psp( ptmodel, lotrsparam,temp, vbx1, vbx2, L, W );
@@ -920,6 +976,10 @@ double mcc_calcCDW(char *technoname, char *transname,
                                   break ;
               case MCC_BSIM4    : cdw = mcc_calcCDW_bsim4 (ptmodel, lotrsparam,temp, vbx1, vbx2, vgx, L, W) ; 
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : cdw = mcc_calcCDW_osdi (ptmodel, lotrsparam,temp, vbx1, vbx2, L, W) ; 
+                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : cdw = mcc_calcCDW_psp (ptmodel, lotrsparam,temp, vbx1, vbx2, L, W) ; 
                                   break ;
@@ -951,6 +1011,10 @@ double mcc_calcDWCJ (char *technoname, char *transname,
                                   break ;
               case MCC_MM9      :
               case MCC_MOS2     : dwcj = mcc_calcDW_com(ptmodel) ;
+                                  break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : dwcj = mcc_calcDWCJ_osdi(ptmodel, lotrsparam, temp, L, W) ;
                                   break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : dwcj = mcc_calcDWCJ_psp(ptmodel, lotrsparam, temp, L, W) ;
@@ -988,6 +1052,10 @@ double mcc_calcCSS(char *technoname, char *transname,
                                   break ;
               case MCC_BSIM4    : css = mcc_calcCDS_bsim4 (ptmodel, temp, vbx1, vbx2) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : css = mcc_calcCDS_osdi( ptmodel, lotrsparam, temp, vbx1, vbx2, L, W );
+                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : css = mcc_calcCDS_psp( ptmodel, lotrsparam, temp, vbx1, vbx2, L, W );
                                   break ;
@@ -1020,6 +1088,10 @@ double mcc_calcCSP(char *technoname, char *transname,
               case MCC_MOS2     : csp = mcc_calcCDP_com(ptmodel, temp, vbx1,vbx2) ;
                                   break ;
               case MCC_BSIM4    : csp = mcc_calcCDP_bsim4 (ptmodel, lotrsparam,temp, vbx1,vbx2) ;
+                                  break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : csp = mcc_calcCDP_osdi( ptmodel, lotrsparam,temp, vbx1, vbx2, L, W ) ;
                                   break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : csp = mcc_calcCDP_psp( ptmodel, lotrsparam,temp, vbx1, vbx2, L, W ) ;
@@ -1054,6 +1126,10 @@ double mcc_calcCSW(char *technoname, char *transname,
               case MCC_MOS2     : csw = mcc_calcCDW_com(ptmodel, temp, vbx1, vbx2, vgx, L, W) ; 
                                   break ;
               case MCC_BSIM4    : csw = mcc_calcCDW_bsim4 (ptmodel, lotrsparam, temp, vbx1, vbx2, vgx, L, W) ; 
+                                  break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : csw = mcc_calcCDW_osdi (ptmodel, lotrsparam, temp, vbx1, vbx2, L, W) ; 
                                   break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : csw = mcc_calcCDW_psp (ptmodel, lotrsparam, temp, vbx1, vbx2, L, W) ; 
@@ -1151,6 +1227,9 @@ double mcc_getXL (char *technoname, char *transname,
               case MCC_BSIM4    :
                                   lmlt = mcc_getparam_quick(ptmodel, __MCC_QUICK_LMLT) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA :
               case MCC_MPSPB    :
               case MCC_MPSP     :
               case MCC_EXTMOD   :
@@ -1183,6 +1262,9 @@ double mcc_getXW (char *technoname, char *transname,
               case MCC_BSIM4    :
                                   wmlt = mcc_getparam_quick(ptmodel, __MCC_QUICK_WMLT) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA :
               case MCC_MPSPB    :
               case MCC_MPSP     :
               case MCC_EXTMOD   :
@@ -2107,6 +2189,11 @@ double mcc_calcRapIdsTemp(char *technoname, char *transname, int transtype,
               case MCC_BSIM4    : RapportIds =  mcc_calcIDS_bsim4 (ptmodel, 0.0, vdd, vdd, W, L, T1,NULL)
                                                /mcc_calcIDS_bsim4 (ptmodel, 0.0, vdd, vdd, W, L, T0,NULL) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : RapportIds =  mcc_calcIDS_osdi (ptmodel, 0.0, vdd, vdd, W, L, T1,NULL)
+                                               /mcc_calcIDS_osdi (ptmodel, 0.0, vdd, vdd, W, L, T0,NULL) ;
+                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : RapportIds =  mcc_calcIDS_psp (ptmodel, 0.0, vdd, vdd, W, L, T1,NULL)
                                                /mcc_calcIDS_psp (ptmodel, 0.0, vdd, vdd, W, L, T0,NULL) ;
@@ -2140,6 +2227,11 @@ double mcc_calcRapIdsVolt(char *technoname, char *transname, int transtype,
                                   break ;
               case MCC_BSIM4    : RapportIds = mcc_calcIDS_bsim4 (ptmodel, 0.0, V1, V1, W, L,temp,NULL)
                                               /mcc_calcIDS_bsim4 (ptmodel, 0.0, V0, V0, W, L,temp,NULL) ;
+                                  break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : RapportIds = mcc_calcIDS_osdi (ptmodel, 0.0, V1, V1, W, L,temp,NULL)
+                                              /mcc_calcIDS_osdi (ptmodel, 0.0, V0, V0, W, L,temp,NULL) ;
                                   break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : RapportIds = mcc_calcIDS_psp (ptmodel, 0.0, V1, V1, W, L,temp,NULL)
@@ -2379,6 +2471,9 @@ void mcc_PrintQint (char *technoname, char *transname,
    
     switch(ptmodel->MODELTYPE) {
       case MCC_BSIM4    :
+      case MCC_PSPVA    :
+      case MCC_PSPTVA   :
+      case MCC_PSPNQSVA :
       case MCC_MPSPB    :
       case MCC_MPSP     :
       case MCC_EXTMOD   :
@@ -2392,6 +2487,9 @@ void mcc_PrintQint (char *technoname, char *transname,
                             La_Wa = (L + mcc_calcDLC_bsim3v3(ptmodel, L, W))
                                     *(W+mcc_calcDWC_bsim3v3(ptmodel, L, W));
                             break ;
+                          case MCC_PSPVA    :
+                          case MCC_PSPTVA   :
+                          case MCC_PSPNQSVA :
                           case MCC_MPSP:
                           case MCC_MPSPB:
                           case MCC_EXTMOD:
@@ -2450,6 +2548,14 @@ void mcc_PrintQint (char *technoname, char *transname,
                                 switch( ptmodel->MODELTYPE ) {
                                 case MCC_BSIM4 :
                                   mcc_calcQint_bsim4 (ptmodel, L, W,
+                                                      temp, vgs, vbs, vds,
+                                                      &Qg, &Qs, &Qd, &Qb,
+                                                      lotrsparam);
+                                  break ;
+                                case MCC_PSPVA    :
+                                case MCC_PSPTVA   :
+                                case MCC_PSPNQSVA :
+                                  mcc_calcQint_osdi (ptmodel, L, W,
                                                       temp, vgs, vbs, vds,
                                                       &Qg, &Qs, &Qd, &Qb,
                                                       lotrsparam);
@@ -2752,6 +2858,10 @@ void mcc_calcQint (char *technoname, char *transname,
                                   break ;
               case MCC_BSIM4    : mcc_calcQint_bsim4 (ptmodel, L, W, temp, vgs,vbs,vds,ptQg,ptQs,ptQd,ptQb,lotrsparam) ;
                                   break ;
+              case MCC_PSPVA    :
+              case MCC_PSPTVA   :
+              case MCC_PSPNQSVA : mcc_calcQint_osdi (ptmodel, L, W, temp, vgs,vbs,vds,ptQg,ptQs,ptQd,ptQb,lotrsparam) ;
+                                  break ;
               case MCC_MPSPB    :
               case MCC_MPSP     : mcc_calcQint_psp (ptmodel, L, W, temp, vgs,vbs,vds,ptQg,ptQs,ptQd,ptQb,lotrsparam) ;
                                   break ;
@@ -2789,6 +2899,9 @@ double mcc_calcCGS( char *technoname,
       else
         vbs = ( transtype == MCC_NMOS ) ? lotrsparam->VBULK : lotrsparam->VBULK-MCC_VDDmax ; 
       switch(ptmodel->MODELTYPE) {
+            case MCC_PSPVA    :
+            case MCC_PSPTVA   :
+            case MCC_PSPNQSVA : 
             case MCC_BSIM3V3  :
             case MCC_BSIM4    :
             case MCC_MPSP     :
@@ -2828,7 +2941,7 @@ double mcc_calcCGSD (char *technoname, char *transname,
 {
   mcc_modellist *ptmodel ;
   double Qinit=0.0,Qfinal=0.0,cgs=0.0,vbs;
-  double vdsi,vdsf;
+  double vdsi,vdsf,vddrv;
 
   if(!(ptmodel = mcc_getmodel(technoname, transname, transtype, transcase, L, W, 0)))
       return(0.0) ;
@@ -2837,55 +2950,50 @@ double mcc_calcCGSD (char *technoname, char *transname,
         vbs = lotrsparam->VBS ;
       else
         vbs = ( transtype == MCC_NMOS ) ? lotrsparam->VBULK : lotrsparam->VBULK-MCC_VDDmax ; 
+        // DOWN transition
+      if ( mcc_getparam_quick(ptmodel,__MCC_QUICK_XPART) < 0.0)
+         return 1.0e-30;
+      if (ptmodel->TYPE == MCC_NMOS) {
+           if ( vdsnull ) {
+              vdsi = 0.0;
+              vdsf = 0.0;
+           }
+           else {
+              vdsi = 0.0;
+              //vdsf = vdd/2.0 - MCC_VTN;
+              vdsf=vdsi;
+           }
+           vddrv = vdd;
+        }
+        else {
+             if ( vdsnull ) {
+               vdsi = 0.0;
+               vdsf = 0.0;
+             }
+          else {
+             vdsi = vdd;
+             //vdsf = vdd/2.0 + MCC_VTP;
+             vdsf=vdsi;
+          }
+          vddrv = 0.0;
+      }
       switch(ptmodel->MODELTYPE) {
+            case MCC_PSPVA    :
+            case MCC_PSPTVA   :
+            case MCC_PSPNQSVA :
             case MCC_BSIM3V3  :
             case MCC_BSIM4    :
             case MCC_MPSP     :
             case MCC_MPSPB    :
             case MCC_EXTMOD   :
-                                // DOWN transition
-                                if ( mcc_getparam_quick(ptmodel,__MCC_QUICK_XPART) < 0.0)
-                                  return 1.0e-30;
-                                if (ptmodel->TYPE == MCC_NMOS) {
-                                  if ( vdsnull ) {
-                                   vdsi = 0.0;
-                                   vdsf = 0.0;
-                                  }
-                                  else {
-                                   vdsi = 0.0;
-                                   //vdsf = vdd/2.0 - MCC_VTN;
-                                   vdsf=vdsi;
-                                  }
-                                   mcc_calcQint (technoname, transname,
+                                mcc_calcQint (technoname, transname,
                                                  transtype,transcase,L, W,
-                                                 temp, vdd, vbs, vdsi,
+                                                 temp, vddrv, vbs, vdsi,
                                                  &Qinit, NULL, NULL, NULL,lotrsparam);
-                                   mcc_calcQint (technoname, transname,
+                                mcc_calcQint (technoname, transname,
                                                  transtype,transcase,L, W,
                                                  temp, vfinal, vbs, vdsf, 
                                                  &Qfinal, NULL, NULL, NULL,lotrsparam);
-                                }
-                                else {
-                                  if ( vdsnull ) {
-                                   vdsi = 0.0;
-                                   vdsf = 0.0;
-                                  }
-                                  else {
-                                   vdsi = vdd;
-                                   //vdsf = vdd/2.0 + MCC_VTP;
-                                   vdsf=vdsi;
-                                  }
-                                   mcc_calcQint (technoname, transname,
-                                                 transtype,transcase,L, W,
-                                                 temp, 0.0, vbs, vdsi,
-                                                 &Qinit, NULL, NULL, NULL,
-                                                 lotrsparam);
-                                   mcc_calcQint (technoname, transname,
-                                                 transtype,transcase,L, W,
-                                                 temp, vfinal, vbs, vdsf,
-                                                 &Qfinal, NULL, NULL, NULL,
-                                                 lotrsparam);
-                                }
                                 cgs = fabs((Qfinal-Qinit)/(vdd/2.0));
                                 break ;
             case MCC_MM9      :
@@ -2909,7 +3017,7 @@ double mcc_calcCGSU (char *technoname, char *transname,
 {
   mcc_modellist *ptmodel ;
   double Qinit=0.0,Qfinal=0.0,cgs=0.0,vbs;
-  double vdsi,vdsf;
+  double vdsi,vdsf,vddrv;
 
   if(!(ptmodel = mcc_getmodel(technoname, transname, transtype, transcase, L, W, 0)))
     return 0.0;
@@ -2919,48 +3027,44 @@ double mcc_calcCGSU (char *technoname, char *transname,
         vbs = lotrsparam->VBS ;
       else
         vbs = ( transtype == MCC_NMOS ) ? lotrsparam->VBULK : lotrsparam->VBULK-MCC_VDDmax ; 
+      if ( mcc_getparam_quick(ptmodel,__MCC_QUICK_XPART) < 0.0)
+        return 1.0e-30;
+      if (ptmodel->TYPE == MCC_NMOS) {
+        if ( vdsnull ) {
+          vdsi = 0.0;
+          vdsf = 0.0;
+        }
+        else {
+          vdsi = vdd;
+          //vdsf = MCC_VTN + vdd/2.0;
+          vdsf=vdsi;
+        }
+        vddrv = 0.0;
+      }
+      else {
+        if ( vdsnull ) {
+          vdsi = 0.0;
+          vdsf = 0.0;
+        }
+        else {
+          vdsi = 0.0;
+          //vdsf = -MCC_VTP + vdd/2.0;
+          vdsf=vdsi;
+        }
+        vddrv = vdd;
+      }
       switch(ptmodel->MODELTYPE) {
+            case MCC_PSPVA    :
+            case MCC_PSPTVA   :
+            case MCC_PSPNQSVA :
             case MCC_BSIM3V3  :
             case MCC_MPSP     :
             case MCC_MPSPB    :
             case MCC_EXTMOD   :
             case MCC_BSIM4    : // UP transition
-                                if ( mcc_getparam_quick(ptmodel,__MCC_QUICK_XPART) < 0.0)
-                                  return 1.0e-30;
-                                if (ptmodel->TYPE == MCC_NMOS) {
-                                  if ( vdsnull ) {
-                                   vdsi = 0.0;
-                                   vdsf = 0.0;
-                                  }
-                                  else {
-                                   vdsi = vdd;
-                                   //vdsf = MCC_VTN + vdd/2.0;
-                                   vdsf=vdsi;
-                                  }
                                    mcc_calcQint (technoname, transname,
                                                  transtype,transcase,L, W,
-                                                 temp, 0.0, vbs, vdsi,
-                                                 &Qinit, NULL, NULL, NULL,
-                                                 lotrsparam);
-                                   mcc_calcQint (technoname, transname,
-                                                 transtype,transcase,L, W,
-                                                 temp, vfinal, vbs, vdsf, 
-                                                 &Qfinal, NULL, NULL, NULL,
-                                                 lotrsparam);
-                                }
-                                else {
-                                  if ( vdsnull ) {
-                                   vdsi = 0.0;
-                                   vdsf = 0.0;
-                                  }
-                                  else {
-                                   vdsi = 0.0;
-                                   //vdsf = -MCC_VTP + vdd/2.0;
-                                   vdsf=vdsi;
-                                  }
-                                   mcc_calcQint (technoname, transname,
-                                                 transtype,transcase,L, W,
-                                                 temp, vdd, vbs, vdsi,
+                                                 temp, vddrv, vbs, vdsi,
                                                  &Qinit, NULL, NULL, NULL,
                                                  lotrsparam);
                                    mcc_calcQint (technoname, transname,
@@ -2968,7 +3072,6 @@ double mcc_calcCGSU (char *technoname, char *transname,
                                                  temp, vfinal, vbs, vdsf,
                                                  &Qfinal, NULL, NULL, NULL,
                                                  lotrsparam);
-                                }
                                 cgs = fabs((Qfinal-Qinit)/(vdd/2.0));
                                 break ;
             case MCC_MM9      :
@@ -3014,12 +3117,15 @@ void mcc_GetInputCapa ( char *technoname, char *transname,
                         elp_lotrs_param *lotrsparam, 
                         double *ptcgs, double *ptcgd, double *ptcgp)
 {
+  mcc_modellist *ptmodel ;
   double delta_vg;
   double vgs1,vgs2,vds1,vds2,vgd1,vgd2;
   double ptQg1,ptQd1,ptQg2,ptQd2;
-  double ptQov1,ptQov2;
+  double ptQov1=0.0,ptQov2=0.0;
   double cgp1,cgp2,cgs,cgp,cgd,vbs;
 
+  if(!(ptmodel = mcc_getmodel(technoname, transname, transtype, transcase, L, W, 0)))
+    avt_errmsg(MCC_ERRMSG, "012", AVT_ERROR, technoname);
   delta_vg = vg2-vg1;
   vgs1 = vg1-vs1;
   vgs2 = vg2-vs2;
@@ -3038,22 +3144,30 @@ void mcc_GetInputCapa ( char *technoname, char *transname,
     else
       vbs = 0.0;
     
+    switch ( ptmodel->MODELTYPE ) {
+      case MCC_PSPVA    :
+      case MCC_PSPTVA   :
+      case MCC_PSPNQSVA :
+        cgs = mcc_calcCGS_osdi( ptmodel, L, W, temp, vgs2, vgs1, vbs, vds2, vds1, lotrsparam); 
+        cgd = mcc_calcCGD_osdi( ptmodel, L, W, temp, vgs2, vgs1, vbs, vds2, vds1, lotrsparam); 
+        break;
+      defalut:
     // ===> initial charges
-    mcc_calcQint (technoname, transname,
-                  transtype, transcase, L, W, 
-                  temp, vgs1,vbs,vds1,
-                  &ptQg1,NULL, &ptQd1, NULL,
-                  lotrsparam);
-    
+        mcc_calcQint (technoname, transname,
+                 transtype, transcase, L, W, 
+                 temp, vgs1,vbs,vds1,
+                 &ptQg1,NULL, &ptQd1, NULL,
+                 lotrsparam);
     // ===> final charges
-    mcc_calcQint (technoname, transname,
-                  transtype, transcase, L, W, 
-                  temp, vgs2,vbs,vds2,
-                  &ptQg2,NULL, &ptQd2, NULL,
-                  lotrsparam);
-    
-    cgs = ( ptQg2-ptQg1 ) / delta_vg;
-    cgd = fabs (( ptQd2-ptQd1 ) / delta_vg );
+        mcc_calcQint (technoname, transname,
+                 transtype, transcase, L, W, 
+                 temp, vgs2,vbs,vds2,
+                 &ptQg2,NULL, &ptQd2, NULL,
+                 lotrsparam);
+        cgs = ( ptQg2-ptQg1 ) / delta_vg;
+        cgd = fabs (( ptQd2-ptQd1 ) / delta_vg );
+        break;
+    }
   }
   
   if ( ptcgp ) {
@@ -4277,6 +4391,9 @@ void mcc_check_capa_print( char trans,
   case MCC_BSIM4 :
     La_Wa = (L + mcc_calcDLC_bsim4 (ptmodel, lotrsparam, L, W)) *(W+mcc_calcDWC_bsim4 (ptmodel, lotrsparam, L, W));
     break ;
+  case MCC_PSPVA    :
+  case MCC_PSPTVA   :
+  case MCC_PSPNQSVA :
   case MCC_MPSP:
   case MCC_MPSPB    :
   case MCC_EXTMOD:
@@ -4401,6 +4518,14 @@ void mcc_check_capa_print( char trans,
                           &Qg, &Qs, &Qd, &Qb,
                           lotrsparam);
       break ;
+    case MCC_PSPVA    :
+    case MCC_PSPTVA   :
+    case MCC_PSPNQSVA :
+      mcc_calcQint_osdi (ptmodel, L, W,
+                        temp, vgs, vbs, vds,
+                        &Qg, &Qs, &Qd, &Qb,
+                        lotrsparam);
+      break ;
     case MCC_MPSP:
     case MCC_MPSPB:
       mcc_calcQint_psp (ptmodel, L, W,
@@ -4512,6 +4637,10 @@ void mcc_cleanmodel( mcc_modellist *model )
             case MCC_BSIM4    :
             case MCC_MM9      : 
             case MCC_MOS2     :
+                                break ;
+            case MCC_PSPVA    :
+            case MCC_PSPTVA   :
+            case MCC_PSPNQSVA : mcc_clean_osdi( model );
                                 break ;
             case MCC_MPSPB:
             case MCC_MPSP     : mcc_clean_psp( model );

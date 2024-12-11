@@ -30,6 +30,9 @@ char* mcc_getmccname( mcc_modellist *model )
     case MCC_MM9 :      pt = "mm9" ;      break ;
     case MCC_MPSP:      pt = "psp" ;      break ;
     case MCC_MPSPB:     pt = "pspb" ;     break ;
+    case MCC_PSPVA:     pt = "psp103va" ;    break ;
+    case MCC_PSPTVA:    pt = "psp103tva" ;   break ;
+    case MCC_PSPNQSVA:  pt = "pspnqs103va" ; break ;
     case MCC_EXTMOD:    pt = "ext" ;      break ;
     case MCC_BSIM4 :    
       sprintf( buf, "bs%d", mcc_ftoi(10.0*mcc_getparam_quick(model,__MCC_QUICK_VERSION)) );

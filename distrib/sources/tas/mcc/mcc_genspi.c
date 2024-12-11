@@ -3522,6 +3522,9 @@ int mcc_modeltype_known ( int modeltype )
     case MCC_BSIM4 :
     case MCC_MPSP :
     case MCC_MPSPB :
+    case MCC_PSPVA :
+    case MCC_PSPTVA :
+    case MCC_PSPNQSVA :
     case MCC_EXTMOD :
                      res = 1;
                      break;
@@ -3625,6 +3628,7 @@ elp_lotrs_param *lotrsparam;
 
       if ( lotrs ) {
         if(type == MCC_TRANS_N) {
+          lotrsparam_n->opt_param = lotrs->USER;
           if ( lotrs->SOURCE && getlosigalim (lotrs->SOURCE->SIG, &vsource))
             vbs = lotrsparam_n->VBULK - vsource;
           else if ( (power = cns_get_lotrs_multivoltage(lotrs))!=NULL) {
@@ -3638,6 +3642,7 @@ elp_lotrs_param *lotrsparam;
           if ((pt=getptype(lotrs->USER, TRANS_FIGURE))!=NULL) lotrsparam_n->SUBCKTNAME=(char *)pt->DATA;
         }
         else {
+          lotrsparam_p->opt_param = lotrs->USER;
           if ( lotrs->SOURCE && getlosigalim (lotrs->SOURCE->SIG, &vsource))
             vbs = lotrsparam_p->VBULK - vsource;
           else if ( cns_getlotrsalim (lotrs, 'M', &vsource))

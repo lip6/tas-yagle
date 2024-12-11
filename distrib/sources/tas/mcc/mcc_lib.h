@@ -57,10 +57,13 @@
 #define MCC_BSIM4       4
 #define MCC_MPSP        5   /* because MCC_PSP exists... */
 #define MCC_MPSPB       6   /* because MCC_PSP exists... */
-#define MCC_EXTMOD         7
+#define MCC_PSPVA       7   
+#define MCC_PSPTVA      8   
+#define MCC_PSPNQSVA    9   
+#define MCC_EXTMOD      10
 
-#define MCC_NB_MOD      8
-#define MCC_VALID_MOD   7
+#define MCC_NB_MOD      11
+#define MCC_VALID_MOD   10
 
 #define MCC_NAME_MOS2        "MOS2"
 #define MCC_NAME_BSIM3V3     "BSIM3V3"
@@ -69,6 +72,9 @@
 #define MCC_NAME_BSIM4       "BSIM4"
 #define MCC_NAME_MPSP        "PSP"
 #define MCC_NAME_MPSPB       "PSPB"
+#define MCC_NAME_PSPVA       "PSP103VA"
+#define MCC_NAME_PSPTVA      "PSP103TVA"
+#define MCC_NAME_PSPNQSVA    "PSPNQS103VA"
 #define MCC_NAME_CMI         "CMI"
 
 #define MCC_TABMOD_NAME   {MCC_NAME_MOS2,   \
@@ -78,6 +84,9 @@
                            MCC_NAME_BSIM4,  \
                            MCC_NAME_MPSP,   \
                            MCC_NAME_MPSPB   \
+                           MCC_NAME_PSPVA,   \
+                           MCC_NAME_PSPTVA,   \
+                           MCC_NAME_PSPNQSVA   \
                            }
 
 /* Les types des transistors */

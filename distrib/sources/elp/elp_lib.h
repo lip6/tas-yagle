@@ -400,6 +400,7 @@ typedef struct {
   double   VBS;
   char     ISVBSSET;
   chain_list *longkey;
+  ptype_list *opt_param;
   double   MCC_SAVED[__MCC_LAST_SAVED];
   char *SUBCKTNAME;
 } elp_lotrs_param;

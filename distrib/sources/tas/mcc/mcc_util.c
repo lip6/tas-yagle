@@ -861,10 +861,10 @@ elp_lotrs_param *lotrsparam_p;
     double vt ;
     double vbsn = lotrsparam_n->VBULK;
     double vbsp = lotrsparam_p->VBULK - MCC_VDDmax;
-    double vbx_d_n1 = lotrsparam_n->VBULK-MCC_VDDmax;
-    double vbx_d_n2 = lotrsparam_n->VBULK-MCC_VDDmax/2.0;
+    double vbx_d_n1 = lotrsparam_n->VBULK+MCC_VDDmax;
+    double vbx_d_n2 = lotrsparam_n->VBULK+MCC_VDDmax/2.0;
     double vbx_u_n1 = lotrsparam_n->VBULK;
-    double vbx_u_n2 = lotrsparam_n->VBULK-MCC_VDDmax/2.0;
+    double vbx_u_n2 = lotrsparam_n->VBULK+MCC_VDDmax/2.0;
 
     double vbx_d_p1 = lotrsparam_p->VBULK-MCC_VDDmax;
     double vbx_d_p2 = lotrsparam_p->VBULK-MCC_VDDmax/2.0;

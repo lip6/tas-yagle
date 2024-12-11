@@ -40,6 +40,8 @@
 #define RESINAME 300703
 #define MSL_CAPANAME 300704
 
+extern chain_list  *OSDI_HANDLE;
+
 #define TPARAM_L  1
 #define TPARAM_W  2
 #define TPARAM_AS 3
@@ -86,6 +88,7 @@ void mslRmvCompletion __P((          )); /* remove this function */
 void spi_addpreloadedlib __P(( char *insname, chain_list *loconlist ));
 
 void parsespice       __P(( char* ));
+void loadosdi         __P(( char* ));
 void spicesavelofigsinfile( chain_list *cl, FILE *df);
 void spicesavelofiginfile( lofig_list *ptfig, FILE *df, int driveincludes);
 

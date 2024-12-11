@@ -133,6 +133,8 @@ eqt_ctx *GLOBAL_CTX = NULL;
 extern eqt_param *MBK_GLOBALPARAMS;
 extern chain_list *MBK_GLOBALFUNC;
 
+chain_list* OSDI_HANDLE;
+
 #define KEEP__TRANSISTOR  0x1
 #define KEEP__RESISTANCE  0x2
 #define KEEP__INSTANCE  0x4
@@ -1962,7 +1964,7 @@ static int spi_parse_pwl (circuit * ptcir, char *aname, chain_list * ligne)
     return 0;
 }
 
-int spi_parse_voltage (circuit * ptcir, chain_list * ligne, spifile * df)
+int spi_parse_voltage (circuit * ptcir, chain_list * ligne, spifile * df, char *cond)
 {
     noeud *a, *b;
     char *vname, *a_name, *b_name, *expr=NULL;
@@ -2091,7 +2093,7 @@ int spi_parse_voltage (circuit * ptcir, chain_list * ligne, spifile * df)
 
 /******************************************************************************/
 
-int spi_parse_capa (circuit * ptcir, chain_list * ligne, spifile * df)
+int spi_parse_capa (circuit * ptcir, chain_list * ligne, spifile * df, char *cond)
 {
     float cnom = 0.0;
     char *capaname;
@@ -2142,6 +2144,7 @@ int spi_parse_capa (circuit * ptcir, chain_list * ligne, spifile * df)
     ptcapa->NODE1 = (long)a;
     ptcapa->NODE2 = (long)b;
     ptcapa->USER = NULL;
+    ptcapa->COND = cond;
 
     if (elem->NEXT == NULL)
         avt_errmsg (SPI_ERRMSG, "013", AVT_FATAL, df->filename, df->linenum);
@@ -2264,7 +2267,7 @@ void spi_rename_instance_model (circuit * ptcir, chain_list *list)
 }
 
 int spi_parse_instance (circuit * ptcir, chain_list * ligne, spifile * df, float com_x, float com_y,
-                        int Tx, int Ty, int R, int A)
+                        int Tx, int Ty, int R, int A, char *cond)
 {
     inst *ptinst, *scaninst;
     int i, nbelem;
@@ -2408,7 +2411,7 @@ static void spi_short_circuit (circuit * ptcir, noeud * a, noeud * b)
 
 
 /******************************************************************************/
-int spi_parse_induc (circuit * ptcir, chain_list * ligne, spifile * df)
+int spi_parse_induc (circuit * ptcir, chain_list * ligne, spifile * df, char *cond)
 {
     noeud *a, *b;
     chain_list *elem;
@@ -2432,7 +2435,7 @@ int spi_parse_induc (circuit * ptcir, chain_list * ligne, spifile * df)
     return 0;
 }
 
-int spi_parse_wire (circuit * ptcir, chain_list * ligne, spifile * df)
+int spi_parse_wire (circuit * ptcir, chain_list * ligne, spifile * df, char *cond)
 {
     float rnom = 0.0, tc1 = 0.0, tc2 = 0.0;
     lowire_list *ptresi, *scanresi;
@@ -2480,6 +2483,7 @@ int spi_parse_wire (circuit * ptcir, chain_list * ligne, spifile * df)
 
     ptresi->NODE1 = (long)a;
     ptresi->NODE2 = (long)b;
+    ptresi->COND  = cond;
 
     if (elem->NEXT == NULL)
         avt_errmsg (SPI_ERRMSG, "013", AVT_FATAL, df->filename, df->linenum);
@@ -2582,7 +2586,7 @@ int spi_parse_wire (circuit * ptcir, chain_list * ligne, spifile * df)
 }
 
 /******************************************************************************/
-int spi_parse_connect (circuit * ptcir, chain_list * ligne, spifile * df)
+int spi_parse_connect (circuit * ptcir, chain_list * ligne, spifile * df, char *cond)
 {
     lowire_list *ptresi;
     noeud *a, *b;
@@ -2615,6 +2619,8 @@ int spi_parse_connect (circuit * ptcir, chain_list * ligne, spifile * df)
     ptresi->RESI = 0;
     ptresi->CAPA = 0.0;
 
+    ptresi->COND = cond;
+
     if (elem->NEXT!=NULL)
       avt_errmsg (SPI_ERRMSG, "014", AVT_FATAL, df->filename, df->linenum);
 
@@ -2629,7 +2635,7 @@ int spi_parse_connect (circuit * ptcir, chain_list * ligne, spifile * df)
 
 /******************************************************************************/
 
-int spi_parse_transistor (circuit * ptcir, chain_list * ligne, spifile * df, float com_x, float com_y)
+int spi_parse_transistor (circuit * ptcir, chain_list * ligne, spifile * df, float com_x, float com_y, char *cond)
 {
     char *tmp_name;
     char *ins;
@@ -2642,6 +2648,7 @@ int spi_parse_transistor (circuit * ptcir, chain_list * ligne, spifile * df, flo
     pttrans = (lotrs_list *) mbkalloc (sizeof (lotrs_list));
     pttrans->TRNAME = NULL;
     pttrans->USER = NULL;
+    pttrans->COND = cond;
 
     if (*((char *)(ligne->DATA) + 1) == 0 && (SPICE_KEEP_CARDS & KEEP__TRANSISTOR)==0)
         avt_errmsg (SPI_ERRMSG, "025", AVT_WARNING, df->filename, df->linenum);
@@ -2781,7 +2788,7 @@ int spi_parse_transistor (circuit * ptcir, chain_list * ligne, spifile * df, flo
 
 /******************************************************************************/
 
-int spi_parse_jfet (circuit * ptcir, chain_list * ligne, spifile * df, float com_x, float com_y)
+int spi_parse_jfet (circuit * ptcir, chain_list * ligne, spifile * df, float com_x, float com_y, char *cond)
 {
     char *tmp_name;
     char *ins;
@@ -2799,6 +2806,7 @@ int spi_parse_jfet (circuit * ptcir, chain_list * ligne, spifile * df, float com
         pttrans = (lotrs_list *) mbkalloc (sizeof (lotrs_list));
         pttrans->TRNAME = NULL;
         pttrans->USER = NULL;
+        pttrans->COND = cond;
     }
 
     if (*((char *)(ligne->DATA) + 1) == 0 && (SPICE_KEEP_CARDS & KEEP__RESISTANCE) == 0)
@@ -2937,7 +2945,7 @@ int spi_parse_jfet (circuit * ptcir, chain_list * ligne, spifile * df, float com
 
 /******************************************************************************/
 
-int spi_parse_diode (circuit * ptcir, chain_list * ligne, spifile * df, float com_x, float com_y)
+int spi_parse_diode (circuit * ptcir, chain_list * ligne, spifile * df, float com_x, float com_y, char *cond)
 {
     chain_list *elem, *elem1, *elem2;
     diode *ptdiode, *scandiode;
@@ -2958,6 +2966,7 @@ int spi_parse_diode (circuit * ptcir, chain_list * ligne, spifile * df, float co
             ptdiode++;
         }
         ptdiode->SUIV = NULL;
+        ptdiode->COND = cond;
     }
 
     if ((SPICE_KEEP_NAMES & KEEP__DIODE) == KEEP__DIODE) {
@@ -3378,6 +3387,33 @@ int spi_parse_model (circuit * ptcir, chain_list * ligne, spifile * df)
       TPMOS = addchain (TPMOS, modname);
       if (df->encrypted) CRYPTMOS = addchain (CRYPTMOS, modname);
   }
+  else if (strncasecmp (typestr, "psp", 3) == 0) {
+    elem1 = elem->NEXT;
+    if (!elem1)
+      avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+    if (strncasecmp ((char*)elem1->DATA, "type", 4) == 0) {
+      elem1 = elem1->NEXT;
+      if (!elem1)
+        avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+      if (((char*)elem1->DATA)[0] == '=') {
+        elem1 = elem1->NEXT;
+        if (!elem1)
+          avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+        if (atoi((char*)elem1->DATA) > 0 ) {
+          modtype = MCC_NMOS;
+          if (!mbk_istransn (modname))
+            TNMOS = addchain (TNMOS, modname);
+            if (df->encrypted) CRYPTMOS = addchain (CRYPTMOS, modname);
+        }
+        if (atoi((char*)elem1->DATA) < 0 ) {
+          modtype = MCC_PMOS;
+          if (!mbk_istransp (modname))
+            TPMOS = addchain (TPMOS, modname);
+            if (df->encrypted) CRYPTMOS = addchain (CRYPTMOS, modname);
+        }
+      }
+    }
+  }
   //else if (strcasecmp(typestr, "d") == 0) {
   else if (tolower(typestr[0])=='d') {
     if (!mbk_isdioden (modname) && !mbk_isdiodep (modname))
@@ -3450,6 +3486,9 @@ int spi_parse_model (circuit * ptcir, chain_list * ligne, spifile * df)
   }
 
   if (ptmodel) {
+    if( typestr && (strncasecmp( typestr, "psp", 3 ) == 0 ))
+      modeltype = mcc_get_modeltype (ptmodel,typestr);
+    else
     if( typestr && strlen( typestr ) > 4 )
       modeltype = mcc_get_modeltype (ptmodel,typestr+4);
     else
@@ -3510,6 +3549,27 @@ int spi_parse_model_montecarlo (circuit * ptcir, chain_list * ligne, spifile * d
   }
   else if (strncasecmp (typestr, "pmos", 4) == 0) {
     modtype = MCC_PMOS;
+  }
+  else if (strncasecmp (typestr, "psp", 3) == 0) {
+    elem = elem->NEXT;
+    if (!elem)
+      avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+    if (strncasecmp ((char*)elem->DATA, "type", 4) == 0) {
+      elem = elem->NEXT;
+      if (!elem)
+        avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+      if (((char*)elem->DATA)[0] == '=') {
+        elem = elem->NEXT;
+        if (!elem)
+          avt_errmsg (SPI_ERRMSG, "067", AVT_FATAL, df->filename, df->linenum);
+        if (atoi((char*)elem->DATA) > 0 ) {
+          modtype = MCC_NMOS;
+        }
+        if (atoi((char*)elem->DATA) < 0 ) {
+          modtype = MCC_PMOS;
+        }
+      }
+    }
   }
   //else if (strcasecmp(typestr, "d") == 0) {
   else if (tolower(typestr[0])=='d') {
@@ -4305,6 +4365,74 @@ int spi_parse_scale (circuit * ptcir, chain_list * ligne, spifile * df)
     return ret;
 }
 
+char *spi_parse_if_logand (char * condition1, char * condition2 ) {
+    char * result;
+    if ( !condition1 || !condition2 ) return NULL;
+    int len1 = strlen(condition1);
+    int len2 = strlen(condition2);
+    result = (char*)mbkalloc(len1+len2+8);
+    sprintf(result, "((%s)&&(%s))", condition1, condition2);
+    return result;
+}
+
+char *spi_parse_if_negate (char * condition ) {
+    char * negation;
+    if ( !condition ) return NULL;
+    int len = strlen(condition);
+    negation = (char*)mbkalloc(len+5);
+    sprintf(negation, "(!(%s))", condition);
+    return negation;
+}
+
+char *spi_parse_if_exp (chain_list *cond) {
+   char *cur_cond=NULL;
+   if(cond) {
+      cur_cond = ((struct spi_if_struct *)(cond->DATA))->if_expr;
+      while (cond->NEXT) {
+        cur_cond = spi_parse_if_logand (cur_cond, ((struct spi_if_struct*)(cond->NEXT->DATA))->if_expr);
+        cond = cond->NEXT;
+      }
+   }
+   return cur_cond;
+}
+   
+
+int spi_parse_if (circuit * ptcir, chain_list *ligne, eqt_ctx * ctx, spifile * df, char **reg_expr , chain_list **linestart, int *ifactivate) {
+
+    chain_list *elem, *elem1, *elem2;
+    double valeur;
+    char *paramname;
+    char *paramexpr;
+    char *expr=NULL;
+    int  exprlen=0;
+
+    *linestart = NULL;
+
+    elem = ligne->NEXT;
+    while (elem) {
+        int curlen = strlen((char*)elem->DATA);
+        expr = (char*)mbkrealloc(expr,exprlen+curlen);
+        strcpy(&expr[exprlen], (char*)elem->DATA);
+        elem = elem->NEXT;
+        exprlen += curlen;
+    }
+    if(expr) {
+        valeur = spi_eval (ptcir?ptcir->sf:NULL, GLOBAL_CTX, expr, &paramexpr, ptcir!=NULL?1:0,0);
+        if (!eqt_resistrue (GLOBAL_CTX)) {
+            *reg_expr = paramexpr;
+        }
+        else
+        {
+                  if (!finite(valeur))
+                     avt_errmsg (SPI_ERRMSG, "076", AVT_ERROR, df->filename, df->linenum, paramname, paramexpr?paramexpr:"?", " : returned NaN or Inf");
+                  *ifactivate = valeur;
+        }
+   }
+    freechain(ligne);
+    return 1;
+    ptcir=NULL;
+}
+
 /******************************************************************************/
 
 circuit *lirecircuit (fifodf, ALLINTERF, topfig, ptactivate, globalinfo)
@@ -4325,6 +4453,8 @@ spi_load_global *globalinfo;
     char *ptname;
 //    int         blackboxed;
 //    chain_list *ptcir_stack=NULL;
+    chain_list *ifelse_stack=NULL;
+    int ifactivate = 1;
 
 #ifdef ENABLE_STATS
     long df_time = time (NULL);
@@ -4391,6 +4521,60 @@ spi_load_global *globalinfo;
                 freechain (ligne);
                 continue;
             }
+            else if (strcasecmp ((char *)(ligne->DATA), ".IF")==0) {
+               struct spi_if_struct *curr;
+               chain_list *prev = ifelse_stack;
+               curr = (struct spi_if_struct*)calloc(sizeof(struct spi_if_struct),1);
+               ifelse_stack=(chain_list*)calloc(sizeof(chain_list),1);
+               ifelse_stack->NEXT=prev;
+               ifelse_stack->DATA=(void*)curr;
+               if( ifactivate ) {
+                 spi_parse_if (ptcir,ligne, ptcir->CTX, df, &(curr->if_expr), &ligne, &ifactivate);
+                 curr->else_expr = spi_parse_if_negate(curr->if_expr);
+                 curr->ifactivate = ifactivate;
+                 if (curr->if_expr)
+                    curr->elseactivate = 1 ;
+                 else
+                    curr->elseactivate = 1 - ifactivate;
+               }
+            }
+            else if (strcasecmp ((char *)(ligne->DATA), ".ELIF")==0) {
+               if ( ifelse_stack ) {
+                   char *elif_cond;
+                   struct spi_if_struct *curr = (struct spi_if_struct*)ifelse_stack->DATA;
+                   if ( curr->elseactivate) {
+                      spi_parse_if (ptcir,ligne, ptcir->CTX, df, &elif_cond, &ligne, &ifactivate);
+                      curr->if_expr = spi_parse_if_logand(elif_cond, curr->else_expr);
+                      curr->else_expr = spi_parse_if_logand(spi_parse_if_negate(elif_cond), curr->else_expr);
+                      curr->elseactivate = 1 - ifactivate;
+                   }
+               }
+            }
+            else if (strcasecmp ((char *)(ligne->DATA), ".ELSE")==0) {
+               if ( ifelse_stack ) {
+                   struct spi_if_struct *curr = (struct spi_if_struct*)ifelse_stack->DATA;
+                   ifactivate = ((struct spi_if_struct*)ifelse_stack->DATA)->elseactivate;
+                   ((struct spi_if_struct*)ifelse_stack->DATA)->elseactivate = 0;
+                   curr->if_expr = mbkstrdup(curr->else_expr);
+               }
+            }
+            else if (strcasecmp ((char *)(ligne->DATA), ".ENDIF")==0) {
+               if ( ifelse_stack ) {
+                  chain_list *tmp=ifelse_stack;
+                  struct spi_if_struct *curr = (struct spi_if_struct*)ifelse_stack->DATA;
+                  ifelse_stack = ifelse_stack->NEXT;
+                  mbkfree(curr);
+                  mbkfree(tmp);
+                  if ( ifelse_stack )
+                    ifactivate = ((struct spi_if_struct*)ifelse_stack->DATA)->ifactivate;
+                  else
+                    ifactivate = 1;
+               }
+            }
+            else if (ifactivate == 0) {
+                freechain (ligne);
+                continue;
+            }
             else if (!V_BOOL_TAB[__MBK_SPI_IGNORE_CRYPT].VALUE && strncasecmp ((char *)(ligne->DATA), ".PROT", 5)==0) {
                 df->encryptedlines = 0;
                 avt_set_encrypted_mode(1);
@@ -4419,7 +4603,7 @@ spi_load_global *globalinfo;
                 else if (*((char *)(ligne->DATA)) == '*') {
                   if (V_BOOL_TAB[__AVT_ENABLE_STAT].VALUE) spi_parse_comment (ptcir, &(df->lines[0]), df, TRUE);
                 }
-                else if (strcasecmp ((char *)ligne->DATA, ".PARAM") == 0) {
+                else if (strcasecmp ((char *)ligne->DATA, ".PARAM") == 0 || strcasecmp((char *)ligne->DATA, ".PARAMETERS") == 0) {
                   if (V_BOOL_TAB[__AVT_ENABLE_STAT].VALUE) spi_parse_param_or_dist_montecarlo(ptcir, ligne, df, 0);
                 }
                 else if (strcasecmp ((char *)ligne->DATA, ".DIST") == 0) {
@@ -4470,7 +4654,7 @@ spi_load_global *globalinfo;
                 ptname = (char *)elem->DATA;
                 spi_include_file(ptname, fifodf, &df);
             }
-            else if (strcasecmp ((char *)ligne->DATA, ".PARAM") == 0) {
+            else if (strcasecmp ((char *)ligne->DATA, ".PARAM") == 0 || strcasecmp((char *)ligne->DATA, ".PARAMETERS") == 0) {
                 if (!ptcir)
                     spi_parse_param (ptcir,ligne, GLOBAL_CTX, df, NULL,&ligne);
                 else {
@@ -4490,63 +4674,70 @@ spi_load_global *globalinfo;
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
                 }
-                spi_parse_transistor (ptcir, ligne, df, com_x, com_y);
+                spi_parse_transistor (ptcir, ligne, df, com_x, com_y, spi_parse_if_exp(ifelse_stack));
+            }
+            else if (strchr ("Nn", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
+                if (usetopcir) {
+                    ptcir = SPI_TOPCIR;
+                    ptcir->sf = df;
+                }
+                spi_parse_transistor (ptcir, ligne, df, com_x, com_y, spi_parse_if_exp(ifelse_stack));
             }
             else if (strchr ("Jj", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
                 if (usetopcir) {
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
                 }
-                spi_parse_jfet (ptcir, ligne, df, com_x, com_y);
+                spi_parse_jfet (ptcir, ligne, df, com_x, com_y, spi_parse_if_exp(ifelse_stack));
             }
             else if (strchr ("Dd", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
                 if (usetopcir) {
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
                 }
-                spi_parse_diode (ptcir, ligne, df, com_x, com_y);
+                spi_parse_diode (ptcir, ligne, df, com_x, com_y, spi_parse_if_exp(ifelse_stack));
             }
             else if (strcasecmp ((char *)ligne->DATA, ".CONNECT") == 0 && (ptcir || usetopcir)) {
                 if (usetopcir) {
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
                 }
-                spi_parse_connect (ptcir, ligne, df);
+                spi_parse_connect (ptcir, ligne, df, spi_parse_if_exp(ifelse_stack));
             }
             else if (strchr ("Rr", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
                 if (usetopcir) {
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
                 }
-                spi_parse_wire (ptcir, ligne, df);
+                spi_parse_wire (ptcir, ligne, df, spi_parse_if_exp(ifelse_stack));
             }
             else if (strchr ("Ll", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
                 if (usetopcir) {
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
                 }
-                spi_parse_induc (ptcir, ligne, df);
+                spi_parse_induc (ptcir, ligne, df, spi_parse_if_exp(ifelse_stack));
             }
             else if (strchr ("Cc", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
                 if (usetopcir) {
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
                 }
-                spi_parse_capa (ptcir, ligne, df);
+                spi_parse_capa (ptcir, ligne, df, spi_parse_if_exp(ifelse_stack));
             }
             else if (strchr ("Vv", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
                 if (usetopcir) {
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
                 }
-                spi_parse_voltage (ptcir, ligne, df);
+                spi_parse_voltage (ptcir, ligne, df, spi_parse_if_exp(ifelse_stack));
             }
             else if (strchr ("Xx", *((char *)ligne->DATA)) && (ptcir || usetopcir)) {
                 if (usetopcir) {
                     ptcir = SPI_TOPCIR;
                     ptcir->sf = df;
                 }
-                spi_parse_instance (ptcir, ligne, df, com_x, com_y, Tx, Ty, R, A);
+                spi_parse_instance (ptcir, ligne, df, com_x, com_y, Tx, Ty, R, A, spi_parse_if_exp(ifelse_stack));
             }
             else if (*(char *)ligne->DATA == '.') {
                 if (strcasecmp ((char *)ligne->DATA, ".option") == 0
@@ -4584,6 +4775,12 @@ spi_load_global *globalinfo;
                         ptcir->sf = df;
                     }
                     spi_parse_func (ptcir, ligne->NEXT, df);
+                }
+                else {
+                    avt_log(LOGSPI, 1, "Ignored: ");
+                    log_decompligne (df, 0, 1);
+                    avt_log(LOGSPI, 1, "\t(file '%s', line %d)\n", df->filename, df->linenum);
+                    if (df->encrypted) df->encryptedlines--;
                 }
 
             }

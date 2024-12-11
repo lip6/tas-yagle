@@ -135,6 +135,7 @@ long           X,Y;                            /* transistor coordinates      */
 short          MODINDEX;                       /* index of model              */
 char           TYPE;                           /* transistor type             */
 char           FLAGS;                          /* user flags                  */
+char          *COND;                           /* condition for elaboration   */
 ptype_list  *USER;                           /* application specific        */
 }
 lotrs_list;

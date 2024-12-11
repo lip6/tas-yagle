@@ -23,9 +23,12 @@ int cmpmccelptechno( int techmcc, int techelp )
       ( techmcc == MCC_BSIM3V3 && techelp == elpBSIM3V3 ) ||
       ( techmcc == MCC_MM9     && techelp == elpMM9     ) ||
       ( techmcc == MCC_BSIM4   && techelp == elpBSIM4   ) ||
-      ( techmcc == MCC_EXTMOD  && techelp == elpEXTMOD     ) ||
+      ( techmcc == MCC_EXTMOD  && techelp == elpEXTMOD  ) ||
       ( techmcc == MCC_MPSP    && techelp == elpPSP     ) ||
-      ( techmcc == MCC_MPSPB   && techelp == elpPSP     )    )
+      ( techmcc == MCC_MPSPB   && techelp == elpPSP     ) ||
+      ( techmcc == MCC_PSPVA   && techelp == elpPSP     ) ||
+      ( techmcc == MCC_PSPTVA  && techelp == elpPSP     ) ||
+      ( techmcc == MCC_PSPNQSVA && techelp == elpPSP    )    )
     return 1 ;
   return 0 ;
 }
@@ -39,7 +42,10 @@ int mcctechnotoelptechno( int techmcc )
   case MCC_MM9 :        r = elpMM9 ; break ;
   case MCC_BSIM4 :      r = elpBSIM4 ; break ;
   case MCC_MPSP :
-  case MCC_MPSPB :      r = elpPSP ; break ;
+  case MCC_MPSPB :
+  case MCC_PSPVA :
+  case MCC_PSPTVA :
+  case MCC_PSPNQSVA :   r = elpPSP ; break ;
   case MCC_EXTMOD :     r = elpEXTMOD ; break ;
   default :             r = elpNoTechno ;
   }

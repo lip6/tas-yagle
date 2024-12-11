@@ -990,7 +990,7 @@ double eqt_calcval_rec (eqt_ctx *ctx, eqt_node *node)
     switch (op=(Operator(node) & 0xff))
     {
       case EQTNOT :
-           return  (double)(!(int)eqt_calcval_rec(ctx, Oper(node)) + 0.5);
+           return  (double)(!(int)(eqt_calcval_rec(ctx, Oper(node)) + 0.5));
       case EQTMIN :
            return  -eqt_calcval_rec(ctx, Oper(node));
       case EQTSQRT :

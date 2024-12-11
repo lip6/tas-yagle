@@ -243,6 +243,7 @@ typedef struct circuit
     short countI;
     char **pNameI;
     char *name;
+    char *COND;
   }
  *pCircuit;
 

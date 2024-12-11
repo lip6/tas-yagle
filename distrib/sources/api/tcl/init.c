@@ -86,6 +86,8 @@ elTclAppInit(ElTclInterpInfo *iinfo)
    Tcl_IncrRefCount(iinfo->matchesName);
    iinfo->promptString = NULL;
    iinfo->preReadSz = 0;
+   iinfo->gotPartial = 0;
+   iinfo->command = NULL;
 
    if (elTclHandlersInit(iinfo) != TCL_OK) {
       fputs("warning: signal facility not created\n", stdout);
@@ -198,7 +200,7 @@ elTclPrompt(EditLine *el)
 	 strncat(buf, " > ", sizeof(buf));
 	 prompt = buf;
       } else
-	 prompt = "» ";
+	 prompt = ": ";
 
    } else {
       code = Tcl_EvalObj(iinfo->interp, promptCmdPtr);
