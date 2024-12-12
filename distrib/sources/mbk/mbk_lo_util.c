@@ -588,6 +588,7 @@ static void flatten_eval_montecarlo(eqt_ctx *evalctx, eqt_ctx *origctx, char *su
 
 int  lotrs_cond_check(char* cond, eqt_ctx *ctx) {
    double value;
+   if( !cond ) return 1;
    value = eqt_eval(ctx, cond, EQTNORMAL );
    if (!eqt_resistrue(ctx))
         {
