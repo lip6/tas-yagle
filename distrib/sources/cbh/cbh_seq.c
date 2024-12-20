@@ -34,6 +34,32 @@ static pNode    cbh_evalbereg(pCircuit ptcircuit, bereg_list * ptbereg, ht * val
 static pNode    cbh_evalbeout(pCircuit ptcircuit, beout_list * ptbeout, ht * valht);
 static pNode    cbh_bddeval(pNode ptbdd, ht * valht);
 
+int cbh_detectEdge(chain_list * CNDABL) {
+  chain_list *COND;
+  int oper;
+  if (!CNDABL) return 0;
+  COND = CNDABL;
+  if (ATOM (COND) ) return 0;
+  oper = OPER (COND);
+  switch (oper) {
+  case AND:
+  case NAND:
+  case OR:
+  case NOR:
+     int res = 0;
+     while (COND=CDR(COND)) res |= cbh_detectEdge(CAR (COND) );
+     return res;
+  break;
+  case NOT:
+     if(ATOM(CADR(COND))) return 0;
+     else if( OPER(CADR(COND)) == STABLE) return 1;
+     else return cbh_detectEdge( CAR (COND) );
+  default:
+     return 0;
+  }
+
+}
+
 /****************************************************************************/
 /*                cbh_getseqfunc                                            */
 /****************************************************************************/
@@ -64,7 +90,7 @@ cbh_getseqfunc(befig_list * ptcellbefig, int mode)
 
     if (ptcellbefig->BEREG != NULL) {
         ptcbhseq = cbh_newseq();
-        if (ptcellbefig->BEREG->NEXT != NULL) {
+        if (ptcellbefig->BEREG->NEXT != NULL || cbh_detectEdge(ptcellbefig->BEREG->BIABL->CNDABL) ) {
             cbh_flipflop(ptcellbefig, ptcbhseq, mode);
         }
         else {
@@ -429,6 +455,25 @@ cbh_compare(cbh_pair * pair1, cbh_pair * pair2)
         return 0;
 }
 
+pNode cbh_getCondition(pNode expr, int set) {
+  int index;
+  pNode high, low;
+  if(expr->index == 0) return BDD_zero;
+  if(expr->index == 1) return BDD_one;
+  if(expr->high->index < 2 && expr->low->index < 2) return NULL;
+  switch (set) {
+      case 0:
+        high  = BDD_zero;
+        low   = BDD_one;
+      case 1:
+        high  = BDD_one;
+        low   = BDD_zero;
+  }
+  if(expr->high->index == set) return initVertexBdd(expr->index, high, low);
+  if(expr->low->index  == set) return initVertexBdd(expr->index, low, high);
+  return NULL;
+}
+
 static void
 cbh_flipflop(befig_list * ptcellbefig, cbhseq * ptcbhseq, int mode)
 {
@@ -457,7 +502,7 @@ cbh_flipflop(befig_list * ptcellbefig, cbhseq * ptcbhseq, int mode)
     ht             *valht;
     long            htres;
     char            val;
-    int             polarity, num, numhz;
+    int             polarity, slavepolarity, num, numhz;
     short           index;
     char            buffer[256];
 
@@ -499,6 +544,11 @@ cbh_flipflop(befig_list * ptcellbefig, cbhseq * ptcbhseq, int mode)
                 ptdata = ptval;
                 ptclock = ptcond;
                 ptdataexpr = ptbiabl->VALABL;
+                ptreset = cbh_getCondition(ptval, 0);
+                ptset   = cbh_getCondition(ptval, 1);
+            }
+            if ((ptdata == ptval) && (ptclock == ptcond)) {
+                continue;
             }
             else {
                 ptcbhseq->SEQTYPE = CBH_UNKNOWN;
@@ -580,6 +630,11 @@ cbh_flipflop(befig_list * ptcellbefig, cbhseq * ptcbhseq, int mode)
                 ptslavedata = ptval;
                 ptslaveclock = ptcond;
                 ptslavedataexpr = ptbiabl->VALABL;
+                ptslavereset = cbh_getCondition(ptval, 0);
+                ptslaveset   = cbh_getCondition(ptval, 1);
+            }
+            if ((ptslavedata == ptval) && (ptslaveclock == ptcond)) {
+                continue;
             }
             else {
                 ptcbhseq->SEQTYPE = CBH_UNKNOWN;
@@ -654,10 +709,13 @@ cbh_flipflop(befig_list * ptcellbefig, cbhseq * ptcbhseq, int mode)
         ptdatainputs = supportChain_listExpr(ptdataexpr);
     }
     for (ptbeout = ptcellbefig->BEOUT; ptbeout; ptbeout = ptbeout->NEXT) {
+        chain_list *slaveff=NULL;
+        slaveff = addchain(slaveff, ptslave->NAME);
         ptnode = ablToBddCct(pC, ptbeout->ABL);
         addOutputCct(pC, ptbeout->NAME, ptnode);
         if (ptdata != NULL && ptslavedata != NULL) {
             ptdepend = composeBdd(ptnode, ptslavedata, searchInputCct(pC, ptslave->NAME));
+            slavepolarity = cbh_calcpolarity(pC, ptnode, slaveff);
             ptdepend = composeBdd(ptdepend, ptdata, searchInputCct(pC, ptmaster->NAME));
             polarity = cbh_calcpolarity(pC, ptdepend, ptdatainputs);
         }
@@ -903,8 +961,18 @@ cbh_flipflop(befig_list * ptcellbefig, cbhseq * ptcbhseq, int mode)
             ptcbhseq->DATA = bddToAblCct(pC, notBdd(ptdata));
         if (ptset != NULL)
             ptcbhseq->RESET = bddToAblCct(pC, ptset);
+        else if (ptslaveset != NULL)
+            if (slavepolarity == CBH_INVERT)
+               ptcbhseq->SET = bddToAblCct(pC, ptslaveset);
+            else
+               ptcbhseq->RESET = bddToAblCct(pC, ptslaveset);
         if (ptreset != NULL)
             ptcbhseq->SET = bddToAblCct(pC, ptreset);
+        else if (ptslavereset != NULL)
+            if (slavepolarity == CBH_INVERT)
+               ptcbhseq->RESET = bddToAblCct(pC, ptslavereset);
+            else
+               ptcbhseq->SET = bddToAblCct(pC, ptslavereset);
     }
     else if (ptcbhseq->POLARITY == CBH_NONINVERT) {
         if (ptslaveclock != notBdd(ptclock)) {
@@ -917,9 +985,19 @@ cbh_flipflop(befig_list * ptcellbefig, cbhseq * ptcbhseq, int mode)
         if (ptdata != NULL)
             ptcbhseq->DATA = bddToAblCct(pC, ptdata);
         if (ptreset != NULL)
-            ptcbhseq->RESET = bddToAblCct(pC, ptreset);
+            if (slavepolarity == CBH_INVERT)
+               ptcbhseq->SET = bddToAblCct(pC, ptslavereset);
+            else
+               ptcbhseq->RESET = bddToAblCct(pC, ptslavereset);
+        else if (ptslavereset != NULL)
+            ptcbhseq->RESET = bddToAblCct(pC, ptslavereset);
         if (ptset != NULL)
             ptcbhseq->SET = bddToAblCct(pC, ptset);
+        else if (ptslaveset != NULL)
+            if (slavepolarity == CBH_INVERT)
+               ptcbhseq->RESET = bddToAblCct(pC, ptslaveset);
+            else
+               ptcbhseq->SET = bddToAblCct(pC, ptslaveset);
     }
     else ptcbhseq->SEQTYPE = CBH_UNKNOWN;
 
