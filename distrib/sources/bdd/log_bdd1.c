@@ -651,6 +651,7 @@ ablToBddCct (pC, expr)
   else
     {
       oper = OPER (expr);
+      if (oper == STABLE) return (BDD_zero);
       lstGdb = NULL;
       while ((expr = CDR (expr)))
         lstGdb = addListBdd (lstGdb, ablToBddCct (pC, CAR (expr)));
