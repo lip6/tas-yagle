@@ -243,8 +243,9 @@ void osdi_loadinstanceparameter( osdi_trs             *ptr,
   }
   if( lotrsparam->opt_param ) {
     char *key;
-    for(
-       optparam_list *optparams = getptype(lotrsparam->opt_param, OPT_PARAMS)->DATA;
+    ptype_list *cl = getptype(lotrsparam->opt_param, OPT_PARAMS);
+    if (cl) for(
+       optparam_list *optparams = cl->DATA;
        optparams; optparams = optparams->NEXT) {
        if(isknowntrsparam(optparams->UNAME.STANDARD)) continue;
        key = strdup(optparams->UNAME.SPECIAL);
@@ -680,7 +681,7 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
   // we assume that the non_collapsed_node is only GP
   uint32_t *node_mapping = 
        (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
-  int niter = 1000; // max iteration to find vgp
+  int niter = 10000; // max iteration to find vgp
   double epsilon = 1.0e-12; // convergence threshold.
   do { // Gauss iteration to find the voltage of GP
     ptr->simdata.flags = CALC_REACT_RESIDUAL | CALC_RESIST_RESIDUAL | CALC_OP |
@@ -762,7 +763,7 @@ void mcc_clean_osdi_interface( mcc_modellist *mccmodel, int check )
   ptl = getptype( mccmodel->USER, OSDICACHEINSTANCE );
   if( ptl ) {
     if( check )
-      printf( "warning : non empty instance cache.\n" );
+      avt_log( LOGMCC,2, "non empty instance cache.[%s]\n", mccmodel->NAME );
     freeosdiparam( (osdimodelparam*)ptl->DATA );
     mccmodel->USER = delptype( mccmodel->USER, OSDICACHEINSTANCE );
   }
@@ -770,7 +771,7 @@ void mcc_clean_osdi_interface( mcc_modellist *mccmodel, int check )
   ptl = getptype( mccmodel->USER, OSDICACHETRS );
   if( ptl ) {
     if( check )
-      printf( "warning : non empty model cache.\n" );
+      avt_log( LOGMCC,2, "non empty model cache.[%s]\n", mccmodel->NAME );
     cache = (osdicachemodel*)ptl->DATA ;
     mbkfree( cache->mdata );
     mbkfree( cache->idata );

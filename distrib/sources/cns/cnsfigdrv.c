@@ -511,6 +511,11 @@ savecnslofig(ptcnsfig, ptlofig, complete)
            for (i = 0; i < from->NUMBER; i++)
              fprintf(ptfile, " %s=%g", from->EBI[i].NAME, from->EBI[i].VAL);
         }
+        else if ((ptptype = getptype(ptlotrs->USER, TRANS_FIGURE)) != NULL) {
+           char *subcktname;
+           subcktname=mbk_get_subckt_name(ptlotrs);
+           fprintf(ptfile, " %s", subcktname!=NULL?subcktname:"");
+        }
         fprintf(ptfile, ")");
         fprintf(ptfile, ")");
     }
