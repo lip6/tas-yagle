@@ -4190,6 +4190,7 @@ elp_lotrs_param *elp_lotrs_param_alloc ( void )
   int i;
 
   ptlotrs_param = (elp_lotrs_param*) mbkalloc (sizeof (elp_lotrs_param));
+  ptlotrs_param->opt_param = NULL;
 
   for (i = 0 ; i < elpPARAMNUM ; i++)
     ptlotrs_param->PARAM[i] = ELPINITVALUE;
