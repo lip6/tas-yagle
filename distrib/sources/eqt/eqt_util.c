@@ -3806,7 +3806,7 @@ void eqt_add_spice_extension(eqt_ctx *ctx)
    eqt_addfunction2(ctx, "max",&dmax) ;
    eqt_addfunction2(ctx, "min",&dmin) ;
    eqt_addfunction2(ctx, "sum",&sum) ;
-//   eqt_addfunction2(ctx, "v",&v2) ;
+   eqt_addfunction2(ctx, "v",&v2) ;
    eqt_addfunction (ctx, "trunc", &spi_trunc);
    eqt_addfunction (ctx, "int", &spi_trunc);
    eqt_addfunction (ctx, "ppar", &ppar);
