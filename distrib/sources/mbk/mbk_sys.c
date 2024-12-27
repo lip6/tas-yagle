@@ -86,6 +86,8 @@ autoackchld_list *HEAD_AUTOACKCHLD=NULL;
 autoackchld_list *HEAD_AUTOACKCHLD_FREE=NULL;
 int STAT_AUTOACKCHLD;
 
+chain_list *MBK_ADDITIONAL_SEARCH = NULL;
+
 it* MBK_TAB_FILE_ACCES=NULL;
 
 long mbkalloc_stat = 0; /* statistics on maximun allocated memory */
@@ -403,6 +405,12 @@ char local ;
       i=0;
       while (CATA_LIB[i]) {
         prefixlist[i+1] = CATA_LIB[i];
+        i++;
+      }
+      chain_list *pt = MBK_ADDITIONAL_SEARCH;
+      while (pt) {
+        if (pt->DATA) prefixlist[i+1] = pt->DATA;
+        pt = pt->NEXT;
         i++;
       }
       prefixlist[i+1] = NULL;
