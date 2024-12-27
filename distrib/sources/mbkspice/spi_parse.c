@@ -32,6 +32,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <libgen.h>
 #include <strings.h>
 #include <string.h>
 #include <alloca.h>
@@ -3646,6 +3647,7 @@ int spi_parse_model_montecarlo (circuit * ptcir, chain_list * ligne, spifile * d
 
 
 /******************************************************************************/
+extern chain_list *MBK_ADDITIONAL_SEARCH;
 static void spi_include_file(char *name, chain_list **fifodf, spifile **df)
 {
   char *ptname, *tofree, *pt;
@@ -3663,6 +3665,9 @@ static void spi_include_file(char *name, chain_list **fifodf, spifile **df)
                     (SPI_PARSE_FIRSTLINE == PARSEFIRSTLINE_YES
                      || SPI_PARSE_FIRSTLINE == PARSEFIRSTLINE_INC) ? 1 : 0);
   *fifodf = addchain (*fifodf, *df);
+  char *mbkname;
+  mbkname=strdup(MBKFOPEN_NAME);
+  MBK_ADDITIONAL_SEARCH = addchain (MBK_ADDITIONAL_SEARCH, namealloc(dirname(mbkname)));
   mbkfree (ptname);
   mbkfree (tofree);
 }

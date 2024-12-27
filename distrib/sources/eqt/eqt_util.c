@@ -2996,7 +2996,7 @@ static eqt_node *eqt_getNeutralNode(int operator)
 void eqt_printTree(eqt_node *node,int deep)
 {
   char   *operator;
-  char EQT_PRINTYES[255];
+  char EQT_PRINTYES[256];
 
   if (deep == 0)
     eqt_initSpaceII(EQT_PRINTYES);
@@ -3592,6 +3592,11 @@ static double v2(double p, double q)
  return r ;
 }
 
+static double v1(double p)
+{
+ return p ;
+}
+
 /******************************************************************************/
 static double valif(double a, double b, double c)
 {
@@ -3806,7 +3811,8 @@ void eqt_add_spice_extension(eqt_ctx *ctx)
    eqt_addfunction2(ctx, "max",&dmax) ;
    eqt_addfunction2(ctx, "min",&dmin) ;
    eqt_addfunction2(ctx, "sum",&sum) ;
-   eqt_addfunction2(ctx, "v",&v2) ;
+   eqt_addfunction2(ctx, "v",&v2) ;   ctx->EQTINDEX--; // same name function "v" share the same table position.
+   eqt_addfunction (ctx, "v",&v1) ;
    eqt_addfunction (ctx, "trunc", &spi_trunc);
    eqt_addfunction (ctx, "int", &spi_trunc);
    eqt_addfunction (ctx, "ppar", &ppar);
