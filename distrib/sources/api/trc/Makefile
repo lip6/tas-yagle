@@ -26,7 +26,15 @@ LOCAL_CPPFLAGS = $(CPPFLAGS) $(LOCAL_INC) \
                  -DYAG_H='<$(YAG_H)>' \
                  -DINF_H='<$(INF_H)>' \
                  -DGEN_H='<$(GEN_H)>' \
-                 -DFCL_H='<$(FCL_H)>'
+                 -DFCL_H='<$(FCL_H)>' \
+                 -DSIM_H='<$(SIM_H)>' \
+                 -DELP_H='<$(ELP_H)>' \
+                 -DEQT_H='<$(EQT_H)>' \
+                 -DBEG_H='<$(BEG_H)>' \
+                 -DCBH_H='<$(CBH_H)>' \
+                 -DGSP_H='<$(GSP_H)>' \
+                 -DEFG_H='<$(EFG_H)>' \
+                 -DSTM_H='<$(STM_H)>'
 
 WRAPPER = trc_API_wrap.c
 TCL_WRAPPER = trc_TCL_wrap.c

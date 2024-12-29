@@ -191,16 +191,18 @@ extern double mcc_calcIleakage_from_lotrs (char *modelname,int type, double l, d
                                     double *BLeak,double *DLeak,double *SLeak,
                                     elp_lotrs_param *lotrsparam);
 extern void mcc_calcul_raccess(int,elp_lotrs_param*,elp_lotrs_param*);
-double mcc_calcul_vt_error( int type, elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam_p, double testvt, mcc_corner_info *info );
-void mcc_calcul_rst( int type, elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam_p );
-void mcc_printf_instance_specific(FILE *file, elp_lotrs_param *lotrsparam_n);
-void mcc_get_np_vgs(float *vgsn, float *vgsp);
-void mcc_genspi_for_inverter_simulator(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p);
-void mcc_calcul_ibranch(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p);
-void mcc_calcul_ibranch_spice(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p, double *tabin, double *tabip);
-void mcc_calcul_ibranch_mcc( elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam_p, double *tabin, double *tabip, int n, char mode );
-char *mcc_check_subckt(char *nmos, char *pmos);
-void mcc_check_techno_with_subckt(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p, char *subcktmodeln, char *subcktmodelp);
-void mcc_update_technoparams (char *modelname,int type, double l, double w,lotrs_list *lotrs,int lotrscase);
-void mcc_optim_resetsearch_for_new_pwl();
+extern double mcc_calcul_vt_error( int type, elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam_p, double testvt, mcc_corner_info *info );
+extern void mcc_calcul_rst( int type, elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam_p );
+extern void mcc_printf_instance_specific(FILE *file, elp_lotrs_param *lotrsparam_n);
+extern void mcc_get_np_vgs(float *vgsn, float *vgsp);
+extern void mcc_genspi_for_inverter_simulator(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p);
+extern void mcc_calcul_ibranch(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p);
+extern void mcc_calcul_ibranch_spice(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p, double *tabin, double *tabip);
+extern void mcc_calcul_ibranch_mcc( elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam_p, double *tabin, double *tabip, int n, char mode );
+extern char *mcc_check_subckt(char *nmos, char *pmos);
+extern void mcc_check_techno_with_subckt(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p, char *subcktmodeln, char *subcktmodelp);
+extern void mcc_update_technoparams (char *modelname,int type, double l, double w,lotrs_list *lotrs,int lotrscase);
+extern void mcc_optim_resetsearch_for_new_pwl();
+extern void mcc_calcul_sat_parameter( int type, elp_lotrs_param *lotrsparam, mcc_corner_info *info );
+extern void mcc_calcul_rst_better( int type, elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam_p, mcc_corner_info *infos );
 

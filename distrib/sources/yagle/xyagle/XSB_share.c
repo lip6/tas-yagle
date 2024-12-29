@@ -24,6 +24,7 @@
 #include XSB_H
 #include XMX_H
 #include CGV_H
+#include XYA_H
 
 #include "XSB_share.h"
 

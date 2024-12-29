@@ -527,7 +527,7 @@ void APIPreprocess(char *src, char *dest, chain_list *defines)
           cs++;
         }
       else
-        if (cs!='\0')
+        if (*cs!='\0')
           {
             start--;
             while (start!=cs) *(cd++)=*(start++);

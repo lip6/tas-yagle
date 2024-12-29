@@ -33,6 +33,7 @@
 #define _MUT_H_
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
 #include <fcntl.h>
@@ -368,7 +369,7 @@ extern char              MBK_VECTOR_SINGLE[256];
   extern          char * min_namealloc __P((char *inputname));
   extern          char * namefind __P((char *inputname));
   extern          char * min_namefind __P((char *inputname));
-  extern          char * mbkstrdup __P((char *s));
+  extern          char * mbkstrdup __P((const char *s));
 int mbk_casestrcmp(char *orig, char *dest);
   extern           void  downstr __P((char *s, char *t));
   extern           void  upstr __P((char *s, char *t));
@@ -612,7 +613,7 @@ extern char mbk_getfileacces( FILE *file );
 long long unsigned mbk_getfilesize( char *name );
 int mbkftell( FILE *file, MBK_OFFSET_MAX *offset );
 int mbkfseek( FILE *file, MBK_OFFSET_MAX *offset, int whence );
-FILE *mbksysfopen( char *name, char *mode, char );
+FILE *mbksysfopen( const char *name, const char *mode, char );
 
 typedef struct st_mbk_tableint
 {

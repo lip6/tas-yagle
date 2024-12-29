@@ -40,8 +40,8 @@ class Language
   virtual void parse ();
   virtual void create_function (char *, char *, ApiType *, ParmList *);
   virtual void create_man (char *, ApiType *, ParmList *, functionman *);
-  virtual void create_xml (char *, char *, ApiType *, ParmList *, functionman *, int, int);
-  virtual void create_db (char *, char *, ApiType *, ParmList *, functionman *, int, int);
+  virtual void create_xml (char *, const char *, ApiType *, ParmList *, functionman *, int, int);
+  virtual void create_db (char *, const char *, ApiType *, ParmList *, functionman *, int, int);
   virtual void create_filter (char *filter, char *filterfile, Man *);
   virtual void link_variable (char *, char *, ApiType *);
   virtual void declare_const (char *, char *, ApiType *, char*);
@@ -56,14 +56,14 @@ class Language
 };
 
 char *ApiType_str (ApiType *d, int i);
-char *ApiType_name (ApiType *d, int i);
+const char *ApiType_name (ApiType *d, int i);
 Parm *Getnext (Parm *p);
 ApiType *Gettype (Parm *p);
 int ParmList_len (ParmList *l);
 int ApiType_type (ApiType *p);
 int ApiType_ispointer (ApiType *p);
 char *ApiType_base (ApiType *p);
-char *Char(char *c);
+const char *Char(const char *c);
 void Api_banner(FILE *f);
 void *Getdata(Parm *p);
 void Avtwig_init_args (int argc, char **argv);

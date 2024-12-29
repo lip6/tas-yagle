@@ -195,7 +195,7 @@ lofig_list *mbk_GetNetlist (char *figname)
     return getlofig (figname, 'A');
 }
 
-FILE *myfopen(char *name, const char *mode)
+FILE *myfopen(const char *name, const char *mode)
 {
   FILE *f;
   if ((f=mbksysfopen(name,(char*)mode,0))==NULL)
@@ -225,7 +225,7 @@ int myfclose(FILE *f)
 void myfflush(FILE *f)
 {
   if (f!=NULL)
-    return fflush (f);
+    fflush (f);
 }
 
 /*----------------------------------------------------------------------------*/

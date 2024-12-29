@@ -28,6 +28,10 @@
 #include "../fcl/fcl_API.h"
 #include "../beg/beg_API.h"
 char *avt_gettcldistpath ();
+void stb_compute_local_margins(StabilityFigure *stbfig);
+int path_false_slack_check(TimingPath *tp, TimingEvent *opencmd, TimingEvent *topopenclock);
+void trc_DisplayDelayForLosig( Netlist *netlist, char *netname );
+void gsp_AddCorrelation(char *name0, char *name1, int tog);
 %}
 
 %include ../tcl/avt_tcl_types.i

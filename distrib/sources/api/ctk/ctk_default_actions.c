@@ -35,7 +35,7 @@ void ctk_default_action_miller()
 
   SET_CTK_CONTEXT(cs);
 
-  cl=ctk_GetAllVictims();
+  cl=(chain_list*)ctk_GetAllVictims();
   for (ch=cl; ch!=NULL; ch=ch->NEXT)
     {
       lsv=(losig_list *)ch->DATA;

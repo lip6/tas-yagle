@@ -50,7 +50,7 @@ char MCC_DEBUG_INTERNAL = 'N' ;
 Icurvs TRS_CURVS; 
 mcc_debug_internal MCC_DEBUG_INTERNAL_DATA ;
 
-void (*hitas_tcl_pt)(char *name)=NULL;
+ttvfig_list* (*hitas_tcl_pt)(char *name)=NULL;
 
 char *mcc_debug_prefix(char *name)
 {

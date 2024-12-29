@@ -67,7 +67,7 @@ liblogpool LIBLOGPOOL[] = {
   { 0x0, { -1 } }
 } ;
 
-void avt_initerrmsg (char *tool)
+void avt_initerrmsg (const char *tool)
 {
     unsigned int i=0;
     unsigned int j=0;

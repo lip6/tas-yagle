@@ -45,10 +45,11 @@ int cbh_detectEdge(chain_list * CNDABL) {
   case AND:
   case NAND:
   case OR:
-  case NOR:
+  case NOR: {
      int res = 0;
      while (COND=CDR(COND)) res |= cbh_detectEdge(CAR (COND) );
      return res;
+     }
   break;
   case NOT:
      if(ATOM(CADR(COND))) return 0;

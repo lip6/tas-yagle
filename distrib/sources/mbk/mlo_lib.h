@@ -256,7 +256,6 @@ extern int delflaggedloins(lofig_list *ptfig); // flag => loins->INSNAME=NULL
   extern           void  lofigchain __P((lofig_list *ptfig));
   extern           void  lofigchain_local __P((lofig_list *ptfig));
   extern           void  dellofigchain_local __P((lofig_list *ptfig));
-  extern           void  viewlo __P(());
   extern           void  setsigsize __P((lofig_list*, int));
   extern            int  getsigsize __P((lofig_list* ));
   extern            int  getnumberoflosig __P(( lofig_list* ));
@@ -271,6 +270,14 @@ extern int delflaggedloins(lofig_list *ptfig); // flag => loins->INSNAME=NULL
   extern    losig_list * mbk_getlosigbyname __P(( lofig_list*, char* ));
   extern            int  mbkissignalname __P(( losig_list *losig, char *name ));
   extern           void  viewlofig __P((lofig_list *ptfig));
+  extern           void  viewlo __P(());
+  extern           void  viewlofig __P((lofig_list *ptfig));
+  extern           void  viewlofigcon __P((locon_list *ptcon));
+  extern           void  viewloins __P((loins_list *ptins));
+  extern           void  viewloinscon __P((locon_list *ptcon));
+  extern           void  viewlosig __P((losig_list *ptsig));
+  extern           void  viewlotrs __P((lotrs_list *pttrs));
+
 
 
 

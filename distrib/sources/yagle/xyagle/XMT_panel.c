@@ -56,6 +56,7 @@
 #include "XYA_cgvfig.h"
 
 extern xyagzoom       *XyagHeadZoom;
+extern char XyagDelZoom ();
 
 static void     (*XyagOldExitHandler) () = NULL;
 int xya_pfd[2];

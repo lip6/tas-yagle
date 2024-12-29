@@ -95,7 +95,7 @@ static int indx();
 	This font has been extracted from X11r5 bdf file by myself, to
    be used for the standard Aliiance CAD system banners. */
 
-static char *Unknown_Bold_Normal_14[][62] = {
+static const char *Unknown_Bold_Normal_14[][62] = {
 {
 "         ",
 "   @@@   ",

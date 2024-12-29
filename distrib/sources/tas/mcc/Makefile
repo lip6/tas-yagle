@@ -52,7 +52,8 @@ LOCAL_CPPFLAGS    = $(CPPFLAGS) $(LOCAL_INC) \
                   -DMSL_H='<$(MSL_H)>' \
                   -DAPI_H='<$(API_H)>' \
                   -DRCN_H='<$(RCN_H)>' \
-                  -DMUT_H='<$(MUT_H)>'
+                  -DMUT_H='<$(MUT_H)>' \
+                  -DTTV_H='<$(TTV_H)>'
 
 LOCAL_YFLAGS = $(YACCFLAGS) -d -t
 

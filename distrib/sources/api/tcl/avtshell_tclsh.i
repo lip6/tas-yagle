@@ -101,6 +101,7 @@ static char avtshell_initScript[] =
 extern int		MacintoshInit _ANSI_ARGS_((void));
 #endif
 
+#include "tclInt.h"
 #include "eltclsh.h"
 #include AVT_H
 
@@ -150,7 +151,7 @@ int main(int argc, char **argv) {
     argv = newArgv;
 #endif
 
-  elTclshLoop(argc, argv, avt_shell_AppInit);
+  elTclshLoop(argc, (const char**)argv, avt_shell_AppInit);
   return(0);
 
 }

@@ -10,31 +10,58 @@
 # The variables $ALLIANCE_* are set by
 # alc_env.[c]sh script or libraries.mk
 
-UNAME_S = $(shell uname -s)
-UNAME_R = $(shell uname -r)
-UNAME_M = $(shell uname -m)
+$(info Processing Linux.mk)
 
-LIB_SUFFIX  = ""
-LIB_SUFFIX_ = ""
-ifeq ($(UNAME_M),x86_64)
-  LIB_SUFFIX  = 64
-  LIB_SUFFIX_ = _64
-endif
-
-BUILD_VARIANT = Linux
-ifeq ($(UNAME_S),Linux)
-  ifneq ($(findstring .el6.,$(UNAME_R)),)
-    BUILD_VARIANT    = Linux.slsoc6x
+ifeq ($(BUILD_VARIANT),)
+  $(info Performing OS recognition based on uname.)
+  UNAME_S = $(shell uname -s)
+  UNAME_R = $(shell uname -r)
+  UNAME_M = $(shell uname -m)
+  
+  LIB_SUFFIX  = ""
+  LIB_SUFFIX_ = ""
+  ifeq ($(UNAME_M),x86_64)
+    LIB_SUFFIX  = 64
+    LIB_SUFFIX_ = _64
   endif
-  ifneq ($(findstring .slsoc6.,$(UNAME_R)),)
-    BUILD_VARIANT    = Linux.slsoc6x
+  
+  BUILD_VARIANT = Linux
+  ifeq ($(UNAME_S),Linux)
+    $(info Configuring for a Linux system "$(UNAME_R)".)
+    ifneq ($(findstring .el6.,$(UNAME_R)),)
+      BUILD_VARIANT    = Linux.slsoc6x
+      $(info Configuring for RHEL 6 (and clones).)
+    endif
+    ifneq ($(findstring .slsoc6.,$(UNAME_R)),)
+      BUILD_VARIANT    = Linux.slsoc6x
+      $(info Configuring for LIP6 / RHEL 6 (and clones).)
+    endif
+    ifneq ($(findstring .el7.,$(UNAME_R)),)
+      BUILD_VARIANT    = Linux.el7
+      $(info Configuring for RHEL 7 (and clones).)
+    endif
+    ifneq ($(findstring .el8,$(UNAME_R)),)
+      BUILD_VARIANT    = Linux.el8
+      $(info Configuring for RHEL 8 (and clones).)
+    endif
+    ifneq ($(findstring .el9,$(UNAME_R)),)
+      BUILD_VARIANT    = Linux.el9
+      $(info Configuring for RHEL 9 (and clones).)
+    endif
+    ifneq ($(findstring ubuntu.,$(UNAME_R)),)
+      BUILD_VARIANT    = Linux.ubuntu
+      $(info Configuring for Ubuntu.)
+    endif
+    ifneq ($(findstring openSUSE.,$(shell lsb_release -i)),)
+      BUILD_VARIANT    = Linux.openSUSE
+      $(info Configuring for openSUSE.)
+    endif
   endif
-  ifneq ($(findstring .el7.,$(UNAME_R)),)
-    BUILD_VARIANT    = Linux.el7
-  endif
-  ifneq ($(findstring ubuntu.,$(UNAME_R)),)
-    BUILD_VARIANT    = Linux.ubuntu
-  endif
+else
+  $(info Using user supplied values:)
+  $(info * BUILD_VARIANT=${BUILD_VARIANT})
+  $(info * LIB_SUFFIX   =${LIB_SUFFIX})
+  $(info * LIB_SUFFIX_  =${LIB_SUFFIX_})
 endif
 
 
@@ -75,9 +102,9 @@ RANLIB           = /usr/bin/ranlib
 MAKE             = /usr/bin/make
 MAKEFLAGS        = 
 
-CC               = /usr/bin/gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE
-SCC              = /usr/bin/gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE
-CPLUSPLUS        = /usr/bin/g++
+CC               = /usr/bin/gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DHAVE_UNISTD_H
+SCC              = /usr/bin/gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DHAVE_UNISTD_H
+CPLUSPLUS        = /usr/bin/g++ -DHAVE_UNISTD_H
 CFLAGS           =
 CPPFLAGS         =
 
@@ -112,7 +139,11 @@ YACC             = /usr/bin/bison
 YACCFLAGS        = -y 
 
 #LEX             = flex
+ifeq ($(PACKAGING_TOP),)
 LEX              = ${HOME}/softs/$(BUILD_VARIANT)$(LIB_SUFFIX_)/install/bin/flex
+else
+LEX              = ${PACKAGING_TOP}/bin/flex
+endif
 LEXFLAGS         =
 
 AR               = /usr/bin/ar

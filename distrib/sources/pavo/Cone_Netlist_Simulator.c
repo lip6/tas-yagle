@@ -9,6 +9,7 @@
 #include TAS_H*/
 #include SDLR_H
 #include "pavo_lib.h"
+#include "../scheduler/Scheduler_transactions.h"
 
 #define PAVO_CONE_INDEX 0xf0270705
 

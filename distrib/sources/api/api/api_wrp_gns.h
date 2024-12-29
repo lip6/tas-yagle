@@ -27,7 +27,7 @@ class GENIUS: public Language {
 private:
     char *module;
 public:
-    GENIUS () { module = 0; };
+    GENIUS () { module = nullptr; };
     void parse_args (int, char *argv[]);
     void parse ();
     void create_defines_function();
@@ -51,6 +51,6 @@ public:
     void initialize (void);
     void headers (void);
     void close (void);
-    void set_module (char *);
+    void set_module (const char *);
     void create_command (char *, char *);
 };

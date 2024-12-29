@@ -4,6 +4,7 @@
 #include MLO_H
 #include RCN_H
 #include TRC_H
+#include STM_H
 #define API_USE_REAL_TYPES
 #include "trc_API.h"
 

@@ -36,7 +36,7 @@ static char screen[LINES][WINDOW_SIZE];
 	This font has been extracted from X11r5 bdf file by myself, to
    be used for the standard Aliiance CAD system banners. */
 
-static char *Unknown_Bold_Normal_14[][62] = {
+static const char *Unknown_Bold_Normal_14[][62] = {
 {
 "         ",
 "   @@@   ",
@@ -1153,18 +1153,18 @@ static char *Unknown_Bold_Normal_14[][62] = {
 "        "}
 };
 
-static void avt_bannerhead   __P((char *,
-                                  char *[][62],
+static void avt_bannerhead   __P((const char *,
+                                  const char *[][62],
                                   int
                                 ));
-static void avt_cartouche   __P((char *,
-                                 char *,
-                                 char *,
-                                 char *,
-                                 char *,
+static void avt_cartouche   __P((const char *,
+                                 const char *,
+                                 const char *,
+                                 const char *,
+                                 const char *,
                                  int
                                ));
-extern void avt_banner      __P((char *,
-                                 char *,
-                                 char *
+extern void avt_banner      __P((const char *,
+                                 const char *,
+                                 const char *
                                ));

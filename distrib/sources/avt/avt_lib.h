@@ -56,9 +56,9 @@ void avt_sethashvar_sub (char *var, char *value, int warn, int set);
 extern char *avt_gethashvar (char *var);
 char *avt_gethashvar_sub (char *var, int intable);
 
-extern void avt_banner    __P((char *tool,
-                               char *comment,
-                               char *date
+extern void avt_banner    __P((const char *tool,
+                               const char *comment,
+                               const char *date
                              ));
 extern int avt_givetoken  __P((char *,
                                char *
@@ -80,7 +80,7 @@ extern void avt_error     __P((char *lib, int code, int severity, char *fmt, ...
 
 // printf a colored printf, use '¤<#>" eg. toto = ¤3value
 // value will be colored with AVT_COLOR_3
-extern void avt_fprintf(FILE *output, char *fmt, ...);
+extern void avt_fprintf(FILE *output, const char *fmt, ...);
 int avt_text_real_length(char *buf);
 void avt_format_text(char *resbuf, char *origbuf, int decal, int max);
 extern void avt_back_fprintf(FILE *output, int length);
@@ -210,7 +210,7 @@ extern char *avt_getusername(char *buf);
 
 extern char *AVT_BINARY_NAME;
 
-void avt_initerrmsg( char *);
+void avt_initerrmsg( const char *);
 char *avt_geterrmsg( long , char * );
 void avt_set_encrypted_mode(int mode);
 void avt_errmsg(long , char *, int , ... );

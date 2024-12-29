@@ -63,6 +63,8 @@ $(TARGET_INCLUDE)/$(AVT_H) : $(AVT_HEADER)
 
 $(ERR_FILE) : $(XML_ERR) $(AVT_HEADER) ./generrmsg_tab.csh $(XML_ERR_FILE_LIST)
 	$(SAXON) $(XML_ERR) h.xsl > $(ERR_FILE)
+	echo "PWD=`pwd`"
+	ls -al ./generrmsg_tab.csh
 	./generrmsg_tab.csh
 
 .c.o :

@@ -297,7 +297,7 @@ long long unsigned mbk_getfilesize( char *name )
   #endif
 }
 
-FILE *mbksysfopen( char *name, char *mode, char access )
+FILE *mbksysfopen( const char *name, const char *mode, char access )
 {
   FILE *file;
   

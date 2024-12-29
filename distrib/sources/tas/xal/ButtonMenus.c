@@ -73,7 +73,8 @@ Arg    args[];
 int    n;
 int    button_width, button_height;
 {
-Widget      row_widget, button, err_w;
+Widget      row_widget, button;
+XalMessageWidgetStruct* err_w;
 char *      filename ;
 Arg         l_args[XalMAX_ARGS];
 GC          gc;
@@ -84,8 +85,8 @@ int         i;
 if ( n >= XalMAX_ARGS )
     {
     err_w = XalCreateErrorBox( parent );
-    XtManageChild( err_w );
-    XalForceUpdate( err_w );
+    XtManageChild( (Widget)err_w );
+    XalForceUpdate( (Widget)err_w );
     XalDrawMessage( err_w, "XalButtonMenus: Resource table is too large" );
     MBK_EXIT_KILL = 'N' ;
     EXIT( 1 );

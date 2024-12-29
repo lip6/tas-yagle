@@ -24,6 +24,8 @@
 #include XMV_H
 #include XME_H
 #include XMT_H
+#include CGV_H
+#include XYA_H
 
 #include "XTB_dialog.h"
 #include "XME_search.h"

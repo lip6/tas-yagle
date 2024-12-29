@@ -39,7 +39,8 @@ LOCAL_CPPFLAGS = $(CPPFLAGS) -c $(LOCAL_INC) \
                  -DMCC_H='"$(MCC_H)"' \
                  -DEQT_H='"$(EQT_H)"' \
                  -DCBH_H='"$(CBH_H)"' \
-                 -DINF_H='"$(INF_H)"'
+                 -DINF_H='"$(INF_H)"' \
+                 -DTTV_H='"$(TTV_H)"'
 
 all : $(TARGET_INCLUDE)/$(TRC_H) $(TARGET_LIB)/$(TRC_LIB)
 

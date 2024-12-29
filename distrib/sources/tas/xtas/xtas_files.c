@@ -184,6 +184,7 @@ XtManageChild( XtasDataBaseRequester );
 
 void    XtasOpenInfFile (filename, mode)
 char * filename;
+char * mode;
 {
     XtasPasqua();
     if(sigsetjmp( XtasMyEnv , 1 ) == 0) {

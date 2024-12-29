@@ -9,23 +9,6 @@
 #include "stb_relaxation_correction.h"
 #include "stb_debug.h"
 
-typedef struct node_path_info_per_phase
-{
-  struct node_path_info_per_phase *next;  
-  long delaymax, delaymin;
-  long movemax, movemin;
-  long startmin, startmax;
-  char phase;
-} node_path_info_per_phase;
-
-typedef struct node_path_info
-{
-  struct node_path_info *next;
-  node_path_info_per_phase *PP;
-  char output_phase;
-  ttvevent_list *start, *cmd;
-} node_path_info;
-
 
 static node_path_info *create_node_path_info()
 {

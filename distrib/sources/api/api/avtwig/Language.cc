@@ -271,7 +271,7 @@ void Language::create_man (char *name, ApiType *t, ParmList *l, functionman *m)
   t = NULL;
   name = NULL;
 }
-void Language::create_xml (char *filename, char *name, ApiType *t, ParmList *l, functionman *m, int first, int mode) 
+void Language::create_xml (char *filename, const char *name, ApiType *t, ParmList *l, functionman *m, int first, int mode) 
 {
   mode = 0;
   first = 0;
@@ -281,7 +281,7 @@ void Language::create_xml (char *filename, char *name, ApiType *t, ParmList *l, 
   name = NULL;
   filename = NULL;
 }
-void Language::create_db (char *filename, char *name, ApiType *t, ParmList *l, functionman *m, int first, int mode) 
+void Language::create_db (char *filename, const char *name, ApiType *t, ParmList *l, functionman *m, int first, int mode) 
 {
   mode=0;
   first = 0;
@@ -322,7 +322,7 @@ void Language::create_command (char *a, char *b)
   a=b;
 }
 
-char *ApiType_name (ApiType *d, int i)
+const char *ApiType_name (ApiType *d, int i)
 {
   i=0;
   if (((_ApiType *)d->DATA)->varname)
@@ -377,7 +377,7 @@ char *ApiType_base (ApiType *p)
   return c;
 }
 
-char *Char(char *c)
+const char *Char(const char *c)
 {
   return c;
 }

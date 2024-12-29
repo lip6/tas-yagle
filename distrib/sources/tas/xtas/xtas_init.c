@@ -232,7 +232,7 @@ void XtasEnv( void )
 
     mbkenv() ; /* sinon => traitement normal */
     /* forcage de SCALE_X: la variable d'environnement ne sert plus */
-    if(V_INT_TAB[__MBK_SCALE_X].VALUE == NULL)
+    if(V_INT_TAB[__MBK_SCALE_X].VALUE == 0)
             SCALE_X = 10000 ;
     else
      {

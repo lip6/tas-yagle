@@ -4,6 +4,7 @@
 #include "gen_API_include.h"
 #include TRC_H
 #include MUT_H
+#include MLO_H
 #include "api_common_structures.h"
 #include "api_communication.h"
 

@@ -1,5 +1,5 @@
 /*  PROPERTY                                                                          */
-%typemap (tcl8, out) Property* {
+%typemap (out) Property* {
     ptype_list  *pl;
 
     pl=(ptype_list *)$1;
@@ -70,7 +70,7 @@
 }
 
 /*  SLACK LIST                                                                      */
-%typemap (tcl8, out) StabilitySlackList* {
+%typemap (out) StabilitySlackList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -81,7 +81,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) StabilitySlackList* {
+%typemap (in) StabilitySlackList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -104,7 +104,7 @@
 }
 
 /*  TIMING SIGNAL LIST                                                                      */
-%typemap (tcl8, out) TimingSignalList* {
+%typemap (out) TimingSignalList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -115,7 +115,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) TimingSignalList* {
+%typemap (in) TimingSignalList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -138,7 +138,7 @@
 }
 
 /*  TIMING EVENT LIST                                                                      */
-%typemap (tcl8, out) TimingEventList* {
+%typemap (out) TimingEventList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -149,7 +149,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) TimingEventList* {
+%typemap (in) TimingEventList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -172,7 +172,7 @@
 }
 
 /*  TIMING DETAIL LIST                                                                      */
-%typemap (tcl8, out) TimingDetailList* {
+%typemap (out) TimingDetailList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -183,7 +183,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) TimingDetailList* {
+%typemap (in) TimingDetailList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -206,7 +206,7 @@
 }
 
 /*  TIMING PATH LIST                                                                     */
-%typemap (tcl8, out) TimingPathList* {
+%typemap (out) TimingPathList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -217,7 +217,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) TimingPathList* {
+%typemap (in) TimingPathList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -240,7 +240,7 @@
 }
 
 /*  StabilityPath LIST                                                                   */
-%typemap (tcl8, out) StabilityPathList* {
+%typemap (out) StabilityPathList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -251,7 +251,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) StabilityPathList* {
+%typemap (in) StabilityPathList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -274,7 +274,7 @@
 }
 
 /*  StabilityRange LIST                                                                   */
-%typemap (tcl8, out) StabilityRangeList* {
+%typemap (out) StabilityRangeList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -285,7 +285,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) StabilityRangeList* {
+%typemap (in) StabilityRangeList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -308,7 +308,7 @@
 }
 
 /*  TIMINGLINE LIST                                                                          */
-%typemap (tcl8, out) TimingLineList* {
+%typemap (out) TimingLineList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -319,7 +319,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) TimingLineList* {
+%typemap (in) TimingLineList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -342,7 +342,7 @@
 }
 
 /*  TimingConstraint LIST                                                                          */
-%typemap (tcl8, out) TimingConstraintList* {
+%typemap (out) TimingConstraintList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -353,7 +353,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) TimingConstraintList* {
+%typemap (in) TimingConstraintList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -376,7 +376,7 @@
 }
 
 /*  VOID LIST                                                                          */
-%typemap (tcl8, out) List* {
+%typemap (out) List* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -387,7 +387,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) List* {
+%typemap (in) List* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -410,7 +410,7 @@
 }
 
 /*  DOUBLE LIST                                                                          */
-%typemap (tcl8, out) DoubleList* {
+%typemap (out) DoubleList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -484,7 +484,7 @@
 }
 
 /*  LIST OF DOUBLE LIST                                                                  */
-%typemap (tcl8, out) ListOfDoubleTable* {
+%typemap (out) ListOfDoubleTable* {
     chain_list  *ch, *cl,*ch0;
     Tcl_Obj     *mainlist=Tcl_NewObj(), *list, *list0;
 
@@ -506,7 +506,7 @@
 }
 
 /*  LIST OF TIMING PATH LIST                                                                  */
-%typemap (tcl8, out) TimingPathTable* {
+%typemap (out) TimingPathTable* {
     chain_list  *cl, *ch0;
     Tcl_Obj     *mainlist=Tcl_NewObj(), *list0;
 
@@ -522,7 +522,7 @@
     Tcl_SetObjResult (interp, mainlist);
 }
 /*  TABLE OF DOUBLE                                                                  */
-%typemap (tcl8, out) DoubleTable* {
+%typemap (out) DoubleTable* {
     chain_list  *cl, *ch0;
     Tcl_Obj     *mainlist=Tcl_NewObj(), *list0;
 
@@ -604,7 +604,7 @@
 }
 
 /*  FILE                                                                               */
-%typemap (tcl8, in) FILE* {
+%typemap (in) FILE* {
     char    *str;
     FILE    *ptr;
     
@@ -656,7 +656,7 @@
      $1=(List *)reverse(cl);
 }
 
-%typemap (tcl8, out) StringList * {
+%typemap (out) StringList * {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -667,7 +667,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, out) StringListF * {
+%typemap (out) StringListF * {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -707,7 +707,7 @@
 }
 
 /* Aggressor List */
-%typemap (tcl8, out) AggressorList* {
+%typemap (out) AggressorList* {
     chain_list  *ch;
     Tcl_Obj     *list=Tcl_NewObj();
 
@@ -718,7 +718,7 @@
     Tcl_SetObjResult (interp, list);
 }
 
-%typemap (tcl8, in) AggressorList* {
+%typemap (in) AggressorList* {
     int          nbelem, i;
     Tcl_Obj     **list;
     void        *ptr;
@@ -740,7 +740,7 @@
      }
 }
 /*  UNITS                                                                               */
-%typemap (tcl8, in) TimeValue {
+%typemap (in) TimeValue {
     char    *str;
     double val;
 
@@ -750,7 +750,7 @@
     }
 }
 
-%typemap (tcl8, in) CapaValue {
+%typemap (in) CapaValue {
     char    *str;
     double val;
 
@@ -760,7 +760,7 @@
     }
 }
 
-%typemap (tcl8, in) VoltageValue {
+%typemap (in) VoltageValue {
     char    *str;
     double val;
 
@@ -771,7 +771,7 @@
 }
 
 /*  String to free                                                                      */
-%typemap (tcl8, out) String* {
+%typemap (out) String* {
     Tcl_SetObjResult(interp,Tcl_NewStringObj((char *)$1,-1));
     free($1);
 }

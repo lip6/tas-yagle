@@ -74,7 +74,7 @@ ZEN_LIBVERSION = 101
 # ###---------------------------------------------------------###
 #    general purpose utilities                                  #
 # ###---------------------------------------------------------###
-STDCPP_L   = $(ENABLE_STATIC) -lstdc++ $(DISABLE_STATIC)
+STDCPP_L   = -lstdc++
 MUT_L      =  -lMut$(MUT_LIBVERSION) $(STDCPP_L)
 MUT_LIB    = libMut$(MUT_LIBVERSION).a
 MUT_H      =    mut$(MUT_LIBVERSION).h

@@ -230,7 +230,7 @@ void avt_back_fprintf(FILE *output, int length)
     }
 }
 
-void avt_fprintf(FILE *output, char *fmt, ...) 
+void avt_fprintf(FILE *output, const char *fmt, ...) 
 {
     va_list pa;
     int color = 0, ln;

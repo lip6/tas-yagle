@@ -37,8 +37,8 @@ String *get_proto (char *name, WIGType *d, ParmList *l)
 {
     WIGType *pt;
     Parm *p;
-    char *return_type;
-    char *arg_type, *arg_name;
+    const char *return_type;
+    const char *arg_type, *arg_name;
     char  params[2048] = "";
     char  buf[1024];
     char  buf2[2048] = "";
@@ -81,8 +81,8 @@ String *get_short_proto (char *name, WIGType *d, ParmList *l)
 {
     WIGType *pt;
     Parm *p;
-    char *return_type;
-    char *arg_type, *arg_name;
+    const char *return_type;
+    const char *arg_type, *arg_name;
     char  params[2048] = "";
     char  buf[1024];
     char  buf2[2048] = "";
@@ -475,7 +475,7 @@ xml_text(char *buf, char *src)
         }
         else if (*src == '\\')
         {
-           char *add=NULL;
+           const char *add=NULL;
            if (*(src+1)=='$') add="<br></br>";
            if (*(src+1)=='{') add="{";
            if (*(src+1)=='}') add="}";
@@ -889,7 +889,7 @@ void GENIUS::declare_const (char *name, char *iname, WIGType *t, char *value)
 
 void GENIUS::initialize (void) 
 { 
-    if (!module) module = "genius";
+    if (!module) set_module( "genius" );
     Printf (f_init, "void %s_initialize () {\n", module);
 }
 
@@ -926,7 +926,7 @@ void GENIUS::close (void)
 
 /* -------------------------------------------------------------------------- */
 
-void GENIUS::set_module (char *mod_name) 
+void GENIUS::set_module (const char *mod_name) 
 { 
     if (module) return;
     module = new char[strlen (mod_name) + 1];
@@ -1185,7 +1185,7 @@ void GENIUS::create_filter_online (char *filter, char *online_path, Man *mans)
     Parm *function;
     char **argtab;
     char *args;
-    char *section;
+    const char *section;
     int i;
 
     if (!filter || !online_path || !mans) return;

@@ -7,7 +7,10 @@ include $(AVERTEC_TOP)/etc/Avertec.mk
 BUILDNUM = $(shell date +%Y%m%d)
 
 #TCL_L = -ltcl8.3g
-LOCAL_INC = -I$(TARGET_INCLUDE) -I$(TARGET_API_INCLUDE)
+LOCAL_INC = -I$(TARGET_INCLUDE) \
+            -I$(TARGET_API_INCLUDE) \
+            -I/usr/include/tcl-private/generic \
+            -I/usr/include/tcl-private/unix
 
 LOCAL_CFLAGS   = $(CFLAGS) -c
 LOCAL_CPPFLAGS = $(CPPFLAGS) $(LOCAL_INC) \
@@ -52,7 +55,7 @@ LOCAL_CPPFLAGS = $(CPPFLAGS) $(LOCAL_INC) \
                  -DSPE_H='"$(SPE_H)"' \
                  -DTAS_H='"$(TAS_H)"' 
 
-LIB =  -L$(TARGET_LIB) $(STATIC_LIB) \
+LIB =  -L$(TARGET_LIB) \
               $(CGV_L) \
               $(BCK_L) \
 			  $(SLB_L) \
@@ -104,9 +107,11 @@ LIB =  -L$(TARGET_LIB) $(STATIC_LIB) \
 			  $(RCN_L) \
 			  $(MUT_L) \
 			  $(VCD_L) \
-			  $(RPC_L) -ledit -ltermcap
+			  $(RPC_L) \
+              -ledit
 
-API_STATICLIB  = -L$(TARGET_LIB) $(STATIC_LIB) $(WHOLE) $(LIB) $(TCL_L) $(APIALL_L) $(NOWHOLE) -ledit -ltermcap -lpthread -ldl -lm 
+API_STATICLIB  = -L$(TARGET_LIB) $(STATIC_LIB) $(WHOLE) $(LIB) $(TCL_L) $(APIALL_L) \
+                 $(NOWHOLE) $(DISABLE_STATIC) -ledit $(LIB_TERMCAP) -lpthread -ldl -lm 
 
 WRAP = $(TARGET_BIN)/wrap -silent
 
@@ -122,7 +127,8 @@ WRAPPER = avt_API_wrap.c
 
 # static Shell TCL
 $(AVT_SHELL): headers $(STATIC_SWIG_OBJ) $(OBJ) 
-	$(CPLUSPLUS)  $(CFLAGS) $(DYNAMIC) $(STATIC_SWIG_OBJ) $(OBJ) $(FLEXOBJS) $(API_STATICLIB) $(FLEXLIBS) -o $(AVT_SHELL)
+	$(CPLUSPLUS)  $(CFLAGS) $(DYNAMIC) $(STATIC_SWIG_OBJ) $(OBJ) $(FLEXOBJS) \
+	              $(API_STATICLIB) $(FLEXLIBS) -o $(AVT_SHELL)
 	$(STRIP) $(AVT_SHELL)
 
 # Shell TCL

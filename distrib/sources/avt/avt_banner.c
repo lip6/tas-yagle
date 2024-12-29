@@ -235,11 +235,11 @@ static int avt_indx (char c)
 /* genere les informations  les outils avertec                               */
 /*****************************************************************************/
 
-static void avt_bannerhead (char *s, char *police[][62], int nl)
+static void avt_bannerhead (const char *s, const char *police[][62], int nl)
 {
     
     int i, j, k, l, m;
-    char *line;
+    const char *line;
     int color = 0;
     int funny = 0;
 
@@ -332,7 +332,7 @@ static void avt_bannerhead (char *s, char *police[][62], int nl)
 /*                                                                           */
 /* genere les informations  les outils avertec                               */
 /*****************************************************************************/
-static void avt_cartouche (char *tool, char *date, char *av, char *pn, char *date_a, int bit)
+static void avt_cartouche (const char *tool, const char *date, const char *av, const char *pn, const char *date_a, int bit)
 {
     int i, j, k, l;
 #ifdef AVT_EVAL
@@ -356,7 +356,7 @@ static void avt_cartouche (char *tool, char *date, char *av, char *pn, char *dat
     time_t timer;
     char day[4], month[4];
     int year, nday, hour, minute, second;
-    char *date_lang;
+    const char *date_lang;
 
    time(&timer);
    sscanf(ctime(&timer), "%3s %3s %d %d:%d:%d %d", day, month, &nday, &hour, &minute, &second, &year);
@@ -425,7 +425,7 @@ static void avt_cartouche (char *tool, char *date, char *av, char *pn, char *dat
 /* genere un banniere pour avertec                                           */
 /*****************************************************************************/
 
-void avt_banner (char *tool, char *comment, char *date)
+void avt_banner (const char *tool, const char *comment, const char *date)
 {
 
     avt_initerrmsg(tool);

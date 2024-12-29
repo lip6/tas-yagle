@@ -26,15 +26,14 @@ extern int fclose(FILE *f);
     EXAMPLE % {fclose $file}
 */
 
-extern void  free   (void *s);
-extern char *strcpy (char *dest, const char *src);
-extern char *strstr (const char *dest, const char *src);
-extern char *strcat (char *dest, const char *src);
-extern int   strcmp (const char *dest, const char *src);
-extern char *strdup (const char *src);
-extern int   strlen (const char *src);
-int          fputs  (const char *s, FILE *stream);
-void myfflush(FILE *f);
+extern void  free    (void *s);
+extern char *strcpy  (char *dest, const char *src);
+extern char *strstr  (const char *dest, const char *src);
+extern char *strcat  (char *dest, const char *src);
+extern int   strcmp  (const char *dest, const char *src);
+extern char *strdup  (const char *src);
+extern int   strlen  (const char *src);
+int          fputs   (const char *s, FILE *stream);
 
 #endif
 
@@ -276,9 +275,10 @@ int        mbk_IsEmptyHashItem     (long value);
 int mbk_FindNumber(char *name, char *rule, int *index);
 
 
-FILE *myfopen(char *name, const char *mode);
+FILE *myfopen(const char *name, const char *mode);
 int myfputs (const char *s, FILE *stream);
 int myfclose(FILE *f);
+extern void  myfflush(FILE *f);
 
 char *avt_McAsk( char *msg );
 int avt_McIsSlave();

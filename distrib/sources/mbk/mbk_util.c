@@ -1885,7 +1885,7 @@ void rightunconcatname(name, left, right)
  * mbkstrdup : since brain damaged system we aim at do not have it              *
  *******************************************************************************/
 char *mbkstrdup(s)
-     char *s;
+     const char *s;
 {
   char *t;
 

@@ -26,6 +26,7 @@
 #include EQT_H
 #include SIM_H
 #include STM_H
+#include TTV_H
 #include MCC_H
 
 /****************************************************************************\
@@ -1491,7 +1492,7 @@ int mcc_check_sat_param( double a,
                          char   type /* 'B'=branch, 'T'=transistor */
                        );
 
-extern void (*hitas_tcl_pt)(char *name);
+extern ttvfig_list* (*hitas_tcl_pt)(char *name);
 void mcc_CheckTechno(char *label, char *tn, char *tp);
 
 /******* hack des netlist *******/

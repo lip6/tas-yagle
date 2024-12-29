@@ -52,6 +52,8 @@ extern int XyagFileOpenByType(char *Name, int type);
 extern void XyagExtract(cgv_interaction *itr, int complete);
 extern void XyagHiLight(cgv_interaction *itr, int complete);
 extern void Xyaggetenv();
+extern void XyagExitErrorMessage(int Error);
+
 extern sigjmp_buf   *XyagJmpEnv;
 /*------------------------------------------------------------\
 |                                                             |
