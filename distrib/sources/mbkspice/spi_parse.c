@@ -4483,6 +4483,8 @@ spi_load_global *globalinfo;
     while (!complet) {
         if (!(ligne = lireligne (df, ptcir))) {
             spifileclose (df);
+            if(MBK_ADDITIONAL_SEARCH) 
+                MBK_ADDITIONAL_SEARCH = delchain (MBK_ADDITIONAL_SEARCH, MBK_ADDITIONAL_SEARCH);
             elem = (*fifodf);
             *fifodf = (*fifodf)->NEXT;
             elem->NEXT = NULL;
