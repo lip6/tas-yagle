@@ -84,6 +84,33 @@ abstraction.
 full-chip verification, with virtually no limit of capacity in design size.
 
 
+%package doc
+Summary:   Documentation & Tutorials for Tas/Yagle
+Requires:  %{name} = %{version}-%{release}
+BuildArch: noarch
+
+
+%description doc
+STATIC TIMING ANALYSIS
+  The  advent   of  semiconductor  fabrication  technologies   now  allows  high
+performance in complex integrated circuits.
+  With the increasing complexity of these circuits, static timing analysis (STA)
+has  revealed  itself  as  the  only  feasible  method  ensuring  that  expected
+performances are actually obtained.
+  In addition, signal integrity (SI) issues due to crosstalk play a crucial role
+in performance and reliability of these  systems, and must be taken into account
+during the timing analysis.
+  However, performance  achievement not  only lies in  fabrication technologies,
+but also  in the way circuits  are designed.  Very high  performance designs are
+obtained with semi or full-custom designs techniques.
+  The HITAS platform provides advanced STA and SI solutions at transistor level.
+It has been  built-up in order to allow engineers to  ensure complete timing and
+SI coverage on their digital custom  designs, as well as IP-reuse through timing
+abstraction.
+  Furthermore,  hierarchy  handling  through  transparent  timing  views  allows
+full-chip verification, with virtually no limit of capacity in design size.
+
+
 %prep
 %setup
 
@@ -165,14 +192,20 @@ full-chip verification, with virtually no limit of capacity in design size.
  cp distrib/share/etc/avt_env.sh %{buildroot}%{_sysconfdir}/profile.d
  cp -r distrib/share/tcl %{buildroot}%{_datadir}/tasyag
  cp distrib/man/man3/* %{buildroot}%{_mandir}/man3
- mv distrib/docxml2/compiled/{docavertec.html,docpdf,dochtml} .
- mv distrib/share/tutorials .
- find . -name '*.gif' | xargs chmod a-x
+
+ mkdir -p %{buildroot}/usr/share/doc/tas-yagle 
+ mv distrib/docxml2/compiled/{docavertec.html,docpdf,dochtml} %{buildroot}/usr/share/doc/tas-yagle 
+ mv distrib/share/tutorials                                   %{buildroot}/usr/share/doc/tas-yagle
+ find %{buildroot}/usr/share/doc/tas-yagle -name '*.gif' | xargs chmod a-x
+ rm -f tas-yagle-files.docs
+ find "%{buildroot}/usr/share/doc/tas-yagle" -type d -exec /bin/echo "%%dir {}" \; >> tas-yagle-files.docs
+ find "%{buildroot}/usr/share/doc/tas-yagle" -type f >> tas-yagle-files.docs
+ sed -i "s,%{buildroot},," tas-yagle-files.docs
 
 
 %files
 %defattr(-,root,root,-)
-%doc docavertec.html dochtml docpdf tutorials LICENSE.rst
+%doc LICENSE.rst
 %dir %{_sysconfdir}/profile.d
 %dir %{_bindir}
 %dir %{_mandir}/man3
@@ -184,6 +217,9 @@ full-chip verification, with virtually no limit of capacity in design size.
 %config %{_datadir}/tasyag/etc/*
 %{_datadir}/tasyag/tcl/*
 %{_mandir}/man3/*
+
+
+%files doc -f tas-yagle-files.docs
 
 
 
