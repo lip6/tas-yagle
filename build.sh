@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
 set -ex
 
+getString ()
+{
+  string=`echo $1 | cut -d '=' -f 2-` 
+  echo $string
+}
+
+installDir="`pwd`/install"
+while [ $# -gt 0 ]; do
+  case $1 in
+    --install-dir=*) installDir=`getString $1`;;
+  esac
+  shift
+done
+
 
 # Build patched flex, if needed
 mkdir -p localinstall
@@ -45,9 +59,9 @@ popd
 
 
 # 'Install'
-mkdir -p install
-installDir="`pwd`/install"
+mkdir -p ${installDir}
 
+mkdir -p ${installDir}/etc
 mkdir -p ${installDir}/bin
 mkdir -p ${installDir}/share/tasyag/etc
 
@@ -61,6 +75,6 @@ done
 
 cp -r distrib/share/tcl ${installDir}/share/tasyag
 
-echo "AVERTEC_TOP=`pwd`/install/share/tasyag" > "${installDir}/avt_env.sh"
-echo 'PATH=${AVERTEC_TOP}/tcl:${PATH}' >> "${installDir}/avt_env.sh"
-echo 'export AVERTEC_TOP' >> "${installDir}/avt_env.sh"
+echo "AVERTEC_TOP=${installDir}/share/tasyag" > "${installDir}/etc/avt_env.sh"
+echo 'PATH=${AVERTEC_TOP}/tcl:${PATH}' >> "${installDir}/etc/avt_env.sh"
+echo 'export AVERTEC_TOP' >> "${installDir}/etc/avt_env.sh"
