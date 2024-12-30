@@ -1,0 +1,6 @@
+
+addFilter("spurious-executable-perm .*/tutorials/.*/clean")
+addFilter("spurious-executable-perm .*/tutorials/.*/run")
+addFilter("script-without-shebang .*tcl")
+addFilter("env-script-interpreter .*tcl")
+addFilter("files-duplicated-waste .*")
