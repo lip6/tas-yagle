@@ -109,9 +109,9 @@ CFLAGS           =
 CPPFLAGS         =
 
 #ifeq ($(findstring Ubuntu,$(shell uname -v)),Ubuntu)
-  CC            += -I/usr/include/tcl
-  SCC           += -I/usr/include/tcl
-  CPLUSPLUS     += -I/usr/include/tcl
+  CC            += -I/usr/include/tcl -I/usr/include/tcl/tcl-private/generic/ -I/usr/include/tcl/tcl-private/unix
+  SCC           += -I/usr/include/tcl -I/usr/include/tcl/tcl-private/generic/ -I/usr/include/tcl/tcl-private/unix
+  CPLUSPLUS     += -I/usr/include/tcl -I/usr/include/tcl/tcl-private/generic/ -I/usr/include/tcl/tcl-private/unix
 #endif
 
 ifeq ($(PACKAGING_TOP),)

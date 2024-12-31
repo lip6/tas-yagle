@@ -31,9 +31,7 @@ void GENIUS::parse ()
     yyparse ();
 }
 
-/* -------------------------------------------------------------------------- */
-
-String *get_proto (char *name, WIGType *d, ParmList *l)
+String *get_proto (const char *name, WIGType *d, ParmList *l)
 {
     WIGType *pt;
     Parm *p;
@@ -499,7 +497,7 @@ xml_text(char *buf, char *src)
     *buf = 0;
 }
 
-void GENIUS::create_xml (char *filename, char *name, WIGType *d, ParmList *l, functionman *man, int first, int mode) 
+void GENIUS::create_xml (char *filename, const char *name, WIGType *d, ParmList *l, functionman *man, int first, int mode) 
 { 
     FILE *f;
     char fname[1024];
@@ -590,7 +588,7 @@ void GENIUS::create_xml (char *filename, char *name, WIGType *d, ParmList *l, fu
     fclose (f);
 }
 
-void GENIUS::create_db (char *filename, char *name, WIGType *d, ParmList *l, functionman *man, int first, int mode) 
+void GENIUS::create_db (char *filename, const char *name, WIGType *d, ParmList *l, functionman *man, int first, int mode) 
 { 
     FILE *f;
     char fname[1024];

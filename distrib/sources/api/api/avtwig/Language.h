@@ -63,7 +63,7 @@ int ParmList_len (ParmList *l);
 int ApiType_type (ApiType *p);
 int ApiType_ispointer (ApiType *p);
 char *ApiType_base (ApiType *p);
-const char *Char(const char *c);
+extern const char *Char(const char *c);
 void Api_banner(FILE *f);
 void *Getdata(Parm *p);
 void Avtwig_init_args (int argc, char **argv);
