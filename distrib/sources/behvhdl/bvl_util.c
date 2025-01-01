@@ -423,7 +423,10 @@ char *bvl_vectorize(char *name)
           sprintf (tmp1, "%s(%s)", new_name, &name[i+1]);
       }
       else
-        sprintf (tmp1, "%s'%s"  , new_name, &name[i+1]);
+        if (strcmp(&name[i+1], "delayed") == 0)
+           sprintf (tmp1, "%s_%s"  , new_name, &name[i+1]);
+        else
+           sprintf (tmp1, "%s'%s"  , new_name, &name[i+1]);
       new_name  = namealloc (tmp1);
     }
     beh_addtab(tab,name,NULL,BVL_PNTDFN,(long)new_name);
