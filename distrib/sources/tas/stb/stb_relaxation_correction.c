@@ -91,7 +91,7 @@ void stb_clean_relax_correction_info (stbfig_list *stbfig)
         {
           ttv_expfigsig (stbfig->FIG, event->ROOT, level, stbfig->FIG->INFO->LEVEL,
                          TTV_STS_CLS_FED, TTV_FILE_DTX);
-          line = event->INLINE;
+          line = event->IN_LINE;
         }
 
       for (; line; line = line->NEXT)

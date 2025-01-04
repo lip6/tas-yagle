@@ -245,7 +245,7 @@ int stb_init_debug_node( stbfig_list *stbfig, int level, long type )
   stb_debug_mark_aggressor( stbfig, level, type, & ttvsig->NODE[1] );
 
   for( i=0 ; i<=1 ; i++ ) {
-    for( line = ttvsig->NODE[i].INLINE ; line ; line = line->NEXT ) {
+    for( line = ttvsig->NODE[i].IN_LINE ; line ; line = line->NEXT ) {
       ttvsig = line->NODE->ROOT ;
       stb_debug_mark_ttvsig( ttvsig );
       stb_debug_mark_aggressor( stbfig, level, type, line->NODE );

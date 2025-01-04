@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <regex.h>
 #include <ctype.h>
+#include <regex.h>
 #include MUT_H
-#include AVT_H
+
 
 #define MBK_JOK '*'
 #define MBKREGEXBUFSIZE 1024
 #define MBKMAXREGEXCACHE 4096
+
 
 static char CONFIG_REGEX_MODE=' ';
 static regex_t latest_regular_expression;

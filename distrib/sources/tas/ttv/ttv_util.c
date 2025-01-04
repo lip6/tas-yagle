@@ -2251,7 +2251,7 @@ int ttv_isgateoutput(ttvfig_list *tvf, ttvsig_list *tvs,long type)
   {
           
    if((type & TTV_FILE_DTX)==TTV_FILE_DTX)
-     tl=tvs->NODE[i].INLINE;
+     tl=tvs->NODE[i].IN_LINE;
    else
      tl=tvs->NODE[i].INPATH;
 

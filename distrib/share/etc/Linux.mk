@@ -88,8 +88,8 @@ RM               = /bin/rm
 MKDIR            = /bin/mkdir
 FIND             = /usr/bin/find
 SED              = /bin/sed
-ifeq ($(findstring Ubuntu,$(shell uname -v)),Ubuntu)
-AWK              = /usr/bin/awk
+ifeq ($(BUILD_VARIANT),Linux.ubuntu)
+AWK              = /usr/bin/gawk
 else			 
 AWK              = /bin/awk
 endif			 
@@ -108,11 +108,9 @@ CPLUSPLUS        = /usr/bin/g++ -DHAVE_UNISTD_H
 CFLAGS           =
 CPPFLAGS         =
 
-#ifeq ($(findstring Ubuntu,$(shell uname -v)),Ubuntu)
-  CC            += -I/usr/include/tcl -I/usr/include/tcl/tcl-private/generic/ -I/usr/include/tcl/tcl-private/unix
-  SCC           += -I/usr/include/tcl -I/usr/include/tcl/tcl-private/generic/ -I/usr/include/tcl/tcl-private/unix
-  CPLUSPLUS     += -I/usr/include/tcl -I/usr/include/tcl/tcl-private/generic/ -I/usr/include/tcl/tcl-private/unix
-#endif
+CC              += -I/usr/include/tcl
+SCC             += -I/usr/include/tcl
+CPLUSPLUS       += -I/usr/include/tcl
 
 ifeq ($(PACKAGING_TOP),)
   CC            += -I${HOME}/softs/$(BUILD_VARIANT)$(LIB_SUFFIX_)/install/include
@@ -154,6 +152,16 @@ SWIG             = /usr/bin/swig
 WHOLE            = -Xlinker --whole-archive
 NOWHOLE          = -Xlinker --no-whole-archive
 
+ifeq ($(BUILD_VARIANT),Linux.ubuntu)
+TCL_L            = $(shell pkg-config --libs tcl8.6)
+TCL_INCLUDES     = -I/usr/include/tcl8.6
+$(info Debian, looking for tcl8.6)
+$(info -> $(TCL_L))
+else
 TCL_L            = $(shell pkg-config --libs tcl)
+$(info Others, looking for tcl)
+$(info -> $(TCL_L))
+TCL_INCLUDES     = 
+endif
 
 # EOF

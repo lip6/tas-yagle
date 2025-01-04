@@ -1,0 +1,45 @@
+Source: tas-yagle
+Section: Science/Electronics
+Priority: optional
+Maintainer: Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
+Build-Depends: debhelper-compat (= 13),
+               tcsh,
+               build-essential,
+               pkg-config,
+               gawk,
+               bison,
+               libedit-dev,
+               libstdc++6,
+               libbz2-dev,
+               libxml2-dev,
+               libxpm-dev,
+               libmotif-common,
+               libmotif-dev,
+               libxm4,
+	       tcl-dev,
+               swig,
+               texlive-latex-recommended,
+               graphviz,
+               xpdf,
+               openjdk-17-jre-headless,
+Standards-Version: 3.4.6
+Homepage: https://coriolis.lip6.fr/
+Rules-Requires-Root: no
+#Vcs-Git: https://salsa.debian.org/debian/coriolis.git
+#Vcs-Browser: https://salsa.debian.org/debian/coriolis
+
+Package: tas-yagle
+Architecture: any
+Multi-Arch: foreign
+Depends:
+  ${misc:Depends},
+  ${shlibs:Depends} 
+Description: The Tas/Yagle STA.
+
+Package: tas-yagle-doc
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends} 
+Description: Documentation & tutorials for Tas/Yagle

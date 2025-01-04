@@ -122,7 +122,7 @@ void stb_init_backward (stbfig_list *stbfig, ttvevent_list *event)
     {
       ttv_expfigsig (stbfig->FIG, event->ROOT, level, stbfig->FIG->INFO->LEVEL,
                      TTV_STS_CLS_FED, TTV_FILE_DTX);
-      line = event->INLINE;
+      line = event->IN_LINE;
     }
 
   for (; line; line = line->NEXT)
@@ -227,7 +227,7 @@ stb_initckpath (stbfig, event)
     {
       ttv_expfigsig (stbfig->FIG, event->ROOT, level, stbfig->FIG->INFO->LEVEL,
                      TTV_STS_CLS_FED, TTV_FILE_DTX);
-      line = event->INLINE;
+      line = event->IN_LINE;
     }
 
   
@@ -611,7 +611,7 @@ stb_initbreak (stbfig, cbo)
       {
        ttv_expfigsig (stbfig->FIG, event->ROOT, level,
                       stbfig->FIG->INFO->LEVEL, TTV_STS_CLS_FED, TTV_FILE_DTX);
-       line = event->INLINE;
+       line = event->IN_LINE;
       }
      for (; line; line = line->NEXT)
       {
@@ -917,7 +917,7 @@ void stb_initsetuphold (stbfig_list *stbfig, ttvsig_list *ptsig)
        {
          ttv_expfigsig (stbfig->FIG, event->ROOT, level,
                         stbfig->FIG->INFO->LEVEL, TTV_STS_CLS_FED, TTV_FILE_DTX);
-         line = event->INLINE;
+         line = event->IN_LINE;
        }
      for (; line; line = line->NEXT)
       {
@@ -1021,7 +1021,7 @@ int stb_cmd_can_generate_event (stbfig_list *stbfig, ttvevent_list *event, ttvev
    {
      ttv_expfigsig (stbfig->FIG, event->ROOT, level,
                     stbfig->FIG->INFO->LEVEL, TTV_STS_CLS_FED, TTV_FILE_DTX);
-     line = event->INLINE;
+     line = event->IN_LINE;
    }
 
  for (; line; line = line->NEXT)
@@ -1942,7 +1942,7 @@ stb_initclock (stbfig,ctk)
       {
        ttv_expfigsig (stbfig->FIG, event->ROOT, level,
                       stbfig->FIG->INFO->LEVEL, TTV_STS_CLS_FED, TTV_FILE_DTX);
-       line = event->INLINE;
+       line = event->IN_LINE;
       }
 
      if( line == NULL )
@@ -2034,7 +2034,7 @@ stb_initclock (stbfig,ctk)
       {
        ttv_expfigsig (stbfig->FIG, event->ROOT, level,
                       stbfig->FIG->INFO->LEVEL, TTV_STS_CLS_FED, TTV_FILE_DTX);
-       line = event->INLINE;
+       line = event->IN_LINE;
       }
 
      for (; line; line = line->NEXT)
@@ -2357,7 +2357,7 @@ stb_initclock (stbfig,ctk)
       {
        ttv_expfigsig (stbfig->FIG, event->ROOT, level,
                       stbfig->FIG->INFO->LEVEL, TTV_STS_CLS_FED, TTV_FILE_DTX);
-       line = event->INLINE;
+       line = event->IN_LINE;
       }
 
      for (; line; line = line->NEXT)

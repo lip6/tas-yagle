@@ -50,7 +50,7 @@ void ttv_printsigsettings(ttvfig_list *ttvfig, FILE *file, ttvsig_list *ptsig, l
   long sup=0, sdn=0 ;
   float low, high;
   if ((ptsig->TYPE & TTV_SIG_CI)==TTV_SIG_CI || (ptsig->TYPE & TTV_SIG_CT)==TTV_SIG_CT
-      || ((ptsig->TYPE & TTV_SIG_B)==TTV_SIG_B && ptsig->NODE[0].INLINE==NULL && ptsig->NODE[1].INLINE==NULL))
+      || ((ptsig->TYPE & TTV_SIG_B)==TTV_SIG_B && ptsig->NODE[0].IN_LINE==NULL && ptsig->NODE[1].IN_LINE==NULL))
   {
     if ((sdn = ttv_getnodeslew(ptsig->NODE,TTV_FIND_MAX))==TTV_NOSLOPE) sdn=0;
     if ((sup = ttv_getnodeslew(ptsig->NODE+1,TTV_FIND_MAX))==TTV_NOSLOPE) sup=0;

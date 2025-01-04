@@ -535,7 +535,7 @@ float stb_ctk_signal_get_vdd( stbfig_list *stbfig, ttvevent_list *event )
                );
 
   found = 0 ;
-  for( ptline = event->INLINE ; ptline ; ptline = ptline->NEXT ) {
+  for( ptline = event->IN_LINE ; ptline ; ptline = ptline->NEXT ) {
   
     if( !ttv_islinelevel( stbfig->FIG, ptline, level ) )
       continue ;
@@ -582,7 +582,7 @@ float stb_ctk_signal_threshold_from_input( stbfig_list *stbfig,
                  TTV_FILE_DTX
                );
 
-  for( ptline = event->INLINE ; ptline ; ptline = ptline->NEXT ) {
+  for( ptline = event->IN_LINE ; ptline ; ptline = ptline->NEXT ) {
   
     if( !ttv_islinelevel( stbfig->FIG, ptline, level ) )
       continue ;

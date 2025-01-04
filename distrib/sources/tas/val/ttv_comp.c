@@ -737,7 +737,7 @@ char         mode;
       ttv_expfigsig(ttvfig2,nsig2,0,ttvfig2->INFO->LEVEL,TTV_STS_TTX, TTV_FILE_TTX);
   }
 
-  for (line2=((mode=='d')?node2.INLINE:node2.INPATH);line2;line2=line2->NEXT)
+  for (line2=((mode=='d')?node2.IN_LINE:node2.INPATH);line2;line2=line2->NEXT)
   {
     if(ttvins2 != NULL)
       if((line2->FIG != ttvins2) &&
@@ -1123,7 +1123,7 @@ char        type;
       for (i = 0; i < 2; i ++)
       {
         node1 = ptsig1->NODE[i];
-        for (line1 = ((type=='d')?node1.INLINE:node1.INPATH); line1; line1 = line1->NEXT)
+        for (line1 = ((type=='d')?node1.IN_LINE:node1.INPATH); line1; line1 = line1->NEXT)
         {
           /* mode mask */
           if ( (ttv_testmask(ttvfig1,line1->NODE->ROOT,TTV_NAME_IN) == 0)

@@ -29,7 +29,7 @@ static ptype_list *libpowerptype=NULL;
 static inline ttvline_list *lib_getnodeinputline(ttvevent_list *ev, int ttx)
 {
    if (ttx) return ev->INPATH;
-   else return ev->INLINE;
+   else return ev->IN_LINE;
 }
 
 /****************************************************************************/

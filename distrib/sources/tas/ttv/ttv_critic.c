@@ -1048,7 +1048,7 @@ long ttv_getnodeslope(ttvfig,ttvins,node,sloperef,type)
         {
           ttv_expfigsig(ttvfig,node->ROOT,ttvins->INFO->LEVEL,ttvfig->INFO->LEVEL,
                         TTV_STS_CLS_FED, TTV_FILE_DTX);
-          line = node->INLINE;
+          line = node->IN_LINE;
         }
       for(; line; line = line->NEXT)
         {
@@ -1721,7 +1721,7 @@ ptype_list *ttv_getlatchaccess_sub(ttvfig_list *ttvfig,ttvevent_list *latch,long
   if((type & TTV_FIND_PATH) == TTV_FIND_PATH)
     line = latch->INPATH ;
   else
-    line = latch->INLINE ;
+    line = latch->IN_LINE ;
 
   for(; line != NULL ; line = line->NEXT) 
     {
@@ -1829,7 +1829,7 @@ ptype_list *ttv_getlatchasynccmd(ttvfig_list *ttvfig,ttvevent_list *latch,long t
   if((type & TTV_FIND_PATH) == TTV_FIND_PATH)
     line = latch->INPATH ;
   else
-    line = latch->INLINE ;
+    line = latch->IN_LINE ;
 
   for(; line != NULL ; line = line->NEXT) 
     {
@@ -2633,7 +2633,7 @@ chain_list *ttv_findpath(head,ttvfig,root,cmd,type,level)
                       else in = (ttvline_list *)chain->DATA ;
                     }
                 }
-              else in = node->INLINE ;
+              else in = node->IN_LINE ;
             }
 
           while(in != NULL)
@@ -7108,7 +7108,7 @@ void ttv_findp(root,inf)
       if(((root->ROOT->TYPE & TTV_SIG_BYPASSOUT) == TTV_SIG_BYPASSOUT) ||
          ((root->TYPE & TTV_NODE_BYPASSOUT) == TTV_NODE_BYPASSOUT))
         return ;
-      in =  root->INLINE ;
+      in =  root->IN_LINE ;
     }
  
   while(in != NULL)
@@ -7852,7 +7852,7 @@ chain_list *ttv_getconstraint(ttvfig_list *ttvfig,ttvfig_list *figpath,ttvsig_li
       {
         if (i==avoiddir) continue;
         if((file & TTV_FILE_DTX) == TTV_FILE_DTX)
-          ptline = (ptsig->NODE + i)->INLINE ;
+          ptline = (ptsig->NODE + i)->IN_LINE ;
         else
           ptline = (ptsig->NODE + i)->INPATH ;
 
@@ -7972,7 +7972,7 @@ long ttv_getconstraintquick(ttvfig_list *ttvfig,ttvfig_list *figpath,ttvevent_li
         ttv_expfigsig(ttvfig,tve->ROOT,level,ttvfig->INFO->LEVEL,
                       TTV_STS_CL_PJT, TTV_FILE_TTX);
       if((type & TTV_FIND_LINE) == TTV_FIND_LINE)
-        ptline = tve->INLINE ;
+        ptline = tve->IN_LINE ;
       else
         ptline = tve->INPATH ;
 
@@ -7998,7 +7998,7 @@ long ttv_getconstraintquick(ttvfig_list *ttvfig,ttvfig_list *figpath,ttvevent_li
                       TTV_STS_CL_PJT, TTV_FILE_TTX);
 
       if((type & TTV_FIND_LINE) == TTV_FIND_LINE)
-        ptline = cmd->INLINE ;
+        ptline = cmd->IN_LINE ;
       else
         ptline = cmd->INPATH ;
 
@@ -8046,7 +8046,7 @@ float ttv_getline_vt(ttvfig_list *ttvfig,ttvfig_list *figpath,ttvevent_list *tve
                   TTV_STS_CL_PJT, TTV_FILE_TTX);
 
   if((type & TTV_FIND_LINE) == TTV_FIND_LINE)
-    ptline = tve->INLINE ;
+    ptline = tve->IN_LINE ;
   else
     ptline = tve->INPATH ;
 

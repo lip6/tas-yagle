@@ -1,0 +1,7 @@
+tas-yagle (3.4.6) unstable; urgency=low
+
+  * Initial release. Closes: #00001
+  * Updated debian packages files
+  * Update control file.
+  
+  -- Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr> Sat Jan  4 12:53:29 PM CET 2025

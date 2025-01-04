@@ -2044,7 +2044,7 @@ void     lib_tim_getsigtype(ttvfig_list *fig, lofig_list *pfig)
         
         for (j = 0; j < 2; j++) {
             /* typer B, LL (latch), LF (flip-flop) */
-            for (line = sig->NODE[j].INLINE; line; line = line->NEXT) {
+            for (line = sig->NODE[j].IN_LINE; line; line = line->NEXT) {
                 /* access */
                 if ((line->TYPE & TTV_LINE_A) == TTV_LINE_A) { 
                     if(ptrseq) {

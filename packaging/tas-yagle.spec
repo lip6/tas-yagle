@@ -3,7 +3,7 @@
 %define debug_package                     %{nil}
 
 Name:           tas-yagle
-Version:        3.4p6
+Version:        3.4.6
 Release:        1
 Summary:        Tas/Yagle - Static Timing Analyser
 Group:          Applications/Engineering
@@ -224,8 +224,8 @@ full-chip verification, with virtually no limit of capacity in design size.
 
 
 %changelog
-* Fri Dec 27 2024 Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr> - 3.5p5.1
+* Fri Dec 27 2024 Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr> - 3.4.6-1
 - Ported to openSUSE Build System (OBS).
 
-* Tue Apr 17 2012 Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr> - 3.5p5.1
+* Tue Apr 17 2012 Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr> - 3.4.5-1
 - Initial packaging.

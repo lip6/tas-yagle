@@ -103,7 +103,7 @@ extern int		MacintoshInit _ANSI_ARGS_((void));
 
 #include "tclInt.h"
 #include "eltclsh.h"
-#include AVT_H
+
 
 int avt_shell_AppInit(ElTclInterpInfo *iinfo) {
    Tcl_Obj *obj;

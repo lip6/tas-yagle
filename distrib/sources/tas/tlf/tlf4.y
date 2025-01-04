@@ -1031,7 +1031,7 @@ arcs         : arc_list
 
                     /* typer B, LL (latch), LF (flip-flop) */
                     
-                    for (line = sig->NODE[0].INLINE; line; line = line->NEXT) {
+                    for (line = sig->NODE[0].IN_LINE; line; line = line->NEXT) {
                         /* access */
                         if ((line->TYPE & TTV_LINE_A) == TTV_LINE_A) { 
                             switch (getoutputtype (sig->NAME, flipflops, latchs)) {
@@ -1055,7 +1055,7 @@ arcs         : arc_list
                         }
                     }
                     
-                    for (line = sig->NODE[1].INLINE; line; line = line->NEXT) {
+                    for (line = sig->NODE[1].IN_LINE; line; line = line->NEXT) {
                         /* access */
                         if ((line->TYPE & TTV_LINE_A) == TTV_LINE_A) { 
                             switch (getoutputtype (sig->NAME, flipflops, latchs)) {

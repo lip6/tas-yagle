@@ -351,7 +351,7 @@ chain_list* stb_mark_input( ttvfig_list *ttvfig,
 
   for( i=0 ; i<= 1 ; i++ ) {
 
-    for( line = victime->NODE[i].INLINE ; line ; line = line->NEXT ) {
+    for( line = victime->NODE[i].IN_LINE ; line ; line = line->NEXT ) {
 
       if( !ttv_islinelevel( ttvfig, line, level ) )
         continue ;
@@ -366,7 +366,7 @@ chain_list* stb_mark_input( ttvfig_list *ttvfig,
       /* on marque également les driver des entrées rc */
 
       for( j=0 ; j<=1 ; j++ ) {
-        for( linerc = ttvsig->NODE[j].INLINE ; linerc ; linerc = linerc->NEXT ) 
+        for( linerc = ttvsig->NODE[j].IN_LINE ; linerc ; linerc = linerc->NEXT ) 
         {
         
           if( ((linerc->TYPE & TTV_LINE_RC) != TTV_LINE_RC) ||
@@ -1796,7 +1796,7 @@ chain_list      *headagr ;
   {
     ttv_expfigsig (ttvfig,node->ROOT, level, ttvfig->INFO->LEVEL, 
                    TTV_STS_CLS_FED|TTV_STS_DUAL_FED, TTV_FILE_DTX);
-    line = node->INLINE ;
+    line = node->IN_LINE ;
   }
   else
   {
@@ -2128,9 +2128,9 @@ int          iteration;
 
     ptevent = (ttvevent_list *)chain->DATA;
 
-    if( !ptevent->INLINE ||
-        ( ptevent->INLINE && 
-          (ptevent->INLINE->TYPE & TTV_LINE_RC) != TTV_LINE_RC )
+    if( !ptevent->IN_LINE ||
+        ( ptevent->IN_LINE && 
+          (ptevent->IN_LINE->TYPE & TTV_LINE_RC) != TTV_LINE_RC )
       )
     {
       if(stb_calcctkdelaynode(stbfig,ptevent,level,type,mode, &delta, iteration, debugmode)
@@ -2699,8 +2699,8 @@ stb_ctk_detail* stb_ctk_get_detail( stbfig_list *stbfig,
   else
     level = 0 ;
     
-  if( ptevent->INLINE && 
-      (ptevent->INLINE->TYPE & TTV_LINE_RC) == TTV_LINE_RC 
+  if( ptevent->IN_LINE && 
+      (ptevent->IN_LINE->TYPE & TTV_LINE_RC) == TTV_LINE_RC 
     )
     return NULL;
     
@@ -3504,7 +3504,7 @@ void stb_ctk_fill_stat_line( stb_ctk_stat *stat,
                    TTV_FILE_DTX
                  );
                  
-    line = ptevent->INLINE ;
+    line = ptevent->IN_LINE ;
     ptype = getptype( ptevent->USER, TTV_NODE_DUALLINE );
     if( ptype )
       scline = (chain_list *)ptype->DATA ;
@@ -3547,7 +3547,7 @@ void stb_ctk_fill_stat_line( stb_ctk_stat *stat,
                    TTV_FILE_DTX
                  );
                  
-    line = ptevent->INLINE ;
+    line = ptevent->IN_LINE ;
     ptype = getptype( ptevent->USER, TTV_NODE_DUALLINE );
     if( ptype )
       scline = (chain_list *)ptype->DATA ;

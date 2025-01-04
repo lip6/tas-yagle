@@ -1138,12 +1138,12 @@ void XtasDisplayCtkInfo( parent, event, errorWidget)
         if( ( event->ROOT->TYPE & TTV_SIG_CO ) == TTV_SIG_CO ) {
             ttvfig = XtasMainParam->stbfig->FIG ;
             ttv_expfigsig( ttvfig, event->ROOT, ttvfig->INFO->LEVEL, ttvfig->INFO->LEVEL, TTV_STS_T, TTV_FILE_DTX);
-            for( line = event->INLINE ; line ; line = line->NEXT ) {
+            for( line = event->IN_LINE ; line ; line = line->NEXT ) {
               if ( ( line->TYPE & TTV_LINE_RC) == TTV_LINE_RC ) 
                 break;
             }
             if( line )
-              stbevent = event->INLINE->NODE ;
+              stbevent = event->IN_LINE->NODE ;
         }
         detail = stb_ctk_get_detail(XtasMainParam->stbfig, stbevent);
     }

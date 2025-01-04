@@ -150,7 +150,7 @@ timing_model* stb_ctk_noise_get_model( ttvfig_list *ttvfig,
                    TTV_STS_CLS_FED|TTV_STS_DUAL_FED, 
                    TTV_FILE_DTX
                  );
-    line = event->INLINE ;
+    line = event->IN_LINE ;
   }
   else {
     ttv_expfigsig( ttvfig,

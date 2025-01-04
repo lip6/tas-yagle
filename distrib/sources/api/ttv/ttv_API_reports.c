@@ -2287,7 +2287,7 @@ static void ttv_setupbreakinfo(ttvfig_list *tvf, ttvevent_list *tve, long type)
  if((type & TTV_FIND_PATH) == TTV_FIND_PATH)
     line = tve->INPATH ;
  else
-    line = tve->INLINE ;
+    line = tve->IN_LINE ;
 
  for(; line != NULL ; line = line->NEXT) 
   {

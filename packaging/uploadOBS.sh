@@ -1,10 +1,10 @@
 
-    version="3.4p6"
+    version="3.4.6"
      obsDir="../coriolis-obs/home:jpc-lip6/tas-yagle"
 
  printHelp () {
    echo ""
-   echo "  Usage: mkArchives.sh [--sources] [--commit] [--run]"
+   echo "  Usage: uploadOBS.sh [--sources] [--commit] [--run]"
    echo ""
    echo "  Options:"
    echo "    [--sources] : Build an archive from the HEAD of the current branch."
@@ -38,7 +38,7 @@
    exit 1
  fi
 
- echo "Running mkArchives.sh"
+ echo "Running uploadOBS.sh"
  echo "* Using HEAD githash as release: ${githash}."
  if [ "${doSources}" = "true" ]; then
    echo "* Making source file archive from Git HEAD ..."
@@ -48,10 +48,18 @@
 
  echo "* Update files in OBS project directory."
  echo "  OBS package directory: \"${obsDir}\"."
- for distribFile in packaging/tas-yagle.spec        \
-                    packaging/tas-yagle-rpmlintrc   \
-                    packaging/flex-2.5.4-exit.patch \
-                    tas-yagle-${version}.tar.gz ; do
+ for distribFile in packaging/tas-yagle.spec               \
+                    packaging/tas-yagle-rpmlintrc          \
+                    packaging/flex-2.5.4-exit.patch        \
+                    tas-yagle-${version}.tar.gz            \
+		    packaging/tas-yagle.dsc                \
+		    packaging/debian.copyright             \
+		    packaging/debian.changelog             \
+		    packaging/debian.control               \
+		    packaging/debian.rules                 \
+		    packaging/debian.tas-yagle.install     \
+		    packaging/debian.tas-yagle-doc.install \
+		    ; do
    if [ ! -f "${distribFile}" ]; then continue; fi
    if [[ "${distribFile}" == packaging* ]]; then
      echo "  - copy ${distribFile}."

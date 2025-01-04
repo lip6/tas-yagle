@@ -107,7 +107,7 @@ chain_list *ttv_GetLines(ttvfig_list *tvf, char *start, char *end, char *dir, ch
               if ((type & TTV_FIND_PATH) ==  TTV_FIND_PATH)
                 line=tvs->NODE[i].INPATH;
               else
-                line=tvs->NODE[i].INLINE;
+                line=tvs->NODE[i].IN_LINE;
 
 
               while (line!=NULL)

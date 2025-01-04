@@ -1,0 +1,4 @@
+/etc/profile.d/*
+/usr/share/tasyag/etc/*
+/usr/bin/*
+/usr/man/man3/*

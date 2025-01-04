@@ -1,0 +1,88 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+NAME    = tas-yagle
+VERSION = 3.4.6
+DESTDIR = $(CURDIR)/debian/tmp
+DOCDIR  = $(DESTDIR)/usr/share/doc/tas-yagle
+
+%:
+	dh $@
+
+binary:
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_prep
+	tar zxf ./distrib_extras/flex-2.5.4_patch.tar.gz; \
+	localInstall=`pwd`; \
+	cd flex-2.5.4; \
+	patch -p1 < /usr/src/packages/SOURCES/flex-2.5.4-exit.patch; \
+	./configure --prefix=$${localInstall}; \
+	make install; \
+	cd ..; \
+	PATH=$${localInstall}/bin:$${PATH}; \
+	export PATH; \
+	cd distrib; \
+	buildDir=`pwd`; \
+	AVERTEC_OS="Linux"; \
+	buildDirs="api_include api_lib bin lib include man/man3 share/doc"; \
+	for dir in $${buildDirs}; do mkdir -p $${dir}; done; \
+	ln -s sources obj; \
+	ln -s share/etc etc; \
+	makefileEnv=""; \
+	echo "CFLAGS=$${CFLAGS}"; \
+	echo "CXXFLAGS=$${CXXFLAGS}"; \
+	cd obj; \
+	make WITH_FLEXLM=NOFLEX               \
+	     BUILD_VARIANT=Linux.ubuntu       \
+	     LIB_SUFFIX=64                    \
+	     LIB_SUFFIX_=_64                  \
+	     ALLIANCE_TOP=$${buildDir}        \
+	     AVERTEC_TOP=$${buildDir}         \
+	     AVERTEC_OS=$$AVERTEC_OS          \
+	     AVERTEC_LICENSE=AVERTEC_DUMMY    \
+	     AVT_LICENSE_SERVER=house         \
+	     AVT_LICENSE_FILE=27009@house     \
+	     AVT_COMPILATION_TYPE=distrib     \
+	     AVT_DISTRIB_DIR=$${buildDir}     \
+	     PACKAGING_TOP=$${localInstall};  \
+	if [ $$? -ne 0 ]; then exit 1; fi;    \
+	cd ..
+	tar jxf distrib/docxml2/docxml2-compiled.tar.bz2
+	mkdir -p $(DOCDIR)
+	mkdir -p $(DESTDIR)/etc/profile.d
+	mkdir -p $(DESTDIR)/usr/bin
+	mkdir -p $(DESTDIR)/usr/share/tasyag/etc
+	mkdir -p $(DESTDIR)/usr/man/man3
+	for conf in avt.slib avttools.dtb Xtas Xyagle trmodel.cfg; do \
+	  cp distrib/share/etc/$${conf} $(DESTDIR)/usr/share/tasyag/etc; \
+	done
+	for tool in avt_shell avtman xtas xyagle ttvdiff ttvren; do \
+	  cp distrib/bin/$${tool} $(DESTDIR)/usr/bin; \
+	done
+	cp distrib/share/etc/avt_env.sh $(DESTDIR)/etc/profile.d
+	cp -r distrib/share/tcl         $(DESTDIR)/usr/share/tasyag
+	cp distrib/man/man3/*           $(DESTDIR)/usr/man/man3
+	mv compiled/docavertec.html     $(DOCDIR)
+	mv compiled/docpdf              $(DOCDIR)
+	mv compiled/dochtml             $(DOCDIR)
+	dh_installdeb
+	dh_install
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_clean

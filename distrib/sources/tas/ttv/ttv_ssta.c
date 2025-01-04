@@ -143,7 +143,7 @@ static chain_list *ttv_getalllines(ttvfig_list *tvf)
            if ((type & TTV_FIND_PATH) ==  TTV_FIND_PATH)
              line=tvs->NODE[i].INPATH;
            else
-             line=tvs->NODE[i].INLINE;
+             line=tvs->NODE[i].IN_LINE;
 
            while (line!=NULL)
              {

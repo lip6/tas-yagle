@@ -84,7 +84,7 @@ void SwitchingPower (TimingFigure *tf)
                     }else{
                         prevsig = NULL;
                     }
-                    for(line = node->INLINE; line; line = line->NEXT){
+                    for(line = node->IN_LINE; line; line = line->NEXT){
                         if(line->NODE->ROOT == prevsig){
                             modmax = stm_getmodel( tf->INFO->FIGNAME, line->MDMAX );
                             if(modmax){

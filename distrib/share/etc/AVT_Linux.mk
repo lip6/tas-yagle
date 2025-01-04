@@ -39,9 +39,10 @@ else
           SAXON     = $(JAVA) -jar ${AVERTEC_TOP}/../distrib_extras/saxon9.jar
         else
           ifeq ($(BUILD_VARIANT),Linux.ubuntu)
-            JAVA_HOME = /usr/lib/jvm/java-1.6.0-openjdk
+            JAVA_HOME = /usr/lib/jvm/java-17-openjdk-amd64
             JAVA      = $(JAVA_HOME)/bin/java
-            SAXON     = saxonb-xslt -ext:on
+            SAXON     = $(JAVA) -jar ${AVERTEC_TOP}/../distrib_extras/saxon9.jar
+           #SAXON     = saxonb-xslt -ext:on
            #SAXON     = CLASSPATH=/usr/share/java/saxonb.jar $(JAVA) net.sf.saxon.Transform
           else
             ifeq ($(BUILD_VARIANT),Linux.openSUSE)

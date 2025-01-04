@@ -213,13 +213,13 @@ long type ;
  ptsig->NODE[0].ROOT = ptsig ;
  ptsig->NODE[0].TYPE = TTV_NODE_DOWN ;
  ptsig->NODE[0].FIND = NULL ;
- ptsig->NODE[0].INLINE = NULL ;
+ ptsig->NODE[0].IN_LINE = NULL ;
  ptsig->NODE[0].INPATH = NULL ;
  ptsig->NODE[0].USER = NULL ;
  ptsig->NODE[1].ROOT = ptsig ;
  ptsig->NODE[1].TYPE = TTV_NODE_UP ;
  ptsig->NODE[1].FIND = NULL ;
- ptsig->NODE[1].INLINE = NULL ;
+ ptsig->NODE[1].IN_LINE = NULL ;
  ptsig->NODE[1].INPATH = NULL ;
  ptsig->NODE[1].USER = NULL ;
  ptsig->PNODE[0]=-1;
@@ -250,8 +250,8 @@ void ttv_init_refsig(ttvfig_list *ttvfig, ttvsig_list *ptsig, char *name, char *
  ptsig->TYPE = type ;
  ptsig->USER = NULL ;
 
- ptsig->NODE[0].INLINE = NULL ;
- ptsig->NODE[1].INLINE = NULL ;
+ ptsig->NODE[0].IN_LINE = NULL ;
+ ptsig->NODE[1].IN_LINE = NULL ;
  ptsig->NODE[0].INPATH = NULL ;
  ptsig->NODE[1].INPATH = NULL ;
  ptsig->NODE[0].ROOT = ptsig ;
@@ -444,10 +444,10 @@ long type ;
                       ptline = ttvfig->DBLOC->LINE + 
                                ((long)TTV_MAX_LBLOC - (nbline + 1)) ;
                       ttvfig->NBDBLOC = ttvfig->NBDBLOC + (long)1 ;
-                      if(root->INLINE != NULL)
-                        root->INLINE->TYPE &= ~(TTV_LINE_ROOT) ;
-                      ptline->NEXT = root->INLINE ;
-                        root->INLINE = ptline ;
+                      if(root->IN_LINE != NULL)
+                        root->IN_LINE->TYPE &= ~(TTV_LINE_ROOT) ;
+                      ptline->NEXT = root->IN_LINE ;
+                        root->IN_LINE = ptline ;
                       break ;
 
     case TTV_LINE_E : nbline = (long)(ttvfig->NBEBLOC % (long)TTV_MAX_LBLOC) ;
@@ -457,10 +457,10 @@ long type ;
                       ptline = ttvfig->EBLOC->LINE + 
                                ((long)TTV_MAX_LBLOC - (nbline + 1)) ;
                       ttvfig->NBEBLOC = ttvfig->NBEBLOC + (long)1 ;
-                      if(root->INLINE != NULL)
-                       root->INLINE->TYPE &= ~(TTV_LINE_ROOT) ;
-                      ptline->NEXT = root->INLINE ;
-                      root->INLINE = ptline ;
+                      if(root->IN_LINE != NULL)
+                       root->IN_LINE->TYPE &= ~(TTV_LINE_ROOT) ;
+                      ptline->NEXT = root->IN_LINE ;
+                      root->IN_LINE = ptline ;
                       break ;
     case TTV_LINE_F : nbline = (long)(ttvfig->NBFBLOC % (long)TTV_MAX_LBLOC) ;
                       if(nbline == (long)0) 
@@ -469,10 +469,10 @@ long type ;
                       ptline = ttvfig->FBLOC->LINE + 
                                ((long)TTV_MAX_LBLOC - (nbline + 1)) ;
                       ttvfig->NBFBLOC = ttvfig->NBFBLOC + (long)1 ;
-                      if(root->INLINE != NULL)
-                       root->INLINE->TYPE &= ~(TTV_LINE_ROOT) ;
-                      ptline->NEXT = root->INLINE ;
-                      root->INLINE = ptline ;
+                      if(root->IN_LINE != NULL)
+                       root->IN_LINE->TYPE &= ~(TTV_LINE_ROOT) ;
+                      ptline->NEXT = root->IN_LINE ;
+                      root->IN_LINE = ptline ;
                       break ;
   }
 
@@ -829,9 +829,9 @@ ttvline_list *ptline ;
 
  if((ptline->TYPE & (TTV_LINE_D | TTV_LINE_E | TTV_LINE_F)) != 0)
   {
-   ptlinex = ptline->ROOT->INLINE ;
+   ptlinex = ptline->ROOT->IN_LINE ;
    if(ptlinex == ptline)
-    ptline->ROOT->INLINE = ptlinex->NEXT ;
+    ptline->ROOT->IN_LINE = ptlinex->NEXT ;
   }
  else 
   {
@@ -3496,7 +3496,7 @@ long mark ;
    if((type & TTV_FIND_PATH) == TTV_FIND_PATH)
      in =  node->INPATH ;
    else
-     in =  node->INLINE ;
+     in =  node->IN_LINE ;
   }
 
 while(in != NULL)
@@ -3664,7 +3664,7 @@ long mark ;
    if((type & TTV_FIND_PATH) == TTV_FIND_PATH)
      in =  node->INPATH ;
    else
-     in =  node->INLINE ;
+     in =  node->IN_LINE ;
   }
  
  while(in != NULL)
@@ -4027,7 +4027,7 @@ long type ;
      {
       ptnode = (ttvevent_list *)chainx->DATA ;
       ptnode->TYPE &= ~(TTV_NODE_ROOT) ;
-      for(ptline = ptnode->INLINE ; ptline != NULL ; ptline = ptlinenext)
+      for(ptline = ptnode->IN_LINE ; ptline != NULL ; ptline = ptlinenext)
         {
          ptlinenext = ptline->NEXT ;
          if((ptype = getptype(ptline->USER,TTV_LINE_NEW))!= NULL)
@@ -4398,7 +4398,7 @@ long type ;
 
  if((type & (TTV_LINE_F|TTV_LINE_D|TTV_LINE_E)) != 0)
   {
-   line = root->INLINE ;
+   line = root->IN_LINE ;
   }
  else
   {
@@ -4449,7 +4449,7 @@ int order ;
 
  if((type & (TTV_LINE_F|TTV_LINE_D|TTV_LINE_E)) != 0)
   {
-   line = root->INLINE ;
+   line = root->IN_LINE ;
   }
  else
   {
@@ -6023,7 +6023,7 @@ char mode ;
   {
    ttv_expfigsig (ttvfig,node->ROOT, level, ttvfig->INFO->LEVEL, 
                   TTV_STS_CLS_FED|TTV_STS_DUAL_FED, TTV_FILE_DTX);
-   line = node->INLINE ;
+   line = node->IN_LINE ;
    if((ptype = getptype(node->USER,TTV_NODE_DUALLINE)) != NULL)
       chain = (chain_list *)ptype->DATA ;
    else
@@ -6133,7 +6133,7 @@ static void ttv_find_a_slope(ttvfig_list *ttvfig, ttvevent_list *node, long leve
     {
      ttv_expfigsig (ttvfig,node->ROOT, level, ttvfig->INFO->LEVEL, 
                     TTV_STS_CLS_FED|TTV_STS_DUAL_FED, TTV_FILE_DTX);
-     line = node->INLINE ;
+     line = node->IN_LINE ;
     }
    else
     {
@@ -6212,7 +6212,7 @@ char mode ;
   {
    ttv_expfigsig (ttvfig,node->ROOT, level, ttvfig->INFO->LEVEL, 
                   TTV_STS_CLS_FED|TTV_STS_DUAL_FED, TTV_FILE_DTX);
-   line = node->INLINE ;
+   line = node->IN_LINE ;
    if((ptype = getptype(node->USER,TTV_NODE_DUALLINE)) != NULL)
       chain = (chain_list *)ptype->DATA ;
    else
@@ -6584,7 +6584,7 @@ char mode ;
   {
    ttv_expfigsig (ttvfig,node->ROOT, level, ttvfig->INFO->LEVEL, 
                   TTV_STS_CLS_FED|TTV_STS_DUAL_FED, TTV_FILE_DTX);
-   line = node->INLINE ;
+   line = node->IN_LINE ;
   }
  else
   {
@@ -6693,7 +6693,7 @@ long type ;
   {
    ttv_expfigsig (ttvfig,node->ROOT, level, ttvfig->INFO->LEVEL,
                   TTV_STS_CLS_FED|TTV_STS_DUAL_FED, TTV_FILE_DTX);
-   line = node->INLINE ;
+   line = node->IN_LINE ;
    if((ptype = getptype(node->USER,TTV_NODE_DUALLINE)) != NULL)
       chain = (chain_list *)ptype->DATA ;
    else
@@ -6786,7 +6786,7 @@ long           which ;
   {
    ttv_expfigsig (ttvfig,node->ROOT, level, ttvfig->INFO->LEVEL,
                   TTV_STS_CLS_FED|TTV_STS_DUAL_FED, TTV_FILE_DTX);
-   line = node->INLINE ;
+   line = node->IN_LINE ;
    if((ptype = getptype(node->USER,TTV_NODE_DUALLINE)) != NULL)
       chain = (chain_list *)ptype->DATA ;
    else
@@ -6899,7 +6899,7 @@ static chain_list *ttv_depthfirst(ttvfig_list *fig,long level,ttvevent_list *nod
  if((type & TTV_FIND_PATH) == TTV_FIND_PATH)
   in = node->INPATH;
  else
-  in = node->INLINE;
+  in = node->IN_LINE;
 
  ttv_fifopush(node) ;
 
@@ -7594,7 +7594,7 @@ long type ;
          for(j = 0 ; j < 2 ; j ++)
            {
             event = ptsig->NODE + j ;
-            for(ptline = event->INLINE ; ptline != NULL ; ptline = ptline->NEXT)
+            for(ptline = event->IN_LINE ; ptline != NULL ; ptline = ptline->NEXT)
              if(((ptline->TYPE & TTV_LINE_D) == TTV_LINE_D) && 
                  (ptline->FIG == ttvfig))
                 break ;

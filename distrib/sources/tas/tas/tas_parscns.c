@@ -3849,7 +3849,7 @@ int j, oldmode ;
      for(chain = chaincmd ; chain != NULL ; chain = chain->NEXT)
       ((ttvevent_list *)chain->DATA)->TYPE |= TTV_NODE_CMDMARQUE ;
      for(j = 0 ; j < 2 ; j ++)
-     for(ptlinecmd = ptsig->NODE[j].INLINE ; ptlinecmd != NULL ; 
+     for(ptlinecmd = ptsig->NODE[j].IN_LINE ; ptlinecmd != NULL ; 
          ptlinecmd = ptlinecmd->NEXT)
        {
         ptypecmd = getptype(ptlinecmd->USER,TTV_LINE_CMDMAX) ;
@@ -3887,7 +3887,7 @@ int j, oldmode ;
         }
 
      for(j = 0 ; j < 2 ; j ++)
-     for(ptlinecmd = ptsig->NODE[j].INLINE ; ptlinecmd != NULL ; 
+     for(ptlinecmd = ptsig->NODE[j].IN_LINE ; ptlinecmd != NULL ; 
          ptlinecmd = ptlinecmd->NEXT)
        {
         ptypecmd = getptype(ptlinecmd->USER,TTV_LINE_CMDMAX) ;

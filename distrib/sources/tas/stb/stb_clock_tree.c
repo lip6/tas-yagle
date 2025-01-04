@@ -27,7 +27,7 @@ static void stb_clock_tree_mark_diverging_node(stbfig_list *stbfig, ttvevent_lis
   {
    ttv_expfigsig (stbfig->FIG, event->ROOT, level, stbfig->FIG->INFO->LEVEL,
                   TTV_STS_CLS_FED, TTV_FILE_DTX);
-   line = event->INLINE;
+   line = event->IN_LINE;
   }
 
  for (; line; line = line->NEXT)

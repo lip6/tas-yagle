@@ -499,7 +499,7 @@ typedef struct ttvfind                          /* evenement d'un signal     */
   char                 FLAGS;
   char PERIODE ;             /* phase max d'origine       */
   char ORGPHASE ;            /* phase min d'origine       */
-//  char ORGPHASE, PHASE ;            /* phase min d'origine       */
+//  char ORGPHASE, PHASE ;            /  phase min d'origine       /
   ttvfind_stb_stuff   *STB;
 }
 ttvfind_list ;
@@ -508,7 +508,7 @@ typedef struct ttvevent                         /* evenement d'un signal     */
     {
      struct ttvsig       *ROOT ;                /* pointeur sur le signal    */
      long                 TYPE ;                /* type de signal            */
-     struct ttvline      *INLINE ;              /* lien de l'evenement       */
+     struct ttvline      *IN_LINE ;              /* lien de l'evenement       */
      struct ttvline      *INPATH ;              /* chemin de l'evenement     */
      struct ttvfind      *FIND ;                /* info de recherche         */
      ptype_list          *USER ;                /* champs utilisateur        */ 

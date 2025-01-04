@@ -117,7 +117,7 @@ void stb_propagate_setup_slope (stbfig_list *stbfig, ttvevent_list *event)
     {
       ttv_expfigsig (stbfig->FIG, event->ROOT, level, stbfig->FIG->INFO->LEVEL,
                      TTV_STS_CLS_FED, TTV_FILE_DTX);
-      line = event->INLINE;
+      line = event->IN_LINE;
     }
 
   if (stb_get_setup_slope_info(event)!=NULL) sourcechanged=1; else sourcechanged=0;
@@ -541,7 +541,7 @@ static void stb_find_stb_path (stbfig_list *stbfig, ttvevent_list *event, ttveve
     {
       ttv_expfigsig (stbfig->FIG, event->ROOT, level, stbfig->FIG->INFO->LEVEL,
                      TTV_STS_CLS_FED, TTV_FILE_DTX);
-      line = event->INLINE;
+      line = event->IN_LINE;
     }
 
   for (i=0; i<node->NBINDEX; i++)

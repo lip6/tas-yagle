@@ -3008,7 +3008,7 @@ long type ;
          if ((ptype = getptype(ptline->USER,TTV_LINE_CMDMIN))!=NULL) cmdmin=(ttvevent_list *)ptype->DATA;
          else cmdmin=NULL;
 
-         for(ptlinex = rootx->INLINE ; ptlinex != NULL ; 
+         for(ptlinex = rootx->IN_LINE ; ptlinex != NULL ; 
              ptlinex = ptlinex->NEXT)
           {
             ttvevent_list *thiscmdmax, *thiscmdmin;

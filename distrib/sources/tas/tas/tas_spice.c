@@ -235,7 +235,7 @@ ttvline_list *tas_get_line_from_critic (ttvcritic_list *critic)
     destevent = &destsig->NODE[1];
   else
     destevent = &destsig->NODE[0];
-  for (line = destevent->INLINE ; line ; line=line->NEXT) {
+  for (line = destevent->IN_LINE ; line ; line=line->NEXT) {
     // attention a la convention des noms
     if (line->ROOT == destevent && line->NODE == rootevent)
       break;

@@ -1340,7 +1340,7 @@ int tma_IsAccessEvent (ttvevent_list *event)
    } 
    else
    if (TMA_CONTEXT->TMA_TYPE_TTVFIG == 'D') {
-      for (line = event->INLINE; line; line = line->NEXT) 
+      for (line = event->IN_LINE; line; line = line->NEXT) 
          if ((line->TYPE & TTV_LINE_A) == TTV_LINE_A)
             return 1;
    }
@@ -1361,7 +1361,7 @@ int tma_IsHoldEvent (ttvevent_list *event)
    } 
    else
    if (TMA_CONTEXT->TMA_TYPE_TTVFIG == 'D') {
-      for (line = event->INLINE; line; line = line->NEXT) 
+      for (line = event->IN_LINE; line; line = line->NEXT) 
          if ((line->TYPE & TTV_LINE_O) == TTV_LINE_O)
             return 1;
    }
@@ -1382,7 +1382,7 @@ int tma_IsSetupEvent (ttvevent_list *event)
    } 
    else
    if (TMA_CONTEXT->TMA_TYPE_TTVFIG == 'D') {
-      for (line = event->INLINE; line; line = line->NEXT) 
+      for (line = event->IN_LINE; line; line = line->NEXT) 
          if ((line->TYPE & TTV_LINE_U) == TTV_LINE_U)
             return 1;
    }
@@ -1403,7 +1403,7 @@ int tma_IsBreakCmd (ttvevent_list *event)
    } 
    else
    if (TMA_CONTEXT->TMA_TYPE_TTVFIG == 'D') {
-      for (line = event->INLINE; line; line = line->NEXT) 
+      for (line = event->IN_LINE; line; line = line->NEXT) 
          if ((line->TYPE & TTV_LINE_O) == TTV_LINE_O || (line->TYPE & TTV_LINE_U) == TTV_LINE_U)
             return 1;
    }
@@ -1533,7 +1533,7 @@ int tma_IsEvLine (ttvevent_list *node, ttvevent_list *root)
    }
    else
    if (TMA_CONTEXT->TMA_TYPE_TTVFIG == 'D') {
-      for (line = root->INLINE; line; line = line->NEXT)
+      for (line = root->IN_LINE; line; line = line->NEXT)
          if (line->NODE == node)
             if ((line->TYPE & TTV_LINE_EV) == TTV_LINE_EV)
                return 1;
@@ -1556,7 +1556,7 @@ int tma_IsPrLine (ttvevent_list *node, ttvevent_list *root)
    }
    else
    if (TMA_CONTEXT->TMA_TYPE_TTVFIG == 'D') {
-      for (line = root->INLINE; line; line = line->NEXT)
+      for (line = root->IN_LINE; line; line = line->NEXT)
          if (line->NODE == node)
             if ((line->TYPE & TTV_LINE_PR) == TTV_LINE_PR)
                return 1;
@@ -1856,7 +1856,7 @@ void tma_CreateBreakAccess (ttvfig_list *fig, ttvevent_list *node, timing_model 
        inpath = node->INPATH;
     else
     if (TMA_CONTEXT->TMA_TYPE_TTVFIG == 'D')
-       inpath = node->INLINE;
+       inpath = node->IN_LINE;
 
     for (line = inpath; line; line = line->NEXT) {
         if ((line->TYPE & TTV_LINE_A) == TTV_LINE_A) {
@@ -1917,7 +1917,7 @@ void tma_FindTasSH( ttvevent_list *cmd, ttvevent_list *latch, long *setup, long 
     *setup = 0;
 
     if (TMA_CONTEXT->TMA_TYPE_TTVFIG == 'D')
-        line = cmd->INLINE;
+        line = cmd->IN_LINE;
     else if (TMA_CONTEXT->TMA_TYPE_TTVFIG == 'T')
         line = cmd->INPATH;
     
@@ -2811,7 +2811,7 @@ void tma_UpdateSetReset (ttvfig_list *fig, befig_list *befig)
       sig = fig->CONSIG[i];
       if ((sig->TYPE & TTV_SIG_CO) == TTV_SIG_CO || (sig->TYPE & TTV_SIG_CB) == TTV_SIG_CB) {
          for (event = 0; event < 2; event++) {
-            for (line = sig->NODE[event].INLINE; line; line = line->NEXT) {
+            for (line = sig->NODE[event].IN_LINE; line; line = line->NEXT) {
                if (tma_IsInList (setlist, line->NODE->ROOT->NAME)) {
                   switch (cbh_calcsense (befig, ptcbhseq->SET, line->NODE->ROOT->NAME)) {
                      case CBH_INVERT :

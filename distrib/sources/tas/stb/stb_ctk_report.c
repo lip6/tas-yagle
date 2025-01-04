@@ -52,7 +52,7 @@ void stb_ctk_drive_iteration_report_save_last_iteration_info(stbfig_list *sb)
         {
           ttv_expfigsig (sb->FIG, event->ROOT, level, sb->FIG->INFO->LEVEL,
                          TTV_STS_CLS_FED, TTV_FILE_DTX);
-          line = event->INLINE;
+          line = event->IN_LINE;
         }
       
       
@@ -182,7 +182,7 @@ static void stb_ctk_drive_iteration_report_min_max_change(FILE *f, stbfig_list *
         {
           ttv_expfigsig (sb->FIG, event->ROOT, level, sb->FIG->INFO->LEVEL,
                          TTV_STS_CLS_FED, TTV_FILE_DTX);
-          line = event->INLINE;
+          line = event->IN_LINE;
         }
       
       

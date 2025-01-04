@@ -4,13 +4,21 @@ include $(AVERTEC_TOP)/etc/$(AVERTEC_OS).mk
 include $(AVERTEC_TOP)/etc/libraries.mk
 include $(AVERTEC_TOP)/etc/Avertec.mk
 
+ifeq ($(BUILD_VARIANT),Linux.ubuntu)
+  TCL_PRIVATE_INCLUDES = -I/usr/include/tcl8.6/tcl-private/generic \
+                         -I/usr/include/tcl8.6/tcl-private/unix    \
+                -idirafter /usr/include/tcl8.6/tcl-private/compat
+else
+  TCL_PRIVATE_INCLUDES = -I/usr/include/tcl-private/generic -I/usr/include/tcl-private/unix
+endif
+
+
 BUILDNUM = $(shell date +%Y%m%d)
 
 #TCL_L = -ltcl8.3g
 LOCAL_INC = -I$(TARGET_INCLUDE) \
             -I$(TARGET_API_INCLUDE) \
-            -I/usr/include/tcl-private/generic \
-            -I/usr/include/tcl-private/unix
+            $(TCL_INCLUDES)
 
 LOCAL_CFLAGS   = $(CFLAGS) -c
 LOCAL_CPPFLAGS = $(CPPFLAGS) $(LOCAL_INC) \
@@ -146,7 +154,7 @@ $(TARGET_API_INCLUDE)/avt_API_types.h: avt_API_types.h
 	$(CC) -DBUILDNUM=$(BUILDNUM) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS) $<
 
 $(STATIC_SWIG_OBJ) :  $(STATIC_TCL_RUNTIME)
-	$(CC) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS) -Dmain=shell_main $<
+	$(CC) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS) $(TCL_PRIVATE_INCLUDES) -Dmain=shell_main $<
 
 $(SWIG_OBJ) :  $(TCL_RUNTIME)
 	$(CC) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS) -Dmain=shell_main $<

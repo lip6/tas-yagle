@@ -1480,7 +1480,7 @@ stb_transferstbline (stbfig_list *stbfig, ttvevent_list *event, stbnode *node , 
   }
  else
   {
-   line = event->INLINE;
+   line = event->IN_LINE;
    type = TTV_FIND_LINE;
   }
 
@@ -1959,7 +1959,7 @@ static int stb_event_at_input( stbfig_list *stbfig, ttvevent_list *event)
   }
  else
   {
-   line = event->INLINE;
+   line = event->IN_LINE;
    type = TTV_FIND_LINE;
   }
 

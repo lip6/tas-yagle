@@ -44,7 +44,7 @@ LOCAL_LIB  = $(FLEXOBJS) -L$(TARGET_LIB) $(STATIC_LIB) \
              $(AVT_L) \
              $(MUT_L) \
              $(RPC_L) \
-             -lm $(FLEXLIBS)
+             $(TCL_L) -lm $(FLEXLIBS)
 
 all : $(TARGET_INCLUDE)/$(AVT_H) $(ERR_FILE) $(TARGET_BIN)/$(AVTMAN)
 

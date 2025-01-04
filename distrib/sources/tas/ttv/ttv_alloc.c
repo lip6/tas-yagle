@@ -1107,8 +1107,8 @@ ttvlbloc_list *pthead ;
                 break ;
             }
 
-         if(ptline->ROOT->INLINE == ptline)
-             ptline->ROOT->INLINE = ptlinex ;
+         if(ptline->ROOT->IN_LINE == ptline)
+             ptline->ROOT->IN_LINE = ptlinex ;
          else if(ptline->ROOT->INPATH == ptline)
              ptline->ROOT->INPATH = ptlinex ;
 
