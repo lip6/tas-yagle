@@ -106,22 +106,18 @@ extern int		MacintoshInit _ANSI_ARGS_((void));
 #include AVT_H
 
 int avt_shell_AppInit(ElTclInterpInfo *iinfo) {
-   Tcl_Obj *obj;
 
-   TclSetPreInitScript (avtshell_initScript);
-//   Tcl_SetVar(iinfo->interp, (char *) "tcl_library",avt_gettcldistpath(),TCL_GLOBAL_ONLY);
-   TCL_INTERPRETER=iinfo->interp;
-
-   /* configure standard path for packages */
-   obj = Tcl_NewListObj(0, NULL);
-   Tcl_ListObjAppendElement(iinfo->interp, obj, Tcl_NewStringObj(avt_gettcldistpath(), -1));
-   TclSetLibraryPath(obj);
+  /* configure standard path for packages */
+  Tcl_SetVar(iinfo->interp, (char *) "tcl_library",avt_gettcldistpath(),TCL_GLOBAL_ONLY);
+  Tcl_Eval(iinfo->interp, "lappend auto_path $tcl_library");
+  TCL_INTERPRETER=iinfo->interp;
 
   if (elTclAppInit(iinfo) == TCL_ERROR)
     return TCL_ERROR;
 
   /* Now initialize our functions */
 
+  Tcl_Eval (iinfo->interp, avtshell_initScript);
   if (SWIG_init(iinfo->interp) == TCL_ERROR)
     return TCL_ERROR;
 #if TCL_MAJOR_VERSION > 7 || TCL_MAJOR_VERSION == 7 && TCL_MINOR_VERSION >= 5
