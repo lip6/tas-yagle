@@ -405,9 +405,9 @@ XyagDepthSet()
         btn2 = XmStringCreateSimple("Forwards");
         btn3 = XmStringCreateSimple("Both Ways");
         depthSetToggle = XmVaCreateSimpleRadioBox(depthSetDialog, "depthSetToggle", 0, CallbackDepthSetToggle,
-                                                  XmVaRADIOBUTTON, btn1, 0, NULL, NULL,
-                                                  XmVaRADIOBUTTON, btn2, 0, NULL, NULL,
-                                                  XmVaRADIOBUTTON, btn3, 0, NULL, NULL,
+                                                  XmVaRADIOBUTTON, btn1, 0, (XtPointer)0, NULL,
+                                                  XmVaRADIOBUTTON, btn2, 0, (XtPointer)1, NULL,
+                                                  XmVaRADIOBUTTON, btn3, 0, (XtPointer)2, NULL,
                                                   NULL);
         XtManageChild(depthSetToggle);
     }
@@ -426,7 +426,7 @@ CallbackDepthSetToggle(MyWidget, ClientData, CallData)
     XmToggleButtonCallbackStruct  *CallData;
 {
     if (CallData->set == False) return;
-    switch ((int)ClientData) {
+    switch ((long)ClientData) {
     case 0:
         XyagDependencyMode = XYAG_BACKWARD;
         break;

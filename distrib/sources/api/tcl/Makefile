@@ -5,11 +5,9 @@ include $(AVERTEC_TOP)/etc/libraries.mk
 include $(AVERTEC_TOP)/etc/Avertec.mk
 
 ifeq ($(BUILD_VARIANT),Linux.ubuntu)
-  TCL_PRIVATE_INCLUDES = -I/usr/include/tcl8.6/tcl-private/generic \
-                         -I/usr/include/tcl8.6/tcl-private/unix    \
-                -idirafter /usr/include/tcl8.6/tcl-private/compat
+  TCL_PRIVATE_INCLUDES = 
 else
-  TCL_PRIVATE_INCLUDES = -I/usr/include/tcl-private/generic -I/usr/include/tcl-private/unix
+  TCL_PRIVATE_INCLUDES = 
 endif
 
 

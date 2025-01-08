@@ -87,11 +87,11 @@ all : $(TARGET_BIN)/router $(TARGET_BIN)/netutil
 headers :
 
 $(TARGET_BIN)/router : $(ROU_OBJ)
-	$(CPLUSPLUS) $(LOCAL_CFLAGS) $(ROU_OBJ) -o $(TARGET_BIN)/router $(FLEXOBJS) $(WHOLE) $(LOCAL_LIB) $(TCL_L) $(NOWHOLE) $(FLEXLIBS) -leditline -ldl
+	$(CPLUSPLUS) $(LOCAL_CFLAGS) -Wno-register $(ROU_OBJ) -o $(TARGET_BIN)/router $(FLEXOBJS) $(WHOLE) $(LOCAL_LIB) $(TCL_L) $(NOWHOLE) $(FLEXLIBS) -leditline -ldl
 	$(STRIP) $(TARGET_BIN)/router
 
 $(TARGET_BIN)/netutil : $(NET_OBJ)
-	$(CPLUSPLUS) $(LOCAL_CFLAGS) $(NET_OBJ) -o $(TARGET_BIN)/netutil $(FLEXOBJS) $(WHOLE) $(LOCAL_LIB) $(TCL_L) $(NOWHOLE) $(FLEXLIBS) -leditline -ldl
+	$(CPLUSPLUS) $(LOCAL_CFLAGS) -Wno-register $(NET_OBJ) -o $(TARGET_BIN)/netutil $(FLEXOBJS) $(WHOLE) $(LOCAL_LIB) $(TCL_L) $(NOWHOLE) $(FLEXLIBS) -leditline -ldl
 	$(STRIP) $(TARGET_BIN)/netutil
 
 .c.o :

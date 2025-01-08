@@ -207,7 +207,7 @@ extern void stb_ctk_sort_delay( stb_ctk_stat *stat, char criterion, float delta 
 void stb_progress( int iteration, int max, int pos, char *msg );
 void stb_print( char *msg );
 void ctk_setprint( void (*print)( char* ) );
-inline void filltabdelayvalue( sortdelaycmp *elem, char criterion );
+void filltabdelayvalue( sortdelaycmp *elem, char criterion );
 int sort_drive_detail( stb_ctk_detail_agr_list **ag1, stb_ctk_detail_agr_list**ag2 );
 int stb_saveinactifcoupling( ttvevent_list *victime, ttvsig_list *aggressor, int rcxagression );
 int stb_saveactifcoupling( ttvevent_list *victime, ttvsig_list *aggressor, int rcxagression );

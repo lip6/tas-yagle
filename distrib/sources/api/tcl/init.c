@@ -197,7 +197,7 @@ elTclPrompt(EditLine *el)
      defaultPrompt:
       if (!iinfo->gotPartial) {
 	 strncpy(buf, iinfo->argv0, sizeof(buf)-4);
-	 strncat(buf, " > ", sizeof(buf));
+	 strncat(buf, " > ", sizeof(buf) - strlen(buf) - 1);
 	 prompt = buf;
       } else
 	 prompt = ": ";

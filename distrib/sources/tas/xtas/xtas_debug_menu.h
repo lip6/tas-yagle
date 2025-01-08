@@ -32,13 +32,13 @@ static struct XalMenuItem XtasDebugMenuFile[] = {
                       XtasDebugCloseCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Load an INF file",        &xmPushButtonGadgetClass, 'L', True,  False, "Ctrl<Key>L", "Ctrl+L", 
                       XtasSelectInfFileCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDebugMenuView[] = {
     { "Signal Info", &xmPushButtonGadgetClass, 'I', False, False, "Ctrl<Key>I", "Ctrl+I",
                       XtasDebugInfoCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDebugMenuTools[] = {
@@ -48,13 +48,13 @@ static struct XalMenuItem XtasDebugMenuTools[] = {
                       XtasDebugGetPathCmdCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Debug Error", &xmPushButtonGadgetClass, 'D', True, False, NULL, NULL,
                       XtasStbDebugCallback, (XtPointer)XTAS_DEBUG, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDebugMenuOptions[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<Key>B", "Ctrl+B",
                           XtasDebugButtonsCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDebugMenuHelp[] = {
@@ -68,7 +68,7 @@ static struct XalMenuItem XtasDebugMenuHelp[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_TOOLS|XTAS_SRC_DEBUG), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'O', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_DEBUG), (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 
@@ -83,7 +83,7 @@ static struct XalMenuItem XtasDebugMenu[] = {
                                                   (XtPointer)0, XtasDebugMenuOptions },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, XtasDebugMenuHelp },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasSelectDebugMenuView[] = {
@@ -102,11 +102,11 @@ static struct XalMenuItem XtasSelectDebugMenuView[] = {
     { "Break Points",      &xmPushButtonGadgetClass, 'B', False, False, NULL, NULL, 
                               XtasSelectSignalCallback,     (XtPointer)XTAS_C_BREAK,
                               (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasSelectDebugSignalMenu[] = {
     { "Select", &xmCascadeButtonGadgetClass, 'S', False, False, NULL, NULL, NULL, 
                                            (XtPointer)0, XtasSelectDebugMenuView },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };

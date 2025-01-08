@@ -29,12 +29,12 @@ static struct XalMenuItem XtasGetParaMenuView[] = {
                               XtasParaSignalCallback,     (XtPointer)XTAS_C_OTHERSIGS,
                               (XalMenuItemStruct *)NULL },
 
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasGetParaOnPathMenu[] = {
     { "On Path", &xmCascadeButtonGadgetClass, 'S', False, False, NULL, NULL, NULL, 
                                            (XtPointer)0, XtasGetParaMenuView },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 

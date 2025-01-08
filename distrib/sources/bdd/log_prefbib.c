@@ -535,7 +535,7 @@ exprToCharInt (expr, mode, chaine, taille)
         }
       lenVA = strlen (VALUE_ATOM (expr));
 
-      strncat (chaine, VALUE_ATOM (expr), lenVA);
+      strncat (chaine, VALUE_ATOM (expr), sizeof(chaine) - strlen(chaine) - 1);
       return (chaine);
     }
   else
@@ -547,30 +547,30 @@ exprToCharInt (expr, mode, chaine, taille)
         {
           if (OPER (expr) == NOT)
             {
-              strncat (chaine, "not ", 4);
+              strncat (chaine, "not ", sizeof(chaine) - strlen(chaine) - 1);
               chaine = exprToCharInt (CAR (CDR (expr)), mode, chaine, taille);
               return (chaine);
             }
           else if (OPER (expr) == STABLE)
             {
               chaine = exprToCharInt (CAR (CDR (expr)), mode, chaine, taille);
-              strncat (chaine, "'stable ", 8);
+              strncat (chaine, "'stable ", sizeof(chaine) - strlen(chaine) - 1);
               return (chaine);
             }
           else
             {
-              strncat (chaine, "(", 1);
+              strncat (chaine, "(", sizeof(chaine) - strlen(chaine) - 1);
               while ((expr = CDR (expr)))
                 {
                   chaine = exprToCharInt (CAR (expr), mode, chaine, taille);
                   if (CDR (expr))
                     {
-                      strncat (chaine, " ", 1);
+                      strncat (chaine, " ", sizeof(chaine) - strlen(chaine) - 1);
                       strcat (chaine, oper);
-                      strncat (chaine, " ", 1);
+                      strncat (chaine, " ", sizeof(chaine) - strlen(chaine) - 1);
                     }
                 }
-              strncat (chaine, ")", 1);
+              strncat (chaine, ")", sizeof(chaine) - strlen(chaine) - 1);
               return (chaine);
             }
         }
@@ -578,14 +578,14 @@ exprToCharInt (expr, mode, chaine, taille)
 /*----- prefixe -----*/
         {
           int lenOPER = strlen (oper);
-          strncat (chaine, "(", 1);
+          strncat (chaine, "(", sizeof(chaine) - strlen(chaine) - 1);
           strncat (chaine, oper, lenOPER);
           while ((expr = CDR (expr)))
             {
-              strncat (chaine, " ", 1);
+              strncat (chaine, " ", sizeof(chaine) - strlen(chaine) - 1);
               chaine = exprToCharInt (CAR (expr), mode, chaine, taille);
             }
-          strncat (chaine, ")", 1);
+          strncat (chaine, ")", sizeof(chaine) - strlen(chaine) - 1);
           return (chaine);
         }
     }
@@ -635,28 +635,28 @@ identExprInt (expr, chaine, taille)
       switch (oper)
         {
         case NOT:
-          strncat (chaine, "n", 1);
+          strncat (chaine, "n", sizeof(chaine) - strlen(chaine) - 1);
           break;
         case AND:
-          strncat (chaine, "a", 1);
+          strncat (chaine, "a", sizeof(chaine) - strlen(chaine) - 1);
           break;
         case OR:
-          strncat (chaine, "o", 1);
+          strncat (chaine, "o", sizeof(chaine) - strlen(chaine) - 1);
           break;
         case NAND:
-          strncat (chaine, "na", 2);
+          strncat (chaine, "na", sizeof(chaine) - strlen(chaine) - 1);
           break;
         case NOR:
-          strncat (chaine, "no", 2);
+          strncat (chaine, "no", sizeof(chaine) - strlen(chaine) - 1);
           break;
         case XOR:
-          strncat (chaine, "x", 1);
+          strncat (chaine, "x", sizeof(chaine) - strlen(chaine) - 1);
           break;
         case NXOR:
-          strncat (chaine, "nx", 2);
+          strncat (chaine, "nx", sizeof(chaine) - strlen(chaine) - 1);
           break;
         default:
-          strncat (chaine, "???", 3);
+          strncat (chaine, "???", sizeof(chaine) - strlen(chaine) - 1);
         }
       expr1 = expr;
       while ((expr = CDR (expr)))

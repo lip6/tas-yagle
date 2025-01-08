@@ -34,7 +34,7 @@ static struct XalMenuItem XtasDetailMenuFile[] = {
                       XtasDetailSaveCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Load INF file",        &xmPushButtonGadgetClass, 'L', True,  False, "Ctrl<Key>L", "Ctrl+L", 
                       XtasSelectInfFileCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuView[] = {
@@ -44,13 +44,13 @@ static struct XalMenuItem XtasDetailMenuView[] = {
                             XtasCtkInfoCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Visualize a Path",    &xmPushButtonGadgetClass, 'V', True, False, NULL, NULL,
                             XtasVisualPathCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuViewDelay[] = {
     { "Signal Info",    &xmPushButtonGadgetClass, 'I', False, False, "Ctrl<Key>I", "Ctrl+I",
                             XtasDetailDetailCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuViewSimu[] = {
@@ -58,19 +58,19 @@ static struct XalMenuItem XtasDetailMenuViewSimu[] = {
                             XtasDetailDetailCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Visualize a Path",    &xmPushButtonGadgetClass, 'V', True, False, NULL, NULL,
                             XtasVisualPathCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuTools[] = {
     { "Simulate a Path",    &xmPushButtonGadgetClass, 'S', False, False, NULL, NULL,
                             XtasSimuPathCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuOptions[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<Key>B", "Ctrl+B",
                           XtasDetailButtonsCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuHelp[] = {
@@ -84,7 +84,7 @@ static struct XalMenuItem XtasDetailMenuHelp[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_TOOLS|XTAS_SRC_DETAIL), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'O', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_DETAIL), (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuHelpCtk[] = {
@@ -98,7 +98,7 @@ static struct XalMenuItem XtasDetailMenuHelpCtk[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_TOOLS|XTAS_SRC_DETAILCTK), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'O', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_DETAILCTK), (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuHelpDelay[] = {
@@ -110,7 +110,7 @@ static struct XalMenuItem XtasDetailMenuHelpDelay[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_VIEW|XTAS_SRC_DELAY), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'O', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_DELAY), (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuHelpSimu[] = {
@@ -122,7 +122,7 @@ static struct XalMenuItem XtasDetailMenuHelpSimu[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_VIEW|XTAS_SRC_DETAILSIMU), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'O', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_DETAILSIMU), (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenu[] = {   /* fenetre detail simple*/
@@ -136,7 +136,7 @@ static struct XalMenuItem XtasDetailMenu[] = {   /* fenetre detail simple*/
                                                   (XtPointer)0, XtasDetailMenuOptions },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, XtasDetailMenuHelp },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuCtk[] = {   /* fenetre detail avec ctk*/
@@ -150,7 +150,7 @@ static struct XalMenuItem XtasDetailMenuCtk[] = {   /* fenetre detail avec ctk*/
                                                   (XtPointer)0, XtasDetailMenuOptions },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, XtasDetailMenuHelpCtk },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuDelay[] = {   /* fenetre path simple*/
@@ -162,7 +162,7 @@ static struct XalMenuItem XtasDetailMenuDelay[] = {   /* fenetre path simple*/
                                                   (XtPointer)0, XtasDetailMenuOptions },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, XtasDetailMenuHelpDelay },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasDetailMenuSimu[] = {   /* fenetre path simple*/
@@ -174,6 +174,6 @@ static struct XalMenuItem XtasDetailMenuSimu[] = {   /* fenetre path simple*/
                                                   (XtPointer)0, XtasDetailMenuOptions },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, XtasDetailMenuHelpSimu },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 

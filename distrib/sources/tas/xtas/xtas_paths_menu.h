@@ -33,7 +33,7 @@ static struct XalMenuItem XtasPathsMenuFile[] = {
                       XtasPathsSaveCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Load an INF file",        &xmPushButtonGadgetClass, 'L', True,  False, "Ctrl<Key>L", "Ctrl+L", 
                       XtasSelectInfFileCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasPathsMenuTools[] = {
@@ -47,19 +47,19 @@ static struct XalMenuItem XtasPathsMenuTools[] = {
                             XtasParaButtonCallback,  (XtPointer)'P', (XalMenuItemStruct *)NULL },
 //    { "False Path Test", &xmPushButtonGadgetClass, 'F', True, False, NULL, NULL,
 //                            XtasPathsFalsCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasPathsMenuView[] = {
     { "Signal Info",    &xmPushButtonGadgetClass, 'I', False, False, "Ctrl<Key>I","Ctrl+I",
                             XtasSignalInfoCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasPathsMenuOptions[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, NULL, NULL,
                           XtasPathsButtonsCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 
@@ -74,7 +74,7 @@ static struct XalMenuItem XtasPathsMenuHelp[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_TOOLS|XTAS_SRC_PATHS), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'O', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_PATHS), (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasPathsMenu[] = {
@@ -88,6 +88,6 @@ static struct XalMenuItem XtasPathsMenu[] = {
                                                   (XtPointer)0, XtasPathsMenuOptions },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, XtasPathsMenuHelp },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 

@@ -5,7 +5,7 @@ ptype_list *AVTERR=NULL;
 ptype_list *AVTLIB=NULL;
 ptype_list *AVTNUM=NULL;
 
-char *AVT_BINARY_NAME="";
+const char *AVT_BINARY_NAME="";
 int   AVT_MAXNBERRMSG = 3 ;
 static int TOTAL_WARNINGS=0, TOTAL_ERRORS=0;
 

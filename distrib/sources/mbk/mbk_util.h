@@ -66,7 +66,7 @@
 static void loadcatalog();
   extern           void  mbkenv __P(());
   extern           void  readlibfile __P((char *type,void (*fonc)(char *),int reload));
-  extern          char * namealloc __P((char *inputname));
+  extern          char * namealloc __P((const char *inputname));
   extern          char * nameindex __P((char *name, long index));
 static void read_lib();
   extern    chain_list * reverse __P((chain_list *head));

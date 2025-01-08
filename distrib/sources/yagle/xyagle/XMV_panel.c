@@ -569,8 +569,8 @@ CallbackLayerVisible(MyWidget, ClientData, CallData)
     caddr_t         ClientData;
     caddr_t         CallData;
 {
-    if (XYAG_ACTIVE_LAYER_TABLE[(int) ClientData] == 0) {
-        XyagSetLayerVisible((int) ClientData);
+    if (XYAG_ACTIVE_LAYER_TABLE[(long) ClientData] == 0) {
+        XyagSetLayerVisible((long) ClientData);
     }
 }
 
@@ -584,8 +584,8 @@ CallbackLayerInvisible(MyWidget, ClientData, CallData)
     caddr_t         ClientData;
     caddr_t         CallData;
 {
-    if (XYAG_ACTIVE_LAYER_TABLE[(int) ClientData]) {
-        XyagSetLayerInvisible((int) ClientData);
+    if (XYAG_ACTIVE_LAYER_TABLE[(long) ClientData]) {
+        XyagSetLayerInvisible((long) ClientData);
     }
 }
 
@@ -599,7 +599,7 @@ CallbackNameVisible(MyWidget, ClientData, CallData)
     caddr_t         ClientData;
     caddr_t         CallData;
 {
-    if (XYAG_ACTIVE_NAME_TABLE[(int) ClientData] == 0) {
+    if (XYAG_ACTIVE_NAME_TABLE[(long) ClientData] == 0) {
         XyagSetNameVisible(ClientData);
     }
 }
@@ -614,7 +614,7 @@ CallbackNameInvisible(MyWidget, ClientData, CallData)
     caddr_t         ClientData;
     caddr_t         CallData;
 {
-    if (XYAG_ACTIVE_NAME_TABLE[(int) ClientData]) {
+    if (XYAG_ACTIVE_NAME_TABLE[(long) ClientData]) {
         XyagSetNameInvisible(ClientData);
     }
 }

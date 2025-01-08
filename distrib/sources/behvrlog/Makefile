@@ -49,7 +49,7 @@ lex.bgl_bcomp.cc : bgl_bcomp.lex bgl_bcomp.tab.h
 	$(LEX) $(LOCAL_LEXFLAGS) -Pbgl_bcomp bgl_bcomp.lex
 
 lex.bgl_bcomp.o : lex.bgl_bcomp.cc
-	$(CPLUSPLUS) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS) $<
+	$(CPLUSPLUS) $(LOCAL_CFLAGS) -Wno-register $(LOCAL_CPPFLAGS) $<
 
 bgl_drive.o : bgl_drive.c
 	$(CC) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS) $<

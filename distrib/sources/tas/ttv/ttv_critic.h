@@ -47,18 +47,18 @@ extern chain_list  *TTV_FIFO_SAV ;
 extern char         TTV_FIFO_NUM ;
 
 //extern long            ttv_getinittime           __P(( ttvfig_list *, ttvevent_list *, char, long, char)) ;
-extern inline int      ttv_transfertnodefindinfo __P(( ttvfig_list *,
+extern int      ttv_transfertnodefindinfo __P(( ttvfig_list *,
                                                        ttvevent_list *,
                                                        ttvevent_list *,
                                                        ttvline_list *,
                                                        long,
                                                        long 
                                                     )) ;
-extern inline long     ttv_connectorsearchtype __P(( ttvfig_list *,
+extern long     ttv_connectorsearchtype __P(( ttvfig_list *,
                                                      ttvevent_list *,
                                                      long 
                                                   )) ;
-extern inline long     ttv_signalsearchtype __P(( ttvfig_list *,
+extern long     ttv_signalsearchtype __P(( ttvfig_list *,
                                                   ttvevent_list *,
                                                   long 
                                                )) ;

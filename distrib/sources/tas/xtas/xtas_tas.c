@@ -1367,7 +1367,8 @@ XtPointer  parent;
 XtPointer call_data;
 {
 Arg      args[10];
-int      n, type;
+int      n;
+long     type;
 Widget   frame, frame2, frame3, row_widget, row_widget2, tmp_widget, label_widget;
 Widget   separator, form, dbase_form, ebase_form, fbase_form, sub_form;
 //char     outfiles[20], interc_options[10];
@@ -1746,7 +1747,7 @@ if (!session_options_widget) {
     //        XtSetArg( args[n], XmNsensitive, False ); n++; 
     //        XtSetValues( toggle, args, n );
     //        }
-    //    XtAddCallback( toggle, XmNvalueChangedCallback, XtasOutFilesCallback, (XtPointer)type );
+    //    XtAddCallback( toggle, XmNvalueChangedCallback, XtasOutFilesCallback, (XtPointer)((long)type) );
     //    }
 
 
@@ -1812,7 +1813,7 @@ if (!session_options_widget) {
             case 1  :   XtVaSetValues ( toggle, XmNset, tas_tmppar->mg == 'Y' ? True:False, NULL); break;
             case 2  :   XtVaSetValues ( toggle, XmNset, tas_tmppar->bk == 'Y' ? True:False, NULL); break;
         }
-        XtAddCallback( toggle, XmNvalueChangedCallback, XtasOptTypeCallback, (XtPointer)type );
+        XtAddCallback( toggle, XmNvalueChangedCallback, XtasOptTypeCallback, (XtPointer)((long)type) );
     }
 
 
@@ -1878,7 +1879,7 @@ if (!session_options_widget) {
             case 2  :   XtVaSetValues (toggle, XmNset, tas_tmppar->carac == LUT_INT ? True:False, NULL);break;
             case 3  :   XtVaSetValues (toggle, XmNset, tas_tmppar->carac == LUT_CPL ? True:False, NULL);break;
         }
-        XtAddCallback( toggle, XmNvalueChangedCallback, XtasCharacterizationCallback, (XtPointer)type );
+        XtAddCallback( toggle, XmNvalueChangedCallback, XtasCharacterizationCallback, (XtPointer)((long)type) );
 
     }
 
@@ -3509,7 +3510,7 @@ XtPointer call_data;
                                     XtVaSetValues(toggle, XmNset, False, NULL);
                                 break;
                 }
-                XtAddCallback( toggle, XmNvalueChangedCallback, XtasNetTypeCallback, (XtPointer)type );
+                XtAddCallback( toggle, XmNvalueChangedCallback, XtasNetTypeCallback, (XtPointer)((long)type) );
             }
         }
         else {
@@ -3552,7 +3553,7 @@ XtPointer call_data;
                 }
 
                 
-                XtAddCallback( toggle, XmNvalueChangedCallback, XtasNetTypeCallback, (XtPointer)type );
+                XtAddCallback( toggle, XmNvalueChangedCallback, XtasNetTypeCallback, (XtPointer)((long)type) );
             }
         }
 
@@ -4433,7 +4434,7 @@ XtPointer call_data;
                     XmNlabelString,    text,
                     NULL);
             XmStringFree(text);
-            XtAddCallback( toggle, XmNvalueChangedCallback, XtasOutputFileFormatCallback, (XtPointer)type );
+            XtAddCallback( toggle, XmNvalueChangedCallback, XtasOutputFileFormatCallback, (XtPointer)((long)type) );
 
             switch(type) {
                 case 0  :   XtVaSetValues ( toggle, XmNset, tas_tmppar->ttx == 'Y' ? True:False, NULL); break;
