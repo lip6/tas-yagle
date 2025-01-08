@@ -4,7 +4,7 @@
 
  printHelp () {
    echo ""
-   echo "  Usage: uploadOBS.sh [--sources] [--commit] [--run]"
+   echo "  Usage: uploadOBS.sh [--sources] [--commit] [--all]"
    echo ""
    echo "  Options:"
    echo "    [--sources] : Build an archive from the HEAD of the current branch."
@@ -12,7 +12,7 @@
    echo "                  This will effectively triggers the rebuild of the packages."
    echo "                  OBS local repository is hardwired to:"
    echo "                      \"${obsDir}\""
-   echo "    [--run]     : Perform all actions at once."
+   echo "    [--all]     : Perform all actions at once."
    echo ""
 
  }
@@ -27,7 +27,7 @@
    case $1 in
      --sources) doSources="true";;
      --commit)  doCommit="true";;
-     --run)     doSources="true"
+     --all)     doSources="true"
                 doCommit="true";;
      *)         badArgument="$1";;
    esac
@@ -74,6 +74,7 @@
  sed -i "s,^%define docGithash .*,%define docGithash ${docGithash},"  ${obsDir}/tas-yagle.spec
  if [ "${doCommit}" = "true" ]; then
    pushd ${obsDir}
+   osc add *
    osc commit
    popd
  fi
