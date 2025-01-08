@@ -70,7 +70,7 @@ lex.mgl_scomp.cc : mgl_scomp.lex mgl_scomp.tab.h
 	$(LEX) $(LOCAL_LEXFLAGS) -Pmgl_scomp mgl_scomp.lex
 
 lex.mgl_scomp.o : lex.mgl_scomp.cc
-	$(CPLUSPLUS) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS) $<
+	$(CPLUSPLUS) $(LOCAL_CFLAGS)  -Wno-register $(LOCAL_CPPFLAGS) $<
 
 mgl_drive.o : mgl_drive.c
 	$(CC) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS) $<

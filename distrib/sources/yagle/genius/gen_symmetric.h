@@ -42,8 +42,8 @@ extern void AddRadicalInfoInPNODE(loins_list *li);
 extern void AddRadicalInfoInLOCON(locon_list *lc, int radindex, int index);
 
 extern char **radtable;
-inline char *fastradical(locon_list *lc);
-inline int fastindex(locon_list *lc);
+char *fastradical(locon_list *lc);
+int fastindex(locon_list *lc);
 /*
 #define fastradical(lc) radtable[((Pnode2Radical *)&((lc)->PNODE))->radindex]
 #define fastindex(lc) ((int)((Pnode2Radical *)&((lc)->PNODE))->index)

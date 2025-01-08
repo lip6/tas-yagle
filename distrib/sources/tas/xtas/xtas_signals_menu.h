@@ -33,7 +33,7 @@ static struct XalMenuItem XtasSignalsMenuFile[] = {
                       XtasFileCloseCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Load INF file",        &xmPushButtonGadgetClass, 'L', True,  False, "Ctrl<Key>L", "Ctrl+L", 
                       XtasSelectInfFileCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 /*-------------------------*/
@@ -45,13 +45,13 @@ static struct XalMenuItem XtasSignalsMenuViewC[] = {
                               XtasSignalsDetailCallback, (XtPointer)XTAS_C_CONNECTOR, (XalMenuItemStruct *)NULL },
     { "Crosstalk Info",   &xmPushButtonGadgetClass, 'C', False, False, "Ctrl<key>K", "Ctrl+K",
                               XtasSignalsCtkInfoCallback, (XtPointer)XTAS_C_CONNECTOR, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasSignalsMenuOptC[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<key>B", "Ctrl+B",
                           XtasSignalsButtonsCallback, (XtPointer)XTAS_C_CONNECTOR, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 /*-------------------------*/
@@ -61,14 +61,14 @@ static struct XalMenuItem XtasSignalsMenuOptC[] = {
 static struct XalMenuItem XtasSignalsMenuViewO[] = {
     { "Signal Info",      &xmPushButtonGadgetClass, 'I', False, False, "Ctrl<key>I", "Ctrl+I",
                               XtasSignalsDetailCallback, (XtPointer)XTAS_C_COMMANDS, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasSignalsMenuOptO[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<key>B", "Ctrl+B",
                           XtasSignalsButtonsCallback, (XtPointer)XTAS_C_COMMANDS,
                           (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 /*-------------------------*/
@@ -78,14 +78,14 @@ static struct XalMenuItem XtasSignalsMenuOptO[] = {
 static struct XalMenuItem XtasSignalsMenuViewM[] = {
     { "Signal Info",      &xmPushButtonGadgetClass, 'I', False, False, "Ctrl<key>I", "Ctrl+I",
                               XtasSignalsDetailCallback, (XtPointer)XTAS_C_MEMORIZE, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasSignalsMenuOptM[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<key>B", "Ctrl+B",
                           XtasSignalsButtonsCallback, (XtPointer)XTAS_C_MEMORIZE,
                           (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 /*-------------------------*/
@@ -95,14 +95,14 @@ static struct XalMenuItem XtasSignalsMenuOptM[] = {
 static struct XalMenuItem XtasSignalsMenuViewP[] = {
     { "Signal Info",      &xmPushButtonGadgetClass, 'I', False, False, "Ctrl<key>I", "Ctrl+I",
                               XtasSignalsDetailCallback, (XtPointer)XTAS_C_PRECHARGE, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasSignalsMenuOptP[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<key>B", "Ctrl+B",
                           XtasSignalsButtonsCallback, (XtPointer)XTAS_C_PRECHARGE,
                           (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 /*-------------------------*/
@@ -112,14 +112,14 @@ static struct XalMenuItem XtasSignalsMenuOptP[] = {
 static struct XalMenuItem XtasSignalsMenuViewB[] = {
     { "Signal Info",      &xmPushButtonGadgetClass, 'I', False, False, "Ctrl<key>I", "Ctrl+I",
                               XtasSignalsDetailCallback, (XtPointer)XTAS_C_BREAK, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasSignalsMenuOptB[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<key>B", "Ctrl+B",
                           XtasSignalsButtonsCallback, (XtPointer)XTAS_C_BREAK,
                           (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 /*-------------------------*/
@@ -131,14 +131,14 @@ static struct XalMenuItem XtasSignalsMenuViewA[] = {
                               XtasSignalsDetailCallback, (XtPointer)XTAS_C_OTHERSIGS, (XalMenuItemStruct *)NULL },
     { "Crosstalk Info",   &xmPushButtonGadgetClass, 'C', False, False, "Ctrl<key>K", "Ctrl+K",
                               XtasSignalsCtkInfoCallback, (XtPointer)XTAS_C_OTHERSIGS, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasSignalsMenuOptA[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<key>B", "Ctrl+B",
                           XtasSignalsButtonsCallback, (XtPointer)XTAS_C_OTHERSIGS,
                           (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 /*-------------------------*/
@@ -154,7 +154,7 @@ static struct XalMenuItem XtasSignalsMenuHelpX[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_VIEW|XTAS_SRC_SIGNALS), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'O', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_SIGNALS), (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 
@@ -168,7 +168,7 @@ static struct XalMenuItem XtasSignalsMenuHelpA[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_VIEW|XTAS_SRC_ALLSIGS), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'O', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_ALLSIGS), (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 /*-------------------------*/
@@ -184,6 +184,6 @@ static struct XalMenuItem XtasSignalsMenu[] = {
                                                   (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 

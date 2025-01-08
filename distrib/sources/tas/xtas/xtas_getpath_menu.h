@@ -40,19 +40,19 @@ static struct XalMenuItem XtasGetPathsMenuView[] = {
     { "Break Points",      &xmPushButtonGadgetClass, 'B', False, False, NULL, NULL, 
                               XtasStartEndSignalCallback,     (XtPointer)XTAS_C_BREAK,
                               (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasGetPathStartMenu[] = {
     { "Start", &xmCascadeButtonGadgetClass, 'S', False, False, NULL, NULL, NULL, 
                                            (XtPointer)0, XtasGetPathsMenuView },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 
 static struct XalMenuItem XtasGetPathEndMenu[] = {
     { "End", &xmCascadeButtonGadgetClass, 'E', False, False, NULL, NULL, NULL, 
                                            (XtPointer)0, XtasGetPathsMenuView },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 

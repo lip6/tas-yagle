@@ -27,7 +27,7 @@ static struct XalMenuItem XtasNoiseMenuFile[] = {
                       XtasNoiseCloseCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Load an INF file",        &xmPushButtonGadgetClass, 'L', True,  False, "Ctrl<Key>L", "Ctrl+L", 
                       XtasSelectInfFileCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL , NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
 static struct XalMenuItem XtasNoiseMenuView[] = {
@@ -35,11 +35,11 @@ static struct XalMenuItem XtasNoiseMenuView[] = {
                             XtasNoiseDetailCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Crosstalk Info", &xmPushButtonGadgetClass, 'C', False, False, "Ctrl<Key>K", "Ctrl+K",
                             XtasNoiseCtkInfoCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL , NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
 //static struct XalMenuItem XtasNoiseMenuTools[] = {
-//    { NULL , NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+//    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 //    { NULL }
 //};
 
@@ -48,7 +48,7 @@ static struct XalMenuItem XtasNoiseMenuOptions[] = {
                           XtasNoiseButtonsCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Scores Configuration", &xmPushButtonGadgetClass, 'C', True, False, "Ctrl<Key>S", "Ctrl+S",
                             XtasNoiseScoreConfigCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL , NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
 static struct XalMenuItem XtasNoiseMenuHelp[] = {
@@ -62,7 +62,7 @@ static struct XalMenuItem XtasNoiseMenuHelp[] = {
 //                       XtasHelpCallback, (XtPointer)(XTAS_HELP_TOOLS|XTAS_SRC_NOISERES), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'H', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_NOISERES), (XalMenuItemStruct *)NULL },
-    { NULL , NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
 
@@ -77,6 +77,6 @@ static struct XalMenuItem XtasNoiseMenu[] = {
                                                   (XtPointer)0, XtasNoiseMenuOptions },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, XtasNoiseMenuHelp },
-    { NULL , NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 

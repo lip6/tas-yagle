@@ -1155,7 +1155,7 @@ void    XtasSimuPathCallback (widget, client_data, call_data)
         XtSetArg ( args[n], XmNset,             ((XtasSimuParams->tool == SIM_TOOL_TITAN)||(XtasSimuParams->tool == SIM_TOOL_TITAN)) ? True:False); n++;
         toggle = XtCreateManagedWidget ("XtasToggle", xmToggleButtonWidgetClass, row_w, args, n);
         XmStringFree ( motif_str);
-        XtAddCallback (toggle, XmNvalueChangedCallback, XtasSimuPathParamsToolCallback, (XtPointer)V_INT_TAB[__SIM_TOOL].VALUE);
+        XtAddCallback (toggle, XmNvalueChangedCallback, XtasSimuPathParamsToolCallback, (XtPointer)((long)V_INT_TAB[__SIM_TOOL].VALUE));
 
         n = 0;
         XtSetArg ( args[n], XmNtopAttachment,       XmATTACH_WIDGET     ); n++;

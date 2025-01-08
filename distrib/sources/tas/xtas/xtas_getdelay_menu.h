@@ -43,19 +43,19 @@ static struct XalMenuItem XtasGetDelayMenuView[] = {
     { "Internal Signals", &xmPushButtonGadgetClass, 'S', False, False, NULL, NULL, 
                               XtasStartEndDelayCallback,     (XtPointer)XTAS_C_OTHERSIGS,
                               (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasGetDelayStartMenu[] = {
     { "Start", &xmCascadeButtonGadgetClass, 'S', False, False, NULL, NULL, NULL, 
                                            (XtPointer)0, XtasGetDelayMenuView },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 
 static struct XalMenuItem XtasGetDelayEndMenu[] = {
     { "End", &xmCascadeButtonGadgetClass, 'E', False, False, NULL, NULL, NULL, 
                                            (XtPointer)0, XtasGetDelayMenuView },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 

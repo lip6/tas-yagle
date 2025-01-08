@@ -795,7 +795,7 @@ n = 0;
 menu_bar = XmCreateMenuBar( parent, "XtasMenuBar", args, n );
 
 for(n = 0 ; XtasSignalsMenuFile[n].label != NULL ; n++)
-  XtasSignalsMenuFile[n].callback_data = (XtPointer) signal_type;
+  XtasSignalsMenuFile[n].callback_data = (XtPointer) ((long)signal_type);
 
 switch (signal_type)
     {
@@ -932,7 +932,7 @@ Widget XtasCreateSignalsList( parent, signal_type , signalset )
                                    args, n);
    XmStringFree( text );
    XtAddCallback( button, XmNactivateCallback, 
-                  XtasSignalsTreatCallback, (XtPointer)signalset );
+                  XtasSignalsTreatCallback, (XtPointer)((long)signalset) );
    XtManageChild(button);
 
 switch (signal_type)
@@ -1016,7 +1016,7 @@ XtSetArg( args[n], XmNsensitive,             True              ); n++;
 XtSetArg( args[n], XmNeditable,              True              ); n++;
 signalset->MASK = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, form, args, n );
 XmTextSetString( signalset->MASK, default_mask );
-XtAddCallback(signalset->MASK, XmNactivateCallback, XtasSignalsTreatCallback, (XtPointer)signalset );
+XtAddCallback(signalset->MASK, XmNactivateCallback, XtasSignalsTreatCallback, (XtPointer)((long)signalset) );
 XmAddTabGroup( signalset->MASK );
 
 
@@ -1208,7 +1208,7 @@ XtSetArg( args[n], XmNshadowThickness,       2                 ); n++;
 XtSetArg( args[n], XmNwidth,                 60              ); n++;
 signalset->ITEMS = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, form, args, n);
 XmTextSetString( signalset->ITEMS, default_item_number );
-XtAddCallback(signalset->ITEMS, XmNactivateCallback, XtasSignalsTreatCallback, (XtPointer)signalset );
+XtAddCallback(signalset->ITEMS, XmNactivateCallback, XtasSignalsTreatCallback, (XtPointer)((long)signalset) );
 XmAddTabGroup( signalset->ITEMS );
 
 n = 0;
@@ -1255,7 +1255,7 @@ XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM ); n++;
 XtSetArg( args[n], XmNwidth,            60              ); n++; 
 button = XtCreateManagedWidget( "XtasButton", xmPushButtonWidgetClass, sub_form, args, n );
 XtasSetLabelString( button, " ->| ");
-XtAddCallback( button, XmNactivateCallback, XtasSignalsTreatEndCallback, (XtPointer)signalset );
+XtAddCallback( button, XmNactivateCallback, XtasSignalsTreatEndCallback, (XtPointer)((long)signalset) );
 XmAddTabGroup( button );
 /*------------------ fast forward button -------------------------------------*/
 n = 0;
@@ -1266,7 +1266,7 @@ XtSetArg( args[n], XmNrightWidget,      button          ); n++;
 XtSetArg( args[n], XmNwidth,            60              ); n++; 
 button = XtCreateManagedWidget( "XtasButton", xmPushButtonWidgetClass, sub_form, args, n );
 XtasSetLabelString( button, " ->-> ");
-XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatFastFwdCallback, (XtPointer)signalset );
+XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatFastFwdCallback, (XtPointer)((long)signalset) );
 XmAddTabGroup( button );
 
 /*----------------- next button -----------------------------------------------*/ 
@@ -1277,7 +1277,7 @@ XtSetArg( args[n], XmNrightAttachment,  XmATTACH_WIDGET ); n++;
 XtSetArg( args[n], XmNrightWidget,      button          ); n++;
 button = XtCreateManagedWidget( "XtasButton", xmPushButtonWidgetClass, sub_form, args, n );
 XtasSetLabelString( button, " -> ");
-XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatNextCallback, (XtPointer)signalset );
+XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatNextCallback, (XtPointer)((long)signalset) );
 XmAddTabGroup( button );
 /*----------------- middle button ---------------------------------------------*/
 /*
@@ -1288,7 +1288,7 @@ XtSetArg( args[n], XmNrightAttachment,  XmATTACH_WIDGET ); n++;
 XtSetArg( args[n], XmNrightWidget,      button          ); n++;
 button = XtCreateManagedWidget( "XtasButton", xmPushButtonWidgetClass, sub_form, args, n );
 XtasSetLabelString( button, " ->|<- ");
-XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatMiddleCallback, (XtPointer)signalset );
+XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatMiddleCallback, (XtPointer)((long)signalset) );
 XmAddTabGroup( button );
 */
 /*----------------- prev button -----------------------------------------------*/
@@ -1299,7 +1299,7 @@ XtSetArg( args[n], XmNrightAttachment,  XmATTACH_WIDGET ); n++;
 XtSetArg( args[n], XmNrightWidget,      button          ); n++;
 button = XtCreateManagedWidget( "XtasButton", xmPushButtonWidgetClass, sub_form, args, n );
 XtasSetLabelString( button, " <- ");
-XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatPrevCallback, (XtPointer)signalset );
+XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatPrevCallback, (XtPointer)((long)signalset) );
 XmAddTabGroup( button );
 /*--------------- fast review button ------------------------------------------*/
 n = 0;
@@ -1309,7 +1309,7 @@ XtSetArg( args[n], XmNrightAttachment,  XmATTACH_WIDGET ); n++;
 XtSetArg( args[n], XmNrightWidget,      button          ); n++;
 button = XtCreateManagedWidget( "XtasButton", xmPushButtonWidgetClass, sub_form, args, n );
 XtasSetLabelString( button, " <-<- ");
-XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatFastRewCallback, (XtPointer)signalset );
+XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatFastRewCallback, (XtPointer)((long)signalset) );
 XmAddTabGroup( button );
 /*-------------- start list button --------------------------------------------*/
 n = 0;
@@ -1319,7 +1319,7 @@ XtSetArg( args[n], XmNrightAttachment,  XmATTACH_WIDGET ); n++;
 XtSetArg( args[n], XmNrightWidget,      button          ); n++;
 button = XtCreateManagedWidget( "XtasButton", xmPushButtonWidgetClass, sub_form, args, n );
 XtasSetLabelString( button, " |<- ");
-XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatTopCallback, (XtPointer)signalset );
+XtAddCallback(button, XmNactivateCallback, XtasSignalsTreatTopCallback, (XtPointer)((long)signalset) );
 XmAddTabGroup( button );
 
 /*------------ pagination -----------------------------------------------------*/
@@ -1359,8 +1359,8 @@ XmAddTabGroup( Xtaslist_widget[signal_type] );
 signalset->SIGLIST_SCROLL = Xtaslist_widget[signal_type]; 
  
 
-XtAddCallback(Xtaslist_widget[signal_type], XmNdefaultActionCallback,   XtasSignalsFocusCallback, (XtPointer)signal_type);
-XtAddCallback(Xtaslist_widget[signal_type], XmNbrowseSelectionCallback, XtasSignalsFocusCallback, (XtPointer)signal_type);
+XtAddCallback(Xtaslist_widget[signal_type], XmNdefaultActionCallback,   XtasSignalsFocusCallback, (XtPointer)((long)signal_type));
+XtAddCallback(Xtaslist_widget[signal_type], XmNbrowseSelectionCallback, XtasSignalsFocusCallback, (XtPointer)((long)signal_type));
 
 /*-------------------------- end scrolled list -----------------------*/
 

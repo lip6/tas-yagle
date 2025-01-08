@@ -349,7 +349,7 @@ void mbkenv()
 
     SCALE_X = (long)V_INT_TAB[__MBK_SCALE_X].VALUE;
 
-  srand((unsigned int) MBK_RAND_SEED);
+  srand((unsigned long) MBK_RAND_SEED);
 
   str = V_STR_TAB[__MBK_IN_LO].VALUE;
   if (str) {
@@ -1252,7 +1252,7 @@ chain_list *append(pt1, pt2)
    } while (0)
 #endif
 
-static inline int SUB_HASH_FUNC(char *inputname, char *name, int code, char CASE_SENSITIVE)
+static inline int SUB_HASH_FUNC(const char *inputname, char *name, int code, char CASE_SENSITIVE)
 {
   while (*inputname) {
     if (CASE_SENSITIVE == 'N') *name = tolowertable[(int)*inputname++];
@@ -1266,7 +1266,7 @@ static inline int SUB_HASH_FUNC(char *inputname, char *name, int code, char CASE
   return code;
 }
 
-static inline int HASH_FUNC(char *inputname, char *name, int code, int HASHVAL0)
+static inline int HASH_FUNC(const char *inputname, char *name, int code, int HASHVAL0)
 {
   code = SUB_HASH_FUNC(inputname, name, code, CASE_SENSITIVE) % HASHVAL0;
   return code;
@@ -1475,7 +1475,7 @@ static void namealloc_rehash()
 
 
 char *namealloc(inputname)
-     char *inputname;
+     const char *inputname;
 {
   chain_list *pt;
   char *name = buffer; /* ensure no modification of parameter string */

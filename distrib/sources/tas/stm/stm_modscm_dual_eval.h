@@ -124,7 +124,7 @@ extern void stm_modscm_dual_calc_rsat( double imax, double isat, double a, doubl
 int stmtanhfn( stmtanhdata *data, double t, double *v );
 float stm_dv( float t, mbk_pwl *linetanh, float rdriver, float cin, float capai );
 double stm_modscm_dual_ceqrsat_numeric( stm_dual_param_timing *param, double seuil );
-inline double stm_get_qsat( stm_qsat *qsat, double t );
+double stm_get_qsat( stm_qsat *qsat, double t );
 void stm_modscm_dual_calts_qsat( stm_dual_param_timing *paramtiming, double threshold, stm_qsat_v *qsatv, stm_qsat *qsat, double *ceqrsat, double *ceqrsat0 );
 double stm_modscm_dual_calts_newctk( stm_dual_param_timing *param, 
                                      double threshold, 

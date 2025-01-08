@@ -6451,7 +6451,7 @@ double gate_th;
   double qinit ;
   double im ;
   double rsat ;
-  double vcap[3] ;
+  double vcap[4] ;
   double vin ;
   float fin ;
   float rconf ;

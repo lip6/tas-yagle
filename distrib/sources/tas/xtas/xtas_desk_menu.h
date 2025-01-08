@@ -36,7 +36,7 @@ static struct XalMenuItem XtasDeskMenuFile[] = {
                       XtasSelectInfFileCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Exit",   &xmPushButtonGadgetClass, 'E', True,  False, "Ctrl<Key>E", "Ctrl+E", 
                 XtasFileExitCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL , NULL, (char) NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
 static struct XalMenuItem XtasDeskMenuView[] = {
@@ -58,7 +58,7 @@ static struct XalMenuItem XtasDeskMenuView[] = {
     { "Internal Signals",  &xmPushButtonGadgetClass, 'S', False, False, NULL, NULL, 
                               XtasDeskSignalsViewCallback,     (XtPointer)XTAS_C_OTHERSIGS,
                               (XalMenuItemStruct *)NULL },
-    { NULL , NULL, (char) NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
 static struct XalMenuItem XtasDeskMenuTools[] = {
@@ -74,7 +74,7 @@ static struct XalMenuItem XtasDeskMenuTools[] = {
                           XtasNewSessionCallback, (XtPointer)TMA_TOOL, (XalMenuItemStruct *)NULL },
     { "XYagle",  &xmPushButtonGadgetClass, 'X', True, False, NULL, NULL,
                           XtasXyagleCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },*/
-    { NULL , NULL, (char) NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
 static struct XalMenuItem XtasDeskMenuConfig[] = {
@@ -84,7 +84,7 @@ static struct XalMenuItem XtasDeskMenuConfig[] = {
                           XtasOptionsButtonsCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Display Type",  &xmPushButtonGadgetClass,    'D', True, False, NULL, NULL,
                           XtasOptionsDisplayTypeCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL , NULL, (char) NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
 static struct XalMenuItem XtasDeskMenuHelp[] = {
@@ -98,7 +98,7 @@ static struct XalMenuItem XtasDeskMenuHelp[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_DESK), (XalMenuItemStruct *)NULL }, 
     { "On Version", &xmPushButtonGadgetClass, 'e', True,  False,  NULL, NULL, 
                        XtasHelpOnVersionCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL , NULL, (char) NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
 static struct XalMenuItem XtasDeskMenu[] = {
@@ -112,6 +112,6 @@ static struct XalMenuItem XtasDeskMenu[] = {
                                                   (XtPointer)0, XtasDeskMenuConfig },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, XtasDeskMenuHelp },
-    { NULL , NULL, (char) NULL, False, False, NULL, NULL, NULL, NULL, NULL}
+    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 

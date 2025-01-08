@@ -34,13 +34,13 @@ static struct XalMenuItem XtasStbMenuFile[] = {
                       XtasStbSaveCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Load INF file",        &xmPushButtonGadgetClass, 'L', True,  False, "Ctrl<Key>L", "Ctrl+L", 
                       XtasSelectInfFileCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasStbMenuView[] = {
     { "Signal Info",    &xmPushButtonGadgetClass, 'I', False, False, "Ctrl<Key>I", "Ctrl+I",
                             XtasStbDetailCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasStbMenuTools[] = {
@@ -56,13 +56,13 @@ static struct XalMenuItem XtasStbMenuTools[] = {
     { "Debug Error",       &xmPushButtonGadgetClass, 'D', True,  False,  NULL,         NULL,
                            XtasStbDebugCallback,      (XtPointer)XTAS_STB, (XalMenuItemStruct *)NULL },
 
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasStbMenuOptions[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<Key>B","Ctrl+B",
                           XtasStbButtonsCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 static struct XalMenuItem XtasStbMenuHelp[] = {
@@ -76,7 +76,7 @@ static struct XalMenuItem XtasStbMenuHelp[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_TOOLS|XTAS_SRC_STABRES), (XalMenuItemStruct *)NULL },
     { "On Options", &xmPushButtonGadgetClass, 'O', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_STABRES), (XalMenuItemStruct *)NULL },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 
 
@@ -91,6 +91,6 @@ static struct XalMenuItem XtasStbMenu[] = {
                                                   (XtPointer)0, XtasStbMenuOptions },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 
                                                   (XtPointer)0, XtasStbMenuHelp },
-    { NULL, NULL, (char)NULL, False, False, NULL, NULL, NULL, NULL, NULL }
+    { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 

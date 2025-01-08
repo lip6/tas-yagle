@@ -52,7 +52,7 @@ make WITH_FLEXLM=NOFLEX            \
   PACKAGING_TOP=${localInstall}    \
   LEX=${localInstall}/bin/flex     \
   JAVA_HOME=/usr/lib/jvm/default   \
-  CFLAGS="-g -O3" CXXFLAGS=-"-g -O3" STRIP=true \
+  CFLAGS="-g -O3" CXXFLAGS=-"-g -O3 -Wno-register" STRIP=true \
   SAXON="java -jar ${buildDir}/../distrib_extras/saxon9.jar"
 popd
 popd

@@ -276,7 +276,7 @@ typedef struct spi_load_global
   int blackboxed;
 } spi_load_global;
 
-typedef struct spi_if_struct {
+struct spi_if_struct {
   int ifactivate;
   char * if_expr;
   int elseactivate;
