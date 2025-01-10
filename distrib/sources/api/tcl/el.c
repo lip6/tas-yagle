@@ -30,6 +30,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -154,8 +155,14 @@ elTclHistory(ClientData data, Tcl_Interp *interp,
  * input to process.
  */
 
+#if TCL_MAJOR_VERSION >= 8 && TCL_MINOR_VERSION >= 6
+#define EL_GETCFN_ARG wchar_t
+#else
+#define EL_GETCFN_ARG char
+#endif
 int
-elTclEventLoop(EditLine *el, char *c)
+elTclEventLoop(EditLine *el, EL_GETCFN_ARG *c)
+#undef EL_GETCFN_ARG
 {
    ElTclInterpInfo *iinfo;
    el_get(el, EL_CLIENTDATA, &iinfo);
@@ -166,13 +173,28 @@ elTclEventLoop(EditLine *el, char *c)
 
    if (iinfo->preReadSz == 0 && feof(stdin)) {
       /* eof and no pending character: leave */
-      c[0] = '0';
+      c[0] = '\0';
       return -1;
    }
-       
+
+#if TCL_MAJOR_VERSION >= 8 && TCL_MINOR_VERSION >= 6
+   int mbSz;
+   mbSz = mblen(iinfo->preRead, iinfo->preReadSz);
+   if (mbSz > 0) {
+     mbSz = mbtowc(c, iinfo->preRead, mbSz);
+     if (mbSz > 0) {
+       iinfo->preReadSz -= mbSz;
+       memmove(iinfo->preRead, iinfo->preRead + mbSz, iinfo->preReadSz);
+     } else {
+       iinfo->preReadSz = 0;
+       return -1;
+     }
+   }
+#else
    c[0] = iinfo->preRead[0];
    if (iinfo->preReadSz-- > 0)
       memmove(iinfo->preRead, iinfo->preRead+1, iinfo->preReadSz);
+#endif
 
    return 1;
 }
