@@ -113,7 +113,11 @@ int		elTclGetc(ClientData data, Tcl_Interp *interp, int objc,
 			Tcl_Obj *const objv[]);
 int		elTclHistory(ClientData data, Tcl_Interp *interp,
 			int objc, Tcl_Obj *const objv[]);
+#if TCL_MAJOR_VERSION >= 8 && TCL_MINOR_VERSION >= 6
+int		elTclEventLoop(EditLine *el, wchar_t *c);
+#else
 int		elTclEventLoop(EditLine *el, char *c);
+#endif
 void		elTclRead(ClientData data, int mask);
 int		elTclGetWindowSize(int fd, int *lins, int *cols);
 
