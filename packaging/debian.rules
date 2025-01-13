@@ -71,6 +71,8 @@ binary:
 	done
 	cp distrib/share/etc/avt_env.sh $(DESTDIR)/etc/profile.d
 	cp -r distrib/share/tcl         $(DESTDIR)/usr/share/tasyag
+	mv distrib/man/man3/fopen.3     distrib/man/man3/avt_fopen.3
+	mv distrib/man/man3/fclose.3    distrib/man/man3/avt_fclose.3
 	cp distrib/man/man3/*           $(DESTDIR)/usr/man/man3
 	mv compiled/docavertec.html     $(DOCDIR)
 	mv compiled/docpdf              $(DOCDIR)

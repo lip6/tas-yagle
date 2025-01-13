@@ -191,6 +191,8 @@ full-chip verification, with virtually no limit of capacity in design size.
 
  cp distrib/share/etc/avt_env.sh %{buildroot}%{_sysconfdir}/profile.d
  cp -r distrib/share/tcl %{buildroot}%{_datadir}/tasyag
+ mv distrib/man/man3/fopen.3 distrib/man/man3/avt_fopen.3
+ mv distrib/man/man3/fclose.3 distrib/man/man3/avt_fclose.3
  cp distrib/man/man3/* %{buildroot}%{_mandir}/man3
 
  mkdir -p %{buildroot}/usr/share/doc/tas-yagle 
