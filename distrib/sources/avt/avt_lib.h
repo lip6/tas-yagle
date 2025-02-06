@@ -208,7 +208,7 @@ extern char *avt_getusername(char *buf);
 #define AVT_FATAL 3
 #define AVT_INTERNAL 0
 
-extern char *AVT_BINARY_NAME;
+extern const char *AVT_BINARY_NAME;
 
 void avt_initerrmsg( const char *);
 char *avt_geterrmsg( long , char * );
