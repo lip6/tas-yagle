@@ -364,7 +364,7 @@ extern char              MBK_VECTOR_SINGLE[256];
   extern    ptype_list * testanddelptype __P((ptype_list *pthead, long type));
   extern           void  freeptype __P((ptype_list *pt));
   extern    chain_list * append __P((chain_list *pt1, chain_list *pt2));
-  extern          char * namealloc __P((char *inputname));
+  extern          char * namealloc __P((const char *inputname));
   extern          char * sensitive_namealloc(char *name);
   extern          char * min_namealloc __P((char *inputname));
   extern          char * namefind __P((char *inputname));
