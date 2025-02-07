@@ -208,9 +208,6 @@ full-chip verification, with virtually no limit of capacity in design size.
 %files
 %defattr(-,root,root,-)
 %doc LICENSE.rst
-%dir %{_sysconfdir}/profile.d
-%dir %{_bindir}
-%dir %{_mandir}/man3
 %dir %{_datadir}/tasyag
 %dir %{_datadir}/tasyag/etc
 %dir %{_datadir}/tasyag/tcl
