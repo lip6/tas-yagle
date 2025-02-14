@@ -590,11 +590,7 @@ int  lotrs_cond_check(char* cond, eqt_ctx *ctx) {
    double value;
    if( !cond ) return 1;
    value = eqt_eval(ctx, cond, EQTNORMAL );
-   if (!eqt_resistrue(ctx))
-        {
-          avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, ".if evaluation" , cond, " : set to 0");
-        }
-      else if (!finite(value))
+   if (!finite(value))
           avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, ".if evaluation", cond, " : returned NaN or Inf");
    if ( value == 0.0 ) return 0;
    else return 1;
