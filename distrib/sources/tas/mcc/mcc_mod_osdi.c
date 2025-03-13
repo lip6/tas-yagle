@@ -33,9 +33,9 @@
 #define CalcCGP_OP   0
 #define CalcCGD_OP   0
 #define CalcCGSI_OP  0  
-#define CalcCDS_OP   1
-#define CalcCDP_OP   1
-#define CalcCDW_OP   1
+#define CalcCDS_OP   0
+#define CalcCDP_OP   0
+#define CalcCDW_OP   0
 
 void mcc_initparam_osdi( mcc_modellist *ptmodel )
 {
