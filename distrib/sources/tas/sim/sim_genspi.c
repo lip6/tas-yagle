@@ -763,6 +763,28 @@ void sim_readspifile (char *fileout, char *argv[], int nbx, int nby, double **ta
 /* ---------------------------------------------------------------------------- */
 
 extern mbk_sem_t simInFork;
+#define MAX_FILENAME_LEN 256
+
+// ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿
+int file_exists(const char *filename) {
+    struct stat buffer;
+    return (stat(filename, &buffer) == 0);
+}
+
+// ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿
+void generate_unique_filename(const char *base_filename, char *output_filename, size_t max_len) {
+    snprintf(output_filename, max_len, "%s", base_filename);
+    
+    if (!file_exists(output_filename)) {
+        return; // ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿
+    }
+    
+    int counter = 1;
+    do {
+        snprintf(output_filename, max_len, "%s.%d", base_filename, counter);
+        counter++;
+    } while (file_exists(output_filename));
+}
 
 int sim_execspice (char *filename, int silent, char *spicename, char *spicestring, char *spicestdout)
 {
@@ -772,6 +794,7 @@ int sim_execspice (char *filename, int silent, char *spicename, char *spicestrin
     char buf[32000];
     char *fileout;
     int j, bufidx;
+    char unique_filename[MAX_FILENAME_LEN];
 
     if (V_BOOL_TAB[__SIM_USE_SYSTEM_CMD].VALUE)
     {
@@ -852,14 +875,16 @@ int sim_execspice (char *filename, int silent, char *spicename, char *spicestrin
         }
 
         fileout = sim_getjoker (spicestdout, filename);
+        generate_unique_filename(fileout, unique_filename, MAX_FILENAME_LEN);
+        
 
-        if ((j = open (fileout, O_WRONLY | O_CREAT | O_TRUNC, (S_IRWXU & ~S_IXUSR) | S_IRGRP | S_IROTH)) == -1) {
-            avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, fileout);
-//            fprintf (stderr, "\nsim error: can't open file %s\n", fileout);
+        if ((j = open (unique_filename, O_WRONLY | O_CREAT | O_TRUNC, (S_IRWXU & ~S_IXUSR) | S_IRGRP | S_IROTH)) == -1) {
+            avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, unique_filename);
+//            fprintf (stderr, "\nsim error: can't open file %s\n", unique_filename);
             exit (1);
         }
         else if (dup2 (j, 1) != 1) {
-            fprintf (stderr, "\nsim error: can't copy stdout to file %s\n", fileout);
+            fprintf (stderr, "\nsim error: can't copy stdout to file %s\n", unique_filename);
             exit (1);
         }
 /*        else {
@@ -867,22 +892,22 @@ int sim_execspice (char *filename, int silent, char *spicename, char *spicestrin
         }*/
 
 /*        if ((j = open ("/dev/null", O_WRONLY)) == -1) {
-            avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, fileout);
+            avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, unique_filename);
             //fprintf (stderr, "\nsim error: can't open file %s\n", fileout);
             exit (1);
         }*/
         if (dup2 (j, 2) != 2) {
-            fprintf (stderr, "\nsim error: can't copy stderr to file %s\n", fileout);
+            fprintf (stderr, "\nsim error: can't copy stderr to file %s\n", unique_filename);
             exit (1);
         }
         close (j);
         if ((j = open ("/dev/null", O_RDONLY)) == -1) {
-            avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, fileout);
+            avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, unique_filename);
             //fprintf (stderr, "\nsim error: can't open file %s\n", fileout);
             exit (1);
         }
         if (dup2 (j, 0) != 0) {
-            fprintf (stderr, "\nsim error: can't copy stdin to file %s\n", fileout);
+            fprintf (stderr, "\nsim error: can't copy stdin to file %s\n", unique_filename);
             exit (1);
         }
         close (j);
