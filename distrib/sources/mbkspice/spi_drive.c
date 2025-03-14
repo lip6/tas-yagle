@@ -1155,7 +1155,7 @@ void            sorttransistormos(lofig_list *ptfig, FILE *df, char *vss, char *
                   spi_print( df, "%s %s ", alim, modname);
                 }
             }
-          if (!in_SPI_TRANSISTOR_AS_INSTANCE)
+          if (!in_SPI_TRANSISTOR_AS_INSTANCE || V_BOOL_TAB[__SIM_TRANSISTOR_INSTANCE_NEED_PARAMETER].VALUE)
             {
               if(scantrs->LENGTH!=0)
                 {

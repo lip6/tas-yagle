@@ -349,6 +349,7 @@ V_BOOL V_BOOL_TAB[] = {
     {"STM_NEW_OVERSHOOT"              , __STM_NEW_OVERSHOOT             , 0, 0, 0, "stmNewOvershoot"                       , NULL                             , bool_init_check},
     {"SIM_ALLOW_THREADS"              , __SIM_ALLOW_THREADS             , 1, 0, 0, "simAllowThreads"                       , NULL                             , bool_init_check},
     {"SIM_USE_SYSTEM_CMD"             , __SIM_USE_SYSTEM_CMD            , 0, 0, 0, "simUseSystemCommand"                   , NULL                             , bool_init_check},
+    {"SIM_TRANSISTOR_INSTANCE_NEED_PARAMETER"     , __SIM_TRANSISTOR_INSTANCE_NEED_PARAMETER, 0          ,        0, 0, "simTransistorInstanceNeedParameter"              , NULL, bool_init_check},
     {"MGL_NONBLOKING_ASSIGN"          , __MGL_NONBLOKING_ASSIGN         , 1, 1, 0, "avtNonBlockingVerilogAssignment"       , NULL                             , bool_init_check}, 
     {"MGL_OLD_STYLE_BUS"              , __MGL_OLD_STYLE_BUS             , 1, 0, 0, "avtVerilogOldStyleBus"                 , NULL                             , bool_init_check}, 
     {"MGL_TRISTATE_IS_MEMORY"         , __MGL_TRISTATE_IS_MEMORY        , 0, 0, 0, "avtVerilogTristateIsMemory"            , NULL                             , bool_init_check}, 
