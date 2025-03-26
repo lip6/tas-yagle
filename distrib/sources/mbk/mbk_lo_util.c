@@ -987,6 +987,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
            *ptpttrs_prev = pttrs->NEXT;
            continue;
      }
+     pttrs->COND = NULL;
      ptpttrs_prev = &pttrs->NEXT;
      if (pttrs->X!=LONG_MIN) pttrs->X += x;
      if (pttrs->Y!=LONG_MIN) pttrs->Y += y;
