@@ -19,6 +19,8 @@
 # include MLO_H
 # include XSB_H
 # include XTB_H
+# include CGV_H
+# include XYA_H
 # include XMX_H
 
 # include "XMX_icon.h"

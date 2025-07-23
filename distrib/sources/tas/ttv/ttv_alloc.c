@@ -1935,7 +1935,7 @@ ttvcritic_list *ttv_alloccritic(ttvcritic_list *headcritic,ttvfig_list *ttvfigh,
  pt->REFSLOPE = slope ;
  pt->USER = NULL ;
  pt->NEXT = headcritic ;
- pt->NODE=node; // beware, use only in stb
+ pt->NODE=node; /* beware, use only in stb*/
  pt->LINEMODELNAME=linemodelname;
  pt->LINE=line;
 

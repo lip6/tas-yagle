@@ -23,13 +23,13 @@
 /****************************************************************************/
 
 stm_simu_pi_load_parameter stm_simu_param_standard = {
-  /* DEFAULT_TIME_STEP      */      10.0 ,       //  10 FS
-  /* MIN_TIME_STEP          */       1.0 ,       //   1 FS
-  /* MAX_TIME_STEP          */     100.0 ,       // 100 Fs
-  /* MAX_DELTA_CURRENT      */       0.000100 ,  //  100uA
-  /* MIN_DELTA_CURRENT      */       0.000001 ,  //    1uA
-  /* MAX_DELTA_VOLTAGE      */       0.001000 ,  // 1000uV
-  /* MIN_DELTA_VOLTAGE      */       0.000010 ,  //   10uV
+  /* DEFAULT_TIME_STEP      */      10.0 ,       /*  10 FS*/
+  /* MIN_TIME_STEP          */       1.0 ,       /*   1 FS*/
+  /* MAX_TIME_STEP          */     100.0 ,       /* 100 Fs*/
+  /* MAX_DELTA_CURRENT      */       0.000100 ,  /*  100uA*/
+  /* MIN_DELTA_CURRENT      */       0.000001 ,  /*    1uA*/
+  /* MAX_DELTA_VOLTAGE      */       0.001000 ,  /* 1000uV*/
+  /* MIN_DELTA_VOLTAGE      */       0.000010 ,  /*   10uV*/
   /* MAX_ITER               */  100000 ,
   /* VARIABLE_STEP          */       1 ,
   /* STAT_ITER              */       0 ,
@@ -301,7 +301,7 @@ char stm_simu_pi_load_ts( char (*fn_is)( void *dat_is,
 
     param->STAT_ITER++;
 
-    // test de sortie
+    /* test de sortie*/
 
     if( ptf )
       fprintf( ptf, "%g %g %g %g\n", ti, ve, v1i, ii );

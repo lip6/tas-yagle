@@ -519,12 +519,7 @@ XyagDisplayOneString(Obj)
 |                     XyagDisplayFigure                       |
 \------------------------------------------------------------*/
 
-void 
-XyagDisplayFigure(GraphicX1, GraphicY1, GraphicX2, GraphicY2)
-    long            GraphicX1;
-    long            GraphicY1;
-    long            GraphicX2;
-    long            GraphicY2;
+void XyagDisplayFigure( long GraphicX1, long GraphicY1, long GraphicX2, long GraphicY2 )
 {
     xyagview_list  *View;
     xyagobj_list   *Obj;
@@ -572,7 +567,7 @@ XyagDisplayFigure(GraphicX1, GraphicY1, GraphicX2, GraphicY2)
     Y1 = GraphicY1 + XyagPixelGridY;
     Y2 = GraphicY2 + XyagPixelGridY;
 
-//    printf("gridstep=%g\n",XyagUnitGridStep);
+/*    printf("gridstep=%g\n",XyagUnitGridStep);*/
     X1 = (X1 / XyagUnitGridStep);
     Y1 = (Y1 / XyagUnitGridStep);
     X2 = (X2 / XyagUnitGridStep);
@@ -676,9 +671,7 @@ XyagDisplayFigure(GraphicX1, GraphicY1, GraphicX2, GraphicY2)
 |                     XyagDisplayObject                       |
 \------------------------------------------------------------*/
 
-void 
-XyagDisplayObject(Obj)
-    xyagobj_list   *Obj;
+void XyagDisplayObject( xyagobj_list *Obj )
 {
     xyagobj_list   *ScanObj;
     long long            Xmin;

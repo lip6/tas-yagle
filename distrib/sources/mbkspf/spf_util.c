@@ -121,7 +121,7 @@ void spf_prepare_lofig(lofig_list *ptlofig)
 
 /******************************************************************************/
 
-// create a lofig htable to get a signal using its name
+/* create a lofig htable to get a signal using its name*/
 void spf_create_losig_htable(lofig_list *lofig)
 {
   losig_list *ls;
@@ -151,7 +151,7 @@ void spf_create_losig_htable(lofig_list *lofig)
 #endif
 }
 
-// create a lofig htable to get a instance using its name
+/* create a lofig htable to get a instance using its name*/
 void spf_create_loins_htable(lofig_list *lofig)
 {
   loins_list *li;
@@ -172,7 +172,7 @@ void spf_create_loins_htable(lofig_list *lofig)
 #endif
 }
 
-// create a lofig htable to get a instance using its name
+/* create a lofig htable to get a instance using its name*/
 void spf_create_lotrs_htable(lofig_list *lofig)
 {
   lotrs_list *tr;
@@ -193,7 +193,7 @@ void spf_create_lotrs_htable(lofig_list *lofig)
 #endif
 }
 
-// remove all the RC information from the signals
+/* remove all the RC information from the signals*/
 void spf_destroyexistingRC(lofig_list *lofig)
 {
   losig_list *ls;
@@ -208,7 +208,7 @@ void spf_destroyexistingRC(lofig_list *lofig)
     }    
 }
 
-// find a valid signal index a te able to add a new signal in the netlist
+/* find a valid signal index a te able to add a new signal in the netlist*/
 long findindexinlofig(lofig_list *lofig)
 {
   long current=-1;
@@ -236,7 +236,7 @@ void spf_destroy_lotrs_htable()
   delht(all_lofig_lotrs);
 }
 
-// return a signal given its name, NULL if it does not exist
+/* return a signal given its name, NULL if it does not exist*/
 losig_list *getlosigbyname(char *name)
 {
   long value;
@@ -245,7 +245,7 @@ losig_list *getlosigbyname(char *name)
   return (losig_list *)value;
 }
 
-// return a instance given its name, NULL if it does not exist
+/* return a instance given its name, NULL if it does not exist*/
 loins_list *getloinsbyname(char *name)
 {
   long value;
@@ -254,7 +254,7 @@ loins_list *getloinsbyname(char *name)
   return (loins_list *)value;
 }
 
-// return a transistor given its name, NULL if it does not exist
+/* return a transistor given its name, NULL if it does not exist*/
 lotrs_list *getlotrsbyname(char *name)
 {
   long value;
@@ -263,30 +263,30 @@ lotrs_list *getlotrsbyname(char *name)
   return (lotrs_list *)value;
 }
 
-// return a signal and a node number for a given signal node name
+/* return a signal and a node number for a given signal node name*/
 void getsignalandnode(lofig_list *Lofig, losig_list *currentsignal, char *nametofind, ht *nodelist, char *ground, losig_list **signalfound, long *nodefound, int noforce)
 {
   long tmp;
   char *name;
   
-//  name=namealloc(nametofind); // spf_spi_devect en amont
+/*  name=namealloc(nametofind); // spf_spi_devect en amont*/
   name=nametofind;
 
   if (spf_find_pending_node(name, signalfound, nodefound)) return;
 
-  // is it a node?
+  /* is it a node?*/
   *nodefound=gethtitem(nodelist,name);
 
   if (*nodefound==EMPTYHT) 
     {
-      // no... is it the ground signal?
+      /* no... is it the ground signal?*/
       if (name==ground)
         {
           if (groundlosig==NULL && (groundlosig=getlosigbyname(name))==NULL
               && (groundlosig=getlosigbyname(mbk_getvssname()))==NULL)
             {
-              // yes but the signal does not exist, let create it...
-              tmp=findindexinlofig(Lofig); // last valid index
+              /* yes but the signal does not exist, let create it...*/
+              tmp=findindexinlofig(Lofig); /* last valid index*/
 
     #ifdef SPF_DEBUG
               printf("Creating ground signal %s idx=%ld\n",ground,tmp);
@@ -298,7 +298,7 @@ void getsignalandnode(lofig_list *Lofig, losig_list *currentsignal, char *nameto
               addhtitem(all_lofig_losig,ground,(long)groundlosig);	      
               groundlosig->ALIMFLAGS=MBK_HAS_GLOBAL_NODE_FLAG;
             }
-          // all's right
+          /* all's right*/
           *signalfound=groundlosig;
           groundlosig->ALIMFLAGS|=MBK_ALIM_VSS_FLAG|MBK_SIGNAL_ALIM_DONE_FLAG;
           *nodefound=0;

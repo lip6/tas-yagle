@@ -50,87 +50,87 @@ ht *BEH_TIMEVARS=NULL;
 /****************************************************************************/
 /*{{{                    Declaration des signaux (compatible)               */
 /****************************************************************************/
-///*{{{                    reverse_takeBiggerNameReg()                        */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static bereg_list *reverse_takeBiggerNameReg(bereg_list *reg)
-//{
-//  bereg_list    *p, *q = NULL;
-//  int            len;
-//
-//  if (!reg)
-//    return NULL;
-//  while ((p = reg->NEXT))
-//  {
-//    len         = strlen(reg->NAME);
-//    if (MAXNAME < len)
-//      MAXNAME   = len;
-//    reg->NEXT   = q;
-//    q           = reg;
-//    reg         = p;
-//  }
-//  reg->NEXT     = q;
-//
-//  return reg;
-//}
-//
-//
-///*}}}************************************************************************/
-///*{{{                    reverse_takeBiggerNameBux()                        */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static bebux_list *reverse_takeBiggerNameBux(bebux_list *bux)
-//{
-//  bebux_list    *p, *q = NULL;
-//  int            len;
-//
-//  if (!bux)
-//    return NULL;
-//  while ((p = bux->NEXT))
-//  {
-//    len         = strlen(bux->NAME);
-//    if (MAXNAME < len)
-//      MAXNAME   = len;
-//    bux->NEXT   = q;
-//    q           = bux;
-//    bux         = p;
-//  }
-//  bux->NEXT     = q;
-//
-//  return bux;
-//}
-//
-//
-///*}}}************************************************************************/
-///*{{{                    reverse_takeBiggerNameAux()                        */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static beaux_list *reverse_takeBiggerNameAux(beaux_list *aux)
-//{
-//  beaux_list    *p, *q = NULL;
-//  int            len;
-//
-//  if (!aux)
-//    return NULL;
-//  while ((p = aux->NEXT))
-//  {
-//    len         = strlen(aux->NAME);
-//    if (MAXNAME < len)
-//      MAXNAME   = len;
-//    aux->NEXT   = q;
-//    q           = aux;
-//    aux         = p;
-//  }
-//  aux->NEXT     = q;
-//
-//  return aux;
-//}
-//
-//
-//
+/*/*{{{                    reverse_takeBiggerNameReg()                        */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static bereg_list *reverse_takeBiggerNameReg(bereg_list *reg)*/
+/*{*/
+/*  bereg_list    *p, *q = NULL;*/
+/*  int            len;*/
+/**/
+/*  if (!reg)*/
+/*    return NULL;*/
+/*  while ((p = reg->NEXT))*/
+/*  {*/
+/*    len         = strlen(reg->NAME);*/
+/*    if (MAXNAME < len)*/
+/*      MAXNAME   = len;*/
+/*    reg->NEXT   = q;*/
+/*    q           = reg;*/
+/*    reg         = p;*/
+/*  }*/
+/*  reg->NEXT     = q;*/
+/**/
+/*  return reg;*/
+/*}*/
+/**/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    reverse_takeBiggerNameBux()                        */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static bebux_list *reverse_takeBiggerNameBux(bebux_list *bux)*/
+/*{*/
+/*  bebux_list    *p, *q = NULL;*/
+/*  int            len;*/
+/**/
+/*  if (!bux)*/
+/*    return NULL;*/
+/*  while ((p = bux->NEXT))*/
+/*  {*/
+/*    len         = strlen(bux->NAME);*/
+/*    if (MAXNAME < len)*/
+/*      MAXNAME   = len;*/
+/*    bux->NEXT   = q;*/
+/*    q           = bux;*/
+/*    bux         = p;*/
+/*  }*/
+/*  bux->NEXT     = q;*/
+/**/
+/*  return bux;*/
+/*}*/
+/**/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    reverse_takeBiggerNameAux()                        */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static beaux_list *reverse_takeBiggerNameAux(beaux_list *aux)*/
+/*{*/
+/*  beaux_list    *p, *q = NULL;*/
+/*  int            len;*/
+/**/
+/*  if (!aux)*/
+/*    return NULL;*/
+/*  while ((p = aux->NEXT))*/
+/*  {*/
+/*    len         = strlen(aux->NAME);*/
+/*    if (MAXNAME < len)*/
+/*      MAXNAME   = len;*/
+/*    aux->NEXT   = q;*/
+/*    q           = aux;*/
+/*    aux         = p;*/
+/*  }*/
+/*  aux->NEXT     = q;*/
+/**/
+/*  return aux;*/
+/*}*/
+/**/
+/**/
+/**/
 static int hasevents(biabl_list *biabl)
 {
   biabl_list    *biablx;
@@ -155,7 +155,7 @@ static char *insert_name(char *name, char *postfix, char *buf)
     sprintf(buf, "%s%s", name, postfix);
   return buf;
 }
-///*}}}************************************************************************/
+/*/*}}}************************************************************************/
 /*{{{                    drive_signals_bereg()                              */
 /*                                                                          */
 /*                                                                          */
@@ -211,7 +211,7 @@ static void drive_signals_bevectreg(bef_driver *driver, bevectreg_list *vreg)
   for(vregx=vreg; vregx; vregx=vregx->NEXT)
   {
     ht          *porht = driver->POR.PORHT;
-//    drive_signals_bevectreg(driver,vreg->NEXT);
+/*    drive_signals_bevectreg(driver,vreg->NEXT);*/
 
     inertial=V_BOOL_TAB[__MGL_INERTIAL_MEMORY].VALUE && (vregx->FLAGS & BEH_FLAG_NORMAL)==0;
     verilog=(inertial && driver->VLG && !hasevents(vregx->VECTBIABL->BIABL) && !beh_isloop(vregx->VECTBIABL->BIABL));
@@ -280,7 +280,7 @@ static void drive_signals_bevectbux(bef_driver *driver, bevectbux_list *vbux)
   vbux=(bevectbux_list *)reverse((chain_list *)vbux);
   for (vbuxx=vbux; vbuxx; vbuxx=vbuxx->NEXT)
   {
-//    drive_signals_bevectbux(driver,vbux->NEXT);
+/*    drive_signals_bevectbux(driver,vbux->NEXT);*/
     
     oldstyle=V_BOOL_TAB[__MGL_OLD_STYLE_BUS].VALUE || (vbuxx->FLAGS & BEH_FLAG_NORMAL)!=0;
     verilog=(!oldstyle && V_BOOL_TAB[__MGL_TRISTATE_IS_MEMORY].VALUE && (vbuxx->FLAGS & BEH_FLAG_FORCEBUS)==0 && driver->VLG && !beh_isloop(vbuxx->VECTBIABL->BIABL) && !hasevents(vbuxx->VECTBIABL->BIABL));
@@ -344,7 +344,7 @@ static void drive_signals_bevectbus(bef_driver *driver, bevectbus_list *vbus)
   vbus=(bevectbus_list *)reverse((chain_list *)vbus);
   for (vbusx=vbus; vbusx; vbusx=vbusx->NEXT)
   {
-//    drive_signals_bevectbus(driver,vbus->NEXT);
+/*    drive_signals_bevectbus(driver,vbus->NEXT);*/
     oldstyle=V_BOOL_TAB[__MGL_OLD_STYLE_BUS].VALUE || (vbus->FLAGS & BEH_FLAG_NORMAL)!=0;
     verilog=(!oldstyle && V_BOOL_TAB[__MGL_TRISTATE_IS_MEMORY].VALUE && (vbus->FLAGS & BEH_FLAG_FORCEBUS)==0 && driver->VLG && !beh_isloop(vbusx->VECTBIABL->BIABL) && !hasevents(vbusx->VECTBIABL->BIABL));
     if (verilog)
@@ -393,7 +393,7 @@ static void drive_signals_bevectaux(bef_driver *driver, bevectaux_list *vaux)
   vaux=(bevectaux_list *)reverse((chain_list *)vaux);
   for (vauxx=vaux; vauxx; vauxx=vauxx->NEXT)
   {
-//    drive_signals_bevectaux(driver,vaux->NEXT);
+/*    drive_signals_bevectaux(driver,vaux->NEXT);*/
     driver->SIGNAL(driver->FP,vauxx->NAME,'W',vauxx->LEFT,vauxx->RIGHT);
   }
   vaux=(bevectaux_list *)reverse((chain_list *)vaux);
@@ -415,11 +415,11 @@ static void print_biabl(bef_driver *driver, biabl_list *biabl, char *name,
     beh_toolbug(20,"print_biabl",name,0);
   else
   {
-    // case of  with ... select
+    /* case of  with ... select*/
     if ((type != BEG_MASK_REG) && (beh_simplifybiabl(biabl)))
       driver->PROC.WITHSELECT(driver->FP,biabl,vname,vsize,driver->ABUFF,
                               driver->ABUFS);
-    // case of process
+    /* case of process*/
     else
       drive_process(driver,biabl,name,vname,vsize,np,head,type,flags);
   }
@@ -1062,7 +1062,7 @@ static void bef_print_reg_case(bef_driver *driver, char *input, char *output, ch
   driver->PROC.BEGIN(driver->FP,NULL);
   iprint(driver->FP,0,"case ( %s )\n", name0);
   iprint(driver->FP,'>',stg);
-//  iprint(driver->FP,'>',"1'b0, 1'b1: ");
+/*  iprint(driver->FP,'>',"1'b0, 1'b1: ");*/
   driver->AFFECTED(driver->FP,0,'R',0,0,0,output,outputv,NULL,0);
   temp=createAtom(input);
   driver->VALUE   (driver->FP,temp,'R',0,0,0,driver->ABUFF, driver->ABUFS);
@@ -1169,7 +1169,7 @@ void bef_print_one_beobj(bef_driver *driver, void *be, int *np,long type)
                     driver->INTER_ASS(driver->FP,save_name,name,0);
                 }
                 break;
-           case BEG_MASK_REG :// case BEG_MASK_BUX :
+           case BEG_MASK_REG :/* case BEG_MASK_BUX :*/
                 for (vbiablx=vbiabl; vbiablx; vbiablx = vbiablx->NEXT)
                   if (hasevents(vbiablx->BIABL) || beh_isloop(vbiablx->BIABL)) break;
                 if (verilogreg && vbiablx==NULL && vbiabl!=NULL && vbiabl->LEFT==vbiabl->RIGHT)
@@ -1190,7 +1190,7 @@ void bef_print_one_beobj(bef_driver *driver, void *be, int *np,long type)
                     iprint(driver->FP,'i',"\n");
                     left      = vbiabl->LEFT;
                     right     = vbiabl->RIGHT;
-//                    vname     = driver->STR.VNAME(name,left,right);
+/*                    vname     = driver->STR.VNAME(name,left,right);*/
                     vectsize  = abs(left - right) + 1;
                     biabl     = vbiabl->BIABL;
 
@@ -1627,20 +1627,20 @@ static void drive_cnd_abl(bef_driver *driver, char *buffer, int *done_endif,
                           int *done_else, int first, int sameckcnd,
                           long flag, void *next, int drive_edge)
 {
-  // condition drive
-  // the first
+  /* condition drive*/
+  /* the first*/
   if (first)
   {
     if (drive_edge)
       driver->PROC.IF(driver->FP,buffer);
   }
-  // the last for else
+  /* the last for else*/
   else if (!next && driver->ISONE(buffer))
   {
     *done_else      = driver->PROC.ELSE(driver->FP);
     *done_endif     = 1;
   }
-  // precedence
+  /* precedence*/
   else if (!(flag&BEH_CND_PRECEDE))
   {
     if (!sameckcnd)
@@ -1712,7 +1712,7 @@ static void drive_one_biabl(bef_driver *driver, biabl_list *biabl,
   
   next                  = biabl->NEXT;
   
-  // detect edge condition
+  /* detect edge condition*/
   if (type == BEG_MASK_REG)
     isEdgeCondition     = bef_search_stable(biabl->CNDABL,&clock);
   else
@@ -1720,7 +1720,7 @@ static void drive_one_biabl(bef_driver *driver, biabl_list *biabl,
     isEdgeCondition     = 0;
     flag|=BEH_CND_PRECEDE;
   }
-  // case of edge condition
+  /* case of edge condition*/
   if (isEdgeCondition)
   {
     char       ckstate, *ckname, *signame;
@@ -1741,7 +1741,7 @@ static void drive_one_biabl(bef_driver *driver, biabl_list *biabl,
     *oldckcnd           = mbkstrdup(*buffer);
   }
   else
-  // default
+  /* default*/
   {
     *buffer             = getStrAblReduce(driver,biabl->CNDABL,*buffer,bsize);
     if (*oldckcnd)
@@ -1776,7 +1776,7 @@ static void drive_one_biabl(bef_driver *driver, biabl_list *biabl,
   drive_cnd_abl(driver,*buffer,done_endif,done_else,first,sameckcnd,
                 flag,next,drive_edge);
 
-  // supplementary condition in case of register
+  /* supplementary condition in case of register*/
   if (isEdgeCondition)
   {
     chain_list    *cndabl;
@@ -1795,7 +1795,7 @@ static void drive_one_biabl(bef_driver *driver, biabl_list *biabl,
   else
     sndckcnd            = 0;
 
-  // value
+  /* value*/
   if (biabl->VALABL)
   {
     int time;
@@ -1888,7 +1888,7 @@ static void drive_process(bef_driver *driver, biabl_list *biabl, char *name,
   
   driver->PROC.EDGE(buf,"",0,"");
 
-  if (driver->VLG) // verilog
+  if (driver->VLG) /* verilog*/
     events=getevents(biabl, &others);
   else
     events=NULL;  
@@ -1933,7 +1933,7 @@ static void drive_process(bef_driver *driver, biabl_list *biabl, char *name,
 
     for (pt=events; pt!=NULL; pt=pt->NEXT)
     {
-      // sensibility list
+      /* sensibility list*/
       if (pt->TYPE==0 && pt->DATA==NULL)
         loopchain     = driver->PROC.DECLAR(driver->FP,biabl,name,*np,head,
                                             driver->ABUFF,NULL);
@@ -1941,7 +1941,7 @@ static void drive_process(bef_driver *driver, biabl_list *biabl, char *name,
         loopchain     = driver->PROC.DECLAR(driver->FP,biabl,name,*np,head,
                                             driver->ABUFF,pt);
 
-      // process
+      /* process*/
       lastloop      = NULL;
       oldckcnd      = NULL;
       done_else     = 0;
@@ -1974,7 +1974,7 @@ static void drive_process(bef_driver *driver, biabl_list *biabl, char *name,
                         driver->ABUFF,driver->ABUFS);
       }
 
-      // end of process
+      /* end of process*/
       drive_end_of_process(driver,lastloop,done_endif,done_else,cpt,name,vname,
                            vsize,*np,head,type);
       driver->PROC.END(driver->FP);

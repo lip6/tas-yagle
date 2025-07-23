@@ -19,9 +19,9 @@ void sim_API_Action_Initialize ();
 void sim_API_Action_Terminate ();
 void sim_SetSlopeForm (SimulationContext *sc, PwlFunction *f);
 
-//*************************************
-// General parameters
-//*************************************
+/***************************************/
+/* General parameters*/
+/***************************************/
 
 /*
   MAN sim_SetSimulatorType
@@ -253,9 +253,9 @@ extern void   sim_NoiseSetAnalyseType (SimulationContext *sc, char noise_type);
 */
 extern void   sim_SetSimulationOutputFile (SimulationContext *sc, char *output_file);
 
-//*************************************
-// Input PWL - DC values 
-//*************************************
+/***************************************/
+/* Input PWL - DC values */
+/***************************************/
 
 /*
   MAN sim_AddStuckLevel
@@ -350,9 +350,9 @@ void sim_SetExternalCapacitance(SimulationContext *sc, char *node, double value)
 */
 extern void   sim_AddWaveForm (SimulationContext *sc, char *node, double trise, double tfall, double periode, char *pattern);
                                 
-//*************************************
-// Initial IC values
-//*************************************
+/***************************************/
+/* Initial IC values*/
+/***************************************/
 /*
   MAN sim_AddInitLevel
   CATEG gns
@@ -390,9 +390,9 @@ extern void   sim_AddInitVoltage     (SimulationContext *sc, char *node, double 
 */
 void sim_AddOutLoad (SimulationContext *sc, char *node, double load);
 
-//*************************************
-// Mesure PRINT points 
-//*************************************
+/***************************************/
+/* Mesure PRINT points */
+/***************************************/
 /*
   MAN sim_AddMeasure
   CATEG gns
@@ -418,9 +418,9 @@ extern void   sim_AddMeasure (SimulationContext *sc, char *node);
 */
 extern void   sim_AddMeasureCurrent   (SimulationContext *sc, char *node);
 
-//*************************************
-// Simulation primitives
-//*************************************
+/***************************************/
+/* Simulation primitives*/
+/***************************************/
 /*
   MAN sim_RunSimulation
   CATEG gns
@@ -433,9 +433,9 @@ extern void   sim_AddMeasureCurrent   (SimulationContext *sc, char *node);
 */
 extern void   sim_RunSimulation (SimulationContext *sc, char *sim_call);
 
-//*************************************
-// Computing primitives
-//*************************************
+/***************************************/
+/* Computing primitives*/
+/***************************************/
 
 /*
   MAN sim_ExtractMinSlope
@@ -1130,7 +1130,7 @@ extern double sim_NoiseExtractMinPeakDuration (SimulationContext *sc, char *name
   ERRORS
   none.
 */
-//extern void sim_DriveLut (SimulationContext *sc, char *lcin, char *lcout, char *transition, List *slew_range, List *load_range);
+/*extern void sim_DriveLut (SimulationContext *sc, char *lcin, char *lcout, char *transition, List *slew_range, List *load_range);*/
 
 /*
   MAN sim_DriveNodeState
@@ -1191,7 +1191,7 @@ extern Netlist *sim_GetNetlist (char *name);
   SEE ALSO
   sim_GetSavedContext, sim_AddAlias
 */
-//extern SimulationContext *sim_SaveContext (SimulationContext *sc, char *label);
+/*extern SimulationContext *sim_SaveContext (SimulationContext *sc, char *label);*/
 
 
 /*
@@ -1206,7 +1206,7 @@ extern Netlist *sim_GetNetlist (char *name);
   SEE ALSO
   sim_SaveContext, sim_AddAlias
 */
-//extern SimulationContext *sim_GetSavedContext(SimulationContext *src, char *label);
+/*extern SimulationContext *sim_GetSavedContext(SimulationContext *src, char *label);*/
 
 
 /*
@@ -1221,7 +1221,7 @@ extern Netlist *sim_GetNetlist (char *name);
   SEE ALSO
   sim_SaveContext
 */
-//void sim_AddAlias(SimulationContext *sc, char *source, char *destination);
+/*void sim_AddAlias(SimulationContext *sc, char *source, char *destination);*/
 
 
 void SET_CONTEXT(SimulationContext *sc);
@@ -1295,7 +1295,7 @@ double sim_ReadMeasure(char *filename, char *label);
 */
 void sim_ResetMeasures(SimulationContext *model);
 
-//int sim_GetSpiceMeasure(SimulationContext *sc, char *label, double *value);
+/*int sim_GetSpiceMeasure(SimulationContext *sc, char *label, double *value);*/
 /*
   MAN sim_GetSpiceMeasureSlope
   CATEG gns

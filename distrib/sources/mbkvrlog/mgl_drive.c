@@ -297,7 +297,7 @@ vlogsavelofig(lofig_list *ptfig, FILE *outputfile)
         }
         fprintf(ptfile, ");\n\n\n");
 
-        fprintf(ptfile, "// Declaration of external signals.\n\n");
+        fprintf(ptfile, "/* Declaration of external signals.\n\n");
         /*now list inputs and outputs with indices */
         ptcon = ptfig->LOCON;
         while (ptcon != NULL) {

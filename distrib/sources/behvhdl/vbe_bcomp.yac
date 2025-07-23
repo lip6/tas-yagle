@@ -41,8 +41,8 @@ static struct befig *BVL_BEFPNT = NULL; /* current BEFIG pointer    */
 
 static struct beden **dic = NULL;   /* dictionary           */
    
-int		 vbe_chkdcl(char object,int mode,int type,char flag,int kind,char constraint,int *conf);
-void 	*vbe_addstr();
+int   vbe_chkdcl (char object,int mode,int type,char flag,int kind,char constraint,int *conf);
+void *vbe_addstr ( struct befig *ptfig, char object, int mode, int type, char flag, char *name, short left, short right );
 int  	 yylex(void);
    
 %}
@@ -1988,16 +1988,7 @@ END_ERR
 	;
 %%
 
-void *vbe_addstr (ptfig, object, mode, type, flag, name, left, right)
-
-struct befig *ptfig;
-char          object;
-int           mode;
-int           type;
-char          flag;
-char         *name;
-short         left;
-short         right;
+void *vbe_addstr ( struct befig *ptfig, char object, int mode, int type, char flag, char *name, short left, short right )
 
   {
   void  *pnt    = NULL;

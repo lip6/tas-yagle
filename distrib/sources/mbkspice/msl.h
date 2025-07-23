@@ -79,11 +79,11 @@ extern lofig_list  *msl_ptfig;       /* last lofig parsed */
 extern char         SPI_PARSE_ALLNAME; /* parse all transistor names */
 extern char         SPI_IGNORE_BULK;   /* ignore bulk connections */
 
-void mslAddExtension __P(( int(*)() )); /* add function called during parsing */
-void mslRmvExtension __P((          )); /* remove this function */
+void mslAddExtension __P(( int(*)(char*,int) )); /* add function called during parsing */
+void mslRmvExtension __P(( int (*mslExtHandler) (char*,int) )); /* remove this function */
 
 void mslAddCompletion __P(( int(*)() )); /* add function called after parsing */
-void mslRmvCompletion __P((          )); /* remove this function */
+void mslRmvCompletion __P(( int (*mslCmpHandler) () )); /* remove this function */
 
 void spi_addpreloadedlib __P(( char *insname, chain_list *loconlist ));
 

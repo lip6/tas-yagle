@@ -97,7 +97,7 @@ void spef_createstruct(lofig_list *lf)
 }
 #endif
 
-// the same function as in mbkspice parser
+/* the same function as in mbkspice parser*/
 char*           spef_spi_devect( char *nom )
 {
   int           taille;
@@ -160,7 +160,7 @@ char spef_sufdelim(char delim)
     return ']';
 }
 /******************************************************************************/
-// create a lofig htable to get a signal using its name
+/* create a lofig htable to get a signal using its name*/
 void spef_create_losig_htable(lofig_list *lofig)
 {
   losig_list *ls;
@@ -192,7 +192,7 @@ void spef_create_losig_htable(lofig_list *lofig)
 }
 
 /*******************************************************************/
-// create a lofig htable to get a instance using its name
+/* create a lofig htable to get a instance using its name*/
 void spef_create_loins_htable(lofig_list *lofig)
 {
   loins_list *li;
@@ -211,7 +211,7 @@ void spef_create_loins_htable(lofig_list *lofig)
   for (li=lofig->LOINS;li!=NULL;li=li->NEXT,nbins++)
     {
 #ifdef SPEF_DEBUG
-//      printf("Loins %s (idx=%ld)\n",(char *)li->INSNAME); // modifier par zinaps
+/*      printf("Loins %s (idx=%ld)\n",(char *)li->INSNAME); // modifier par zinaps*/
       printf("Loins %s\n",(char *)li->INSNAME);
 #endif
       addhtitem_v2(all_lofig_loins,(char *)li->INSNAME,(long)li);
@@ -222,7 +222,7 @@ void spef_create_loins_htable(lofig_list *lofig)
 #endif
 
 
-  // zinaps:
+  /* zinaps:*/
   all_lofig_lotrs=addht_v2(LOFIG_HT_SIZE);
   set_ht_v2_rehashlimit(all_lofig_lotrs, 16);
   for (lt=lofig->LOTRS, nbins=0;lt!=NULL;lt=lt->NEXT,nbins++)
@@ -254,7 +254,7 @@ void spef_create_loins_htable(lofig_list *lofig)
           if ((pt=getptype(lctc->USER, MSL_CAPANAME))!=NULL)
           {
             addhtitem_v2(all_lofig_capa,pt->DATA,(long)lctc);
-//            printf("add c %s\n",(char *)pt->DATA);
+/*            printf("add c %s\n",(char *)pt->DATA);*/
           }
           hasparas=1;
         }
@@ -268,7 +268,7 @@ void spef_create_loins_htable(lofig_list *lofig)
           {
             addhtitem_v2(all_lofig_resi,pt->DATA,(long)lw);
             lw->USER=addptype(lw->USER, SPEF_RESISIG, ls);
-//            printf("add w %s\n",(char *)pt->DATA);
+/*            printf("add w %s\n",(char *)pt->DATA);*/
           }
           hasparas=1;
         }
@@ -293,7 +293,7 @@ void spef_create_loins_htable(lofig_list *lofig)
 }
 
 /*******************************************************************/
-// remove all the RC information from the signals
+/* remove all the RC information from the signals*/
 void spef_destroyexistingRC(lofig_list *lofig)
 {
   losig_list *ls;
@@ -309,7 +309,7 @@ void spef_destroyexistingRC(lofig_list *lofig)
 }
 
 /*******************************************************************/
-// find a valid signal index a te able to add a new signal in the netlist
+/* find a valid signal index a te able to add a new signal in the netlist*/
 long spef_findindexinlofig(lofig_list *lofig)
 {
   long current=-1;
@@ -339,7 +339,7 @@ void spef_destroy_loins_htable()
 }
 
 /*******************************************************************/
-// return a signal given its name, NULL if it does not exist
+/* return a signal given its name, NULL if it does not exist*/
 losig_list *spef_getlosigbyname(char *name)
 {
   long value;
@@ -349,7 +349,7 @@ losig_list *spef_getlosigbyname(char *name)
 }
 
 /*******************************************************************/
-// return a signal given its name, NULL if it does not exist
+/* return a signal given its name, NULL if it does not exist*/
 loins_list *spef_getloinsbyname(char *name)
 {
   long value;
@@ -358,7 +358,7 @@ loins_list *spef_getloinsbyname(char *name)
   return (loins_list *)value;
 }
 
-// return a signal given its name, NULL if it does not exist
+/* return a signal given its name, NULL if it does not exist*/
 lotrs_list *spef_getlotrsbyname(char *name)
 {
   long value;
@@ -636,7 +636,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
       {
         if((value = getititem(namemaptable, atoi(instorsig_name + 1))) != EMPTYHT)
           {
-            ios_name = (char*)value; //namealloc((char*)value);
+            ios_name = (char*)value; /*namealloc((char*)value);*/
 
             if (nodeorlocon_name[0]>='0' && nodeorlocon_name[0]<='9' && (*ptsig = spef_getlosigbyname(ios_name))!=NULL)
               {
@@ -652,7 +652,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
               }
             else if (Lofig->LOTRS!=NULL && ((lt = spef_getlotrsbyname(spef_check_keep(ios_name,'m',1)))!=NULL || (lt = spef_getlotrsbyname(mbk_vect(spef_check_keep(ios_name,'m',0),'[',']')))!=NULL))
               {          
-                //                  nol_name = spef_spi_devect(nodeorlocon_name);
+                /*                  nol_name = spef_spi_devect(nodeorlocon_name);*/
                 nol_name=nodeorlocon_name;
                 
                 if (strcasecmp(nol_name, ANNOT_T_G?ANNOT_T_G:"g")==0) ptcon=lt->GRID;
@@ -688,7 +688,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
             
             *ptsig = (losig_list *)getptype(lw->USER, SPEF_RESISIG)->DATA;
             if (pos==1) *node=lw->NODE1, *pnode=&lw->NODE1; else *node=lw->NODE2, *pnode=&lw->NODE2;
-          } // end zinaps
+          } /* end zinaps*/
          else if ((lctc = spef_getcapabyname(spef_check_keep(ios_name,'c',1)))!=NULL)
           { 
             nol_name=nodeorlocon_name;
@@ -703,7 +703,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
              }
             
             if (pos==1) *ptsig =lctc->SIG1, *node=lctc->NODE1, *pnode=&lctc->NODE1; else *ptsig =lctc->SIG2, *node=lctc->NODE2, *pnode=&lctc->NODE2;
-          } // end zinaps
+          } /* end zinaps*/
          else if ((lctc = spef_getcapabyname(spef_check_keep(ios_name,'d',1)))!=NULL)
           { 
             nol_name=nodeorlocon_name;
@@ -718,7 +718,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
              }
             
             if (pos==1) *ptsig =lctc->SIG1, *node=lctc->NODE1, *pnode=&lctc->NODE1; else *ptsig =lctc->SIG2, *node=lctc->NODE2, *pnode=&lctc->NODE2;
-          } // end zinaps
+          } /* end zinaps*/
          else
               avt_errmsg(SPE_ERRMSG, "011", AVT_WARNING, spef_ParsedFile, Line-1, ios_name);      
           }
@@ -727,8 +727,8 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
       {
         if((value = getititem(namemaptable, atoi(instorsig_name + 1))) != EMPTYHT)
           {
-            //            ios_name = namealloc((char*)value);
-            ios_name = (char*)value; //spef_spi_devect((char*)value);
+            /*            ios_name = namealloc((char*)value);*/
+            ios_name = (char*)value; /*spef_spi_devect((char*)value);*/
             for (ptcon=Lofig->LOCON;ptcon!=NULL && spef_spi_devect(ptcon->NAME)!=ios_name;ptcon=ptcon->NEXT) ;
             if(!ptcon) return 0;
             *ptsig = ptcon->SIG;
@@ -738,7 +738,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
     else
       {
         if (flagnodevect==0)
-          ios_name = spef_spi_devect(instorsig_name);//namealloc(instorsig_name);
+          ios_name = spef_spi_devect(instorsig_name);/*namealloc(instorsig_name);*/
         else
           ios_name = namealloc(instorsig_name);
         if(Lofig->LOINS!=NULL && (ptins = spef_getloinsbyname(spef_check_keep(ios_name,'x',1)))!=NULL)
@@ -751,7 +751,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
           }
         else if (Lofig->LOTRS!=NULL && (lt = spef_getlotrsbyname(spef_check_keep(ios_name,'m',1)))!=NULL)
           {       
-            //              nol_name = spef_spi_devect(nodeorlocon_name);
+            /*              nol_name = spef_spi_devect(nodeorlocon_name);*/
             nol_name=nodeorlocon_name;
 
             if (strcasecmp(nol_name, ANNOT_T_G?ANNOT_T_G:"g")==0) ptcon=lt->GRID;
@@ -768,7 +768,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
 
             *ptsig = ptcon->SIG;
             spef_checkpnode(ptcon, node);
-          } // end zinaps
+          } /* end zinaps*/
          else if ((lw = spef_getresibyname(spef_check_keep(ios_name,'r',1)))!=NULL)
           { 
             nol_name=nodeorlocon_name;
@@ -787,7 +787,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
             
             *ptsig = (losig_list *)getptype(lw->USER, SPEF_RESISIG)->DATA;
             if (pos==1) *node=lw->NODE1, *pnode=&lw->NODE1; else *node=lw->NODE2, *pnode=&lw->NODE2;
-          } // end zinaps
+          } /* end zinaps*/
          else if ((lctc = spef_getcapabyname(spef_check_keep(ios_name,'c',1)))!=NULL)
           { 
             nol_name=nodeorlocon_name;
@@ -802,7 +802,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
              }
             
             if (pos==1) *ptsig =lctc->SIG1, *node=lctc->NODE1, *pnode=&lctc->NODE1; else *ptsig =lctc->SIG2, *node=lctc->NODE2, *pnode=&lctc->NODE2;
-          } // end zinaps
+          } /* end zinaps*/
          else if ((lctc = spef_getcapabyname(spef_check_keep(ios_name,'d',1)))!=NULL)
           { 
             nol_name=nodeorlocon_name;
@@ -817,7 +817,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
              }
             
             if (pos==1) *ptsig =lctc->SIG1, *node=lctc->NODE1, *pnode=&lctc->NODE1; else *ptsig =lctc->SIG2, *node=lctc->NODE2, *pnode=&lctc->NODE2;
-          } // end zinaps
+          } /* end zinaps*/
         else if((value = gethtitem(portmap_ht, ios_name/* = spef_spi_devect(ios_name)*/)) != EMPTYHT)
           {
             for (ptcon=Lofig->LOCON;ptcon!=NULL && spef_spi_devect(ptcon->NAME)!=ios_name;ptcon=ptcon->NEXT) ;
@@ -829,8 +829,8 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
           {
             if (spef_groundlosig==NULL && (spef_groundlosig=spef_getlosigbyname(ios_name))==NULL)
               {
-                // yes but the signal does not exist, let create it...
-                tmp=spef_findindexinlofig(Lofig); // last valid index
+                /* yes but the signal does not exist, let create it...*/
+                tmp=spef_findindexinlofig(Lofig); /* last valid index*/
                 
                 spef_groundlosig=addlosig(Lofig,tmp,addchain(NULL,ground),INTERNAL);
                 spef_groundlosig->USER=addptype(spef_groundlosig->USER, LOFIGCHAIN, NULL);
@@ -838,7 +838,7 @@ char spef_recupnodeandsig (lofig_list *Lofig, char *str, char *ground, losig_lis
                 addhtitem_v2(all_lofig_losig,ground,(long)spef_groundlosig);          
                 spef_groundlosig->ALIMFLAGS=MBK_HAS_GLOBAL_NODE_FLAG;
               }
-            // all's right
+            /* all's right*/
             *ptsig=spef_groundlosig;
             spef_groundlosig->ALIMFLAGS|=MBK_ALIM_VSS_FLAG|MBK_SIGNAL_ALIM_DONE_FLAG;
             *node = 1;
@@ -1004,7 +1004,7 @@ void spef_treatafterctclist(chain_list **ctclist)
 
   for(chain = *ctclist; chain; chain = chainnext){
       newctc = (loctc_list*)chain->DATA;
-      //addloctc(newctc->SIG1, newctc->NODE1, newctc->SIG2, newctc->NODE2, newctc->CAPA);
+      /*addloctc(newctc->SIG1, newctc->NODE1, newctc->SIG2, newctc->NODE2, newctc->CAPA);*/
       freeloctc(newctc);
       chainnext = chain->NEXT;
       chain->NEXT = NULL;

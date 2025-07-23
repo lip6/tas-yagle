@@ -34,7 +34,7 @@ typedef struct t_vcd_db {
     int          SIG_TAB_SZ;
     int          SIG_IDX;
     /* times entry */
-    chain_list **TIME_ENTRY; //DATA = trans_list*
+    chain_list **TIME_ENTRY; /*DATA = trans_list**/
     int         *TIME_TAB;
     int          TIME_TAB_SZ;
     int          TIME_IDX;

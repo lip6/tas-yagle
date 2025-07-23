@@ -32,4 +32,4 @@ extern int /*SPF_KEEPM, SPF_KEEPX,*/ SPF_PREVERSE_RC, SPF_CARDS;
 /*     functions                                                            */
 /****************************************************************************/
 
-//extern lofig_list *spf_Annotate(lofig_list *lofig, char *spf_file_name);
+/*extern lofig_list *spf_Annotate(lofig_list *lofig, char *spf_file_name);*/

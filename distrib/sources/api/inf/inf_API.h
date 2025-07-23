@@ -523,7 +523,7 @@ void  inf_DefineCharacteristics          (char *type, List *argv);
     margin    % Margin to add when computing slack or constraint.
     EXAMPLE % {inf_DefineDirective check "data" with clock "data" up}.\$Checks that "data" is stable when the propagated clock state on data is high.
 */
-void inf_DefineDirective(void); // (void) disables the gns wrappers
+void inf_DefineDirective(void); /* (void) disables the gns wrappers*/
 void inf_DefineDirective_sub(List *argv);
 
 /*------------------
@@ -545,7 +545,7 @@ void inf_DefineDirective_sub(List *argv);
     endclock     % name of the clock controlling the arrival node
     EXAMPLE % {inf_DefineFalseSlack setup: "ck" <rise> "data" <rise> "arrival" "ck2"}.
 */
-void inf_DefineFalseSlack(void); // (void) disables the gns wrappers
+void inf_DefineFalseSlack(void); /* (void) disables the gns wrappers*/
 void inf_DefineFalseSlack_sub(List *argv);
 
 /*------------------

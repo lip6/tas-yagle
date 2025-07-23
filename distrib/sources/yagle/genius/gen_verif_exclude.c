@@ -41,7 +41,7 @@ static inline ptype_list *Verify_Exclude_In(tree_list *tree,
    char *name;
    if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 203);
-    //fprintf(stderr,"Verify_Exclude_In: NULL pointer\n");
+    /*fprintf(stderr,"Verify_Exclude_In: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -82,7 +82,7 @@ extern ptype_list *Verify_Exclude(tree_list *tree,
 {
   if (!tree) { 
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 204);
-//    fprintf(stderr,"Verify_Exclude: NULL pointer\n");
+/*    fprintf(stderr,"Verify_Exclude: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -138,7 +138,7 @@ extern int Is_Exclude(char *loins) {
    
    if (!loins) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 205);
-//      fprintf(stderr,"Is_Exclude: NULL popinter\n");
+/*      fprintf(stderr,"Is_Exclude: NULL popinter\n");*/
       EXIT(1);
    }   
    
@@ -163,7 +163,7 @@ extern void Verif_Alone_Exclude(tree_list *archi) {
 
    if (!archi) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 206);
-//      fprintf(stderr,"Verif_Alone_Exclude: NULL popinter\n");
+/*      fprintf(stderr,"Verif_Alone_Exclude: NULL popinter\n");*/
       EXIT(1);
    }   
    
@@ -189,7 +189,7 @@ extern void Compare_Type(tree_list *tree,
 {
   if (!tree || !instance) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 207);
-//    fprintf(stderr,"Compare_Type: NULL pointer\n");
+/*    fprintf(stderr,"Compare_Type: NULL pointer\n");*/
     EXIT(1);
   }
   

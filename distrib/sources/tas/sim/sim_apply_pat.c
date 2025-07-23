@@ -15,8 +15,8 @@
 #include SIM_H
 #include "sim.h"
 
-//-----------------------------------------------------------------------------
-//
+/*-----------------------------------------------------------------------------*/
+/**/
 char sim_get_type_node (sim_model *model,char *node)
 {
     char                type_node='x';
@@ -38,8 +38,8 @@ char sim_get_type_node (sim_model *model,char *node)
     return type_node;
 }
 
-//-----------------------------------------------------------------------------
-//
+/*-----------------------------------------------------------------------------*/
+/**/
 void sim_apply_input (sim_model *model, spisig_list *path, 
                       SIM_FLOAT start_time,SIM_FLOAT slope, int delay_type)
 {
@@ -142,8 +142,8 @@ void sim_apply_input (sim_model *model, spisig_list *path,
     }
 }
 
-//-----------------------------------------------------------------------------
-//
+/*-----------------------------------------------------------------------------*/
+/**/
 
 void sim_print_node (sim_model *model, chain_list *sig2print)
 {
@@ -172,8 +172,8 @@ void sim_print_node (sim_model *model, chain_list *sig2print)
     }
 }
 
-//-----------------------------------------------------------------------------
-//
+/*-----------------------------------------------------------------------------*/
+/**/
 void sim_apply_correl (sim_model *model, chain_list *correl, cnsfig_list *cnsfig)
 {
     double vssl, vssh, vddl, vddh;
@@ -234,10 +234,10 @@ void sim_apply_stuck (sim_model *model, ptype_list *stucklist, cnsfig_list *cnsf
     }
 }
 
-//-----------------------------------------------------------------------------
-// contient les infos sur les nodes (event...) du chemin a sensibiliser
-// le 1er element du path est le dernier noeud du chemin a sensibiliser
-// le dernier element du path est le 1er noeud du chemin a sensibiliser
+/*-----------------------------------------------------------------------------*/
+/* contient les infos sur les nodes (event...) du chemin a sensibiliser*/
+/* le 1er element du path est le dernier noeud du chemin a sensibiliser*/
+/* le dernier element du path est le 1er noeud du chemin a sensibiliser*/
 
 static int avoid_ic(spisig_list *ssig)
 {
@@ -255,7 +255,7 @@ void sim_apply_init_print (sim_model *model, spisig_list *path)
     char        locate;
     long        event;
     sim_measure *measure;
-    // sim_ic     *ic;
+    /* sim_ic     *ic;*/
     locon_list *locon;
     losig_list *losig;
     double vssl, vssh, vddl, vddh, levelv;
@@ -287,7 +287,7 @@ void sim_apply_init_print (sim_model *model, spisig_list *path)
       model->FIG->USER=delptype(model->FIG->USER, EFG_ADDITIONAL_IC);
     }
     
-    // Init internal node on path
+    /* Init internal node on path*/
     for (spisig = path; spisig->NEXT ; spisig=spisig->NEXT) {
         event = efg_GetSpiSigEvent (spisig);
 
@@ -303,7 +303,7 @@ void sim_apply_init_print (sim_model *model, spisig_list *path)
             level = SIM_ONE, levelv=vddh;
         name = efg_GetSpiSigName  (spisig);
 
-        // NO RC on signal
+        /* NO RC on signal*/
         if (!efg_IsWireOnSpiSig (spisig) ) {
           sim_find_by_name( name,
                             sim_model_get_lofig( model ),
@@ -317,7 +317,7 @@ void sim_apply_init_print (sim_model *model, spisig_list *path)
               locate = SIM_IC_SIGNAL;
           if (!avoid_ic(spisig) && !sim_ic_get (model,name,locate) )
              sim_ic_set_voltage(model,name, locate,levelv);
-//            sim_ic_set_level (model,name, locate,level);
+/*            sim_ic_set_level (model,name, locate,level);*/
           if (locate == SIM_IC_SIGNAL)
               sim_measure_set_signal (model, name);
           else
@@ -329,26 +329,26 @@ void sim_apply_init_print (sim_model *model, spisig_list *path)
               measure = sim_measure_set_locon (model, name);
               if (!avoid_ic(spisig) && !sim_ic_get (model,name,locate) )
                 sim_ic_set_voltage(model,name, SIM_IC_LOCON,levelv);
-              //ic = sim_ic_set_level (model,name, SIM_IC_LOCON,level);
+              /*ic = sim_ic_set_level (model,name, SIM_IC_LOCON,level);*/
             }
             if ((name = efg_GetSpiSigLoconRc (spisig,'I'))) {
               measure = sim_measure_set_locon (model, name);
               if (!avoid_ic(spisig) && !sim_ic_get (model,name,locate) )
                 sim_ic_set_voltage(model,name, SIM_IC_LOCON,levelv);
-//                ic = sim_ic_set_level (model,name, SIM_IC_LOCON,level);
+/*                ic = sim_ic_set_level (model,name, SIM_IC_LOCON,level);*/
             }
             if ((name = efg_GetSpiSigLoconRc (spisig,'O'))) {
               measure = sim_measure_set_locon (model, name);
               if (!avoid_ic(spisig) && !sim_ic_get (model,name,locate) )
                 sim_ic_set_voltage(model,name, SIM_IC_LOCON,levelv);
-//                ic = sim_ic_set_level (model,name, SIM_IC_LOCON,level);
+/*                ic = sim_ic_set_level (model,name, SIM_IC_LOCON,level);*/
             }
         }
     }
 }
 
-//-----------------------------------------------------------------------------
-//
+/*-----------------------------------------------------------------------------*/
+/**/
 
 sim_model *sim_apply_pat (lofig_list *lofig, SIM_FLOAT start_time,
                           SIM_FLOAT slope, ptype_list *patterns, 
@@ -387,8 +387,8 @@ sim_model *sim_apply_pat (lofig_list *lofig, SIM_FLOAT start_time,
     return model;
 }
 
-//-----------------------------------------------------------------------------
-//
+/*-----------------------------------------------------------------------------*/
+/**/
 
 sim_model *sim_apply_pat2cone (lofig_list *origlofig,cnsfig_list *cnsfig, cone_list *cone,
                                char *input, char in_event, SIM_FLOAT slope, char out_event, float capaout, int delay_type)
@@ -404,9 +404,9 @@ sim_model *sim_apply_pat2cone (lofig_list *origlofig,cnsfig_list *cnsfig, cone_l
     chain_list  *cone_onpath = NULL, *allcorrel=NULL;
     SIM_FLOAT    start_time = 0.0;
     int err;
-    // TODO mettre le start_time en parametre
+    /* TODO mettre le start_time en parametre*/
 
-    // build spisig
+    /* build spisig*/
     if (out_event == SIM_RISE)
         pathsig = efg_AddPathEvent (pathsig,cone->NAME,EFG_RISE,0,-1,-1, -1, -1, NULL, 0, NULL);
     else
@@ -418,7 +418,7 @@ sim_model *sim_apply_pat2cone (lofig_list *origlofig,cnsfig_list *cnsfig, cone_l
 
     path = efg_BuildSpiSigList(origlofig,pathsig,NULL,1,&err,0);
     
-    // build figext and find  pat   
+    /* build figext and find  pat   */
     if (cone != NULL)
         cone_onpath = addchain (cone_onpath,cone);
 
@@ -437,7 +437,7 @@ sim_model *sim_apply_pat2cone (lofig_list *origlofig,cnsfig_list *cnsfig, cone_l
                       1
                     );
 
-    // Add capa out 
+    /* Add capa out */
     extra_capa = efg_set_extra_capa (figext,cone->NAME,capaout*1.0e12);
 
     spipatterns =  gsp_get_patterns(origlofig,
@@ -450,7 +450,7 @@ sim_model *sim_apply_pat2cone (lofig_list *origlofig,cnsfig_list *cnsfig, cone_l
                                     &allcorrel
                                     );
 
-    // launch simu 
+    /* launch simu */
     model = sim_apply_pat (figext,
                            start_time,
                            slope, 
@@ -464,7 +464,7 @@ sim_model *sim_apply_pat2cone (lofig_list *origlofig,cnsfig_list *cnsfig, cone_l
                            allcorrel
                            );
     gsp_freecorrel(allcorrel);
-    // liberation
+    /* liberation*/
     if (extra_capa != NULL) {
         efg_del_extra_capa (extra_capa);
         freechain (extra_capa);
@@ -477,8 +477,8 @@ sim_model *sim_apply_pat2cone (lofig_list *origlofig,cnsfig_list *cnsfig, cone_l
     return model;
 }
 
-//-----------------------------------------------------------------------------
-//
+/*-----------------------------------------------------------------------------*/
+/**/
 
 void sim_get_delay_slope_cone (lofig_list *origlofig,
                                cnsfig_list *cnsfig,
@@ -520,9 +520,9 @@ void sim_get_delay_slope_cone (lofig_list *origlofig,
             dellofig (extfigname);
     }
     else {
-        // read spice file    
+        /* read spice file    */
         sim_parse_spiceout (model);
-        // get type of node    
+        /* get type of node    */
         sprintf (transition,"%c%c",in_event,out_event);
         type_input = sim_get_type_node (model,input);
         type_output = sim_get_type_node (model,output);
@@ -530,7 +530,7 @@ void sim_get_delay_slope_cone (lofig_list *origlofig,
 
 
 
-        // get delay
+        /* get delay*/
         sim_getMeasDelay (model, sim_create_label (input,output), delay);
 /*        *delay = sim_get_trans_delay (model, SIM_MAX, type_input, input,
                                      type_output, output, transition);
@@ -540,16 +540,16 @@ void sim_get_delay_slope_cone (lofig_list *origlofig,
 
         sim_getMeasSlope (model, sim_create_label (output,NULL), slope);
 
-//        *slope    = sim_getslope (model, SIM_MAX, type_output, output);
+/*        *slope    = sim_getslope (model, SIM_MAX, type_output, output);*/
         sim_timing_free_all ();
         sim_model_clear (extfigname);
         dellofig (extfigname);
     }
 }
 
-//-----------------------------------------------------------------------------
-// Access func for rc label slope
-//
+/*-----------------------------------------------------------------------------*/
+/* Access func for rc label slope*/
+/**/
 void sim_add_label (spisig_list *spisig,  long type, char *label)
 {
   ptype_list *ptype;
@@ -562,7 +562,7 @@ void sim_add_label (spisig_list *spisig,  long type, char *label)
     }
 }
 
-//-----------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------*/
 void sim_free_label (spisig_list *spisig)
 {
   ptype_list *ptype;
@@ -578,7 +578,7 @@ void sim_free_label (spisig_list *spisig)
 }
 
 
-//-----------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------*/
 char *sim_get_label_delay (spisig_list *spisig, long type)
 {
   ptype_list *ptype;
@@ -594,8 +594,8 @@ char *sim_get_label_delay (spisig_list *spisig, long type)
   return NULL;
 }
 
-//-----------------------------------------------------------------------------
-//
+/*-----------------------------------------------------------------------------*/
+/**/
 char *sim_create_label ( char *name1, char *name2)
 {
   char buf[1024], buf1[1024];
@@ -603,21 +603,21 @@ char *sim_create_label ( char *name1, char *name2)
   name1=sim_devect(name1);
   if ( name2 ) {
     name2=sim_devect(name2);
-    // delay label
+    /* delay label*/
     strcpy(buf1, spi_makename(mbk_vect(name2,'_','\0')));
     sprintf (buf,"%s_%s___%s",SIM_DELAY_LABEL_STRING,spi_makename(mbk_vect(name1,'_','\0')),buf1);
   }
   else 
-    // slope label
+    /* slope label*/
     sprintf (buf,"%s_%s",SIM_SLOPE_LABEL_STRING,spi_makename(mbk_vect(name1,'_','\0')));
   return namealloc (buf);
 }
 
-//-----------------------------------------------------------------------------
-// contient les infos sur les nodes (event...) du chemin a sensibiliser
-// le 1er element du path est le dernier noeud du chemin a sensibiliser
-// le dernier element du path est le 1er noeud du chemin a sensibiliser
-// Drive des .meas au lieu de .print
+/*-----------------------------------------------------------------------------*/
+/* contient les infos sur les nodes (event...) du chemin a sensibiliser*/
+/* le 1er element du path est le dernier noeud du chemin a sensibiliser*/
+/* le dernier element du path est le 1er noeud du chemin a sensibiliser*/
+/* Drive des .meas au lieu de .print*/
 
 void sim_apply_delay_to_vt(sim_model *model, spisig_list *spisig, char *name, char event, int delay_type)
 {
@@ -775,7 +775,7 @@ void sim_apply_init_meas (sim_model *model, spisig_list *path, int delay_type, c
 
                     if (!(spisig->LATCHCMDDIR & EFG_SPISIG_HZ_MASK))
                       {
-                        // Slope threshold
+                        /* Slope threshold*/
                         if ( spisig->VTHLOW > 0.0 ) sim_parameter_set_slopeVTHL (model,spisig->VTHLOW);
                         else sim_parameter_set_slopeVTHL (model,vthlow);
                         if ( spisig->VTHHIGH > 0.0 ) sim_parameter_set_slopeVTHH (model,spisig->VTHHIGH);
@@ -845,7 +845,7 @@ void sim_apply_init_meas (sim_model *model, spisig_list *path, int delay_type, c
 
 
 #if 0
-    // Init internal node on path
+    /* Init internal node on path*/
     for (spisig = path; spisig ; spisig=spisig->NEXT) 
       {
 
@@ -856,7 +856,7 @@ void sim_apply_init_meas (sim_model *model, spisig_list *path, int delay_type, c
 
         event = efg_GetSpiSigEvent (spisig);
 
-        // Slope threshold
+        /* Slope threshold*/
         if ( spisig->VTHLOW > 0.0 )
            sim_parameter_set_slopeVTHL (model,spisig->VTHLOW);
         else
@@ -886,7 +886,7 @@ void sim_apply_init_meas (sim_model *model, spisig_list *path, int delay_type, c
 
         name = efg_GetSpiSigName  (spisig);
 
-        // NO RC on signal
+        /* NO RC on signal*/
         if (!efg_IsWireOnSpiSig (spisig) )
           {
             sim_find_by_name( name,
@@ -926,7 +926,7 @@ void sim_apply_init_meas (sim_model *model, spisig_list *path, int delay_type, c
               locate = SIM_IC_LOCON;
             else
               locate = SIM_IC_SIGNAL;
-            // rajoute les et slope des delay rc
+            /* rajoute les et slope des delay rc*/
             
             sim_get_multivoltage_values(spisig->CONE, spisig->SRCSIG, &vssl, &vssh, &vddl, &vddh);
             sim_parameter_set_alim(model, vddh, 'o');
@@ -1011,7 +1011,7 @@ void sim_apply_init_meas (sim_model *model, spisig_list *path, int delay_type, c
               }
           }
 
-        // GATE DELAY
+        /* GATE DELAY*/
         if ( spisig->NEXT && !multiplepath) {
           event = efg_GetSpiSigEvent (spisig->NEXT);
           if (event == ((long)EFG_SIG_SET_RISE))
@@ -1045,7 +1045,7 @@ void sim_apply_init_meas (sim_model *model, spisig_list *path, int delay_type, c
     }
 #endif
 
-    // pour avoir le delai total
+    /* pour avoir le delai total*/
     if ( path && !multiplepath ) 
       {
         firstspisig = efg_GetFirstSpiSig(path);
@@ -1074,8 +1074,8 @@ void sim_apply_init_meas (sim_model *model, spisig_list *path, int delay_type, c
       }
 }
 
-//-----------------------------------------------------------------------------
-// Func sim_apply_alims
+/*-----------------------------------------------------------------------------*/
+/* Func sim_apply_alims*/
 
 void sim_apply_alims (sim_model *model, lofig_list *fig)
 {

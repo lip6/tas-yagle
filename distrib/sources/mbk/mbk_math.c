@@ -369,12 +369,12 @@ mbk_pwl_point_list* mbk_pwl_param_point_to_point(
     return NULL;
   }
 
-  // Crée un tableau des points de passage obligés et le trie
+/* Crée un tableau des points de passage obligés et le trie */
   n=2;
   for( scan = param->POINTS ; scan ; scan = scan->NEXT ) {
-    // Cette comparaison permet de ne garder que les points compris entre
-    // x0 et x1, et dont le calcul de la dérivée est également compris dans
-    // cette zone.
+    /* Cette comparaison permet de ne garder que les points compris entre*/
+    /* x0 et x1, et dont le calcul de la dérivée est également compris dans */
+    /* cette zone.*/
     if( scan->X - dx2 > x0 && scan->X + dx2 < x1 )
       n++;
   }
@@ -394,7 +394,7 @@ mbk_pwl_point_list* mbk_pwl_param_point_to_point(
          (int (*)(const void*, const void*))mbk_qsort_dbl_cmp 
        );
  
-  // Transforme ces points en une liste
+  /* Transforme ces points en une liste*/
   head = NULL;
   
   for( i=n-1 ; i>=0 ; i-- ) {
@@ -498,11 +498,11 @@ static char mbk_pwl_create_default_rec( char (*fn)(void*, double, double*),
   
   if( ( p2->X - p1->X ) >= (param->PARAM.DEFAULT.DELTAXMIN/OPTIM13) ) {
 
-    // Test d'intersection des deux dérivées.
+  /* Test d'intersection des deux dérivées. */
 
     xm = (p2->X + p1->X)/2;
 
-    // Test de l'ecart entre l'intersection des deux dérivées et la fonction.
+  /* Test de l'ecart entre l'intersection des deux dérivées et la fonction. */
     if( !fn( data, xm, &y ) )
       return 0;
 
@@ -527,7 +527,7 @@ static char mbk_pwl_create_default_rec( char (*fn)(void*, double, double*),
   }
   else {
   
-    // On vérifie si on est pas sur une droite entre les deux points.
+  /* On vérifie si on est pas sur une droite entre les deux points. */
 
     xm = ( p1->X + p2->X ) / 2.0 ;
     if( !fn( data, xm, &y ) )
@@ -566,13 +566,13 @@ static char mbk_pwl_create_default_rec( char (*fn)(void*, double, double*),
   
   if( ( p2->X - p1->X ) >= param->PARAM.DEFAULT.DELTAXMIN ) {
 
-    // Test d'intersection des deux dérivées.
+  /* Test d'intersection des deux dérivées. */
 
     xm = ( p2->O - p1->O ) / ( p1->P - p2->P ) ;
 
     if( finite( xm ) && xm > p1->X && xm < p2->X ) {
      
-      // Test de l'ecart entre l'intersection des deux dérivées et la fonction.
+    /* Test de l'ecart entre l'intersection des deux dérivées et la fonction. */
       if( !fn( data, xm, &y ) )
         return 0;
 
@@ -618,7 +618,7 @@ static char mbk_pwl_create_default_rec( char (*fn)(void*, double, double*),
     }
     else {
     
-      // On vérifie si on est pas sur une droite entre les deux points.
+    /* On vérifie si on est pas sur une droite entre les deux points. */
 
       xm = ( p1->X + p2->X ) / 2.0 ;
       if( !fn( data, xm, &y ) )
@@ -675,14 +675,14 @@ mbk_pwl* mbk_pwl_create_default( char (*fn)(void*, double, double*),
   for( p1 = head ; p1->NEXT ; p1 = p1->NEXT );
   last = p1;
 
-  // Subdivise les intervalles
+  /* Subdivise les intervalles*/
   for( p1 = head ; p1 != last ; p1 = p2 ) {
     p2 = p1->NEXT ;
       if( ! mbk_pwl_create_default_rec( fn, data, p1, p2, param, (x0+x1)/2 ) )
         break;
   }
 
-  // Crée la structure finale
+/* Crée la structure finale */
   if( p1 == last ) 
     list = mbk_pwl_point_to_pwl( head );
   else
@@ -1148,7 +1148,7 @@ int mbk_dichotomie( int   (*fn)(void*, double, double*),
 
   /* la solution suivante est fausse si l'écart x1-x0 est
   grand mais que le x choisi tombe juste */
-  // *x = ( *x0 + *x1 )/ 2.0 ;
+  /* *x = ( *x0 + *x1 )/ 2.0 ;*/
   
   *itmax = nbit ;
   return why ;
@@ -1405,16 +1405,16 @@ int mbk_cmpdouble(double a, double b, double precision)
 
   mta=frexp(a, &expa);
   mtb=frexp(b, &expb);
-//  printf("%d %d\n", expa, expb);
+/*  printf("%d %d\n", expa, expb);*/
   if (expa<expb) return sa? -1: 1;
   if (expa>expb) return sa?  1:-1;
-//  printf("%.20g %.20g\n", mta, mtb);
+/*  printf("%.20g %.20g\n", mta, mtb);*/
 
-//  printf("%.20g\n",mta*pow(2, expa));
-//  printf("%.20g\n",mtb*pow(2, expb));
+/*  printf("%.20g\n",mta*pow(2, expa));*/
+/*  printf("%.20g\n",mtb*pow(2, expb));*/
   ia=(long)(mta*precision+0.5);
   ib=(long)(mtb*precision+0.5);
-//  printf("%ld %ld\n",ia,ib);
+/*  printf("%ld %ld\n",ia,ib);*/
   if (ia<ib) return -1;
   if (ia>ib) return 1;
   return 0;
@@ -1428,12 +1428,12 @@ double mbk_rounddouble(double a, double precision)
   
   if (a==0) return a;
   fraction=modf(a, &entier);
-//  printf("f=%.20g\n",fraction);
+/*  printf("f=%.20g\n",fraction);*/
   if (entier==0)
   {
     expa=-(int)log10(fabs(fraction));
     mul=pow(10, expa);
-//    printf("mul=%.20g , e=%d\n",mul,expa);
+/*    printf("mul=%.20g , e=%d\n",mul,expa);*/
     precision*=mul;
   }
   ia=floor(fraction*precision+0.5)/precision;

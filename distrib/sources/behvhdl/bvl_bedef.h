@@ -1,5 +1,5 @@
-// modifie par Stephane
-// ancien bvl_bedef.h
+/* modifie par Stephane*/
+/* ancien bvl_bedef.h*/
 
 /* ###--------------------------------------------------------------### */
 /* file		: vbe_bedef.h						*/

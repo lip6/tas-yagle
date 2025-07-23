@@ -52,7 +52,7 @@ double mcc_compute_vth0 ( mcc_modellist *ptmodel,
   if (lotrsparam->MCC_SAVED[__MCC_SAVED_VTH0]!=ELPINITVALUE)
      return lotrsparam->MCC_SAVED[__MCC_SAVED_VTH0];
 #endif
-  //VTH0 = mcc_getprm_quick (ptmodel,"VTH0") + mcc_getprm (ptmodel,"DELVT0");
+  /*VTH0 = mcc_getprm_quick (ptmodel,"VTH0") + mcc_getprm (ptmodel,"DELVT0");*/
   VTH0 = mcc_getprm_quick (ptmodel,__MCC_GETPRM_VTH0) + mcc_getprm_quick (ptmodel,__MCC_GETPRM_DELVTO);
   if ( need_stress_bs43 )
     VTH0 = mcc_update_Kstress_vth0_bs43 ( ptmodel,
@@ -612,7 +612,7 @@ double mcc_calc_vbseff_bsim4 (mcc_modellist *ptmodel,
   double c0,c1,c2;
   static double Vbseff,Vbc, phis;
   static double K1,BINUNIT;
-  static double VBM; // additionnal var for ng src
+  static double VBM; /* additionnal var for ng src*/
 
 #ifdef OPTIM15
   if (!getparm_flag && lotrsparam->MCC_SAVED[__MCC_LAST_VBS_FORVBSEFF]==Vbs && lotrsparam->MCC_SAVED[__MCC_SAVED_VBSEFF]!=ELPINITVALUE)
@@ -648,7 +648,7 @@ double mcc_calc_vbseff_bsim4 (mcc_modellist *ptmodel,
     else
       Vbseff = Vbs;
   }
-  else {              // ELDO case
+  else {              /* ELDO case*/
     if((K2 != 0.0) && (mcc_getparamtype_quick(ptmodel, __MCC_QUICK_K2) == MCC_SETVALUE)) {
       Vbc = 0.9*(phis-K1*K1/(4.0*K2*K2));
       Vbseff = Vbc + 0.5*(Vbs-Vbc-delta1 + sqrt(pow(Vbs-Vbc-delta1,2.0)-4.0*delta1*Vbc));
@@ -656,7 +656,7 @@ double mcc_calc_vbseff_bsim4 (mcc_modellist *ptmodel,
     else
       Vbseff = Vbs;
   }
-  if (Vbseff < Vbs) //from ng src
+  if (Vbseff < Vbs) /*from ng src*/
     Vbseff = Vbs;
   lotrsparam->MCC_SAVED[__MCC_LAST_VBS_FORVBSEFF]=Vbs;
   lotrsparam->MCC_SAVED[__MCC_SAVED_VBSEFF]=Vbseff;
@@ -739,7 +739,7 @@ double mcc_calc_vgsteffcv_bsim4 (mcc_modellist *ptmodel,
 
   c_0 = n*Vt;
 
-  // Expression de Vgseff en fonction du parametre NGATE 
+  /* Expression de Vgseff en fonction du parametre NGATE */
   if (mcc_getparamtype_quick(ptmodel, __MCC_QUICK_NGATE) == MCC_SETVALUE ) {
 #ifdef OPTIM10
     if (lotrsparam->MCC_SAVED[__MCC_SAVED_VFB]!=ELPINITVALUE)
@@ -763,7 +763,7 @@ double mcc_calc_vgsteffcv_bsim4 (mcc_modellist *ptmodel,
   else
     Vgseff = Vgs ;
   
-  // Final expression for Vgsteffcv
+  /* Final expression for Vgsteffcv*/
   
   c_1 = (Vgseff-Vth-VOFFCV)/(NOFF*c_0);
 
@@ -861,7 +861,7 @@ double mcc_calc_vgsteff_bsim4 (mcc_modellist *ptmodel,
   Cdsc_Term = (CDSC + CDSCD*Vds + CDSCB*Vbseff ) * Theta0;
   n = 1.0 + (NFACTOR*MCC_EPSSI/Xdep + (Cdsc_Term + CIT)) / Coxe;
 
-  // Expression de Vgseff en fonction du parametre NGATE 
+  /* Expression de Vgseff en fonction du parametre NGATE */
   if(mcc_getparamtype_quick(ptmodel, __MCC_QUICK_NGATE) == MCC_SETVALUE){
   
 #ifdef OPTIM10
@@ -899,7 +899,7 @@ double mcc_calc_vgsteff_bsim4 (mcc_modellist *ptmodel,
   else
     Vgseff = Vgs ;
   
-  // Final expression for Vgsteff 
+  /* Final expression for Vgsteff */
   
   numerateur = n*Vt* log (1.0 + exp (m_star*(Vgseff - Vth)/(n*Vt)));
   denominateur = m_star + n*Coxe*sqrt (2.0*phis/(MCC_Q*NDEP*MCC_EPSSI))
@@ -932,7 +932,7 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
   static double deltemp;
   static double T,tnom,BINUNIT,Leff,Weff,Weffcj,RDSMOD,Vt,VSAT,
                 TNOM,MOBMOD,TOXE,TOXM;
-  static double VsatT,u0T,uaT,ubT,ucT,udT,fleff; // mobility parameters
+  static double VsatT,u0T,uaT,ubT,ucT,udT,fleff; /* mobility parameters*/
   static double AT,U0,UTE,UA,UA1,UB,UB1,UC,UC1,UD,UD1,UP,LP,K1ox,K1,K2ox,K2,
                 EU,VFB,VTH0,K3B,A1,A2,DELTA,phis;
   static double RDSWMIN,WR,PRT,RDSW,PRWB,PRWG,rdswminT,rdswT;
@@ -959,7 +959,7 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
     TOXE   = mcc_getparam_quick(ptmodel, __MCC_QUICK_TOXE) ;
     TOXM   = mcc_getparam_quick(ptmodel, __MCC_QUICK_TOXM) ;
 
-    // => Abulk
+    /* => Abulk*/
     K1   = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_K1,MCC_NO_LOG);
     K1ox = K1*TOXE/TOXM ;
     A0   = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_A0,MCC_NO_LOG) ;
@@ -976,7 +976,7 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
         NDEP *= 1.0e6 ;
     DELTA= binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_DELTA,MCC_NO_LOG) ;
 
-    // => ueffT
+    /* => ueffT*/
     EU   = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_EU,MCC_NO_LOG) ;
     VSAT = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_VSAT,MCC_NO_LOG) ;
     AT   = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_AT,MCC_NO_LOG) ;
@@ -994,7 +994,7 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
     UP   = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_UP,MCC_NO_LOG) ;
     LP   = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_LP,MCC_NO_LOG) ;
 
-    // => Rds
+    /* => Rds*/
     RDSWMIN = mcc_getparam_quick(ptmodel, __MCC_QUICK_RDSWMIN) ;
     PARAMCHK = mcc_getparam_quick(ptmodel, __MCC_QUICK_PARAMCHK) ;
     WR   = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_WR,MCC_NO_LOG) ;
@@ -1010,12 +1010,12 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
     if( RDSW < 0.0 )
       RDSW = 0.0 ;
 
-    // calcul de ueffT
+    /* calcul de ueffT*/
     if (( VERSION >= 43 ) && ( TEMPMOD >= 1)) {
       deltemp = T - tnom;
-      // calcul de Rds  
+      /* calcul de Rds  */
       rdswminT = RDSWMIN * (1.0+PRT*deltemp);
-      if (MCC_ROUND(PARAMCHK)!=0 && rdswminT < 0.0) rdswminT = 0.0; // ADD-ON
+      if (MCC_ROUND(PARAMCHK)!=0 && rdswminT < 0.0) rdswminT = 0.0; /* ADD-ON*/
       rdswT = RDSW * (1.0 + PRT*deltemp);
       VsatT = VSAT *(1.0 - AT*deltemp);       
       uaT = UA *(1.0 + UA1*deltemp) ;
@@ -1024,9 +1024,9 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
       udT = UD *(1.0 + UD1*deltemp) ;
     }
     else {
-      // calcul de Rds
+      /* calcul de Rds*/
       rdswminT = RDSWMIN + PRT*ratio_temp;
-      if (MCC_ROUND(PARAMCHK)!=0 && rdswminT < 0.0) rdswminT = 0.0; // ADD-ON
+      if (MCC_ROUND(PARAMCHK)!=0 && rdswminT < 0.0) rdswminT = 0.0; /* ADD-ON*/
       rdswT = RDSW + PRT*ratio_temp;
       VsatT = VSAT - AT*ratio_temp;       
       uaT = UA + UA1 * ratio_temp;
@@ -1080,12 +1080,12 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
   U0 = binningval_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_U0,U0,MCC_NO_LOG) ;
   if(U0 > 1.0)
       U0 *= 1.0e-4 ;
-  // calcul de ueffT
+  /* calcul de ueffT*/
   u0T = U0 * pow((T/tnom), UTE) ; 
 
-  // calcule de ueff en fct de la valeur de MOBMOD
+  /* calcule de ueff en fct de la valeur de MOBMOD*/
   
-  // declaration de qlq constantes utiles
+  /* declaration de qlq constantes utiles*/
   c_0 = (Vgsteff+2.0*Vth)/TOXE;
   if ( Vbseff <= 0.0 )
     c_1 = sqrt (phis - Vbseff);
@@ -1129,7 +1129,7 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
     else
 #endif
     {
-      // Flat band voltage
+      /* Flat band voltage*/
       if(mcc_getparamtype_quick(ptmodel, __MCC_QUICK_VFB) != MCC_SETVALUE)
         VFB = VTH0 - phis - K1 * sqrt (phis) ;
       else
@@ -1148,7 +1148,7 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
               * c_0+ubT*pow(c_0, 2.0) )) ; 
   }
   
-  //------------------------ update ueff for bs43 ----------------
+  /*------------------------ update ueff for bs43 ----------------*/
   if ( need_stress_bs43 ) {
     ueffT =  mcc_update_Kstress_ueff_bs43 ( ptmodel,
                                             lotrsparam,
@@ -1162,10 +1162,10 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
   ueffT = mcc_update_wpe_ueff( ptmodel, lotrsparam, L, W, Leff, Weff, BINUNIT, ueffT );
   
 
-  //------------------------ calcul de Esat  ---------------------
+  /*------------------------ calcul de Esat  ---------------------*/
   Esat = 2.0*VsatT / ueffT;
   
-  //------------------------ calcul de Abulk ---------------------
+  /*------------------------ calcul de Abulk ---------------------*/
   Xdep = sqrt((2.0*MCC_EPSSI/(MCC_Q*NDEP)))*c_1 ; 
   F_doping = sqrt (1.0+LPEB/Leff)*K1ox/(2.0*c_1)
              + K2ox - K3B*TOXE*phis/(Weff+W0);
@@ -1180,10 +1180,10 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
   }
 
   
-  //------------------------ calcul des param Vdsat extrinsic case
+  /*------------------------ calcul des param Vdsat extrinsic case*/
   lambda = A1*Vgsteff + A2                  ;
   
-  if ( MCC_ROUND (RDSMOD) == 1 ) // from ng src
+  if ( MCC_ROUND (RDSMOD) == 1 ) /* from ng src*/
     Rds = 0.0;
   else {
     T0 = 1.0+PRWG*Vgsteff;
@@ -1204,11 +1204,11 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
   b = -c_2 * ((2.0/lambda)-1.0) - Abulk * (Esat*Leff + 3.0*c_2*c_3) ;
   c = Esat*Leff*c_2 + 2.0*c_3*pow(c_2, 2.0) ;
   
-  //------------------------ calcul de Vdsat suivant le selecteur 
-  // Intrinsic Case
+  /*------------------------ calcul de Vdsat suivant le selecteur */
+  /* Intrinsic Case*/
   if ( MCC_ROUND (RDSMOD) == 1 )
     Vdsat = (Esat*Leff*c_2) / (Abulk*Esat*Leff + c_2) ;
-  // Extrinsic Case
+  /* Extrinsic Case*/
   else if ( MCC_ROUND(RDSMOD) == 0 )
     Vdsat = (-b - sqrt(pow(b, 2.0) - 4.0*a*c)) / (2.0*a) ; 
   else  {
@@ -1223,7 +1223,7 @@ void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
   if ( V1 >= 0.0 )
     Vdseff = Vdsat - 0.5*(V1 + c_4 ) ;
   else 
-    Vdseff = Vdsat * ( 1.0 - (2.0*DELTA) / (c_4 - V1)); // from ng src
+    Vdseff = Vdsat * ( 1.0 - (2.0*DELTA) / (c_4 - V1)); /* from ng src*/
   
   if ( Vdseff_r ) *Vdseff_r = Vdseff;
   if ( Vdsat_r ) *Vdsat_r = Vdsat;
@@ -1299,7 +1299,7 @@ double mcc_calc_coxeff_bsim4 (mcc_modellist *ptmodel,
     TOXP   = mcc_getparam_quick(ptmodel, __MCC_QUICK_TOXP);
     phis = mcc_calc_phis_bsim4 (ptmodel,Leff,Weff,BINUNIT,temp);
     ACDE = binning_quick(ptmodel, BINUNIT,Leff,Weff, __MCC_QUICK_ACDE,MCC_NO_LOG);
-//    NDEP = mcc_getparam_quick(ptmodel, __MCC_QUICK_NDEP);
+/*    NDEP = mcc_getparam_quick(ptmodel, __MCC_QUICK_NDEP);*/
     NDEP = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_NDEP,MCC_NO_LOG)    ;
     if(NDEP <= 1.0e20)
         NDEP = NDEP *1.0e6 ;
@@ -1335,7 +1335,7 @@ double mcc_calc_coxeff_bsim4 (mcc_modellist *ptmodel,
     Xdc = 1.9e-9/(1.0 + pow ((Vgsteff+var)/(2.0e8*TOXP) ,0.7) );
   }
   else {
-    // Xdc for accumulation & depletion region
+    /* Xdc for accumulation & depletion region*/
     Ldebye = (1.0/3.0)*sqrt (MCC_EPSSI * mcc_calc_vt (mcc_getparam_quick(ptmodel,__MCC_QUICK_TNOM))/(MCC_Q*NDEP)) ;
     Xdc = Ldebye*exp (ACDE*pow(NDEP/2.0e22,-0.25)*(Vgseff-Vbseff-Vfbeff)/(1.0e8*TOXP));
     Xmax = Ldebye;
@@ -1347,14 +1347,14 @@ double mcc_calc_coxeff_bsim4 (mcc_modellist *ptmodel,
       *coxeff_acc_dep = Coxp*Ccen/(Coxp+Ccen);
     }
 
-    // Xdc for strong inversion region
+    /* Xdc for strong inversion region*/
     var = 4.0*(VTH0-VFB-phis);
     if ( var < 0.0 )
       var = 0.0;
     Xdc = 1.9e-9/(1.0 + pow ((Vgsteff+var)/(2.0e8*TOXP) ,0.7) );
   }
   Ccen = MCC_EPSSI/Xdc;
-  Coxeff = Coxp*Ccen/(Coxp+Ccen); // from ngspice src, false in doc Coxe <=> Coxp
+  Coxeff = Coxp*Ccen/(Coxp+Ccen); /* from ngspice src, false in doc Coxe <=> Coxp*/
 
   return Coxeff;
 }
@@ -1367,7 +1367,7 @@ double mcc_calc_gamma1_bsim4 (mcc_modellist *ptmodel, double Leff,double Weff,
 {
   double NDEP, Coxe = 0.0, gamma1;
 
-//  NDEP = mcc_getparam_quick(ptmodel, __MCC_QUICK_NDEP);
+/*  NDEP = mcc_getparam_quick(ptmodel, __MCC_QUICK_NDEP);*/
   NDEP = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_NDEP,MCC_NO_LOG)    ;
   if(NDEP <= 1.0e20)
       NDEP = NDEP *1.0e6 ;
@@ -1424,7 +1424,7 @@ double mcc_calc_phis_bsim4 (mcc_modellist *ptmodel, double Leff,double Weff,
   int UPDATEPHI = 0;
 
   PHIN = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_PHIN,MCC_NO_LOG);
-//  NDEP = mcc_getparam_quick(ptmodel, __MCC_QUICK_NDEP);
+/*  NDEP = mcc_getparam_quick(ptmodel, __MCC_QUICK_NDEP);*/
   NDEP = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_NDEP,MCC_NO_LOG)    ;
   if(NDEP <= 1.0e20)
       NDEP = NDEP *1.0e6 ;
@@ -1451,7 +1451,7 @@ double mcc_calc_vbx_bsim4 (mcc_modellist *ptmodel, double Leff, double Weff,
   double NDEP, XT, phisT;
   double vbx = 0.0;
 
-//  NDEP = mcc_getparam_quick(ptmodel, __MCC_QUICK_NDEP);
+/*  NDEP = mcc_getparam_quick(ptmodel, __MCC_QUICK_NDEP);*/
   NDEP = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_NDEP,MCC_NO_LOG)    ;
   if(NDEP <= 1.0e20)
       NDEP = NDEP *1.0e6 ;
@@ -1528,8 +1528,8 @@ void mcc_initparam_bsim4(mcc_modellist *ptmodel)
                       pt, MCC_INITVALUE) ;
     }
     else
-	  mcc_initparam_quick(ptmodel, __MCC_QUICK_NDEP, 1.7e-17, NULL, MCC_INITVALUE)    ; // unit cm3
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_NSUB, 6.0e-16, NULL, MCC_INITVALUE)    ; // unit cm3
+	  mcc_initparam_quick(ptmodel, __MCC_QUICK_NDEP, 1.7e-17, NULL, MCC_INITVALUE)    ; /* unit cm3*/
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_NSUB, 6.0e-16, NULL, MCC_INITVALUE)    ; /* unit cm3*/
     if(mcc_getparamtype_quick(ptmodel, __MCC_QUICK_GAMMA1) == MCC_INITVALUE) {
         char buf[1024] ;
         char ndef[1024] ;
@@ -1577,10 +1577,10 @@ void mcc_initparam_bsim4(mcc_modellist *ptmodel)
         mcc_initparam_quick(ptmodel, __MCC_QUICK_GAMMA2, (sqrt (2.0*MCC_Q*MCC_EPSSI*mcc_getparam_quick(ptmodel,__MCC_QUICK_NSUB))/coxe), 
                       pt, MCC_INITVALUE) ;
     }
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_NGATE, 0.0    , NULL, MCC_INITVALUE)   ; // unit cm3
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_NSD, 1.0e20 , NULL, MCC_INITVALUE)     ; // unit cm3
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_XT, 1.55e-7 , NULL, MCC_INITVALUE)     ; // unit m
-    // from threshold param to compute vbx init value               
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_NGATE, 0.0    , NULL, MCC_INITVALUE)   ; /* unit cm3*/
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_NSD, 1.0e20 , NULL, MCC_INITVALUE)     ; /* unit cm3*/
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_XT, 1.55e-7 , NULL, MCC_INITVALUE)     ; /* unit m*/
+    /* from threshold param to compute vbx init value               */
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_PHIN, 0.0 , NULL, MCC_INITVALUE)       ;
 /*	mcc_initparam_quick(ptmodel, __MCC_QUICK_VBX, mcc_calc_vbx_bsim4 (ptmodel,0.0,0.0,0.0,tnom) ,
                   NULL, MCC_INITVALUE)   ; */
@@ -1600,7 +1600,7 @@ void mcc_initparam_bsim4(mcc_modellist *ptmodel)
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_W0, 2.5e-6, NULL, MCC_INITVALUE)       ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_LPE0, 1.74e-7, NULL, MCC_INITVALUE)    ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_LPEB, 0.0    , NULL, MCC_INITVALUE)    ;
-    // specifics init for binning parameters ( from ng src )
+    /* specifics init for binning parameters ( from ng src )*/
     if ( V_INT_TAB[__SIM_TOOLMODEL].VALUE != SIM_TOOLMODEL_ELDO ) {
       mcc_initparam_quick(ptmodel, __MCC_QUICK_LLPEB, mcc_getparam_quick(ptmodel, __MCC_QUICK_LLPE0), 
                                       mcc_getparamexp_quick(ptmodel, __MCC_QUICK_LLPE0), 
@@ -1612,7 +1612,7 @@ void mcc_initparam_bsim4(mcc_modellist *ptmodel)
                                       mcc_getparamexp_quick(ptmodel, __MCC_QUICK_PLPE0), 
                                       MCC_INITVALUE) ; 
     }
-    // end of specifics init
+    /* end of specifics init*/
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_VBM, -3.0, NULL, MCC_INITVALUE)        ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_DVT0, 2.2, NULL, MCC_INITVALUE)        ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_DVT1, 0.53, NULL, MCC_INITVALUE)       ;
@@ -1685,12 +1685,12 @@ void mcc_initparam_bsim4(mcc_modellist *ptmodel)
 
 /*----  Asymmetric and Bias dependent Rds                      ----*/
 
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDSW, 200.0, NULL, MCC_INITVALUE)      ; // unit ohm/um
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDSWMIN, 0.0, NULL, MCC_INITVALUE)     ; // unit ohm/um
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDW, 100.0, NULL, MCC_INITVALUE)       ; // unit ohm/um
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDWMIN, 0.0, NULL, MCC_INITVALUE)      ; // unit ohm/um
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDS, 100.0, NULL, MCC_INITVALUE)       ; // unit ohm/um
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDSMIN, 0.0, NULL, MCC_INITVALUE)      ; // unit ohm/um
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDSW, 200.0, NULL, MCC_INITVALUE)      ; /* unit ohm/um*/
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDSWMIN, 0.0, NULL, MCC_INITVALUE)     ; /* unit ohm/um*/
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDW, 100.0, NULL, MCC_INITVALUE)       ; /* unit ohm/um*/
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDWMIN, 0.0, NULL, MCC_INITVALUE)      ; /* unit ohm/um*/
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDS, 100.0, NULL, MCC_INITVALUE)       ; /* unit ohm/um*/
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_RDSMIN, 0.0, NULL, MCC_INITVALUE)      ; /* unit ohm/um*/
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_PRWG, 1.0, NULL, MCC_INITVALUE)        ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_PRWB, 0.0, NULL, MCC_INITVALUE)        ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_WR, 1.0, NULL, MCC_INITVALUE)          ;
@@ -2040,12 +2040,12 @@ void mcc_initparam_bsim4(mcc_modellist *ptmodel)
                                      MCC_INITVALUE) ; 
 
 /*----  TEMPERATURE EFFECT PARAMETERS  ------*/
-    // TNOM already done
+    /* TNOM already done*/
 
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_UTE, -1.5, NULL, MCC_INITVALUE)        ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_KT1, -0.11, NULL, MCC_INITVALUE)       ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_KT1L, 0.0, NULL, MCC_INITVALUE)        ;
-	mcc_initparam_quick(ptmodel, __MCC_QUICK_KT2,  0.022, NULL, MCC_INITVALUE)      ; // careful : sign change /t bsim3
+	mcc_initparam_quick(ptmodel, __MCC_QUICK_KT2,  0.022, NULL, MCC_INITVALUE)      ; /* careful : sign change /t bsim3*/
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_UA1, 1.0e-9, NULL, MCC_INITVALUE)      ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_UB1, -1.0e-18, NULL, MCC_INITVALUE)    ;
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_UC1, 
@@ -2106,7 +2106,7 @@ void mcc_initparam_bsim4(mcc_modellist *ptmodel)
 
 /*----  BSIM4.3.0        PARAMETERS  --------*/
 
-//----  Stress effects   
+/*----  Stress effects   */
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_SA, 0.0, NULL, MCC_INITVALUE);
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_SB, 0.0, NULL, MCC_INITVALUE);
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_SD, 0.0, NULL, MCC_INITVALUE);
@@ -2132,20 +2132,20 @@ void mcc_initparam_bsim4(mcc_modellist *ptmodel)
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_LODK2, 1.0, NULL, MCC_INITVALUE);
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_STETA0, 0.0, NULL, MCC_INITVALUE);
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_LODETA0, 1.0, NULL, MCC_INITVALUE);
-//----  Unified Current Saturation
+/*----  Unified Current Saturation*/
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_LAMBDA, 0.0, NULL, MCC_INITVALUE);
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_VTL, 2.0e5, NULL, MCC_INITVALUE);
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_LC, 0.0, NULL, MCC_INITVALUE);
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_XN, 3.0, NULL, MCC_INITVALUE);
-//----  Temperature Model
+/*----  Temperature Model*/
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_TEMPMOD, 0.0, NULL, MCC_INITVALUE);
-//----  Holistic Thermal Noise
+/*----  Holistic Thermal Noise*/
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_RNOIA, 0.577, NULL, MCC_INITVALUE);
 	mcc_initparam_quick(ptmodel, __MCC_QUICK_RNOIB, 0.37, NULL, MCC_INITVALUE);
 
 /*----  BSIM4.5.0 PARAMETERS ----*/
 
-//---- Well Proximity Effect
+/*---- Well Proximity Effect*/
 
         mcc_initparam_quick(ptmodel, __MCC_QUICK_WEB,     0.0, NULL, MCC_INITVALUE );
         mcc_initparam_quick(ptmodel, __MCC_QUICK_WEC,     0.0, NULL, MCC_INITVALUE );
@@ -2344,7 +2344,7 @@ double	mcc_calcVTH_bsim4 (mcc_modellist *ptmodel, double L, double W,
   static int previous_NF=0.0 ;
   static chain_list *previous_longkey=NULL;
 
-  // Parametres generaux ou presents dans les parametres du modele
+  /* Parametres generaux ou presents dans les parametres du modele*/
 
   static int UPDATEPHI = 0 ;
 
@@ -2356,7 +2356,7 @@ double	mcc_calcVTH_bsim4 (mcc_modellist *ptmodel, double L, double W,
   static double NDEP, ETA0, ETAB, DVT0W, DVT1W, DVT2W, KT1, KT1L ;
   static int VERSION, TEMPMOD ;
 
-  // Parametres intermediaires pour le calcul de VTH
+  /* Parametres intermediaires pour le calcul de VTH*/
 
   static double T, VbiT ;  
   static double sqrtPhisT ;
@@ -2364,10 +2364,10 @@ double	mcc_calcVTH_bsim4 (mcc_modellist *ptmodel, double L, double W,
   static double Xdep0 ;
   static double Lt, Ltw, Lt0, phis, vbseff ;
 
-  // Param pour Vbs
+  /* Param pour Vbs*/
   static double EPSROX, DVTP0,DVTP1 ;
 
-  // finalement notre tension de seuil
+  /* finalement notre tension de seuil*/
   static double Vt, Cdsc_Term, CIT,NFACTOR, n;
   static double CDSC,CDSCD,CDSCB;
   static double VTHfinal ; 
@@ -2416,7 +2416,7 @@ double	mcc_calcVTH_bsim4 (mcc_modellist *ptmodel, double L, double W,
     Leff = mcc_calc_leff_bsim4 (ptmodel,lotrsparam,L,W);
     Weff = mcc_calc_weff_bsim4 (ptmodel,lotrsparam,L,W);
 
-    // Logs
+    /* Logs*/
     if ( avt_islog(2,LOGMCC) ) {
       avt_log(LOGMCC,2,"--------- [Begin mcc_calcVTH_bsim4] ---------\n");
       avt_log(LOGMCC,2,"model %s, L=%g, W=%g, temp=%g, vbs=%g, vds=%g\n",
@@ -2626,7 +2626,7 @@ double	mcc_calcVTH_bsim4 (mcc_modellist *ptmodel, double L, double W,
   if (ptmodel->TYPE == MCC_PMOS)
     VTHfinal = - VTHfinal;
 
-  // log 
+  /* log */
   if ( mcclog == MCC_DRV_LOG ) {
     avt_log(LOGMCC,2,"[Main params] VTH0=%g, DVth0T=%g, c0=%g, K2ox=%g, vbseff=%g, K1ox=%g\n",VTH0,DVth0T,c0,K2ox,vbseff,K1ox);
     avt_log(LOGMCC,2,"[Main params] sqrt(phis)=%g, TOXE=%g, phis=%g\n",sqrt(phis),TOXE,phis);
@@ -2711,7 +2711,7 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
                           double Temp,elp_lotrs_param *lotrsparam)
 {
   static int UPDATEPHI = 0 ; 
-  // new parameters
+  /* new parameters*/
   static double F,FPROUT,PVAG,PCLM,VsatT,Vb;
   static double Cclm,Coxe,Coxeff,Litl,lambda,phis;
   static double NDEP,Xdep0,PDITS,PDITSL,PDITSD;
@@ -2731,15 +2731,15 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
   /*********************************************************/
    
   static double Vdsat   ;                   
-  static double Vth     ;                    // TENSION DE SEUIL
-  static double Ids     ;                    // Courant de drain
-  static double Rds     ;                    // Channel resistance
-  static double Vdseff  ;                    // Effective vds
-  static double Va      ;                    // EARLY voltage
-  static double Vascbe  ;                    // EARLY voltage due to substrate current
-  static double Ids0    ;                    // Linear drain current in the channel
+  static double Vth     ;                    /* TENSION DE SEUIL*/
+  static double Ids     ;                    /* Courant de drain*/
+  static double Rds     ;                    /* Channel resistance*/
+  static double Vdseff  ;                    /* Effective vds*/
+  static double Va      ;                    /* EARLY voltage*/
+  static double Vascbe  ;                    /* EARLY voltage due to substrate current*/
+  static double Ids0    ;                    /* Linear drain current in the channel*/
  
-  static double Vbseff ;      // Pour recalculer Vbs avec precision (faible influence)    
+  static double Vbseff ;      /* Pour recalculer Vbs avec precision (faible influence)    */
   static double Vadits,Esat,Abulk,TNOM,XJ,Qch0,EsatL ;
   static double Vgsteff, Vt, Vasat,Vadibl,Vaclm,ueffT; 
   static double LAMBDA,K2,VTL,XN,LC;
@@ -2878,7 +2878,7 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
     Vt = mcc_calc_vt (Temp);
   }
   
-  //--- Ids0  ---------------------------------------------------->
+  /*--- Ids0  ---------------------------------------------------->*/
   Coxe = mcc_calc_coxe_bsim4 (ptmodel);
 
   Coxeff = mcc_calc_coxeff_bsim4 (ptmodel,
@@ -2895,7 +2895,7 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
 
   Litl = sqrt(MCC_EPSSI*XJ/Coxe) ;
 
-  // velocity overshoot
+  /* velocity overshoot*/
   EsatL=Esat;
   if ( (mcc_getparamtype_quick(ptmodel,__MCC_QUICK_LAMBDA) == MCC_SETVALUE) && LAMBDA > 0.0 ) {
     c0 = pow ( 1.0 + diffVds/(Esat*Litl),2.0);
@@ -2905,26 +2905,26 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
   Ids0 = (Weff_v*ueffT*Qch0*Vdseff*(1.0-Vdseff/(2.0*Vb))) 
          / (Leff*(1.0+Vdseff/(EsatL*Leff)));
 
-  if ( Vdseff != 0.0 ) // ADD-ON : la simplification est legale
-                       // car Vdseff = 0 lq Ids0 = 0
-    Ids_1 = Ids0/(1.0+(Rds*Ids0/Vdseff)); // 1ere composante de Ids
+  if ( Vdseff != 0.0 ) /* ADD-ON : la simplification est legale*/
+                       /* car Vdseff = 0 lq Ids0 = 0*/
+    Ids_1 = Ids0/(1.0+(Rds*Ids0/Vdseff)); /* 1ere composante de Ids*/
   else
     Ids_1 = Ids0;
 
-  //--- Cclm  ---------------------------------------------------->
+  /*--- Cclm  ---------------------------------------------------->*/
   if ( FPROUT <= 0.0 )
     F = 1.0;
   else
     F = 1.0/(1.0+FPROUT*sqrt (Leff) / (Vgsteff+2.0*Vt));
 
-  if ((PCLM > 0.0) && (diffVds > 1.0e-10)) // ngspice src
+  if ((PCLM > 0.0) && (diffVds > 1.0e-10)) /* ngspice src*/
     Cclm = (F*(1.0+PVAG*Vgsteff/(EsatL*Leff)) * (1.0+Rds*Ids_1/Vdseff) 
            * (Leff+Vdsat/Esat) ) / (PCLM * Litl);
   else
     Cclm = MCC_MAX_EXP;
   
-  //--- Vaclm, Vasat, Va ----------------------------------------->
-  Vaclm = fabs ( Cclm*diffVds); // from ngspice src
+  /*--- Vaclm, Vasat, Va ----------------------------------------->*/
+  Vaclm = fabs ( Cclm*diffVds); /* from ngspice src*/
  
   Vasat = ( EsatL*Leff + Vdsat + 2.0*Rfactor*Vgsteff*
            (1.0-Abulk*Vdsat/ (2.0*Vgsteff+2.0*Vt)) )
@@ -2932,7 +2932,7 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
 
   Va = Vasat + Vaclm;
   
-  //--- Vadibl --------------------------------------------------->
+  /*--- Vadibl --------------------------------------------------->*/
   Xdep0 = sqrt((2.0*MCC_EPSSI*phis)/(MCC_Q*NDEP)) ;
   Lt0 = sqrt(MCC_EPSSI*Xdep0/Coxe) ;
   T0 = DROUT*Leff/Lt0;
@@ -2955,9 +2955,9 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
   else
     Vadibl = MCC_MAX_EXP;
   
-  //--- Vadits --------------------------------------------------->
+  /*--- Vadits --------------------------------------------------->*/
   if ( PDITS > MCC_MIN_EXP ){
-    if( PDITSD*Vds > MCC_EXP_THRESHOLD ){ //from Berkeley
+    if( PDITSD*Vds > MCC_EXP_THRESHOLD ){ /*from Berkeley*/
       Vadits = (F* ( 1.0+(1.0+PDITSL*Leff)*MCC_MAX_EXP )) / PDITS;
     }else{
       Vadits = (F* ( 1.0+(1.0+PDITSL*Leff)*exp(PDITSD*Vds) )) / PDITS;
@@ -2966,9 +2966,9 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
     Vadits = MCC_MAX_EXP;
   }
   
-  //--- Vascbe --------------------------------------------------->
+  /*--- Vascbe --------------------------------------------------->*/
   if ( PSCBE2 > 0.0 ){
-    if(diffVds > PSCBE1*Litl/MCC_EXP_THRESHOLD){ //from Berkeley
+    if(diffVds > PSCBE1*Litl/MCC_EXP_THRESHOLD){ /*from Berkeley*/
       Vascbe = (Leff/PSCBE2) * exp((PSCBE1*Litl)/(diffVds)) ;
     }else{
       Vascbe = MCC_MAX_EXP * (Leff/PSCBE2);
@@ -2977,11 +2977,11 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
     Vascbe = MCC_MAX_EXP;
   }
   
-  // =>  Calcul de Ids 
-  Ids_2 = 1.0 + log (Va/Vasat) / Cclm ;    // 2eme composante de Ids
-  Ids_3 = 1.0 + diffVds/Vadibl ;    // 3eme composante de Ids
-  Ids_4 = 1.0 + diffVds/Vadits ;    // 4eme composante de Ids
-  Ids_5 = 1.0 + diffVds/Vascbe ;    // 5eme composante de Ids
+  /* =>  Calcul de Ids */
+  Ids_2 = 1.0 + log (Va/Vasat) / Cclm ;    /* 2eme composante de Ids*/
+  Ids_3 = 1.0 + diffVds/Vadibl ;    /* 3eme composante de Ids*/
+  Ids_4 = 1.0 + diffVds/Vadits ;    /* 4eme composante de Ids*/
+  Ids_5 = 1.0 + diffVds/Vascbe ;    /* 5eme composante de Ids*/
 
   Ids = Ids_1 * Ids_2 * Ids_3 * Ids_4 * Ids_5;
     
@@ -2994,7 +2994,7 @@ double mcc_calcIDS_bsim4 (mcc_modellist *ptmodel,
     trans->I6 = 1.0 ;
   }
   
-  // Source End Velocity Limit
+  /* Source End Velocity Limit*/
   if ( (mcc_getparamtype_quick(ptmodel,__MCC_QUICK_VTL) == MCC_SETVALUE) && VTL > 0.0 ) {
     MM = 3.0;
     VsHD = Ids/(Qch0*Weff_v);
@@ -3052,8 +3052,8 @@ double mcc_calcCGP_bsim4 ( mcc_modellist *ptmodel, elp_lotrs_param *lotrsparam, 
     NF = mcc_get_nf (lotrsparam,ptmodel);
     binunit =mcc_getparam_quick(ptmodel, __MCC_QUICK_BINUNIT) ; 
     CAPMOD = mcc_getparam_quick(ptmodel, __MCC_QUICK_CAPMOD) ;
-    //CGDO   = mcc_getprm(ptmodel, "CGDO")     ;
-    //CGDL   = mcc_getprm(ptmodel, "CGDL")     ;
+    /*CGDO   = mcc_getprm(ptmodel, "CGDO")     ;*/
+    /*CGDL   = mcc_getprm(ptmodel, "CGDL")     ;*/
     CGDO   = mcc_getprm_quick(ptmodel, __MCC_GETPRM_CGDO)     ;
     CGDL   = mcc_getprm_quick(ptmodel, __MCC_GETPRM_CGDL)     ;
     
@@ -3124,7 +3124,7 @@ double mcc_calcCDS_bsim4 (mcc_modellist *ptmodel, double temp, double vbx1, doub
   double MJS, CJS, PBS ;
   double CJ_T = 0.0 ;
   double PB_T = 0.0 ;
-  //double aire=0.0;
+  /*double aire=0.0;*/
                               
   if( ptmodel->TYPE == MCC_TRANS_P ) {
     vbx1 = -vbx1 ;
@@ -3189,7 +3189,7 @@ double mcc_calcCDP_bsim4 (mcc_modellist *ptmodel, elp_lotrs_param *lotrsparam,
   double PBSW_T = 0.0 ;
   double TPBSW;
   double TCJSW,NF;
-  //double perim;
+  /*double perim;*/
   
   if( ptmodel->TYPE == MCC_TRANS_P ) {
     vbx1 = -vbx1 ;
@@ -3211,7 +3211,7 @@ double mcc_calcCDP_bsim4 (mcc_modellist *ptmodel, elp_lotrs_param *lotrsparam,
   }
   else { 
     PBSW_T = PBSWS - TPBSW * dT;
-    CJSW_T = CJSWS *(1.0  + TCJSW * dT); // erreur dans la doc
+    CJSW_T = CJSWS *(1.0  + TCJSW * dT); /* erreur dans la doc*/
     if ( PBSW_T < 0.1 )
       PBSW_T = 0.1;
     if ( CJSW_T < 0.0 )
@@ -3442,7 +3442,7 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
                            binunit
                          );
 
- // Obtain biased Vth
+ /* Obtain biased Vth*/
  Vth_bias = mcc_calcVTH_bsim4 (ptmodel, L, W, temp, vbs, vds,0,lotrsparam,MCC_NO_LOG) ;
  
  if (ptmodel->TYPE == MCC_PMOS) {
@@ -3469,12 +3469,12 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
     vbseff_cv = phis-PhisT;
   }
  
-  //------------------------ calcul de Abulk ---------------------
+  /*------------------------ calcul de Abulk ---------------------*/
   Xdep = sqrt((2.0*MCC_EPSSI/(MCC_Q*NDEP)))*sqrt(PhisT)/sqrt(phis) ; 
   F_doping = sqrt (1.0+LPEB/Leff)*K1ox/(2.0*sqrt (PhisT))
              + K2ox - K3B*TOXE*phis/(Weff+W0);
 
-  //-> Obtain Vth
+  /*-> Obtain Vth*/
   Vth = mcc_calcVTH_bsim4 (ptmodel, L, W, temp, 0.0, 0.0,1,lotrsparam,MCC_NO_LOG) ;
   if (ptmodel->TYPE == MCC_PMOS) 
     Vth = -Vth;
@@ -3513,9 +3513,9 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
 
     vdsat_cv = (vgs-Vth)/Abulk_p ;
   
-    //===> subthreshold region
+    /*===> subthreshold region*/
       if ( vgs < Vth ) {
-        // SUBTRESHOLD
+        /* SUBTRESHOLD*/
         c0 = K1ox*K1ox;
         Qb = - Coxe*c0/2.0 * (-1.0+sqrt (1.0+(4.0*(vgs-VFBCV-vbs)/(c0))));
         /*
@@ -3530,13 +3530,13 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
         mcc_affect_value (ptQs,0.0);
       }
       else if ( vgs >= Vth ) {
-        // STRONG INVERSION
+        /* STRONG INVERSION*/
         vdsat_cv = (vgs-Vth)/Abulk_p ;
         xpart_int = MCC_ROUND ( XPART*10.0 );
 
-        if ( xpart_int == 5 ) { //--> XPART = 0.5 : 50/50
+        if ( xpart_int == 5 ) { /*--> XPART = 0.5 : 50/50*/
           if ( vds < vdsat_cv ) {
-            // Linear 
+            /* Linear */
             c1 = vgs-Vth-Abulk_p*vds/2.0;
             c2 = vgs - Vth;
             c3 = Abulk_p*vds;
@@ -3548,15 +3548,15 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
             Qd = Qs = 0.5*Qinv;
           }
           else {
-            // Saturation
+            /* Saturation*/
             Qg = Coxe*(vgs - VFBCV - phis - vdsat_cv/3.0) ;
             Qb = Coxe*(VFBCV+phis-Vth+vdsat_cv*(1.0-Abulk_p)/3.0);
             Qs = Qd = -Coxe*(vgs-Vth)/3.0;
           }
         }
-        else if ( xpart_int < 5 ) {                         //--> XPART = 0 : 40/60
+        else if ( xpart_int < 5 ) {                         /*--> XPART = 0 : 40/60*/
           if ( vds < vdsat_cv ) {
-            // Linear 
+            /* Linear */
             c1 = vgs-Vth-Abulk_p*vds/2.0;
             c2 = vgs - Vth;
             c3 = Abulk_p*vds;
@@ -3570,16 +3570,16 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
             Qs = - (Qg+Qb+Qd);
           }
           else {
-            // Saturation
+            /* Saturation*/
             Qg = Coxe*(vgs - VFBCV - phis - vdsat_cv/3.0) ;
             Qb = Coxe*(VFBCV+phis-Vth + vdsat_cv*(1.0-Abulk_p)/3.0);
             Qd = -4.0/15.0*Coxe * (vgs-Vth);
             Qs = - (Qg+Qb+Qd);
           }
         }
-        else {                      //--> XPART = 1 : 0/100
+        else {                      /*--> XPART = 1 : 0/100*/
           if ( vds < vdsat_cv ) {
-            // Linear 
+            /* Linear */
             c1 = vgs-Vth-Abulk_p*vds/2.0;
             c2 = vgs - Vth;
             c3 = Abulk_p*vds;
@@ -3591,7 +3591,7 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
             Qs = - (Qg+Qb+Qd);
           }
           else {
-            // Saturation
+            /* Saturation*/
             Qg = Coxe*(vgs - VFBCV - phis - vdsat_cv/3.0) ;
             Qb = Coxe*(VFBCV+phis-Vth + vdsat_cv*(1.0-Abulk_p)/3.0);
             Qd = 0.0;
@@ -3619,7 +3619,7 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
     /*******************************************************/
     xpart_int = MCC_ROUND ( XPART*10.0 );
 
-    //-> Obtain Vgsteff_cv
+    /*-> Obtain Vgsteff_cv*/
     Vgsteff_cv = mcc_calc_vgsteffcv_bsim4 (ptmodel,
                                            Vth_bias, vbseff_cv, 
                                            vds, vgs,
@@ -3663,15 +3663,15 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
       c3 = pow(c1,2.0);
       c4 = pow(c1,3.0);
 
-      if ( xpart_int == 5 )            //--> XPART = 0.5 : 50/50
+      if ( xpart_int == 5 )            /*--> XPART = 0.5 : 50/50*/
         Qs = Qd = 0.5*Qinv;
-      else if ( xpart_int < 5 ) {                         //--> XPART = 0 : 40/60
+      else if ( xpart_int < 5 ) {                         /*--> XPART = 0 : 40/60*/
         Qs = -Coxe/c2*(pow(Vgsteff_cv,3.0)-4.0/3.0*Vgsteff_cv*Vgsteff_cv
              *c1+2.0/3.0*Vgsteff_cv*c3-2.0/15.0*c4); 
         Qd = -Coxe/c2*(pow(Vgsteff_cv,3.0)-5.0/3.0*Vgsteff_cv*Vgsteff_cv
              *c1+Vgsteff_cv*c3-1.0/5.0*c4); 
       }
-      else {                      //--> XPART = 1 : 0/100
+      else {                      /*--> XPART = 1 : 0/100*/
         c2 = (Vgsteff_cv-Abulk_p*Vcveff/2.0);
 
         Qs = -(Coxe/2)*(Vgsteff_cv+c1/2.0-c3/(12.0*c2));
@@ -3739,15 +3739,15 @@ void mcc_calcQint_bsim4 (mcc_modellist *ptmodel, double L, double W,
       c4 = Abulk_p*Vcveff;
       c5 = c1 - c4/2.0;
 
-      if ( xpart_int == 5 )           //--> XPART = 0.5 : 50/50
+      if ( xpart_int == 5 )           /*--> XPART = 0.5 : 50/50*/
         Qs = Qd = 0.5*Qinv;
-      else if ( xpart_int < 5 ) {                         //--> XPART = 0 : 40/60
+      else if ( xpart_int < 5 ) {                         /*--> XPART = 0 : 40/60*/
         Qs = -Coxeff/(2.0*c5*c5)*(c3-4.0/3.0*c2*c4
               +2.0/3.0*c1*c4*c4-2.0/15.0*pow(c4,3.0));
         Qd = -Coxeff/(2.0*c5*c5)*(c3-5.0/3.0*c2*c4
               +c1*c4*c4-1.0/5.0*pow(c4,3.0));
       }
-      else {                      //--> XPART = 1 : 0/100
+      else {                      /*--> XPART = 1 : 0/100*/
         Qs = -Coxeff/2.0*(c1+0.5*c4-c4*c4/(12.0*c5));
         Qd = -Coxeff/2.0*(c1-1.5*c4+c4*c4/(4.0*c5));
       }
@@ -3891,7 +3891,7 @@ double mcc_calcIgb_bsim4 (mcc_modellist *ptmodel, double L, double W, double tem
                                     lotrsparam,
                                     calcul_dimension);
 
-  Vgb = Vgseff-Vbseff; // correction par rapport a ng src
+  Vgb = Vgseff-Vbseff; /* correction par rapport a ng src*/
 
   VtT = mcc_calc_vt (temp);
 
@@ -3909,7 +3909,7 @@ double mcc_calcIgb_bsim4 (mcc_modellist *ptmodel, double L, double W, double tem
   else
     Vaux = NIGBACC*VtT*log (1.0+exp(c0));
 
-  //Vfbeff = Vfbzb - 0.5*(Vfbzb-Vgb-0.02+sqrt(pow(Vfbzb-Vgb-0.02,2.0)+0.08*Vfbzb));
+  /*Vfbeff = Vfbzb - 0.5*(Vfbzb-Vgb-0.02+sqrt(pow(Vfbzb-Vgb-0.02,2.0)+0.08*Vfbzb));*/
 
   c1 = Vfbzb - Vgseff + Vbseff - 0.02;
   if (Vfbzb <= 0.0)
@@ -3930,9 +3930,9 @@ double mcc_calcIgb_bsim4 (mcc_modellist *ptmodel, double L, double W, double tem
   else
     c2 = exp(c1);
 
-  //------------------------------------------------------------------------------
+  /*------------------------------------------------------------------------------*/
   Igbacc = A*Vaux*c0*c2;
-  //------------------------------------------------------------------------------
+  /*------------------------------------------------------------------------------*/
   
   if ( ptmodel->TYPE == MCC_PMOS )
     Igbacc = - Igbacc;
@@ -3940,7 +3940,7 @@ double mcc_calcIgb_bsim4 (mcc_modellist *ptmodel, double L, double W, double tem
   A = 3.75956e-7;
   B = 9.82222e11;
 
-  //Voxdepinv = K1ox*sqrtphis+Vgsteff;
+  /*Voxdepinv = K1ox*sqrtphis+Vgsteff;*/
 
   c1 = 0.5 * K1ox;
   c2 = Vgseff - Vfbeff - Vbseff - Vgsteff;
@@ -3971,9 +3971,9 @@ double mcc_calcIgb_bsim4 (mcc_modellist *ptmodel, double L, double W, double tem
   else
     c2 = exp(c1);
 
-  //------------------------------------------------------------------------------
+  /*------------------------------------------------------------------------------*/
   Igbinv = A*Vaux*c0*c2;
-  //------------------------------------------------------------------------------
+  /*------------------------------------------------------------------------------*/
   if ( ptmodel->TYPE == MCC_PMOS )
     Igbinv = - Igbinv;
   
@@ -4093,7 +4093,7 @@ void mcc_calcIgixl_bsim4 (mcc_modellist *ptmodel, double L, double W,
     Igidl *= d3;
     Igidl *= type;
   }
-  //Igidl = AGIDL*Weffcj*NF*(Vds-Vgseff-EGIDL)/c0*exp(-(c0*BGIDL)/(Vds-Vgseff-EGIDL))*c1/(CGIDL*c1);
+  /*Igidl = AGIDL*Weffcj*NF*(Vds-Vgseff-EGIDL)/c0*exp(-(c0*BGIDL)/(Vds-Vgseff-EGIDL))*c1/(CGIDL*c1);*/
 
   c2 = 3.0 * TOXE;
   c3 = (-Vds - Vgdeff - EGISL ) / c2;
@@ -4115,7 +4115,7 @@ void mcc_calcIgixl_bsim4 (mcc_modellist *ptmodel, double L, double W,
     Igisl *= d3;
     Igisl *= type;
   }
-  //Igisl = AGIDL*Weffcj*NF*(-Vds-Vgseff-EGIDL)/c0*exp(-(c0*BGIDL)/(Vds-Vgseff-EGIDL))*c1/(CGIDL*c1);
+  /*Igisl = AGIDL*Weffcj*NF*(-Vds-Vgseff-EGIDL)/c0*exp(-(c0*BGIDL)/(Vds-Vgseff-EGIDL))*c1/(CGIDL*c1);*/
 
   if ( ptIgidl ) *ptIgidl = Igidl;
   if ( ptIgisl ) *ptIgisl = Igisl;
@@ -4192,10 +4192,10 @@ void mcc_calcIxb_bsim4 (mcc_modellist *ptmodel, double L, double W,
     Weff = mcc_calc_weff_bsim4 (ptmodel, lotrsparam, L, W);
     Weffcj = mcc_calc_weffcj_bsim4 (ptmodel,lotrsparam,L,W);
     TNOM = mcc_getparam_quick(ptmodel, __MCC_QUICK_TNOM)+MCC_KELVIN;
-    //TNOM = TNOM + MCC_KELVIN;
+    /*TNOM = TNOM + MCC_KELVIN;*/
     T = temp+MCC_KELVIN;
     BINUNIT = mcc_getparam_quick(ptmodel, __MCC_QUICK_BINUNIT) ;   
-    // Drain param
+    /* Drain param*/
     JSD = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_JSD,MCC_NO_LOG);
     JSSWD = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_JSSWD,MCC_NO_LOG);
     JSSWGD = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_JSSWGD,MCC_NO_LOG);
@@ -4203,7 +4203,7 @@ void mcc_calcIxb_bsim4 (mcc_modellist *ptmodel, double L, double W,
     NJD = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_NJD,MCC_NO_LOG);
     XJBVD = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_XJBVD,MCC_NO_LOG);
     XTID = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_XTID,MCC_NO_LOG);
-    // Source param
+    /* Source param*/
     JSS = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_JSS,MCC_NO_LOG);
     JSSWS = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_JSSWS,MCC_NO_LOG);
     JSSWGS = binning_quick(ptmodel, BINUNIT, Leff, Weff, __MCC_QUICK_JSSWGS,MCC_NO_LOG);
@@ -4215,24 +4215,24 @@ void mcc_calcIxb_bsim4 (mcc_modellist *ptmodel, double L, double W,
 
   if( BVS < 0.0 ) BVS = 10.0 ;
 
-  // temperature effect 
+  /* temperature effect */
   VtT = MCC_KB * T / MCC_Q;
   VtTnom = MCC_KB * TNOM / MCC_Q;
   EgTnom = 1.16-7.02e-4*pow(TNOM, 2.0)/(TNOM+1108.0);
   EgT    = 1.16-7.02e-4*(T*T)/(T+1108.0);
 
-  // Drain side
+  /* Drain side*/
   c0 = exp((EgTnom/VtTnom-EgT/VtT+XTID*log(T/TNOM))/NJD);
   JsdT = JSD*c0;
   JsswdT = JSSWD*c0;
   JsswgdT = JSSWGD*c0;
 
-  // Source side
+  /* Source side*/
   c1 = exp((EgTnom/VtTnom-EgT/VtT+XTIS*log(T/TNOM))/NJS);
   JssT = JSS*c1;
   JsswsT = JSSWS*c1;
   JsswgsT = JSSWGS*c1;
-  // END temperature effect 
+  /* END temperature effect */
 
   Isbd = AD*JsdT + PD*JsswdT + Weffcj*NF*JsswgdT;
   fbreakdown_d = 1.0+XJBVD*exp(-MCC_Q*(BVD+Vbd)/(NJD*MCC_KB*TNOM));
@@ -4485,7 +4485,7 @@ void mcc_calcIgcx_bsim4 (mcc_modellist *ptmodel, double L, double W,
   else
     PIGCD = (B*TOXE/(Vgsteff*Vgsteff)*(1.0-Vdseff/(2.0*Vgsteff)));
 
-  // -> Igc0 computation
+  /* -> Igc0 computation*/
   VtT = mcc_calc_vt (temp);
 
   c0 = NIGC*VtT;

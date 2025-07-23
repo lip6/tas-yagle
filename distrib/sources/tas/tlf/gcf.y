@@ -619,7 +619,7 @@ int yyerror ()
 {
     printf ("*** gcf error\n") ;
     printf ("*** parse error line %d\n", GCF_LINE) ;
-    //printf ("*** cannot match token '%s'\n", yylval.text) ;
+    /*printf ("*** cannot match token '%s'\n", yylval.text) ;*/
     return 0;
 }
 

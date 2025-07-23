@@ -286,8 +286,8 @@ model       : _MODEL '(' modelname tmodel ')'
                             stmmodel_model->UTYPE = STM_MOD_MODTBL;
                         }
                         if ((STM_PRELOAD=='N') && stmmodel_xydata) {
-                  //    /* When chache is not used, STM_PRELOAD== 'N' anyway */
-//                             printf ("\tPARSE model: %s\n", $3);
+                  /*    /* When chache is not used, STM_PRELOAD== 'N' anyway */
+/*                             printf ("\tPARSE model: %s\n", $3);*/
                              if (STM_CACHE != NULL) {
                                 stmmodel_cell = stm_getcell (STM_CNAME);
                                 stmmodel_model = (timing_model*)gethtitem (stmmodel_cell->MODEL_HT, namealloc ($3));
@@ -416,8 +416,8 @@ model       : _MODEL '(' modelname tmodel ')'
                             stmmodel_model->UTYPE = STM_MOD_MODSCM;
                         }
                         if (STM_PRELOAD=='N') {
-                  //    /* When chache is not used, STM_PRELOAD== 'N' anyway */
-//                             printf ("\tPARSE model: %s\n", $3);
+                  /*    /* When chache is not used, STM_PRELOAD== 'N' anyway */
+/*                             printf ("\tPARSE model: %s\n", $3);*/
                             if (STM_CACHE != NULL){
                                 stmmodel_cell = stm_getcell (STM_CNAME);
                                 stmmodel_model = (timing_model*)gethtitem (stmmodel_cell->MODEL_HT, namealloc ($3));
@@ -611,7 +611,7 @@ model       : _MODEL '(' modelname tmodel ')'
                     /*************/
                         
                     case STM_MOD_MODFCT:
-//                        printf("warning: parsing functions in stm is not done yet...\n");
+/*                        printf("warning: parsing functions in stm is not done yet...\n");*/
                         if ((STM_CACHE==NULL)||(STM_PRELOAD=='Y')) {
                             stmmodel_model = stm_addmodel (STM_CNAME, $3);
                             stmmodel_model->VTH = vth;
@@ -627,7 +627,7 @@ model       : _MODEL '(' modelname tmodel ')'
                                 stmmodel_model = (timing_model*)gethtitem (stmmodel_cell->MODEL_HT, namealloc ($3));
                             }
                             stmmodel_model->UMODEL.FUNCTION = stm_modfct_create (stmmodel_fct_ins, stmmodel_fct_localname, stmmodel_fct_fct);
-                            //stmmodel_model->UMODEL.FUNCTION = stm_modfct_create (stmmodel_fct_fct, stmmodel_fct_file, stmmodel_fct_ins, NULL, sim_model_number);
+                            /*stmmodel_model->UMODEL.FUNCTION = stm_modfct_create (stmmodel_fct_fct, stmmodel_fct_file, stmmodel_fct_ins, NULL, sim_model_number);*/
                         }    
                         break;
 

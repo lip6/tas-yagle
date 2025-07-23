@@ -103,14 +103,14 @@ RCXFLOAT rcx_getdelay( lofig, loconb, locone )
   lslope.MIN.c1    =  0.0 ;
   lslope.MIN.c2    =  0.0 ;
   lslope.MIN.pwl   =  NULL ;
-  lslope.MAX.slnrm = 1.0; // avoid UMR
-  lslope.MIN.slnrm = 1.0; // avoid UMR
+  lslope.MAX.slnrm = 1.0; /* avoid UMR*/
+  lslope.MIN.slnrm = 1.0; /* avoid UMR*/
 
   rcx_getdelayslope( lofig, 
                      loconb, 
                      locone, 
                      &lslope,
-                     0.0,     // capa
+                     0.0,     /* capa*/
                      &dmax,
                      NULL,
                      NULL,
@@ -219,8 +219,8 @@ mbk_pwl           **pwloutmin ;
 
  losig = loconb->SIG ;
 
- // -------------------------------------
- // rc timings: zinaps: 5/3/2004
+ /* -------------------------------------*/
+ /* rc timings: zinaps: 5/3/2004*/
  
  avt_log(LOGTRC,2,"finding rc timings\n" );
  if (rcx_has_rc_timings(losig))
@@ -257,7 +257,7 @@ mbk_pwl           **pwloutmin ;
          avt_logexitfunction(LOGTRC,2);
          return 0;
        }
-     //printf("ret d=%g s=%g for %gps\n",a,b,smax);
+     /*printf("ret d=%g s=%g for %gps\n",a,b,smax);*/
      if( dmax ) *dmax = a;
      if( dmin ) *dmin = a;
      if( fmax ) *fmax = b;
@@ -266,7 +266,7 @@ mbk_pwl           **pwloutmin ;
      return 1;
    }
 
- // -------------------------------------
+ /* -------------------------------------*/
  ptrcx = getrcx( losig );
 
  if( slope->SENS == TRC_SLOPE_UP && ptrcx->DRIVERSUP )
@@ -287,8 +287,8 @@ mbk_pwl           **pwloutmin ;
    return 0;
  }
  
- // Convertion du front d'entrée en un front montant. Dans les réseau RC, tous
- // est linéaire.
+ /* Convertion du front d'entrée en un front montant. Dans les réseau RC, tous*/
+ /* est linéaire.*/
  
  if( slope->SENS == TRC_SLOPE_UP ) {
    vmaxmax = slope->MAX.vend;
@@ -314,7 +314,7 @@ mbk_pwl           **pwloutmin ;
    return 0;
  }
 
- // Récupération du réseau RC.
+ /* Récupération du réseau RC.*/
 
  rcn_lock_signal( lofig, losig );
 
@@ -341,7 +341,7 @@ mbk_pwl           **pwloutmin ;
      }
    }
 
-   // Calcul des délais.
+   /* Calcul des délais.*/
 
    if( RCX_USING_AWEMATRIX == RCX_USING_AWEMATRIX_NEVER ) {
      if(! rcx_isloop( ptrcx, losig ) ) {
@@ -590,7 +590,7 @@ char rcx_rcnload( lofig_list *lofig,
                                       );
 
     mbk_cache_update_size( cache, NULL, sizeallocated );
-    // trccheckcachecoherence();
+    /* trccheckcachecoherence();*/
     mbk_cache_unlock( cache, ptsig );
   }
     
@@ -620,7 +620,7 @@ char rcx_rcnload_basic( lofig_list *lofig,
 
   avt_logenterfunction(LOGTRC,2,"rcx_rcnload_basic()");
 
-  // Si on est en mode crosstalk, la charge dépend du front d'entrée.
+  /* Si on est en mode crosstalk, la charge dépend du front d'entrée.*/
 
   rcn_lock_signal( lofig, ptsig );
 
@@ -683,9 +683,9 @@ char rcx_rcnload_basic( lofig_list *lofig,
     }
     else {
       if( resi*capa < RCX_CAPALOAD_MAXRC )
-        model = RCX_CAPALOAD ;	// Modele capacitif pur satisfaisant.
+        model = RCX_CAPALOAD ;	/* Modele capacitif pur satisfaisant.*/
       else
-        testmodel = RCX_PILOAD ;	// On essaie autre chose.
+        testmodel = RCX_PILOAD ;	/* On essaie autre chose.*/
     }
   }
   
@@ -1390,8 +1390,8 @@ int rcx_isrcdelay( lofig_list *lofig, losig_list *losig )
   if( GETFLAG( rcx->FLAG, RCXNOWIRE ) )
     return 0;
   
-  // On commence par regarder les instances RCX pour eviter de faire un
-  // refresh
+  /* On commence par regarder les instances RCX pour eviter de faire un*/
+  /* refresh*/
   ptl = getptype( losig->USER, LOFIGCHAIN );
   if( ptl ) {
     for( chain = (chain_list*)ptl->DATA ; chain ; chain = chain->NEXT ) {
@@ -1572,7 +1572,7 @@ void rcx_checkcrosstalk( losig_list *losig )
     return;
   SETFLAG( rcx->FLAG, RCXTREATEDNI );
 
-  // Récupère le nombre d'agresseurs
+  /* Récupère le nombre d'agresseurs*/
   
   for( scanctc = losig->PRCN->PCTC ; scanctc ; scanctc = scanctc->NEXT ) {
   
@@ -1590,7 +1590,7 @@ void rcx_checkcrosstalk( losig_list *losig )
   if( maxagr == 0 )
     return;
 
-  // Création et remplissage des tableaux
+  /* Création et remplissage des tableaux*/
 
   tabsig = (losig_list**)mbkalloc( sizeof( losig_list*) * maxagr );
   tabcapa = (RCXFLOAT*)mbkalloc( sizeof( RCXFLOAT ) * maxagr );
@@ -1613,7 +1613,7 @@ void rcx_checkcrosstalk( losig_list *losig )
     }
   }
 
-  // Trie des tableaux suivant la valeur des capacité : trie à bulle...
+  /* Trie des tableaux suivant la valeur des capacité : trie à bulle...*/
 
   for( i=0 ; i<maxagr ; i++ ) {
     refmin=i;
@@ -1632,14 +1632,14 @@ void rcx_checkcrosstalk( losig_list *losig )
     }
   }
 
-  // Rempli le tableau somme
+  /* Rempli le tableau somme*/
 
   tabsum[0] = tabcapa[0];
   for( i=1 ; i<maxagr ; i++ )
     tabsum[i]=tabsum[i-1]+tabcapa[i];
  
   
-  // Marque les capacités non significatives
+  /* Marque les capacités non significatives*/
 
   for( i=0 ; i<maxagr ; i++ ) {
     if( tabsum[i] / rcn_getcapa(NULL,losig) < RCX_MINRELCTKFILTER ) {
@@ -1664,7 +1664,7 @@ void rcx_checkcrosstalk( losig_list *losig )
   }
   */
  
-  // Mr Propre
+  /* Mr Propre*/
   
   for( i=0 ; i<maxagr ; i++ ) {
     tabsig[i]->USER = delptype( tabsig[i]->USER, RCX_AGREINDEX_CHK );
@@ -2159,7 +2159,7 @@ void rcx_delay_cache_remove_from_cache( char ctkmode )
     avt_logexitfunction(LOGTRC,2);
   }
 
-  // trccheckcachecoherence();
+  /* trccheckcachecoherence();*/
 }
 
 void trcflushdelaycache()

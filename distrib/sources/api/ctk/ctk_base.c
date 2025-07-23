@@ -4,7 +4,7 @@
 #include GEN_H
 #include STB_H
 #include "api_common_structures.h"
-//#include "gen_API.h"
+/*#include "gen_API.h"*/
 #define API_USE_REAL_TYPES
 #include "ctk_api_local.h"
 #include "ctk_API.h"
@@ -61,7 +61,7 @@ static int ctk_communication(int op, void *data)
   switch(op)
     {
     case CTK_rundefaultaction:
-      // switch api_default_ctk_mthod
+      /* switch api_default_ctk_mthod*/
       ctk_default_action_0c2c();
       return 0;
     case CTK_getctkstruct:
@@ -74,14 +74,14 @@ static int ctk_communication(int op, void *data)
   return 1;
 }
 
-void ctk_API_AtLoad_Initialize()// commentaire pour desactiver l'ajout de token
+void ctk_API_AtLoad_Initialize()/* commentaire pour desactiver l'ajout de token*/
 {
   CTK_API_COM=ctk_communication;
 }
 
-void ctk_API_Action_Terminate()// commentaire pour desactiver l'ajout de token
+void ctk_API_Action_Terminate()/* commentaire pour desactiver l'ajout de token*/
 {
-//  if (CTK_STRUCT!=NULL) // freectkstruct
+/*  if (CTK_STRUCT!=NULL) // freectkstruct*/
   CTK_STRUCT=NULL;
 }
 

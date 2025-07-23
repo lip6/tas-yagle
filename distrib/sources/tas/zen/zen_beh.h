@@ -25,7 +25,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-//extern  pNode            derivSigByIndex    ();
+/*extern  pNode            derivSigByIndex    ();*/
 
 extern  void             display_befig      ( befig_list    *pt_befig    );
 extern  void             display_BeMachin   ( befig_list    *beh        ,

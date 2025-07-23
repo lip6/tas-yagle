@@ -143,7 +143,7 @@
 #define STM_KF              21
 #define STM_QINIT           22
 #define STM_KRT             23
-// --- unused ---
+/* --- unused ---*/
 #define STM_CAPAO           24
 #define STM_CAPAI0          25
 #define STM_CAPAI1          26
@@ -409,12 +409,12 @@ typedef struct timing_table {
 
 /* IV Model */
 
-// Initial state
+/* Initial state*/
 typedef struct timing_iv_ti {
   float            VI;
 } timing_iv_ti;
 
-// Conflict
+/* Conflict*/
 typedef struct timing_iv_cf {
     float          PCONF0;
     float          PCONF1;
@@ -422,7 +422,7 @@ typedef struct timing_iv_cf {
     float          CI;
 } timing_iv_cf;
 
-// Input slope characteristic
+/* Input slope characteristic*/
 typedef struct timing_iv_in {
     float          VI;
     float          VF;
@@ -545,7 +545,7 @@ typedef struct timing_model {
     float               VTH;
     float               VDD;
     MBK_OFFSET_MAX      OFFSET; /* info for the cache */
-    chain_list         *POS_IN_LIST; // position dans la liste des models
+    chain_list         *POS_IN_LIST; /* position dans la liste des models*/
 } timing_model;
 
 typedef struct timing_props {
@@ -614,13 +614,13 @@ typedef struct stm_solver_maillon_list {
 Paramètres de simulation.
 \******************************************************************************/
 typedef struct {
-  float         DEFAULT_TIME_STEP;      // Fs
-  float         MIN_TIME_STEP;          // Fs
-  float         MAX_TIME_STEP;          // Fs
-  float         MAX_DELTA_CURRENT;      // A
-  float         MIN_DELTA_CURRENT;      // A
-  float         MAX_DELTA_VOLTAGE;      // V
-  float         MIN_DELTA_VOLTAGE;      // V
+  float         DEFAULT_TIME_STEP;      /* Fs*/
+  float         MIN_TIME_STEP;          /* Fs*/
+  float         MAX_TIME_STEP;          /* Fs*/
+  float         MAX_DELTA_CURRENT;      /* A*/
+  float         MIN_DELTA_CURRENT;      /* A*/
+  float         MAX_DELTA_VOLTAGE;      /* V*/
+  float         MIN_DELTA_VOLTAGE;      /* V*/
   int           MAX_ITER;
   char          VARIABLE_STEP;
   char         *PLOTFILE;
@@ -678,13 +678,13 @@ Simulation
 \******************************************************************************/
 
 typedef struct {
-  float         DEFAULT_TIME_STEP;      // Fs
-  float         MIN_TIME_STEP;          // Fs
-  float         MAX_TIME_STEP;          // Fs
-  float         MAX_DELTA_CURRENT;      // A
-  float         MIN_DELTA_CURRENT;      // A
-  float         MAX_DELTA_VOLTAGE;      // V
-  float         MIN_DELTA_VOLTAGE;      // V
+  float         DEFAULT_TIME_STEP;      /* Fs*/
+  float         MIN_TIME_STEP;          /* Fs*/
+  float         MAX_TIME_STEP;          /* Fs*/
+  float         MAX_DELTA_CURRENT;      /* A*/
+  float         MIN_DELTA_CURRENT;      /* A*/
+  float         MAX_DELTA_VOLTAGE;      /* V*/
+  float         MIN_DELTA_VOLTAGE;      /* V*/
   int           MAX_ITER;
   char          VARIABLE_STEP;
   /* statistics */
@@ -730,7 +730,7 @@ extern float    *STM_AXIS_SLOPEIN;
 extern float    *STM_AXIS_CAPAOUT;
 extern int       STM_AXIS_NSLOPE;
 extern int       STM_AXIS_NCAPA;
-//extern int       STM_USE_MSC;
+/*extern int       STM_USE_MSC;*/
 
 
 typedef struct {

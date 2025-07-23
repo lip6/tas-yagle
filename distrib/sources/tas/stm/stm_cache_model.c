@@ -296,7 +296,7 @@ unsigned long int   stm_cache_parse_model (char *cellname, timing_model *model)
     MBK_OFFSET_MAX   offset;
     FILE            *file;
 
-//    STM_PRELOAD = 'N';
+/*    STM_PRELOAD = 'N';*/
     file = stm_cache_getfilepos (cellname, model, &offset); 
     if (file) {
         if (!mbkfseek (file, &offset, SEEK_SET)) {
@@ -304,10 +304,10 @@ unsigned long int   stm_cache_parse_model (char *cellname, timing_model *model)
             avt_errmsg (STM_ERRMSG, "036", AVT_FATAL);
         }
         stmmodelrestart (file);
-//        printf ("REFRESH model: %s in cell: %s size:", model->NAME, cellname);
+/*        printf ("REFRESH model: %s in cell: %s size:", model->NAME, cellname);*/
         STM_CNAME = cellname;
         stmmodelparse();
-//        printf ("%ld\n", stm_cache_sizeof_model (model));
+/*        printf ("%ld\n", stm_cache_sizeof_model (model));*/
         return stm_cache_sizeof_model (model);
     }
     else
@@ -320,7 +320,7 @@ unsigned long int    stm_cache_free_model (char *cellname, timing_model *model)
     unsigned long int    size;
     
     
-//    printf ("FREE model: %s\n", model->NAME); 
+/*    printf ("FREE model: %s\n", model->NAME); */
     size = stm_cache_sizeof_model (model);
     
     switch (model->UTYPE) {

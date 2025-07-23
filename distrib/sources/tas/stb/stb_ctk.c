@@ -44,30 +44,30 @@
 #include "stb_relaxation_correction.h"
 #include "stb_ctk_report.h"
 
-// pour les apis
+/* pour les apis*/
 #include "api_communication.h"
 #include "stb_communication.c"
-// -------------
+/* -------------*/
 
-// Variation de front minimum pour considérer un changement significatif
+/* Variation de front minimum pour considérer un changement significatif*/
 long STB_CTK_MINSLOPECHANGE=0;
 
-// Nombre maximum d'itération lorsqu'il n'y a plus de nouvelles agressions
-// détectées.
+/* Nombre maximum d'itération lorsqu'il n'y a plus de nouvelles agressions*/
+/* détectées.*/
 int  STB_CTK_MAXLASTITER=3;
 
-// Autorise plus de consommation mémoire pour aller plus vite
+/* Autorise plus de consommation mémoire pour aller plus vite*/
 char STB_CTK_FASTMODE=1;
 
-// Comportement des agresseurs pour lesquels il n'y a pas d'information temporelle
-//int STB_CTK_NOINFO_ACTIF=0;
+/* Comportement des agresseurs pour lesquels il n'y a pas d'information temporelle*/
+/*int STB_CTK_NOINFO_ACTIF=0;*/
 
-// Le fichier de report
+/* Le fichier de report*/
 long  CTK_REPORT_DELTA_DELAY_MIN = 0;
 long  CTK_REPORT_DELTA_SLOPE_MIN = 0;
 float CTK_REPORT_CTK_MIN         = 0.0;
 long  CTK_REPORT_NOISE_MIN       = 0;
-// La marge pour la détection des agressions
+/* La marge pour la détection des agressions*/
 long STB_CTK_MARGIN=0l;
 
 long NBPTYPE=0l;
@@ -850,7 +850,7 @@ char             mutex;
         
     }
     else {
-      // On a pas d'infos sur l'agresseur
+      /* On a pas d'infos sur l'agresseur*/
       if( V_BOOL_TAB[__STB_CTK_NOINFO_ACTIF].VALUE )
         param->ACTIF = param->ACTIF | RCX_AGRWORST | RCX_AGRBEST ;
     }
@@ -868,7 +868,7 @@ char             mutex;
   
   stb_choose_sub_agressor_list_depending_on_probability(headlist, V_FLOAT_TAB[__STB_MIN_PROBABILITY].VALUE);
 
-  ttvfig = NULL; // unused parameter : avoid a warning at compilation
+  ttvfig = NULL; /* unused parameter : avoid a warning at compilation*/
 }
 
 /*****************************************************************************
@@ -943,7 +943,7 @@ char             mutex;
 
   stb_choose_sub_agressor_list_depending_on_probability(headlist, V_FLOAT_TAB[__STB_MIN_PROBABILITY].VALUE);
 
-  ttvfig = NULL; // unused parameter : avoid a warning at compilation
+  ttvfig = NULL; /* unused parameter : avoid a warning at compilation*/
 }
 
 /*****************************************************************************
@@ -1035,7 +1035,7 @@ chain_list      *headlist;
       newagr = 1 ;
   }
 
-  ttvfig = NULL; // unused parameter : avoid a warning at compilation
+  ttvfig = NULL; /* unused parameter : avoid a warning at compilation*/
   return( newagr );
 }
 
@@ -1126,7 +1126,7 @@ chain_list      *headlist;
       newagr = 1 ;
   }
 
-  ttvfig = NULL; // unused parameter : avoid a warning at compilation
+  ttvfig = NULL; /* unused parameter : avoid a warning at compilation*/
   return( newagr );
 }
 
@@ -1308,19 +1308,19 @@ chain_list      *headagr;
   
   stb_ctkprint( 0, "  Checking worst case agression.\n" );
 
-  // Récupère la liste des agresseurs.
+  /* Récupère la liste des agresseurs.*/
   eventlist   = stb_getchainevent( evtvic, STB_CTK_WORST_AGR, headagr );
   stb_debug_stab( stbfig, evtvic, eventlist );
 
-  // Récupère la liste des agresseurs qui ne sont pas sur la même phase que
-  // evtvic.
+  /* Récupère la liste des agresseurs qui ne sont pas sur la même phase que*/
+  /* evtvic.*/
   alwaysagrlist = stb_diftdomain( stbfig, evtvic, eventlist );
   testagrlist = subchain( eventlist, alwaysagrlist );
  
   stb_log_chain( stbfig, alwaysagrlist, 
                  "  agressors located on another clock domain" 
                );
-  // Récupère la liste des intervales qui recouvrent la victime.
+  /* Récupère la liste des intervales qui recouvrent la victime.*/
   
   realagrlist = stb_overlap( stbfig, 
                              evtvic, 
@@ -1329,7 +1329,7 @@ chain_list      *headagr;
                              STB_STD 
                            );
 
-  // Marque les event qu'il faut considérer comme agresseur
+  /* Marque les event qu'il faut considérer comme agresseur*/
   for( chain = realagrlist ; chain ; chain = chain->NEXT ) {
     event = ((ttvevent_list*)chain->DATA);
     event->USER = addptype( event->USER, STB_CTK_MARKREALACTIF, NULL );
@@ -1339,7 +1339,7 @@ chain_list      *headagr;
     event->USER = addptype( event->USER, STB_CTK_MARKREALACTIF, NULL );
   }
  
-  // Reporte l'information.
+  /* Reporte l'information.*/
   for( chain = eventlist ; chain ; chain = chain->NEXT ) {
     event = ((ttvevent_list*)chain->DATA);
     if( getptype( event->USER, STB_CTK_MARKREALACTIF ) ) {
@@ -1420,8 +1420,8 @@ chain_list      *headagr;
   stb_ctk_handle_mutex( stbfig->FIG, evtvic, eventlist, RCX_AGRBEST );
   stb_freechainevent( eventlist );
 
-  level = 0l; // unused parameter : avoid a warning at compilation
-  type = 0l; // unused parameter : avoid a warning at compilation
+  level = 0l; /* unused parameter : avoid a warning at compilation*/
+  type = 0l; /* unused parameter : avoid a warning at compilation*/
 }
 
 /*****************************************************************************
@@ -1467,7 +1467,7 @@ chain_list        *headagr;
   
   stb_ctkprint( 0, "  Checking worst case agression.\n" );
  
-  // Récupère la liste des event correspondant aux agresseurs.
+  /* Récupère la liste des event correspondant aux agresseurs.*/
   eventlist = stb_getchainevent( evtvic, STB_CTK_WORST_AGR, headagr );
   stb_debug_stab( stbfig, evtvic, eventlist );
 
@@ -1592,8 +1592,8 @@ chain_list        *headagr;
   stb_ctk_handle_mutex( stbfig->FIG, evtvic, eventlist, RCX_AGRBEST );
   stb_freechainevent( eventlist );
 
-  level = 0l; // unused parameter : avoid a warning at compilation
-  type = 0l; // unused parameter : avoid a warning at compilation
+  level = 0l; /* unused parameter : avoid a warning at compilation*/
+  type = 0l; /* unused parameter : avoid a warning at compilation*/
 }
 
 /*****************************************************************************
@@ -1705,9 +1705,9 @@ long        type;
     return STB_NO;
   }
 
-  ttvfig=NULL; // unused parameter : avoid a warning at compilation
-  level=0l; // unused parameter : avoid a warning at compilation
-  type=0l; // unused parameter : avoid a warning at compilation
+  ttvfig=NULL; /* unused parameter : avoid a warning at compilation*/
+  level=0l; /* unused parameter : avoid a warning at compilation*/
+  type=0l; /* unused parameter : avoid a warning at compilation*/
   return STB_UNK;
 }
 
@@ -1896,7 +1896,7 @@ chain_list      *headagr ;
     }
   }
 
-  mode=0; // unused parameter : avoid a warning at compilation
+  mode=0; /* unused parameter : avoid a warning at compilation*/
 
   if( thereisunk == 1 )
     return STB_UNK;
@@ -2019,7 +2019,7 @@ int              debugmode ;
  if( enablenode == 1 && (
        res || 
        stb_needeval( stbfig->FIG, level, node, type, mode, headagr ) != STB_NO ||
-       iteration <= 1 // pour avoir au moins une fois la propagation des fronts
+       iteration <= 1 /* pour avoir au moins une fois la propagation des fronts*/
      )
    ) {
    
@@ -2330,7 +2330,7 @@ stbfig_list *stbfig;
   rcx_crosstalkactive( RCX_MILLER );
   rcx_crosstalk_analysis( YES );
 
-  // pour les apis
+  /* pour les apis*/
   STB_COM_STBFIG=stbfig;
   STB_COM=stb_communication;
 
@@ -2370,7 +2370,7 @@ stbfig_list *stbfig;
 
    stb_ctk_drive_iteration_report_save_last_iteration_info(stbfig);
    
-//   stb_clean_relax_correction_info(stbfig);
+/*   stb_clean_relax_correction_info(stbfig);*/
    
    stb_relaxation(stbfig) ;
 
@@ -2398,7 +2398,7 @@ stbfig_list *stbfig;
   
    stb_ctk_drive_iteration_report(stbfig, i);
 
-   // Condition de sortie de la boucle
+   /* Condition de sortie de la boucle*/
    if( changedelay ) {
      doitagain=1;
      iterwithoutagr=0;
@@ -2431,7 +2431,7 @@ stbfig_list *stbfig;
    stb_info_close( report );
  }
 
- //stb_display_mem( stbfig );
+ /*stb_display_mem( stbfig );*/
  CTK_PROGRESSBAR( 0, 1, 0, "Driving crosstalk file." );
   
  if( (stbfig->CTKMODE & STB_CTX_REPORT) == STB_CTX_REPORT )
@@ -2578,7 +2578,7 @@ void stb_drive_line( stbfile *report,
     stb_info( report, "    slope max : %.1f -> %.1f\n", fmax, fmaxcc );
   }
 
-  ttvfig = NULL; //unused parameter
+  ttvfig = NULL; /*unused parameter*/
 }
 
 char* stb_display_ttvevent( ttvfig_list *ttvfig, ttvevent_list *node )
@@ -3209,7 +3209,7 @@ stb_ctk_stat* stb_ctk_fill_stat( stbfig_list *stbfig, int fast )
   stb_ctk_fill_stat_tab( stat, stbfig );
   stb_ctk_fill_stat_line( stat, stbfig );
   
-  //CTK_PROGRESSBAR( 0, 1, 0, "Sorting results" );
+  /*CTK_PROGRESSBAR( 0, 1, 0, "Sorting results" );*/
 
   stb_ctk_sort_stat( stat, STB_CTK_SORT_SCORE_TOTAL );
   stb_ctk_sort_delay( stat, STB_CTK_SORT_ABS_DELAY, 0.0 );
@@ -3267,7 +3267,7 @@ int stb_ctk_sort_delay_cmp( sortdelaycmp *delay1, sortdelaycmp *delay2 )
   return 0 ;
 }
 
-inline void filltabdelayvalue( sortdelaycmp *elem, char criterion )
+ void filltabdelayvalue( sortdelaycmp *elem, char criterion )
 {
   float deltamax ;
   float deltamin ;
@@ -3482,7 +3482,7 @@ void stb_ctk_fill_stat_line( stb_ctk_stat *stat,
   int            nbline ;
   chain_list    *scline ;
  
-  //CTK_PROGRESSBAR( 0, 1, 0, "Reporting delay variations" );
+  /*CTK_PROGRESSBAR( 0, 1, 0, "Reporting delay variations" );*/
 
   if((stbfig->STABILITYMODE & STB_STABILITY_LAST) == STB_STABILITY_LAST)
     level = stbfig->FIG->INFO->LEVEL ;

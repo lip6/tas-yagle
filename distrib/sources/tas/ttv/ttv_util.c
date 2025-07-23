@@ -43,10 +43,10 @@ struct
     { "nr6", "u-6-5-4-3-2-1_d+1_d+2_d+3_d+4_d+5_d+6", 6},
     { "nr7", "u-7-6-5-4-3-2-1_d+1_d+2_d+3_d+4_d+5_d+6_d+7", 7},
     { "nr8", "u-8-7-6-5-4-3-2-1_d+1_d+2_d+3_d+4_d+5_d+6_d+7_d+8", 8},
-    { "oai21", "u-3-1_u-2_d+1+2_d+2+3", 3}, // ao22
-    { "ao22", "u-4-1_u-3-2_d+1+2_d+3+4", 4}, // nmx2
-    { "ao22", "u-4-3_u-2-1_d+1+4_d+2+3", 4}, // nmx2
-    { "ao22", "u-4-3_u-4-2_u-3-1_u-2-1_d+1+4_d+2+3", 4},       //xr2 
+    { "oai21", "u-3-1_u-2_d+1+2_d+2+3", 3}, /* ao22*/
+    { "ao22", "u-4-1_u-3-2_d+1+2_d+3+4", 4}, /* nmx2*/
+    { "ao22", "u-4-3_u-2-1_d+1+4_d+2+3", 4}, /* nmx2*/
+    { "ao22", "u-4-3_u-4-2_u-3-1_u-2-1_d+1+4_d+2+3", 4},       /*xr2 */
   };
 
 int ttv_getgateinfo(int num, char **name, int *nbinput)
@@ -1013,20 +1013,20 @@ char mode ;
 
  if (mode!='M')
  {
-    // nettoyage
+    /* nettoyage*/
     chainsig = ttv_getsigbytype_and_netname(ttvfig,NULL,TTV_SIG_TYPEALL,NULL) ;
     for(chain = chainsig ; chain != NULL ; chain = chain->NEXT)
      {
        tvs=(ttvsig_list *)chain->DATA;
-       // INF_PIN_RISING_SLEW
+       /* INF_PIN_RISING_SLEW*/
        ttv_delnodedelay(&tvs->NODE[0]);
        ttv_delnodedelay(&tvs->NODE[1]);
        
-       // INF_CLOCK_TYPE
+       /* INF_CLOCK_TYPE*/
        if(getptype (tvs->USER, TTV_SIG_CLOCK))
          tvs->USER = delptype (tvs->USER, TTV_SIG_CLOCK) ;
 
-       // INF_DONTCROSS
+       /* INF_DONTCROSS*/
        ttv_resetsigflag(tvs, TTV_SIG_FLAGS_DONTCROSS);
        ttv_resetsigflag(tvs, TTV_SIG_FLAGS_TRANSPARENT);
        ttv_resetsigflag(tvs, TTV_SIG_FLAGS_ISDATA);
@@ -1034,7 +1034,7 @@ char mode ;
        tvs->NODE->TYPE&=~(TTV_NODE_FALSEIN|TTV_NODE_FALSEOUT|TTV_NODE_FALSEPATHNODE);
        (tvs->NODE+1)->TYPE&=~(TTV_NODE_FALSEIN|TTV_NODE_FALSEOUT|TTV_NODE_FALSEPATHNODE);
 
-       // INF_MULTICYCLE_PATH
+       /* INF_MULTICYCLE_PATH*/
        if((pti=getptype (tvs->USER, TTV_SIG_MULTICYCLE_IN))!=NULL)
         {
           freechain((chain_list *)pti->DATA);
@@ -1206,11 +1206,11 @@ char mode ;
        }
      freechain(chainx);
 
-     // ZINAPS: test temporaire, creer une section inf propre
+     /* ZINAPS: test temporaire, creer une section inf propre*/
      chainx=inf_GetEntriesByType(ifl, INF_CHARAC_DATA, INF_ANY_VALUES);
      if (chainx!=NULL)
      {
-       // desabling ttv cache
+       /* desabling ttv cache*/
        ttv_disablecache(ttvfig);
      }
      for (cl=chainx; cl!=NULL; cl=cl->NEXT)
@@ -1828,7 +1828,7 @@ int ttv_mark_signals_with_corresponding_path_margin_regex(ttvfig_list *tvf)
 
   if (list!=NULL)
   {
-     // desabling ttv cache
+     /* desabling ttv cache*/
      ttv_disablecache(tvf);
 /*     chain=ttv_levelise(tvf,tvf->INFO->LEVEL,ttv_getloadedfigtypes(tvf));
      freechain(chain);*/
@@ -1940,7 +1940,7 @@ int ttv_get_path_margins(ttvfig_list *tvf, ttvpath_list *datapath, ttvpath_list 
         sprintf(section,INF_PATHDELAYMARGINPREFIX"|""%s"","INF_PATHDELAYMARGINCLOCK",""%s", pathtype, (clockpath->NODE->TYPE & TTV_NODE_UP)==0?INF_PATHDELAYMARGINFALL:INF_PATHDELAYMARGINRISE);
       else
         sprintf(section,INF_PATHDELAYMARGINPREFIX"|""%s"","INF_PATHDELAYMARGINDATA",""%s", pathtype, (clockpath->NODE->TYPE & TTV_NODE_UP)==0?INF_PATHDELAYMARGINFALL:INF_PATHDELAYMARGINRISE);
-//      ttv_getmargin(ifl, tvs, infregex, section, &factor_clock, &delta_clock);
+/*      ttv_getmargin(ifl, tvs, infregex, section, &factor_clock, &delta_clock);*/
       ttv_getmargin(ifl, clockpath->ROOT->ROOT, infregex, section, &factor_clock, &delta_clock);
     }
   else factor_clock=1, delta_clock=0;
@@ -2024,7 +2024,7 @@ ttvpath_list *ttv_mergepathlists(ttvpath_list *pathx, int nbx, ttvpath_list *pat
 {
   ttvpath_list *pathr=NULL, *pathxx, *pathh=NULL;
   int nbe;
-  // les deux liste sont inversées, ont garde les max elem de la fin
+  /* les deux liste sont inversées, ont garde les max elem de la fin*/
   nbe=0;
   *nbtot=0;
   while(pathx != NULL || path != NULL)

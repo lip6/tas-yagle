@@ -168,8 +168,8 @@ createNodeTermBdd (index)
   if (index <= 1)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"150");
-      //printf ("createNodeTermBdd : error index <= 1\n");
-      //EXIT (-1);
+      /*printf ("createNodeTermBdd : error index <= 1\n");*/
+      /*EXIT (-1);*/
     }
   else
     {
@@ -177,7 +177,7 @@ createNodeTermBdd (index)
       return (pt);
     }
 #ifndef __ALL__WARNING__
-  return 0; // ..anto..
+  return 0; /* ..anto..*/
 #endif
 }
 
@@ -1052,14 +1052,14 @@ applyBdd (oper, pt)
       char message[1024];
       sprintf( message, "152 (oper:%d)", oper );
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL, message);
-//      printf ("applyBdd : error - unknown operator %d\n", oper);
-//      EXIT (-1);
+/*      printf ("applyBdd : error - unknown operator %d\n", oper);*/
+/*      EXIT (-1);*/
     }
   if (pt == NULL)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"153");
-//      printf ("applyBdd : error chained list is empty\n");
-//      EXIT (-1);
+/*      printf ("applyBdd : error chained list is empty\n");*/
+/*      EXIT (-1);*/
     }
 
   pBdd = (pNode) pt->DATA;
@@ -1069,8 +1069,8 @@ applyBdd (oper, pt)
       if (oper != NOT)
         {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"154");
-//          printf ("applyBdd : error - bad operator %s\n", operToChar (oper));
-//          EXIT (-1);
+/*          printf ("applyBdd : error - bad operator %s\n", operToChar (oper));*/
+/*          EXIT (-1);*/
         }
       return (notBdd (pBdd));
     }
@@ -1892,8 +1892,8 @@ initVertexBddAux (index, high, low, sysCible)
   if (high == low)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"155");
-//      printf ("gcNode : error - there's a node that isn't reduced\n");
-//      EXIT (-1);
+/*      printf ("gcNode : error - there's a node that isn't reduced\n");*/
+/*      EXIT (-1);*/
     }
 
   if (sysCible->indiceAT == MAX_PACK)
@@ -1944,8 +1944,8 @@ regenereBdd (pBdd, sysCible, pTHNode)
       if (pBdd->index < 2)
         {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"156");
-//          printf ("gcNode : error - bad index %d\n", pBdd->index);
-//          EXIT (-1);
+/*          printf ("gcNode : error - bad index %d\n", pBdd->index);*/
+/*          EXIT (-1);*/
         }
       resul = (long) initVertexBddAux (pBdd->index,
                                 regenereBdd (pBdd->high, sysCible, pTHNode),

@@ -99,7 +99,7 @@ extern void CleanMainLofig(lofig_list *lf);
 extern lofig_list *gns_build_netlist(lofig_list *lf, chain_list *loins, chain_list *lotrs, char flat, char rc);
 extern void setglobalvariables(lofig_list *lf, chain_list *loins, chain_list *lotrs, ptype_list *env, chain_list *h_lotrs, chain_list *swaps);
 
-//extern chain_list *PRAGMA_SPLIT(char *line);
+/*extern chain_list *PRAGMA_SPLIT(char *line);*/
 
 
 

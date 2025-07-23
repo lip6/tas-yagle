@@ -677,7 +677,7 @@ void mccenv ()
 		MCC_MODELFILE_BEST = mcc_initstr (env);
         MCC_USE_MULTICORNER = 1;
         
-        //====> update corner for parserspice
+        /*====> update corner for parserspice*/
         spi_set_model_corner ( MCC_BEST );
         parsespice ( MCC_MODELFILE_BEST ); 
 	}
@@ -697,7 +697,7 @@ void mccenv ()
 		MCC_MODELFILE_WORST = mcc_initstr (env);
         MCC_USE_MULTICORNER = 1;
 
-        //====> update corner for parserspice
+        /*====> update corner for parserspice*/
         spi_set_model_corner ( MCC_WORST );
         parsespice ( MCC_MODELFILE_WORST ); 
 	}
@@ -764,7 +764,7 @@ void mccenv ()
 	elpSetFct2 ( mcc_setelpparam );
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 void mcc_calcInputCapa ( int type, elp_lotrs_param *lotrsparam )
 {
   double vg1,vg2,vd1,vd2,vs1,vs2;
@@ -775,7 +775,7 @@ void mcc_calcInputCapa ( int type, elp_lotrs_param *lotrsparam )
     vs1 = vs2 = 0.0;
 
     /*--------- UP Transition -------------*/
-    //==>  Min capacitance                    
+    /*==>  Min capacitance                    */
     vg1 = def_low*MCC_VDDmax;
     vg2 = def_high*MCC_VDDmax;
     vd1 = MCC_VDDmax;
@@ -785,7 +785,7 @@ void mcc_calcInputCapa ( int type, elp_lotrs_param *lotrsparam )
                       MCC_TEMP, vg1, vg2, vd1, vd1, vs1, vs2, lotrsparam,
                       &MCC_CGSU_N_MIN,NULL,&MCC_CGPU_N_MIN);
     MCC_CGPU_N_MIN *= 1.0e6;
-    //==>  Max capacitance                    
+    /*==>  Max capacitance                    */
     mcc_GetInputCapa (MCC_MODELFILE, MCC_TNMODEL,
                       MCC_NMOS, MCC_NCASE, MCC_LN * 1.0e-6, MCC_WN * 1.0e-6,
                       MCC_TEMP, vg1, vg2, vd1, vd2, vs1, vs2, lotrsparam,
@@ -793,7 +793,7 @@ void mcc_calcInputCapa ( int type, elp_lotrs_param *lotrsparam )
     MCC_CGPU_N_MAX *= 1.0e6;
 
     /*------  DOWN Transition -------------*/
-    //==>  Min capacitance                    
+    /*==>  Min capacitance                    */
     vg1 = (1.0-def_low)*MCC_VDDmax;
     vg2 = (1.0-def_high)*MCC_VDDmax;
     vd1 = 0.0;
@@ -803,7 +803,7 @@ void mcc_calcInputCapa ( int type, elp_lotrs_param *lotrsparam )
                       MCC_TEMP, vg1, vg2, vd1, vd1, vs1, vs2, lotrsparam,
                       &MCC_CGSD_N_MIN,NULL,&MCC_CGPD_N_MIN);
     MCC_CGPD_N_MIN *= 1.0e6;
-    //==>  Max capacitance                    
+    /*==>  Max capacitance                    */
     mcc_GetInputCapa (MCC_MODELFILE, MCC_TNMODEL,
                       MCC_NMOS, MCC_NCASE, MCC_LN * 1.0e-6, MCC_WN * 1.0e-6,
                       MCC_TEMP, vg1, vg2, vd1, vd2, vs1, vs2, lotrsparam,
@@ -815,7 +815,7 @@ void mcc_calcInputCapa ( int type, elp_lotrs_param *lotrsparam )
     vs1 = vs2 = MCC_VDDmax;
 
     /*--------- UP Transition -------------*/
-    //==>  Min capacitance                    
+    /*==>  Min capacitance                    */
     vg1 = def_low*MCC_VDDmax;
     vg2 = def_high*MCC_VDDmax;
     vd1 = MCC_VDDmax;
@@ -825,7 +825,7 @@ void mcc_calcInputCapa ( int type, elp_lotrs_param *lotrsparam )
                       MCC_TEMP, vg1, vg2, vd1, vd1, vs1, vs2, lotrsparam,
                       &MCC_CGSU_P_MIN,NULL,&MCC_CGPU_P_MIN);
     MCC_CGPU_P_MIN *= 1.0e6;
-    //==>  Max capacitance                    
+    /*==>  Max capacitance                    */
     mcc_GetInputCapa (MCC_MODELFILE, MCC_TPMODEL,
                       MCC_PMOS, MCC_PCASE, MCC_LP * 1.0e-6, MCC_WP * 1.0e-6,
                       MCC_TEMP, vg1, vg2, vd1, vd2, vs1, vs2, lotrsparam,
@@ -833,7 +833,7 @@ void mcc_calcInputCapa ( int type, elp_lotrs_param *lotrsparam )
     MCC_CGPU_P_MAX *= 1.0e6;
 
     /*------  DOWN Transition -------------*/
-    //==>  Min capacitance                    
+    /*==>  Min capacitance                    */
     vg1 = (1.0-def_low)*MCC_VDDmax;
     vg2 = (1.0-def_high)*MCC_VDDmax;
     vd1 = 0.0;
@@ -843,7 +843,7 @@ void mcc_calcInputCapa ( int type, elp_lotrs_param *lotrsparam )
                       MCC_TEMP, vg1, vg2, vd1, vd1, vs1, vs2, lotrsparam,
                       &MCC_CGSD_P_MIN,NULL,&MCC_CGPD_P_MIN);
     MCC_CGPD_P_MIN *= 1.0e6;
-    //==>  Max capacitance                    
+    /*==>  Max capacitance                    */
     mcc_GetInputCapa (MCC_MODELFILE, MCC_TPMODEL,
                       MCC_PMOS, MCC_PCASE, MCC_LP * 1.0e-6, MCC_WP * 1.0e-6,
                       MCC_TEMP, vg1, vg2, vd1, vd2, vs1, vs2, lotrsparam,
@@ -873,7 +873,7 @@ elp_lotrs_param *lotrsparam_p;
     double vgx = MCC_VDDmax/2.0;
     double v1, v2 ;
     int mcclog;
-    //double cgpu,cgpd;
+    /*double cgpu,cgpd;*/
 
     if( lotrsparam_n->ISVBSSET )
       vbsn = lotrsparam_n->VBS ;
@@ -888,7 +888,7 @@ elp_lotrs_param *lotrsparam_p;
       MCC_SPICEMODELTYPE = mcc_getspicetechno( MCC_MODELFILE, MCC_TPMODEL, MCC_PMOS, MCC_PCASE, MCC_LP * 1.0e-6, MCC_WP * 1.0e-6 );
 
     if ( avt_islog( 2, LOGMCC) ) 
-      mcc_get_area_perim(); // obtention des aires et perim du .mccgenelp
+      mcc_get_area_perim(); /* obtention des aires et perim du .mccgenelp*/
 
 	if ((type == MCC_TRANS_N) || (type == MCC_TRANS_B)) {
 
@@ -1065,7 +1065,7 @@ elp_lotrs_param *lotrsparam_p;
                 MCC_CGPOC_N = mcc_calcCGPO( MCC_MODELFILE, MCC_TNMODEL, MCC_NMOS, MCC_NCASE, MCC_LN * 1.0e-6, MCC_WN * 1.0e-6, MCC_TEMP,
                                             0.0, 0.0, MCC_VDDmax/2.0, lotrsparam_n );
 
-        // input capacitance 
+        /* input capacitance */
         mcc_calcInputCapa ( MCC_NMOS, lotrsparam_n );
 
         /*----------------------------------------------------------------*\
@@ -1344,7 +1344,7 @@ elp_lotrs_param *lotrsparam_p;
                                    0.0, 0.0, -MCC_VDDmax/2.0, lotrsparam_p );
        MCC_CGPOC_P = mcc_calcCGPO( MCC_MODELFILE, MCC_TPMODEL, MCC_PMOS, MCC_PCASE, MCC_LP * 1.0e-6, MCC_WP * 1.0e-6, MCC_TEMP,
                                    -MCC_VDDmax, -MCC_VDDmax, -MCC_VDDmax/2.0, lotrsparam_n );
-        // input capacitance 
+        /* input capacitance */
         mcc_calcInputCapa ( MCC_PMOS, lotrsparam_p );
 
         /*----------------------------------------------------------------*\
@@ -2481,7 +2481,7 @@ int mcc_use_multicorner (void)
 void mcc_get_area_perim ( void )
 {
   /* NMOS */
-  if ( MCC_CURRENT_LOTRS ) return; // because area and perim have been updated
+  if ( MCC_CURRENT_LOTRS ) return; /* because area and perim have been updated*/
 
   if ( MCC_ASN < 0.0 )
     MCC_ASN = MCC_WN*MCC_DIF;

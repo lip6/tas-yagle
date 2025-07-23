@@ -58,9 +58,7 @@ XyagFreeSelect(Select)
 |                          XyagSelectObject                   |
 \------------------------------------------------------------*/
 
-void 
-XyagSelectObject(Object)
-    xyagobj_list   *Object;
+void XyagSelectObject( xyagobj_list *Object )
 {
     xyagobj_list   *Scan;
 
@@ -76,9 +74,7 @@ XyagSelectObject(Object)
 |                          XyagUnselectObject                 |
 \------------------------------------------------------------*/
 
-void 
-XyagUnselectObject(Object)
-    xyagobj_list   *Object;
+void XyagUnselectObject( xyagobj_list *Object )
 {
     xyagobj_list   *Scan;
 
@@ -94,9 +90,7 @@ XyagUnselectObject(Object)
 |                          XyagAcceptObject                   |
 \------------------------------------------------------------*/
 
-void 
-XyagAcceptObject(Object)
-    xyagobj_list   *Object;
+void XyagAcceptObject( xyagobj_list *Object )
 {
     xyagobj_list   *Scan;
 
@@ -112,9 +106,7 @@ XyagAcceptObject(Object)
 |                          XyagRejectObject                   |
 \------------------------------------------------------------*/
 
-void 
-XyagRejectObject(Object)
-    xyagobj_list   *Object;
+void XyagRejectObject( xyagobj_list *Object )
 {
     xyagobj_list   *Scan;
 
@@ -130,9 +122,7 @@ XyagRejectObject(Object)
 |                          XyagConnectObject                  |
 \------------------------------------------------------------*/
 
-void 
-XyagConnectObject(Object)
-    xyagobj_list   *Object;
+void XyagConnectObject( xyagobj_list *Object )
 {
     xyagobj_list   *Scan;
 
@@ -148,9 +138,7 @@ XyagConnectObject(Object)
 |                         XyagDisconnectObject                |
 \------------------------------------------------------------*/
 
-void 
-XyagDisconnectObject(Object)
-    xyagobj_list   *Object;
+void XyagDisconnectObject( xyagobj_list *Object )
 {
     xyagobj_list   *Scan;
 
@@ -166,9 +154,7 @@ XyagDisconnectObject(Object)
 |                          XyagAddSelect                      |
 \------------------------------------------------------------*/
 
-void 
-XyagAddSelect(Object)
-    xyagobj_list   *Object;
+void XyagAddSelect( xyagobj_list *Object )
 {
     xyagselect_list *Select;
 
@@ -184,9 +170,7 @@ XyagAddSelect(Object)
 |                          XyagAddConnect                     |
 \------------------------------------------------------------*/
 
-void 
-XyagAddConnect(Object)
-    xyagobj_list   *Object;
+void XyagAddConnect( xyagobj_list *Object )
 {
     xyagselect_list *Connect;
 
@@ -202,8 +186,7 @@ XyagAddConnect(Object)
 |                         XyagDelSelect                       |
 \------------------------------------------------------------*/
 
-void 
-XyagDelSelect()
+void XyagDelSelect()
 {
     xyagselect_list *Select;
     xyagselect_list *DelSelect;
@@ -223,8 +206,7 @@ XyagDelSelect()
 |                        XyagPurgeSelect                      |
 \------------------------------------------------------------*/
 
-void 
-XyagPurgeSelect()
+void XyagPurgeSelect()
 {
     xyagselect_list *DelSelect;
     xyagselect_list *Select;
@@ -251,8 +233,7 @@ XyagPurgeSelect()
 |                          XyagDelConnect                     |
 \------------------------------------------------------------*/
 
-void 
-XyagDelConnect()
+void XyagDelConnect()
 {
     xyagselect_list *Connect;
     xyagselect_list *DelConnect;

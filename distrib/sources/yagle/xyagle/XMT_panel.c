@@ -183,7 +183,7 @@ while ((nb != -1) && (nb != 0))
 void XyagFatalAppError( message )
 char *message;
 {
-//XtasDestroyAllFig() ;
+/*XtasDestroyAllFig() ;*/
 XyagFirePasqua();
 XyagErrorMessage( XyagMainWindow, message );
 siglongjmp(XyagMyEnv, 1);
@@ -300,6 +300,6 @@ void updatebacklist(cgvfig_list *cgvf)
       XyagHeadSelect=sel;
       XyagHeadZoom=zoom;      
     }
-//  else printf("not found??!!\n");
+/*  else printf("not found??!!\n");*/
 }
 

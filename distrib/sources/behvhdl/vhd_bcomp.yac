@@ -562,10 +562,10 @@ formal_port_element
         }
     | error
         {
-        // ###-----------------------------------------------### 
-        //   The following 3 lines reject tokens until the        
-        // sync. token 'Semicolon' is found                     
-        // ###-----------------------------------------------### 
+        /* ###-----------------------------------------------### */
+        /*   The following 3 lines reject tokens until the        */
+        /* sync. token 'Semicolon' is found                     */
+        /* ###-----------------------------------------------### */
 
         do
           yychar = yylex ();
@@ -1535,7 +1535,7 @@ unlabeled_selected_signal_assignment
         }
         else
           avt_errmsg(BVL_ERRMSG,"000",AVT_ERROR,"003");
-        //printf("Erreur select assign\n");  
+        /*printf("Erreur select assign\n");  */
 
         }
     ;
@@ -2348,8 +2348,8 @@ addgen(char *name)
 
     if (!l_pgen) {
     avt_errmsg(BVL_ERRMSG,"000",AVT_FATAL,"000");
-        // fprintf(stderr, "not enough memory.\n");
-        // EXIT(1);
+        /* fprintf(stderr, "not enough memory.\n");*/
+        /* EXIT(1);*/
     }
 
     l_pgen->NAME = namealloc(name);
@@ -2394,7 +2394,7 @@ vhd_addstrgen(char *name, short flag, int left, int right)
         break;
     default:
         avt_errmsg(BVL_ERRMSG,"000",AVT_ERROR,"001");
-       // printf("Erreur vhd_addstrgen\n");
+       /* printf("Erreur vhd_addstrgen\n");*/
     }
     return l_pgen;
 }
@@ -2452,17 +2452,17 @@ beGeneration()
     char           *s_name;
 
     for (l_pGEN = BVL_DECL; l_pGEN; l_pGEN = l_pGEN->NEXT) {
-        // attention il faut prendre le nom sans l'index pour un vecteur
+        /* attention il faut prendre le nom sans l'index pour un vecteur*/
         short_name = strdup(l_pGEN->NAME);
         space = strchr(short_name, ' ');
         if (space) {
             *space = '\0';
         }
         s_name = namealloc(short_name);
-        mbkfree(short_name); // cleaner
+        mbkfree(short_name); /* cleaner*/
         sig_conf = beh_chktab(dic, s_name, BVL_MODNAM, BVL_SIGDFN);
 
-        // BEPOR 
+        /* BEPOR */
         switch (sig_conf) {
         case (BVL_PORDFN + BVL_STDDFN + BVL_ICNDFN):
         case (BVL_PORDFN + BVL_VECDFN + BVL_ICNDFN):
@@ -2651,8 +2651,8 @@ addCndVal(bvlcond *cndval, char *ident, int num, struct chain *cnd, struct chain
 
     if (CNDVAL == NULL) {
       avt_errmsg(BVL_ERRMSG,"000",AVT_FATAL,"002");
-      //  fprintf(stderr, "BVL vhd_parse : Error addCndVal");
-      //  EXIT(1);
+      /*  fprintf(stderr, "BVL vhd_parse : Error addCndVal");*/
+      /*  EXIT(1);*/
     }
     CNDVAL->NEXT = cndval;
     CNDVAL->CND = cnd;

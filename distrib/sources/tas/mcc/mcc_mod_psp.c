@@ -393,14 +393,14 @@ void mcc_getcharge( mcc_modellist   *mccmodel,
     /* fill extrinsic component */
 
     /* qgsov */
-    qout[0].nplus  = 1 ; // G
-    qout[0].nminus = 2 ; // S
+    qout[0].nplus  = 1 ; /* G*/
+    qout[0].nminus = 2 ; /* S*/
     /* qgdov */
-    qout[1].nplus  = 1 ; // G
-    qout[1].nminus = 0 ; // D
+    qout[1].nplus  = 1 ; /* G*/
+    qout[1].nminus = 0 ; /* D*/
     /* qgdov */
-    qout[2].nplus  = 1 ; // G
-    qout[2].nminus = 3 ; // B
+    qout[2].nplus  = 1 ; /* G*/
+    qout[2].nminus = 3 ; /* B*/
     
     extractchargecomponent( qq[1], qout, nbbr, 3, "extrinsic charge" );
 
@@ -411,11 +411,11 @@ void mcc_getcharge( mcc_modellist   *mccmodel,
     /* fill junction component */
 
     /* qjbd */
-    qout[0].nplus  = 3 ; // B
-    qout[0].nminus = 0 ; // D
+    qout[0].nplus  = 3 ; /* B*/
+    qout[0].nminus = 0 ; /* D*/
     /* qjbs */
-    qout[1].nplus  = 3 ; // B
-    qout[1].nminus = 2 ; // S
+    qout[1].nplus  = 3 ; /* B*/
+    qout[1].nminus = 2 ; /* S*/
 
     extractchargecomponent( qq[2], qout, nbbr, 2, "junction charge" );
     

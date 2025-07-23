@@ -38,19 +38,19 @@ typedef struct {
 } stm_qsat_v ;
 
 typedef struct {
-  // common parameter
+  /* common parameter*/
   double       IMAX ;
   double       C ;
   double       VDD ;
-  // enhanced qsat
+  /* enhanced qsat*/
   stm_qsat_v  *QSATV ;
-  // simple qsat
+  /* simple qsat*/
   double       QSAT2 ;
   double       DT ;
   double       TSATMAX ;
 } stm_qsat ;
 
-// #define QSAT(qsat,t,dt,tmax) ( (t)<0.0 ? 0.0 : ( (t)>(tmax) ? (qsat)*((tmax)-(dt))*((tmax)-(dt)) : (qsat)*((t)-(dt))*((t)-(dt)) ) )
+/* #define QSAT(qsat,t,dt,tmax) ( (t)<0.0 ? 0.0 : ( (t)>(tmax) ? (qsat)*((tmax)-(dt))*((tmax)-(dt)) : (qsat)*((t)-(dt))*((t)-(dt)) ) )*/
 
 #define CALTS_AMJAD_OK 1
 #define CALTS_AMJAD_NC 2

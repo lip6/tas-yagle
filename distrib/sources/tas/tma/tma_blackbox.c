@@ -113,7 +113,7 @@ double tma_Leakage_Calculation(cnsfig_list *cnsfig)
     branch_list *branch;
 
     for(cone = cnsfig->CONE; cone; cone = cone->NEXT){
-//        if(cone->BREXT && (cone->BREXT->LINK->TYPE & (CNS_IN | CNS_INOUT))) continue;
+/*        if(cone->BREXT && (cone->BREXT->LINK->TYPE & (CNS_IN | CNS_INOUT))) continue;*/
         if(cone->TECTYPE & (CNS_ZERO|CNS_STATE_ZERO)){
             for(branch = cone->BRVDD; branch; branch = branch->NEXT){
                 value += tas_get_current_leakage_2( branch, branch->LINK, branch->LINK)
@@ -1868,7 +1868,7 @@ void tma_CreateBreakAccess (ttvfig_list *fig, ttvevent_list *node, timing_model 
 
             if ((line->NODE->ROOT->TYPE  & TTV_SIG_C) != TTV_SIG_C) {
 
-                // max
+                /* max*/
                 cklist = tma_GetPath (fig, NULL, line->NODE, TTV_FIND_MAX); 
                 
                 *amaxlist = tma_AddAMaxList (*amaxlist, line->VALMAX + deltamax, mdaccess_max, msaccess_max, 
@@ -1876,7 +1876,7 @@ void tma_CreateBreakAccess (ttvfig_list *fig, ttvevent_list *node, timing_model 
                 
                 tma_FreePathList (cklist);
                 
-                // min
+                /* min*/
                 if (!(cklist = tma_GetPath (fig, NULL, line->NODE, TTV_FIND_MIN)))
                     cklist = tma_GetPath (fig, NULL, line->NODE, TTV_FIND_MAX); 
                 
@@ -1903,8 +1903,8 @@ void tma_GetSTBdelta (stbfig_list *stbfig, ttvevent_list *latch, long *deltamin,
     stb_getstbdelta(stbfig, latch,deltamin,deltamax, NULL) ;
     
     if (verbose) {
-        //fprintf (stdout, "deltamax = %ld\n", *deltamax);
-        //fprintf (stdout, "deltamin = %ld\n", *deltamin);
+        /*fprintf (stdout, "deltamax = %ld\n", *deltamax);*/
+        /*fprintf (stdout, "deltamin = %ld\n", *deltamin);*/
     }
 }
 
@@ -2020,9 +2020,9 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
         continue;
       }
 
-      //----------------------------------------------------------------------------------------------------
-      // Setup and Hold 
-      //----------------------------------------------------------------------------------------------------
+      /*----------------------------------------------------------------------------------------------------*/
+      /* Setup and Hold */
+      /*----------------------------------------------------------------------------------------------------*/
 
       if (((sigc->TYPE & TTV_SIG_CI) == TTV_SIG_CI || (sigc->TYPE & TTV_SIG_CT) == TTV_SIG_CT) && !((sigc->TYPE & TTV_SIG_CB) == TTV_SIG_CB)) { 
 
@@ -2038,7 +2038,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
             holdlist    = NULL;
             tma_InitModelList ();
 
-            // pas de chemin : report d'eventuels setup/hold de breakpoints a l'interface
+            /* pas de chemin : report d'eventuels setup/hold de breakpoints a l'interface*/
             if (!pathmaxlist) {
                     avt_log( LOGTMA, 2, "No path found. Reporting existing setup/hold to the boundary\n" );
                     tma_CreateBreakSH (fig, NULL, &sigc->NODE[event], NULL, NULL, 0, 0, NULL, NULL, &setuplist, &holdlist);
@@ -2074,7 +2074,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                       );
 
 
-               // Flip-flop -------------------------------------------------------------------------
+               /* Flip-flop -------------------------------------------------------------------------*/
 
                if (((root->ROOT->TYPE & TTV_SIG_LF) == TTV_SIG_LF)) {
                   ttv_getsigname (fig, rname, root->ROOT);
@@ -2095,7 +2095,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                   }
                }
                
-               // Latch model TAS -------------------------------------------------------------------
+               /* Latch model TAS -------------------------------------------------------------------*/
 
                if ((root->ROOT->TYPE & TTV_SIG_LL) == TTV_SIG_LL
                 && !((root->ROOT->TYPE & TTV_SIG_LR) == TTV_SIG_LR)
@@ -2127,7 +2127,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                          holdlist = tma_AddHList (holdlist, hold, NULL, dmin, mdmin, msmin, NULL, tma_OppositeEvent (cmd));
                       }
                   }
-                  if (tma_IsLatchCell (fig) && (!getptype (node->ROOT->USER, TTV_SIG_ASYNCHRON))) { // transparancy 
+                  if (tma_IsLatchCell (fig) && (!getptype (node->ROOT->USER, TTV_SIG_ASYNCHRON))) { /* transparancy */
                      transpmaxlist = tma_GetPath (fig, root, NULL, TTV_FIND_MAX);
                      for (transpmax = transpmaxlist; transpmax; transpmax = transpmax->NEXT) {
                         if ((transpmax->ROOT->ROOT->TYPE & TTV_SIG_CO) == TTV_SIG_CO) {
@@ -2163,10 +2163,10 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                   }
                }
 
-               // Anything with setup or hold lines on it -------------------------------------------
+               /* Anything with setup or hold lines on it -------------------------------------------*/
                
                ttv_getsigname (fig, rname, root->ROOT);
-               if (((root->ROOT->TYPE & TTV_SIG_LL) == TTV_SIG_LL)  // latch model blackbox or tasMemoryCharacterization
+               if (((root->ROOT->TYPE & TTV_SIG_LL) == TTV_SIG_LL)  /* latch model blackbox or tasMemoryCharacterization*/
                    && !((root->ROOT->TYPE & TTV_SIG_LR) == TTV_SIG_LR)
                    && !((root->ROOT->TYPE & TTV_SIG_LS) == TTV_SIG_LS)) {
                    if (verbose) avt_trace (3, stdout, "To Latch Black %s\n", rname);
@@ -2176,13 +2176,13 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                    tma_CreateBreakSH (fig, cmd, root, mdmin, mdmax, dmin, dmax, msmin, msmax, &setuplist, &holdlist);
                }
                
-               // Precharge -------------------------------------------------------------------------
+               /* Precharge -------------------------------------------------------------------------*/
               
                if ((root->ROOT->TYPE & TTV_SIG_R) == TTV_SIG_R) {
                   ttv_getsigname (fig, rname, root->ROOT);
                   if (verbose)
                       avt_trace (3, stdout, "To precharged signal %s\n", rname);
-                  if (tma_IsPrLine (node, root)) { // Precharge line
+                  if (tma_IsPrLine (node, root)) { /* Precharge line*/
                      
                      if (!(cklist = tma_GetPath (fig, NULL, root, TTV_FIND_MIN | TTV_FIND_PR)))
                         cklist = tma_GetPath (fig, NULL, root, TTV_FIND_MAX | TTV_FIND_PR);
@@ -2193,7 +2193,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                      holdlist = tma_AddHList (holdlist, 0, NULL, dmin, mdmin, msmin, cklist, NULL);
                      tma_FreePathList (cklist);
                   } 
-                  if (tma_IsEvLine (node, root)) { // Eval Line
+                  if (tma_IsEvLine (node, root)) { /* Eval Line*/
                    
                      if (!(cklist = tma_GetPath (fig, NULL, root, TTV_FIND_MIN | TTV_FIND_EV)))
                         cklist = tma_GetPath (fig, NULL, root, TTV_FIND_MIN | TTV_FIND_EV);
@@ -2207,7 +2207,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                   }
                }
 
-               // Command -------------------------------------------------------------------------
+               /* Command -------------------------------------------------------------------------*/
                
                if ((root->ROOT->TYPE & TTV_SIG_Q) == TTV_SIG_Q) { 
                   ttv_getsigname (fig, rname, root->ROOT);
@@ -2259,9 +2259,9 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
          }
       }
 
-      //----------------------------------------------------------------------------------------------------
-      // Access
-      //----------------------------------------------------------------------------------------------------
+      /*----------------------------------------------------------------------------------------------------*/
+      /* Access*/
+      /*----------------------------------------------------------------------------------------------------*/
       
       if ((((sigc->TYPE & TTV_SIG_CO) == TTV_SIG_CO || (sigc->TYPE & TTV_SIG_CB) == TTV_SIG_CB || (sigc->TYPE & TTV_SIG_CT) == TTV_SIG_CT))) {
           
@@ -2274,7 +2274,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
             amaxlist = NULL;
             tma_InitModelList ();
 
-            // Report des access des breakpoints directement connectes a l'interface 
+            /* Report des access des breakpoints directement connectes a l'interface */
             if (!pathmaxlist) {
                 avt_log( LOGTMA, 2, "No path found. Reporting existing access to the boundary\n" );
                 tma_CreateBreakAccess (fig, &sigc->NODE[event], NULL, NULL, NULL, NULL, 0, 0, 0, 0, &aminlist, &amaxlist, 0, 0);
@@ -2289,7 +2289,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                root   = pathmax->ROOT;
                cmd    = pathmax->CMD;
 
-               // Get corresponding min path
+               /* Get corresponding min path*/
                pathmin = tma_GetPath (fig, node, root, TTV_FIND_MIN);
                dmax   = pathmax->DELAY;
                smax   = pathmax->SLOPE;
@@ -2316,14 +2316,14 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                       );
                tma_FreePathList (pathmin);
 
-               // Add Transparancy delta
+               /* Add Transparancy delta*/
                if (((node->ROOT->TYPE & TTV_SIG_LL) == TTV_SIG_LL) 
                  && !(((node->ROOT->TYPE & TTV_SIG_LR) == TTV_SIG_LR) || ((node->ROOT->TYPE & TTV_SIG_LS) == TTV_SIG_LS))) {
                   tma_GetSTBdelta (stbfig, node, &deltamin, &deltamax);
                   avt_log( LOGTMA, 2, "transparancy : deltamin=%ld deltamax=%ld\n", deltamin, deltamax );
                }
 
-               // Flip-flop ---------------------------------------------------------------
+               /* Flip-flop ---------------------------------------------------------------*/
                
                if (((node->ROOT->TYPE & TTV_SIG_LF) == TTV_SIG_LF)
                  && !(((node->ROOT->TYPE & TTV_SIG_LR) == TTV_SIG_LR) || ((node->ROOT->TYPE & TTV_SIG_LS) == TTV_SIG_LS))
@@ -2354,7 +2354,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                   if (cmdlist) freechain (cmdlist);
                }
 
-               // Latch ---------------------------------------------------------------
+               /* Latch ---------------------------------------------------------------*/
                
 
                if (((node->ROOT->TYPE & TTV_SIG_LL) == TTV_SIG_LL) 
@@ -2394,7 +2394,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                      freechain (cmdlist);
                }
                
-               // Asynchron ------------------------------------------------------------
+               /* Asynchron ------------------------------------------------------------*/
                
                if (((node->ROOT->TYPE & TTV_SIG_LL) == TTV_SIG_LL) 
                  && !(((node->ROOT->TYPE & TTV_SIG_LR) == TTV_SIG_LR) || ((node->ROOT->TYPE & TTV_SIG_LS) == TTV_SIG_LS))
@@ -2443,13 +2443,13 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                   }
                }
                
-               // Anything with access lines on it -------------------------------------------
+               /* Anything with access lines on it -------------------------------------------*/
               
                if((pathmax->TYPE & TTV_FIND_HZ) != TTV_FIND_HZ)
                    avt_log( LOGTMA, 1, "from anything\n"  );
                    tma_CreateBreakAccess (fig, node, mdmin, mdmax, msmin, msmax, dmin, dmax, smin, smax, &aminlist, &amaxlist, deltamin, deltamax);
 
-               // Precharge -------------------------------------------------------------------------
+               /* Precharge -------------------------------------------------------------------------*/
 
                if (((node->ROOT->TYPE & TTV_SIG_R) == TTV_SIG_R) && ((pathmax->TYPE & TTV_FIND_HZ) != TTV_FIND_HZ)) {
                   ttv_getsigname (fig, nname, node->ROOT);
@@ -2465,7 +2465,7 @@ ttvfig_list *tma_CreateBlackBox (ttvfig_list *fig, char *suffix)
                   tma_FreePathList (cklist);
                }
                
-               // Connector -------------------------------------------------------------------------
+               /* Connector -------------------------------------------------------------------------*/
                
                if ((node->ROOT->TYPE & TTV_SIG_C) == TTV_SIG_C) { 
                   ttv_getsigname (fig, nname, node->ROOT);
@@ -2756,7 +2756,7 @@ void tma_DetectClocksFromBeh (ttvfig_list *fig, befig_list *befig)
                  ifl=addinffig(fig->INFO->FIGNAME);
               inf_AddInt(ifl, INF_LOADED_LOCATION, sig->NAME, INF_CLOCK_TYPE, 0, NULL);
             }
-//		         sig->USER = addptype (sig->USER, TTV_SIG_CLOCK, 0) ;
+/*		         sig->USER = addptype (sig->USER, TTV_SIG_CLOCK, 0) ;*/
          if (tma_IsInList (setlist, sig->NAME))
             if (!getptype (sig->USER, TTV_SIG_ASYNCHRON))
             {
@@ -2764,7 +2764,7 @@ void tma_DetectClocksFromBeh (ttvfig_list *fig, befig_list *befig)
                  ifl=addinffig(fig->INFO->FIGNAME);
               inf_AddString(ifl, INF_LOADED_LOCATION, sig->NAME, INF_ASYNCHRON, NULL, NULL);
             }
-//		         sig->USER = addptype (sig->USER, TTV_SIG_ASYNCHRON, 0) ;
+/*		         sig->USER = addptype (sig->USER, TTV_SIG_ASYNCHRON, 0) ;*/
          if (tma_IsInList (resetlist, sig->NAME))
             if (!getptype (sig->USER, TTV_SIG_ASYNCHRON))
             {
@@ -2772,7 +2772,7 @@ void tma_DetectClocksFromBeh (ttvfig_list *fig, befig_list *befig)
                  ifl=addinffig(fig->INFO->FIGNAME);
               inf_AddString(ifl, INF_LOADED_LOCATION, sig->NAME, INF_ASYNCHRON, NULL, NULL);
             }
-//         sig->USER = addptype (sig->USER, TTV_SIG_ASYNCHRON, 0) ;
+/*         sig->USER = addptype (sig->USER, TTV_SIG_ASYNCHRON, 0) ;*/
       }
    }
    freechain(clocklist);

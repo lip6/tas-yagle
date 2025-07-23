@@ -31,7 +31,7 @@
 *****************************************************************************/
 /*ptsignode = (signode_ctc*)mbkalloc (sizeof (struct signode_ctc));*/
 
-int yyerror();
+int yyerror(char*);
 int yylex();
 extern spef_info *SPEF_INFO;
 extern char *vss;
@@ -271,9 +271,9 @@ induc_elm            : _POS_INTEGER node_name node_name par_value { mbkfree($2);
 empty                : { } ;
 %%
 
-//extern char stbtext[] ;
+/*extern char stbtext[] ;*/
 
-int yyerror()
+int yyerror(char* unused)
 {
   printf("\nSPEF Parser:%s:%d: Syntax Error.\n", spef_ParsedFile, Line) ;
   return 0;

@@ -19,9 +19,9 @@
 
 #include "tas.h"
 
-//extern int   infAddList          __P(( char*, long, char, void * ));
-//extern int   ttv_jokersubst      __P(( char*, char*, char ));
-//extern char* yagGetName          __P(( losig_list* ));
+/*extern int   infAddList          __P(( char*, long, char, void * ));*/
+/*extern int   ttv_jokersubst      __P(( char*, char*, char ));*/
+/*extern char* yagGetName          __P(( losig_list* ));*/
 
 /*****************************************************************************/
 /*                        function tas_setsigname()                          */
@@ -828,7 +828,7 @@ int init_timing(ptfig)
             {
               edge_list  *incone ;
 
-              locon = (locon_list *)cl->DATA; //ptype->DATA ;
+              locon = (locon_list *)cl->DATA; /*ptype->DATA ;*/
 
               /*-------------------------------------------------------------*/
               /* si un cone est monte sur un connecteur INOUT, ce connecteur */
@@ -2311,7 +2311,7 @@ int tas_StuckAt(cnsfig)
         {
           chain_list *cl;
           cl=cns_get_cone_external_connectors(cone);
-//            ptuser = getptype(cone->USER, CNS_EXT);
+/*            ptuser = getptype(cone->USER, CNS_EXT);*/
           while (cl!=NULL)
           {
             if (/*ptuser != NULL &&*/ TAS_CONTEXT->TAS_PRES_CON_DIR == 'N')
@@ -2369,8 +2369,8 @@ list_list *tas_AddList(head,type,data,user)
 /*                          fonction tas_traiteinout()                      */
 /* traitement des pathin et pathout du fichier .inf                         */
 /****************************************************************************/
-//list_list *tas_traiteinout(list)
-//     list_list  *list  ;
+/*list_list *tas_traiteinout(list)*/
+/*     list_list  *list  ;*/
 void tas_traiteinout(inffig_list *ifl)
 {
   chain_list *lst0;
@@ -2438,7 +2438,7 @@ void tas_traiteinout(inffig_list *ifl)
   if((TTV_NAME_IN != NULL) && (TTV_NAME_OUT == NULL))
     TTV_NAME_OUT = addchain(NULL,(void *)namealloc("*")) ;
 
-//  return(list) ;
+/*  return(list) ;*/
 }
 
 /****************************************************************************/
@@ -2488,8 +2488,8 @@ list_list *tas_GetAliasSig(lofig,list)
               /* recherche du signal ayant le meme nom */
               for(namechain = losig->NAMECHAIN ; namechain != NULL ;
                   namechain = namechain->NEXT)
-                //if((namechain->DATA == ptsubd) ||
-                //   (ttv_jokersubst(ttv_revect(namechain->DATA),list->DATA,'*') == 1))
+                /*if((namechain->DATA == ptsubd) ||*/
+                /*   (ttv_jokersubst(ttv_revect(namechain->DATA),list->DATA,'*') == 1))*/
                 if((namechain->DATA == ptsubd) ||
                    (mbk_TestREGEX(ttv_revect(namechain->DATA),list->DATA)))
                   {

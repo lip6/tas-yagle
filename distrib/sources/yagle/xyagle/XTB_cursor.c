@@ -44,10 +44,7 @@ static char     XyagCursorMaskAnd[8] =
 |                      XyagSetMouseCursor                    |
 \------------------------------------------------------------*/
 
-void 
-XyagSetMouseCursor(MainWidget, CursorType)
-    Widget          MainWidget;
-    int             CursorType;
+void XyagSetMouseCursor( Widget MainWidget, int CursorType )
 {
     Display        *DisplayId;
     Window          MainWindow;

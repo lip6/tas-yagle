@@ -114,16 +114,16 @@ createTabLoc (len)
   if (!(pTab = (pTableLoc) mbkalloc (sizeof (struct tableLoc))))
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"158");
-//      printf ("allocation impossible\n");
-//      EXIT (-1);
+/*      printf ("allocation impossible\n");*/
+/*      EXIT (-1);*/
     }
   pTab->lenTabLoc = len;
 
   if (!(pLoc = (pVertexLoc) mbkalloc (len * sizeof (struct vertexLoc))))
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"159");
-//      printf ("allocation impossible\n");
-//      EXIT (-1);
+/*      printf ("allocation impossible\n");*/
+/*      EXIT (-1);*/
     }
   pTab->pLoc = pLoc;
   for (i = 0; i < len; i++)

@@ -32,9 +32,9 @@ void mbk_set_rc_external(locon_list *lc)
   p->DATA=(void *)0;
 }
 
-// renvoie la liste de tous les models utilisés dans la hierarchie
-// d'une lofig dans l'ordre inverse (bas niveau -> top niveau)
-// tabin doit valoir NULL
+/* renvoie la liste de tous les models utilisés dans la hierarchie */
+/* d'une lofig dans l'ordre inverse (bas niveau -> top niveau) */
+/* tabin doit valoir NULL */
 void mbk_build_hierarchy_list(lofig_list *lf, ht *tabin, chain_list **list)
 {
   ht *tab;
@@ -216,7 +216,7 @@ static lofig_list *duplicategnsinstance(lofig_list *mainlf, loins_list *gnsli, i
   
   transcl=append(dupchainlst(transcl), paral);
 
-  // marquage des connecteurs de transistors
+/* marquage des connecteurs de transistors */
   for (cl=transcl; cl!=NULL; cl=cl->NEXT)
     {
       tr=(lotrs_list *)cl->DATA;
@@ -308,7 +308,7 @@ static lofig_list *duplicategnsinstance(lofig_list *mainlf, loins_list *gnsli, i
 
   reslf->LOCON=(locon_list *)reverse((chain_list *)reslf->LOCON);
 
-  // duplication des transistors
+/* duplication des transistors */
   cnt=0;
   for (cl=transcl; cl!=NULL; cl=cl->NEXT)
     {
@@ -318,7 +318,7 @@ static lofig_list *duplicategnsinstance(lofig_list *mainlf, loins_list *gnsli, i
       reslf->LOTRS=newtr;
     }
 
-  // duplication des instances
+/* duplication des instances */
   for (cl=inscl; cl!=NULL; cl=cl->NEXT)
     {
       li=(loins_list *)cl->DATA;
@@ -327,7 +327,6 @@ static lofig_list *duplicategnsinstance(lofig_list *mainlf, loins_list *gnsli, i
       reslf->LOINS=newli;
     }
 
-  //
   lofigchain(reslf);
 
   freechain(transcl);
@@ -382,7 +381,7 @@ static void addrcininstance(lofig_list *mainlf, lofig_list *inslf)
  
       if (dir==0) 
         {
-          // RC are external
+        /* RC are external */
           pt=getptype(ls->USER, LOFIGCHAIN);
           for (cl=(chain_list *)pt->DATA; cl!=NULL; cl=cl->NEXT)
             {
@@ -403,7 +402,7 @@ static void addrcininstance(lofig_list *mainlf, lofig_list *inslf)
         }
       else
         {
-          // RC are internal
+          /* RC are internal*/
           pt=getptype(ls->USER, LOFIGCHAIN);
           for (cl=(chain_list *)pt->DATA; cl!=NULL; cl=cl->NEXT)
             {
@@ -441,7 +440,7 @@ static void addrcininstance(lofig_list *mainlf, lofig_list *inslf)
 
       if ((sig->FLAGS & TAGGED_TAG)==0)
         {
-          // PNODE pour les signaux internes
+          /* PNODE pour les signaux internes*/
           pt=getptype(ls->USER, LOFIGCHAIN);
           for (cl=(chain_list *)pt->DATA; cl!=NULL; cl=cl->NEXT)
             {
@@ -461,14 +460,14 @@ static void addrcininstance(lofig_list *mainlf, lofig_list *inslf)
 
       rcn_refresh_signal(mainlf, ls);
 
-      // WIRE
+      /* WIRE*/
       for (wire = ls->PRCN->PWIRE; wire!=NULL; wire = wire->NEXT) 
         {
           addlowire (sig, 0, wire->RESI, wire->CAPA, wire->NODE1, wire->NODE2);
           resitotal++;
         }
 
-      // CTC
+      /* CTC*/
       for (cl = ls->PRCN->PCTC; cl!=NULL; cl = cl->NEXT)
         {
           ctc = (loctc_list*)cl->DATA;
@@ -497,7 +496,7 @@ static void addrcininstance(lofig_list *mainlf, lofig_list *inslf)
       ls->FLAGS|=RCTAKEN_TAG|DONECTC_TAG;
     }
 
-  // some cleanup and update
+  /* some cleanup and update*/
   for (sig=inslf->LOSIG; sig!=NULL; sig=sig->NEXT)
     {
       ls=(losig_list *)getcorresp(&sig->USER);
@@ -593,7 +592,7 @@ static lofig_list *duplicatemainfigure(lofig_list *mainlf, chain_list *gnsinscl,
 
   reslf->LOCON=(locon_list *)reverse((chain_list *)reslf->LOCON);
 
-  // duplication des transistors
+  /* duplication des transistors*/
   for (cl=transcl; cl!=NULL; cl=cl->NEXT)
     {
       tr=(lotrs_list *)cl->DATA;
@@ -601,7 +600,7 @@ static lofig_list *duplicatemainfigure(lofig_list *mainlf, chain_list *gnsinscl,
       newtr->NEXT=reslf->LOTRS;
       reslf->LOTRS=newtr;
     }
-  // duplication des instances
+  /* duplication des instances*/
   for (cl=inscl; cl!=NULL; cl=cl->NEXT)
     {
       li=(loins_list *)cl->DATA;
@@ -616,7 +615,7 @@ static lofig_list *duplicatemainfigure(lofig_list *mainlf, chain_list *gnsinscl,
       *dupgnsinscl=addchain(*dupgnsinscl, ADDGNSLOINS(reslf, getloadedlofig(insfigname)));
     }
 
-  //
+  /**/
   lofigchain(reslf);
 
   freechain(transcl);
@@ -646,7 +645,7 @@ static void addmainfigurerc(lofig_list *mainlf, lofig_list *maincutlf, chain_lis
       EXIT(1);
     }
 
-  // set gns instance pnode in the right order
+  /* set gns instance pnode in the right order*/
   for (cl=newgnsinscl; cl!=NULL; cl=cl->NEXT)
     {
       li=(loins_list *)cl->DATA;
@@ -656,7 +655,7 @@ static void addmainfigurerc(lofig_list *mainlf, lofig_list *maincutlf, chain_lis
         {
           lc->SIG->FLAGS|=TAGGED_TAG;
           ls=(losig_list *)getcorresp(&lc->SIG->USER);
-          //          if ((ls->FLAGS & RCTAKEN_TAG)!=0) continue;
+          /*          if ((ls->FLAGS & RCTAKEN_TAG)!=0) continue;*/
           if (!ls->PRCN || (ls->PRCN->PWIRE==NULL && ls->PRCN->PCTC==NULL)) continue;
           if (lc->SIG->PRCN==NULL) addlorcnet (lc->SIG);
           for (nm=lc0->PNODE; nm!=NULL; nm=nm->NEXT)
@@ -672,13 +671,13 @@ static void addmainfigurerc(lofig_list *mainlf, lofig_list *maincutlf, chain_lis
     {
 
       ls=(losig_list *)getcorresp(&sig->USER);
-      //      if ((ls->FLAGS & RCTAKEN_TAG)!=0) continue;
+      /*      if ((ls->FLAGS & RCTAKEN_TAG)!=0) continue;*/
 
       if (!ls->PRCN || (ls->PRCN->PWIRE==NULL && ls->PRCN->PCTC==NULL)) continue;
 
       if (sig->PRCN==NULL) addlorcnet (sig);
 
-      // PNODE pour les autres internes
+      /* PNODE pour les autres internes*/
       pt=getptype(ls->USER, LOFIGCHAIN);
       for (cl=(chain_list *)pt->DATA; cl!=NULL; cl=cl->NEXT)
         {
@@ -697,15 +696,15 @@ static void addmainfigurerc(lofig_list *mainlf, lofig_list *maincutlf, chain_lis
 
       rcn_refresh_signal(mainlf, ls);
 
-      //      printf(" - ---------- traite %s\n",gen_losigname(ls));
-      // WIRE
+      /*      printf(" - ---------- traite %s\n",gen_losigname(ls));*/
+      /* WIRE*/
       for (wire = ls->PRCN->PWIRE; wire!=NULL; wire = wire->NEXT) 
         {
           addlowire (sig, 0, wire->RESI, wire->CAPA, wire->NODE1, wire->NODE2);
           resitotal++;
         }
 
-      // CTC
+      /* CTC*/
       for (cl = ls->PRCN->PCTC; cl!=NULL; cl = cl->NEXT)
         {
           ctc = (loctc_list*)cl->DATA;
@@ -735,7 +734,7 @@ static void addmainfigurerc(lofig_list *mainlf, lofig_list *maincutlf, chain_lis
       ls->FLAGS|=RCTAKEN_TAG;
     }
 
-  // some cleanup and update
+  /* some cleanup and update*/
   for (sig=maincutlf->LOSIG; sig!=NULL; sig=sig->NEXT)
     {
       ls=(losig_list *)getcorresp(&sig->USER);
@@ -751,7 +750,7 @@ static void addmainfigurerc(lofig_list *mainlf, lofig_list *maincutlf, chain_lis
             delcorresp(&lc0->USER);
           delcorresp(&lc->USER);
         }
-      //      if ((sig->FLAGS & NORC_TAG)!=0) continue;
+      /*      if ((sig->FLAGS & NORC_TAG)!=0) continue;*/
     }
 
   rcn_mergectclofig(maincutlf);
@@ -780,7 +779,7 @@ lofig_list *mbk_modify_hierarchy(lofig_list *bbox, chain_list *recognised, int p
       insfig=duplicategnsinstance(bbox, (loins_list *)cl->DATA, paralleltransistorwerehidden);
       addrcininstance(bbox, insfig);
 
-      //      savelofig(insfig);
+      /*      savelofig(insfig);*/
 
       for (ls=bbox->LOSIG; ls!=NULL; ls=ls->NEXT)
         {
@@ -789,7 +788,7 @@ lofig_list *mbk_modify_hierarchy(lofig_list *bbox, chain_list *recognised, int p
     }
   rootfig=duplicatemainfigure(bbox, recognised, &cl);
   addmainfigurerc(bbox, rootfig, cl);
-  //  savelofig(rootfig);
+  /*  savelofig(rootfig);*/
 
   avt_fprintf(stdout,"\n");
 

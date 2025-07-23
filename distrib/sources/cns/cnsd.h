@@ -76,7 +76,7 @@
 #define CNS_TEMP_SUPPLY    ((long) 0x00002300)
 
 /* types for the TYPE field of links */
-                                                                                                                                                                 /* mask from right to left: power type, number of equipipotentials, active or *//* passive type */
+/* mask from right to left: power type, number of equipipotentials, active or passive type */
 #define CNS_IN             ((long) 0x00003000)  /* In (input connector) */
 #define CNS_INOUT          ((long) 0x00005000)  /* InOut (output connector) */
 #define CNS_2EQUIP         ((long) 0x00000010)

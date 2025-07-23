@@ -14,26 +14,20 @@
 
 #include "fcl_headers.h"
 
-static int      mark_cell_links();
-static void     mark_cell_interface();
+static int      mark_cell_links( losig_list *ptlosig, matrice_list *ptmatrice, matrice_list *ptsolution );
+static void     mark_cell_interface( losig_list *ptlosig_model, losig_list *ptlosig );
 
-static void     mark_cell();
-static befig_list *make_cell_befig();
-static char    *get_instance_name();
-static chain_list *get_instance_abl();
-static loins_list *build_instance();
-static void     write_solution();
-static void     make_fcl_locon();
-static void     make_correspondance_list();
-static void     fcl_markconstraints();
+static void         mark_cell( cell_list *ptcell, befig_list *ptbefig_model, ht *nameht );
+static befig_list * make_cell_befig( befig_list *ptbefig_model, ht *nameht, int num );
+static char       * get_instance_name( ht *nameht, char *modelname, char *prefix );
+static chain_list * get_instance_abl( ht *nameht, chain_list *expr, char *prefix );
+static loins_list * build_instance( matrice_list *ptmatrice, matrice_list *ptsolution, lofig_list *ptlofig_m, ht *instanceht, int num );
+static void         write_solution( matrice_list *ptmatrice, matrice_list *ptsolution, char *name, int numins );
+static void         make_fcl_locon( losig_list *ptlosig );
+static void         make_correspondance_list( matrice_list *ptmatrice, matrice_list *ptsolution );
+static void         fcl_markconstraints( lofig_list *ptlofig_c, lofig_list *ptlofig_m, ht *nameht );
 
-int
-fclTestSolutions(ptmatrice, ptlofig_c, ptlofig_m, ptbefig_m, instance)
-    matrice_list   *ptmatrice;
-    lofig_list     *ptlofig_c;
-    lofig_list     *ptlofig_m;
-    befig_list     *ptbefig_m;
-    int            *instance;
+int fclTestSolutions( matrice_list *ptmatrice, lofig_list *ptlofig_c, lofig_list *ptlofig_m, befig_list *ptbefig_m, int *instance )
 {
     losig_list     *ptlosig;        /* SIGNAL de la solution */
     losig_list     *ptlosig_model;  /* SIGNAL du model       */
@@ -246,11 +240,7 @@ fclTestSolutions(ptmatrice, ptlofig_c, ptlofig_m, ptbefig_m, instance)
     return TRUE;
 }
 
-static int
-mark_cell_links(ptlosig, ptmatrice, ptsolution)
-    losig_list     *ptlosig;
-    matrice_list   *ptmatrice;
-    matrice_list   *ptsolution;
+static int mark_cell_links( losig_list *ptlosig, matrice_list *ptmatrice, matrice_list *ptsolution )
 {
     losig_list     *ptlosig_model;
     locon_list     *ptlocon;
@@ -309,10 +299,7 @@ mark_cell_links(ptlosig, ptmatrice, ptsolution)
     return TRUE;
 }
 
-static void
-mark_cell_interface(ptlosig_model, ptlosig)
-    losig_list     *ptlosig_model;
-    losig_list     *ptlosig;
+static void mark_cell_interface( losig_list *ptlosig_model, losig_list *ptlosig )
 {
     locon_list     *ptlocon;
     ptype_list     *ptype;
@@ -350,11 +337,7 @@ mark_cell_interface(ptlosig_model, ptlosig)
     }
 }
 
-static void
-mark_cell(ptcell, ptbefig_model, nameht)
-    cell_list      *ptcell;
-    befig_list     *ptbefig_model;
-    ht             *nameht;
+static void mark_cell( cell_list *ptcell, befig_list *ptbefig_model, ht *nameht )
 {
     losig_list     *ptlosig;
     bepor_list     *ptbepor;
@@ -379,11 +362,7 @@ mark_cell(ptcell, ptbefig_model, nameht)
     ptcell->USER = addptype(ptcell->USER, YAG_SIGLIST_PTYPE, sigchain);
 }
 
-static befig_list *
-make_cell_befig(ptbefig_model, nameht, num)
-    befig_list     *ptbefig_model;
-    ht             *nameht;
-    int             num;
+static befig_list * make_cell_befig( befig_list *ptbefig_model, ht *nameht, int num )
 {
     befig_list     *ptbefig;
     bepor_list     *ptbepor;
@@ -490,11 +469,7 @@ make_cell_befig(ptbefig_model, nameht, num)
     return ptbefig;
 }
 
-static char    *
-get_instance_name(nameht, modelname, prefix)
-    ht             *nameht;
-    char           *modelname;
-    char           *prefix;
+static char * get_instance_name( ht *nameht, char *modelname, char *prefix )
 {
     losig_list     *ptlosig;
     char            buffer[80];
@@ -514,11 +489,7 @@ get_instance_name(nameht, modelname, prefix)
     return (char *) ptlosig->NAMECHAIN->DATA;
 }
 
-static chain_list *
-get_instance_abl(nameht, expr, prefix)
-    ht             *nameht;
-    chain_list     *expr;
-    char           *prefix;
+static chain_list * get_instance_abl( ht *nameht, chain_list *expr, char *prefix )
 {
     if (ATOM(expr)) {
         if (strcmp(VALUE_ATOM(expr), "'d'")
@@ -551,12 +522,7 @@ get_instance_abl(nameht, expr, prefix)
     }
 }
 
-void
-fclMarkInstances(ptlofig, instances, delete, fromcnsfig)
-    lofig_list     *ptlofig;
-    chain_list     *instances;
-    int             delete;
-    int             fromcnsfig;
+void fclMarkInstances( lofig_list *ptlofig, chain_list *instances, int delete, int fromcnsfig )
 {
     chain_list     *ptchain, *ptchain1, *ptchain2;
     chain_list     *translist;
@@ -684,13 +650,7 @@ fclMarkInstances(ptlofig, instances, delete, fromcnsfig)
     }
 }
 
-static loins_list *
-build_instance(ptmatrice, ptsolution, ptlofig_m, instanceht, num)
-    matrice_list   *ptmatrice;
-    matrice_list   *ptsolution;
-    lofig_list     *ptlofig_m;
-    ht             *instanceht;
-    int             num;
+static loins_list * build_instance( matrice_list *ptmatrice, matrice_list *ptsolution, lofig_list *ptlofig_m, ht *instanceht, int num )
 {
     locon_list     *ptlocon;
     locon_list     *ptnewcon;
@@ -758,12 +718,7 @@ build_instance(ptmatrice, ptsolution, ptlofig_m, instanceht, num)
     return ptloins;
 }
 
-static void
-write_solution(ptmatrice, ptsolution, name, numins)
-    matrice_list   *ptmatrice;
-    matrice_list   *ptsolution;
-    char           *name;
-    int             numins;
+static void write_solution( matrice_list *ptmatrice, matrice_list *ptsolution, char *name, int numins )
 {
     lotrs_list     *ptlotrs_model;
     lotrs_list     *ptlotrs;
@@ -823,10 +778,7 @@ write_solution(ptmatrice, ptsolution, name, numins)
     fprintf(FCL_OUTPUT, "\n");
 }
 
-static void
-make_correspondance_list(ptmatrice, ptsolution)
-    matrice_list   *ptmatrice;
-    matrice_list   *ptsolution;
+static void make_correspondance_list( matrice_list *ptmatrice, matrice_list *ptsolution )
 {
     fclcorresp_list *ptnewcorresp;
     int             i;
@@ -841,9 +793,7 @@ make_correspondance_list(ptmatrice, ptsolution)
     }
 }
 
-static void
-make_fcl_locon(ptlosig)
-    losig_list *ptlosig;
+static void make_fcl_locon( losig_list *ptlosig )
 {
     locon_list *ptlocon;
     ptype_list *ptuser;
@@ -866,11 +816,7 @@ make_fcl_locon(ptlosig)
     }
 }
 
-static void
-fcl_markconstraints(ptlofig_c, ptlofig_m, nameht)
-    lofig_list *ptlofig_c;
-    lofig_list *ptlofig_m;
-    ht         *nameht;
+static void fcl_markconstraints( lofig_list *ptlofig_c, lofig_list *ptlofig_m, ht *nameht )
 {
     losig_list *ptlosig;
     chain_list *ptchain, *ptlistchain, *newchain;
@@ -893,7 +839,7 @@ fcl_markconstraints(ptlofig_c, ptlofig_m, nameht)
                 }
             }
             inf_AddList(INF_FIG, INF_LOADED_LOCATION, INF_CMPU, "", newchain, NULL);
-//            ifl->LOADED.INF_CMPU = addchain(ifl->LOADED.INF_CMPU, newchain);
+/*            ifl->LOADED.INF_CMPU = addchain(ifl->LOADED.INF_CMPU, newchain);*/
         }
     }
     if ((ptuser = getptype(ptlofig_m->USER, FCL_CMPDN_PTYPE)) != NULL) {
@@ -909,7 +855,7 @@ fcl_markconstraints(ptlofig_c, ptlofig_m, nameht)
                 }
             }
             inf_AddList(INF_FIG, INF_LOADED_LOCATION, INF_CMPD, "", newchain, NULL);
-//            ifl->LOADED.INF_CMPD = addchain(ifl->LOADED.INF_CMPD, newchain);
+/*            ifl->LOADED.INF_CMPD = addchain(ifl->LOADED.INF_CMPD, newchain);*/
         }
     }
     if ((ptuser = getptype(ptlofig_m->USER, FCL_MUXUP_PTYPE)) != NULL) {
@@ -925,7 +871,7 @@ fcl_markconstraints(ptlofig_c, ptlofig_m, nameht)
                 }
             }
             inf_AddList(INF_FIG, INF_LOADED_LOCATION, INF_MUXU, "", newchain, NULL);
-//            ifl->LOADED.INF_MUXU = addchain(ifl->LOADED.INF_MUXU, newchain);
+/*            ifl->LOADED.INF_MUXU = addchain(ifl->LOADED.INF_MUXU, newchain);*/
         }
     }
     if ((ptuser = getptype(ptlofig_m->USER, FCL_MUXDN_PTYPE)) != NULL) {
@@ -941,7 +887,7 @@ fcl_markconstraints(ptlofig_c, ptlofig_m, nameht)
                 }
             }
             inf_AddList(INF_FIG, INF_LOADED_LOCATION, INF_MUXD, "", newchain, NULL);
-//            ifl->LOADED.INF_MUXD = addchain(ifl->LOADED.INF_MUXD, newchain);
+/*            ifl->LOADED.INF_MUXD = addchain(ifl->LOADED.INF_MUXD, newchain);*/
         }
     }
     if ((ptuser = getptype(ptlofig_m->USER, FCL_NETOUTPUT_PTYPE)) != NULL) {

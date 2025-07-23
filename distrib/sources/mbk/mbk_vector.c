@@ -20,16 +20,16 @@ static int                       MBV_ELT_SIZE       = 0;
 static AdvancedNameAllocator    *MBV_NAME_ALLOCATOR = NULL; 
 static char                     *MBV_NO_CORRESP     = 0;
 
-static inline void       addAtIndex(ht *tbl, char *key, char *corresp, int index);
-static inline mbv_tab   *newmbv_tab(ht *tbl, char *key, int left, int right);
-static inline long       getElt(mbv_tab *table, int index);
-static inline void       addElt(mbv_tab *table, int index, long elt);
-static inline void       addName(mbv_tab *table, int index, char *corresp, int nameallocate);
-static inline char      *transName(mbv_tab *table, int index, char *buf);
-static inline char      *getCorresp(ht *tbl, mbv_tab *table, int index, char *name, char *buf, int del);
-static inline void       addInHt(ht *tbl, char *key, mbv_tab *table);
-static inline void       resize(mbv_tab *table, int index, int dep);
-static inline void       reverseTbl(mbv_tab *table);
+static  void       addAtIndex(ht *tbl, char *key, char *corresp, int index);
+static  mbv_tab   *newmbv_tab(ht *tbl, char *key, int left, int right);
+static  long       getElt(mbv_tab *table, int index);
+static  void       addElt(mbv_tab *table, int index, long elt);
+static  void       addName(mbv_tab *table, int index, char *corresp, int nameallocate);
+static  char      *transName(mbv_tab *table, int index, char *buf);
+static  char      *getCorresp(ht *tbl, mbv_tab *table, int index, char *name, char *buf, int del);
+static  void       addInHt(ht *tbl, char *key, mbv_tab *table);
+static  void       resize(mbv_tab *table, int index, int dep);
+static  void       reverseTbl(mbv_tab *table);
 
 mbv_tab *mbv_resize(ht *tbl, char *key, int left, int right);
 
@@ -40,7 +40,7 @@ mbv_tab *mbv_resize(ht *tbl, char *key, int left, int right);
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void addElt(mbv_tab *table, int index, long elt)
+static  void addElt(mbv_tab *table, int index, long elt)
 {
   table->CPT ++;
   
@@ -55,7 +55,7 @@ static inline void addElt(mbv_tab *table, int index, long elt)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void addName(mbv_tab *table, int index, char *corresp,
+static  void addName(mbv_tab *table, int index, char *corresp,
                            int nameallocate)
 {
   table->CPT ++;
@@ -72,7 +72,7 @@ static inline void addName(mbv_tab *table, int index, char *corresp,
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline long getElt(mbv_tab *table, int index)
+static  long getElt(mbv_tab *table, int index)
 {
   if (MBV_NAME_ALLOCATOR)
     return (long)table->TABLE.NUM[index];
@@ -85,7 +85,7 @@ static inline long getElt(mbv_tab *table, int index)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void resize(mbv_tab *table, int index, int dep)
+static  void resize(mbv_tab *table, int index, int dep)
 {
   int        size, olds;
   void     *str;
@@ -96,7 +96,7 @@ static inline void resize(mbv_tab *table, int index, int dep)
     table->RIGHT        = index + dep;
     size                = table->RIGHT - table->LEFT + 1;
     str                 = mbkalloc(MBV_ELT_SIZE*size);
-    //memset(str + olds,0,MBV_ELT_SIZE*(size - olds));
+    /*memset(str + olds,0,MBV_ELT_SIZE*(size - olds));*/
     memset(str,0,MBV_ELT_SIZE*size);
     memcpy(str,table->TABLE.TAB,MBV_ELT_SIZE*olds);
     mbkfree(table->TABLE.TAB);
@@ -109,7 +109,7 @@ static inline void resize(mbv_tab *table, int index, int dep)
     size                = table->RIGHT - table->LEFT + 1;
     str                 = mbkalloc(MBV_ELT_SIZE*size);
     memset(str,0,MBV_ELT_SIZE*(size - olds));
-    //memcpy(str + size - olds,table->TABLE.TAB,MBV_ELT_SIZE*olds);
+    /*memcpy(str + size - olds,table->TABLE.TAB,MBV_ELT_SIZE*olds);*/
     memcpy(str + (size - olds)*MBV_ELT_SIZE,table->TABLE.TAB,MBV_ELT_SIZE*olds);
     mbkfree(table->TABLE.TAB);
     table->TABLE.TAB        = str;
@@ -121,7 +121,7 @@ static inline void resize(mbv_tab *table, int index, int dep)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void reverseTbl(mbv_tab *table)
+static  void reverseTbl(mbv_tab *table)
 {
   long       elt;
   int        size, i;
@@ -141,12 +141,12 @@ static inline void reverseTbl(mbv_tab *table)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void addInHt(ht *tbl, char *key, mbv_tab *table)
+static  void addInHt(ht *tbl, char *key, mbv_tab *table)
 {
   addhtitem(tbl,key,(long)table);
 }
 
-static inline int addInHtIfNew(ht *tbl, char *key, mbv_tab *table)
+static  int addInHtIfNew(ht *tbl, char *key, mbv_tab *table)
 {
   if (gethtitem(tbl,key)!=EMPTYHT) return 1;
   addhtitem(tbl,key,(long)table);
@@ -158,7 +158,7 @@ static inline int addInHtIfNew(ht *tbl, char *key, mbv_tab *table)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline mbv_tab *newmbv_tab(ht *tbl, char *key, int left, int right)
+static  mbv_tab *newmbv_tab(ht *tbl, char *key, int left, int right)
 {
   int        size;
   mbv_tab   *table;
@@ -186,7 +186,7 @@ static inline mbv_tab *newmbv_tab(ht *tbl, char *key, int left, int right)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline mbv_tab *dupmbv_tab(mbv_tab *table, char *prefix)
+static  mbv_tab *dupmbv_tab(mbv_tab *table, char *prefix)
 {
   mbv_tab   *res;
   int        i, size;
@@ -216,7 +216,7 @@ static inline mbv_tab *dupmbv_tab(mbv_tab *table, char *prefix)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void addAtIndex(ht *tbl, char *key, char *corresp, int index)
+static  void addAtIndex(ht *tbl, char *key, char *corresp, int index)
 {
   mbv_tab   *table;
   
@@ -231,7 +231,7 @@ static inline void addAtIndex(ht *tbl, char *key, char *corresp, int index)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline char *transName(mbv_tab *table, int index, char *buf)
+static  char *transName(mbv_tab *table, int index, char *buf)
 {
   if (MBV_NAME_ALLOCATOR)
   {
@@ -266,7 +266,7 @@ static inline char *transName(mbv_tab *table, int index, char *buf)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline char *getCorresp(ht *tbl, mbv_tab *table, int index, char *key,
+static  char *getCorresp(ht *tbl, mbv_tab *table, int index, char *key,
                                char *buf, int del)
 {
   char      *res;
@@ -325,112 +325,112 @@ void mbv_setNoCorrepondance(char *noCorrespString)
 }
 
 /*}}}************************************************************************/
-///*{{{                    mbv_changeRef()                                    */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//void mbv_changeRef(ht *oht, ht *nht, chain_list *old, chain_list *new)
-//{
-//  int        nleft, nright, oleft, oright, nm, om;
-//  int        size, k, ol, or, nl, nr;
-//  long       elt;
-//  char       nname[1024], oname[1024], buf[1024], *nkey, *okey;
-//  mbv_tab   *otable, *ntable;
-//
-//  
-//  for (; old && new; old = delchain(old,old), new = delchain(new,new))
-//  {
-//    nm              = sscanf(new->DATA,"%s%d:%d",nname,&nleft,&nright);
-//    om              = sscanf(old->DATA,"%s%d:%d",oname,&oleft,&oright);
-//    
-//    ol              = (oleft <= oright) ? oleft  : oright;
-//    or              = (oleft <= oright) ? oright : oleft;
-//    nl              = (nleft <= nright) ? nleft  : nright;
-//    nr              = (nleft <= nright) ? nright : nleft;
-//                 
-//    nkey            = namealloc(nname);
-//    okey            = namealloc(oname);
-//    
-//    if (nm != om)
-//    {
-//      //&& (otable = mbv_get(oht,okey)))
-//      printf("[BVL_WAR] botched name changing\b");
-//      mbkexit(0);
-//      /*
-//      if ((ntable = mbv_get(nht,nkey )))
-//        mbv_addAtIndex(ntable,transName(otable,0,buf),nleft);
-//      else
-//      {
-//        otable->LEFT   = nleft;
-//        otable->RIGHT  = nleft;
-//        addInHt(nht,nkey ,otable);
-//        delhtitem(oht,old->DATA);
-//      }
-//      */
-//    }
-//    else
-//    {
-//      if ((otable = mbv_get(oht,okey )))
-//      {
-//        switch (nm)
-//        {
-//          case 3 :
-//               ntable           = mbv_get(nht,nkey);
-//               if (!ntable && oleft == nleft && oright == nright)
-//                 addInHt(nht,nkey ,otable);
-//               else if (!ntable && oleft-oright == nleft-nright)
-//               {
-//                 addInHt(nht,nkey ,otable);
-//                 otable->LEFT    = nl;
-//                 otable->RIGHT   = nr;
-//               }
-//               else if (!ntable && oleft-oright == nright-nleft)
-//               {
-//                 addInHt(nht,nkey ,otable);
-//                 otable->LEFT    = nl;
-//                 otable->RIGHT   = nr;
-//                 size           = or - ol + 1;
-//                 size          /= 2;
-//                 for (k = 0; k < size; k ++)
-//                 {
-//                   elt          = getElt(otable,k);
-//                   addElt(otable,k,getElt(otable,(size-1) - k));
-//                   addElt(otable,(size-1) - k,elt);
-//                 }
-//               }
-//               else
-//               {
-//                 if (!(ntable = mbv_initName(nht,nkey ,nl,nr)))
-//                   if (!(ntable = mbv_resize(nht,nkey ,nl,nr)))
-//                     return;
-//                 
-//                 size           = or - ol + 1;
-//
-//                 for (k = 0; k < size; k ++)
-//                   if (nleft <= nright && oleft <= oright)
-//                     addElt(ntable,k + (nl-ntable->LEFT),getElt(otable,k));
-//                   else
-//                     addElt(ntable,(nr-ntable->RIGHT) - k,getElt(otable,k));
-//                   
-//                 mbkfree(otable->TABLE);
-//                 mbkfree(otable);
-//               }
-//               break;
-//          case 1 :
-//               addInHt(nht,nkey ,otable);
-//               break;
-//          default :
-//               fprintf(stderr,"[MBV_ERR] Bad number of argument to data\n");
-//        }
-//        delhtitem(oht,old->DATA);
-//      }
-//      else
-//        fprintf(stderr,"[MBV_ERR] Bad old name\n");
-//      
-//    }
-//  }
-//}
-//
+/*/*{{{                    mbv_changeRef()                                    */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*void mbv_changeRef(ht *oht, ht *nht, chain_list *old, chain_list *new)*/
+/*{*/
+/*  int        nleft, nright, oleft, oright, nm, om;*/
+/*  int        size, k, ol, or, nl, nr;*/
+/*  long       elt;*/
+/*  char       nname[1024], oname[1024], buf[1024], *nkey, *okey;*/
+/*  mbv_tab   *otable, *ntable;*/
+/**/
+/*  */
+/*  for (; old && new; old = delchain(old,old), new = delchain(new,new))*/
+/*  {*/
+/*    nm              = sscanf(new->DATA,"%s%d:%d",nname,&nleft,&nright);*/
+/*    om              = sscanf(old->DATA,"%s%d:%d",oname,&oleft,&oright);*/
+/*    */
+/*    ol              = (oleft <= oright) ? oleft  : oright;*/
+/*    or              = (oleft <= oright) ? oright : oleft;*/
+/*    nl              = (nleft <= nright) ? nleft  : nright;*/
+/*    nr              = (nleft <= nright) ? nright : nleft;*/
+/*                 */
+/*    nkey            = namealloc(nname);*/
+/*    okey            = namealloc(oname);*/
+/*    */
+/*    if (nm != om)*/
+/*    {*/
+/*      //&& (otable = mbv_get(oht,okey)))*/
+/*      printf("[BVL_WAR] botched name changing\b");*/
+/*      mbkexit(0);*/
+/*      /**/
+/*      if ((ntable = mbv_get(nht,nkey )))*/
+/*        mbv_addAtIndex(ntable,transName(otable,0,buf),nleft);*/
+/*      else*/
+/*      {*/
+/*        otable->LEFT   = nleft;*/
+/*        otable->RIGHT  = nleft;*/
+/*        addInHt(nht,nkey ,otable);*/
+/*        delhtitem(oht,old->DATA);*/
+/*      }*/
+/*      */
+/*    }*/
+/*    else*/
+/*    {*/
+/*      if ((otable = mbv_get(oht,okey )))*/
+/*      {*/
+/*        switch (nm)*/
+/*        {*/
+/*          case 3 :*/
+/*               ntable           = mbv_get(nht,nkey);*/
+/*               if (!ntable && oleft == nleft && oright == nright)*/
+/*                 addInHt(nht,nkey ,otable);*/
+/*               else if (!ntable && oleft-oright == nleft-nright)*/
+/*               {*/
+/*                 addInHt(nht,nkey ,otable);*/
+/*                 otable->LEFT    = nl;*/
+/*                 otable->RIGHT   = nr;*/
+/*               }*/
+/*               else if (!ntable && oleft-oright == nright-nleft)*/
+/*               {*/
+/*                 addInHt(nht,nkey ,otable);*/
+/*                 otable->LEFT    = nl;*/
+/*                 otable->RIGHT   = nr;*/
+/*                 size           = or - ol + 1;*/
+/*                 size          /= 2;*/
+/*                 for (k = 0; k < size; k ++)*/
+/*                 {*/
+/*                   elt          = getElt(otable,k);*/
+/*                   addElt(otable,k,getElt(otable,(size-1) - k));*/
+/*                   addElt(otable,(size-1) - k,elt);*/
+/*                 }*/
+/*               }*/
+/*               else*/
+/*               {*/
+/*                 if (!(ntable = mbv_initName(nht,nkey ,nl,nr)))*/
+/*                   if (!(ntable = mbv_resize(nht,nkey ,nl,nr)))*/
+/*                     return;*/
+/*                 */
+/*                 size           = or - ol + 1;*/
+/**/
+/*                 for (k = 0; k < size; k ++)*/
+/*                   if (nleft <= nright && oleft <= oright)*/
+/*                     addElt(ntable,k + (nl-ntable->LEFT),getElt(otable,k));*/
+/*                   else*/
+/*                     addElt(ntable,(nr-ntable->RIGHT) - k,getElt(otable,k));*/
+/*                   */
+/*                 mbkfree(otable->TABLE);*/
+/*                 mbkfree(otable);*/
+/*               }*/
+/*               break;*/
+/*          case 1 :*/
+/*               addInHt(nht,nkey ,otable);*/
+/*               break;*/
+/*          default :*/
+/*               fprintf(stderr,"[MBV_ERR] Bad number of argument to data\n");*/
+/*        }*/
+/*        delhtitem(oht,old->DATA);*/
+/*      }*/
+/*      else*/
+/*        fprintf(stderr,"[MBV_ERR] Bad old name\n");*/
+/*      */
+/*    }*/
+/*  }*/
+/*}*/
+/**/
 
 
 ht *mbv_duplicateht(ht *source)
@@ -454,7 +454,7 @@ ht *mbv_duplicateht(ht *source)
 }
 
 
-///*}}}************************************************************************/
+/*/*}}}************************************************************************/
 /*{{{                    mbv_changeRef()                                    */
 /*                                                                          */
 /*                                                                          */
@@ -526,7 +526,7 @@ void mbv_changeRef(ht *oht, ht *nht, chain_list *old, chain_list *new)
         fprintf(stderr,"[MBV_ERR] Botched name\n");
       else
       {
-      //  ntable              = mbv_get(nht,nkey);
+      /*  ntable              = mbv_get(nht,nkey);*/
 
         if (!ntable && oleft == nleft && oright == nright)
           ntable            = otable;
@@ -545,8 +545,8 @@ void mbv_changeRef(ht *oht, ht *nht, chain_list *old, chain_list *new)
         }
         else
         {
-          // if needed the correspondence table is resized
-          // or created
+          /* if needed the correspondence table is resized*/
+          /* or created*/
           if (!(ntable && ntable->LEFT <= nl && ntable->RIGHT >= nr)
               && !(ntable = mbv_initName(nht,nkey ,nl,nr))
               && !(ntable = mbv_resize(nht,nkey ,nl,nr)) )
@@ -640,7 +640,7 @@ mbv_tab *mbv_resize(ht *tbl, char *key, int left, int right)
       else if (getElt(table,tmp - table->LEFT))
       {
         avt_error("mbv", 1, AVT_ERR, "Conflict on %s(%d to %d) to merge with %s(%d to %d), cannot resize\n", key, left, right, key, table->LEFT, table->RIGHT);
-//        fprintf(stderr,"[MBV_ERR] Conflict can not resize\n");
+/*        fprintf(stderr,"[MBV_ERR] Conflict can not resize\n");*/
         return NULL;
       }
     resize(table,left,0);
@@ -733,67 +733,67 @@ ht *mbv_buildglobalht(chain_list *htl)
   return h;
 }
 /*}}}************************************************************************/
-///*{{{                    mbv_getFromVect()                                  */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//mbv_tab *mbv_getFromVect(ht *tbl, char *key)
-//{
-//  mbv_tab   *table;
-//  char       rad[1024];
-//  
-//  sscanf(key,"%s",rad);
-//  if ((table = (mbv_tab*)gethtitem(tbl,namealloc(rad))) == (mbv_tab*)EMPTYHT)
-//    return NULL;
-//  else
-//    return table;
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    mbv_addFromVect()                                  */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//void mbv_addFromVect(ht *tbl, char *key, mbv_tab *data)
-//{
-//  char       rad[1024];
-//  
-//  sscanf(key,"%s",rad);
-//  addhtitem(tbl,namealloc(rad),(long)data);
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    mbv_del()                                          */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//void mbv_del(ht *tbl, char *key)
-//{
-//  mbv_tab   *table;
-//  char       buf[1024], test, *res;
-//  int        index;
-//
-//  switch (sscanf(key,"%s %d%c",buf,&index,&test))
-//  {
-//    case 1 :
-//         index      = -1;
-//    case 2 :
-//         if ((table = mbv_get(tbl,buf)))
-//         {
-//           if (index == -1)
-//             res    = table->TABLE[0];
-//           else
-//             res    = table->TABLE[index - table->LEFT];
-//         }
-//         else
-//           res      = NULL;
-//         break;
-//    default :
-//         res    = NULL;
-//  }
-//}
-//
-///*}}}************************************************************************/
+/*/*{{{                    mbv_getFromVect()                                  */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*mbv_tab *mbv_getFromVect(ht *tbl, char *key)*/
+/*{*/
+/*  mbv_tab   *table;*/
+/*  char       rad[1024];*/
+/*  */
+/*  sscanf(key,"%s",rad);*/
+/*  if ((table = (mbv_tab*)gethtitem(tbl,namealloc(rad))) == (mbv_tab*)EMPTYHT)*/
+/*    return NULL;*/
+/*  else*/
+/*    return table;*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    mbv_addFromVect()                                  */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*void mbv_addFromVect(ht *tbl, char *key, mbv_tab *data)*/
+/*{*/
+/*  char       rad[1024];*/
+/*  */
+/*  sscanf(key,"%s",rad);*/
+/*  addhtitem(tbl,namealloc(rad),(long)data);*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    mbv_del()                                          */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*void mbv_del(ht *tbl, char *key)*/
+/*{*/
+/*  mbv_tab   *table;*/
+/*  char       buf[1024], test, *res;*/
+/*  int        index;*/
+/**/
+/*  switch (sscanf(key,"%s %d%c",buf,&index,&test))*/
+/*  {*/
+/*    case 1 :*/
+/*         index      = -1;*/
+/*    case 2 :*/
+/*         if ((table = mbv_get(tbl,buf)))*/
+/*         {*/
+/*           if (index == -1)*/
+/*             res    = table->TABLE[0];*/
+/*           else*/
+/*             res    = table->TABLE[index - table->LEFT];*/
+/*         }*/
+/*         else*/
+/*           res      = NULL;*/
+/*         break;*/
+/*    default :*/
+/*         res    = NULL;*/
+/*  }*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
 /*{{{                    mbv_free()                                         */
 /*                                                                          */
 /*                                                                          */
@@ -932,8 +932,8 @@ void testchangeref()
 {
 #define TSIZE   16
   ht            *old[TSIZE], *new[TSIZE], *top;
-  //int            mem[]  = {1024,3145728};
-  //int            test   = 0;
+  /*int            mem[]  = {1024,3145728};*/
+  /*int            test   = 0;*/
   int            i, j;
   char           buf[TSIZE], *corresp[TSIZE], *oname[TSIZE], *nname;
   chain_list    *och, *nch;
@@ -956,8 +956,8 @@ void testchangeref()
 
       mbv_addCorresp(old[i],oname[j],corresp[i]);
 
-      //printf("drive %d : ",i);
-      //mbv_dumpCorresp(old[i]);
+      /*printf("drive %d : ",i);*/
+      /*mbv_dumpCorresp(old[i]);*/
     }
     for (i = 0; i < TSIZE; i ++)
     {
@@ -988,7 +988,7 @@ void testchangeref()
 
     mbv_changeRef(new[j],top,och,nch);
     
-    //mbv_dumpCorresp(new[j]);
+    /*mbv_dumpCorresp(new[j]);*/
   }
   printf("top ---\n");
   mbv_dumpCorresp(top);
@@ -1024,20 +1024,20 @@ int main(int argc, char *argv[])
     "sig1 98"           ,"testsig1(98)"         ,
     "sig1 10"           ,"testsig1(10)"         ,
   };
-//  chain_list    *old, *new;
+/*  chain_list    *old, *new;*/
   char          *res, buf[1024];
   int            i, nbbench, nberr = 0;
   ht*            tbl    = addht(50);
   
   mbkenv();
  
-//  mbv_useAdvancedNameAllocator();
+/*  mbv_useAdvancedNameAllocator();*/
   tbl       = addht(50);
   nbbench   = (int)(sizeof(testbench)/sizeof(char*))/2;
   for (i = 0; i < nbbench; i ++ )
     mbv_addCorresp(tbl,testbench[i*2],testbench[i*2+1]);
 
-//  mbv_prefix(tbl,"prefix");
+/*  mbv_prefix(tbl,"prefix");*/
   for (i = 0; i < nbbench; i ++ )
   {
     res     = mbv_getCorresp(tbl,testbench[i*2],buf);

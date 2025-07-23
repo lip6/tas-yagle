@@ -10,7 +10,7 @@
 
 #define ECHO 
 #define YY_NO_UNPUT
-static char *slib_stripquotes();
+static char *slib_stripquotes(char*);
 extern int slibParseLine  ;
 
 %}

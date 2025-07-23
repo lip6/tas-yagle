@@ -67,9 +67,9 @@ float Compute_Delay (ttvfig_list *fig, float slope, float load, ttvpath_list *pa
     start_name = ttv_GetSignalName (start_sig);
     end_name   = ttv_GetSignalName (end_sig);
     sprintf (tran, "%c%c", start_tran, end_tran);
-    // no slope propagation         prop = 0
-    // full slope propagation       prop = 1 
-    // 1-stage slope propagation    prop = 2
+    /* no slope propagation         prop = 0*/
+    /* full slope propagation       prop = 1 */
+    /* 1-stage slope propagation    prop = 2*/
     prop = 1;
     res_path = ttv_CharacPaths (fig, slope, start_name, end_name, tran, 1, "critic", "path", max, load, prop);
     pt_res_path = (ttvpath_list*)res_path->DATA;

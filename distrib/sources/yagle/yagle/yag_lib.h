@@ -413,7 +413,7 @@ void            yagTestTransistors __P((lofig_list *ptmbkfig, int silent));
 void            yagExit __P((int code));
 void            yagPrintTime __P((struct rusage *start, struct rusage *end, time_t rstart, time_t rend));
 void            yagChrono __P((struct rusage *t, time_t *rt));
-int             yagDepthFirstProcess __P((cone_list *headcone, int  (*processCone)()));
+int             yagDepthFirstProcess __P((cone_list *headcone, int  (*processCone)(cone_list*)));
 void            yagDestroyBranch __P((cone_list *ptcone, branch_list *ptdel));
 branch_list    *yagAppendBranch __P((branch_list *pt1, branch_list *pt2));
 void            yagDelBranchList __P((branch_list *ptlist));

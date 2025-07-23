@@ -60,7 +60,7 @@ stm_tree4cache;
 #define          STM_MODE_SLOPE          2
 #define          STM_ACCURACY            ((double) 1e-4)
 
-//#define          _PRINT
+/*#define          _PRINT*/
 
 #define          STM_CURRENT_TYPE    ((long) 0xc1c01163)
 

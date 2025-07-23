@@ -12,14 +12,14 @@
 /*                                                                          */
 /****************************************************************************/
 
-void fclExit();
-fcl_label CountChain();
-fcl_label getlabeltrs();
-fcl_label getlabellocon();
-fcl_label getlabelsig();
-fcl_label getlabelsigtrs();
-void fclCorruptLotrs();
-void fclCorruptLosig();
-lotrs_list *whichtrs();
-void fclPrintTime();
-void fclChrono();
+void        fclExit();
+fcl_label   CountChain( chain_list *pthead );
+fcl_label   getlabeltrs( lotrs_list *ptlotrs );
+fcl_label   getlabellocon( locon_list *ptlocon );
+fcl_label   getlabelsig( losig_list *ptlosig );
+fcl_label   getlabelsigtrs( lotrs_list *ptlotrs, losig_list *ptlosig );
+void        fclCorruptLotrs( lotrs_list *ptlotrs );
+void        fclCorruptLosig( losig_list *ptlosig );
+lotrs_list *whichtrs( lofig_list *ptlofig, locon_list *ptlocon );
+void        fclPrintTime( struct rusage *start, struct rusage *end, time_t rstart, time_t rend );
+void        fclChrono( struct rusage *t, time_t *rt );

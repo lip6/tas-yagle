@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include MUT_H
 #include "gen_tree_utils.h"
-//#include "gen_model_utils.h"
+/*#include "gen_model_utils.h"*/
 #include "gen_tree_parser.h"
 
 #define yylval gen_tree_parserlval
@@ -301,16 +301,16 @@ chain_list *PRAGMA_SPLIT(char *line)
   chain_list *cl=NULL;
   char *token, *next;
   next=line;
-//  printf(" '%s'\n",line);
+/*  printf(" '%s'\n",line);*/
   token=mysep(&next, ' ');
- // printf(" %s\n",token);
+ /* printf(" %s\n",token);*/
   if (next==NULL || strcmp(token, "pragma")!=0) return NULL;
   do 
     {
       token=mysep(&next, ' ');
       if (token[0]!='\0')
 	{
-	//  printf("  %s\n",token);
+	/*  printf("  %s\n",token);*/
 	  cl=addchain(cl, model_corresp(token));
 	}
     } while (next!=NULL);

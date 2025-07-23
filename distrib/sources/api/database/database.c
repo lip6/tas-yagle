@@ -27,10 +27,10 @@ typedef struct
 
 chain_list *ALL_DATABASE;
 
-void database_API_AtLoad_Initialize()// commentaire pour desactiver l'ajout de token
+void database_API_AtLoad_Initialize()/* commentaire pour desactiver l'ajout de token*/
 {
   ALL_DATABASE=NULL;
-//  printf("init database\n");
+/*  printf("init database\n");*/
 }
 static database *getdatabase(char *name)
 {
@@ -227,7 +227,7 @@ int dtb_Load(char *name)
   char type;
   int i, ret=1;
 
-//  dtb_Clean(name);
+/*  dtb_Clean(name);*/
   if (getdatabase(name)==NULL) dtb_Create(name);
   sprintf(nn,".%s.dtb",name);
   if ((f=fopen(nn, "rt"))==NULL) return 1;

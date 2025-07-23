@@ -45,19 +45,19 @@ static void          writelist                (FILE *fp, chain_list *ptchain, in
 static void          begen_treatment          (FILE *fp, befig_list *figure);
 
 static void print_msg(FILE *fp, befig_list *figure, char **buffer, int *bufsize);
-//static void print_value(FILE *fp,chain_list *abl, int time, char **buffer, int *bufsize);
+/*static void print_value(FILE *fp,chain_list *abl, int time, char **buffer, int *bufsize);*/
 static void print_withselect(FILE *fp, biabl_list *biabl, char *name, int vectsize, char **buffer, int *bufsize);
 static void          print_time               (FILE *fp, int time,int,int);
 static char         *vhd_bebusname            (char *name);
-//static void          print_withselect         (FILE *fp, biabl_list *biabl, char *name, int vectsize);
-//static void          print_value              (FILE *fp, chain_list *abl, int time);
+/*static void          print_withselect         (FILE *fp, biabl_list *biabl, char *name, int vectsize);*/
+/*static void          print_value              (FILE *fp, chain_list *abl, int time);*/
 
-//static void          print_affected           (FILE *fp, char indent,char *name,char *vname,loop_list *loop);
+/*static void          print_affected           (FILE *fp, char indent,char *name,char *vname,loop_list *loop);*/
 static void          print_loop               (FILE *fp, char indent,char *head,int np,int *cpt,loop_list *loop);
 static void          print_endLoop            (FILE *fp,char indent,char *head,int np,int cpt, int nbsame,loop_list *loop);
 static void          print_loopList           (FILE *fp,char indent,char *head,int np,int *cpt, int nbsame,loop_list *loop);
 static void          print_interassign        (FILE *fp, char *dest, char *src, int mode);
-//static void          print_signal             (FILE *fp, char *name, int left, int right);
+/*static void          print_signal             (FILE *fp, char *name, int left, int right);*/
 
 static chain_list   *print_process_declaration(FILE *fp, biabl_list *biabl, char *name, int np, char *head, char **buffer,ptype_list*clock);
 
@@ -94,7 +94,7 @@ static void writelist(FILE *fp, chain_list *ptchain, int indent)
     indentstr[i]    = ' ';
   indentstr[i]      = '\0';
 
-  // pre-traitement de la liste pour supprimmer les doublons
+  /* pre-traitement de la liste pour supprimmer les doublons*/
   for (; ptchain; ptchain = ptchain->NEXT)
   {
     if ( isBitStr(ptchain->DATA) )
@@ -558,13 +558,13 @@ begen_treatment(FILE *fp, befig_list *figure)
 /****************************************************************************/
 void print_msg(FILE *fp, befig_list *figure, char **buffer, int *bufsize)
 {
-//  int            bufsize = 512;
-//  char          *buffer;
+/*  int            bufsize = 512;*/
+/*  char          *buffer;*/
   bemsg_list    *msg;        /* current BEMSG pointer       */
   char          *clock;
   chain_list    *ptcondabl;
 
-//  buffer = mbkalloc(bufsize);
+/*  buffer = mbkalloc(bufsize);*/
 
   for (iprint(fp,'i',"\n"), msg = figure->BEMSG; msg; msg = msg->NEXT)
   {
@@ -630,7 +630,7 @@ void print_msg(FILE *fp, befig_list *figure, char **buffer, int *bufsize)
     else
       iprint(fp,'-',"SEVERITY ERROR;\n");
   }
-//  mbkfree(buffer);
+/*  mbkfree(buffer);*/
 }
 
 /*}}}************************************************************************/

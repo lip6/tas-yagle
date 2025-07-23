@@ -39,7 +39,7 @@ extern ptype_list *GenTree2chain(tree_list *tree, ptype_list *var)
 { 
   if (!tree) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 192);
-//    fprintf(stderr,"GenTree2chain: NULL pointer\n");
+/*    fprintf(stderr,"GenTree2chain: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -83,7 +83,7 @@ static inline tree_list *Compare_PortMap(tree_list *instance,
   
   if (!instance || !model) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 193);
-//    fprintf(stderr,"Compare_PortMap: NULL pointer\n");
+/*    fprintf(stderr,"Compare_PortMap: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(instance)) {
@@ -124,7 +124,7 @@ static inline tree_list *Compare_PortMap(tree_list *instance,
     type=TOKEN(sig);
     if (!sig->NEXT) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 194);
-//       fprintf(stderr,"Compare_PortMap: NULL pointer\n");
+/*       fprintf(stderr,"Compare_PortMap: NULL pointer\n");*/
        EXIT(1);
     }
     sig=sig->NEXT->DATA;/*TOKEN(sig)=IDENT or '('-->vector */
@@ -145,7 +145,7 @@ static inline tree_list *Compare_PortMap(tree_list *instance,
     /*
     array_mod=Verif_Vector(model->NEXT,env_model);
     array_sig=Size_Vector(instance,env_inst);
-// zinaps : bug here
+|* zinaps : bug here*|
     if (array_sig!=array_mod) {
       if (Nb_Vector_Vars()>1)
 	{
@@ -176,7 +176,7 @@ static inline tree_list *Seek_Equi(tree_list *tree, tree_list *model,
   
   if (!tree || !model) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 195);
-//    fprintf(stderr,"Seek_Equi: NULL pointer\n");
+/*    fprintf(stderr,"Seek_Equi: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -215,7 +215,7 @@ static inline tree_list *Seek_Equi(tree_list *tree, tree_list *model,
             /*TOKEN(sig)=IN,OUT,INOUT...*/
             if (!sig || !sig->NEXT) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 196);
-//                fprintf(stderr,"Seek_Equi: NULL pointer\n");
+/*                fprintf(stderr,"Seek_Equi: NULL pointer\n");*/
                 EXIT(1);
             }
             sig=sig->NEXT->DATA; /*TOKEN(sig)=IDENT or '('-->vector */
@@ -279,7 +279,7 @@ static inline tree_list *Sort_Equi(tree_list *instance, tree_list *model,
 
   if (!instance || !model) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 197);
-//    fprintf(stderr,"Sort_Equi: NULL pointer\n");
+/*    fprintf(stderr,"Sort_Equi: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(model)) {
@@ -322,7 +322,7 @@ static inline int Compare_NumArgs(tree_list *instance, tree_list *model)
 { 
   if (!instance || !model) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 198);
-//    fprintf(stderr,"Compare_NumArgs: NULL pointer\n");
+/*    fprintf(stderr,"Compare_NumArgs: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(instance)) {
@@ -370,7 +370,7 @@ static inline int Detect_Equi(tree_list *tree)
 { 
   if (!tree) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 199);
-//    fprintf(stderr,"Detect_Equi: NULL pointer\n");
+/*    fprintf(stderr,"Detect_Equi: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -403,7 +403,7 @@ static inline tree_list* Give_Dimension(tree_list *tree,chain_list *Sig)
 
   if (!tree) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 200);
-//    fprintf(stderr,"Give_Dimension: NULL pointer\n");
+/*    fprintf(stderr,"Give_Dimension: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -513,7 +513,7 @@ extern chain_list *Verif_Instance(tree,Sig,env,Comp,Ins)
     if (!component->NEXT || !component->NEXT->NEXT || 
         !component->NEXT->NEXT->DATA) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 201);
-//         fprintf(stderr,"Verif_Instance: NULL pointer in component list\n");
+/*         fprintf(stderr,"Verif_Instance: NULL pointer in component list\n");*/
          EXIT(1);
     }     
     port=component->NEXT->NEXT->DATA;
@@ -560,10 +560,10 @@ extern chain_list *Verif_Instance(tree,Sig,env,Comp,Ins)
     */
     if (!tree->NEXT) {
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 202);
-//      fprintf(stderr,"Verif_Instance: NULL pointer in FOR\n");
+/*      fprintf(stderr,"Verif_Instance: NULL pointer in FOR\n");*/
       EXIT(1);
     }
-   // zinaps: removed Verif_HighBound_FOR(tree->NEXT->NEXT->NEXT,env);
+   /* zinaps: removed Verif_HighBound_FOR(tree->NEXT->NEXT->NEXT,env);*/
     /*to check if variable isn't already used and for is in bounds*/
     /*lower bound of for*/
     env=put_value(tree->NEXT->DATA,ope1,env); 

@@ -127,7 +127,7 @@ chain_list* stb_ctk_noise_event_list( stbfig_list       *stbfig,
 
     stb_ctk_free_sortedmutex( stbfig->FIG, mutex );
   }
-  stbfig=NULL; // unused
+  stbfig=NULL; /* unused*/
 
   return excluded ;
 }

@@ -20,7 +20,7 @@
 extern  int ZEN_FAST;
 extern  int ZEN_LEVEL;
 
-// added to prevent warning
+/* added to prevent warning*/
 int          zen_simulNod           ( zennod_list *znod         ,
                                       int          level        );
 int          zen_simulOutNod        ( zennod_list *znod         ,

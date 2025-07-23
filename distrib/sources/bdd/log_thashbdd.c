@@ -139,16 +139,16 @@ createTableBdd (len)
   if (!(pTab = (pTableBdd) mbkalloc (sizeof (struct tableBdd))))
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"160");
-//      printf ("impossible allocation\n");
-//      EXIT (-1);
+/*      printf ("impossible allocation\n");*/
+/*      EXIT (-1);*/
     }
   pTab->lenTableBdd = len;
 
   if (!(pBdd = (pNode *) mbkalloc (len * sizeof (pNode))))
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"161");
-//      printf ("impossible allocation\n");
-//      EXIT (-1);
+/*      printf ("impossible allocation\n");*/
+/*      EXIT (-1);*/
     }
   pTab->pBdd = pBdd;
   for (i = 0; i < len; i++)
@@ -211,8 +211,8 @@ reAllocTableBdd (pTab)
   if (pTab->lenTableBdd > MAX_SIZE_BDD)
     {
       avt_errmsg(LOG_ERRMSG,"002",AVT_FATAL);
-//      printf ("BDD's system : not enough memory...\n");
-//      EXIT (-1);
+/*      printf ("BDD's system : not enough memory...\n");*/
+/*      EXIT (-1);*/
     }
   pTabBis = createTableBdd (pTab->lenTableBdd * 3);        /* trois fois plus grande */
   pBdd = pTab->pBdd;

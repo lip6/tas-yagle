@@ -84,7 +84,7 @@ void avt_McInfo( char *msg );
 extern Netlist *mbk_GetNetlist (char *figname);
 
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_Sort
 CATEG gns
@@ -100,7 +100,7 @@ none.
 
 void mbk_Sort (int *index_array, void **value_array, int nbelem);
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_FreeList
 CATEG gns
@@ -114,7 +114,7 @@ none.
 
 void mbk_FreeList(List *lst);
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_GetListItem
 CATEG gns
@@ -129,7 +129,7 @@ none.
 
 void *mbk_GetListItem(List *lst);
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_AddListItem
 CATEG gns
@@ -144,7 +144,7 @@ none.
 
 List *mbk_AddListItem (List *lst, void *item);
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_AppendList
 CATEG gns
@@ -159,7 +159,7 @@ none.
 */
 List *mbk_AppendList(List *lst1, List *lst2);
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_GetListNext
 CATEG gns
@@ -173,7 +173,7 @@ none.
 
 List *mbk_GetListNext(List *lst);
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_EndofList
 CATEG gns
@@ -188,8 +188,8 @@ none.
 
 int mbk_EndofList(List *lst);
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_NewHashTable
 CATEG gns
@@ -205,7 +205,7 @@ mbk_IsEmptyHashItem, mbk_AddHashItem, mbk_GetHashItem, mbk_FreeHashTable
 */
 
 HashTable *mbk_NewHashTable    (int size);
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_FreeHashTable
 CATEG gns
@@ -220,7 +220,7 @@ mbk_IsEmptyHashItem, mbk_AddHashItem, mbk_GetHashItem, mbk_NewHashTable
 */
 
 void       mbk_FreeHashTable (HashTable *htable);
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_AddHashItem
 CATEG gns
@@ -236,7 +236,7 @@ mbk_GetHashItem, mbk_IsEmptyHashItem, mbk_FreeHashTable, mbk_NewHashTable
 */
 
 long       mbk_AddHashItem         (HashTable *htable, void *key, long value);
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_GetHashItem
 CATEG gns
@@ -254,7 +254,7 @@ mbk_IsEmptyHashItem, mbk_AddHashItem, mbk_FreeHashTable, mbk_NewHashTable
 
 long       mbk_GetHashItem         (HashTable *htable, void *key);
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 MAN mbk_IsEmptyHashItem
 CATEG gns
@@ -291,7 +291,7 @@ void mbk_QuickListAppendDouble(QuickList *ql, double value);
 DoubleList *mbk_QuickListComputeMeanVarMedian(QuickList *ql);
 void mbk_QuickListDoubleFree(QuickList *ql);
 
-//HashTable *mbk_NewHashTable (int size);
+/*HashTable *mbk_NewHashTable (int size);*/
 void mbk_AddStringHashItem (HashTable *htable, char *key, char *value);
 char *mbk_GetStringHashItem (HashTable *htable, char *key);
 void mbk_FreeStringHashTable (HashTable *htable);

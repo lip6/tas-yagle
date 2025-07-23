@@ -147,7 +147,7 @@ int spef_AddResistorConnector(char *allname, char *instname, char *signame,int n
 
   if (lw==NULL) return 0;
     
-//  name=spef_spi_devect(signame);
+/*  name=spef_spi_devect(signame);*/
   if ((ANNOT_R_POS==NULL
        && (strcasecmp(signame, "pos")==0 || strcasecmp(signame, "1")==0))
       || (ANNOT_R_POS!=NULL && strcasecmp(signame, ANNOT_R_POS)==0)) pos=1;
@@ -203,7 +203,7 @@ void spef_AddTransistorConnector(char *allname, char *instname, char *signame,in
       return;
     }
     
-//  name=spef_spi_devect(signame);
+/*  name=spef_spi_devect(signame);*/
   name=signame;
 
   if (strcasecmp(signame, ANNOT_T_G?ANNOT_T_G:"g")==0) lc=lt->GRID;
@@ -218,7 +218,7 @@ void spef_AddTransistorConnector(char *allname, char *instname, char *signame,in
       return;
     }
 
-//  name=spef_spi_devect(allname);
+/*  name=spef_spi_devect(allname);*/
 
   ptsig = lc->SIG;
   if (!SPEF_IN_CACHE) spef_examine_add_shortcircuit(nodenum, lc);
@@ -230,7 +230,7 @@ void spef_AddTransistorConnector(char *allname, char *instname, char *signame,in
   ptype->DATA=addchain(NULL, namealloc(buf));
 }
 
-// add an instance connector to the local list of nodes
+/* add an instance connector to the local list of nodes*/
 void spef_AddInstanceConnector(char *allname, char *instname, char *signame, int nodenum)
 {
   loins_list *ls;
@@ -272,7 +272,7 @@ void spef_AddInstanceConnector(char *allname, char *instname, char *signame, int
       return;
     }
 
-//  name=spef_spi_devect(allname); // <- ca sert a qq chose??
+/*  name=spef_spi_devect(allname); // <- ca sert a qq chose??*/
 
   
   ptsig = lc->SIG;
@@ -286,7 +286,7 @@ void spef_AddInstanceConnector(char *allname, char *instname, char *signame, int
 }
 
 /****************************************************************************/
-// add a connector to the local list of nodes
+/* add a connector to the local list of nodes*/
 void spef_AddConnector(char *sig, int nodenum)
 {
   losig_list *ptsig;
@@ -331,7 +331,7 @@ static int spef_has_parasitics(losig_list *ls)
 }
 
 /****************************************************************************/
-// add a capacitance between 2 nodes
+/* add a capacitance between 2 nodes*/
 chain_list *spef_AddCapacitance(chain_list *ctclist, char *namesig0, char *namesig1, float capa)
 {
   losig_list *sig0, *sig1;
@@ -410,7 +410,7 @@ chain_list *spef_AddCapacitance(chain_list *ctclist, char *namesig0, char *names
 }
 
 /***********************************************************************************/
-// add a resistor between 2 nodes
+/* add a resistor between 2 nodes*/
 void spef_AddResistor(char *namesig0, char *namesig1, float resi)
 {
   losig_list *sig0, *sig1;
@@ -475,7 +475,7 @@ void spef_AddResistor(char *namesig0, char *namesig1, float resi)
 }
 
 /****************************************************************************/
-// select a new net, ste its capacitance and initiate the RC building
+/* select a new net, ste its capacitance and initiate the RC building*/
 losig_list *spef_NewNet(char *sig, float capa)
 {
 
@@ -515,7 +515,7 @@ losig_list *spef_NewNet(char *sig, float capa)
 }
 
 /****************************************************************************/
-// set the name of the ground signal
+/* set the name of the ground signal*/
 void spef_SetGroundSignal(char *sig)
 {
 #ifdef SPEF_DEBUG
@@ -538,7 +538,7 @@ void spef_setneg2posnode(lofig_list *Lofig)
 
     for (ptype=post_connection; ptype!=NULL; ptype=ptype->NEXT)
     {
-//      printf("post move %p->%p %ld -> %ld\n",ptype->TYPE, ptype->DATA, *(long *)ptype->TYPE, *(long *)ptype->DATA);
+/*      printf("post move %p->%p %ld -> %ld\n",ptype->TYPE, ptype->DATA, *(long *)ptype->TYPE, *(long *)ptype->DATA);*/
       *(long *)ptype->TYPE=*(long *)ptype->DATA;
     }
     freeptype(post_connection);

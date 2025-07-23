@@ -237,7 +237,7 @@ int yagExpandCone(inffig_list *ifl, cone_list *ptcone)
             }
 
             if (YAG_CONTEXT->YAG_USE_CONNECTOR_DIRECTION==TRUE && !mbk_can_cross_transistor_to(ptsig, pttrans, 'i'))        {
-//                printf("(1)blocked: %s from %s to %s\n", pttrans->TRNAME, getsigname(ptsig), getsigname(ptnextsig));
+/*                printf("(1)blocked: %s from %s to %s\n", pttrans->TRNAME, getsigname(ptsig), getsigname(ptnextsig));*/
                 continue;
             }
 
@@ -510,7 +510,7 @@ branch_list *grow_branch(inffig_list *ifl, cone_list *ptrootcone, branch_list *p
             }
             
             if (YAG_CONTEXT->YAG_USE_CONNECTOR_DIRECTION==TRUE && !mbk_can_cross_transistor_to(ptsig, pttrans, 'i'))        {
-//                printf("(2)blocked: %s from %s to %s\n", pttrans->TRNAME, getsigname(ptsig), getsigname(ptnextsig));
+/*                printf("(2)blocked: %s from %s to %s\n", pttrans->TRNAME, getsigname(ptsig), getsigname(ptnextsig));*/
                 continue;
             }
 

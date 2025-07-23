@@ -7,7 +7,7 @@
 #define LIB_PATH "cells"        
 #endif
 
-// pour ajouter une autre lib, ajouter ':'<lib>
+/* pour ajouter une autre lib, ajouter ':'<lib>*/
 #define DEFAULT_LIBS "gen_builtin_functions.so:gen_API.so:beg_API.so:ctk_API.so:"\
                      "database_API.so:fcl_API.so:mbk_API.so:"\
                      "sim_API.so:spi_API.so:stm_API.so:ttv_API.so"
@@ -79,8 +79,8 @@ void *nowrap_grab_special_function(char *prefix, char *name)
   return func;
 }
 
-//typedef int (*libfunc_type)(t_arg **ret, t_arg **prm, int n_params, char *errstr);
-//typedef void (*voidfunc)();
+/*typedef int (*libfunc_type)(t_arg **ret, t_arg **prm, int n_params, char *errstr);*/
+/*typedef void (*voidfunc)();*/
 typedef t_arg ** (*targfunc)(int *);
 
 void grab_special_functions(char *prefix)
@@ -96,7 +96,7 @@ void grab_special_functions(char *prefix)
       if (func(&ret, NULL, 0 , buf)!=0)
         {
           avt_errmsg(API_ERRMSG, "001", AVT_ERROR, prefix, buf);
-          //fprintf(stderr,"Error executing %s_AtLoad_Initialize() : %s\n", prefix, buf);
+          /*fprintf(stderr,"Error executing %s_AtLoad_Initialize() : %s\n", prefix, buf);*/
         }
       mbkfree(ret->TYPE);
       free(ret); 
@@ -125,16 +125,16 @@ void grab_special_functions(char *prefix)
         }
     }
 }
-// non definitif
+/* non definitif*/
 static int libs_are_already_loaded=0;
 
 int trytoopenlib(char *path, char *name, char *mes, char *where)
 {
   char *tmp, newlibpath[4096], pwd[2048], *c;
-  // LD_LIBRARY_PATH first
+  /* LD_LIBRARY_PATH first*/
   if(dlopen(name,RTLD_LAZY|RTLD_GLOBAL)!=NULL) return 1;
 
-  // API PATH next
+  /* API PATH next*/
   strcpy(newlibpath,path);
   path=newlibpath;
   tmp=strchr(newlibpath,':');
@@ -245,7 +245,7 @@ void LoadDynamicLibraries(FILE *debug)
               else 
                 avt_errmsg(API_ERRMSG, "002", AVT_WARNING, libpath, message);
                 // avt_fprintf(stderr,"[¤4warning¤.] could not open dynamic library '¤+%s¤.'\n\treason: %s\n", libpath, message);
-              grab_special_functions(libpath); // API en static peut etre
+              grab_special_functions(libpath); /* API en static peut etre*/
             }
           else   
             {
@@ -272,7 +272,7 @@ void LoadDynamicLibraries(FILE *debug)
           else 
             avt_errmsg(API_ERRMSG, "002", AVT_WARNING, libpath, message);
             // avt_fprintf(stderr,"[¤4warning¤.] could not open dynamic library '¤+%s¤.'\n\treason: %s\n", libpath, message);
-          grab_special_functions(libpath); // API en static peut etre
+          grab_special_functions(libpath); /* API en static peut etre*/
         }
       else 
         {

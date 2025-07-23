@@ -13,7 +13,7 @@
 /*                                                                          */
 /****************************************************************************/
 
-//#define BGL_DEBUG
+/*#define BGL_DEBUG*/
 
 extern int           BGL_CASE_SENSITIVE;
 extern ht           *BGL_CASEHT;

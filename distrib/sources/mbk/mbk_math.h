@@ -4,15 +4,15 @@ Bibliothèque de manipulation des objets mathématiques MBK.
 
 \******************************************************************************/
 
-// Définitions locales 
+/* Définitions locales */
 
 typedef struct mbk_pwl_point {
   struct mbk_pwl_point  *PREV;
   struct mbk_pwl_point  *NEXT;
-  double                 X;     // Point d'abscisse
-  double                 Y;     // Ordonnée
-  double                 P;     // Pente sur ce point
-  double                 O;     // Origine de la pente
+  double                 X;     /* Point d'abscisse*/
+  double                 Y;     /* Ordonnée */
+  double                 P;     /* Pente sur ce point*/
+  double                 O;     /* Origine de la pente*/
 } mbk_pwl_point_list ;
 
 #define LAPLACEDATA(pt,i) ((mbk_laplace_data*) ((pt)->DATA + i * (pt)->SIZE ))

@@ -7,9 +7,9 @@
 
 
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
-// initial call pour gns_build_netlist () _____________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
+/* initial call pour gns_build_netlist () _____________________________________*/
 
 lofig_list *gen_build_netlist (char *modelname, corresp_t *crt)
 {
@@ -20,12 +20,12 @@ lofig_list *gen_build_netlist (char *modelname, corresp_t *crt)
   else
     fig = gen_build_from_GNS (current_lofig, ALL_LOINS, ALL_LOTRS, modelname);
 
-  //    fig->USER = addptype (fig->USER, LOFIG_LOCK, 0);
+  /*    fig->USER = addptype (fig->USER, LOFIG_LOCK, 0);*/
   fig->USER = addptype (fig->USER, GEN_ORIG_CORRESP_PTYPE, crt);
   return fig;
 }
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 int gen_endianess (losig_list *sig)
 {
@@ -50,8 +50,8 @@ int gen_endianess (losig_list *sig)
   return endian;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_sort_sigs (lofig_list *fig, ht *endht)
 {
@@ -71,8 +71,8 @@ void gen_sort_sigs (lofig_list *fig, ht *endht)
   freechain (ordered_list);
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_update_sigcon (lofig_list *fig)
 {
@@ -87,8 +87,8 @@ void gen_update_sigcon (lofig_list *fig)
   }
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 extern char *FOR_VARIABLE;
 
 
@@ -106,7 +106,7 @@ chain_list *model_signal_name(loins_list *modelins, foundins_list *fil, long ind
       if (l==UNDEF || r==UNDEF) 
       {
          avt_errmsg(GNS_ERRMSG, "040", AVT_FATAL, modelins->INSNAME, lc->NAME, l, r);
-         //fprintf(stderr,"for model instance '%s' can not evaluate left or right bound for connector '%s' l=%d r=%d\n", modelins->INSNAME, lc->NAME, l, r);
+         /*fprintf(stderr,"for model instance '%s' can not evaluate left or right bound for connector '%s' l=%d r=%d\n", modelins->INSNAME, lc->NAME, l, r);*/
          EXIT(5);
       }
       cons=reverse(cons);
@@ -200,7 +200,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
 
   htsig = addht (SMALL_PRIME);
 
-  // Contextualize HEAD_LOFIG ___________________________
+  /* Contextualize HEAD_LOFIG ___________________________*/
 
   head_lofig = HEAD_LOFIG;
   HEAD_LOFIG = GEN_HEAD_LOFIG;
@@ -216,14 +216,14 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
     end = gen_upper_bound (sig);
       
     if (begin != -2 && end != -2) {
-      // put circuit/model correspondance in htsig
+      /* put circuit/model correspondance in htsig*/
       if (!(ptype = getptype (sig->USER, GENSIGCHAIN))) continue;
       if (begin == -1 && end == -1) {
         assoc_sig = getlosigfrommark (ptype->DATA, -1);
         if (assoc_sig==NULL && !gns_isunusedsig(sig))
           {
             avt_errmsg(GNS_ERRMSG, "019", AVT_FATAL, gen_losigname (sig));
-            //fprintf(stderr,"no correspondance found for signal '%s'\n", gen_losigname (sig));
+            /*fprintf(stderr,"no correspondance found for signal '%s'\n", gen_losigname (sig));*/
             EXIT(4);
           }
         spec_cat(temp, gen_losigname (sig), assoc_sig==NULL?"?":gen_losigname (assoc_sig));
@@ -238,7 +238,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
           if (assoc_sig==NULL && !gns_isunusedsig(sig))
             {
               avt_errmsg(GNS_ERRMSG, "041", AVT_FATAL, gen_losigname (sig),i);
-              //fprintf(stderr,"no correspondance found for signal '%s(%d)'\n", gen_losigname (sig),i);
+              /*fprintf(stderr,"no correspondance found for signal '%s(%d)'\n", gen_losigname (sig),i);*/
               EXIT(4);
             }
           spec_cat(temp, name, assoc_sig==NULL?"?":gen_losigname (assoc_sig));
@@ -250,7 +250,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
     }
   }
 
-  // Instances __________________________________________
+  /* Instances __________________________________________*/
     
   for (ch = loins; ch; ch = ch->NEXT) {
 
@@ -276,32 +276,32 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
 
     newins = (loins_list*)mbkalloc (sizeof (loins_list));
     newins->INSNAME = namealloc (insname);
-    newins->FIGNAME = modelname2circuitname(fil); //ins->FIGNAME;
+    newins->FIGNAME = modelname2circuitname(fil); /*ins->FIGNAME;*/
     newins->LOCON   = NULL;
     newins->USER    = NULL;
     newins->NEXT    = fig->LOINS;
     fig->LOINS      = newins;
                
-    // on ajoute l'index pour les instance dans les FOR expanded ou pas
+    /* on ajoute l'index pour les instance dans les FOR expanded ou pas*/
     if (ptype)
       newins->USER = addptype (newins->USER, GEN_LOOP_INDEX_PTYPE, ptype->DATA);
     else if ((ptype = getptype (modelins->USER, GEN_LOOP_INDEX_PTYPE)))
       newins->USER = addptype (newins->USER, GEN_LOOP_INDEX_PTYPE, ptype->DATA);
 
-    // on ajoute un pointeur sur la loins non expanded dans le model
+    /* on ajoute un pointeur sur la loins non expanded dans le model*/
     if ((ptype = getptype (modelins->USER, GEN_ORIG_LOINS_PTYPE)))
       newins->USER = addptype (newins->USER, GEN_ORIG_LOINS_PTYPE, ptype->DATA);
     else
       newins->USER = addptype (newins->USER, GEN_ORIG_LOINS_PTYPE, modelins);
           
 
-    // update model list
+    /* update model list*/
     for (ptch = fig->MODELCHAIN; ptch; ptch = ptch->NEXT)
       if (ptch->DATA == (void*)ins->FIGNAME) break;
     if (!ptch)
       fig->MODELCHAIN = addchain (fig->MODELCHAIN, (void*)ins->FIGNAME);
         
-    // duplicate connectors and signals
+    /* duplicate connectors and signals*/
 
     for (ptcon = ins->LOCON, cl=allcons; ptcon && cl; ptcon = ptcon->NEXT, cl=cl->NEXT) {
       newcon            = (locon_list*)mbkalloc (sizeof (locon_list));
@@ -341,7 +341,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
   }
 
  
-  // Transistors ________________________________________           
+  /* Transistors ________________________________________           */
     
   for (ch = lotrs; ch; ch = ch->NEXT) {
     tr = (lotrs_list*)ch->DATA;
@@ -349,7 +349,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
     modelins=(loins_list *)getptype(tr->USER, GEN_VISITED_PTYPE)->DATA;
     cl=allcons=model_signal_name(modelins, NULL, UNDEF);
         
-    // grid
+    /* grid*/
     name = gen_losigname (tr->GRID->SIG);
     spec_cat(temp, (char *)cl->DATA, name);
     name=namealloc(temp); cl=cl->NEXT;
@@ -361,7 +361,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
         
     if (tr->FLAGS==0)      
       {
-        // source
+        /* source*/
         name = gen_losigname (tr->SOURCE->SIG);
         spec_cat(temp, (char *)cl->DATA, name);
         name=namealloc(temp); 
@@ -382,14 +382,14 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
     } else
       { source = (losig_list*)lsig; source->FLAGS=1; }
 
-    // drain
+    /* drain*/
     if ((lsig = gethtitem (htsig, name0)) == EMPTYHT) {
       drain = addlosig (fig, index++, addchain (NULL, gen_losigname (tr->DRAIN->SIG)), 'I');
       drain->FLAGS=0;
     } else
       { drain = (losig_list*)lsig; drain->FLAGS=1; }
 
-    // bulk
+    /* bulk*/
     if (tr->BULK && tr->BULK->SIG) {
       name = gen_losigname (tr->BULK->SIG);
       spec_cat(temp, (char *)cl->DATA, name);
@@ -406,7 +406,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
     freechain(allcons);
 
     if (tr->FLAGS<0 || tr->FLAGS>1) EXIT(7);
-    if (tr->FLAGS==1) // matched reversed
+    if (tr->FLAGS==1) /* matched reversed*/
       {
         losig_list *temp;
         temp=drain;
@@ -414,7 +414,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
         source=temp;
       }
 
-    // transistor name
+    /* transistor name*/
 
     name = modelins->INSNAME;
 
@@ -428,11 +428,11 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
     newtr->MODINDEX = tr->MODINDEX;
     newtr->TRNAME = name;
 
-    // on ajoute l'index pour les transistors dans les FOR expanded
+    /* on ajoute l'index pour les transistors dans les FOR expanded*/
     if ((ptype = getptype (modelins->USER, GEN_LOOP_INDEX_PTYPE)))
       newtr->USER = addptype (newtr->USER, GEN_LOOP_INDEX_PTYPE, ptype->DATA);
 
-    // on ajoute un pointeur sur la loins non expanded dans le model
+    /* on ajoute un pointeur sur la loins non expanded dans le model*/
     if ((ptype = getptype (modelins->USER, GEN_ORIG_LOINS_PTYPE)))
       newtr->USER = addptype (newtr->USER, GEN_ORIG_LOINS_PTYPE, ptype->DATA);
   }
@@ -440,7 +440,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
   delht (htsig);
   htsig = addht (SMALL_PRIME);
 
-  // Update signal's names ______________________________
+  /* Update signal's names ______________________________*/
 
   for (sig = fig->LOSIG; sig; sig = sig->NEXT)
     if (sig->FLAGS==1)
@@ -459,7 +459,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
       for (ptcon=ins->LOCON; ptcon!=NULL; ptcon=ptcon->NEXT)
         {
           sig=ptcon->SIG;
-          if (sig->FLAGS!=1) // pas de correspondance
+          if (sig->FLAGS!=1) /* pas de correspondance*/
             {
               if (sig->FLAGS!=2) { sig_to_delete=addchain(sig_to_delete, sig); sig->FLAGS=2; }
                 
@@ -492,7 +492,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
         {
           if (tab[i]==NULL || tab[i]->SIG==NULL) continue;
           sig=tab[i]->SIG;
-          if (sig->FLAGS!=1) // pas de correspondance
+          if (sig->FLAGS!=1) /* pas de correspondance*/
             {
               if (sig->FLAGS!=2) { sig_to_delete=addchain(sig_to_delete, sig); sig->FLAGS=2; }
               
@@ -520,7 +520,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
   
   delht (htsig);
     
-  // Sort signals _______________________________________
+  /* Sort signals _______________________________________*/
     
   for (cl=sig_to_delete; cl!=NULL; cl=cl->NEXT)
     {
@@ -538,7 +538,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
 
   delht (endht);
 
-  // Connectors _________________________________________
+  /* Connectors _________________________________________*/
 
   for (ptcon = lf->LOCON; ptcon; ptcon = ptcon->NEXT) 
     {
@@ -570,7 +570,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
         }
     }
     
-  // delete FCL marks
+  /* delete FCL marks*/
 
   for (ptcon = fig->LOCON; ptcon; ptcon = ptcon->NEXT)
     if (ptcon->DIRECTION == 'D' || ptcon->DIRECTION == 'S')
@@ -580,7 +580,7 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
     if (sig->TYPE == 'D' || sig->TYPE == 'S')
       sig->TYPE = 'E';
 
-  // Release HEAD_LOFIG _________________________________
+  /* Release HEAD_LOFIG _________________________________*/
    
   GEN_HEAD_LOFIG = HEAD_LOFIG;
   HEAD_LOFIG = head_lofig;
@@ -593,8 +593,8 @@ lofig_list *gen_build_from_GNS (lofig_list *lf, chain_list *loins, chain_list *l
   return fig;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_clean_RC (lofig_list *fig)
 {
@@ -609,8 +609,8 @@ void gen_clean_RC (lofig_list *fig)
     }
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 lofig_list *gen_build_from_FCL (lofig_list *lf, char *modelname) 
 {
@@ -619,7 +619,7 @@ lofig_list *gen_build_from_FCL (lofig_list *lf, char *modelname)
   losig_list *ptsig;
   ptype_list *pt;
 
-  // add the lofig to GEN_HEAD_LOFIG
+  /* add the lofig to GEN_HEAD_LOFIG*/
 
   duplf = rduplofig (lf);
   duplf->NAME=modelname;
@@ -631,11 +631,11 @@ lofig_list *gen_build_from_FCL (lofig_list *lf, char *modelname)
   if (!GEN_HT_LOFIG) GEN_HT_LOFIG = addht (50);
   addhtitem(GEN_HT_LOFIG, duplf->NAME, (long)duplf);
 
-  // update connector's name
+  /* update connector's name*/
 
   gen_update_sigcon (duplf);
     
-  // delete FCL marks
+  /* delete FCL marks*/
 
   for (ptcon = duplf->LOCON; ptcon; ptcon = ptcon->NEXT)
     {
@@ -645,7 +645,7 @@ lofig_list *gen_build_from_FCL (lofig_list *lf, char *modelname)
     
   duplf->LOCON = (locon_list*)reverse ((chain_list*)duplf->LOCON);
 
-  // Lofigchain
+  /* Lofigchain*/
   lofigchain (duplf);
 
   for (ptsig = duplf->LOSIG; ptsig; ptsig = ptsig->NEXT)

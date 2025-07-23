@@ -71,14 +71,14 @@ int poly_findroot( RCXFLOAT *poly, int n, RCXFLOAT *root )
   RCXFLOAT r;
   char status;
   
-  // printf( "    Recherche des racines pour le polynôme :\n" );
+  /* printf( "    Recherche des racines pour le polynôme :\n" );*/
   for( i=n ; i>0 ; i-- )
   {
-    // printf( "    Polynôme de degrè %d :\n", i );
-    // poly_display( poly, i );
+    /* printf( "    Polynôme de degrè %d :\n", i );*/
+    /* poly_display( poly, i );*/
 
     r = poly_gauss( poly, i, 1e-6, &status );
-    // printf( "    racine = %e\n", r );
+    /* printf( "    racine = %e\n", r );*/
 
     if( status == 'n' )
       return(0);
@@ -114,7 +114,7 @@ RCXFLOAT poly_gauss( RCXFLOAT *poly, int n, RCXFLOAT epsilon, char *status )
   int    r;
   RCXFLOAT  delta;
 
-  // Cas triviaux
+  /* Cas triviaux*/
 
   if( n==1 ) {
     RCXFLOAT r;

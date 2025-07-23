@@ -988,7 +988,7 @@ checkLoopStability(pCircuit circuit, pNode expr, char *name, pNode *ptmem)
     pNode       loopvar;
     int         index;
 
-    index = searchInputCct_no_NA(circuit, name); // called with a cone name => already namealloced
+    index = searchInputCct_no_NA(circuit, name); /* called with a cone name => already namealloced*/
     if (index <= 1) {
         avt_log(LOGYAG,1, "loopname: %s\n", name);
         displayCctLog(LOGYAG,1,circuit, 0);
@@ -1020,7 +1020,7 @@ yagIsInversion(pCircuit circuit, char *input, char *output)
     pNode       expr;
     int         index;
 
-    index = searchInputCct_no_NA(circuit, input); // called with a cone name => already namealloced
+    index = searchInputCct_no_NA(circuit, input); /* called with a cone name => already namealloced*/
     if (index <= 1) {
         avt_log(LOGYAG,1, "input: %s\n", input);
         displayCctLog(LOGYAG,1,circuit, 0);

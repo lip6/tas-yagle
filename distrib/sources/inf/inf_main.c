@@ -25,7 +25,7 @@
 #include AVT_H
 #include "inf_grab.h"
 
-//#define ONEINF
+/*#define ONEINF*/
 
 static void infCleanRegistry(inffig_list *ifl, int location);
 void infrestart( FILE *input_file ) ;
@@ -139,8 +139,8 @@ void delinffig(char *name)
 
   if ((ifig=getloadedinffig(name))!=NULL)
     {
-      // pour etre sure d'eliminer tous les clones pointant
-      // sur la meme inffig
+      /* pour etre sure d'eliminer tous les clones pointant*/
+      /* sur la meme inffig*/
       all=GetAllHTKeys(INF_HT);
       for (cl=all; cl!=NULL; cl=cl->NEXT)
        {
@@ -148,7 +148,7 @@ void delinffig(char *name)
           delhtitem(INF_HT, cl->DATA);
        }
       freechain(all);
-      // ---------
+      /* ---------*/
 
       infClean(ifig, INF_LOADED_LOCATION);
 	  if (ifig->LOADED.REGISTRY!=NULL) delht(ifig->LOADED.REGISTRY);
@@ -156,7 +156,7 @@ void delinffig(char *name)
 	  if (ifig->DEFAULT.REGISTRY!=NULL) delht(ifig->DEFAULT.REGISTRY);
       freeptype(ifig->USER);
       mbkfree(ifig);
-//      delhtitem(INF_HT, name);
+/*      delhtitem(INF_HT, name);*/
     }
 }
 
@@ -171,7 +171,7 @@ inffig_list *getinffig(char *name)
       )
     {
       ifl=infRead(name, 1);
-  //    if (pt!=NULL && ifl!=NULL) ifl->USER=delptype(ifl->USER, INF_IS_DIRTY);
+  /*    if (pt!=NULL && ifl!=NULL) ifl->USER=delptype(ifl->USER, INF_IS_DIRTY);*/
     }
 
   return ifl;
@@ -281,7 +281,7 @@ inffig_list *_infRead(char *figname, char *filename, char silent)
   sprintf (buf, "%s", filename);
   infFile = buf;
 
-  //  if (vierge == 0) infclean();
+  /*  if (vierge == 0) infclean();*/
   infin = mbkfopen(filename, NULL, READ_TEXT);
   if (infin != NULL) 
     {
@@ -291,7 +291,7 @@ inffig_list *_infRead(char *figname, char *filename, char silent)
       INF_ERROR = 0;
       INF_FIG=NULL;
       infname=namealloc(figname);
-//      infdebug=1;
+/*      infdebug=1;*/
       infparse();
       fclose(infin) ;
       if (INFDISPLAYLOAD) avt_error("inf", -1, AVT_INFO, "loading '%s' ... %s\n", filename, INF_ERROR?"failed":"ok");
@@ -319,12 +319,12 @@ inffig_list *_infRead(char *figname, char *filename, char silent)
 
 #endif
       }
-      return INF_FIG;//getloadedinffig(namealloc(filename));
+      return INF_FIG;/*getloadedinffig(namealloc(filename));*/
     }
   else
     if (!(silent & 1))
       avt_errmsg(INF_ERRMSG, "012", AVT_WARNING, filename);
-     // avt_error("inf", 1, AVT_WAR, "can not open '%s' information file\n", filename);
+     /* avt_error("inf", 1, AVT_WAR, "can not open '%s' information file\n", filename);*/
   return NULL;
 }
 
@@ -574,14 +574,14 @@ list_list *infAddList(inffig_list *ifl, int location, char *data,long level,char
   if((flag != 0) && (prg != 't'))
     {
         avt_errmsg(INF_ERRMSG, "013", AVT_WARNING, where==NULL?"":where, data);
-        // avt_error("inf", 2, AVT_WAR, "%sinformation on signal %s already read -- ignored\n",where==NULL?"":where, data);
+        /* avt_error("inf", 2, AVT_WAR, "%sinformation on signal %s already read -- ignored\n",where==NULL?"":where, data);*/
       return NULL;
     }
 
   if (indefault!=NULL)
     {
         avt_errmsg(INF_ERRMSG, "014", AVT_WARNING, where==NULL?"":where, data);
-        // avt_error("inf", 3, AVT_WAR, "%sinformation on signal '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, data);
+        /* avt_error("inf", 3, AVT_WAR, "%sinformation on signal '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, data);*/
     }
 
   list = mbkalloc(sizeof(struct list)) ;
@@ -658,7 +658,7 @@ static InfValue *infcreateentrydata(char *type, char datatype)
   InfValue *iv;
 
   iv=(InfValue *)mbkalloc(sizeof(InfValue));
-  iv->infotype=type; //sensitive_namealloc(type);
+  iv->infotype=type; /*sensitive_namealloc(type);*/
   iv->datatype=datatype;
   iv->pointertype="?";
   iv->match = 0;
@@ -745,7 +745,7 @@ void inf_AddString(inffig_list *ifl, int location, char *key, char *type, char *
           else if (strcmp(iv->VAL.string, val)!=0) sayit=1;
           if (sayit)
             avt_errmsg(INF_ERRMSG, "015", AVT_WARNING, where==NULL?"":where, type, key, iv->VAL.string, val);
-            // avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set to '%s' elsewhere -- overriding with inf value '%s'\n",where==NULL?"":where, type, key, iv->VAL.string, val);
+            /* avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set to '%s' elsewhere -- overriding with inf value '%s'\n",where==NULL?"":where, type, key, iv->VAL.string, val);*/
         }
     }
 
@@ -769,13 +769,13 @@ void inf_AddPointer(inffig_list *ifl, int location, char *key, char *type, char 
       is=&ifl->LOADED;
       if (infgetkey(&ifl->DEFAULT, key, type)!=NULL)
         avt_errmsg(INF_ERRMSG, "016", AVT_WARNING, where==NULL?"":where, type, key);
-        // avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, type, key);
+        /* avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, type, key);*/
     }
 
   iv=infgetorcreatekey(is, key, type, 'p');
   iv->pointertype=pointertype;
-//  inffreedatavalue(iv);
-//  if (val!=NULL) iv->VAL.string=mbkstrdup(val);
+/*  inffreedatavalue(iv);*/
+/*  if (val!=NULL) iv->VAL.string=mbkstrdup(val);*/
   iv->VAL.pointer=val;
   ifl->changed|=1;
 }
@@ -795,7 +795,7 @@ void inf_AddMiscData(inffig_list *ifl, int location, char *key, char *type, char
       is=&ifl->LOADED;
       if (infgetkey(&ifl->DEFAULT, key, type)!=NULL)
         avt_errmsg(INF_ERRMSG, "016", AVT_WARNING, where==NULL?"":where, type, key);
-        // avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, type, key);
+        /* avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, type, key);*/
     }
 
   iv=infgetorcreatekey(is, key, type, 'p');
@@ -849,7 +849,7 @@ void inf_AddInt(inffig_list *ifl, int location, char *key, char *type, int val, 
       is=&ifl->LOADED;
       if ((iv=infgetkey(&ifl->DEFAULT, key, type))!=NULL && iv->VAL.ivalue!=val)
         avt_errmsg(INF_ERRMSG, "017", AVT_WARNING, where==NULL?"":where, type, key, iv->VAL.ivalue, val);
-        // avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set to %d elsewhere -- overriding with inf value %d\n",where==NULL?"":where, type, key, iv->VAL.ivalue, val);
+        /* avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set to %d elsewhere -- overriding with inf value %d\n",where==NULL?"":where, type, key, iv->VAL.ivalue, val);*/
     }
   iv=infgetorcreatekey(is, key, type, 'i');
   iv->VAL.ivalue=val;
@@ -1143,7 +1143,7 @@ static char *__getedge(char val)
 static int
 getVerificationLevel(char *token)
 {
-  // I
+  /* I*/
   if (!strcmp(token,INF_MUXU)
       || !strcmp(token,INF_MUXD)
       || !strcmp(token,INF_CMPU)
@@ -1163,7 +1163,7 @@ getVerificationLevel(char *token)
       || !strcmp(token,INF_SPECIN)
       || !strcmp(token,INF_SPECOUT))
     return 1;
-  // II
+  /* II*/
   if (!strcmp(token,INF_STOP)
       || !strcmp(token,INF_DIROUT)
       || !strcmp(token,INF_CKLATCH)
@@ -1176,7 +1176,7 @@ getVerificationLevel(char *token)
       || !strcmp(token,INF_MAX_FALL_TIME)
       || !strcmp(token,INF_CLOCK_PERIOD))
     return 2;
-  // III
+  /* III*/
   if (!strcmp(token,INF_DLATCH)
       || !strcmp(token,INF_NOTLATCH)
       || !strcmp(token,INF_KEEP_TRISTATE_BEHAVIOUR)
@@ -1186,7 +1186,7 @@ getVerificationLevel(char *token)
       || !strcmp(token,INF_STUCK)
       || !strcmp(token,INF_BYPASS)
       || !strcmp(token,INF_INTER)
-      //|| token,INF_LL_PATHSIGS)
+      /*|| token,INF_LL_PATHSIGS)*/
       || !strcmp(token,INF_PATHIN)
       || !strcmp(token,INF_PATHOUT)
       || !strncmp(token,INF_PATHDELAYMARGINPREFIX,strlen(INF_PATHDELAYMARGINPREFIX))
@@ -1196,7 +1196,7 @@ getVerificationLevel(char *token)
       || !strcmp(token,INF_CROSSTALKMUXU)
       || !strcmp(token,INF_CROSSTALKMUXD))
     return 3;
-  // ??
+  /* ??*/
   if (!strcmp(token,INF_IGNORE_INSTANCE)
       || !strcmp(token,INF_IGNORE_TRANSISTOR)
       || !strcmp(token,INF_IGNORE_CAPACITANCE)
@@ -1285,7 +1285,7 @@ checkKeys(FILE * f, char *key,INF_INFOSET *is, int level)
   if ((match < INF_VERIFICATION_DONE && match == level) || (match >= INF_VERIFICATION_DONE && match!=INF_VERIFICATION_DONE-level))
     return key;
   
-  f=NULL; // supress warning
+  f=NULL; /* supress warning*/
   return NULL;
 }
 
@@ -1401,7 +1401,7 @@ checkSections(FILE *f, inffig_list *ifl, char *token, int level, chain_list *dat
         }
       freechain(keys);
     }
-  f=NULL; // supress warning
+  f=NULL; /* supress warning*/
 }
 
 /*}}}************************************************************************/
@@ -1498,7 +1498,7 @@ inf_CheckRegistry(FILE *f, inffig_list *ifl, int level, chain_list *data)
 
   freechain(all);
   delht(sig_ht);
-  // reinitialisation au dernier level
+  /* reinitialisation au dernier level*/
   if (level==3) checkSections(NULL, NULL, NULL, 0, NULL, NULL);
   return;
 }
@@ -1545,7 +1545,7 @@ void inf_DumpRegistry (FILE *f, inffig_list *ifl, int location)
             case 's' : fprintf(f, "\"%s\"\n", iv->VAL.string==NULL?"NULL":iv->VAL.string); break;
             case 'p' : 
               {
-                // STB SPEC structure
+                /* STB SPEC structure*/
                 if (strcasecmp(iv->pointertype,INF_SPECIN)==0)
                   {
                     inf_stb_p_s *isps;
@@ -1574,7 +1574,7 @@ void inf_DumpRegistry (FILE *f, inffig_list *ifl, int location)
                       }
 
                   }
-                // INF association list
+                /* INF association list*/
                 else if (strcasecmp(iv->pointertype,INF_ASSOCLIST)==0)
                   {
                     chain_list *cl;
@@ -1598,7 +1598,7 @@ void inf_DumpRegistry (FILE *f, inffig_list *ifl, int location)
                         fprintf(f, " }\n");
                       }
                   }
-                // INF misc data
+                /* INF misc data*/
                 else if (strcasecmp(iv->pointertype,INF_MISCDATA)==0)
                   {
                     inf_miscdata *assoc;
@@ -1634,7 +1634,7 @@ void inf_AddAssociation(inffig_list *ifl, int location, char *key, char *type, c
       is=&ifl->LOADED;
       if (infgetkey(&ifl->DEFAULT, key, type)!=NULL)
         avt_errmsg(INF_ERRMSG, "016", AVT_WARNING, where==NULL?"":where, type, key);
-        // avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, type, key);
+        /* avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, type, key);*/
     }
 
   assoc=inf_createassoc();
@@ -1665,7 +1665,7 @@ void inf_AddList(inffig_list *ifl, int location, char *key, char *type, chain_li
       is=&ifl->LOADED;
       if (infgetkey(&ifl->DEFAULT, key, type)!=NULL)
         avt_errmsg(INF_ERRMSG, "016", AVT_WARNING, where==NULL?"":where, type, key);
-        // avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, type, key);
+        /* avt_error("inf", 3, AVT_WAR, "%sinformation '%s' for '%s' has already been set elsewhere -- overriding with inf values\n",where==NULL?"":where, type, key);*/
     }
 
   iv=infgetorcreatekey(is, key, type, 'p');

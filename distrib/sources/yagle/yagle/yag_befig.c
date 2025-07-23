@@ -41,12 +41,12 @@ yagBuildBefig(ptcnsfig, name)
     cnsfig_list *ptcnsfig;
     char        *name;
 {
-//    chain_list  *ptchain;
+/*    chain_list  *ptchain;*/
     befig_list  *ptbefig;
-//    befig_list  *ptinsbefig;
-//    bepor_list  *ptbepor;
-//    loins_list  *ptloins;
-//    ht          *befight;
+/*    befig_list  *ptinsbefig;*/
+/*    bepor_list  *ptbepor;*/
+/*    loins_list  *ptloins;*/
+/*    ht          *befight;*/
 
     ptbefig = yagInitBefig(name);
     yagInitBehDefined();
@@ -800,7 +800,7 @@ void yagOrientInterface(ptcnsfig)
     cnsfig_list *ptcnsfig;
 {
     locon_list  *ptlocon;
-//    ptype_list  *ptuser;
+/*    ptype_list  *ptuser;*/
     int         numbaddir = 0;
 
     /* check that external connector orientation conforms */

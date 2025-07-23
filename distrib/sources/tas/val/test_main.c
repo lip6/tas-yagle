@@ -107,7 +107,7 @@ char *argv[];
  char buf[1024] ;
 
 #ifndef __ALL__WARNING__
- argc = 0 ; // added to prevent warning, unused ..anto..
+ argc = 0 ; /* added to prevent warning, unused ..anto..*/
 #endif
  file = stdout ;
 

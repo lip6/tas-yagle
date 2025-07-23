@@ -130,13 +130,13 @@ void bck_viewdelay (bck_delaylist *delay)
 		fprintf (stdout, "INTERCONNECT ") ;
 
 	if (delay->START)
-		//fprintf (stdout, "IOPATH %s ", delay->START->NAME) ;
+		/*fprintf (stdout, "IOPATH %s ", delay->START->NAME) ;*/
 		fprintf (stdout, "%s ", (char*)delay->START) ;
 	else
 		fprintf (stdout, "start => ") ;
 		
 	if (delay->END)
-		//fprintf (stdout, "%s / ", delay->END->NAME) ;
+		/*fprintf (stdout, "%s / ", delay->END->NAME) ;*/
 		fprintf (stdout, "%s ", (char*)delay->END) ;
 	else
 		fprintf (stdout, "end ") ;
@@ -173,13 +173,13 @@ void bck_viewcheck (bck_checklist *check)
 	}
 
 	if (check->DATA)
-		//fprintf (stdout, "%s ", check->DATA->NAME) ;
+		/*fprintf (stdout, "%s ", check->DATA->NAME) ;*/
 		fprintf (stdout, "%s ", (char*)check->DATA) ;
 	else
 		fprintf (stdout, "data => ") ;
 		
 	if (check->COMMAND)
-		//fprintf (stdout, "%s ", check->COMMAND->NAME) ;
+		/*fprintf (stdout, "%s ", check->COMMAND->NAME) ;*/
 		fprintf (stdout, "%s ", (char*)check->COMMAND) ;
 	else
 		fprintf (stdout, "command ") ;

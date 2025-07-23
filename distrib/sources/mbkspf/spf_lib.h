@@ -12,7 +12,7 @@
 /*                                                                          */
 /****************************************************************************/
 
-//#define SPF_DEBUG
+/*#define SPF_DEBUG*/
 
 #ifndef SPF
 #define SPF
@@ -44,7 +44,7 @@
 /*     functions                                                            */
 /****************************************************************************/
 
-//extern lofig_list *spf_Annotate  __P((lofig_list *ptlofig, char *spf_file)) ;
+/*extern lofig_list *spf_Annotate  __P((lofig_list *ptlofig, char *spf_file)) ;*/
 void parsespf(char *figname);
 
 

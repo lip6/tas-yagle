@@ -103,13 +103,13 @@ binode_list *ptBinod;
     if (ScanBinod->CNDNODE)
     {
       avt_log(LOGZEN,2,"\t\t\t\tCND\t");
-      //displayBdd(ScanBinod->CNDNODE,1);
+      /*displayBdd(ScanBinod->CNDNODE,1);*/
       displayExprLog(LOGZEN,2,bddToAblCct(ptCct,ScanBinod->CNDNODE));
     }
     if (ScanBinod->CNDNODE)
     {
       avt_log(LOGZEN,2,"\t\t\t\tVAL\t");
-      //displayBdd(ScanBinod->VALNODE,1);
+      /*displayBdd(ScanBinod->VALNODE,1);*/
       displayExprLog(LOGZEN,2,bddToAblCct(ptCct,ScanBinod->VALNODE));
     }
   }
@@ -176,7 +176,7 @@ befig_list  *ptBeFig;
     if (ScanBeOut->NODE)
     {
       avt_log(LOGZEN,2,"\t\tBDD\t");
-     // displayBdd(ScanBeOut->NODE,1);
+     /* displayBdd(ScanBeOut->NODE,1);*/
       displayExprLog(LOGZEN,2,bddToAblCct(ptBeFig->CIRCUI,ScanBeOut->NODE));
     }
     if (ScanBeOut->ABL)
@@ -216,7 +216,7 @@ befig_list  *ptBeFig;
     if (ScanBeAux->NODE)
     {
       avt_log(LOGZEN,2,"\t\tBDD\t");
-      //displayBdd(ScanBeAux->NODE,1);
+      /*displayBdd(ScanBeAux->NODE,1);*/
       displayExprLog(LOGZEN,2,bddToAblCct(ptBeFig->CIRCUI,ScanBeAux->NODE));
     }
     if (ScanBeAux->ABL)
@@ -233,7 +233,7 @@ befig_list  *ptBeFig;
     if (ScanBeDly->NODE)
     {
       avt_log(LOGZEN,2,"\t\tBDD\t");
-      //displayBdd(ScanBeDly->NODE,1);
+      /*displayBdd(ScanBeDly->NODE,1);*/
       displayExprLog(LOGZEN,2,bddToAblCct(ptBeFig->CIRCUI,ScanBeDly->NODE));
     }
     if (ScanBeDly->ABL)
@@ -283,7 +283,7 @@ befig_list  *ptBeFig;
     if (ScanBeMsg->NODE)
     {
       avt_log(LOGZEN,2,"\t\tBDD\t");
-      //displayBdd(ScanBeMsg->NODE,1);
+      /*displayBdd(ScanBeMsg->NODE,1);*/
       displayExprLog(LOGZEN,2,bddToAblCct(ptBeFig->CIRCUI,ScanBeMsg->NODE));
     }
     if (ScanBeMsg->ABL)
@@ -516,7 +516,7 @@ befig_list  *ptBeFig;
       if (!AblBeAux) AblBeAux = tmpAbl;
       else AblBeAux = createBinExpr(OR,AblBeAux,tmpAbl);
     }
-    //bdd = ablToBddCct(ptBeFig->CIRCUI,AblBeAux);
+    /*bdd = ablToBddCct(ptBeFig->CIRCUI,AblBeAux);*/
     ptBeFig->BEAUX = beh_addbeaux(ptBeFig->BEAUX,ScanBeBux->NAME,AblBeAux,bdd,0);
   }
   return (ptBeFig);
@@ -539,9 +539,9 @@ befig_list  *ptBeFig;
 
   for (ScanBeBus=ptBeFig->BEBUS;ScanBeBus;ScanBeBus=ScanBeBus->NEXT)
   {
-    //fprintf(stdout,"\tBUS %s\t%c\n",
-    //(char *)(ScanBeBus->NAME),
-    //(char)(ScanBeBus->TYPE));
+    /*fprintf(stdout,"\tBUS %s\t%c\n",*/
+    /*(char *)(ScanBeBus->NAME),*/
+    /*(char)(ScanBeBus->TYPE));*/
     AblBeOut=NULL;
     for (ScanBiAbl=ScanBeBus->BIABL;ScanBiAbl;ScanBiAbl=ScanBiAbl->NEXT)
     {
@@ -551,8 +551,8 @@ befig_list  *ptBeFig;
       if (!AblBeOut) AblBeOut = tmpAbl;
       else AblBeOut = createBinExpr(OR,AblBeOut,tmpAbl);
     }
-    //displayExprLog(LOGZEN,2,"ZEN",AblBeOut);
-    //bdd = ablToBddCct(ptBeFig->CIRCUI,AblBeOut);
+    /*displayExprLog(LOGZEN,2,"ZEN",AblBeOut);*/
+    /*bdd = ablToBddCct(ptBeFig->CIRCUI,AblBeOut);*/
     ptBeFig->BEOUT = beh_addbeout(ptBeFig->BEOUT,ScanBeBus->NAME,AblBeOut,bdd, 0);
   }
   return (ptBeFig);
@@ -574,7 +574,8 @@ befig_list  *pt_befig;		/* pointer on current BEFIG	*/
 {
   pCircuit       cct = pt_befig->CIRCUI;
   cct = NULL;
-/*
+
+#ifdef THIS_IS_DISABLED
   beaux_list    *pt_beaux;
   bemsg_list    *pt_bemsg;
   beout_list    *pt_beout;
@@ -587,20 +588,20 @@ befig_list  *pt_befig;		/* pointer on current BEFIG	*/
   pNode          pt_valbdd;
   char           buf[256];
 
-  //    make a bdd for each simple internal signal
+  /*    make a bdd for each simple internal signal*/
   for (pt_beaux=pt_befig->BEAUX;pt_beaux;pt_beaux=pt_beaux->NEXT)
   {
       sprintf(buf,"%s\n",pt_beaux->NAME); ZEN_TRACE(0,buf);
     pt_valbdd = zen_ablToBddCct(cct,pt_beaux->ABL);
-    // perhaps only for aux, in case of big expr in other type, should use this
-    // solution
+    /* perhaps only for aux, in case of big expr in other type, should use this*/
+    /* solution*/
     if (pt_valbdd==ZEN_EXPLODEDBDD) pt_valbdd = BDD_one;
     if (pt_befig->TYPE & BEH_NODE_QUAD)
       ((struct bequad *)(pt_beaux->NODE))->BDD = pt_valbdd;
     else
       pt_beaux->NODE = pt_valbdd;
   }
-	//    make a bdd for each delayed internal signal
+	/*    make a bdd for each delayed internal signal*/
   for (pt_beaux=pt_befig->BEDLY;pt_beaux;pt_beaux=pt_beaux->NEXT)
   {
       sprintf(buf,"%s\n",pt_beaux->NAME); ZEN_TRACE(0,buf);
@@ -610,7 +611,7 @@ befig_list  *pt_befig;		/* pointer on current BEFIG	*/
     else
       pt_beaux->NODE = pt_valbdd;
   }
-	//    make a bdd for each assertion
+	/*    make a bdd for each assertion*/
   for (pt_bemsg=pt_befig->BEMSG;pt_bemsg;pt_bemsg=pt_bemsg->NEXT)
   {
       sprintf(buf,"bemssg\n"); ZEN_TRACE(0,buf);
@@ -620,7 +621,7 @@ befig_list  *pt_befig;		/* pointer on current BEFIG	*/
     else
       pt_bemsg->NODE = pt_valbdd;
   }
-	//    make a bdd for each simple output port
+	/*    make a bdd for each simple output port*/
   for (pt_beout=pt_befig->BEOUT;pt_beout;pt_beout=pt_beout->NEXT)
   {
       sprintf(buf,"%s\n",pt_beout->NAME); ZEN_TRACE(0,buf);
@@ -630,7 +631,7 @@ befig_list  *pt_befig;		/* pointer on current BEFIG	*/
     else
       pt_beout->NODE = pt_valbdd;
   }
-	//    make a bdd for each bussed output port
+	/*    make a bdd for each bussed output port*/
   for (pt_bebus=pt_befig->BEBUS;pt_bebus;pt_bebus=pt_bebus->NEXT)
   {
       sprintf(buf,"%s\n",pt_bebus->NAME); ZEN_TRACE(0,buf);
@@ -652,7 +653,7 @@ befig_list  *pt_befig;		/* pointer on current BEFIG	*/
       }
     }
   }
-	//    make a bdd for each bussed internal signal
+	/*    make a bdd for each bussed internal signal*/
   for (pt_bebux=pt_befig->BEBUX;pt_bebux;pt_bebux=pt_bebux->NEXT)
   {
       sprintf(buf,"%s\n",pt_bebux->NAME); ZEN_TRACE(0,buf);
@@ -674,7 +675,7 @@ befig_list  *pt_befig;		/* pointer on current BEFIG	*/
       }
     }
   }
-	//    make a bdd for each internal register
+	/*    make a bdd for each internal register*/
   for (pt_bereg=pt_befig->BEREG;pt_bereg;pt_bereg=pt_bereg->NEXT)
   {
       sprintf(buf,"%s\n",pt_bereg->NAME); ZEN_TRACE(0,buf);
@@ -694,7 +695,8 @@ befig_list  *pt_befig;		/* pointer on current BEFIG	*/
         pt_binode->VALNODE = pt_valbdd;
       }
     }
-  }*/
+  }
+#endif
 }
 
 /*}}}************************************************************************/
@@ -706,10 +708,10 @@ befig_list  *pt_befig;
 {
   int       err_flg = 0;
 
-//  if (!(pt_befig->TYPE & BEH_NODE_BDD));
+/*  if (!(pt_befig->TYPE & BEH_NODE_BDD));*/
   {
     zen_indexbdd(pt_befig);
-//   zen_mbddtot(pt_befig);
+/*   zen_mbddtot(pt_befig);*/
     pt_befig->TYPE |= BEH_NODE_BDD;
 
     if (err_flg != 0)
@@ -732,7 +734,7 @@ chain_list  *abl;
   if (ATOM(abl)) return abl;
   while (OPER(abl)==OPER((expd=CADR(expn))))
   {
-    freechain(CAR(expd)); // on libere l'operateur
+    freechain(CAR(expd)); /* on libere l'operateur*/
     CDR(expn)=delchain(CDR(expn),CDR(expn));
     expn=CDR(expn);
     CDR(expn)=delchain(expd,expd);
@@ -750,14 +752,14 @@ chain_list  *abl;
 pNode zen_ablToBddCct(cct,expr/*,iCct*/)
 pCircuit     cct;
 chain_list  *expr;
-//pCircuit     iCct;
+/*pCircuit     iCct;*/
 {
   static int     i = 0;
   pNode          res;
   chain_list    *support = NULL;
   chain_list    *chainx;
   int            bigAbl;
-//  chain_list    *bddList = NULL;
+/*  chain_list    *bddList = NULL;*/
   char           buf[256];
 
   bigAbl = (profExpr(expr)>20);
@@ -765,26 +767,26 @@ chain_list  *expr;
 
   if (bigAbl)
   {
-//    expr = zen_cutAbl(expr);
+/*    expr = zen_cutAbl(expr);*/
     setBddCeiling(numberNodeAllBdd()+5000);
     i++;
-//    support = reverse(supportChain_listExpr(expr));
+/*    support = reverse(supportChain_listExpr(expr));*/
   }
-//  else
+/*  else*/
     support = reverse(supportChain_listExpr(expr));
 
   for (chainx=support;chainx;chainx=chainx->NEXT)
     addInputCct(cct,chainx->DATA);
   freechain(support);
 
-//  if (bigAbl)
-//  {
-//    for (chainx=expr->NEXT;chainx;chainx=chainx->NEXT)
-//      bddList = addListBdd(bddList,ablToBddCct(cct,chainx->DATA));
-//    res = applyBdd(OPER(expr),reverse(bddList));
-//    freechain(bddList);
-//  }
-//  else
+/*  if (bigAbl)*/
+/*  {*/
+/*    for (chainx=expr->NEXT;chainx;chainx=chainx->NEXT)*/
+/*      bddList = addListBdd(bddList,ablToBddCct(cct,chainx->DATA));*/
+/*    res = applyBdd(OPER(expr),reverse(bddList));*/
+/*    freechain(bddList);*/
+/*  }*/
+/*  else*/
     res = ablToBddCct(cct,expr);
 
 
@@ -793,14 +795,14 @@ chain_list  *expr;
     sprintf(buf,"zen_ablToBddCct explosion (%d%s time)",i,
                 (i==1)?"st":((i==2)?"nd":((i==3)?"rd":"th")));
     ZEN_TRACE(0,buf);
-  //res = ablToBddCct(iCct,expr);
-  //printf("ok repare\n");
-  //EXIT (0);
+  /*res = ablToBddCct(iCct,expr);*/
+  /*printf("ok repare\n");*/
+  /*EXIT (0);*/
     unsetBddCeiling();
     return ZEN_EXPLODEDBDD;
   }
   unsetBddCeiling();
-//zen_displayExprLog(LOGZEN,2,"ZEN",bddToAblCct(cct,res));
+/*zen_displayExprLog(LOGZEN,2,"ZEN",bddToAblCct(cct,res));*/
   return res;
 }
 
@@ -835,7 +837,7 @@ befig_list  *befig;
     for (bebia=bereg->BIABL;bebia;nbout+=2,bebia=bebia->NEXT);
   for (bemsg=befig->BEMSG;bemsg;nbout++,bemsg=bemsg->NEXT);
 
-//  befig->CIRCUI = initializeCct (befig->NAME,nbin*2,nbout);
+/*  befig->CIRCUI = initializeCct (befig->NAME,nbin*2,nbout);*/
 }
 
 /*}}}************************************************************************/

@@ -93,12 +93,7 @@ XyagFreeObject(Object)
 |                          XyagAddCircle                      |
 \------------------------------------------------------------*/
 
-xyagobj_list   *
-XyagAddCircle(X, Y, R, Layer)
-    long            X;
-    long            Y;
-    long            R;
-    short           Layer;
+xyagobj_list * XyagAddCircle( long X, long Y, long R, short Layer )
 {
     xyagobj_list   *Object;
 
@@ -213,14 +208,7 @@ XyagAddArrow(X1, Y1, X2, Y2, LayerFrom, LayerTo)
 |                          XyagAddUserDefined                 |
 \------------------------------------------------------------*/
 
-xyagobj_list   *
-XyagAddUserDefined(ptmotif,X, Y, DX, DY, Layer)
-    symbol_list    *ptmotif;
-    long            X;
-    long            Y;
-    long            DX;
-    long            DY;
-    short           Layer;
+xyagobj_list * XyagAddUserDefined( symbol_list *ptmotif, long X, long Y, long DX, long DY, short Layer )
 {
     xyagobj_list   *Object;
 
@@ -243,13 +231,7 @@ XyagAddUserDefined(ptmotif,X, Y, DX, DY, Layer)
 |                          XyagAddTriangle                    |
 \------------------------------------------------------------*/
 
-xyagobj_list   *
-XyagAddTriangle(X, Y, DX, DY, Layer)
-    long            X;
-    long            Y;
-    long            DX;
-    long            DY;
-    short           Layer;
+xyagobj_list * XyagAddTriangle( long X, long Y, long DX, long DY, short Layer )
 {
     xyagobj_list   *Object;
 
@@ -270,13 +252,7 @@ XyagAddTriangle(X, Y, DX, DY, Layer)
 |                            XyagAddCell                      |
 \------------------------------------------------------------*/
 
-xyagobj_list   *
-XyagAddCell(X, Y, DX, DY, Layer)
-    long            X;
-    long            Y;
-    long            DX;
-    long            DY;
-    short           Layer;
+xyagobj_list * XyagAddCell( long X, long Y, long DX, long DY, short Layer )
 {
     xyagobj_list   *Object;
 
@@ -299,13 +275,7 @@ XyagAddCell(X, Y, DX, DY, Layer)
 |                          XyagAddRectangle                   |
 \------------------------------------------------------------*/
 
-xyagobj_list   *
-XyagAddRectangle(X, Y, DX, DY, Layer)
-    long            X;
-    long            Y;
-    long            DX;
-    long            DY;
-    short           Layer;
+xyagobj_list * XyagAddRectangle( long X, long Y, long DX, long DY, short Layer )
 {
     xyagobj_list   *Object;
 
@@ -327,14 +297,7 @@ XyagAddRectangle(X, Y, DX, DY, Layer)
 |                          XyagAddText                        |
 \------------------------------------------------------------*/
 
-xyagobj_list   *
-XyagAddText(X, Y, Type, Name, Layer, scale)
-    long            X;
-    long            Y;
-    long            Type;
-    char           *Name;
-    short           Layer;
-    long            scale;
+xyagobj_list * XyagAddText( long X, long Y, long Type, char *Name, short Layer, long scale )
 {
     xyagobj_list   *Object;
     long            Width;
@@ -368,13 +331,7 @@ XyagAddText(X, Y, Type, Name, Layer, scale)
 |                          XyagAddHexagon                     |
 \------------------------------------------------------------*/
 
-xyagobj_list   *
-XyagAddHexagon(X, Y, DX, DY, Layer)
-    long            X;
-    long            Y;
-    long            DX;
-    long            DY;
-    short           Layer;
+xyagobj_list * XyagAddHexagon( long X, long Y, long DX, long DY, short Layer )
 {
     xyagobj_list   *Object;
 

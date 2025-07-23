@@ -38,10 +38,10 @@ static struct XalMenuItem XtasNoiseMenuView[] = {
     { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
 };
 
-//static struct XalMenuItem XtasNoiseMenuTools[] = {
-//    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
-//    { NULL }
-//};
+/*static struct XalMenuItem XtasNoiseMenuTools[] = {*/
+/*    { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}*/
+/*    { NULL }*/
+/*};*/
 
 static struct XalMenuItem XtasNoiseMenuOptions[] = {
     { "Buttons Menu",  &xmPushButtonGadgetClass,    'B', False, False, "Ctrl<Key>B", "Ctrl+B",
@@ -58,8 +58,8 @@ static struct XalMenuItem XtasNoiseMenuHelp[] = {
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_FILE|XTAS_SRC_NOISERES), (XalMenuItemStruct *)NULL },
     { "On View",    &xmPushButtonGadgetClass, 'V', False, False, NULL, NULL,
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_VIEW|XTAS_SRC_NOISERES), (XalMenuItemStruct *)NULL },
-//    { "On Tools",   &xmPushButtonGadgetClass, 'V', False, False, NULL, NULL,
-//                       XtasHelpCallback, (XtPointer)(XTAS_HELP_TOOLS|XTAS_SRC_NOISERES), (XalMenuItemStruct *)NULL },
+/*    { "On Tools",   &xmPushButtonGadgetClass, 'V', False, False, NULL, NULL,*/
+/*                       XtasHelpCallback, (XtPointer)(XTAS_HELP_TOOLS|XTAS_SRC_NOISERES), (XalMenuItemStruct *)NULL },*/
     { "On Options", &xmPushButtonGadgetClass, 'H', False, False, NULL, NULL, 
                        XtasHelpCallback, (XtPointer)(XTAS_HELP_OPTIONS|XTAS_SRC_NOISERES), (XalMenuItemStruct *)NULL },
     { NULL , NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL}
@@ -71,8 +71,8 @@ static struct XalMenuItem XtasNoiseMenu[] = {
                                                   (XtPointer)0, XtasNoiseMenuFile },
     { "View",    &xmCascadeButtonGadgetClass, 'V', False, False, NULL, NULL, NULL,
                                                    (XtPointer)0, XtasNoiseMenuView },
-//    { "Tools",   &xmCascadeButtonGadgetClass, 'T', False, False, NULL, NULL, NULL,
-//                                                  (XtPointer)0, XtasNoiseMenuTools },
+/*    { "Tools",   &xmCascadeButtonGadgetClass, 'T', False, False, NULL, NULL, NULL,*/
+/*                                                  (XtPointer)0, XtasNoiseMenuTools },*/
     { "Options", &xmCascadeButtonGadgetClass, 'O', False, False, NULL, NULL, NULL,
                                                   (XtPointer)0, XtasNoiseMenuOptions },
     { "Help",    &xmCascadeButtonGadgetClass, 'H', False, False, NULL, NULL, NULL, 

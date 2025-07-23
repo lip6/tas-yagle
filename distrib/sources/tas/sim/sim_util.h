@@ -36,7 +36,7 @@ extern void sim_dec2bin (char *bin, unsigned long dec, int begin, int end);
 extern void sim_hex2bin (char *bin, char *hex);
 extern void sim_node_clean(sim_model *model, char *name);
 
-// zinaps:
+/* zinaps:*/
 sim_model *simDuplicate(sim_model *src);
 lofig_list *sim_GetNetlist(char *name);
 sim_model *sim_SaveContext(sim_model *src, char *label);

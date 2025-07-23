@@ -191,7 +191,7 @@ char mcc_mcc_characteristic( mcc_trans_mcc *trs,
       psat = 1.0 / rsat;
       csat = isat - vsat * psat;
 
-      // Version avec 5 segments
+      /* Version avec 5 segments*/
       {
         di   = isat - ilin;
         dv   = vsat - vlin;
@@ -269,7 +269,7 @@ char mcc_mcc_vth( mcc_trans_mcc *trs,
                   float *vth
                 )
 {
-  vds=0.0; // unused parameter
+  vds=0.0; /* unused parameter*/
   *vth = trs->VT + trs->KVT * vbs ;
   return 1;
 }
@@ -329,7 +329,7 @@ char mcc_mcc_ids( mcc_trans_mcc *trs,
 
     for( i = 0 ; ( i < n ) && ( model[i].VMAX < vds ) ; i++ );
     
-    if( i >= n ) // si on a un vds > vdd, on prend le dernier segment de droite.
+    if( i >= n ) /* si on a un vds > vdd, on prend le dernier segment de droite.*/
       i = n-1 ;
     
     *ids = model[i].A * vds + model[i].B ;
@@ -407,7 +407,7 @@ char mcc_mcc_vds( mcc_trans_mcc *trs,
         break ;
     }
     
-    if( i >= n ) // si on a un vds > vdd, on prend le dernier segment de droite.
+    if( i >= n ) /* si on a un vds > vdd, on prend le dernier segment de droite.*/
       i = n-1 ;
 
     *vds = ( ids - model[i].B ) / model[i].A ;
@@ -489,7 +489,7 @@ mcc_trans_spice* mcc_create_trans_spice( lotrs_list *lotrs, float vdd, losig_lis
       lotrsparam->VBULK = (trs->TRANSTYPE == MCC_NMOS) ? 0.0 : vdd;
   }
   trs->PARAM      = lotrsparam;
-  trs->LOTRS      = lotrs ; // necessaire pour récupérer le subckt...
+  trs->LOTRS      = lotrs ; /* necessaire pour récupérer le subckt...*/
  
   mcc_update_technoparams( trs->TRANSNAME, trs->TRANSTYPE == MCC_NMOS ? MCC_TRANS_N : MCC_TRANS_P, trs->TRLENGTH*1e6, trs->TRWIDTH*1e6, trs->LOTRS, trs->TRANSCASE );
   mcc_calcRACCESS( trs->MODELFILE, trs->TRANSNAME, trs->TRANSTYPE, trs->TRANSCASE, trs->TRLENGTH, trs->TRWIDTH, trs->PARAM, &rs, &rd );
@@ -757,7 +757,7 @@ char mcc_spice_ids_pol( mcc_trans_spice *trs,
 
   if( trs->TRANSTYPE == MCC_NMOS ) {
     if( vds < 0.0 ) {
-      // pour un tn, vds doit etre positif
+      /* pour un tn, vds doit etre positif*/
       vdsr = -vds ;
       vgsr = vgs - vds ;
       vbsr = vbs - vds ;
@@ -772,7 +772,7 @@ char mcc_spice_ids_pol( mcc_trans_spice *trs,
   }
   else {
     if( vds > 0.0 ) {
-      // pour un tp, vds doit etre negatif
+      /* pour un tp, vds doit etre negatif*/
       vdsr = -vds ;
       vgsr = vgs - vds ;
       vbsr = vbs - vds ;
@@ -888,8 +888,8 @@ char mcc_mcc_vds_list_estim_vds( chain_list *headtrs, float vs, float ids, float
   char           r ;
   
   /* find a non degraded transistor to get an estimation of the current */
-  // itrs = ids / ((float)countchain( headtrs )) ;
-  itrs = ids ; // to find the boundary faster in the mcc_mcc_vdd_list()
+  /* itrs = ids / ((float)countchain( headtrs )) ;*/
+  itrs = ids ; /* to find the boundary faster in the mcc_mcc_vdd_list()*/
   for( chain = headtrs ; chain ; chain = chain->NEXT ) {
     trs = (mcc_trans_mcc*)chain->DATA ;
     if( mcc_trans_is_reverse( trs, itrs ) == 0 ) {

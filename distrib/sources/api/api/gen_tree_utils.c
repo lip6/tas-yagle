@@ -134,7 +134,7 @@ extern void freetree(tree_list* tree)
   tree_list *tr, *ntr;
   for (tr=tree; tr!=NULL; tr=ntr) { ntr=tr->NEXT; DelHeapItem(&tree_heap, tr); }
     
-//   HEAD_TREE=(tree_list*) append((chain_list*)tree, (chain_list*)HEAD_TREE);
+/*   HEAD_TREE=(tree_list*) append((chain_list*)tree, (chain_list*)HEAD_TREE);*/
 }
 
 
@@ -220,7 +220,7 @@ extern char *getname(tree)
 { 
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 1);
-    //fprintf(stderr,"getname: NULL pointer\n");
+    /*fprintf(stderr,"getname: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -256,7 +256,7 @@ extern char *getname_of(tree)
 { 
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 2);
-    //fprintf(stderr,"getname_of: NULL pointer\n");
+    /*fprintf(stderr,"getname_of: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -283,7 +283,7 @@ extern tree_list *getident(tree)
 { 
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 3);
-    //fprintf(stderr,"getident: NULL pointer\n");
+    /*fprintf(stderr,"getident: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -315,7 +315,7 @@ extern tree_list *getident_of(tree)
 { 
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 4);
-    //fprintf(stderr,"getident_of: NULL pointer\n");
+    /*fprintf(stderr,"getident_of: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -347,7 +347,7 @@ extern chain_list *tree2chain(tree_list *tree, chain_list *pile)
 {
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 5);
-    //fprintf(stderr,"tree2chain: NULL pointer\n");
+    /*fprintf(stderr,"tree2chain: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -402,7 +402,7 @@ extern tree_list *Duplicate_Tree(tree)
     return addtree(FILE_NAME(tree),LINE(tree),TOKEN(tree),NULL,inter);    
     break;
   case GEN_TOKEN_CAST:
-    inter=Duplicate_Tree(tree->NEXT->NEXT->NEXT); // expr
+    inter=Duplicate_Tree(tree->NEXT->NEXT->NEXT); /* expr*/
     inter=addtree(FILE_NAME(tree),LINE(tree),TOKEN(tree->NEXT->NEXT),tree->NEXT->NEXT->DATA,inter);
     inter=addtree(FILE_NAME(tree),LINE(tree),TOKEN(tree->NEXT),tree->NEXT->DATA,inter);
     return addtree(FILE_NAME(tree),LINE(tree),TOKEN(tree),NULL,inter);
@@ -434,7 +434,7 @@ extern tree_list *Duplicate_Tree(tree)
   /*terminal*/
   case GEN_TOKEN_REF:
     inter=Duplicate_Tree(tree->NEXT);
-    inter->NEXT=tree->NEXT->NEXT; // ref depth
+    inter->NEXT=tree->NEXT->NEXT; /* ref depth*/
     return addtree(FILE_NAME(tree),LINE(tree),TOKEN(tree),NULL,inter);
   case GEN_TOKEN_STDOUT: case GEN_TOKEN_STDERR: case GEN_TOKEN_RETURN: case GEN_TOKEN_BREAK:
   case GEN_TOKEN_IDENT: case GEN_TOKEN_DIGIT: case GEN_TOKEN_DIGIT_CHAR: case GEN_TOKEN_NOP: case GEN_TOKEN_LOINS:/*pointer on a loins*/
@@ -475,7 +475,7 @@ extern void Dump_Tree(tree_list *tree)
 {
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 6);
-    //fprintf(stderr,"Dump_Tree: NULL pointer\n");
+    /*fprintf(stderr,"Dump_Tree: NULL pointer\n");*/
     EXIT(1); 
   }
 
@@ -862,292 +862,292 @@ extern void Error_Tree(char *message,tree_list *tree)
 {
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 7);
-//    fprintf(stderr,"Error_Tree: NULL pointer\n");
+/*    fprintf(stderr,"Error_Tree: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
   /* node of ABL */
   case GEN_TOKEN_NODE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 8);
-//    fprintf(stderr,"(%s): unexpected node in file %s:%d\n",message,FILE_NAME(tree),LINE(tree));
+/*    fprintf(stderr,"(%s): unexpected node in file %s:%d\n",message,FILE_NAME(tree),LINE(tree));*/
     break;
   case '(': case '?':
   case '+': case '-': case '*': case '/': case '%': case '>': case '<':
   case '&': case '|': case '^': case ';': case ',': case '=': case '~':
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 9);
-//    fprintf(stderr,"(%s) %d: unexpected token '%c' in file %s\n",message,
-//	    LINE(tree),TOKEN(tree),FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%c' in file %s\n",message,*/
+/*	    LINE(tree),TOKEN(tree),FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_ARRAY:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 10);
-//    fprintf(stderr,"(%s) %d: unexpected ARRAY in file %s\n",message,LINE(tree),FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected ARRAY in file %s\n",message,LINE(tree),FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_TO:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 11);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"to",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"to",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_DOWNTO:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 12);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"downto",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"downto",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_ENTITY:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 13);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"entity",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"entity",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_ARCHITECTURE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 14);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,
-//	    LINE(tree),"structure",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,*/
+/*	    LINE(tree),"structure",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_ACTION:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 15);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"action",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"action",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_MOD:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 16);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"mod",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"mod",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_POW:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 17);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"pow",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"pow",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_MAP:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 18);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"port map",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"port map",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_COMPONENT:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 19);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"component",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"component",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_OF:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 20);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"of",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"of",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_GENERIC:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 21);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"generic",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"generic",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_PORT:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 22);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"port",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"port",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_VARIABLE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 23);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"variable",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"variable",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_INTEGER:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 24);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"integer",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"integer",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_BLOCK:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 25);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"block",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"block",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_CHAR:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 26);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"char",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"char",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_FILE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 27);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"FILE",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"FILE",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_REF:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 28);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"_REF",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"_REF",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_REF_FILE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 29);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"_REF_FILE",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"_REF_FILE",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_REF_CHAR:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 30);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"_REF_CHAR",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"_REF_CHAR",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_STATIC:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 31);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"static",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"static",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_SIGNAL:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 32);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"signal",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"signal",FILE_NAME(tree));*/
     break;
   case GNS_TOKEN_AND:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 33);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"&&",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"&&",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_OR:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 34);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"||",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"||",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_EG:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 35);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"==",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"==",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_OPPOSITE: 
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 36);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"-",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"-",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_NOT:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 37);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"!",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"!",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_NOTEG:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 38);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"!=",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"!=",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_SUPEG:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 39);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),">=",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),">=",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_INFEG:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 40);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"<=",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"<=",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_XOR:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 41);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"xor",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"xor",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_FPRINTF:
   case GEN_TOKEN_SPRINTF:
   case GEN_TOKEN_BSPRINTF:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 42);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"fprintf/sprintf/bsprintf",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"fprintf/sprintf/bsprintf",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_EXCLUDE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 43);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"exclude",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"exclude",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_MBKFOPEN:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 44);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"mbkfopen",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"mbkfopen",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_FOPEN:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 45);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"fopen",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"fopen",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_FCLOSE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 46);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"fclose",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"fclose",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_PRINTF:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 47);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"printf",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"printf",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_FOR:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 48);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"for",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"for",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_IF:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 49);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"if",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"if",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_DO:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 50);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"do",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"do",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_WHILE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 51);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"while",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"while",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_ELSE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 52);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"else",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"else",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_IN:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 53);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"in",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"in",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_OUT:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 54);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"out",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"out",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_INOUT:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 55);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"inout",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"inout",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_LINKAGE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 56);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"linkage",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"linkage",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_TRISTATE:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 57);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,
-//	    LINE(tree),"tristate",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,*/
+/*	    LINE(tree),"tristate",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_TRANSCV:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 58);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,
-//	    LINE(tree),"transcv",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,*/
+/*	    LINE(tree),"transcv",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_EQUI:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 59);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"=>",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"=>",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_SHL:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 60);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"<<",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"<<",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_SHR:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 61);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),">>",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),">>",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_DEC_BEFORE: case GEN_TOKEN_DEC_AFTER:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 62);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"--",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"--",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_INC_BEFORE: case GEN_TOKEN_INC_AFTER:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 63);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"++",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"++",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_STRING: case GEN_TOKEN_IDENT:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 64);
-//    fprintf(stderr, "(%s) %d: unexpected string '%s' in file %s\n",
-//            message, LINE(tree), (char*)tree->DATA,FILE_NAME(tree));
+/*    fprintf(stderr, "(%s) %d: unexpected string '%s' in file %s\n",*/
+/*            message, LINE(tree), (char*)tree->DATA,FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_DIGIT:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 65);
-//    fprintf(stderr,"(%s) %d: unexpected digit '%d' in file %s\n",message,
-//	    LINE(tree),(int)(long)tree->DATA,FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected digit '%d' in file %s\n",message,*/
+/*	    LINE(tree),(int)(long)tree->DATA,FILE_NAME(tree));*/
     break;
    case GEN_TOKEN_LOINS:/*pointer on a loins in lofig*/
       if (tree->DATA) avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 66);
-//    fprintf(stdout,"(%s) unexpected loins in file %s\n",
-//                              message,FILE_NAME(tree));
+/*    fprintf(stdout,"(%s) unexpected loins in file %s\n",*/
+/*                              message,FILE_NAME(tree));*/
       else avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 67);
-//    fprintf(stdout,"(%s) unexpected loins with null pointer in file %s\n",
-//                   message,FILE_NAME(tree));
+/*    fprintf(stdout,"(%s) unexpected loins with null pointer in file %s\n",*/
+/*                   message,FILE_NAME(tree));*/
       break;
   case GEN_TOKEN_EXIT:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 68);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,
-//	    LINE(tree),"EXIT",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,*/
+/*	    LINE(tree),"EXIT",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_RETURN:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 69);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,
-//	    LINE(tree),"RETURN",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,*/
+/*	    LINE(tree),"RETURN",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_BREAK:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 70);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,
-//	    LINE(tree),"BREAK",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,*/
+/*	    LINE(tree),"BREAK",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_NOP:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 71);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,
-//	    LINE(tree),"NOP",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,*/
+/*	    LINE(tree),"NOP",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_STDOUT:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 72);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"stdout",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"stdout",FILE_NAME(tree));*/
     break;
   case GEN_TOKEN_STDERR:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 73);
-//    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"stderr",FILE_NAME(tree));
+/*    fprintf(stderr,"(%s) %d: unexpected token '%s' in file %s\n",message,LINE(tree),"stderr",FILE_NAME(tree));*/
     break;
   default:
     avt_errmsg(API_ERRMSG, "004", AVT_ERROR, 74);
-//    fprintf(stderr,"(%s): token %d unknown\n",message,TOKEN(tree));
+/*    fprintf(stderr,"(%s): token %d unknown\n",message,TOKEN(tree));*/
   }
 }
 
@@ -1160,7 +1160,7 @@ extern void Free_Tree(tree)
 {
   if (!tree) {
     return;
-  //  fprintf(stderr,"Free_Tree: NULL pointer\n");
+  /*  fprintf(stderr,"Free_Tree: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -1229,7 +1229,7 @@ extern void Free_Tree(tree)
     freetree(tree); 
     break;
   case GEN_TOKEN_DIGIT_DOUBLE:
-    mbkfree(tree->DATA); // (double*)
+    mbkfree(tree->DATA); /* (double*)*/
     freetree(tree); 
     break;
   case GEN_TOKEN_VOIDTOKEN:
@@ -1265,7 +1265,7 @@ extern int SeekToken_Tree(tree,token)
 {
   if (!tree) {
     return 0;
-//    fprintf(stderr,"SeekToken_Tree: NULL pointer\n");
+/*    fprintf(stderr,"SeekToken_Tree: NULL pointer\n");*/
     EXIT(1);
   }
   if (TOKEN(tree)==token) return 1;

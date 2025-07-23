@@ -34,7 +34,7 @@ class Language
  public:
   Language();
   virtual ~Language();
-  //virtual functions required by the SWIG parser
+  /*virtual functions required by the SWIG parser*/
 
   virtual void parse_args (int, char *argv[]);
   virtual void parse ();

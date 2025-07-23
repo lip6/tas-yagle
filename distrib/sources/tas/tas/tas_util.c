@@ -588,7 +588,7 @@ else /* autres cas */
         else if(strcmp(chaine,"-nl") == 0) YAG_CONTEXT->YAG_DETECT_LATCHES = FALSE ;
         else if(strcmp(chaine,"-rpt") == 0) YAG_CONTEXT->YAG_REMOVE_PARA = TRUE ;
         else if(strcmp(chaine,"-nr") == 0) TAS_CONTEXT->TAS_CALCRCN = 'N' ;
-        //else if(strcmp(chaine,"-bk") == 0) TAS_CONTEXT->TAS_BREAKLOOP = 'Y' ;
+        /*else if(strcmp(chaine,"-bk") == 0) TAS_CONTEXT->TAS_BREAKLOOP = 'Y' ;*/
         else if(strcmp(chaine,"-mg") == 0) TAS_CONTEXT->TAS_MERGERCN = 'Y' ;
         else if(strcmp(chaine,"-nm") == 0) TAS_CONTEXT->TAS_SUPSTMMODEL = 'Y' ;
         else if(strcmp(chaine,"-rc") == 0)
@@ -659,7 +659,7 @@ else /* autres cas */
             case 'b' : YAG_CONTEXT->YAG_ORIENT = TRUE ; break ;
             case 'o' : YAG_CONTEXT->YAG_HELP_S = TRUE ; break ;
             case 'i' : avt_sethashvar("avtReadInformationFile", inf_GetDefault_AVT_INF_Value());
-                       //avt_error("hitas", -1, AVT_WAR, "option -i is deprecated\n");
+                       /*avt_error("hitas", -1, AVT_WAR, "option -i is deprecated\n");*/
                        break ;
             /* fin des options YAGLE */
 
@@ -900,7 +900,7 @@ for(i = 1 ; i != argc ; i++)
             }
 
         /* options YAGLE */
-        else if(strcmp(argv[i],"-i") == 0) avt_sethashvar("avtReadInformationFile", inf_GetDefault_AVT_INF_Value()); //avt_error("hitas", -1, AVT_WAR, "option -i is deprecated\n");
+        else if(strcmp(argv[i],"-i") == 0) avt_sethashvar("avtReadInformationFile", inf_GetDefault_AVT_INF_Value()); /*avt_error("hitas", -1, AVT_WAR, "option -i is deprecated\n");*/
         else if(strcmp(argv[i],"-b") == 0) YAG_CONTEXT->YAG_ORIENT = TRUE ;
         else if(strcmp(argv[i],"-o") == 0) YAG_CONTEXT->YAG_HELP_S = TRUE ;
         /* fin des options YAGLE */
@@ -1134,17 +1134,17 @@ float tas_getcapalink(lofig_list *lofig, link_list *link, char event)
     int capatype;
     
     switch ( event ) {
-      case 'U' : //capatype = ELP_CAPA_UP;
+      case 'U' : /*capatype = ELP_CAPA_UP;*/
                  capatype = ELP_CAPA_TYPICAL;
                  break;
-      case 'D' : //capatype = ELP_CAPA_DN;
+      case 'D' : /*capatype = ELP_CAPA_DN;*/
                  capatype = ELP_CAPA_TYPICAL;
                  break;
       default:   capatype = ELP_CAPA_TYPICAL;
                  break;
     }
     clink = TAS_GETCLINK(link);
-    if(clink->CLINK != TAS_NOCAPA)// TODO : maybe CLINKU and CLIMKD...
+    if(clink->CLINK != TAS_NOCAPA)/* TODO : maybe CLINKU and CLIMKD...*/
         return clink->CLINK;
     else
         return tas_gettotalcapa(lofig, link->SIG, capatype);

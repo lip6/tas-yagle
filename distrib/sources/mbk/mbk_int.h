@@ -61,4 +61,4 @@ int             mbk_scanint __P(( mbk_tableint *table, int n ));
   du noeud retourné précédement. La fin est indiqué par un retour 0	*/
 
 
-#endif //spi_int
+#endif /*spi_int*/

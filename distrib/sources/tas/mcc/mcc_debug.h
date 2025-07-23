@@ -20,10 +20,10 @@ typedef struct
 {
   int nb;
   int nbdyna;
-  // MCC_IDNSAT, MCC_IDNRES, MCC_IDNVGS, MCC_IDPSAT, MCC_IDPRES, MCC_IDPVGS, MCC_VDDDEG, MCC_VSSDEG
+  /* MCC_IDNSAT, MCC_IDNRES, MCC_IDNVGS, MCC_IDPSAT, MCC_IDPRES, MCC_IDPVGS, MCC_VDDDEG, MCC_VSSDEG*/
   double *I_SIMU[8];
   double *I_OPTIM[8];
-  double *I_ELP[8]; // only 6 used
+  double *I_ELP[8]; /* only 6 used*/
   double *I_BSIM[8];
 
   double *I_VDS_RSATLIN[2][3][2][2];

@@ -119,7 +119,7 @@ void spf_check_update_pending_node(char *name, losig_list *ls, int nodenum)
         {
           pci->signal=ls;
           pci->realid=nodenum;
-//          printf("| update %s : %s %d\n", name, getsigname(ls), nodenum);
+/*          printf("| update %s : %s %d\n", name, getsigname(ls), nodenum);*/
         }
     }
   spf_associate_node(name, ls, nodenum);
@@ -135,7 +135,7 @@ int spf_find_pending_node(char *name, losig_list **ls, long *nodenum)
         {
           *ls=pci->signal;
           *nodenum=pci->realid;
-//          printf("| found %s : %s %ld\n", name, getsigname(*ls), *nodenum);
+/*          printf("| found %s : %s %ld\n", name, getsigname(*ls), *nodenum);*/
           return 1;
         }
     }
@@ -228,7 +228,7 @@ static char *spf_check_keep(char *name, char ch)
   return name;
 }
 
-// add a transistor connector to the local list of nodes
+/* add a transistor connector to the local list of nodes*/
 void spf_AddTransistorConnector(char *allname, char *instname, char *signame)
 {
   lotrs_list *tr;
@@ -281,13 +281,13 @@ void spf_AddTransistorConnector(char *allname, char *instname, char *signame)
   addhtitem(local_net_htable,name,nodecounter);
   addhtitem(local_net_htable_connector,name,(long)lc);
 
-  // une incoherence dans le dspf
+  /* une incoherence dans le dspf*/
   if (lc->SIG->PRCN==NULL)
   {
     avt_errmsg(SPF_ERRMSG, "014", AVT_WARNING, ourname, signame, spf_Line);
     addlorcnet(lc->SIG);
   }
-  // ----
+  /* ----*/
    
   if (lc->PNODE!=NULL) { freenum(lc->PNODE); lc->PNODE=NULL; }
   setloconnode(lc,nodecounter); 
@@ -404,7 +404,7 @@ int spf_AddCapacitanceConnector(char *allname, char *instname, char *signame, ch
   return 1;
 }
 
-// add an instance connector to the local list of nodes
+/* add an instance connector to the local list of nodes*/
 void spf_AddInstanceConnector(char *allname, char *instname, char *signame)
 {
   loins_list *ls;
@@ -416,7 +416,7 @@ void spf_AddInstanceConnector(char *allname, char *instname, char *signame)
   
   if (currentnet==NULL) return;
 
-  name0=spf_spi_devect(allname); // was spf_rename
+  name0=spf_spi_devect(allname); /* was spf_rename*/
 
   if (gethtitem(local_net_htable,name0)!=EMPTYHT)
   {
@@ -435,10 +435,10 @@ void spf_AddInstanceConnector(char *allname, char *instname, char *signame)
   }
  
   if (spf_AddResistanceConnector(allname, instname, signame)) return;
-  if (spf_AddCapacitanceConnector(allname, instname, signame, 'd')) return; // diode
-  if (spf_AddCapacitanceConnector(allname, instname, signame, 'c')) return; // capa
+  if (spf_AddCapacitanceConnector(allname, instname, signame, 'd')) return; /* diode*/
+  if (spf_AddCapacitanceConnector(allname, instname, signame, 'c')) return; /* capa*/
 
-  ls=getloinsbyname(ourname=spf_spi_devect(spf_check_keep(instname,'x'))); //getloins(Lofig,instname);
+  ls=getloinsbyname(ourname=spf_spi_devect(spf_check_keep(instname,'x'))); /*getloins(Lofig,instname);*/
   if (ls==NULL)
     {
       if (spf_Lofig->LOTRS!=NULL)
@@ -451,7 +451,7 @@ void spf_AddInstanceConnector(char *allname, char *instname, char *signame)
       return;
     }
     
-  name=spf_spi_devect(signame); // was spf_rename
+  name=spf_spi_devect(signame); /* was spf_rename*/
   for (lc=ls->LOCON;lc!=NULL && lc->NAME!=name;lc=lc->NEXT) ;
   
   if (lc==NULL)
@@ -460,10 +460,10 @@ void spf_AddInstanceConnector(char *allname, char *instname, char *signame)
       return;
     }
 
-//  name=spf_spi_devect(allname); // was spf_rename
+/*  name=spf_spi_devect(allname); // was spf_rename*/
 
-  // to preverse the number of nodes on the connector
-  // and avoid discrepency betwwen instance and model
+  /* to preverse the number of nodes on the connector*/
+  /* and avoid discrepency betwwen instance and model*/
   if ((cnt=lc->FLAGS)==0 || cnt==-1) cnt=1; 
 
   if (SPF_PREVERSE_RC)
@@ -513,7 +513,7 @@ void spf_AddInstanceConnector(char *allname, char *instname, char *signame)
 
 }
 
-// add a connector to the local list of nodes
+/* add a connector to the local list of nodes*/
 void spf_AddConnector(char *sig)
 {
   locon_list *lc;
@@ -525,7 +525,7 @@ void spf_AddConnector(char *sig)
 
   if (currentnet==NULL) return;
 
-  name=spf_spi_devect(sig); // was spf_rename
+  name=spf_spi_devect(sig); /* was spf_rename*/
 
   if (gethtitem(local_net_htable,name)!=EMPTYHT)
   {
@@ -544,7 +544,7 @@ void spf_AddConnector(char *sig)
   }
   for (lc=spf_Lofig->LOCON; lc!=NULL && lc->NAME!=name; lc=lc->NEXT) ;
 
-//  lc=getlocon(spf_Lofig,name);
+/*  lc=getlocon(spf_Lofig,name);*/
   if (lc==NULL)
     {
       avt_errmsg(SPF_ERRMSG, "017", AVT_WARNING, sig, spf_Line);
@@ -557,8 +557,8 @@ void spf_AddConnector(char *sig)
     avt_errmsg(SPF_ERRMSG, "018", AVT_WARNING, sig, spf_Line);
   }
 
-  // to preverse the number of nodes on the connector
-  // and avoid discrepency betwwen instance and model
+  /* to preverse the number of nodes on the connector*/
+  /* and avoid discrepency betwwen instance and model*/
   if ((cnt=lc->FLAGS)==0 || cnt==-1) cnt=1; 
 
   if (SPF_PREVERSE_RC)
@@ -605,11 +605,11 @@ void spf_AddConnector(char *sig)
 
 }
 
-// add a subnode to the local list of nodes
+/* add a subnode to the local list of nodes*/
 void spf_AddSubNode(char *sig)
 {
   char *name;
-  name=spf_spi_devect(sig); // was spf_rename
+  name=spf_spi_devect(sig); /* was spf_rename*/
   
   if (gethtitem(local_net_htable,name)!=EMPTYHT) return;
 
@@ -622,7 +622,7 @@ void spf_AddSubNode(char *sig)
   nodecounter++;
 }
 
-// add a capacitance between 2 nodes
+/* add a capacitance between 2 nodes*/
 void spf_AddCapacitance(char *namesig0, char *namesig1, float capa)
 {
   losig_list *sig0, *sig1;
@@ -678,7 +678,7 @@ void spf_AddCapacitance(char *namesig0, char *namesig1, float capa)
     }
   else
     {
-      // pending
+      /* pending*/
       if (pending_crosstalk_capacitances==NULL)
         {
           pending_crosstalk_capacitances=addht(1000);
@@ -717,7 +717,7 @@ void spf_AddCapacitance(char *namesig0, char *namesig1, float capa)
     }
 }
 
-// add a resistor between 2 nodes
+/* add a resistor between 2 nodes*/
 void spf_AddResistor(char *namesig0, char *namesig1, float resi)
 {
   losig_list *sig0, *sig1;
@@ -795,7 +795,7 @@ static void spf_tag_node(locon_list *lc, ht *nodes)
             {
               anode=nl->DATA;
               cname=(char *)real_interf->DATA;
-              //                  printf("%ld of %s -> %s",anode,lc->NAME,cname);
+              /*                  printf("%ld of %s -> %s",anode,lc->NAME,cname);*/
               addhtitem(local_net_htable, sn=spf_spi_devect(cname), anode);
               spf_check_update_pending_node(sn, lc->SIG, anode);
               addhtitem(local_net_htable_connector, sn, (long)lc);
@@ -832,7 +832,7 @@ static void spf_tag_node(locon_list *lc, ht *nodes)
   
           if (buf[0]!='\0')
             {
-              //          printf("%s -> %ld\n",spf_spi_devect(buf), anode);
+              /*          printf("%s -> %ld\n",spf_spi_devect(buf), anode);*/
               addhtitem(local_net_htable, sn=spf_spi_devect(buf), anode);
               spf_check_update_pending_node(sn, lc->SIG, anode);
               addhtitem(local_net_htable_connector, sn, (long)lc);
@@ -892,7 +892,7 @@ void filterparasiticsonalim(losig_list *me)
 
 }
 
-// select a new net, ste its capacitance and initiate the RC building
+/* select a new net, ste its capacitance and initiate the RC building*/
 void spf_NewNet(char *sig, float capa)
 {
 
@@ -936,7 +936,7 @@ void spf_NewNet(char *sig, float capa)
 
   if (mbk_CheckREGEX(&SPF_IGNORE_SIGNAL, sig)!=0) return;
 
-  currentnet=ls=newnet; //getlosigbyname(spf_spi_devect(sig));
+  currentnet=ls=newnet; /*getlosigbyname(spf_spi_devect(sig));*/
 
   if (ls==NULL) { 
     spf_missing_signals++; 
@@ -970,7 +970,7 @@ void spf_NewNet(char *sig, float capa)
         }
       else
         {          
-          spf_grabexistingparasitics(currentnet, 1); // just to keep old the number of nodes
+          spf_grabexistingparasitics(currentnet, 1); /* just to keep old the number of nodes*/
           if (ls->PRCN->NBNODE>1)
             {
               if (currentnet==groundlosig)
@@ -981,14 +981,14 @@ void spf_NewNet(char *sig, float capa)
         }
     }
   else
-    spf_grabexistingparasitics(currentnet, 1); // just to keep old the number of nodes
+    spf_grabexistingparasitics(currentnet, 1); /* just to keep old the number of nodes*/
 
   if (ls->PRCN==NULL)
     addlorcnet(ls);
   rcn_setcapa(ls, capa);
 }
 
-// reset the htable used to collect a signal nodes
+/* reset the htable used to collect a signal nodes*/
 void spf_ResetLocalHTable()
 {
   if (local_net_htable!=NULL) delht(local_net_htable); 
@@ -1003,7 +1003,7 @@ void spf_ResetLocalHTable()
   local_capa_htable=NULL;
 }
 
-// set the name of the ground signal
+/* set the name of the ground signal*/
 void spf_SetGroundSignal(char *sig)
 {
 #ifdef SPF_DEBUG

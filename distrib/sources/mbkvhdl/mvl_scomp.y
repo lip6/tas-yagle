@@ -882,7 +882,7 @@ local_port_element
 
             if (local_err == 0)
               {
-              mvl_addtab (MVL_HSHTAB,MVL_CONCNT,MVL_CHDNAM,MVL_PNTDFN,
+              mvl_addtab (MVL_HSHTAB,(char*)MVL_CONCNT,MVL_CHDNAM,MVL_PNTDFN,
                           (long)sig_name);
               mvl_addtab (MVL_HSHTAB,sig_name,  MVL_CHDNAM,MVL_SIGDFN,
                           sig_conf);
@@ -1156,7 +1156,7 @@ association_element
           local_err = 1;
           }
 
-        prt_name  = (char *) mvl_chktab (MVL_HSHTAB,MVL_CONRNK,
+        prt_name  = (char *) mvl_chktab (MVL_HSHTAB,(char*)MVL_CONRNK,
                                          MVL_CHDNAM,MVL_PNTDFN);
         if (prt_name == NULL)
           {

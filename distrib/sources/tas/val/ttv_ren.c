@@ -59,8 +59,8 @@ long        mask;
           newcell                   = stm_addcell(newname);
           newcell->MODEL_LIST       = reverse(cell->MODEL_LIST);
           newcell->MODEL_HT         = cell->MODEL_HT;
-//          newcell->SIM_MODEL_LIST   = reverse(cell->SIM_MODEL_LIST);
-//          newcell->SIM_MODEL_HT     = cell->SIM_MODEL_HT;
+/*          newcell->SIM_MODEL_LIST   = reverse(cell->SIM_MODEL_LIST);*/
+/*          newcell->SIM_MODEL_HT     = cell->SIM_MODEL_HT;*/
           newcell->MODEL_HTSIGN     = cell->MODEL_HTSIGN;
 
           stm_drivecell(newname);

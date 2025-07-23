@@ -219,7 +219,7 @@ void avt_LoadFile(char *filename, char *format)
   mbk_debugstat (NULL, 1);
 #endif
   
-  if (mbk_isregex_name(filename)) // juste pour eviter une difference de comportement par rapport a avant (temporaire?)
+  if (mbk_isregex_name(filename)) /* juste pour eviter une difference de comportement par rapport a avant (temporaire?)*/
     {
       cl=addchain(NULL, filename);
       list=BuildFileList(NULL, cl, 1);

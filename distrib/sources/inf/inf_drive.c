@@ -967,7 +967,7 @@ void infDriveLatencies (FILE * f, inffig_list * ifl)
   chain_list *list, *chainx;
   double val1=0, val2=0, val3=0, val4=0;
   char *name;
-  // clock
+  /* clock*/
   list          = inf_GetEntriesByType(ifl,INF_LATENCY_FALL_MIN,INF_ANY_VALUES);
   list=inf_mergeclist(list, inf_GetEntriesByType(ifl,INF_LATENCY_FALL_MAX,INF_ANY_VALUES));
   list=inf_mergeclist(list, inf_GetEntriesByType(ifl,INF_LATENCY_RISE_MIN,INF_ANY_VALUES));
@@ -1179,7 +1179,7 @@ void infDriveStbGroups (FILE * f, inffig_list * myfig, char *header, char *secti
 
 void infDriveStbPriorityClock (FILE * f, inffig_list * myfig)
 {
-  // priority clock
+  /* priority clock*/
   char *def;
   chain_list *chainx, *list;
 
@@ -1304,32 +1304,32 @@ void infDriveDirectives (FILE * f, inffig_list * myfig)
 
 void infDriveStb (FILE * f, inffig_list * myfig)
 {
-//  inf_fprintf (f, "#-=> parameters\n\n");
+/*  inf_fprintf (f, "#-=> parameters\n\n");*/
   infDriveStbDefault (f, myfig);
-//  inf_fprintf (f, "#-=> clock definitions\n\n");
+/*  inf_fprintf (f, "#-=> clock definitions\n\n");*/
   infDriveStbClocks (f, myfig);
   infDriveLatencies (f, myfig);
-//  inf_fprintf (f, "#-=> asynchronous clock groups\n\n");
+/*  inf_fprintf (f, "#-=> asynchronous clock groups\n\n");*/
   infDriveStbGroups (f, myfig, "Asynchronous Clock Groups", INF_ASYNC_CLOCK_GROUP, INF_ASYNC_CLOCK_GROUP_PERIOD);
-//  inf_fprintf (f, "#-=> equivalent clock groups\n\n");
+/*  inf_fprintf (f, "#-=> equivalent clock groups\n\n");*/
   infDriveStbGroups (f, myfig, "Equivalent Clock Groups", INF_EQUIV_CLOCK_GROUP, NULL);
-//  inf_fprintf (f, "#-=> prefered clock\n\n");
+/*  inf_fprintf (f, "#-=> prefered clock\n\n");*/
   infDriveStbPriorityClock (f, myfig);
-//  inf_fprintf (f, "#-=> command state\n\n");
+/*  inf_fprintf (f, "#-=> command state\n\n");*/
   infDriveStbCommandState (f, myfig);
-//  inf_fprintf (f, "#-=> disabled paths\n\n");
+/*  inf_fprintf (f, "#-=> disabled paths\n\n");*/
   infDriveStbDisable (f, myfig);
-//  inf_fprintf (f, "#-=> input specifications\n\n");
+/*  inf_fprintf (f, "#-=> input specifications\n\n");*/
   infDriveStbSpecSection (f, myfig, INF_SPECIN, "Specify Input Connectors");
-//  inf_fprintf (f, "#-=> output specifications\n\n");
+/*  inf_fprintf (f, "#-=> output specifications\n\n");*/
   infDriveStbSpecSection (f, myfig, INF_SPECOUT, "Verify Output Connectors");
-//  inf_fprintf (f, "#-=> input connector stability\n\n");
+/*  inf_fprintf (f, "#-=> input connector stability\n\n");*/
   infDriveStbSpecSection (f, myfig, INF_STBOUT_SPECIN, "Input Connectors Stability");
-//  inf_fprintf (f, "#-=> output connector stability\n\n");
+/*  inf_fprintf (f, "#-=> output connector stability\n\n");*/
   infDriveStbSpecSection (f, myfig, INF_STBOUT_SPECOUT, "Output Connectors Stability");
-//  inf_fprintf (f, "#-=> memory stability\n\n");
+/*  inf_fprintf (f, "#-=> memory stability\n\n");*/
   infDriveStbSpecSection (f, myfig, INF_STBOUT_SPECMEM, "Memory Nodes Stability");
-//  inf_fprintf (f, "#-=> node stability\n\n");
+/*  inf_fprintf (f, "#-=> node stability\n\n");*/
   infDriveStbSpecSection (f, myfig, INF_STBOUT_SPECINODE, "Internal Nodes Stability");
 }
 
@@ -1389,7 +1389,7 @@ static char *getdelaynodetype (int val)
 
 static void __infDrivePathDelayMargin (FILE * f, inffig_list * myfig, char *name)
 {
-  // priority clock
+  /* priority clock*/
   inf_miscdata *imd0;
   int i, j, k;
   struct {
@@ -1904,7 +1904,7 @@ void infDrive_filtered (inffig_list * myfig, char *filename, int locations, FILE
 
           if (mbk_TestREGEX("ConnectorDirections",tok))
             {found=1; inf_driveConnectorDirections (f, myfig);}
-          //          inf_driveSigListSection (f, myfig, "Clock", INF_CLOCK_TYPE);
+          /*          inf_driveSigListSection (f, myfig, "Clock", INF_CLOCK_TYPE);*/
 
           if (mbk_TestREGEX("PathIN",tok))
             {found=1; inf_driveSigListSection (f, myfig, "PathIN", INF_PATHIN, INF_ANY_VALUES);}
@@ -2008,7 +2008,7 @@ void infDrive_filtered (inffig_list * myfig, char *filename, int locations, FILE
           if (mbk_TestREGEX("SwitchingProbability",tok))
             {found=1; inf_driveProba (f, myfig);}
 
-          // stb informations
+          /* stb informations*/
           if (mbk_TestREGEX("Stb",tok))
             {
               found=1;
@@ -2025,7 +2025,7 @@ void infDrive_filtered (inffig_list * myfig, char *filename, int locations, FILE
   }
   else
     avt_errmsg (INF_ERRMSG, "018", AVT_ERR, filename);
-  // avt_error("inf", 3, AVT_ERR, "could not create file '%s.inf'\n", filename);
+  /* avt_error("inf", 3, AVT_ERR, "could not create file '%s.inf'\n", filename);*/
 }
 
 void infDrive (inffig_list * myfig, char *filename, int locations, FILE * outputfile)

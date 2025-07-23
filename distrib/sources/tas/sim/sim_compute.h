@@ -16,7 +16,7 @@
 extern chain_list *SIM_HEAD_TMG;
 
 extern char sim_gettype (char type);
-// Delay and slope standard extraction 
+/* Delay and slope standard extraction */
 extern sim_timing *sim_GetTmgList (sim_model *model, char type_n1, char *n1, char type_n2, char *n2);
 extern SIM_FLOAT   sim_get_tmg_delay (sim_timing *tmg, char dtype);
 extern SIM_FLOAT   sim_get_tmg_slope (sim_timing *tmg, char dtype);
@@ -28,11 +28,11 @@ extern SIM_FLOAT sim_get_commut_instant (sim_model *model, char *name, char type
 extern void      sim_get_delay_slope (sim_model *model, SIM_FLOAT *delay, SIM_FLOAT *slope, SIM_FLOAT *tab, int *indice, char *trans, SIM_FLOAT vth, SIM_FLOAT vthl, SIM_FLOAT vthh, SIM_FLOAT time);
 extern char      sim_get_tc_between_2_indices (sim_model *model, SIM_FLOAT *delay, SIM_FLOAT *slope, SIM_FLOAT *tab, int *indice1, int indice2,char *trans, SIM_FLOAT vth, SIM_FLOAT vthl, SIM_FLOAT vthh, SIM_FLOAT time);
 
-// stability function
+/* stability function*/
 extern SIM_FLOAT sim_get_setup_time (sim_model *model, char *data, SIM_FLOAT tstart_d, SIM_FLOAT tslope_d, char sens_d, char *cmd, SIM_FLOAT tstart_min_c, SIM_FLOAT tstart_max_c, SIM_FLOAT tslope_c, char sens_c, char *mem, int data_val);
 extern SIM_FLOAT sim_get_hold_time (sim_model *model, char *data, SIM_FLOAT tstart_d, SIM_FLOAT tslope_d, char sens_d, char *cmd, SIM_FLOAT tstart_min_c, SIM_FLOAT tstart_max_c, SIM_FLOAT tslope_c, char sens_c, char *mem, int data_val);
 extern SIM_FLOAT sim_get_access_time (sim_model *model, char *dout, int dout_val, char *cmd, SIM_FLOAT tstart_c, SIM_FLOAT tslope_c, char sens_c, char *mem, int data_val, double *out_slope); 
-// timing function
+/* timing function*/
 extern sim_timing *sim_timing_add (sim_timing *head_timing, char *root4usr, char *node4usr);
 extern sim_timing *sim_timing_get (char *root4usr, char *node4usr);
 extern sim_timing *sim_timing_get_by_event (char *root4usr, char *node4usr, char *event);

@@ -70,7 +70,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
             (ptbefig->BEVECTBUS)     || (ptbefig->BEVECTPOR) )
 
           beh_warning(304,ptbefig->NAME,NULL);
-        // (stderr,"BEH_warning : befig `%s` not empty\n", ptbefig->NAME);
+        /* (stderr,"BEH_warning : befig `%s` not empty\n", ptbefig->NAME);*/
         }
       else
         {

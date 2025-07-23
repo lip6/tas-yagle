@@ -50,7 +50,7 @@ Widget  parent;
 XtPointer     client_data;
 XtPointer call_data;
 {
-// XalLeaveLimitedLoop();
+/* XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -93,7 +93,7 @@ XtPointer call_data ;
                  hier->param->LOCAL_FIG->INFO->FIGNAME);
 
  XtUnmanageChild( XtasHierView );
-// XalLeaveLimitedLoop();
+/* XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -163,7 +163,7 @@ XtasHierView = NULL ;
 
 n = 0;
 sprintf (text_title, "Hierarchy - %s", XtasMainParam->ttvfig->INFO->FIGNAME);
-//XtSetArg( args[n], XmNtitle, "Hierarchy" ); n++;
+/*XtSetArg( args[n], XmNtitle, "Hierarchy" ); n++;*/
 XtSetArg( args[n], XmNtitle, text_title ); n++;
 XtSetArg( args[n], XmNdialogStyle, XmDIALOG_APPLICATION_MODAL ); n++;
 XtasHierView = XmCreatePromptDialog( parent, "XtasHexplorer", args, n);
@@ -228,14 +228,14 @@ while(head != NULL)
    {
     char buf[1024] ;
     instance = head->DATA;
-//    strcpy(buf, instance->INFO->FIGNAME);
-//    if(instance != hier->param->TOP_FIG)
-//    {
-//        strcat(buf," ");
-//        strcat(buf, instance->INFO->FIGNAME);
-//    }
+/*    strcpy(buf, instance->INFO->FIGNAME);*/
+/*    if(instance != hier->param->TOP_FIG)*/
+/*    {*/
+/*        strcat(buf," ");*/
+/*        strcat(buf, instance->INFO->FIGNAME);*/
+/*    }*/
         
-//   ttv_getinsname(XtasTtvFigList, buf, instance);
+/*   ttv_getinsname(XtasTtvFigList, buf, instance);*/
     ttv_getinsname(hier->param->TOP_FIG, buf, instance);
     motif_string = XmStringCreateLtoR(buf,XmSTRING_DEFAULT_CHARSET); 
     XmListAddItemUnselected(list_hview,motif_string,++position);
@@ -243,5 +243,5 @@ while(head != NULL)
     head = head->NEXT;
    }
 
-//XalLimitedLoop(XtasHierView) ;
+/*XalLimitedLoop(XtasHierView) ;*/
 }

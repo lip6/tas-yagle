@@ -33,7 +33,7 @@ extern void stm_cell_destroy (timing_cell *cell);
 
 /* modifiers */
 extern char *stm_cell_addmodel (timing_cell *cell, timing_model *model, int noshare);
-//extern void stm_cell_addsc (timing_cell *cell, sim_model *sc);
+/*extern void stm_cell_addsc (timing_cell *cell, sim_model *sc);*/
 extern void stm_cell_delmodel (timing_cell *cell, timing_model *model, int force);
 extern int stm_cell_share_decrement (timing_cell *cell, timing_model *model, int n);
 extern int stm_cell_share_increment (timing_cell *cell, timing_model *model, int n);

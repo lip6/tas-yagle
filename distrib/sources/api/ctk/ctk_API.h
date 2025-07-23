@@ -53,7 +53,7 @@ extern void ctk_LoadAggressionFile( StabilityFigure *stbfig );
     EXAMPLE % {set stabfig [ctk_LoadCrosstalkResults $myUTD]}.
 */
 
-void ctk_LoadCrosstalkResults(void); // (void) disables the gns wrappers
+void ctk_LoadCrosstalkResults(void); /* (void) disables the gns wrappers*/
 
 /*
     MAN ctk_DriveStatCtk

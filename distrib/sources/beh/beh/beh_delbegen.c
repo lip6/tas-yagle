@@ -58,7 +58,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
         {
         if (ptbegen->VALUE != NULL)
           beh_warning(305,ptbegen->NAME,NULL);
-          //(stderr,"BEH_warning : begen `%s` not empty\n", ptbegen->NAME);
+          /*(stderr,"BEH_warning : begen `%s` not empty\n", ptbegen->NAME);*/
         }
       else
         mbkfree (ptbegen->VALUE);

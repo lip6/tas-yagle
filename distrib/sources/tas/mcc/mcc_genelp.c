@@ -894,7 +894,7 @@ static void mcc_parse_instance_spec(char *str, elp_lotrs_param *lotrsparam_n, in
          else if (strcasecmp(var, "sb")==0) lotrsparam_n->PARAM[elpSB]=value;
          else if (strcasecmp(var, "sd")==0) lotrsparam_n->PARAM[elpSD]=value;
          else if (strcasecmp(var, "nf")==0) lotrsparam_n->PARAM[elpNF]=value;
-//         else if (strcasecmp(var, "m")==0) lotrsparam_n->PARAM[elpM]=value;
+/*         else if (strcasecmp(var, "m")==0) lotrsparam_n->PARAM[elpM]=value;*/
          else if (strcasecmp(var, "nrs")==0) lotrsparam_n->PARAM[elpNRS]=value;
          else if (strcasecmp(var, "nrd")==0) lotrsparam_n->PARAM[elpNRD]=value;
          else if (strcasecmp(var, "sc")==0) lotrsparam_n->PARAM[elpSC]=value;
@@ -949,14 +949,14 @@ void mcc_CheckTechno(char *label, char *tn, char *tp)
   elpenv() ;
   save_ELP_LOAD_FILE_TYPE=ELP_LOAD_FILE_TYPE;
 
-//  mcc_initcalcparam(0);
+/*  mcc_initcalcparam(0);*/
   mccenv ();
   MCC_ELPFILE=cp;
 
   resetparam();
 
 
-  //ELP_LOAD_FILE_TYPE = ELP_LOADELP_FILE;
+  /*ELP_LOAD_FILE_TYPE = ELP_LOADELP_FILE;*/
 
   MCC_DEBUG_MODE = 1 ;
   MCC_DEBUG_GATE = NULL ;
@@ -969,13 +969,13 @@ void mcc_CheckTechno(char *label, char *tn, char *tp)
   MCC_DEBUG_RLIN = 'N' ;
   MCC_DEBUG_VTH = 'N' ;
   MCC_DEBUG_QINT = 'N' ;
-  MCC_DEBUG_JCT_CAPA = 'N' ; // Junction capacitance => Cjbd, Cjbs...
+  MCC_DEBUG_JCT_CAPA = 'N' ; /* Junction capacitance => Cjbd, Cjbs...*/
   MCC_DEBUG_INPUTCAPA = 'N' ;
   MCC_DEBUG_CARAC = 'N' ;
   MCC_DEBUG_CARACNEG = 'N' ;
   MCC_DEBUG_DEG = 'N' ;
-  MCC_DEBUG_PASS_TRANS  = 'X' ; // value can be 'N' or 'P'
-  MCC_DEBUG_SWITCH = 'X' ;      // value can be 'N' or 'P'
+  MCC_DEBUG_PASS_TRANS  = 'X' ; /* value can be 'N' or 'P'*/
+  MCC_DEBUG_SWITCH = 'X' ;      /* value can be 'N' or 'P'*/
   MCC_DEBUG_BLEEDER = 'N' ;   
 
   memset(&TRS_CURVS, 0, sizeof(Icurvs));
@@ -1070,13 +1070,13 @@ void mcc_CheckTechno(char *label, char *tn, char *tp)
     MCC_DEBUG_RLIN = 'Y' ;
     MCC_DEBUG_VTH = 'Y' ;
     MCC_DEBUG_QINT = 'Y' ;
-    MCC_DEBUG_JCT_CAPA = 'Y' ; // Junction capacitance => Cjbd, Cjbs...
+    MCC_DEBUG_JCT_CAPA = 'Y' ; /* Junction capacitance => Cjbd, Cjbs...*/
     MCC_DEBUG_INPUTCAPA = 'Y' ;
     MCC_DEBUG_CARAC = 'Y' ;
     MCC_DEBUG_CARACNEG = 'Y' ;
     MCC_DEBUG_DEG = 'Y' ;
-    MCC_DEBUG_PASS_TRANS  = 'X' ; // value can be 'N' or 'P'
-    MCC_DEBUG_SWITCH = 'X' ;      // value can be 'N' or 'P'
+    MCC_DEBUG_PASS_TRANS  = 'X' ; /* value can be 'N' or 'P'*/
+    MCC_DEBUG_SWITCH = 'X' ;      /* value can be 'N' or 'P'*/
     MCC_DEBUG_BLEEDER = 'N' ;   
 
     MCC_PLOT=1;
@@ -1111,7 +1111,7 @@ void mcc_CheckTechno(char *label, char *tn, char *tp)
     }
 
     mcc_drvelp (MCC_PARAM, MCC_TRANS_B,lotrsparam_n,lotrsparam_p,MCC_DRV_ALL_MODEL);
-//    mcc_gencurv (MCC_PARAM,lotrsparam_n,lotrsparam_p);
+/*    mcc_gencurv (MCC_PARAM,lotrsparam_n,lotrsparam_p);*/
     mcc_printplot (MCC_PARAM, 1, ncurrent_vt, pcurrent_vt, modeln, modelp);
     if (fit && MCC_FLAG_FIT==MCC_FIT_OK)
     {
@@ -1121,7 +1121,7 @@ void mcc_CheckTechno(char *label, char *tn, char *tp)
     {
       mcc_gencurv (MCC_FIT,lotrsparam_n,lotrsparam_p);
     }
-  //  mcc_printplot (MCC_FIT, 0);
+  /*  mcc_printplot (MCC_FIT, 0);*/
 
     mcc_drive_summary(mcc_getmccname(modeln));
 

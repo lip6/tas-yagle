@@ -217,9 +217,9 @@ void avt_AddRC(lofig_list *lofig, int maxwire,
 {
   router_dt rte;
   
-  // for debugging purpose
-  //srand(67);
-  //printf("MC:%f mC:%f MR:%f mR:%f MW:%d\n",maxc,minc,maxr,minr,maxwire);
+  /* for debugging purpose*/
+  /*srand(67);*/
+  /*printf("MC:%f mC:%f MR:%f mR:%f MW:%d\n",maxc,minc,maxr,minr,maxwire);*/
   
   if (lofig!=NULL)
     {

@@ -173,8 +173,8 @@ void    lib_tim_store_template(void)
     lib_del_all_s_attr(LIB_CURRENT_GP);
     lib_del_all_c_attr(LIB_CURRENT_GP);
 
-//    if(LIB_TRACE_MODE == 'A')
-  //      stm_modtbl_templateprint(stdout, ttemplate);
+/*    if(LIB_TRACE_MODE == 'A')*/
+  /*      stm_modtbl_templateprint(stdout, ttemplate);*/
 }
 /*----------------------------------------------------------------------------*/
 /* LIB_TIM_GIVE_SENSE:                                                        */
@@ -592,8 +592,8 @@ timing_model    *lib_tim_store_model_group(char *cname, char *pname, lib_group *
                     mbkfree(pchn->DATA);
                 freechain(xydata);
                         
-//                if(LIB_TRACE_MODE == 'A') 
-  //                  stm_modtbl_print(stdout,(stm_getmodel(cname, mname))->UMODEL.TABLE);
+/*                if(LIB_TRACE_MODE == 'A') */
+  /*                  stm_modtbl_print(stdout,(stm_getmodel(cname, mname))->UMODEL.TABLE);*/
             }
             else { /*table 2D*/
                 if(LIB_TIME_U->UNIT == LIB_NS) 
@@ -607,8 +607,8 @@ timing_model    *lib_tim_store_model_group(char *cname, char *pname, lib_group *
                   }
                   freechain(xydata);
             }
-//            lib_del_all_s_attr(g);
-//            lib_del_all_c_attr(g);
+/*            lib_del_all_s_attr(g);*/
+/*            lib_del_all_c_attr(g);*/
 
             if(xchain) {
                 for(pchn=xchain; pchn ; pchn=pchn->NEXT)
@@ -701,8 +701,8 @@ timing_model    *lib_tim_store_model_group(char *cname, char *pname, lib_group *
             freechain(xydata);        
         }
         
-//        lib_del_all_s_attr(g);
-//        lib_del_all_c_attr(g);
+/*        lib_del_all_s_attr(g);*/
+/*        lib_del_all_c_attr(g);*/
 
         if(xchain) {
             for(pchn=xchain; pchn ; pchn=pchn->NEXT)
@@ -781,7 +781,7 @@ void     lib_tim_treat_pin(lib_group *g, ttvfig_list *f, char *cellname, ht *pin
     lib_group   *p;
     char         ttype;
     
-    //lib_tim_suppress_conflict (g);
+    /*lib_tim_suppress_conflict (g);*/
     for(p=g->SONS ; p ; p=p->NEXT) {
         if(p->TYPE == TIMING_TYPE) 
             lib_tim_addcaracline(p, f, cellname, namealloc((char *)(g->NAMES->DATA)), pinht, pincapaht);
@@ -882,7 +882,7 @@ void     lib_tim_treat_cell(lib_group *g, lofig_list *plofig)
     ttvfig_list *f;
     ht *pinht, *pincapaht;
     chain_list *clockch;
-    //chain_list *ch;
+    /*chain_list *ch;*/
     long    i;
     htitem *titem;
     char version[20];
@@ -999,8 +999,8 @@ void     lib_tim_treat_cell(lib_group *g, lofig_list *plofig)
     }
     delht(pincapaht);
     delht(pinht);
- //   for(ch = clockch ; ch ; ch=ch->NEXT)
- //       mbkfree(ch->DATA);
+ /*   for(ch = clockch ; ch ; ch=ch->NEXT)*/
+ /*       mbkfree(ch->DATA);*/
     freechain(clockch);
 
 }

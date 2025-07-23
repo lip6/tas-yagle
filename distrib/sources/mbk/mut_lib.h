@@ -42,8 +42,9 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <semaphore.h>
+#include <pthread.h>
 
-//#include <dmalloc.h>
+/*#include <dmalloc.h>*/
 
 #ifndef __P
 # if defined(__STDC__) ||  defined(__GNUC__)
@@ -54,17 +55,17 @@
 #endif
 
 /* If set, disable heap allocation for addchain */
-//#define NOHEAPALLOC
-//#define NOHEAPALLOCFORHEAP
+/*#define NOHEAPALLOC*/
+/*#define NOHEAPALLOCFORHEAP*/
 
-//#define ENABLE_STATS
-//#define MALLOC_HISTOGRAM
+/*#define ENABLE_STATS*/
+/*#define MALLOC_HISTOGRAM*/
 
 /* namealloc hash table size: the 1230th prime */
-//#define HASHVAL     10007
+/*#define HASHVAL     10007*/
 #define HASHVAL     100003
 
-//#define USE_DEFAULT_RANDR
+/*#define USE_DEFAULT_RANDR*/
 
 /* hash tables management defines */
 #define EMPTYHT     -1
@@ -223,6 +224,7 @@ typedef struct dtitem {
 } dt;
 
 struct lofig;
+struct phfig;
 
 /*******************************************************************************
 * mbk externals for the global variables defined in mbk_util.c                 *
@@ -330,7 +332,7 @@ extern char MBK_EXIT_KILL;                    /* Added by Ludovic Jacomme */
   while(1);                                             \
 }
 
-// extern void mbkexit __P(( int ExitValue ));   /* new exit handler system  */
+/* extern void mbkexit __P(( int ExitValue ));   /* new exit handler system  */
 
 extern char              MBK_VECTOR_OPEN[256];
 extern char              MBK_VECTOR_CLOSE[256];
@@ -395,7 +397,7 @@ long controlled_addhtitem(ht *pTable, void *key, long (*func)(int newone, long o
   extern           long  sethtitem __P((ht *pTable, void *key, long value));
   extern           long  delhtitem __P((ht *pTable, void *key));
   extern           void  scanhtkey __P((ht *pTable, int first, void **nextkey, long *nextitem ));
-  extern           void  viewht __P((ht *pTable, char *(*pout)()));
+  extern           void  viewht __P((ht *pTable, char *(*pout)(void*)));
   extern           void  delht __P((ht *pTable));
 void resetht(ht *pTable);
   extern            it * addit __P((unsigned int length));
@@ -471,35 +473,35 @@ int mbk_ascii_encrypt(char *inname, char *outname);
 /*******************************************************************************
 * externals for mbk_fake.c  or parsers drivers functions                       *
 *******************************************************************************/
-extern void vtiloadphfig();
-extern void vtiloadlofig();
-extern void alcloadphfig();
-extern void alcloadlofig();
-extern void spiceloadlofig();
-extern void vhdlloadlofig();
-extern void verilogloadlofig();
-extern void hiloloadlofig();
-extern void edifloadlofig();
-extern void vtisavephfig();
-extern void vtisavelofig();
-extern void alcsavephfig();
-extern void alcsavelofig();
-extern void spicesavelofig();
+extern void vtiloadphfig __P((struct phfig *ptfig, char *figname, char mode));
+extern void vtiloadlofig __P((struct lofig *, char *, char));
+extern void alcloadphfig __P((struct phfig*, char*, char));
+extern void alcloadlofig __P((struct lofig *, char *, char));
+extern void spiceloadlofig __P((struct lofig *, char *, char));
+extern void vhdlloadlofig __P((struct lofig *, char *, char));
+extern void verilogloadlofig __P((struct lofig *, char *, char));
+extern void hiloloadlofig __P((struct lofig *, char *, char));
+extern void edifloadlofig __P((struct lofig *, char *, char));
+extern void vtisavephfig __P((struct phfig *ptfig));
+extern void vtisavelofig __P((struct lofig *));
+extern void alcsavephfig __P((struct phfig *));
+extern void alcsavelofig __P((struct lofig *));
+extern void spicesavelofig __P((struct lofig *));
 extern void vhdlsavelofig(struct lofig *, FILE *);
-extern void hilosavelofig();
-extern void edifsavelofig();
+extern void hilosavelofig __P((struct lofig *));
+extern void edifsavelofig __P((struct lofig *));
 extern void vlogsavelofig(struct lofig *, FILE *);
-extern void mgnloadphfig();
-extern void mgnsavephfig();
+extern void mgnloadphfig __P((struct phfig*, char*, char));
+extern void mgnsavephfig __P((struct phfig *));
 
 void parseverilognetlist(char *libname);
 void parsevhdlnetlist(char *libname);
 
 /* par Fabrice le 7/2/2002 */
-extern void spf_Annotate();
+extern void spf_Annotate (struct lofig *);
 /* ------- */ 
 /* par Olivier le 27/6/2002 */
-extern void spef_Annotate();
+extern void spef_Annotate (struct lofig *);
 /* ------- */ 
 
 
@@ -584,9 +586,9 @@ FN_GETSIZE:             Doit renvoyer la taille de l'élément présent en
                         mémoire.
 \*****************************************************************************/
 
-// indiquent si un nom de fichier correspond a une lofig
-// prend en compte le FILTER_SFX
-// retourne un pointeur sur le '.' entre le radical et le suffixe
+/* indiquent si un nom de fichier correspond a une lofig*/
+/* prend en compte le FILTER_SFX*/
+/* retourne un pointeur sur le '.' entre le radical et le suffixe*/
 char *mbkFileIsLofig(char *filename);
 char *mbkIsLofigExt(char *filename, char *ext);
 
@@ -606,7 +608,7 @@ char *mbkIsLofigExt(char *filename, char *ext);
 
 #define MBK_FILESIZE_TYPE long long unsigned
 #define MBK_LIMIT_USELARGEFILE ((MBK_FILESIZE_TYPE)2147483647) /* 2Gb-1 */
-//#define MBK_LIMIT_USELARGEFILE ((MBK_FILESIZE_TYPE)31457280) /* 30Mb */
+/*#define MBK_LIMIT_USELARGEFILE ((MBK_FILESIZE_TYPE)31457280) /* 30Mb */
 
 void mbk_setfileacces( FILE *file, char acces );
 extern char mbk_getfileacces( FILE *file );
@@ -731,35 +733,35 @@ void FreeAdvancedTableAllocator(AdvancedTableAllocator *ata);
 includes for mbk_math
 \******************************************************************************/
 
-// La définition des pentes y = A.x + B
+/* La définition des pentes y = A.x + B */
 
 typedef struct {
-  double        X0 ;    // Absisse de début (jusqu'à la pente suivante).
-  double        A ;     // Pente.
-  double        B ;     // Valeur à l'origine.
+  double        X0 ;    /* Absisse de début (jusqu'à la pente suivante). */
+  double        A ;     /* Pente.*/
+  double        B ;     /* Valeur à l'origine. */
 } mbk_pwl_data ;
 
 typedef struct {
-  mbk_pwl_data *DATA;     // Tableau des pente.
-  int           N;        // Nombre de pentes.
-  double        X1;       // Abscisse finale.
+  mbk_pwl_data *DATA;     /* Tableau des pente.*/
+  int           N;        /* Nombre de pentes.*/
+  double        X1;       /* Abscisse finale.*/
 } mbk_pwl ;
 
-// Modèles de construction
+/* Modèles de construction */
 
 #define MBK_PWL_DEFAULT ((char)'d')
 #define MBK_PWL_SURFACE ((char)'f')
 
 typedef struct {
-  double        DELTAYMAX;      // Valeur max entre la fn et l'approximation.
-  double        DELTAXMIN;      // Ecart minimum entre 2 absisses de pentes.
-  double        SDERIVE;        // Ecart pour calculer la dérivée de la fn.
+  double        DELTAYMAX;      /* Valeur max entre la fn et l'approximation.*/
+  double        DELTAXMIN;      /* Ecart minimum entre 2 absisses de pentes.*/
+  double        SDERIVE;        /* Ecart pour calculer la dérivée de la fn. */
 } mbk_pwl_param_default ;
 
 typedef struct {
-  double        EPSILON;        // part relative maximum de la surface initiale.
-  double        DELTAXMIN;      // Ecart minimum entre 2 absisses de pentes.
-  double        SDERIVE;        // Ecart pour calculer la dérivée de la fn.
+  double        EPSILON;        /* part relative maximum de la surface initiale.*/
+  double        DELTAXMIN;      /* Ecart minimum entre 2 absisses de pentes.*/
+  double        SDERIVE;        /* Ecart pour calculer la dérivée de la fn. */
 } mbk_pwl_param_surface ;
 
 typedef union {
@@ -779,7 +781,7 @@ typedef struct {
   mbk_pwl_param_point_list  *POINTS;
 } mbk_pwl_param ;
 
-// Configuration de la transformée
+/* Configuration de la transformée */
 mbk_pwl_param* mbk_pwl_get_surface_param( char (*fn)(void*, double, double*),
                                           void *data,
                                           double x0,
@@ -793,7 +795,7 @@ mbk_pwl_param* mbk_pwl_get_default_param( char (*fn)(void*, double, double*),
 void mbk_pwl_add_param_point( mbk_pwl_param *param, double x );
 void mbk_pwl_free_param( mbk_pwl_param *param );
 
-// Création de la transformée
+/* Création de la transformée */
 mbk_pwl* mbk_pwl_create( char (*fn)(void*, double, double*),
                          void *data,
                          double x0,
@@ -807,16 +809,16 @@ mbk_pwl* mbk_create_pwl_according_tanh( char (*fn)(void*, float, float*),
                                         float v1,
                                         float v2
                                       );
-// Utilisation de la transformée
+/* Utilisation de la transformée */
 mbk_pwl* mbk_pwl_duplicate( mbk_pwl *pwl );
 
 int mbk_qsort_dbl_cmp( double *x1, double *x2 );
 
-// Code de retour de mbk_pwl_get_value() et mbk_pwl_get_value_bytabindex().
-#define MBK_PWL_ERROR ((int)0)  // Impossible de déterminer de résultat.
-#define MBK_PWL_FOUND ((int)1)  // Un résultat a été trouvé.
-#define MBK_PWL_EXTPL ((int)2)  // Un résultat a été trouvé, mais il a fallu
-                                // extrapoler le 1° ou le dernier interval.
+/* Code de retour de mbk_pwl_get_value() et mbk_pwl_get_value_bytabindex().*/
+#define MBK_PWL_ERROR ((int)0)  /* Impossible de déterminer de résultat. */
+#define MBK_PWL_FOUND ((int)1)  /* Un résultat a été trouvé. */
+#define MBK_PWL_EXTPL ((int)2)  /* Un résultat a été trouvé, mais il a fallu */
+                                /* extrapoler le 1° ou le dernier interval. */
 
 int mbk_pwl_get_value( mbk_pwl *pwl, double x, double *y );
 int mbk_pwl_get_value_bytabindex ( mbk_pwl *pwl, double x, double *y, int *tabindex );
@@ -824,8 +826,8 @@ char mbk_pwl_get_inv_value( mbk_pwl *pwl, double y, double *x );
 void mbk_pwl_gnuplot( mbk_pwl *lines, double tstart, double tstop, char *fname );
 
 
-// Structure plus pratique à utiliser pour calculer des transformées
-// de Laplace
+/* Structure plus pratique à utiliser pour calculer des transformées */
+/* de Laplace*/
 
 typedef struct {
   double T;
@@ -844,22 +846,22 @@ void mbk_free_laplace( mbk_laplace *pt );
 
 int mbk_dichotomie( int(*fn)(void*, double, double*), int (*fnd)(void*, double, double*), void *data, double *x0, double *x1, char mode, int *itmax, double epsilonx, double epsilony, double *x );
 
-// Paramètre 'mode' de la fonction mbk_dichotomie().
+/* Paramètre 'mode' de la fonction mbk_dichotomie(). */
 #define MBK_DICHO_EQUAL ((char)'e')
 #define MBK_DICHO_PROP  ((char)'p')
 #define MBK_DICHO_DERIV ((char)'d')
 #define MBK_DICHO_NR    ((char)'n')
 
-// Codes de retour de la fonction mbk_dichotomie().
+/* Codes de retour de la fonction mbk_dichotomie().*/
 #define MBK_DICHO_OK    ((int)1)
 #define MBK_DICHO_ERRFN ((int)2)
 #define MBK_DICHO_MAXIT ((int)3)
 #define MBK_DICHO_ERR   ((int)4)
 
-// Convertion de tableaux de valeur
+/* Convertion de tableaux de valeur*/
 void mbk_make_tab_equi( double *tabinx, double *tabiny, int nbin, double *tabout, int nbout );
 
-// Fonction d'approximation de nombre
+/* Fonction d'approximation de nombre*/
 
 int mbk_float_approx_interval( float x, float precis ) ;
 void mbk_float_approx_limits( int n, float precis, float *ll, float *lh ) ;
@@ -1008,7 +1010,7 @@ char *mbk_vect(char *name, char leftb, char rightb);
 */ 
 int mbk_FindNumber(char *source, char *rule, int *index);
 
-// fill the name with the process name pointed by pd
+/* fill the name with the process name pointed by pd*/
 extern char *mbk_whoAmI(pid_t pd, char *name);
 extern char *mbk_whoAmILong(pid_t pd, char *name);
 
@@ -1115,8 +1117,8 @@ int		tstmbk_tableint ( mbk_tableint *table, int value );
 void		freembk_tableint ( mbk_tableint *table );
 int             mbk_scanint ( mbk_tableint *table, int n );
 
-// -- tableaux
-//
+/* -- tableaux*/
+/**/
 #define MAXCOL 64
 
 typedef struct BoardColumn

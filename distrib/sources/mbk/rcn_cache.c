@@ -45,7 +45,7 @@ void rcn_enable_cache( lofig_list *lofig,
 {
   mbkcache       *cache;
 
-// rcnenv();
+/* rcnenv();*/
   cache = rcn_getlofigcache( lofig );
   if( cache || RCN_CACHE_SIZE == 0ul ) return;
 
@@ -143,7 +143,7 @@ void rcn_refresh_signal( lofig_list *lofig, losig_list *losig )
     return;
 
   if( rcn_issignal_disablecache( losig ) ) {
-//    rcn_error( 34, AVT_WARNING );
+/*    rcn_error( 34, AVT_WARNING );*/
     return ;
   }
   
@@ -161,7 +161,7 @@ void rcn_refresh_signal( lofig_list *lofig, losig_list *losig )
   }
   avt_logexitfunction(LOGMBKCACHE,2);
 
-  // rcn_cache_debug( lofig );
+  /* rcn_cache_debug( lofig );*/
 
 }
 
@@ -354,7 +354,7 @@ unsigned long int rcn_cache_release( lofig_list *lofig, losig_list *losig )
     }
   }
 
-  lofig = NULL; //avoid a warning
+  lofig = NULL; /*avoid a warning*/
 
   return removed;
 }

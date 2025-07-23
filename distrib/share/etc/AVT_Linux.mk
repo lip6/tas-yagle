@@ -5,7 +5,7 @@ RPCGENFLAGS = -C
 LDL = -ldl
 BIN_EXT=
 
-OSCFLAGS = -fno-inline
+OSCFLAGS = -fno-inline -Wno-old-style-definition
 
 DYNAMIC = -rdynamic
 STATIC  = -rstatic

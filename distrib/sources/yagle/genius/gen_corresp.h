@@ -22,7 +22,7 @@ extern lofig_list *GENIUS_GLOBAL_LOFIG;
 extern chain_list *ALL_HIERARCHY_LOTRS;
 extern lofig_list *GEN_HEAD_LOFIG;
 extern ht         *GEN_HT_LOFIG;
-//extern chain_list *TRANS_TO_SUPPRESS;
+/*extern chain_list *TRANS_TO_SUPPRESS;*/
 extern ptype_list *GEN_USER;
 extern char        GEN_SEPAR;
 extern chain_list *expansedloins, *originalloins;
@@ -34,7 +34,7 @@ extern char       *gen_losigname                       (losig_list *sig);
 extern int         gen_upper_bound                     (losig_list *sig);
 extern int         gen_lower_bound                     (losig_list *sig);
 void gen_get_bounds (losig_list *sig, int *left, int *right);
-//extern char       *gen_makename                        (char *s);
+/*extern char       *gen_makename                        (char *s);*/
 extern chain_list *gen_hierarchical_split              (char *name);
 extern lotrs_list *gen_get_corresponding_transistor    (char *name);
 extern lotrs_list *gen_get_corresponding_transistor    (char *name);
@@ -48,8 +48,8 @@ extern lotrs_list *gen_corresp_trs                     (char *name, corresp_t *c
 extern losig_list *gen_corresp_sig                     (char *name, corresp_t *corresp);
 extern lofig_list *gen_add_real_corresp_ptypes         (loins_list *ins, corresp_t *father_tbl, corresp_t *tbl, int *swapped);
 extern void        gen_clean_real_corresp_ptypes       (lofig_list *fig);
-//void gen_swap_corresp_table (fclcorresp_list *fcl_clist, corresp_t *tbl, char *insname);
-//extern void        gen_swap_corresp_table              (fclcorresp_list *fcl_clist, corresp_t *crp_table);
+/*void gen_swap_corresp_table (fclcorresp_list *fcl_clist, corresp_t *tbl, char *insname);*/
+/*extern void        gen_swap_corresp_table              (fclcorresp_list *fcl_clist, corresp_t *crp_table);*/
 extern void        gen_update_corresp_table            (lofig_list *lf, corresp_t *crp_table, loins_list *li);
 extern void        gen_update_corresp_table__recursive (lofig_list *lf, corresp_t *crp_table, loins_list *li);
 void gen_update_alims (lofig_list *lf, corresp_t *root_tbl, chain_list *distrib_sigs);

@@ -78,7 +78,7 @@ chain_list *concatAbl(chain_list *expr1, chain_list *expr2)
     }
     else
       expr2 = addchain(NULL,expr2);
-//    addQExpr(resExpr,expr2);
+/*    addQExpr(resExpr,expr2);*/
     chainx->NEXT = expr2;
   }
   else if (!ATOM(expr2) && OPER(expr2)==CAT)
@@ -87,8 +87,8 @@ chain_list *concatAbl(chain_list *expr1, chain_list *expr2)
     resExpr     = expr2;
     addHExpr(resExpr,expr1);
   }
-//  else if (OPER(expr1)==REPLICATE)
-//  else if (OPER(expr2)==REPLICATE)
+/*  else if (OPER(expr1)==REPLICATE)*/
+/*  else if (OPER(expr2)==REPLICATE)*/
   else if (!ATOM(expr1) && !ATOM(expr2)
            && OPER(expr1) == OPER(expr2)
            && lengthExpr(expr1) == lengthExpr(expr2))
@@ -376,12 +376,12 @@ int changeAblAtRange(chain_list *expr,int left,int right,chain_list *added,
   char           buf2[255];
   char          *buft;
   chain_list    *tmpExpr;
-  int            al,ar; // atome caracterisation
+  int            al,ar; /* atome caracterisation*/
   char          *an;
   chain_list    *nl;
   chain_list    *nr;
   
-  // only mode 1
+  /* only mode 1*/
   if ((vsize = verifyVectAbl(expr)) >= right)
   {
     int            tmp;
@@ -403,13 +403,13 @@ int changeAblAtRange(chain_list *expr,int left,int right,chain_list *added,
         case 2 : 
              if (isBitStr(VALUE_ATOM(expr)))
              {
-               sprintf(buf1,"%s",VALUE_ATOM(expr)); // before
+               sprintf(buf1,"%s",VALUE_ATOM(expr)); /* before*/
                buf1[0]       = (left == 1) ? '\'' : '"';
                buf1[left+1]  = (left == 1) ? '\'' : '"';
                buf1[left+2]  = '\0';
                nl            = (left == 0) ? NULL : createBitStr(buf1);
                
-               sprintf(buf2,"%s",VALUE_ATOM(expr)); // after
+               sprintf(buf2,"%s",VALUE_ATOM(expr)); /* after*/
                buf2[vsize+1] = (right == vsize-1) ? '\'' : '"';
                buft          = (char*)((long)&buf2 + right + 1);
                buft[0]       = (right == vsize-1) ? '\'' : '"';
@@ -418,7 +418,7 @@ int changeAblAtRange(chain_list *expr,int left,int right,chain_list *added,
              else
              {
                getVectAtomRange(expr,&an,&al,&ar);
-               if (al<ar) // good range direction
+               if (al<ar) /* good range direction*/
                {
                  nl     = createVectAtom(an, al, al+left-1);
                  nr     = createVectAtom(an, al+right+1, ar);
@@ -432,7 +432,7 @@ int changeAblAtRange(chain_list *expr,int left,int right,chain_list *added,
       }
       tmpExpr    = (nl) ? concatAbl(nl,added) : added;
       tmpExpr    = (nr) ? concatAbl(tmpExpr,nr) : tmpExpr;
-//      tmpExpr    = downCat(tmpExpr);
+/*      tmpExpr    = downCat(tmpExpr);*/
       CAR(expr) = CAR(tmpExpr);
       CDR(expr) = CDR(tmpExpr);
       delchain(tmpExpr,tmpExpr);
@@ -480,8 +480,8 @@ int changeAblAtRange(chain_list *expr,int left,int right,chain_list *added,
            return changeAblAtRange(expr,left,right,added,mode);
       default :
            avt_errmsg(LOG_ERRMSG,"000",AVT_ERROR,"157");
-//           printf("pas traite changeAblAtRange() def\n");
-//           return 0;
+/*           printf("pas traite changeAblAtRange() def\n");*/
+/*           return 0;*/
     }
     return 1;
   }

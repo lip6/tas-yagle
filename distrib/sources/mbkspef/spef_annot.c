@@ -37,11 +37,11 @@ int SPEF_PRESERVE_RC, SPEF_CARDS;
 /*     externs                                                              */
 /****************************************************************************/
 
-extern void  spefrestart();
+extern void  spefrestart( FILE* );
 extern int   spefparse() ;
 extern FILE *spefin ;
 FILE        *file;
-extern void  spef_dnetrestart();
+extern void  spef_dnetrestart( FILE* );
 extern int   spef_dnetparse() ;
 extern FILE *spef_dnetin ;
 extern chain_list *ctclist;
@@ -214,7 +214,7 @@ void spef_Annotate(ptlofig)
     if( SPEF_LOFIG_CACHE == 1 )
       {
         avt_errmsg(SPE_ERRMSG, "007", AVT_WARNING, ptlofig->NAME);      
-//        printf("only one spef cache for now\n'%s' have no cache\n",ptlofig->NAME);
+/*        printf("only one spef cache for now\n'%s' have no cache\n",ptlofig->NAME);*/
         return;
       }
     if ((spefin = mbkfopen(ptlofig->NAME, IN_PARASITICS, READ_TEXT))!=NULL){
@@ -242,7 +242,7 @@ void spef_Annotate(ptlofig)
 
         if (!spef_error())
           {
-            //        spef_ht_stats();
+            /*        spef_ht_stats();*/
             
             if( SPEF_PRELOAD == 'N' ) {
               spef_destroy_loins_htable();
@@ -282,7 +282,7 @@ void parsespef(char *filename)
   if( SPEF_LOFIG_CACHE == 1 )
    {
      avt_errmsg(SPE_ERRMSG, "007", AVT_WARNING, filename);      
-     //printf("only one spef cache for now\n'%s' have no cache\n",filename);
+     /*printf("only one spef cache for now\n'%s' have no cache\n",filename);*/
      return;
    }
 

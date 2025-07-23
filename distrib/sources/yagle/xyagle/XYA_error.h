@@ -44,7 +44,7 @@
 \------------------------------------------------------------*/
 
 extern void XyagFlushErrorMessage();
-extern void XyagExitErrorMessage();
+extern void XyagExitErrorMessage( int );
 void XyagCleanErrorMessage();
 void XyagInitializeErrorMessage(char Debug);
 

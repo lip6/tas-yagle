@@ -29,23 +29,23 @@ contient des boucles. Il s'agit du délai d'Elmore maximum entre 2 locon du
 réseau RC pour le délai maximum, et du délai d'Elmore minimum entre 2 locon du
 réseau RC pour le délai minimum.
 */
-int TRC_MARK_CON = 0;                      //tmp for test
+int TRC_MARK_CON = 0;                      /*tmp for test*/
 
-void rcx_delayloop( lofig_list *lofig,      // La figure
-                    losig_list *losig,      // Le signal
-                    locon_list *locon,      // Le locon emetteur
-                    rcx_slope  *slopemiller,   //                maximum
-                    RCXFLOAT    smax,       // Front d'entrée minimum
-                    RCXFLOAT    smin,       // Front d'entrée minimum
-                    RCXFLOAT    vmax,       // La tension finale
-                    RCXFLOAT    vt,         // Le seuil d'un transistor
-                    RCXFLOAT    extcapa,    // La capacité externe
-                    RCXFLOAT   *dmax,       // Le délai maximum calculé
-                    RCXFLOAT   *dmin,       //          minimum
-                    RCXFLOAT   *fmax,       // Le front maximum calculé
-                    RCXFLOAT   *fmin,       //          minimum
-                    locon_list **cmax,      // Connecteur où dmax a été trouvé  
-                    locon_list **cmin       // Connecteur où dmin a été trouvé  
+void rcx_delayloop( lofig_list *lofig,      /* La figure*/
+                    losig_list *losig,      /* Le signal*/
+                    locon_list *locon,      /* Le locon emetteur*/
+                    rcx_slope  *slopemiller,   /*                maximum*/
+                    RCXFLOAT    smax,       /* Front d'entrée minimum*/
+                    RCXFLOAT    smin,       /* Front d'entrée minimum*/
+                    RCXFLOAT    vmax,       /* La tension finale*/
+                    RCXFLOAT    vt,         /* Le seuil d'un transistor*/
+                    RCXFLOAT    extcapa,    /* La capacité externe*/
+                    RCXFLOAT   *dmax,       /* Le délai maximum calculé*/
+                    RCXFLOAT   *dmin,       /*          minimum*/
+                    RCXFLOAT   *fmax,       /* Le front maximum calculé*/
+                    RCXFLOAT   *fmin,       /*          minimum*/
+                    locon_list **cmax,      /* Connecteur où dmax a été trouvé  */
+                    locon_list **cmin       /* Connecteur où dmin a été trouvé  */
                   )
 {
   static losig_list  *lastcalllosig = NULL;
@@ -98,7 +98,7 @@ void rcx_delayloop( lofig_list *lofig,      // La figure
   }
 
   if( lastcalllosig != losig || lastcalllocon != locon ) {
-    // On change de signal, on reinitialise tout.
+    /* On change de signal, on reinitialise tout.*/
     lastcalllosig = losig;
     lastcalllocon = locon;
     lastcalldmaxup = -1.0;
@@ -149,9 +149,9 @@ void rcx_delayloop( lofig_list *lofig,      // La figure
                   slopemiller,
                   smax,
                   smin,
-                  vmax,      // La tension finale
-                  vt,        // Le seuil d'un transistor
-                  extcapa,   // La capacité externe
+                  vmax,      /* La tension finale*/
+                  vt,        /* Le seuil d'un transistor*/
+                  extcapa,   /* La capacité externe*/
                   coefctc,
                   dmax,
                   dmin,
@@ -284,9 +284,9 @@ void  rcx_loopelmore( losig_list *losig,
                       rcx_slope  *slopemiller,
                       RCXFLOAT   smax,
                       RCXFLOAT   smin,
-                      RCXFLOAT vmax,      // La tension finale
-                      RCXFLOAT vt,        // Le seuil d'un transistor
-                      RCXFLOAT extcapa,   // La capacité externe
+                      RCXFLOAT vmax,      /* La tension finale*/
+                      RCXFLOAT vt,        /* Le seuil d'un transistor*/
+                      RCXFLOAT extcapa,   /* La capacité externe*/
                       RCXFLOAT coefctc,
                       RCXFLOAT *dmax,
                       RCXFLOAT *dmin,
@@ -399,7 +399,7 @@ void rcx_loopelmdelay( losig_list  *losig,
 
             RCX_PTRTESTANDSET( cmax, rcx_loopgetlocon( ptnode ) )
 
-            // SOLUTION TMP
+            /* SOLUTION TMP*/
             if (TRC_MARK_CON) {
                 if ((ptype = getptype ((*cmax)->USER,TRC_LOCON_AWE)) != NULL) {
                     mbkfree(ptype->DATA);
@@ -441,7 +441,7 @@ void rcx_loopelmdelay( losig_list  *losig,
 
             RCX_PTRTESTANDSET( cmax, rcx_loopgetlocon( ptnode ) )
 
-            // SOLUTION TMP
+            /* SOLUTION TMP*/
             if (TRC_MARK_CON) {
                 if ((ptype = getptype ((*cmax)->USER,TRC_LOCON_AWE)) != NULL) {
                     mbkfree(ptype->DATA);
@@ -482,9 +482,9 @@ RCXFLOAT rcx_loopelmcapa( losig_list  *losig,
                           rcx_slope   *slopemiller,
                           RCXFLOAT     smax,
                           RCXFLOAT     smin,
-                          RCXFLOAT     vmax,      // La tension finale
-                          RCXFLOAT     vt,        // Le seuil d'un transistor
-                          RCXFLOAT     extcapa,   // La capacité externe
+                          RCXFLOAT     vmax,      /* La tension finale*/
+                          RCXFLOAT     vt,        /* Le seuil d'un transistor*/
+                          RCXFLOAT     extcapa,   /* La capacité externe*/
                           RCXFLOAT     coefctc,
                           lowire_list *wire
                         )

@@ -21,16 +21,16 @@ extern long CCUSED ;
 extern char TAS_PATH_TYPE ;
 
 /* declaration de fonction */
-//extern void         tas_addrcdelaylink   __P(( link_list*,
-//                                               long
-//                                            )) ;
-//extern void         tas_delrcdelaylink   __P(( link_list*)) ;
-//extern long         tas_getrcdelaylink   __P(( link_list*)) ;
-//extern void         tas_addrcresislink   __P(( link_list*,
-//                                               long
-//                                            )) ;
-//extern void         tas_delrcresislink   __P(( link_list*)) ;
-//extern long         tas_getrcresislink   __P(( link_list*)) ;
+/*extern void         tas_addrcdelaylink   __P(( link_list*,*/
+/*                                               long*/
+/*                                            )) ;*/
+/*extern void         tas_delrcdelaylink   __P(( link_list*)) ;*/
+/*extern long         tas_getrcdelaylink   __P(( link_list*)) ;*/
+/*extern void         tas_addrcresislink   __P(( link_list*,*/
+/*                                               long*/
+/*                                            )) ;*/
+/*extern void         tas_delrcresislink   __P(( link_list*)) ;*/
+/*extern long         tas_getrcresislink   __P(( link_list*)) ;*/
 extern double       tas_get_rlin_br      __P(( link_list*)); 
 extern double       tas_get_rlin_br_krt  __P(( link_list *link ));
 extern float        tas_delayrc          __P(( link_list*,
@@ -113,11 +113,11 @@ extern timing_scm*  tpd_pathmodel        __P(( cone_list*,
                                                float,
                                                float
                                             ));
-//extern int          affiche_conec        __P(( cone_list*,
-//                                               locon_list*,
-//                                               char*,
-//                                               long
-//                                            ));
+/*extern int          affiche_conec        __P(( cone_list*,*/
+/*                                               locon_list*,*/
+/*                                               char*,*/
+/*                                               long*/
+/*                                            ));*/
 extern branch_list* tas_GiveActivExtPath __P(( cone_list*, locon_list*, char ));
 extern delay_list*  val_con              __P(( cone_list*,
                                                locon_list*,

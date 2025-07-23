@@ -40,7 +40,7 @@ void addcgvfile(char *name, int type, int cut, char *filename, cgvfig_list *cgvs
   cgvf->NEXT=HEAD_CGV;
   cgvstruct->USER=addptype(cgvstruct->USER, CGV_FILE_TYPE, cgvf);
   HEAD_CGV=cgvf;
-//  printf("%s added in list\n",cgvf->name);
+/*  printf("%s added in list\n",cgvf->name);*/
 }
 
 char *getcgvfileext(cgvfig_list *cgvstruct)
@@ -79,7 +79,7 @@ void removecgvfiles(char *name, void (*did)(cgvfig_list *removed))
           if (prev==NULL) HEAD_CGV=cgvf->NEXT; else prev->NEXT=cgvf->NEXT;
           if (cgvf->cut==0 && cgvf->inmem==0)
             {
-//              printf("remove '%s' [%d]\n",name,cgvf->type);
+/*              printf("remove '%s' [%d]\n",name,cgvf->type);*/
               switch(cgvf->type)
                 {
                 case CGV_SOURCE_CNSFIG:
@@ -89,7 +89,7 @@ void removecgvfiles(char *name, void (*did)(cgvfig_list *removed))
                   break;
                 case CGV_SOURCE_LOFIG:
                   dellofig(cgvf->lf->NAME);
-//                  freelofig(cgvf->lf);
+/*                  freelofig(cgvf->lf);*/
                   /*cgvf->lf->NEXT=HEAD_LOFIG;
                   HEAD_LOFIG=cgvf->lf;
                   dellofig(cgvf->lf->NAME);*/
@@ -112,7 +112,7 @@ void removeallcgvfiles(void (*did)(cgvfig_list *removed))
       next=cgvf->NEXT;
       if (cgvf->inmem==0)
         {
-//          printf("remove '%s' [%d]\n",cgvf->name,cgvf->type);
+/*          printf("remove '%s' [%d]\n",cgvf->name,cgvf->type);*/
           switch(cgvf->type)
             {
             case CGV_SOURCE_CNSFIG:
@@ -122,7 +122,7 @@ void removeallcgvfiles(void (*did)(cgvfig_list *removed))
               break;
             case CGV_SOURCE_LOFIG:
               dellofig(cgvf->lf->NAME);
-              //freelofig(cgvf->lf);
+              /*freelofig(cgvf->lf);*/
               /*cgvf->lf->NEXT=HEAD_LOFIG;
                 HEAD_LOFIG=cgvf->lf;
                 dellofig(cgvf->lf->NAME);*/

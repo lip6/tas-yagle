@@ -227,10 +227,10 @@ tpiv* tpiv_createbranch( link_list *head, char transtype )
       trsspice->TRLENGTH = ((float)l)*1e-6 / ((float)SCALE_X) ;
       trsspice->TRWIDTH = ((float)w)*1e-6 / ((float)SCALE_X) ;
       
-      // Voir le deshrinkage                                  
-      // trsspice->WIDTH  = TAS_GETWIDTH( cnsm );
-      // trsspice->LENGTH = TAS_GETLENGTH( cnsm );
-      // Voir l'influence de WIDTH sur les aires.
+      /* Voir le deshrinkage                                  */
+      /* trsspice->WIDTH  = TAS_GETWIDTH( cnsm );*/
+      /* trsspice->LENGTH = TAS_GETLENGTH( cnsm );*/
+      /* Voir l'influence de WIDTH sur les aires.*/
 
       trlist = addchain( NULL, trsspice );
       stm_solver_add_model( stmm,
@@ -783,7 +783,7 @@ char       savepol;
          maillon ; 
          maillon = maillon->NEXT, link = link->NEXT ) {
 
-      // old: if(link->ULINK.LOTRS->TYPE==TRANSP)
+      /* old: if(link->ULINK.LOTRS->TYPE==TRANSP)*/
       if(MLO_IS_TRANSP(link->ULINK.LOTRS->TYPE))
         tas_set_vpol( link, valim - maillon->MAILLON->VD );
       else
@@ -1386,7 +1386,7 @@ void tpiv_inverter( char       *fname,
         k++ ;
     }
 
-    //ci = capaie[k]/1000.0;
+    /*ci = capaie[k]/1000.0;*/
 
     tas_tpiv_solver_calc_ids( stmn, ve, vbn, vdd, &isatn, trtype );
     tas_tpiv_solver_calc_ids( stmp, (ve-vdd), vbp, -vdd, &isatp, trtype );
@@ -1767,13 +1767,13 @@ void tpiv_carac_static( lotrs_list *lotrs,
 
       if(  MLO_IS_TRANSN(lotrs->TYPE) ) {
         trsmcc->VG = vs+vj ;
-        //trsmcc->VB = 0.0 ;
+        /*trsmcc->VB = 0.0 ;*/
         mcc_mcc_ids( trsmcc, vs, vs+vi, &imcc );
         mcc_spice_ids( trsspi, vj, vbs, vi, &ispi );
       }
       else {
         trsmcc->VG = vs-vj ;
-        //trsmcc->VB = vdd ;
+        /*trsmcc->VB = vdd ;*/
         mcc_mcc_ids( trsmcc, vs, vs-vi, &imcc );
         mcc_spice_ids( trsspi, -vj, vbs, -vi, &ispi );
       }

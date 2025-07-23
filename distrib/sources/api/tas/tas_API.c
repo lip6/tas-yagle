@@ -26,7 +26,7 @@
 #define API_USE_REAL_TYPES
 #include "tas_API.h"
 
-//-----------------------------------------------------------------
+/*-----------------------------------------------------------------*/
 
 ttvfig_list *hitas_sub (char *figname, char cnsannotatelofig, char loadcnsfig )
 {
@@ -60,7 +60,7 @@ ttvfig_list *hitas_sub (char *figname, char cnsannotatelofig, char loadcnsfig )
        TAS_CONTEXT->TAS_CNS_LOAD='Y';
     }
 
-    { // configuration check level I
+    { /* configuration check level I*/
       lofig_list *lf;
       locon_list *lc;
       chain_list *data;
@@ -115,7 +115,7 @@ ttvfig_list *tas (char *figname)
     return hitas_sub (figname, 'N', 0 );
 }
 
-//-----------------------------------------------------------------
+/*-----------------------------------------------------------------*/
 
 void tas_command_line (char *args)
 {
@@ -166,7 +166,7 @@ int hitas_pvt_count()
 }
 
 #if 0
-//-----------------------------------------------------------------
+/*-----------------------------------------------------------------*/
 
 lofig_list *tas_extract_SPICE_path (ttvcritic_list *critic)
 {
@@ -191,7 +191,7 @@ lofig_list *tas_extract_SPICE_path (ttvcritic_list *critic)
     return tas_extract_spice_path (lofig, cnsfig, NULL, critic);
 }
 
-//-----------------------------------------------------------------
+/*-----------------------------------------------------------------*/
 
 sim_model *tas_extract_SPICE_patterns (ttvcritic_list *critic, lofig_list *figext)
 {

@@ -57,7 +57,7 @@ int ispragmacomment(char *txt, const char *code)
 /****************************************************************************/
 /*        for all structure field in file, attach it to its own figure      */
 /****************************************************************************/
-//extern ht *architomodel;
+/*extern ht *architomodel;*/
 
 static void markforcematch(lofig_list *lf, mbk_match_rules *mr)
 {
@@ -86,7 +86,7 @@ extern void Get_All_Loins(tree_list *tree, chain_list *fcl)
 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 20);
-    //fprintf(stderr,"Get_All_Loins: NULL pointer\n");
+    /*fprintf(stderr,"Get_All_Loins: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -107,7 +107,7 @@ extern void Get_All_Loins(tree_list *tree, chain_list *fcl)
     model=getmodel(modelname);                               
     if (!model) {
       avt_errmsg(GNS_ERRMSG, "045", AVT_FATAL, modelname);
-      //fprintf(stderr,"Get_All_Loins: no model %s found\n",modelname);
+      /*fprintf(stderr,"Get_All_Loins: no model %s found\n",modelname);*/
       EXIT(1);
     }
     /*    else
@@ -119,7 +119,7 @@ extern void Get_All_Loins(tree_list *tree, chain_list *fcl)
     model=getmodel(modelname);
     if (!model) {
       avt_errmsg(GNS_ERRMSG, "045", AVT_FATAL, modelname);
-      //fprintf(stderr,"Get_All_Loins: no model %s found\n",modelname);
+      /*fprintf(stderr,"Get_All_Loins: no model %s found\n",modelname);*/
       EXIT(1);
     }
 
@@ -181,7 +181,7 @@ void verifySyms(lofig_list *lf)
   SymInfoItem *sii;
 
   syms=getptype(lf->USER,GEN_SYM_INFO_PTYPE);
-  if (syms==NULL) //EXIT(2); // internal error
+  if (syms==NULL) /*EXIT(2); // internal error*/
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 21);
 
   for (ch=(chain_list *)syms->DATA;ch!=NULL;ch=ch->NEXT)
@@ -207,7 +207,7 @@ void verifySyms(lofig_list *lf)
           if (lc==NULL) 
             {
               avt_errmsg(GNS_ERRMSG, "046", AVT_FATAL, sii->ConnectorName);
-              //fprintf(stderr,"verifySyms: unknown connector (%s) declared in symmetric connector list\n",sii->ConnectorName);
+              /*fprintf(stderr,"verifySyms: unknown connector (%s) declared in symmetric connector list\n",sii->ConnectorName);*/
               EXIT(1);
             }
           if (sii->FLAGS==0)
@@ -220,7 +220,7 @@ void verifySyms(lofig_list *lf)
       if (vecto>0 && total!=vecto)
         {
           avt_errmsg(GNS_ERRMSG, "047", AVT_FATAL);
-          //fprintf(stderr,"verifySyms: mix of vector and bit\n");
+          /*fprintf(stderr,"verifySyms: mix of vector and bit\n");*/
           EXIT(1);
         }
     }
@@ -236,7 +236,7 @@ void verifyCoupled(lofig_list *lf)
   SymInfoItem *sii;
 
   syms=getptype(lf->USER,GEN_COUPLED_INFO_PTYPE);
-  if (syms==NULL) //EXIT(2); // internal error
+  if (syms==NULL) /*EXIT(2); // internal error*/
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 22);
 
   for (ch=(chain_list *)syms->DATA;ch!=NULL;ch=ch->NEXT)
@@ -262,7 +262,7 @@ void verifyCoupled(lofig_list *lf)
           if (lc==NULL) 
             {
               avt_errmsg(GNS_ERRMSG, "048", AVT_FATAL, sii->ConnectorName);
-              //fprintf(stderr,"verifyCoupled: unknown connector (%s) declared in coupled connector list\n",sii->ConnectorName);
+              /*fprintf(stderr,"verifyCoupled: unknown connector (%s) declared in coupled connector list\n",sii->ConnectorName);*/
               EXIT(1);
             }
           if (sii->FLAGS==0)
@@ -307,7 +307,7 @@ extern void Get_All_Lofig(tree_list *tree,chain_list *fcl)
 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 23);
-    //    fprintf(stderr,"Get_All_Lofig: NULL pointer\n");
+    /*    fprintf(stderr,"Get_All_Lofig: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -335,12 +335,12 @@ extern void Get_All_Lofig(tree_list *tree,chain_list *fcl)
           if (le->entity==modelname) break;
         }
 
-      // le is NULL for the "other architectures"
+      /* le is NULL for the "other architectures"*/
       if (le==NULL || le->format==0)
         {
-          // GENIUS/FCL vhdl
-          symtree=tree->NEXT->NEXT->NEXT->NEXT; // zinaps was here
-          //-----
+          /* GENIUS/FCL vhdl*/
+          symtree=tree->NEXT->NEXT->NEXT->NEXT; /* zinaps was here*/
+          /*-----*/
           FIG=addlofig(modelname);                              /*init var glob.*/
 
           /* Is it a model for fcl-->standard Alliance  or  for Genius-->generic*/
@@ -356,17 +356,17 @@ extern void Get_All_Lofig(tree_list *tree,chain_list *fcl)
             variables=Get_Generic(tree->NEXT->NEXT,NULL);
           }   
           addmodel(FIG,variables,NULL,mainle==NULL||mainle->model==NULL?modelradical(modelname):mainle->model, mainle->match);
-          // zinaps ---
+          /* zinaps ---*/
           cl=(chain_list *)((tree_list *)symtree->DATA)->DATA;
-          FIG->USER=addptype(FIG->USER, GEN_SYM_INFO_PTYPE, cl->DATA); // double chain_list, symmetric connectors
-          FIG->USER=addptype(FIG->USER, GEN_COUPLED_INFO_PTYPE, cl->NEXT->DATA); // double chain_list, coupled connectors
+          FIG->USER=addptype(FIG->USER, GEN_SYM_INFO_PTYPE, cl->DATA); /* double chain_list, symmetric connectors*/
+          FIG->USER=addptype(FIG->USER, GEN_COUPLED_INFO_PTYPE, cl->NEXT->DATA); /* double chain_list, coupled connectors*/
           verifySyms(FIG);
           verifyCoupled(FIG);
           markunusedlocons(FIG, (chain_list *)cl->NEXT->NEXT->DATA);
 
 
         }
-      // ---
+      /* ---*/
     }
     break;
   default:
@@ -382,7 +382,7 @@ extern void Get_All_Lofig(tree_list *tree,chain_list *fcl)
 #define PRAGMA_NUMBER 8
 static chain_list *pragmas[PRAGMA_NUMBER];
 
-//symm, *coupled;
+/*symm, *coupled;*/
 
 SymInfoItem *chain_to_sii(chain_list *cl)
 {
@@ -488,10 +488,10 @@ tree_list *build_entity_tree(lofig_list *lf)
                 GEN_TOKEN_ENTITY,
                 "spice",
                 0,
-                PutAto_Tree(GEN_TOKEN_IDENT,"spice",0,lf->NAME), // nom
-                PutAto_Tree(GEN_TOKEN_NOP,"spice",0,0), // generic
-                t, // ports
-                PutAto_Tree(GEN_TOKEN_PRAGMA_SYM,"spice",0,NULL) // chain of chain?
+                PutAto_Tree(GEN_TOKEN_IDENT,"spice",0,lf->NAME), /* nom*/
+                PutAto_Tree(GEN_TOKEN_NOP,"spice",0,0), /* generic*/
+                t, /* ports*/
+                PutAto_Tree(GEN_TOKEN_PRAGMA_SYM,"spice",0,NULL) /* chain of chain?*/
                 );
   return t;
 }
@@ -577,14 +577,14 @@ static tree_list *spice_to_geniushr(lofig_list *lf)
 
       freechain(cl);
       gmi=(generic_map_info *)mbkalloc(sizeof(generic_map_info));
-      gmi->left=transistor_params[0]; // l
+      gmi->left=transistor_params[0]; /* l*/
       gmi->type='v';
       gmi->right.value=((double)tr->LENGTH/SCALE_X)*1e-6;
       gmi->FILE="spice";
       gmi->LINE=0;
       cl=addchain(NULL, gmi);
       gmi=(generic_map_info *)mbkalloc(sizeof(generic_map_info));
-      gmi->left=transistor_params[1]; // w
+      gmi->left=transistor_params[1]; /* w*/
       gmi->type='v';
       gmi->right.value=((double)tr->WIDTH/SCALE_X)*1e-6;
       gmi->FILE="spice";
@@ -621,7 +621,7 @@ static tree_list *spice_to_geniushr(lofig_list *lf)
                 lc->SIG->USER=addptype(lc->SIG->USER, GEN_UNUSED_FLAG_PTYPE, NULL);
               }
           
-          //          for (p=ms->STOP_POWER; p!=NULL && p->DATA!=getsigname(lc->SIG); p=p->NEXT) ;
+          /*          for (p=ms->STOP_POWER; p!=NULL && p->DATA!=getsigname(lc->SIG); p=p->NEXT) ;*/
           if ((fd=getchain(pragmas[6], getsigname(lc->SIG)))!=NULL)
             {
               if (getptype(lc->SIG->USER, GEN_STOP_POWER_FLAG_PTYPE)==NULL)
@@ -647,7 +647,7 @@ static tree_list *spice_to_geniushr(lofig_list *lf)
       if ((fd=getchain(pragmas[2], li->INSNAME))!=NULL) flags|=LOINS_IS_EXCLUDE_AT_END, fd->DATA=NULL;
       
       li->USER=addptype(li->USER, GENIUS_LOINS_FLAGS_PTYPE, (void *)flags);
-//      printf("%s %s %ld\n",li->FIGNAME, li->INSNAME, flags);
+/*      printf("%s %s %ld\n",li->FIGNAME, li->INSNAME, flags);*/
       /*stree=PUT_TRI(GEN_TOKEN_MAP,
                     PUT_QUA(GEN_TOKEN_OF,
                             PUT_ATO(GEN_TOKEN_IDENT,li->INSNAME),
@@ -659,7 +659,7 @@ static tree_list *spice_to_geniushr(lofig_list *lf)
                     );*/
       
       if (getptype(li->USER, GEN_GENERIC_MAP_PTYPE)==NULL)
-        li->USER=addptype(li->USER, GEN_GENERIC_MAP_PTYPE, NULL/*((tree_list *)stree->NEXT->NEXT->NEXT->DATA)->DATA*/); // (<model_var>,<circuit_expr>)+ single chain list
+        li->USER=addptype(li->USER, GEN_GENERIC_MAP_PTYPE, NULL/*((tree_list *)stree->NEXT->NEXT->NEXT->DATA)->DATA*/); /* (<model_var>,<circuit_expr>)+ single chain list*/
       stree=PUT_ATO(GEN_TOKEN_LOINS,li);
       li->USER=addptype(li->USER,GENERIC_PTYPE,Duplicate_Tree(stree));
       if (tree!=NULL)
@@ -686,7 +686,7 @@ void LoadSpiceFCLFiles(lib_entry *le)
     {
       if (le->format!=0)
         {
-          // FCL
+          /* FCL*/
           char *oldconfig;
           mbkContext *ctx;
 
@@ -700,7 +700,7 @@ void LoadSpiceFCLFiles(lib_entry *le)
 
           for (i=0; i<PRAGMA_NUMBER; i++)
             pragmas[i]=NULL;
-          //          coupled=symm=NULL;
+          /*          coupled=symm=NULL;*/
           gen_printf(0, "Opening spice model file %s....\n",le->name);
           fclExtendSpice();
           mslAddExtension(SymmetricExtension);
@@ -745,7 +745,7 @@ void LoadSpiceFCLFiles(lib_entry *le)
           FIG->NEXT=HEAD_LOFIG;
           HEAD_LOFIG=FIG;
 
-          // check the lofig
+          /* check the lofig*/
           if (!mbk_checklofig(FIG))
             {
               EXIT(1);
@@ -755,7 +755,7 @@ void LoadSpiceFCLFiles(lib_entry *le)
           if (le->format!=2 && !(FIG->LOINS==NULL && FIG->LOTRS==NULL) && (FIG->LOTRS==NULL || FIG->LOINS!=NULL))
             {
               avt_errmsg(GNS_ERRMSG, "050", AVT_FATAL, le->name);
-              //fprintf(stderr, "Spice file %s should be a flat transistor netlist\n",le->name);
+              /*fprintf(stderr, "Spice file %s should be a flat transistor netlist\n",le->name);*/
               EXIT(1);
             }
           if (le->format==2) tree=spice_to_geniushr(FIG);
@@ -787,8 +787,8 @@ void LoadSpiceFCLFiles(lib_entry *le)
               mbk_FreeREGEX(&mr);
             }
 
-          FIG->USER=addptype(FIG->USER, GEN_SYM_INFO_PTYPE, pragmas[0]); // double chain_list, symmetric connectors
-          FIG->USER=addptype(FIG->USER, GEN_COUPLED_INFO_PTYPE, pragmas[1]); // double chain_list, coupled connectors
+          FIG->USER=addptype(FIG->USER, GEN_SYM_INFO_PTYPE, pragmas[0]); /* double chain_list, symmetric connectors*/
+          FIG->USER=addptype(FIG->USER, GEN_COUPLED_INFO_PTYPE, pragmas[1]); /* double chain_list, coupled connectors*/
           verifySyms(FIG);
           verifyCoupled(FIG);
           markunusedlocons(FIG, pragmas[4]);
@@ -807,7 +807,7 @@ void LoadSpiceFCLFiles(lib_entry *le)
 void Build_All_Transistor_Models()
 {
   chain_list *cl;
-  // building all transistors
+  /* building all transistors*/
   for (cl=TNMOS;cl!=NULL;cl=cl->NEXT)
     {
       Build_Transistor((char *)cl->DATA);
@@ -822,7 +822,7 @@ void Build_All_Models(tree_list *tree,chain_list *fcl)
 {
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 24);
-    //    fprintf(stderr,"Build_All_Models: NULL pointer\n");
+    /*    fprintf(stderr,"Build_All_Models: NULL pointer\n");*/
     EXIT(1);
   }
 
@@ -832,7 +832,7 @@ void Build_All_Models(tree_list *tree,chain_list *fcl)
   if (Get_Error())
     {
       avt_errmsg(GNS_ERRMSG, "060", AVT_FATAL);
-      //fprintf(stderr,"other errors follow...\n");
+      /*fprintf(stderr,"other errors follow...\n");*/
       EXIT(3);
     }
 }

@@ -30,7 +30,7 @@ inffig_list *__giveinf()
   if (warned==0 && inffigurename==".unknown.")
     {
       avt_errmsg(INF_API_ERRMSG, "001", AVT_FATAL);
-//      avt_error("infapi", AVT_WAR, 1, "you must first use 'inf_SetFigureName' prior to use other functions\n");
+/*      avt_error("infapi", AVT_WAR, 1, "you must first use 'inf_SetFigureName' prior to use other functions\n");*/
       warned=1;
     }
   if ((ifl=getloadedinffig(inffigurename))!=NULL) return ifl;
@@ -50,7 +50,7 @@ void inf_LoadInformationFile(char *figname)
   if ((ifl=getinffig(figname))==NULL)
     {
       avt_errmsg(INF_API_ERRMSG, "002", AVT_WARNING, figname);
-//      avt_error("infapi", AVT_WAR, 2, "figure '%s' could not be found\n",figname);
+/*      avt_error("infapi", AVT_WAR, 2, "figure '%s' could not be found\n",figname);*/
       ifl=addinffig(figname);
     }
   else
@@ -283,7 +283,7 @@ void inf_DefineConditionedCommandStates(char *name, char *state)
   else
     {
       avt_errmsg(INF_API_ERRMSG, "003", AVT_ERROR, state);
-//      avt_error("infapi", AVT_ERR, 1, "invalid  command state given: '%s'\n", state);
+/*      avt_error("infapi", AVT_ERR, 1, "invalid  command state given: '%s'\n", state);*/
       return;
     }
   inf_AddString(ifl, INF_LOADED_LOCATION, infTasVectName(name), INF_VERIF_STATE, state, NULL);
@@ -396,7 +396,7 @@ void inf_DefineClock(chain_list *elems)
                     }
                   else
                     avt_errmsg(INF_API_ERRMSG, "004", AVT_ERROR);
-//                    avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");          
+/*                    avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");          */
                 }
               else
                 {
@@ -409,7 +409,7 @@ void inf_DefineClock(chain_list *elems)
                       
                       if (inf_GetInt(ifl, bname, INF_CLOCK_TYPE, &val)==0)
                         avt_errmsg(INF_API_ERRMSG, "005", AVT_ERROR, bname);
-//                        avt_error("infapi", 11, AVT_ERR, "clock '%s' not defined yet\n", bname);
+/*                        avt_error("infapi", 11, AVT_ERR, "clock '%s' not defined yet\n", bname);*/
                       else
                         {
                           double per, defper, min;
@@ -419,7 +419,7 @@ void inf_DefineClock(chain_list *elems)
                           
                           if (defper==-1 && per==-1 && fabs(mult-1)<=1e-15)
                             avt_errmsg(INF_API_ERRMSG, "006", AVT_ERROR, bname);
-//                            avt_error("infapi", 12, AVT_ERR, "no period specified for clock '%s' or no default period\n", bname);
+/*                            avt_error("infapi", 12, AVT_ERR, "no period specified for clock '%s' or no default period\n", bname);*/
                           else
                             {
                               if (per!=-1)
@@ -451,14 +451,14 @@ void inf_DefineClock(chain_list *elems)
                     }
                   else
                     avt_errmsg(INF_API_ERRMSG, "007", AVT_ERROR);
- //                   avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");
+ /*                   avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");*/
                 }
               
               if (mode & INF_CLOCK_IDEAL)
                 {
                   if (countchain(elems)>=4)
                     {
-                      // latencies
+                      /* latencies*/
                       minup+=avt_parse_unit((char *)elems->DATA, 't'); elems=elems->NEXT;
                       maxup+=avt_parse_unit((char *)elems->DATA, 't'); elems=elems->NEXT;
                       mindown+=avt_parse_unit((char *)elems->DATA, 't'); elems=elems->NEXT;
@@ -466,12 +466,12 @@ void inf_DefineClock(chain_list *elems)
                     }
                   else if (countchain(elems)!=0)
                     avt_errmsg(INF_API_ERRMSG, "007", AVT_ERROR);
-//                    avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");
+/*                    avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");*/
                 }
               
               if (elems!=NULL)
                  avt_errmsg(INF_API_ERRMSG, "008", AVT_ERROR, (char *)elems->DATA);
-                 //avt_error("infapi", 5, AVT_WAR, "too many parameters starting at '%s'\n", (char *)elems->DATA);
+                 /*avt_error("infapi", 5, AVT_WAR, "too many parameters starting at '%s'\n", (char *)elems->DATA);*/
               
               inf_AddDouble(ifl, INF_LOADED_LOCATION, aname, INF_MIN_RISE_TIME, minup, NULL);
               inf_AddDouble(ifl, INF_LOADED_LOCATION, aname, INF_MAX_RISE_TIME, maxup, NULL);
@@ -485,11 +485,11 @@ void inf_DefineClock(chain_list *elems)
         }
       else
         avt_errmsg(INF_API_ERRMSG, "007", AVT_ERROR);
-//        avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");  
+/*        avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");  */
     }
   else
     avt_errmsg(INF_API_ERRMSG, "007", AVT_ERROR);
-//    avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");          
+/*    avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n");          */
 }
 
 /*
@@ -525,7 +525,7 @@ void inf_DefineBypass(char *name, char *where)
   else
     {
       avt_errmsg(INF_API_ERRMSG, "009", AVT_ERROR, where);
-//      avt_error("infapi", AVT_ERR, 2, "invalid bypass location given: '%s'\n", where);
+/*      avt_error("infapi", AVT_ERR, 2, "invalid bypass location given: '%s'\n", where);*/
       return;
     }
   inf_AddString(ifl, INF_LOADED_LOCATION, infTasVectName(name), INF_BYPASS, where, NULL);
@@ -545,7 +545,7 @@ void inf_DefineMutex(char *type, chain_list *list)
   else
     {
       avt_errmsg(INF_API_ERRMSG, "010", AVT_ERROR, type);
-//      avt_error("infapi", AVT_ERR, 3, "unknown mutex type given: '%s'\n", type);
+/*      avt_error("infapi", AVT_ERR, 3, "unknown mutex type given: '%s'\n", type);*/
       return;
     }
 
@@ -567,7 +567,7 @@ void inf_DefineCrosstalkMutex(char *type, chain_list *list)
   else
     {
       avt_errmsg(INF_API_ERRMSG, "011", AVT_ERROR, type);
-//      avt_error("infapi", AVT_ERR, 3, "unknown crosstalk mutex type given: '%s'\n", type);
+/*      avt_error("infapi", AVT_ERR, 3, "unknown crosstalk mutex type given: '%s'\n", type);*/
       return;
     }
 
@@ -672,7 +672,7 @@ void inf_DefineFalsePath(chain_list *elems)
   while (pt!=NULL && pt->TYPE==INF_NOTHING) pt=delptype(pt, INF_NOTHING);
   pt=(ptype_list *)reverse((chain_list *)pt);
 
-  if (pt==NULL) // { avt_error("infapi", 6, AVT_WAR, "no signal elements in falsepath\n"); }
+  if (pt==NULL) /* { avt_error("infapi", 6, AVT_WAR, "no signal elements in falsepath\n"); }*/
     avt_errmsg(INF_API_ERRMSG, "012", AVT_ERROR);
   else
     {
@@ -680,10 +680,10 @@ void inf_DefineFalsePath(chain_list *elems)
         {
           if (elems->NEXT==NULL)
              avt_errmsg(INF_API_ERRMSG, "007", AVT_ERROR);
-//            { avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n"); }
+/*            { avt_error("infapi", 6, AVT_ERR, "missing clock parameter\n"); }*/
           else if (elems->NEXT->NEXT!=NULL)
              avt_errmsg(INF_API_ERRMSG, "008", AVT_ERROR, (char *)elems->NEXT->NEXT->DATA);
-//            { avt_error("infapi", 5, AVT_WAR, "too many parameters starting at '%s'\n", (char *)elems->NEXT->NEXT->DATA); }
+/*            { avt_error("infapi", 5, AVT_WAR, "too many parameters starting at '%s'\n", (char *)elems->NEXT->NEXT->DATA); }*/
           else
             {
               if (strcasecmp((char *)elems->NEXT->DATA, "<hz>")==0)
@@ -734,7 +734,7 @@ void inf_DefinePathDelayMargin(char *type, char *name, double factor, double del
   else 
     {
       avt_errmsg(INF_API_ERRMSG, "013", AVT_ERROR, type);
-//      avt_error("infapi", 7, AVT_ERR, "invalid signal type '%s'\n", type);
+/*      avt_error("infapi", 7, AVT_ERR, "invalid signal type '%s'\n", type);*/
       return;
     }
 
@@ -752,7 +752,7 @@ void inf_DefinePathDelayMargin(char *type, char *name, double factor, double del
       else
         {
           avt_errmsg(INF_API_ERRMSG, "014", AVT_ERROR, tok);
-//          avt_error("infapi", 8, AVT_ERR, "unrecognized token '%s'\n", tok);
+/*          avt_error("infapi", 8, AVT_ERR, "unrecognized token '%s'\n", tok);*/
         }
       tok=strtok_r(NULL, " ", &c);
     }
@@ -822,7 +822,7 @@ void inf_DefineIgnore(char *type, chain_list *list)
   else
    {
      avt_errmsg(INF_API_ERRMSG, "015", AVT_ERROR, type);
-//     avt_error("infapi", 9, AVT_ERR, "unknown section '%s', ignoring section.\n", type);
+/*     avt_error("infapi", 9, AVT_ERR, "unknown section '%s', ignoring section.\n", type);*/
      section_type=NULL;
    }
 
@@ -848,7 +848,7 @@ void inf_DefineConnectorDirections(char *type, chain_list *list)
   else
    {
      avt_errmsg(INF_API_ERRMSG, "015", AVT_ERROR, type);
-//     avt_error("infapi", 10, AVT_ERR, "unknown direction '%s', ignoring section.\n", type);
+/*     avt_error("infapi", 10, AVT_ERR, "unknown direction '%s', ignoring section.\n", type);*/
      val=NULL;
    }
 
@@ -899,7 +899,7 @@ static void convert_data(inffig_list *ifl, char *name, char *section, chain_list
     {
       if (countchain(ch)!=3)
          avt_errmsg(INF_API_ERRMSG, "017", AVT_ERROR);
-        //avt_error("infapi", AVT_ERR, 11, "too much values for slope or capa generation\n");
+        /*avt_error("infapi", AVT_ERR, 11, "too much values for slope or capa generation\n");*/
       else
         {
           double a=*(double *)ch->DATA, b=*(double *)ch->NEXT->DATA, s=*(double *)ch->NEXT->NEXT->DATA;
@@ -929,7 +929,7 @@ static void inf_DefineAxis(char *name, chain_list *list, char *type, char *secti
     convert_data(ifl, infTasVectName(name), section, list, 0, tm);
   else 
     avt_errmsg(INF_API_ERRMSG, "018", AVT_ERROR, type);
-//    avt_error("infapi", AVT_ERR, 13, "unknown type given: '%s'\n", type);
+/*    avt_error("infapi", AVT_ERR, 13, "unknown type given: '%s'\n", type);*/
 }
 
 void inf_DefineSlopeRange(char *name, chain_list *list, char *type)
@@ -963,7 +963,7 @@ void inf_DisableTimingArc(char *input, char *output, char *direction)
       else
         {
           avt_errmsg(INF_API_ERRMSG, "019", AVT_ERROR, direction);
-//          avt_error("infapi", AVT_ERR, 14, "inf_DisableTimingArc: invalid direction '%s'\n", direction);
+/*          avt_error("infapi", AVT_ERR, 14, "inf_DisableTimingArc: invalid direction '%s'\n", direction);*/
           return;
         }
 
@@ -973,7 +973,7 @@ void inf_DisableTimingArc(char *input, char *output, char *direction)
       else
         {
           avt_errmsg(INF_API_ERRMSG, "019", AVT_ERROR, direction);
-//          avt_error("infapi", AVT_ERR, 14, "inf_DisableTimingArc: invalid direction '%s'\n", direction);
+/*          avt_error("infapi", AVT_ERR, 14, "inf_DisableTimingArc: invalid direction '%s'\n", direction);*/
           return;
         }
 
@@ -981,7 +981,7 @@ void inf_DisableTimingArc(char *input, char *output, char *direction)
     }
   else
     avt_errmsg(INF_API_ERRMSG, "019", AVT_ERROR, direction);
-//    avt_error("infapi", AVT_ERR, 14, "inf_DisableTimingArc: invalid direction '%s'\n", direction);
+/*    avt_error("infapi", AVT_ERR, 14, "inf_DisableTimingArc: invalid direction '%s'\n", direction);*/
 }
 
 void inf_DefineCharacteristics(char *type, chain_list *list)
@@ -996,7 +996,7 @@ void inf_DefineCharacteristics(char *type, chain_list *list)
   else
    {
      avt_errmsg(INF_API_ERRMSG, "020", AVT_ERROR, type);
-//     avt_error("infapi", 15, AVT_ERR, "unknown characteristic '%s', ignoring section.\n", type);
+/*     avt_error("infapi", 15, AVT_ERR, "unknown characteristic '%s', ignoring section.\n", type);*/
      val=NULL;
    }
 
@@ -1005,7 +1005,7 @@ void inf_DefineCharacteristics(char *type, chain_list *list)
       inf_AddString(ifl, INF_LOADED_LOCATION, namealloc((char *)ch->DATA), val, type, NULL);
 
 }
-//chain_list *list)
+/*chain_list *list)*/
 void inf_DefineDirective_sub(chain_list *list)
 {
   int val, delaymode;
@@ -1028,7 +1028,7 @@ void inf_DefineDirective_sub(chain_list *list)
     
   if (strcasecmp((char *)list->DATA, "clock")==0) temp=INF_DIRECTIVE_CLOCK, list=list->NEXT;
   else if (strcasecmp((char *)list->DATA, "data")==0) temp=0, list=list->NEXT;
-  else temp=0; //{ avt_errmsg(INF_API_ERRMSG, "018", AVT_ERROR, sig1type); return; }
+  else temp=0; /*{ avt_errmsg(INF_API_ERRMSG, "018", AVT_ERROR, sig1type); return; }*/
 
   if (list==NULL) { avt_errmsg(INF_API_ERRMSG, "024", AVT_ERROR); return; }
 
@@ -1039,8 +1039,8 @@ void inf_DefineDirective_sub(chain_list *list)
 
   if (!strcasecmp((char *)list->DATA,"rising")) temp|=INF_DIRECTIVE_RISING, list=list->NEXT;
   else if (!strcasecmp((char *)list->DATA,"falling")) temp|=INF_DIRECTIVE_FALLING, list=list->NEXT;
-//  else temp|=INF_DIRECTIVE_FALLING|INF_DIRECTIVE_RISING;
-//  else { avt_errmsg(INF_API_ERRMSG, "018", AVT_ERROR, dir1); return; }
+/*  else temp|=INF_DIRECTIVE_FALLING|INF_DIRECTIVE_RISING;*/
+/*  else { avt_errmsg(INF_API_ERRMSG, "018", AVT_ERROR, dir1); return; }*/
 
   if (list==NULL) { avt_errmsg(INF_API_ERRMSG, "024", AVT_ERROR); return; }
 
@@ -1081,7 +1081,7 @@ void inf_DefineDirective_sub(chain_list *list)
         if (!strcasecmp((char *)list->DATA,"rising")) temp1|=INF_DIRECTIVE_RISING;
         else if (!strcasecmp((char *)list->DATA,"falling")) temp1|=INF_DIRECTIVE_FALLING;
         else temp1|=INF_DIRECTIVE_FALLING|INF_DIRECTIVE_RISING;
-//        else { avt_errmsg(INF_API_ERRMSG, "018", AVT_ERROR, dir2); return; }
+/*        else { avt_errmsg(INF_API_ERRMSG, "018", AVT_ERROR, dir2); return; }*/
       }
 
     if ((si->cval.a & INF_DIRECTIVE_FILTER)!=0 && ((temp & INF_DIRECTIVE_CLOCK)!=0 || (temp1 & INF_DIRECTIVE_CLOCK)==0 || act!=0))

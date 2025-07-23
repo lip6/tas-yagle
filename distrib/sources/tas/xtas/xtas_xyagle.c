@@ -14,8 +14,8 @@ XtPointer call_data;
 void XtasXyagleQuitFOnction()
 {
  XtUnmanageChild (XyagTopLevel) ;
-// XtasInitFileErr();
-// XtasClearAllStream();
+/* XtasInitFileErr();*/
+/* XtasClearAllStream();*/
 }
 
 void XtasSetXyagleQuitFOnction()

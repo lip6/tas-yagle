@@ -101,7 +101,7 @@
   extern char   XYAGLE_IN_CGV[];
   extern int    XyagCnsMode;
 
-//  extern char   XYAGLE_NAME[]; 
+/*  extern char   XYAGLE_NAME[]; */
   extern char   XYAG_SWITCH_COLOR_MAP;
   extern char   XYAG_FORCE_DISPLAY;
   extern char   XYAG_XOR_CURSOR;
@@ -110,7 +110,7 @@
 |                          Functions                          |
 \------------------------------------------------------------*/
 
-  extern char *XyagPostTreatString();
+  extern char *XyagPostTreatString(char*);
   extern void  XyagLoadParameters();
   extern void  Xyaggetenv();
   extern void  XyagLoadColors();

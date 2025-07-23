@@ -39,7 +39,7 @@ yagPrepTiming(lofig_list *ptlofig)
     
     tas_setenv();
     TAS_CONTEXT->TAS_CALCRCX = 'Y';
-//    TAS_CONTEXT->TAS_MERGERCN = 'Y';
+/*    TAS_CONTEXT->TAS_MERGERCN = 'Y';*/
     TAS_CONTEXT->FRONT_CON = TAS_NOFRONT;
     if (YAG_CONTEXT->YAG_TAS_TIMING == YAG_MIN_TIMING) {
         TAS_CONTEXT->TAS_FIND_MIN = 'Y';
@@ -126,7 +126,7 @@ static chain_list *yag_buildminterms(cone_list *ptcone, chain_list *cndabl, chai
              exprbdd=(pNode)ch->DATA;
            sublist=addchain(sublist, bddToAblCct(cct, exprbdd));
            freechain(ch);
-//           support=addchain(support, bddToAblCct(cct, exprbdd));
+/*           support=addchain(support, bddToAblCct(cct, exprbdd));*/
            destroyCct(cct);
          }
          if (sublist!=NULL && sublist->NEXT!=NULL)
@@ -148,7 +148,7 @@ static chain_list *yag_buildminterms(cone_list *ptcone, chain_list *cndabl, chai
       freechain(list);
       samedelay=delchain(samedelay, samedelay);
     }
-//    destroyCct(cct);
+/*    destroyCct(cct);*/
     list=support;
   }
   return list;
@@ -771,7 +771,7 @@ yagTimeBefig(befig_list *ptbefig)
     freeExpr(zeroexpr);
     freeExpr(oneexpr);
 
-    // creating transmission lines
+    /* creating transmission lines*/
     yadAddRC(rcht, ptbefig);
     delht(rcht);
 }

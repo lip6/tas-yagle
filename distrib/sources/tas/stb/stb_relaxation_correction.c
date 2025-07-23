@@ -44,7 +44,7 @@ static valid_range_info *give_valid_range_info(ttvline_list *tl, int nbindex)
   vri=(valid_range_info *)mbkalloc(sizeof(valid_range_info)*nbindex);
   for (i=0; i<nbindex; i++)
   {
-//    vri[i].validmin=vri[i].validmax=TTV_NOTIME;
+/*    vri[i].validmin=vri[i].validmax=TTV_NOTIME;*/
     vri[i].realpair=NULL;
   }
 
@@ -270,7 +270,7 @@ node_path_info *stb_assign_paths(stbfig_list *stbfig, ttvevent_list *tve)
       if ((l=gethtitem(startht, start))!=EMPTYHT)
         {
           for (cl=(chain_list *)l; cl!=NULL && (npi=(node_path_info *)cl->DATA)->cmd!=scanpath->CMD; cl=cl->NEXT) ;
-//          if (cl==NULL) exit(60);
+/*          if (cl==NULL) exit(60);*/
         }
       else cl=NULL;
       
@@ -365,7 +365,7 @@ void stb_compute_falsepath_and_falseslack_effect(stbfig_list *sf, stbnode *node,
   stbck *ck, *ick;
   stbnode *startnode;
   int i, res, startindex;
-//  long validmin, validmax;
+/*  long validmin, validmax;*/
   stbpair_list *STBTAB[256], *STBHZ[256], *ptstbpair, *pair;
   int ckindex;
   long periodeSetup, periodeHold, output_periode, input_periode;
@@ -454,7 +454,7 @@ void stb_compute_falsepath_and_falseslack_effect(stbfig_list *sf, stbnode *node,
                           if (npipp->delaymax==TTV_NOTIME) npipp->delaymax=npipp->delaymin;
                           if (npipp->delaymin>npipp->delaymax) npipp->delaymin=npipp->delaymax;
                           
-                          if (npi->output_phase!=STB_NO_INDEX) // filtre
+                          if (npi->output_phase!=STB_NO_INDEX) /* filtre*/
                             ckindex=npi->output_phase;
                           
 
@@ -476,7 +476,7 @@ void stb_compute_falsepath_and_falseslack_effect(stbfig_list *sf, stbnode *node,
                               else
                                 periodeSetup=periodeHold=0;
 
-                              //                        if (periodeSetup!=0)
+                              /*                        if (periodeSetup!=0)*/
                               {
                                 long dmin, dmax;
                                 dmax=npipp->delaymax-periodeSetup-npipp->movemax;
@@ -490,7 +490,7 @@ void stb_compute_falsepath_and_falseslack_effect(stbfig_list *sf, stbnode *node,
                                   }
                                 pair = stb_dupstbpairlist (STBTAB[startindex]);
                                 pair = stb_clippair( pair, npipp->startmin, npipp->startmax);
-//                                stb_assign_phase_to_stbpair(pair, startindex);
+/*                                stb_assign_phase_to_stbpair(pair, startindex);*/
 #ifdef RELAX_CORRECT_DEBUG 
                                 if (deb && pair)
                                 {

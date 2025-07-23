@@ -57,7 +57,7 @@ static void        print_out                (FILE *dotcpp, FILE *doth, befig_lis
 static void        bux_process              (FILE *dotcpp, FILE *doth, befig_list *figure);
 static void        bus_process              (FILE *dotcpp, FILE *doth, befig_list *figure);
 static void        reg_process              (FILE *dotcpp, FILE *doth, befig_list *figure);
-//static void        begen_treatment          (FILE *fp, befig_list *figure);
+/*static void        begen_treatment          (FILE *fp, befig_list *figure);*/
 
 static void        print_one_beobj          (FILE *dotcpp, FILE *doth, void *be, int *np,long type);
 static void        printTime                (FILE *fp, int time);
@@ -135,19 +135,19 @@ static void writelist(FILE *fp, chain_list *ptchain, int indent)
 {
   char          *name;
   char           indentstr[80];
-//  int            hpos;
-//  int            first  = TRUE;
+/*  int            hpos;*/
+/*  int            first  = TRUE;*/
   int            i;
   chain_list    *namelist = NULL;
   chain_list    *chainx;
   chain_list    *tail;
 
-//  hpos = indent;
+/*  hpos = indent;*/
   for (i = 0; i < indent; i++)
     indentstr[i] = ' ';
   indentstr[i] = '\0';
 
-  // pre-traitement de la liste pour supprimmer les doublons
+  /* pre-traitement de la liste pour supprimmer les doublons*/
   for (; ptchain; ptchain = ptchain->NEXT)
   {
     if ( isBitStr(ptchain->DATA) )
@@ -169,17 +169,17 @@ static void writelist(FILE *fp, chain_list *ptchain, int indent)
     fprintf(fp,"sensitive");
   for (chainx = namelist; chainx; chainx = chainx->NEXT)
   {
-//    if (!first)
-//      fprintf(fp, ", ");
-//    if (hpos > 60)
-//    {
-//      fprintf(fp, "\n%s", indentstr);
-//      hpos = indent;
-//    }
+/*    if (!first)*/
+/*      fprintf(fp, ", ");*/
+/*    if (hpos > 60)*/
+/*    {*/
+/*      fprintf(fp, "\n%s", indentstr);*/
+/*      hpos = indent;*/
+/*    }*/
     name = chainx->DATA;
-//    hpos += strlen(name) + 2;
+/*    hpos += strlen(name) + 2;*/
     fprintf(fp," << %s",bsc_name(name));
-//    first = FALSE;
+/*    first = FALSE;*/
   }
   freechain(namelist);
 }
@@ -191,8 +191,8 @@ static void writelist(FILE *fp, chain_list *ptchain, int indent)
 /****************************************************************************/
 static void printInfo(FILE *fp, time_t *ck, char *text)
 {
-  fprintf(fp,"// SystemC data flow description generated from `%s`\n", text);
-  fprintf(fp,"//     date : %s\n", ctime(ck));
+  fprintf(fp,"/* SystemC data flow description generated from `%s`\n", text);*/
+  fprintf(fp,"/*     date : %s\n", ctime(ck));*/
 }
 
 /*}}}************************************************************************/
@@ -262,8 +262,8 @@ void print_one_beobj(FILE  *dotcpp, FILE *doth, void *be, int *np,long type)
                 name      = bsc_name(name);
                 for (; vbiabl; vbiabl = vbiabl->NEXT)
                 {
-//                  iprint(dotcpp,'0',"\n");
-//                  iprint(doth  ,'0',"\n");
+/*                  iprint(dotcpp,'0',"\n");*/
+/*                  iprint(doth  ,'0',"\n");*/
                   left      = vbiabl->LEFT;
                   right     = vbiabl->RIGHT;
                   vname     = beh_buildvhdvectname(name,left,right);
@@ -290,8 +290,8 @@ void print_one_beobj(FILE  *dotcpp, FILE *doth, void *be, int *np,long type)
          switch (type)
          {
            case BEG_MASK_REG : case BEG_MASK_BUS : case BEG_MASK_BUX :
-//                iprint(dotcpp,'0',"\n");
-//                iprint(doth  ,'0',"\n");
+/*                iprint(dotcpp,'0',"\n");*/
+/*                iprint(doth  ,'0',"\n");*/
                 print_biabl(dotcpp,doth,biabl,name,name,1,np,head,type);
                 break;
            case BEG_MASK_OUT : case BEG_MASK_AUX :
@@ -378,10 +378,10 @@ void print_process(FILE *dotcpp, FILE *doth, biabl_list *biabl, char *name, char
 
   buffer = mbkalloc(bufsize);
 
-  // sensibility list
+  /* sensibility list*/
   print_process_declaration(doth,biabl,NULL,name,head,buffer);
 
-  // process
+  /* process*/
   iprint(dotcpp,'i',"BEGIN\n");
 
   done_endif  = 1;
@@ -398,8 +398,8 @@ void print_process(FILE *dotcpp, FILE *doth, biabl_list *biabl, char *name, char
     sameloop  = beh_isSameLoop(loop,lastloop);
     print_endLoop(dotcpp,'<',head,*np,cpt,sameloop,lastloop);
     print_loopList(dotcpp,'+',head,*np,&cpt,sameloop,loop);
-    // definition de la condition
-    // case of register
+    /* definition de la condition*/
+    /* case of register*/
     if ( (type == BEG_MASK_REG)
          && (isEdgeCondition = search_stable(biablx->CNDABL,&CLOCKSTR)) )
     {
@@ -412,7 +412,7 @@ void print_process(FILE *dotcpp, FILE *doth, biabl_list *biabl, char *name, char
       oldckcnd = mbkstrdup(buffer);
     }
     else
-    // default
+    /* default*/
     {
       abl_red = preprocess_abl(biablx->CNDABL);
       buffer[0] = '\0';
@@ -421,11 +421,11 @@ void print_process(FILE *dotcpp, FILE *doth, biabl_list *biabl, char *name, char
       isEdgeCondition = 0;
     }
 
-    // ecriture de la condition
-    // the first
+    /* ecriture de la condition*/
+    /* the first*/
     if (biablx == biabl)
       iprint(dotcpp,'+',"IF %s THEN\n",bsc_printabl(buffer));
-    // the last pour le else
+    /* the last pour le else*/
     else if ( ( ! biablx->NEXT || ! (biablx->NEXT->FLAG & BEH_CND_PRECEDE) )
               && ! strcmp(buffer,"'1'"))
     {
@@ -433,10 +433,10 @@ void print_process(FILE *dotcpp, FILE *doth, biabl_list *biabl, char *name, char
       done_endif    = 1;
       done_else     = TRUE;
     }
-    // precedence
+    /* precedence*/
     else if ( ! (biablx->FLAG & BEH_CND_PRECEDE))
     {
-      // case of bus and not the last
+      /* case of bus and not the last*/
       if ( (type != BEG_MASK_REG) && !done_else)
       {
         iprint(dotcpp,'+',"ELSE\n");
@@ -466,7 +466,7 @@ void print_process(FILE *dotcpp, FILE *doth, biabl_list *biabl, char *name, char
     else
       iprint(dotcpp,'+',"ELSIF %s THEN\n",bsc_printabl(buffer));
 
-    // supplementary condition in case of register
+    /* supplementary condition in case of register*/
     if (isEdgeCondition)
     {
       ptcondabl = strip_ckedge(biablx->CNDABL,CLOCKSTR,CKTYPE);
@@ -484,7 +484,7 @@ void print_process(FILE *dotcpp, FILE *doth, biabl_list *biabl, char *name, char
       freeExpr(ptcondabl);
     }
 
-    // value
+    /* value*/
     if (biablx->VALABL)
     {
       print_affected(dotcpp,'-',name,vname,loop);
@@ -503,8 +503,8 @@ void print_process(FILE *dotcpp, FILE *doth, biabl_list *biabl, char *name, char
     lastloop = loop;
   }
 
-  // la fin du process
-  // ELSE for buffer
+  /* la fin du process*/
+  /* ELSE for buffer*/
   if ( (type != BEG_MASK_REG) && !done_else)
   {
     iprint(dotcpp,'+',"ELSE\n");
@@ -637,10 +637,10 @@ void print_biabl(FILE *dotcpp, FILE *doth, biabl_list *biabl, char *name, char *
     beh_toolbug(19,"print_biabl",name,0);
   if ( ! biabl->VALABL)
     beh_toolbug(20,"print_biabl",name,0);
-  // case of  with ... select
+  /* case of  with ... select*/
   if ((type != BEG_MASK_REG) && (beh_simplifybiabl(biabl)))
     print_withselect(dotcpp,biabl,vname,vsize);
-  // case of process
+  /* case of process*/
   else
     print_process   (dotcpp,doth,biabl,name,vname,vsize,np,head,type);
 }
@@ -781,9 +781,9 @@ static void port_declaration(FILE *fp, befig_list *figure)
 {
   BSC_MAXNAME   = 0;
 
-  // scalar port declaration
+  /* scalar port declaration*/
   print_bevectpor(fp,figure->BEVECTPOR,figure->BEPOR ? 1 : 0);
-  // classical port declaration
+  /* classical port declaration*/
   print_bepor    (fp,figure->BEPOR);
   iprint         (fp,'0',"\n");
   BSC_MAXNAME   = 0;
@@ -1288,36 +1288,36 @@ reg_process(FILE *dotcpp, FILE *doth, befig_list *figure)
 
 /*}}}************************************************************************/
 /*}}}************************************************************************/
-///*{{{                    Traitement de la begen                             */
-///****************************************************************************/
-///*{{{                    begen_treatment()                                  */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static void
-//begen_treatment(FILE *fp, befig_list *figure)
-//{
-//  begen_list     *ptbegen;
-//
-//  ptbegen = figure->BEGEN;
-//
-//  iprint(fp,'i',NULL);
-//  if (ptbegen != NULL)
-//  {
-//    iprint(fp,'+',"GENERIC (\n");
-//    for (ptbegen = figure->BEGEN; ptbegen->NEXT; ptbegen = ptbegen->NEXT)
-//      iprint(fp,'0',"CONSTANT  %s : %s := %ld ;\t-- %s\n",
-//             ptbegen->NAME,ptbegen->TYPE,*((long *)ptbegen->VALUE),
-//             ptbegen->NAME);
-//    iprint(fp,'-',"CONSTANT  %s : %s := %ld  \t-- %s\n",
-//           ptbegen->NAME,ptbegen->TYPE,*((long *)ptbegen->VALUE),
-//           ptbegen->NAME);
-//    iprint(fp,'-',"); \n");
-//  }
-//}
-//
-///*}}}************************************************************************/
-///*}}}************************************************************************/
+/*/*{{{                    Traitement de la begen                             */
+/*/****************************************************************************/
+/*/*{{{                    begen_treatment()                                  */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static void*/
+/*begen_treatment(FILE *fp, befig_list *figure)*/
+/*{*/
+/*  begen_list     *ptbegen;*/
+/**/
+/*  ptbegen = figure->BEGEN;*/
+/**/
+/*  iprint(fp,'i',NULL);*/
+/*  if (ptbegen != NULL)*/
+/*  {*/
+/*    iprint(fp,'+',"GENERIC (\n");*/
+/*    for (ptbegen = figure->BEGEN; ptbegen->NEXT; ptbegen = ptbegen->NEXT)*/
+/*      iprint(fp,'0',"CONSTANT  %s : %s := %ld ;\t-- %s\n",*/
+/*             ptbegen->NAME,ptbegen->TYPE,*((long *)ptbegen->VALUE),*/
+/*             ptbegen->NAME);*/
+/*    iprint(fp,'-',"CONSTANT  %s : %s := %ld  \t-- %s\n",*/
+/*           ptbegen->NAME,ptbegen->TYPE,*((long *)ptbegen->VALUE),*/
+/*           ptbegen->NAME);*/
+/*    iprint(fp,'-',"); \n");*/
+/*  }*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*}}}************************************************************************/
 /*{{{                    Traitement des messages                            */
 /****************************************************************************/
 /*{{{                    print_msg()                                        */
@@ -1421,7 +1421,7 @@ void bscsavebefig(befig_list *befig, unsigned int trace_mode)
 
   if (befig == NULL)
     beh_toolbug(10, "bscsavebefig", NULL, 0);
-  //   Opening result file
+  /*   Opening result file*/
   figname   = befig->NAME;
   if ( !( ( doth     = mbkfopen(figname,"h"  ,WRITE_TEXT))
           && (dotcpp = mbkfopen(figname,"cpp",WRITE_TEXT))))
@@ -1436,25 +1436,25 @@ void bscsavebefig(befig_list *befig, unsigned int trace_mode)
   }
 
   time(&clock);
-  // SystemC header file
+  /* SystemC header file*/
   if ((trace_mode & BSC_TRACE))
     fprintf(stdout,"Saving '%s' in SystemC header file (h)\n",figname);
   printInfo(doth  ,&clock,figname);
 
-  //   Entity declaration
+  /*   Entity declaration*/
   iprint(doth,'i',"\n\n");
   iprint(doth,'i',"SC_MODULE(%s)\n",bsc_name(figname));
   iprint(doth,'i',"{\n");
 
-  //  begen declaration
-  // begen_treatment(fp, befig);
+  /*  begen declaration*/
+  /* begen_treatment(fp, befig);*/
 
-  //   Port declaration
+  /*   Port declaration*/
   bscportht = addht(40);
 
   port_declaration (doth, befig);
 
-  //   Signals declaration
+  /*   Signals declaration*/
   print_declaration(doth, befig);
 
   print_functiondeclaration(doth,befig);
@@ -1466,7 +1466,7 @@ void bscsavebefig(befig_list *befig, unsigned int trace_mode)
   iprint(doth,'+',"{\n");
 
 
-  // SystemC file
+  /* SystemC file*/
   if ((trace_mode & BSC_TRACE))
     fprintf(stdout,"Saving '%s' in SystemC file (cpp)\n",figname);
   printInfo(dotcpp,&clock,figname);
@@ -1474,25 +1474,25 @@ void bscsavebefig(befig_list *befig, unsigned int trace_mode)
   fprintf(dotcpp,"#include \"%s.h\"\n\n",figname);
 
   bhl_setTimeUnit(gettimeunit(befig->TIME_UNIT));
-  //   Print out a concurrent assert statement for each BEMSG
+  /*   Print out a concurrent assert statement for each BEMSG*/
   print_msg       (dotcpp, befig);
 
-  //   Print out a concurrent signal assignment for each BEAUX
+  /*   Print out a concurrent signal assignment for each BEAUX*/
   print_aux       (dotcpp, doth, befig);
 
-  //   Print out a block statement  with one guarded concurrent
-  //   signal assignment for each BIABL of each BEREG
+  /*   Print out a block statement  with one guarded concurrent*/
+  /*   signal assignment for each BIABL of each BEREG*/
   reg_process     (dotcpp, doth, befig);
 
-  //   Print out a block statement  with one guarded concurrent
-  //   signal assignment for each BIABL of each BEBUX
+  /*   Print out a block statement  with one guarded concurrent*/
+  /*   signal assignment for each BIABL of each BEBUX*/
   bux_process     (dotcpp, doth, befig);
 
-  // Print out a block statement  with one guarded concurrent
-  // signal assignment for each BIABL of each BEBUS
+  /* Print out a block statement  with one guarded concurrent*/
+  /* signal assignment for each BIABL of each BEBUS*/
   bus_process     (dotcpp, doth, befig);
 
-  //   Print out a concurrent signal assignment for each BEOUT
+  /*   Print out a concurrent signal assignment for each BEOUT*/
   print_out       (dotcpp, doth, befig);
 
   iprint(doth,'<',"}\n");
@@ -1504,76 +1504,76 @@ void bscsavebefig(befig_list *befig, unsigned int trace_mode)
 
 /*}}}************************************************************************/
 /*}}}************************************************************************/
-///*{{{                    Obsolete                                           */
-///****************************************************************************/
-///*{{{                    print_one_bebus()                                  */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//void print_one_bebus(FILE *fp, bebus_list *bus, int *numprocess)
-//{
-//  print_one_beobj(fp,bus,numprocess,BEG_TYPE_SINGBUS);
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    print_one_bebux()                                  */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//void print_one_bebux(FILE *fp, bebux_list *bux, int *numprocess)
-//{
-//  print_one_beobj(fp,bux,numprocess,BEG_TYPE_SINGBUX);
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    print_one_bereg()                                  */
-///*                                                                          */
-///* exploit priority encoding                                                */
-///****************************************************************************/
-//void print_one_bereg(FILE *fp, bereg_list *reg, int *numprocess)
-//{
-//    print_one_beobj(fp,reg,numprocess,BEG_TYPE_SINGREG);
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    print_one_beaux()                                  */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//void print_one_beaux(FILE *fp, beaux_list *aux)
-//{
-//  print_one_beobj(fp,  aux, NULL, BEG_TYPE_SINGAUX);
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    print_one_bevectaux()                              */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//void print_one_bevectaux(FILE *fp, bevectaux_list *vaux)
-//{
-//  print_one_beobj(fp, vaux, NULL, BEG_TYPE_VECTAUX);
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    print_one_beout()                                  */
-///*                                                                          */
-///* affectation des signaux beout                                            */
-///****************************************************************************/
-//void print_one_beout(FILE *fp, beout_list *out)
-//{
-//  print_one_beobj(fp,  out, NULL, BEG_TYPE_SINGOUT);
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    print_one_bevectout()                              */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//void print_one_bevectout(FILE *fp, bevectout_list *vout)
-//{
-//  print_one_beobj(fp, vout, NULL, BEG_TYPE_VECTOUT);
-//}
-//
-///*}}}************************************************************************/
-///*}}}************************************************************************/
+/*/*{{{                    Obsolete                                           */
+/*/****************************************************************************/
+/*/*{{{                    print_one_bebus()                                  */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*void print_one_bebus(FILE *fp, bebus_list *bus, int *numprocess)*/
+/*{*/
+/*  print_one_beobj(fp,bus,numprocess,BEG_TYPE_SINGBUS);*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    print_one_bebux()                                  */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*void print_one_bebux(FILE *fp, bebux_list *bux, int *numprocess)*/
+/*{*/
+/*  print_one_beobj(fp,bux,numprocess,BEG_TYPE_SINGBUX);*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    print_one_bereg()                                  */
+/*/*                                                                          */
+/*/* exploit priority encoding                                                */
+/*/****************************************************************************/
+/*void print_one_bereg(FILE *fp, bereg_list *reg, int *numprocess)*/
+/*{*/
+/*    print_one_beobj(fp,reg,numprocess,BEG_TYPE_SINGREG);*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    print_one_beaux()                                  */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*void print_one_beaux(FILE *fp, beaux_list *aux)*/
+/*{*/
+/*  print_one_beobj(fp,  aux, NULL, BEG_TYPE_SINGAUX);*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    print_one_bevectaux()                              */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*void print_one_bevectaux(FILE *fp, bevectaux_list *vaux)*/
+/*{*/
+/*  print_one_beobj(fp, vaux, NULL, BEG_TYPE_VECTAUX);*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    print_one_beout()                                  */
+/*/*                                                                          */
+/*/* affectation des signaux beout                                            */
+/*/****************************************************************************/
+/*void print_one_beout(FILE *fp, beout_list *out)*/
+/*{*/
+/*  print_one_beobj(fp,  out, NULL, BEG_TYPE_SINGOUT);*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    print_one_bevectout()                              */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*void print_one_bevectout(FILE *fp, bevectout_list *vout)*/
+/*{*/
+/*  print_one_beobj(fp, vout, NULL, BEG_TYPE_VECTOUT);*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*}}}************************************************************************/

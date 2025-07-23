@@ -46,7 +46,7 @@ LIB = -L$(TARGET_LIB) \
 all: $(TARGET_INCLUDE)/$(API_H) $(TARGET_INCLUDE)/api_communication.h headers.inc $(TARGET_BIN)/$(WRP_BIN_NOLIC)
 
 $(TARGET_INCLUDE)/$(API_H): api_lib.h gen_tree_parser.h $(TARGET_BIN)/license_api
-	sed -e "s/#endif \/\/TOBECUT/#ifndef API_HIDE_TOKENS/g" api_lib.h > tmp.h
+	sed -e "s/#endif \/\*TOBECUT.*/#ifndef API_HIDE_TOKENS/g" api_lib.h > tmp.h
 	grep "[0-9]" gen_tree_parser.h | grep define >> tmp.h
 	echo "#endif" >> tmp.h
 	echo "#endif" >> tmp.h
@@ -79,7 +79,6 @@ $(TARGET_LIB)/$(API_LIB): $(PRE_OBJ) $(API_OBJ)
 	$(AR) $(ARFLAGS) $(TARGET_LIB)/$(API_LIB) $(API_OBJ)
 	$(RANLIB) $(TARGET_LIB)/$(API_LIB)
 	$(CP) $(API_BIN) $(TARGET_BIN)
-	
 
 tt: $(TARGET_LIB)/$(API_LIB) api_lib.h test.o
 	$(CC) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS) test.o -o tt $(LIB)
@@ -104,7 +103,7 @@ gen_library_lexer.c: gen_library_lexer.l gen_library_parser.h
 
 headers.inc: $(TARGET_INCLUDE)/$(AVT_H) api_lib.h
 	\grep "^GRAB_IT" $(TARGET_INCLUDE)/$(AVT_H) | sed -e "s/^GRAB_IT /Printf(f_header, \"/g" -e "s/$$/\\\\n\");/g" > tmp
-	\grep "\/\/GRAB_IT" api_lib.h | sed -e "s/^\/\/GRAB_IT /Printf(f_header, \"/g" -e "s/$$/\\\\n\");/g" >> tmp
+	\grep "\/\*GRAB_IT" api_lib.h | sed -e "s/^\/\*GRAB_IT /Printf(f_header, \"/g" -e "s/$$/\\\\n\");/g" >> tmp
 	\grep "^GRAB_IT" api_lib.h | sed -e "s/^GRAB_IT /Printf(f_header, \"/g" -e "s/$$/\\\\n\");/g" >> tmp
 	mv tmp headers.inc
 
@@ -112,10 +111,10 @@ subdir_license:
 	$(MAKE) -C $(I_DIR) realclean
 	$(MAKE) -C $(I_DIR)
 	$(TOUCH) subdir_license
-	
+
 final_wrap: subdir_license $(TARGET_BIN)/$(WRP_BIN)
-	
-	
+
+
 clean:
 	-$(RM) -f $(WRP_OBJ) $(API_OBJ) headers.inc $(PRE_OBJ)
 	$(MAKE) -C $(I_DIR) clean

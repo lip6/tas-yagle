@@ -102,8 +102,8 @@ RANLIB           = /usr/bin/ranlib
 MAKE             = /usr/bin/make
 MAKEFLAGS        = 
 
-CC               = /usr/bin/gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DHAVE_UNISTD_H
-SCC              = /usr/bin/gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DHAVE_UNISTD_H
+CC               = /usr/bin/gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DHAVE_UNISTD_H -std=gnu99 -Wno-incompatible-pointer-types #-pthread -D_XOPEN_SOURCE=700 #-D_POSIX_C_SOURCE=200809L
+SCC              = /usr/bin/gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DHAVE_UNISTD_H -std=gnu99 -Wno-incompatible-pointer-types #-pthread -D_XOPEN_SOURCE=700 #-D_POSIX_C_SOURCE=200809L
 CPLUSPLUS        = /usr/bin/g++ -DHAVE_UNISTD_H
 CFLAGS           =
 CPPFLAGS         =

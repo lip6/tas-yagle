@@ -74,8 +74,8 @@ void stm_modscm_dual_modifslope(double vddin, double vt, double F, double vdd, d
     
     cbr /= 1000.0;
     
-    // *te = F * atanh( ( vdd/2 - vt ) / vddin );
-    // Ve = vddin * tanh( *te / F) + vt + rbr * rbr * imax * cbr / Fs * ( 1.0 - exp(-(*te) / (rbr * cbr)) - (*te>Fs?(1.0 - exp(-(*te - Fs) / (rbr * cbr))):0.0));
+    /* *te = F * atanh( ( vdd/2 - vt ) / vddin );*/
+    /* Ve = vddin * tanh( *te / F) + vt + rbr * rbr * imax * cbr / Fs * ( 1.0 - exp(-(*te) / (rbr * cbr)) - (*te>Fs?(1.0 - exp(-(*te - Fs) / (rbr * cbr))):0.0));*/
     
     /* Instant ou la tension d'entrée passe au millieu de son excursion : (vddin-vt)/2+vt */
     *te = F * 0.549 ; 
@@ -1064,7 +1064,7 @@ void  stm_modscm_dual_fill_param( dualparams            *params,
       t0   = stm_modscm_dual_calts (imax, an, bn, U, threshold, capa0+load, F, 0.0, vt, vddin, capai, NULL, NULL, fin, NULL, 0, 0.0, 0.0, 0.0, NULL );
 
     if( integnumeric == 0 && (rbr > 0.0) && (cbr > 0.0)){
-        // Calcule de la charge supplémentaire due à l'overshoot
+        /* Calcule de la charge supplémentaire due à l'overshoot*/
         fout = stm_modscm_dual_calslew( imax, an, bn, U, vt, vddmax, capa+load, fin, F, t0);
         k4Q  = stm_modscm_dual_get_k4Q( an, bn, vddin, fin, Ur, Fr, U, F, rbr, cbr, im, Fs, vddmax, rsat, rlin, rint, vint, vt );
         Q    = stm_modscm_dual_get_Q( t0, k4Q, an, bn, vddin, fin, Ur, Fr, U, F, rbr, cbr, im, Fs, tm, vddmax, vt, rsat, rlin, rint, vint, fout, threshold );
@@ -1145,7 +1145,7 @@ double stm_modscm_dual_get_qsat2( stm_dual_param_timing *param, double seuil, do
   else 
     tst = param->FOUT * (param->THRESHOLD-param->VT)/(param->VDDMAX-param->VT) ;
   
-  dt  = (param->T0-param->DTPWL)-tst;   // Ecart entre le référentiel de l'entrée et de la sortie
+  dt  = (param->T0-param->DTPWL)-tst;   /* Ecart entre le référentiel de l'entrée et de la sortie*/
   
   if( seuil > param->VT )
     tout = param->FOUT * atanh( (seuil-param->VT)/(param->VDDMAX-param->VT) ) ;
@@ -1197,7 +1197,7 @@ void evalnewslope( double vt,
   vin0  = vt + vddin*tanh(t/f) ;
 
   /* compute minimal slope */
-  //  vinmin = lvin + (vin0-lvin)/100.0 ;
+  /*  vinmin = lvin + (vin0-lvin)/100.0 ;*/
   fm     = f*100.0 ;
   dtm    = lt-fm*atanh((lvin-vt)/vddin);
   vinmin = vt+vddin*tanh((t-dtm)/fm);
@@ -1456,7 +1456,7 @@ double stm_modscm_dual_calts_newctk( stm_dual_param_timing *param,
       f   = param->FIN ;
       dt  = t - f*atanh((vin-param->VT)/param->VDDIN) ;
       fr  = param->F ;
-      //dtr = t - fr*atanh((vin*param->U/param->VDDIN-param->VT)/param->U) ;
+      /*dtr = t - fr*atanh((vin*param->U/param->VDDIN-param->VT)/param->U) ;*/
       dtr = t - fr*atanh((vinr-param->VT)/param->U) ;
     }
     
@@ -2008,7 +2008,7 @@ double stm_modscm_dual_calts_with_param_timing( stm_dual_param_timing *paramtimi
     if( V_BOOL_TAB[ __STM_QSAT_ENHANCED ].VALUE ) {
     
       if( paramtiming->QSAT_TE < 0.0 ) {
-        // instant when the input reach x% of vddin.
+        /* instant when the input reach x% of vddin.*/
         te = paramtiming->FIN * atanh( V_FLOAT_TAB[ __STM_QSAT_RATIO ].VALUE ) ;
         vout_enh = stm_compute_vout( paramtiming, &te, &vqsat, NULL );
         if( vout_enh < paramtiming->VSAT ) {
@@ -2061,7 +2061,7 @@ double stm_get_qsat_derivative( stm_qsat *qsat, double t )
   return dq ;
 }
 
-inline double stm_get_qsat( stm_qsat *qsat, double t )
+ double stm_get_qsat( stm_qsat *qsat, double t )
 {
   double q = 0.0 ;
   double vi ;
@@ -2235,7 +2235,7 @@ double stm_modscm_dual_calculduts_threshold (dualparams *params, float slew, flo
 
    
     if((rbr > 0.0) && (cbr > 0.0)){
-        // Calcule de la charge supplémentaire due à l'overshoot
+        /* Calcule de la charge supplémentaire due à l'overshoot*/
         fout = stm_modscm_dual_calslew( imax, an, bn, U, vt, vddmax, capa, slew, F, t0);
         k4Q = stm_modscm_dual_get_k4Q( an, bn, vddin, slew, Ur, Fr, U, F, rbr, cbr, im, Fs, vddmax, rsat, rlin, rint, vint, vt );
         Q = stm_modscm_dual_get_Q( t0, k4Q, an, bn, vddin, slew, Ur, Fr, U, F, rbr, cbr, im, Fs, tm, vddmax, vt, rsat, rlin, rint, vint, fout, threshold );
@@ -2599,7 +2599,7 @@ double stm_modscm_dual_calts_old (double imax,
         i++;
         ltt = tt;
         b = exp (- 2.0 * tt);
-        // ttt correspond aux trois termes avec les ln.
+        /* ttt correspond aux trois termes avec les ln.*/
         ttt = (1.0 + bn1) * log (2.0 / (1.0 + b))
             - ((bn1 * bn1) / (1.0 - bn1)) * log (1.0 + ((1.0 - bn1) * (1.0 - b) / (2.0 * bn1)));
         tt = z/F + ttt;
@@ -2989,8 +2989,8 @@ void stm_modscm_dual_calts_final_numeric_pi( stm_dual_param_timing *paramtiming,
 
   k1 = 1.0/( c1/dt + c2/(dt+r*c2) );
 
-  v1  = 0.0 ; // to do : inclure valeur qinit et ci
-  v2  = 0.0 ; // to do : inclure valeur qinit et ci
+  v1  = 0.0 ; /* to do : inclure valeur qinit et ci*/
+  v2  = 0.0 ; /* to do : inclure valeur qinit et ci*/
   v10 = 0.0 ;
   v20 = 0.0 ;
   t   = 0.0 ;
@@ -3417,7 +3417,7 @@ int    stm_modscm_dual_calts_amjad (double    imax,
         i++;
         ltt = tt;
         b = exp (- 2.0 * tt);
-        // ttt correspond aux trois termes avec les ln et le ci.
+        /* ttt correspond aux trois termes avec les ln et le ci.*/
         ttt = (1.0 + bn1) * log (2.0 / (1.0 + b))
             - ((bn1 * bn1) / (1.0 - bn1)) * log (1.0 + ((1.0 - bn1) * (1.0 - b) / (2.0 * bn1))) 
             + ci/1000.0 * vddin * tanh((tt*F+dtin)/slew)/F/imax + stm_get_qsat(qsat,tt*F)/F/imax ;
@@ -3442,7 +3442,7 @@ int    stm_modscm_dual_calts_amjad (double    imax,
     return ret ;
 }
 
-inline double stm_modscm_dual_calts_dicho_q( double imax, 
+ double stm_modscm_dual_calts_dicho_q( double imax, 
                                              double t, 
                                              double f, 
                                              double bu, 
@@ -3882,10 +3882,10 @@ double stm_modscm_dual_ceqrsat_numeric( stm_dual_param_timing *param, double seu
 */
   
 double stm_modscm_dual_ceqrsat( double imax,
-                                double vt,    // output slope
+                                double vt,    /* output slope*/
                                 double vmax,
                                 double f,
-                                double vddin, // input slope normalized
+                                double vddin, /* input slope normalized*/
                                 double fin,
                                 double rsat,
                                 double rlin,
@@ -3896,12 +3896,12 @@ double stm_modscm_dual_ceqrsat( double imax,
                                 double te,
                                 double ts)
 {
-  double ta,     // Instant de début de la commutation.
-         tb,     // Instant de fin de la commutation.
-         qsat,   // Charge equivalente.
-         ceq,    // Capacité equivalente.
-         dt,     // Ecart entre les deux référentiels
-         tee,    // Instant de commutation de la sortie
+  double ta,     /* Instant de début de la commutation.*/
+         tb,     /* Instant de fin de la commutation.*/
+         qsat,   /* Charge equivalente.*/
+         ceq,    /* Capacité equivalente.*/
+         dt,     /* Ecart entre les deux référentiels*/
+         tee,    /* Instant de commutation de la sortie*/
          tst;
   int    i, n ;
   double vea, veb ;
@@ -3934,11 +3934,11 @@ double stm_modscm_dual_ceqrsat( double imax,
   else 
     tst = f * (threshold-vt)/(vmax-vt) ;
 
-  // On vérifie si on est bien après l'entrée.
-  dt  = ts-tst;   // Ecart entre le référentiel de l'entrée et de la sortie
-  tee = dt+ta;    // Début de commutation de la sortie dans le référentiel de l'entrée
+  /* On vérifie si on est bien après l'entrée.*/
+  dt  = ts-tst;   /* Ecart entre le référentiel de l'entrée et de la sortie*/
+  tee = dt+ta;    /* Début de commutation de la sortie dans le référentiel de l'entrée*/
   if( tee < te ) {
-    ta = te-dt;   // Début de commutation de la sortie
+    ta = te-dt;   /* Début de commutation de la sortie*/
   }
  
   if( ta < tb ) {

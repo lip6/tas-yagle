@@ -40,7 +40,7 @@ extern chain_list *args2chain(tree_list *tree, chain_list *var)
 { 
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 75);
-    //fprintf(stderr,"args2chain: NULL pointer\n");
+    /*fprintf(stderr,"args2chain: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -69,7 +69,7 @@ extern ptype_list *get_type(tree_list *ident, ptype_list *list)
    char *name;
    if (!ident) {
       avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 76);
-//      fprintf(stderr,"get_type: NULL pointer\n");
+/*      fprintf(stderr,"get_type: NULL pointer\n");*/
       EXIT(1);
    }  
    name=getname(ident);
@@ -77,14 +77,14 @@ extern ptype_list *get_type(tree_list *ident, ptype_list *list)
    for (p=list;p;p=p->NEXT) {
       if (!p->DATA) {
          avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 77);
-//         fprintf(stderr,"get_type: NULL pointer\n");
+/*         fprintf(stderr,"get_type: NULL pointer\n");*/
          EXIT(1);
       }  
       if (getname(p->DATA)==name) return p;   
    }
    
    avt_errmsg(API_ERRMSG, "005", AVT_ERROR, FILE_NAME(ident),LINE(ident), name);
-//   fprintf(stderr,"%s:%d: '%s' not defined\n",FILE_NAME(ident),LINE(ident), name);
+/*   fprintf(stderr,"%s:%d: '%s' not defined\n",FILE_NAME(ident),LINE(ident), name);*/
    Inc_Error();
    return NULL;
 }
@@ -94,7 +94,7 @@ extern ptype_list *get_type(tree_list *ident, ptype_list *list)
 /* Build a list of declared variables listed in tree with the type type_exp */
 /* Control double declaration. put on the top of env                        */
 /****************************************************************************/
-static inline ptype_list* Decl_Var(tree_list *tree, int type_exp, ptype_list *env)
+static  ptype_list* Decl_Var(tree_list *tree, int type_exp, ptype_list *env)
 {
   ptype_list *env2,*p;
   tree_list* elem;
@@ -102,7 +102,7 @@ static inline ptype_list* Decl_Var(tree_list *tree, int type_exp, ptype_list *en
   int lineno;
   if (!tree) { 
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 78);
-    // fprintf(stderr,"Decl_Var: NULL pointer\n");
+    /* fprintf(stderr,"Decl_Var: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -131,8 +131,8 @@ static inline ptype_list* Decl_Var(tree_list *tree, int type_exp, ptype_list *en
          if ((p->TYPE&(~ASSIG_FLAG))!=BLOCK) break;  /*control only in block*/
          if (getname((tree_list*)p->DATA)==ident) {
             avt_errmsg(API_ERRMSG, "006", AVT_ERROR, FILE_NAME(tree),LINE(tree),ident,LINE((tree_list*)p->DATA),FILE_NAME((tree_list*)p->DATA));
-            //fprintf(stderr,"%s:%d: '%s' already used. primary declaration line %d in file %s\n",
-            //   FILE_NAME(tree),LINE(tree),ident,LINE((tree_list*)p->DATA),FILE_NAME((tree_list*)p->DATA));
+            /*fprintf(stderr,"%s:%d: '%s' already used. primary declaration line %d in file %s\n",*/
+            /*   FILE_NAME(tree),LINE(tree),ident,LINE((tree_list*)p->DATA),FILE_NAME((tree_list*)p->DATA));*/
             Inc_Error();
             return env;
          }
@@ -154,7 +154,7 @@ static inline ptype_list* Decl_Var(tree_list *tree, int type_exp, ptype_list *en
       if (type_exp==GEN_TOKEN_REF_VOID) return Decl_Var(tree->NEXT,GEN_TOKEN_REF_VOID,env);
       if (type_exp==GEN_TOKEN_REF_INT) return Decl_Var(tree->NEXT,GEN_TOKEN_REF_INT,env);
       avt_errmsg(API_ERRMSG, "007", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-    //  fprintf(stderr,"%s:%d: Only int*, void*, double *, char* and FILE* are accepted\n",FILE_NAME(tree),LINE(tree));
+    /*  fprintf(stderr,"%s:%d: Only int*, void*, double *, char* and FILE* are accepted\n",FILE_NAME(tree),LINE(tree));*/
       Inc_Error();
       return env;
       break;
@@ -230,7 +230,7 @@ extern tree_list* APIVerify_C(tree_list *tree, ptype_list *Var)
    env=Verify_Type(tree->NEXT,env); 
    if (BLOCK!=1) {
       avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 79);
- //     fprintf(stderr,"Verify_C: computing error\n");
+ /*     fprintf(stderr,"Verify_C: computing error\n");*/
       EXIT(3);
    }
    
@@ -243,7 +243,7 @@ extern tree_list* APIVerify_C(tree_list *tree, ptype_list *Var)
 /****************************************************************************/
 /* search if there is a % parameter in format*/
 /****************************************************************************/
-static inline void Quick_Format_Exp(tree_list *tree)
+static  void Quick_Format_Exp(tree_list *tree)
 {
   char *format=(char*) tree->DATA;
   int taille=strlen(format)-1;
@@ -251,7 +251,7 @@ static inline void Quick_Format_Exp(tree_list *tree)
 
   if (!format) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 80);
-//    fprintf(stderr,"Quick_Format_Exp: NULL pointer\n");
+/*    fprintf(stderr,"Quick_Format_Exp: NULL pointer\n");*/
     EXIT(1);
   }
   for (i=0;i<=taille;i++) {   
@@ -304,8 +304,8 @@ static inline void Quick_Format_Exp(tree_list *tree)
         }  
         label_error:
         avt_errmsg(API_ERRMSG, "008", AVT_ERROR, FILE_NAME(tree),LINE(tree),format[i]);
-        //fprintf(stderr,"%s:%d: illegal format string '%%%c'\n",
-        //          FILE_NAME(tree),LINE(tree),format[i]);
+        /*fprintf(stderr,"%s:%d: illegal format string '%%%c'\n",*/
+        /*          FILE_NAME(tree),LINE(tree),format[i]);*/
         Inc_Error();
       }/*end of format*/
 
@@ -316,7 +316,7 @@ static inline void Quick_Format_Exp(tree_list *tree)
    label_end:
    if (string || integer) {/*error*/
         avt_errmsg(API_ERRMSG, "009", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-//        fprintf(stderr,"%s:%d: not enough arguments for format\n",FILE_NAME(tree),LINE(tree));
+/*        fprintf(stderr,"%s:%d: not enough arguments for format\n",FILE_NAME(tree),LINE(tree));*/
         Inc_Error();
    }   
 }
@@ -327,7 +327,7 @@ static inline void Quick_Format_Exp(tree_list *tree)
 /* and the parameter tree. The type of tree is checked to match with format */
 /* GLOBAL VARIABLE:  FORMAT_STOP  which is counter of parser on string      */
 /****************************************************************************/
-static inline tree_list *Format_Exp(char *format, tree_list *tree, char* file_name, int line)
+static  tree_list *Format_Exp(char *format, tree_list *tree, char* file_name, int line)
 {
   int taille=strlen(format)-1;
   char *buf;
@@ -339,7 +339,7 @@ static inline tree_list *Format_Exp(char *format, tree_list *tree, char* file_na
   
   if (!format) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 81);
-    // fprintf(stderr,"Format_Exp: NULL pointer\n");
+    /* fprintf(stderr,"Format_Exp: NULL pointer\n");*/
     EXIT(1);
   }
   for (i=FORMAT_STOP;i<=taille;i++) {  /*FORMAT_STOP:where last parse stopped*/ 
@@ -427,14 +427,14 @@ static inline tree_list *Format_Exp(char *format, tree_list *tree, char* file_na
          return PUT_BIN(',', PUT_ATO(GEN_TOKEN_STRING,extract), Duplicate_Tree(tree));
       else /*error*/{
         avt_errmsg(API_ERRMSG, "009", AVT_ERROR, file_name, line);
-//        fprintf(stderr,"%s:%d: not enough arguments for format\n",file_name,line);
+/*        fprintf(stderr,"%s:%d: not enough arguments for format\n",file_name,line);*/
         Inc_Error();
         return PUT_ATO(GEN_TOKEN_STRING,extract);
       }
    }   
    else if (tree) /*error*/{
         avt_errmsg(API_ERRMSG, "009", AVT_ERROR, FILE_NAME(tree),LINE(tree));
- //       fprintf(stderr,"%s:%d: too many arguments for format\n",FILE_NAME(tree),LINE(tree));
+ /*       fprintf(stderr,"%s:%d: too many arguments for format\n",FILE_NAME(tree),LINE(tree));*/
         Inc_Error();
         return  PUT_ATO(GEN_TOKEN_STRING,extract);
       }
@@ -446,7 +446,7 @@ static inline tree_list *Format_Exp(char *format, tree_list *tree, char* file_na
 /* for a complexe instruction (echo,print) with a format and n arguments    */
 /* flatten in several instructions with a simple format and one argument    */
 /****************************************************************************/
-static inline void flatten_inst(tree_list *tree, ptype_list *env) {
+static  void flatten_inst(tree_list *tree, ptype_list *env) {
    chain_list *p,*args;
    tree_list *cut_tree=NULL,*res;
    char *string,*file;
@@ -454,7 +454,7 @@ static inline void flatten_inst(tree_list *tree, ptype_list *env) {
    
    if (!tree) {
       avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 82);
-      //fprintf(stderr,"flatten_inst: NULL pointer\n");
+      /*fprintf(stderr,"flatten_inst: NULL pointer\n");*/
       EXIT(1);
    }
 
@@ -476,7 +476,7 @@ static inline void flatten_inst(tree_list *tree, ptype_list *env) {
    
    if (TOKEN((tree_list*)args->DATA)!=GEN_TOKEN_STRING) {
       avt_errmsg(API_ERRMSG, "010", AVT_ERROR, FILE_NAME(tree), LINE(tree));
-//      fprintf(stderr,"%s:%d: only const char* accepted\n",FILE_NAME(tree),LINE(tree));
+/*      fprintf(stderr,"%s:%d: only const char* accepted\n",FILE_NAME(tree),LINE(tree));*/
       Inc_Error();
       return;
    }
@@ -499,7 +499,7 @@ static inline void flatten_inst(tree_list *tree, ptype_list *env) {
    
    else if (p) {
         avt_errmsg(API_ERRMSG, "011", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-        // fprintf(stderr,"%s:%d: too many arguments for format\n",FILE_NAME(tree),LINE(tree));
+        /* fprintf(stderr,"%s:%d: too many arguments for format\n",FILE_NAME(tree),LINE(tree));*/
         Inc_Error();
    }
 
@@ -538,7 +538,7 @@ extern ptype_list *Verify_Type(tree_list *tree, ptype_list *env)
   ptype_list *p,*env2;
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 83);
-    // fprintf(stderr,"Verify_Type: NULL pointer\n");
+    /* fprintf(stderr,"Verify_Type: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -565,7 +565,7 @@ extern ptype_list *Verify_Type(tree_list *tree, ptype_list *env)
          }
          if (!p) {
             avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 84);
-            // fprintf(stderr,"Verify_Type: NULL pointer\n");
+            /* fprintf(stderr,"Verify_Type: NULL pointer\n");*/
             EXIT(1);
          }
          p->NEXT=NULL;
@@ -664,7 +664,7 @@ extern int Count_Args(tree)
 {  
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 84);
-    //fprintf(stderr,"Count_Args: NULL pointer\n");
+    /*fprintf(stderr,"Count_Args: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -694,7 +694,7 @@ extern int Type_Exp(tree,type_exp,env)
   int t;
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 85);
-    // fprintf(stderr,"Type_Exp: NULL pointer\n");
+    /* fprintf(stderr,"Type_Exp: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -750,7 +750,7 @@ extern int Type_Exp(tree,type_exp,env)
       if ((!type_exp || type_exp==GEN_TOKEN_VOIDTOKEN_D) && t==GEN_TOKEN_REF_VOID) return GEN_TOKEN_VOIDTOKEN_D;
       return GEN_TOKEN_REF;
       avt_errmsg(API_ERRMSG, "013", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-      // fprintf(stderr,"%s:%d: '*' doesn't match with type\n",FILE_NAME(tree),LINE(tree));
+      /* fprintf(stderr,"%s:%d: '*' doesn't match with type\n",FILE_NAME(tree),LINE(tree));*/
       Inc_Error();
       return type_exp;
       break;   
@@ -760,7 +760,7 @@ extern int Type_Exp(tree,type_exp,env)
   case GEN_TOKEN_MBKFOPEN:
       if (type_exp && GEN_TOKEN_REF_FILE!=type_exp) {
          avt_errmsg(API_ERRMSG, "014", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-         //fprintf(stderr,"%s:%d: function type FILE* doesn't match\n",FILE_NAME(tree),LINE(tree));
+         /*fprintf(stderr,"%s:%d: function type FILE* doesn't match\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
       }
       Type_Exp(tree->NEXT,GEN_TOKEN_REF_CHAR,env);
@@ -771,7 +771,7 @@ extern int Type_Exp(tree,type_exp,env)
   case GEN_TOKEN_FOPEN:
       if (type_exp && GEN_TOKEN_REF_FILE!=type_exp) {
          avt_errmsg(API_ERRMSG, "014", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-         //fprintf(stderr,"%s:%d: function type FILE* doesn't match\n",FILE_NAME(tree),LINE(tree));
+         /*fprintf(stderr,"%s:%d: function type FILE* doesn't match\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
       }
       Type_Exp(tree->NEXT,GEN_TOKEN_REF_CHAR,env);

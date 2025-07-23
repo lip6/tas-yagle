@@ -46,7 +46,7 @@ extern chain_list  *TTV_FIFO_B ;
 extern chain_list  *TTV_FIFO_SAV ;
 extern char         TTV_FIFO_NUM ;
 
-//extern long            ttv_getinittime           __P(( ttvfig_list *, ttvevent_list *, char, long, char)) ;
+/*extern long            ttv_getinittime           __P(( ttvfig_list *, ttvevent_list *, char, long, char)) ;*/
 extern int      ttv_transfertnodefindinfo __P(( ttvfig_list *,
                                                        ttvevent_list *,
                                                        ttvevent_list *,
@@ -88,7 +88,7 @@ extern ptype_list*     ttv_gethtpath      __P(( ht *,
                                                 ttvevent_list*
                                               ));
 extern void            ttv_delhtpath      __P(( ht *)) ;
-//extern ttvpath_list*   ttv_filterpathhz   __P(( ttvpath_list*,int *)) ;
+/*extern ttvpath_list*   ttv_filterpathhz   __P(( ttvpath_list*,int *)) ;*/
 extern ttvpath_list*   ttv_filterpath     __P(( ttvpath_list*,
                                                 long,
                                                 int *

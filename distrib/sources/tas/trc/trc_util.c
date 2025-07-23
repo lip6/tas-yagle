@@ -627,13 +627,13 @@ lofig_list *lofig;
   char buffer[BUFSIZE] ;
   int  l, i, j ;
 
-  // Vérifie si la chaine se termine par RCXFILEEXTENTION
+  /* Vérifie si la chaine se termine par RCXFILEEXTENTION */
   for( i=strlen( lofig->NAME )-1, j=strlen( RCXLOFIGEXTENSION )-1 ;
        i>=0 && j>=0 && lofig->NAME[i] == RCXLOFIGEXTENSION[j] ;
        i--, j-- 
      );
   
-  if( j<0 )  {// On a retrouvé le RCXLOFIGEXTENTION en fin de nom
+  if( j<0 )  {/* On a retrouvé le RCXLOFIGEXTENTION en fin de nom */
     l = strlen( lofig->NAME ) - strlen( RCXLOFIGEXTENSION ) ;
     strncpy( buffer, lofig->NAME, l );
     buffer[l]='\0';
@@ -835,7 +835,7 @@ losig_list *losig;
   
   rcx_error( 60, losig, AVT_ERROR );
 
-  return 0; // never reach.
+  return 0; /* never reach.*/
 }
 
 int rcx_isloconexternal( locon )
@@ -923,7 +923,7 @@ void* rcx_buildtabagr( lofig_list *lofig,
     ptl    = getptype( sigagr->USER, RCX_REALAGRESSOR );
     
     if( !ptl ) {
-      // Capacité à la masse
+    /* Capacité à la masse */
       if( rcn_ctcnode( loctc, victime ) ) *cm = *cm + loctc->CAPA;
       continue;
     }
@@ -960,7 +960,7 @@ void* rcx_buildtabagr( lofig_list *lofig,
     return NULL;
   }
 
-  // Création et remplissage du tableau
+/* Création et remplissage du tableau */
 
   tableau = (char*)mbkalloc( selem * maxagr );
   

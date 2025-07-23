@@ -386,7 +386,7 @@ XtPointer call_data;
 
   XtasSetLabelString( XtasDeskMessageField, XTAS_NULINFO );
   XalSetCursor( XtasTopLevel, NORMAL ); 
- // XalLeaveLimitedLoop();
+ /* XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -408,7 +408,7 @@ XtPointer   client_data;
 XtPointer   call_data;
 {
     XtUnmanageChild(widget);
-  // XalLeaveLimitedLoop();
+  /* XalLeaveLimitedLoop();*/
 }
 
 
@@ -1104,5 +1104,5 @@ XtPointer   call_data;
  XtasPathParaSet = pathset ;
 
  XtManageChild( XtasGetParaWidget );
-// XalLimitedLoop(XtasGetParaWidget);
+/* XalLimitedLoop(XtasGetParaWidget);*/
 }

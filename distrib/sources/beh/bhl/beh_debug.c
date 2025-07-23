@@ -114,7 +114,7 @@ void beh_debug(void *head_pnt, char *type)
 
 	if (idx == _error_DFN)
       avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"100");
-//	  fprintf (stderr ,"unrecognized command\n");
+/*	  fprintf (stderr ,"unrecognized command\n");*/
 	else
 	{
 
@@ -132,7 +132,7 @@ void beh_debug(void *head_pnt, char *type)
 		  pshtype = POINTER_DFN | s_DFN | indxs [wrdcnt - 1];
 		else
           avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"101");
-//		  fprintf (stderr ,"structure has unknown type (void *)\n");
+/*		  fprintf (stderr ,"structure has unknown type (void *)\n");*/
 	  }
 	  else
 		pshtype = typ [idx];
@@ -173,7 +173,7 @@ void beh_debug(void *head_pnt, char *type)
 			   case _stop_DFN :
 					stk [stkpnt].mark = 1;
                     avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"102");
-//					fprintf (stdout, "beh_debug : stop mark set\n");
+/*					fprintf (stdout, "beh_debug : stop mark set\n");*/
 					break;
 
 					/* ###------------------------------------------------------### */
@@ -201,7 +201,7 @@ void beh_debug(void *head_pnt, char *type)
 					}
 					else
                       avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"103");
-//					  fprintf (stderr ,"unrecognized command\n");
+/*					  fprintf (stderr ,"unrecognized command\n");*/
 					break;
 
 					/* ###------------------------------------------------------### */
@@ -224,7 +224,7 @@ void beh_debug(void *head_pnt, char *type)
 					  }
 					  else
                         avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"104");
-//						fprintf (stderr ,"unrecognized command\n");
+/*						fprintf (stderr ,"unrecognized command\n");*/
 					}
 					break;
 
@@ -238,7 +238,7 @@ void beh_debug(void *head_pnt, char *type)
 					  jtab [nmbrs[1]] = stk [stkpnt];
 					else
                       avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"105");
-//					  fprintf (stderr ,"unrecognized command\n");
+/*					  fprintf (stderr ,"unrecognized command\n");*/
 					break;
 
 					/* ###------------------------------------------------------### */
@@ -251,7 +251,7 @@ void beh_debug(void *head_pnt, char *type)
 					  disp_immd (str, pnt [indxs [1]], indxs [2]);
 					else
                       avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"106");
-//					  fprintf (stderr ,"unrecognized command\n");
+/*					  fprintf (stderr ,"unrecognized command\n");*/
 					break;
 
 			 }
@@ -275,7 +275,7 @@ void beh_debug(void *head_pnt, char *type)
 				 }
 				 else
                    avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"107");
-//				   fprintf (stderr ,"unrecognized command\n");
+/*				   fprintf (stderr ,"unrecognized command\n");*/
 			   }
 			 }
 			 else
@@ -296,7 +296,7 @@ void beh_debug(void *head_pnt, char *type)
 			 }
 			 else
                avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"108");
-//			   fprintf (stderr ,"unrecognized command\n");
+/*			   fprintf (stderr ,"unrecognized command\n");*/
 			 break;
 
 		case ARYOFPNT_DFN :
@@ -310,7 +310,7 @@ void beh_debug(void *head_pnt, char *type)
 			 }
 			 else
                avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"109");
-//			   fprintf (stderr ,"unrecognized command\n");
+/*			   fprintf (stderr ,"unrecognized command\n");*/
 			 break;
 
 	  }
@@ -344,8 +344,8 @@ static void display(struct stack curpnt, union value *pnt, long *typ,
 					char **str)
 
 {
-  //extern char         *exprToCharInt();
-  //extern struct chain *bddToAbl();
+  /*extern char         *exprToCharInt();*/
+  /*extern struct chain *bddToAbl();*/
 
   int                     i;
   struct chain           *ptr_abl;
@@ -975,7 +975,7 @@ static void push(struct stack *stk, int *stkpnt, void *data, short type)
 
   if (stkidx == STKSIZ_DFN)
     avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"110");
-//	fprintf (stdout, "beh_debug :\tSTACK OVERFLOW !!\tSTACK OVERFLOW !!\n");
+/*	fprintf (stdout, "beh_debug :\tSTACK OVERFLOW !!\tSTACK OVERFLOW !!\n");*/
   else
   {
 	if (data != NULL)
@@ -988,7 +988,7 @@ static void push(struct stack *stk, int *stkpnt, void *data, short type)
 	}
 	else
       avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"111");
-//	  fprintf (stderr ,"cannot push NULL pointer on the stack\n");
+/*	  fprintf (stderr ,"cannot push NULL pointer on the stack\n");*/
   }
 }
 
@@ -1171,6 +1171,6 @@ static void disp_immd(char **str, union value pnt, int type)
 
 	default :
          avt_errmsg(BHL_ERRMSG,"000",AVT_ERROR,"112");
-//		 fprintf (stderr ,"unrecognized command\n");
+/*		 fprintf (stderr ,"unrecognized command\n");*/
   }
 }

@@ -10,7 +10,7 @@ Group:          Applications/Engineering
 License:        GPL-2.0-only         
 URL:            https://coriolis.lip6.fr/
 Source0:        %{name}-%{version}.tar.gz
-Patch0:         flex-2.5.4-exit.patch 
+Patch0:         flex-2.5.4-stdc.patch 
 #Packager:       Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
 #BuildRequires:  texlive-scheme-tetex
 BuildRequires:  libstdc++-devel
@@ -120,7 +120,7 @@ full-chip verification, with virtually no limit of capacity in design size.
  tar zxf ./distrib_extras/flex-2.5.4_patch.tar.gz
  localInstall=`pwd`
  pushd flex-2.5.4
- patch -p1 < %{_sourcedir}/flex-2.5.4-exit.patch
+ patch -p1 < %{_sourcedir}/flex-2.5.4-stdc.patch
  ./configure --prefix=${localInstall}
  make install
  popd
@@ -212,17 +212,50 @@ full-chip verification, with virtually no limit of capacity in design size.
 %dir %{_datadir}/tasyag/etc
 %dir %{_datadir}/tasyag/tcl
 %config %{_sysconfdir}/profile.d/avt_env.sh
-%{_bindir}/*
 %config %{_datadir}/tasyag/etc/*
+%{_bindir}/avt_shell
+%{_bindir}/avtman
+%{_bindir}/ttvdiff
+%{_bindir}/ttvren
+%{_bindir}/xtas
+%{_bindir}/xyagle
 %{_datadir}/tasyag/tcl/*
-%{_mandir}/man3/*
+%{_mandir}/man3/ams*
+%{_mandir}/man3/avt*
+%{_mandir}/man3/beg*
+%{_mandir}/man3/callfunc*
+%{_mandir}/man3/char_to_string*
+%{_mandir}/man3/cns*
+%{_mandir}/man3/cpe*
+%{_mandir}/man3/ctk*
+%{_mandir}/man3/dtb*
+%{_mandir}/man3/elp*
+%{_mandir}/man3/fcl*
+%{_mandir}/man3/genius_date*
+%{_mandir}/man3/gns*
+%{_mandir}/man3/inf*
+%{_mandir}/man3/lib*
+%{_mandir}/man3/mbk*
+%{_mandir}/man3/onecold*
+%{_mandir}/man3/onehot*
+%{_mandir}/man3/runStatHiTas*
+%{_mandir}/man3/sim_*
+%{_mandir}/man3/spi*
+%{_mandir}/man3/ssta*
+%{_mandir}/man3/stb*
+%{_mandir}/man3/stm*
+%{_mandir}/man3/trc*
+%{_mandir}/man3/ttv*
 
 
 %files doc -f tas-yagle-files.docs
 
 
-
 %changelog
+* Sun Jul 27 2025 Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr> - 3.4.6-1
+- Rebuild against latest Tumbleweed, fix issues with gcc 15.
+- Have to enforce GNU99 C dialect to still compile.
+
 * Fri Dec 27 2024 Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr> - 3.4.6-1
 - Ported to openSUSE Build System (OBS).
 

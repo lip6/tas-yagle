@@ -52,7 +52,7 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
     ptype_list     *PType;
     unsigned char   CgvDir;
     int scale, oldloadparasiticstate;
-//    ht *oldht;
+/*    ht *oldht;*/
     lotrs_list *tr;
     char temp[100], *n, *dn, *sn;
     locon_list *g, *d, *s;
@@ -72,7 +72,7 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
         char *suffix;
 /*        oldhead=HEAD_LOFIG; oldht=HT_LOFIG;
         HEAD_LOFIG=NULL; HT_LOFIG=NULL;*/
-//        addlocked(oldhead);
+/*        addlocked(oldhead);*/
         suffix=IN_LO;
         if (strcmp(IN_LO,"v")==0 || strcmp(IN_LO,"vlg")==0)
           {
@@ -105,7 +105,7 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
     else
       scale = 1024;
 
-//    printf("scale=%d\n",scale);
+/*    printf("scale=%d\n",scale);*/
     CgvFigure = addcgvfig(LoFigure->NAME,scale);
     CgvFigure->SOURCE = (void *) LoFigure;
     CgvFigure->SOURCE_TYPE = CGV_SOURCE_LOFIG;
@@ -120,7 +120,7 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
      else
        {
 	 CgvFigure->LIBRARY = slib_create_lib(LoFigure->NAME);
-//	 CgvFigure->LIBRARY->GRID = CGV_LIB->GRID;
+/*	 CgvFigure->LIBRARY->GRID = CGV_LIB->GRID;*/
 	 CgvFigure->LIBRARY->REFHEIGHT = CGV_LIB->REFHEIGHT; 
        }
      CgvFigure->LIBRARY->GRID = scale;
@@ -140,7 +140,7 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
     for (LoIns = LoFigure->LOINS; LoIns; LoIns = LoIns->NEXT) 
       {
 	insfig=getloadedlofig(LoIns->FIGNAME);
-//	printf("%s %s\n",LoIns->INSNAME, LoIns->FIGNAME);
+/*	printf("%s %s\n",LoIns->INSNAME, LoIns->FIGNAME);*/
 	if (insfig!=NULL)
 	  {
 	    locon_list *lc0, *lc1;
@@ -151,7 +151,7 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
                     for (lc1=insfig->LOCON; lc1!=NULL && lc1->NAME!=lc0->NAME; lc1=lc1->NEXT) ;
                     if (lc0->NAME==NULL) continue;
                       
-//		    printf("    %s %s '%c' '%c'\n",lc0->NAME, lc1->NAME, lc0->DIRECTION, lc1->DIRECTION);
+/*		    printf("    %s %s '%c' '%c'\n",lc0->NAME, lc1->NAME, lc0->DIRECTION, lc1->DIRECTION);*/
 		    lc0->DIRECTION=lc1->DIRECTION;
 		  }
 	      }
@@ -213,13 +213,13 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
         CgvBox->SOURCE_TYPE = CGV_SOURCE_LOINS;
 
 	n=getcorrespgate(LoIns->FIGNAME);
-//        printf("%s is %s\n",LoIns->FIGNAME, n!=NULL?n:"?");
+/*        printf("%s is %s\n",LoIns->FIGNAME, n!=NULL?n:"?");*/
         if (n==NULL) n=LoIns->FIGNAME;
         CgvBox->SYMBOL = cgv_getlofigcellsymbol(CgvFigure->LIBRARY, n);
 
 	if (CgvBox->SYMBOL==NULL)
           CgvBox->SYMBOL = cgv_getselfcellsymbol(CgvFigure->LIBRARY, n);
-//	printf("i:%s\n",CgvBox->NAME);
+/*	printf("i:%s\n",CgvBox->NAME);*/
         for (LoCon = LoIns->LOCON; LoCon; LoCon = LoCon->NEXT) {
             if (!((mbk_LosigIsVDD(LoCon->SIG)) || (mbk_LosigIsVSS(LoCon->SIG)))) {
                 if (LoCon->DIRECTION == IN)
@@ -236,13 +236,13 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
                       CgvCon->SUB_NAME=getcorrespgatepin(LoIns->FIGNAME, LoCon->NAME);
                     else
                       avt_errmsg(CGV_ERRMSG, "002", AVT_WARNING, 2);
-                      // printf("warning: can find corresponding pin for %s.%s\n",LoIns->FIGNAME,LoCon->NAME);
+                      /* printf("warning: can find corresponding pin for %s.%s\n",LoIns->FIGNAME,LoCon->NAME);*/
                   }
                 LoSig = LoCon->SIG;
                 PType = getptype(LoSig->USER, CGV_NET_TYPE);
                 CgvNet = (cgvnet_list *) PType->DATA;
                 addcgvnetcon(CgvNet, CgvCon);
-//		printf("\t%s => %s | %s => %s\n",CgvCon->NAME, CgvNet->NAME, LoCon->NAME, LoSig->NAMECHAIN->DATA);
+/*		printf("\t%s => %s | %s => %s\n",CgvCon->NAME, CgvNet->NAME, LoCon->NAME, LoSig->NAMECHAIN->DATA);*/
             }
         }
     }
@@ -260,8 +260,8 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
 	if (MLO_IS_TRANSN(tr->TYPE)) strcpy(temp,"tn");
 	else strcpy(temp,"tp");
 
-	s=tr->SOURCE; // sn=(char *)s->SIG->NAMECHAIN->DATA;
-	d=tr->DRAIN; // dn=(char *)d->SIG->NAMECHAIN->DATA;
+	s=tr->SOURCE; /* sn=(char *)s->SIG->NAMECHAIN->DATA;*/
+	d=tr->DRAIN; /* dn=(char *)d->SIG->NAMECHAIN->DATA;*/
 	g=tr->GRID;
 	
 	if (!mbk_LosigIsVSS(d->SIG) && !mbk_LosigIsVDD(d->SIG))
@@ -352,7 +352,7 @@ cgvfig_list *getcgvfig_from_lofig(char *Name, char *filename)
 	addcgvnetcon(CgvNet, CgvCon);
 
 	CgvBox->SYMBOL = cgv_getselfcellsymbol(CgvFigure->LIBRARY, namealloc(temp));
-//	printf("%s %p\n",temp,CgvBox->SYMBOL);
+/*	printf("%s %p\n",temp,CgvBox->SYMBOL);*/
       }
     
     for (LoSig = LoFigure->LOSIG; LoSig; LoSig = LoSig->NEXT) {

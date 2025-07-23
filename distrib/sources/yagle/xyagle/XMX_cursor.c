@@ -17,6 +17,8 @@
 #include MUT_H
 #include MLO_H
 #include XSB_H
+#include CGV_H
+#include XYA_H
 #include XMX_H
 
 #include "XMX_grid.h"

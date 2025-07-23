@@ -8,8 +8,8 @@ rcxfile* rcx_init_driver( lofig_list *lofig, int iscache )
 
   file = rcx_file_alloc();
  
-  // Stratégie de compression / cache : si le cache est actif, il ne faut pas
-  // compresser le fichier.
+  /* Stratégie de compression / cache : si le cache est actif, il ne faut pas */
+  /* compresser le fichier.*/
  
   if( iscache ) {
     file->ISCACHE = 1 ;
@@ -133,7 +133,7 @@ void rcx_end_external( rcxfile *file )
 void rcx_drive_signal_end( rcxfile *file, losig_list *losig )
 {
   rcx_file_print( file, "\n" );
-  losig=NULL; //unused
+  losig=NULL; /*unused*/
 }
 
 void rcx_drive_signal_header( rcxfile *file, losig_list *losig, rcx_list *rcx )

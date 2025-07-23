@@ -49,7 +49,7 @@ static inline ptype_list *Compare_Generic(tree_list *instance, tree_list *model,
 { 
   if (!instance || !model) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 211);
-    //fprintf(stderr,"Compare_Generic: NULL pointer\n");
+    /*fprintf(stderr,"Compare_Generic: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(instance)) {
@@ -147,7 +147,7 @@ static chain_list *Compare_Port(tree_list *instance, tree_list *model,
   int ope1,ope2;
   if (!instance || !model) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 212);
-//    fprintf(stderr,"Compare_Port: NULL pointer\n");
+/*    fprintf(stderr,"Compare_Port: NULL pointer\n");*/
     EXIT(1);
   }
  switch (TOKEN(instance)) {
@@ -282,7 +282,7 @@ static inline void Change_Name(tree_list *entity, tree_list *architecture,
 
   if (!entity || !architecture) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 213);
-//    fprintf(stderr,"Change_Name: NULL pointer\n");
+/*    fprintf(stderr,"Change_Name: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(architecture)) {
@@ -332,8 +332,8 @@ static inline void Change_Name(tree_list *entity, tree_list *architecture,
       {
         char temp[255];
         sprintf(temp,"%s %s",(char*)entity->DATA, archi_name);
-//        printf("> %s\n",archi_name);
-        entity->DATA=(tree_list*)(void*) namealloc(temp); //nameindex((char*)entity->DATA,count);
+/*        printf("> %s\n",archi_name);*/
+        entity->DATA=(tree_list*)(void*) namealloc(temp); /*nameindex((char*)entity->DATA,count);*/
         SEPAR=memo_char;              /* put last value in MBK environment */
         count++;
       }
@@ -387,7 +387,7 @@ static inline int Detect_Exclude(tree_list *tree)
 { 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 214);
-//    fprintf(stderr,"Detect_Exclude: NULL pointer\n");
+/*    fprintf(stderr,"Detect_Exclude: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -427,7 +427,7 @@ static inline chain_list *Check_Transistor(tree_list *tree, int *num, char *rule
 { 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 215);
-//    fprintf(stderr,"Check_Transistor: NULL pointer\n");
+/*    fprintf(stderr,"Check_Transistor: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -505,7 +505,7 @@ extern void Verif_Transistor(tree)
   chain_list *Con;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 216);
-//    fprintf(stderr,"Verif_Transistor: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Transistor: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -551,7 +551,7 @@ static inline tree_list *Verif_Signal(tree_list *tree, ptype_list *env)
   
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 217);
-//    fprintf(stderr,"Verif_Signal: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Signal: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -595,7 +595,7 @@ extern chain_list *Verif_Port(tree,env,Con)
   tree_list *Sig;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 218);
-//    fprintf(stderr,"Verif_Port: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Port: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -616,7 +616,7 @@ extern chain_list *Verif_Port(tree,env,Con)
   case GEN_TOKEN_SIGNAL:
     if (!tree->NEXT) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 219);
-//      fprintf(stderr,"Verif_Port: NULL pointer\n");
+/*      fprintf(stderr,"Verif_Port: NULL pointer\n");*/
       EXIT(1);
     }
     Sig=Verif_Signal(tree->NEXT,env);
@@ -637,7 +637,7 @@ static inline tree_list *Verif_Variable(tree_list *tree)
 { 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 220);
-//    fprintf(stderr,"Verif_Variable: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Variable: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -669,7 +669,7 @@ extern ptype_list *Verif_Generic(tree,Gen)
   tree_list *Var;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 221);
-//    fprintf(stderr,"Verif_Generic: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Generic: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -755,7 +755,7 @@ extern chain_list *Verif_All_Components(tree,Entity,Comp)
   char *name;
   
   if (!tree) {
-    return Comp; // there can be no components
+    return Comp; /* there can be no components*/
 /*    fprintf(stderr,"Verif_All_Components: NULL pointer\n");
     EXIT(1);*/
   }
@@ -800,7 +800,7 @@ extern chain_list *Verif_All_Components(tree,Entity,Comp)
         if ((lf=getloadedlofig(name))!=NULL)
           {
             locon_list *lc;
-//            printf("%s\n",name);
+/*            printf("%s\n",name);*/
             for (lc=lf->LOCON; lc!=NULL; lc=lc->NEXT)
               {
                 if (lc->DIRECTION!=UNKNOWN) continue;
@@ -808,7 +808,7 @@ extern chain_list *Verif_All_Components(tree,Entity,Comp)
                 if (cl!=NULL && ((CONLIST *)cl->DATA)->dir!=' ')
                   {
                     lc->DIRECTION=((CONLIST *)cl->DATA)->dir;
-//                    printf("=> %s '%c'\n",lc->NAME, lc->DIRECTION);
+/*                    printf("=> %s '%c'\n",lc->NAME, lc->DIRECTION);*/
                   }
               }
           }
@@ -844,7 +844,7 @@ extern chain_list *Verif_Architecture(tree,entity,Archi)
 {
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 222);
-//    fprintf(stderr,"Verif_Architecture: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Architecture: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -881,7 +881,7 @@ extern chain_list *Verif_Action(tree,entity,Action)
 {
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 223);
-//    fprintf(stderr,"Verif_Action: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Action: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -896,7 +896,7 @@ extern chain_list *Verif_Action(tree,entity,Action)
   case GEN_TOKEN_ACTION: 
     if (getname_of(tree->NEXT)!=entity) return Action;
     else return addchain(Action, tree); 
-      //return put_inlist(tree->NEXT/* we want the NODE!!!*/,Action);
+      /*return put_inlist(tree->NEXT |* we want the NODE!!!*|,Action);*/
   case GEN_TOKEN_ARCHITECTURE: case GEN_TOKEN_ENTITY:
     /*not concerned*/
     return Action;
@@ -922,7 +922,7 @@ extern chain_list *Verif_Entity(tree,Ent)
   chain_list *Sig;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 223);
-//    fprintf(stderr,"Verif_Entity: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Entity: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -975,7 +975,7 @@ extern void Verif_Alone(tree,Ent)
   tree_list *entity;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 224);
-//    fprintf(stderr,"Verif_Alone: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Alone: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -1016,7 +1016,7 @@ static inline int Pure_Transistor(chain_list *Compo)
          return 1;
 }
 
-//ht *architomodel=NULL;
+/*ht *architomodel=NULL;*/
 
 /***************************************************************************/
 /*              Verify coherence of VHDL and C describtion                 */
@@ -1073,7 +1073,7 @@ extern ptype_list *Verif_All(tree)
           for (q=Archi;q;q=q->NEXT) 
             {
               chain_list *Sig_aux=NULL;
-//              misc_stuffs *ms;
+/*              misc_stuffs *ms;*/
               architecture=(tree_list*)q->DATA;
 
           /*    ms=(misc_stuffs *)architecture->DATA->NEXT->NEXT->NEXT->NEXT->DATA->DATA;
@@ -1084,7 +1084,7 @@ extern ptype_list *Verif_All(tree)
               for (l=Sig;l;l=l->NEXT) Sig_aux=addchain(Sig_aux,l->DATA);
               Sig_aux=Verif_All_Signals(architecture->NEXT,env,Sig_aux);
               Inst=Verif_Instance(architecture->NEXT->NEXT,Sig_aux,env,Compo,NULL);
-//              Verif_Alone_Exclude(architecture);
+/*              Verif_Alone_Exclude(architecture);*/
               freechain(Inst);
               freechain(Sig_aux);
               
@@ -1092,10 +1092,10 @@ extern ptype_list *Verif_All(tree)
               if (several_Archi && Get_Error()==0) {
                 int lineno=LINE(entity);
                 char *file=FILE_NAME(entity);
-                //            tree_list *new_entity=PUT_TRI(GEN_TOKEN_ENTITY,Duplicate_Tree(entity->DATA),Duplicate_Tree(entity->NEXT->DATA),Duplicate_Tree(entity->NEXT->NEXT->DATA));
+                /*            tree_list *new_entity=PUT_TRI(GEN_TOKEN_ENTITY,Duplicate_Tree(entity->DATA),Duplicate_Tree(entity->NEXT->DATA),Duplicate_Tree(entity->NEXT->NEXT->DATA));*/
                 tree_list *new_entity=PUT_QUA(GEN_TOKEN_ENTITY,Duplicate_Tree(entity->DATA),Duplicate_Tree(entity->NEXT->DATA),Duplicate_Tree(entity->NEXT->NEXT->DATA),Duplicate_Tree(entity->NEXT->NEXT->NEXT->DATA));
                 // [!] zinaps: les informartions de symétrie ne sont pas dupliquées
-//                tree_list *new_action=NULL;
+/*                tree_list *new_action=NULL;*/
                 if (Act) {
 #if 0
                   action=(tree_list*)Act->DATA;  /*TOKEN=GEN_TOKEN_NODE*/
@@ -1110,7 +1110,7 @@ extern ptype_list *Verif_All(tree)
                 tree->NEXT->NEXT->DATA=
                   PUT_BIN(';',new_entity,tree->NEXT->NEXT->DATA);
                 newname=getname(new_entity->NEXT);
-//                if (Act) addhtitem(architomodel, newname, (long)Act->DATA);
+/*                if (Act) addhtitem(architomodel, newname, (long)Act->DATA);*/
               }
               else newname=name;
               /*flag*/
@@ -1145,7 +1145,7 @@ extern ptype_list *Verif_All(tree)
 
                   if (Compo==NULL)
                     {
-                      // test blackbox, ajout dans fcl
+                      /* test blackbox, ajout dans fcl*/
     avt_errmsg(GNS_ERRMSG, "156", AVT_ERROR, FILE_NAME(architecture),LINE(architecture));
                       if (Get_Error()==0) fcl_names=addchain(fcl_names,newname);
                     }

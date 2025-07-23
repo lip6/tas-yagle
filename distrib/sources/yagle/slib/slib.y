@@ -22,7 +22,7 @@ circle      *U_CIRCLE;
 pin         *U_PIN;
 
 int yydebug;
-int yyerror();
+int yyerror(char*);
 int yylex();
 extern int slibParseLine  ;
 extern eqt_ctx *slibEqtCtx;
@@ -281,7 +281,7 @@ primary   : choice   { $$ = mbkstrdup($1); }
 
 %%
 
-int yyerror()
+int yyerror(char* unused)
 {
 	printf("SLIB Parse Error at line %d .\n",slibParseLine);
     EXIT (EXIT_FAILURE) ;

@@ -113,15 +113,12 @@ yagChrono(t, rt)
  *                       function yagDepthFirstProcess()                     *
  *****************************************************************************/
 
-static int       (*processConeFunc)();
+static int       (*processConeFunc)(cone_list*);
 static int         coneChanges;
 
 static long        countDepth;
 
-int
-yagDepthFirstProcess(headcone, processCone)
-    cone_list      *headcone;
-    int           (*processCone)();
+int yagDepthFirstProcess( cone_list *headcone, int (*processCone)(cone_list*) )
 {
     cone_list      *ptcone;
     cone_list      *ptnextcone;
@@ -1038,13 +1035,13 @@ yagGetName(ifl, pt_sig)
 
     for (pt_namechain = pt_sig->NAMECHAIN; pt_namechain != NULL; pt_namechain = pt_namechain->NEXT) {
         /* pour chaque alias */
-    //    if (infHasInfo(ifl, INF_RENAME_INFO)) {
+    /*    if (infHasInfo(ifl, INF_RENAME_INFO)) {*/
             result_rename = test_rename(ifl, (char *) pt_namechain->DATA);
             if (result_rename != pt_namechain->DATA) {
                 result = result_rename;
                 break;
             }
-  //      }
+  /*      }*/
         n_separ = 0;
         if (pt_namechain->DATA != NULL) {
             for (pt_char = (char *) pt_namechain->DATA; *pt_char != (char) 0; pt_char++) {
@@ -1893,10 +1890,10 @@ yagAddCheckDirective(inffig_list *ifl, char *dataname, char *clockname, int cloc
     ptype_list *check;
 
     if (clockstate) dir=INF_DIRECTIVE_UP; else dir=INF_DIRECTIVE_DOWN;
-    si->cval.a=0; // check
-    si->cval.b=0; // data rise and fall
-    si->cval.c=0; // with
-    si->cval.d=INF_DIRECTIVE_CLOCK|dir; // clock rise or fall
+    si->cval.a=0; /* check*/
+    si->cval.b=0; /* data rise and fall*/
+    si->cval.c=0; /* with*/
+    si->cval.d=INF_DIRECTIVE_CLOCK|dir; /* clock rise or fall*/
 
     if (checkdirectiveht == NULL) checkdirectiveht = addht(20);
     
@@ -1932,10 +1929,10 @@ yagAddFilterDirective(inffig_list *ifl, char *outname, int outstate)
     splitint *si=(splitint *)&val;
 
     if (outstate) dir=INF_DIRECTIVE_UP; else dir=INF_DIRECTIVE_DOWN;
-    si->cval.a=INF_DIRECTIVE_FILTER; // filter
-    si->cval.b=0; // data rise and fall
-    si->cval.c=0; // with
-    si->cval.d=INF_DIRECTIVE_CLOCK|dir; // clock rise or fall
+    si->cval.a=INF_DIRECTIVE_FILTER; /* filter*/
+    si->cval.b=0; /* data rise and fall*/
+    si->cval.c=0; /* with*/
+    si->cval.d=INF_DIRECTIVE_CLOCK|dir; /* clock rise or fall*/
 
     inf_AddAssociation(ifl, INF_LOADED_LOCATION, INF_DIRECTIVES, "", infTasVectName(outname), infTasVectName(outname), val, 0, NULL);
 }

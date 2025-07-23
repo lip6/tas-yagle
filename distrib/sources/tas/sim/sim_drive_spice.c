@@ -136,8 +136,8 @@ char sim_run_simu_spice( sim_model *model, int run, char *outputname, FILE *outp
   if( run & (SIM_RUN_EXEC|SIM_RUN_READ)) {
     if (run & (SIM_RUN_EXEC))
     {
-//      getcwd( context.CURDIR, 10000 ); // pas thread-safe chdir
-//      chdir( WORK_LIB );
+/*      getcwd( context.CURDIR, 10000 );  pas thread-safe chdir*/
+/*      chdir( WORK_LIB );*/
       if( !sim_execspice( context.CMDFILENAME, 
                         (run & SIM_RUN_MULTI)?2:0, 
                         SIM_SPICENAME, 
@@ -151,7 +151,7 @@ char sim_run_simu_spice( sim_model *model, int run, char *outputname, FILE *outp
         }
         return SIM_SIMU_CANTRUN;
       }
-//      chdir( context.CURDIR );
+/*      chdir( context.CURDIR );*/
     }
     if (run & SIM_RUN_READ)
     {
@@ -200,8 +200,8 @@ void sim_run_simu_spice_setenv( drive_spice *context )
                  tmax, 
                  !V_BOOL_TAB[__SPI_DRIVE_USE_UNITS].VALUE?"":SIM_UNIT_LABEL_SPICE_TIME 
                );
-    // zinaps : 2/3/2004, on ajoute 5% au tmax
-    sim_parameter_set_tran_tmax( context->MODEL, tmax*1.05 ); // +5%
+    /* zinaps : 2/3/2004, on ajoute 5% au tmax*/
+    sim_parameter_set_tran_tmax( context->MODEL, tmax*1.05 ); /* +5%*/
   }
 }
 
@@ -213,7 +213,7 @@ void sim_run_simu_spice_restoreenv( drive_spice *context )
 
   strcpy( OUT_LO, context->MEMOUTLO );
 
-  // Libérations
+  /* Libérations*/
 
   for( current = context->CURRENT ; current ; current = next ) {
     next = current->NEXT ;
@@ -268,8 +268,8 @@ void sim_run_simu_spice_drive_ngspice_current( FILE *ptf,
   drive_current *new;
   char           tmpbuf[BUFSIZ];
  
-  // Recherche parmis la liste des mesures les locon qui font parti de 
-  // la lofig courante (passée en paramètre).
+  /* Recherche parmis la liste des mesures les locon qui font parti de */
+  /* la lofig courante (passée en paramètre).*/
   
   measure=NULL;
   while( (measure = sim_measure_scan( ((drive_spice*)context)->MODEL, measure ))
@@ -296,8 +296,8 @@ void sim_run_simu_spice_drive_ngspice_current( FILE *ptf,
               sim_model_get_lofig( ((drive_spice*)context)->MODEL ) ) )
           {
          
-          // On mémorise les "trous" laissés pour les mesures de courants dans
-          // la structure CURRENT.
+          /* On mémorise les "trous" laissés pour les mesures de courants dans*/
+          /* la structure CURRENT.*/
           
           inodelist = spi_getinode( locon );
           pnodelist = locon->PNODE;
@@ -362,7 +362,7 @@ void sim_run_simu_spice_drive_ngspice_current( FILE *ptf,
     }
   }
 
-  ptf=NULL; // avoid a warning
+  ptf=NULL; /* avoid a warning*/
 }
 
 /******************************************************************************\
@@ -389,8 +389,8 @@ void sim_run_simu_spice_drive_eldo_current( FILE *ptf,
   num_list    *pnodelist, *pnode;
   char         srcname[BUFSIZ], hiername[BUFSIZ], tmpbuf[BUFSIZ];
  
-  // Recherche parmis la liste des mesures les locon qui font parti de 
-  // la lofig courante (passée en paramètre).
+  /* Recherche parmis la liste des mesures les locon qui font parti de */
+  /* la lofig courante (passée en paramètre).*/
   
   measure=NULL;
   while( (measure = sim_measure_scan( ((drive_spice*)context)->MODEL, measure ))
@@ -425,8 +425,8 @@ void sim_run_simu_spice_drive_eldo_current( FILE *ptf,
                                           hiername
                                         );
 
-          // On drive les sources de tension dans les "trous" laissés entre
-          // chaque connecteur et le reste de la netlist.
+          /* On drive les sources de tension dans les "trous" laissés entre*/
+          /* chaque connecteur et le reste de la netlist.*/
           
           inodelist = spi_getinode( locon );
           pnodelist = locon->PNODE;
@@ -448,7 +448,7 @@ void sim_run_simu_spice_drive_eldo_current( FILE *ptf,
                          !V_BOOL_TAB[__SPI_DRIVE_USE_UNITS].VALUE?"":"v"
                        );
 
-              // pas conforme aux spec des simulateurs.
+              /* pas conforme aux spec des simulateurs.*/
               sprintf( tmpbuf, "%s%s", hiername, srcname );
               sim_measure_set_detail( measure, tmpbuf,tmpbuf );
             }
@@ -467,7 +467,7 @@ void sim_run_simu_spice_drive_eldo_current( FILE *ptf,
                        !V_BOOL_TAB[__SPI_DRIVE_USE_UNITS].VALUE?"":"v"
                      );
 
-            // pas conforme aux spec des simulateurs.
+            /* pas conforme aux spec des simulateurs.*/
             sprintf( tmpbuf, "%s%s", hiername, srcname );
             sim_measure_set_detail( measure, tmpbuf, tmpbuf );
           }
@@ -544,7 +544,7 @@ void sim_run_simu_spice_drive_set_inode( drive_spice *context,
   num_list    *inodelist;
   num_list    *pnode;
  
-  // Recherche les locons qui font partie de la lofig courante.
+  /* Recherche les locons qui font partie de la lofig courante.*/
 
   scan=NULL;
   while( (scan = sim_measure_scan( context->MODEL, scan )) ) {
@@ -564,8 +564,8 @@ void sim_run_simu_spice_drive_set_inode( drive_spice *context,
           loins = NULL;
         if( !loins || ( loins && loins->FIGNAME == lofig->NAME ) ) {
 
-          // Le locon appartient à la lofig courante, et on a une mesure de
-          // courant à réaliser dessus
+          /* Le locon appartient à la lofig courante, et on a une mesure de*/
+          /* courant à réaliser dessus*/
           
           inodelist = NULL;
           if( locon->PNODE ) {
@@ -634,7 +634,7 @@ void sim_run_simu_spice_drive_del_inode( drive_spice *context,
   }
   sim_run_simu_spice_drive_clear_index_inode( lofig );
 
-  context=NULL; // avoid a warning.
+  context=NULL; /* avoid a warning.*/
 }
 
 /******************************************************************************\
@@ -672,7 +672,7 @@ void sim_drive_corresp_alias ( drive_spice *context, lofig_list *fig )
           origsigname = efg_get_origsigname(losig);
           if ( efg_SigIsAlim (losig) == 'N' && origsigname ) {
             fprintf (file,"* %s ===> %s\n",signame,origsigname);
-            //efg_del_corresp_alias (losig);
+            /*efg_del_corresp_alias (losig);*/
           }
         }
         fprintf(file,"\n");
@@ -685,7 +685,7 @@ void sim_drive_corresp_alias ( drive_spice *context, lofig_list *fig )
           origtrsname = efg_get_origtrsname(lotrs);
           if ( origtrsname ) {
             fprintf (file,"* %s ===> %s\n",lotrs->TRNAME,origtrsname);
-            //efg_del_corresp_alias_trs (lotrs);
+            /*efg_del_corresp_alias_trs (lotrs);*/
           }
         }
       }
@@ -805,7 +805,7 @@ int  sim_run_simu_spice_drive_subckt( drive_spice *context )
           
         }
       
-//      context->DRIVEDFILE = addchain(context->DRIVEDFILE, strdup(context->OUTPUT_SPICE_FILE_NAME));
+/*      context->DRIVEDFILE = addchain(context->DRIVEDFILE, strdup(context->OUTPUT_SPICE_FILE_NAME));*/
       freechain(headdrive);
     }
 
@@ -1313,7 +1313,7 @@ void sim_run_simu_spice_drive_ic( drive_spice *context )
                                             0,
                                             tmpbuf
                                           );
-            //headnode = addchain( headnode, strdup( tmpbuf ) );
+            /*headnode = addchain( headnode, strdup( tmpbuf ) );*/
             headnode = addchain( headnode, namealloc( tmpbuf ) );
           }
         }
@@ -1325,7 +1325,7 @@ void sim_run_simu_spice_drive_ic( drive_spice *context )
                                           0,
                                           tmpbuf
                                         );
-          //headnode = addchain( headnode, strdup( tmpbuf ) );
+          /*headnode = addchain( headnode, strdup( tmpbuf ) );*/
           headnode = addchain( headnode, namealloc( tmpbuf ) );
         }
       }
@@ -1349,7 +1349,7 @@ void sim_run_simu_spice_drive_ic( drive_spice *context )
                                         0,
                                         tmpbuf
                                       );
-        //headnode = addchain( headnode, strdup( tmpbuf ) );
+        /*headnode = addchain( headnode, strdup( tmpbuf ) );*/
         headnode = addchain( headnode, namealloc( tmpbuf ) );
       }
       break;
@@ -1440,7 +1440,7 @@ void sim_run_simu_spice_drive_measure( drive_spice *context )
   losig_list    *losig;
   int           node;
   int           printcon,printsig;
-  ht           *htabcon2print =NULL; // is used to not print many times the same locon
+  ht           *htabcon2print =NULL; /* is used to not print many times the same locon*/
  
   model = context->MODEL;
   file = context->PTF;
@@ -1659,7 +1659,7 @@ void sim_run_simu_spice_drive_x( drive_spice *context )
 
  lofig->LOCON = (locon_list*) reverse( (chain_list*) lofig->LOCON );
 
-  // unused parameter : avoid a warning
+  /* unused parameter : avoid a warning*/
   model = NULL;
 }
 

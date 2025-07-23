@@ -37,13 +37,13 @@ char MCC_DEBUG_LEAK = 'Y' ;
 char MCC_DEBUG_RLIN = 'Y' ;
 char MCC_DEBUG_VTH = 'Y' ;
 char MCC_DEBUG_QINT = 'Y' ;
-char MCC_DEBUG_JCT_CAPA = 'Y' ; // Junction capacitance => Cjbd, Cjbs...
+char MCC_DEBUG_JCT_CAPA = 'Y' ; /* Junction capacitance => Cjbd, Cjbs...*/
 char MCC_DEBUG_INPUTCAPA = 'Y' ;
 char MCC_DEBUG_CARAC = 'Y' ;
 char MCC_DEBUG_CARACNEG = 'Y' ;
 char MCC_DEBUG_DEG = 'Y' ;
-char MCC_DEBUG_PASS_TRANS  = 'X' ; // value can be 'N' or 'P'
-char MCC_DEBUG_SWITCH = 'X' ;      // value can be 'N' or 'P'
+char MCC_DEBUG_PASS_TRANS  = 'X' ; /* value can be 'N' or 'P'*/
+char MCC_DEBUG_SWITCH = 'X' ;      /* value can be 'N' or 'P'*/
 char MCC_DEBUG_BLEEDER = 'N' ;   
 char *MCC_DEBUG_PREFIX="";
 char MCC_DEBUG_INTERNAL = 'N' ;
@@ -66,7 +66,7 @@ float mcc_tanh_slope_tas(float t,float vt,float vinit,float vfin, float slope)
   return sim_tanh_slope_tas(t, tab);
 }
 
-//extern ttvfig_list *hitas_tcl (char *figname);
+/*extern ttvfig_list *hitas_tcl (char *figname);*/
 void mcc_runtas_tcl(char *gate,float slope,float capa, char *output, char *figname)
 {
   float save_slope, save_capa;
@@ -77,14 +77,14 @@ void mcc_runtas_tcl(char *gate,float slope,float capa, char *output, char *figna
   
   save_slope=V_FLOAT_TAB[__FRONT_CON].VALUE;
   save_capa=V_FLOAT_TAB[__TAS_CAPAOUT].VALUE;
-  V_FLOAT_TAB[__FRONT_CON].VALUE=slope; V_FLOAT_TAB[__FRONT_CON].SET=1; // ps -> s
-  V_FLOAT_TAB[__TAS_CAPAOUT].VALUE=capa/1000; V_FLOAT_TAB[__TAS_CAPAOUT].SET=1; // ff -> pf
+  V_FLOAT_TAB[__FRONT_CON].VALUE=slope; V_FLOAT_TAB[__FRONT_CON].SET=1; /* ps -> s*/
+  V_FLOAT_TAB[__TAS_CAPAOUT].VALUE=capa/1000; V_FLOAT_TAB[__TAS_CAPAOUT].SET=1; /* ff -> pf*/
   V_STR_TAB[__TAS_FIG_NAME].VALUE=output; V_STR_TAB[__TAS_FIG_NAME].SET=1;
   hitas_tcl_pt(figname!=NULL?figname:gate);
   V_FLOAT_TAB[__FRONT_CON].VALUE=save_slope;
   V_FLOAT_TAB[__TAS_CAPAOUT].VALUE=save_capa;
   V_STR_TAB[__TAS_FIG_NAME].VALUE=save_out;
-//  FRONT_CON
+/*  FRONT_CON*/
 }
 
 static void mcc_spice_hiername(char *inst0, char *inst1, char *res)
@@ -464,7 +464,7 @@ void mcc_calc_coupling_capa_old (elp_lotrs_param *lotrsparam_n, elp_lotrs_param 
   if(kfdown > 1.0) kfdown = 1.0;
     
 
-  // UP
+  /* UP*/
   file1 = mbkfopen(mcc_debug_prefix("coupling_capa_up"),"dat",WRITE_TEXT) ;
   avt_printExecInfo(file1, "#", "", "");
   fprintf(file1,"# zone covn covp cintn cintp sumcapa  \n");
@@ -582,7 +582,7 @@ void mcc_calc_coupling_capa_old (elp_lotrs_param *lotrsparam_n, elp_lotrs_param 
   fprintf(file1,"pause -1 'Hit CR to finish'\n");
   fclose(file1) ;
 
-  // DOWN
+  /* DOWN*/
   file1 = mbkfopen(mcc_debug_prefix("coupling_capa_down"),"dat",WRITE_TEXT) ;
   avt_printExecInfo(file1, "#", "", "");
   fprintf(file1,"# zone covn covp cintn cintp sumcapa  \n");
@@ -713,7 +713,7 @@ void mcc_calc_coupling_capa_old (elp_lotrs_param *lotrsparam_n, elp_lotrs_param 
 \****************************************************************************/
 void mcc_calc_jct_capa (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam_p)
 {
-  // TODO prevoir les tensions de bulk des lotrs
+  /* TODO prevoir les tensions de bulk des lotrs*/
   FILE *file1,*file2,*file3,*file4;
   int i,stepmin,stepmax;
   double vbx;
@@ -758,7 +758,7 @@ void mcc_calc_jct_capa (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrspar
   stepmax = mcc_ftoi((MCC_VDDmax) / (MCC_DC_STEP)) ;
   stepmin = -stepmax ;
 
-  // NMOS
+  /* NMOS*/
   file1 = mbkfopen(mcc_debug_prefix("cbdn"),"dat",WRITE_TEXT) ;
   file2 = mbkfopen(mcc_debug_prefix("cbsn"),"dat",WRITE_TEXT) ;
   file3 = mbkfopen(mcc_debug_prefix("cgpn"),"dat",WRITE_TEXT) ;
@@ -782,7 +782,7 @@ void mcc_calc_jct_capa (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrspar
     fprintf(file3,"%.4g",vbx) ;
     fprintf(file4,"%.4g",vbx) ;
 
-    //---------- Drain ------------------------------------
+    /*---------- Drain ------------------------------------*/
     
     cdw = mcc_calcCDW(MCC_MODELFILE,MCC_TNMODEL,MCC_NMOS,MCC_NCASE,
                        MCC_LN*1.0e-6, MCC_WN*1.0e-6,MCC_TEMP,
@@ -802,7 +802,7 @@ void mcc_calc_jct_capa (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrspar
 
     cbdn = cds+cdp+(cdw-cgp)*Wcjn;
 
-    //---------- Source ------------------------------------
+    /*---------- Source ------------------------------------*/
     cdw = mcc_calcCDW(MCC_MODELFILE,MCC_TNMODEL,MCC_NMOS,MCC_NCASE,
                        MCC_LN*1.0e-6, MCC_WN*1.0e-6,MCC_TEMP,
                        0.0,vbx,vgx,lotrsparam_n);
@@ -831,7 +831,7 @@ void mcc_calc_jct_capa (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrspar
   fclose(file3) ;
   fclose(file4) ;
 
-  // PMOS
+  /* PMOS*/
   file1 = mbkfopen(mcc_debug_prefix("cbdp"),"dat",WRITE_TEXT) ;
   file2 = mbkfopen(mcc_debug_prefix("cbsp"),"dat",WRITE_TEXT) ;
   file3 = mbkfopen(mcc_debug_prefix("cgpp"),"dat",WRITE_TEXT) ;
@@ -855,7 +855,7 @@ void mcc_calc_jct_capa (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrspar
     fprintf(file3,"%.4g",vbx) ;
     fprintf(file4,"%.4g",vbx) ;
 
-    //---------- Drain -----------------------------------
+    /*---------- Drain -----------------------------------*/
     
     cdw = mcc_calcCDW(MCC_MODELFILE,MCC_TPMODEL,MCC_PMOS,MCC_PCASE,
                        MCC_LP*1.0e-6, MCC_WP*1.0e-6,MCC_TEMP,
@@ -876,7 +876,7 @@ void mcc_calc_jct_capa (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrspar
 
     cbdp = cds+cdp+(cdw-cgp)*Wcjp;
 
-    //---------- Source ------------------------------------
+    /*---------- Source ------------------------------------*/
     cdw = mcc_calcCDW(MCC_MODELFILE,MCC_TPMODEL,MCC_PMOS,MCC_PCASE,
                        MCC_LP*1.0e-6, MCC_WP*1.0e-6,MCC_TEMP,
                        0.0,vbx,vgx,lotrsparam_p);
@@ -905,7 +905,7 @@ void mcc_calc_jct_capa (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrspar
   fclose(file3) ;
   fclose(file4) ;
 
-  // mcc up & down charges
+  /* mcc up & down charges*/
   file1 = mbkfopen(mcc_debug_prefix("q_mcc_nmos"),"dat",WRITE_TEXT) ;
   file2 = mbkfopen(mcc_debug_prefix("q_mcc_pmos"),"dat",WRITE_TEXT) ;
 
@@ -2383,12 +2383,12 @@ void mcc_calcul_qint (elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_
                 MCC_PMOS, MCC_PCASE, MCC_LP * 1.0e-6,
                 MCC_WP * 1.0e-6, MCC_TEMP, MCC_VDDmax,lotrsparam_p, "pmos_qint_mcc_mp0", "pmos_qint_mcc_mp1",0,location);
 
- // drive simulation file
+ /* drive simulation file*/
 
  mcc_gettrsname('n', &trname0, &probename0, "mn0");
  mcc_gettrsname('n', &trname1, &probename1, "mn1");
 
- // NMOS case
+ /* NMOS case*/
  if( location=='G' ) {
    grid0="var";
    grid1="var";
@@ -2531,11 +2531,11 @@ void mcc_calcul_qint (elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_
  sim_execspice(buf,0,MCC_SPICENAME,MCC_SPICESTRING,MCC_SPICESTDOUT);
  readqintresults(buf, n, 0, location);
  
- // --------------------------
+ /* --------------------------*/
  
  mcc_gettrsname('p', &trname0, &probename0, "mp0");
  mcc_gettrsname('p', &trname1, &probename1, "mp1");
- // PMOS case
+ /* PMOS case*/
  if( location=='G' ) {
    grid0="var";
    grid1="var";
@@ -2695,7 +2695,7 @@ void mcc_sim_cg(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p, cha
  char bufp[1024], name[128] ;
  double t,vt,vinit,vfin,slope ;
  char *cg, *cd, *cs;
- lotrsparam_p=NULL ; // avoid warning at compilation
+ lotrsparam_p=NULL ; /* avoid warning at compilation*/
  lotrsparam_n=NULL ;
 
  t = 0.0 ;
@@ -3367,7 +3367,7 @@ int ptrans;
  char source[16] ;
  char flagfile = 'N' ;
 
- // TODO add specific instances paramaters
+ /* TODO add specific instances paramaters*/
  if(file == NULL)
   {
    file = mbkfopen(gate,"spi",WRITE_TEXT) ;
@@ -3467,10 +3467,10 @@ double lp ;
    nbitem = ( passn > passp ) ? passn : passp;
  else
    nbitem = ( switchn > switchp ) ? switchn : switchp;
- // => drive the pass trans
+ /* => drive the pass trans*/
  for(i = 1 ; i <= nbitem ; i++)
   {
-   if ( flagfile == 'Y' ) // for tas
+   if ( flagfile == 'Y' ) /* for tas*/
     {
      if ( i == 1 ) 
        {
@@ -3483,7 +3483,7 @@ double lp ;
      else
        sprintf(source,"spass_%d",i) ;
     }
-   else // for spice
+   else /* for spice*/
     {
      if(i == 1 ) 
        {
@@ -3571,7 +3571,7 @@ double lp ;
  int nb_switch_or_pass=0;
  char drain[16] ;
  char source[16] ;
- char flagfile = 'N' ; // if 'N' : file to be simulated by spice
+ char flagfile = 'N' ; /* if 'N' : file to be simulated by spice*/
 
  if(file == NULL)
   {
@@ -3719,13 +3719,13 @@ double lp ;
  if ( nb_switch_or_pass )
    {
     k += input-nb_switch_or_pass;
-    // => drive the pass trans / switch
+    /* => drive the pass trans / switch*/
     mcc_drive_passtrans_switch (file,input,passn,switchn,passp,switchp, &k, flagfile,
                                 modeln,modelp,mn,mp,wn,wp,ln,lp);
-    // => drive the inv ( last gate )
+    /* => drive the inv ( last gate )*/
     mcc_drive_inv (file,"s","so","vbn","vbp",k,
                    modeln,modelp,mn,mp,wn,wp,ln,lp);
-    // => drive the bleeder
+    /* => drive the bleeder*/
     if ( bleeder )
       mcc_drive_inv (file,"so","s","vbn","vbp",k+2,
                      modeln,modelp,mn,mp,wn/3.0,wp/3.0,2.0*ln,2.0*lp);
@@ -3803,7 +3803,7 @@ double lp ;
  double imoyold ;
  double sfl ;
  double sfh ;
- double cmd_value; // value to enable the pass trans or switch
+ double cmd_value; /* value to enable the pass trans or switch*/
  double tdelay ;
  double tslope ;
  int type ;
@@ -3899,7 +3899,7 @@ double lp ;
 fprintf(file,"v%c %c 0 PWL(\n",'a'+input,'a'+input) ;
 for(t = 0.0 ; t < (5*(float)slope) ; t += ((float)slope/10.0))
   fprintf(file,"+%.5fNS %.5fV\n",t/1000.0,mcc_tanh_slope_tas(t,vt,vinit,vfin,(float)slope)) ;
-//  fprintf(file,"+%.5fNS %.5fV\n",t/1000.0,(float)stm_get_v(t,vt,vinit,vfin,(float)slope)) ;
+/*  fprintf(file,"+%.5fNS %.5fV\n",t/1000.0,(float)stm_get_v(t,vt,vinit,vfin,(float)slope)) ;*/
 fprintf(file,"+)\n") ;
 
  fprintf(file,"cs s 0 %dfF\n",capa);
@@ -3996,7 +3996,7 @@ fprintf(file,"+)\n") ;
  
  sprintf(name,"%s.spi",buf) ;
  sim_execspice(name,0,MCC_SPICENAME,MCC_SPICESTRING,MCC_SPICESTDOUT);
-// mcc_runtas(gate,slope,capa) ;
+/* mcc_runtas(gate,slope,capa) ;*/
  mcc_runtas_tcl(gate,slope,capa,buf1,NULL) ;
  fileout = sim_getjoker(MCC_SPICEOUT,buf) ;
 
@@ -4231,113 +4231,113 @@ void mcc_init_gate ( char **gate , int *input, int *up, int *down, int *other,
   gate[5] = "no3" ; input[5] = 3 ; up[5] = 1 ; down[5] = 3 ;  other[5] = 0 ; passn[5] = 0 ; switchn[5] = 0 ; passp[5] = 0 ; switchp[5] = 0 ; bleeder[5] = 0 ;
   gate[6] = "no4" ; input[6] = 4 ; up[6] = 1 ; down[6] = 4 ;  other[6] = 0 ; passn[6] = 0 ; switchn[6] = 0 ; passp[6] = 0 ; switchp[6] = 0 ; bleeder[6] = 0 ;
  
-    //------------------------
-   // inverseur + passn trans
-  //-------------------------
+    /*------------------------*/
+   /* inverseur + passn trans*/
+  /*-------------------------*/
   gate[7]  = "inv_pn"       ; input[7] = 2 ; up[7] = 1 ; down[7] = 1 ;  other[7] = 1 ; passn[7] = 1 ; switchn[7] = 0 ; passp[7] = 0 ; switchp[7] = 0 ; bleeder[7] = 0 ;
   gate[8]  = "inv_pp"       ; input[8] = 2 ; up[8] = 1 ; down[8] = 1 ;  other[8] = 0 ; passn[8] = 0 ; switchn[8] = 0 ; passp[8] = 1 ; switchp[8] = 0 ; bleeder[8] = 0 ;
   gate[9]  = "inv_pn_bleed" ; input[9] = 2 ; up[9] = 1 ; down[9] = 1 ;  other[9] = 1 ; passn[9] = 1 ; switchn[9] = 0 ; passp[9] = 0 ; switchp[9] = 0 ; bleeder[9] = 1 ;
   gate[10] = "inv_pp_bleed" ; input[10] = 2 ; up[10] = 1 ; down[10] = 1 ;  other[10] = 0 ; passn[10] = 0 ; switchn[10] = 0 ;  passp[10] = 1 ; switchp[10] = 0 ;bleeder[10] = 1 ;
   
-    //------------------------
-   // inverseur + switch
-  //-------------------------
+    /*------------------------*/
+   /* inverseur + switch*/
+  /*-------------------------*/
   gate[11] = "inv_sn"       ; input[11] = 2 ; up[11] = 1 ; down[11] = 1 ;  other[11] = 1 ; passn[11] = 0 ; switchn[11] = 1 ; passp[11] = 0 ; switchp[11] = 0 ; bleeder[11] = 0 ;
   gate[12] = "inv_sp"       ; input[12] = 2 ; up[12] = 1 ; down[12] = 1 ;  other[12] = 0 ; passn[12] = 0 ; switchn[12] = 0 ; passp[12] = 0 ; switchp[12] = 1 ; bleeder[12] = 0 ;
   gate[13] = "inv_sn_bleed" ; input[13] = 2 ; up[13] = 1 ; down[13] = 1 ;  other[13] = 1 ; passn[13] = 0 ; switchn[13] = 1 ; passp[13] = 0 ; switchp[13] = 0 ; bleeder[13] = 1 ;
   gate[14] = "inv_sp_bleed" ; input[14] = 2 ; up[14] = 1 ; down[14] = 1 ;  other[14] = 1 ; passn[14] = 0 ; switchn[14] = 0 ; passp[14] = 0 ; switchp[14] = 1 ; bleeder[14] = 1 ;
 
-    //------------------------
-   // na2 + passn trans
-  //-------------------------
+    /*------------------------*/
+   /* na2 + passn trans*/
+  /*-------------------------*/
   gate[15]  = "na2_pn"       ; input[15] = 3 ; up[15] = 2 ; down[15] = 1 ;  other[15] = 1 ; passn[15] = 1 ; switchn[15] = 0 ; passp[15] = 0 ; switchp[15] = 0 ; bleeder[15] = 0 ;
   gate[16]  = "na2_pp"       ; input[16] = 3 ; up[16] = 2 ; down[16] = 1 ;  other[16] = 1 ; passn[16] = 0 ; switchn[16] = 0 ; passp[16] = 1 ; switchp[16] = 0 ; bleeder[16] = 0 ;
   gate[17]  = "na2_pn_bleed" ; input[17] = 3 ; up[17] = 2 ; down[17] = 1 ;  other[17] = 1 ; passn[17] = 1 ; switchn[17] = 0 ; passp[17] = 0 ; switchp[17] = 0 ; bleeder[17] = 1 ;
   gate[18]  = "na2_pp_bleed" ; input[18] = 3 ; up[18] = 2 ; down[18] = 1 ;  other[18] = 1 ; passn[18] = 0 ; switchn[18] = 0 ; passp[18] = 1 ; switchp[18] = 0 ; bleeder[18] = 1 ;
 
-    //------------------------
-   // na2 + switch
-  //-------------------------
+    /*------------------------*/
+   /* na2 + switch*/
+  /*-------------------------*/
   gate[19]  = "na2_sn"       ; input[19] = 3 ; up[19] = 2 ; down[19] = 1 ;  other[19] = 1 ; passn[19] = 0 ; switchn[19] = 1 ; passp[19] = 0 ; switchp[19] = 0 ; bleeder[19] = 0 ;
   gate[20]  = "na2_sp"       ; input[20] = 3 ; up[20] = 2 ; down[20] = 1 ;  other[20] = 1 ; passn[20] = 0 ; switchn[20] = 0 ; passp[20] = 0 ; switchp[20] = 1 ; bleeder[20] = 0 ;
   gate[21]  = "na2_sn_bleed" ; input[21] = 3 ; up[21] = 2 ; down[21] = 1 ;  other[21] = 1 ; passn[21] = 0 ; switchn[21] = 1 ; passp[21] = 0 ; switchp[21] = 0 ; bleeder[21] = 1 ;
   gate[22]  = "na2_sp_bleed" ; input[22] = 3 ; up[22] = 2 ; down[22] = 1 ;  other[22] = 1 ; passn[22] = 0 ; switchn[22] = 0 ; passp[22] = 0 ; switchp[22] = 1 ; bleeder[22] = 1 ;
 
-    //------------------------
-   // na3 + passn trans
-  //-------------------------
+    /*------------------------*/
+   /* na3 + passn trans*/
+  /*-------------------------*/
   gate[23]  = "na3_pn"       ; input[23] = 4 ; up[23] = 3 ; down[23] = 1 ;  other[23] = 1 ; passn[23] = 1 ; switchn[23] = 0 ; passp[23] = 0 ; switchp[23] = 0 ; bleeder[23] = 0 ;
   gate[24]  = "na3_pp"       ; input[24] = 4 ; up[24] = 3 ; down[24] = 1 ;  other[24] = 1 ; passn[24] = 0 ; switchn[24] = 0 ; passp[24] = 1 ; switchp[24] = 0 ; bleeder[24] = 0 ;
   gate[25]  = "na3_pn_bleed" ; input[25] = 4 ; up[25] = 3 ; down[25] = 1 ;  other[25] = 1 ; passn[25] = 1 ; switchn[25] = 0 ; passp[25] = 0 ; switchp[25] = 0 ; bleeder[25] = 1 ;
   gate[26]  = "na3_pp_bleed" ; input[26] = 4 ; up[26] = 3 ; down[26] = 1 ;  other[26] = 1 ; passn[26] = 0 ; switchn[26] = 0 ; passp[26] = 1 ; switchp[26] = 0 ; bleeder[26] = 1 ;
 
-    //------------------------
-   // na3 + switch
-  //-------------------------
+    /*------------------------*/
+   /* na3 + switch*/
+  /*-------------------------*/
   gate[27]  = "na3_sn"       ; input[27] = 4 ; up[27] = 3 ; down[27] = 1 ;  other[27] = 1 ; passn[27] = 0 ; switchn[27] = 1 ; passp[27] = 0 ; switchp[27] = 0 ; bleeder[27] = 0 ;
   gate[28]  = "na3_sp"       ; input[28] = 4 ; up[28] = 3 ; down[28] = 1 ;  other[28] = 1 ; passn[28] = 0 ; switchn[28] = 0 ; passp[28] = 0 ; switchp[28] = 1 ; bleeder[28] = 0 ;
   gate[29]  = "na3_sn_bleed" ; input[29] = 4 ; up[29] = 3 ; down[29] = 1 ;  other[29] = 1 ; passn[29] = 0 ; switchn[29] = 1 ; passp[29] = 0 ; switchp[29] = 0 ; bleeder[29] = 1 ;
   gate[30]  = "na3_sp_bleed" ; input[30] = 4 ; up[30] = 3 ; down[30] = 1 ;  other[30] = 1 ; passn[30] = 0 ; switchn[30] = 0 ; passp[30] = 0 ; switchp[30] = 1 ; bleeder[30] = 1 ;
 
-    //------------------------
-   // na4 + passn trans
-  //-------------------------
+    /*------------------------*/
+   /* na4 + passn trans*/
+  /*-------------------------*/
   gate[31]  = "na4_pn"       ; input[31] = 5 ; up[31] = 4 ; down[31] = 1 ;  other[31] = 1 ; passn[31] = 1 ; switchn[31] = 0 ; passp[31] = 0 ; switchp[31] = 0 ; bleeder[31] = 0 ;
   gate[32]  = "na4_pp"       ; input[32] = 5 ; up[32] = 4 ; down[32] = 1 ;  other[32] = 1 ; passn[32] = 0 ; switchn[32] = 0 ; passp[32] = 1 ; switchp[32] = 0 ; bleeder[32] = 0 ;
   gate[33]  = "na4_pn_bleed" ; input[33] = 5 ; up[33] = 4 ; down[33] = 1 ;  other[33] = 1 ; passn[33] = 1 ; switchn[33] = 0 ; passp[33] = 0 ; switchp[33] = 0 ; bleeder[33] = 1 ;
   gate[34]  = "na4_pp_bleed" ; input[34] = 5 ; up[34] = 4 ; down[34] = 1 ;  other[34] = 1 ; passn[34] = 0 ; switchn[34] = 0 ; passp[34] = 1 ; switchp[34] = 0 ; bleeder[34] = 1 ;
 
-    //------------------------
-   // na4 + switch
-  //-------------------------
+    /*------------------------*/
+   /* na4 + switch*/
+  /*-------------------------*/
   gate[35]  = "na4_sn"       ; input[35] = 5 ; up[35] = 4 ; down[35] = 1 ;  other[35] = 1 ; passn[35] = 0 ; switchn[35] = 1 ; passp[35] = 0 ; switchp[35] = 0 ; bleeder[35] = 0 ;
   gate[36]  = "na4_sp"       ; input[36] = 5 ; up[36] = 4 ; down[36] = 1 ;  other[36] = 1 ; passn[36] = 0 ; switchn[36] = 0 ; passp[36] = 0 ; switchp[36] = 1 ; bleeder[36] = 0 ;
   gate[37]  = "na4_sn_bleed" ; input[37] = 5 ; up[37] = 4 ; down[37] = 1 ;  other[37] = 1 ; passn[37] = 0 ; switchn[37] = 1 ; passp[37] = 0 ; switchp[37] = 0 ; bleeder[37] = 1 ;
   gate[38]  = "na4_sp_bleed" ; input[38] = 5 ; up[38] = 4 ; down[38] = 1 ;  other[38] = 1 ; passn[38] = 0 ; switchn[38] = 0 ; passp[38] = 0 ; switchp[38] = 1 ; bleeder[38] = 1 ;
 
-    //------------------------
-   // no2 + pass trans
-  //-------------------------
+    /*------------------------*/
+   /* no2 + pass trans*/
+  /*-------------------------*/
   gate[39]  = "no2_pn"       ; input[39] = 3 ; up[39] = 1 ; down[39] = 2 ;  other[39] = 0 ; passn[39] = 1 ; switchn[39] = 0 ; passp[39] = 0 ; switchp[39] = 0 ; bleeder[39] = 0 ;
   gate[40]  = "no2_pp"       ; input[40] = 3 ; up[40] = 1 ; down[40] = 2 ;  other[40] = 0 ; passn[40] = 0 ; switchn[40] = 0 ; passp[40] = 1 ; switchp[40] = 0 ; bleeder[40] = 0 ;
   gate[41]  = "no2_pn_bleed" ; input[41] = 3 ; up[41] = 1 ; down[41] = 2 ;  other[41] = 0 ; passn[41] = 1 ; switchn[41] = 0 ; passp[41] = 0 ; switchp[41] = 0 ; bleeder[41] = 1 ;
   gate[42]  = "no2_pp_bleed" ; input[42] = 3 ; up[42] = 1 ; down[42] = 2 ;  other[42] = 0 ; passn[42] = 0 ; switchn[42] = 0 ; passp[42] = 1 ; switchp[42] = 0 ; bleeder[42] = 1 ;
 
-    //------------------------
-   // no2 + switch
-  //-------------------------
+    /*------------------------*/
+   /* no2 + switch*/
+  /*-------------------------*/
   gate[43]  = "no2_sn"       ; input[43] = 3 ; up[43] = 1 ; down[43] = 2 ;  other[43] = 0 ; passn[43] = 0 ; switchn[43] = 1 ; passp[43] = 0 ; switchp[43] = 0 ; bleeder[43] = 0 ;
   gate[44]  = "no2_sp"       ; input[44] = 3 ; up[44] = 1 ; down[44] = 2 ;  other[44] = 0 ; passn[44] = 0 ; switchn[44] = 0 ; passp[44] = 0 ; switchp[44] = 1 ; bleeder[44] = 0 ;
   gate[45]  = "no2_sn_bleed" ; input[45] = 3 ; up[45] = 1 ; down[45] = 2 ;  other[45] = 0 ; passn[45] = 0 ; switchn[45] = 1 ; passp[45] = 0 ; switchp[45] = 0 ; bleeder[45] = 1 ;
   gate[46]  = "no2_sp_bleed" ; input[46] = 3 ; up[46] = 1 ; down[46] = 2 ;  other[46] = 0 ; passn[46] = 0 ; switchn[46] = 0 ; passp[46] = 0 ; switchp[46] = 1 ; bleeder[46] = 1 ;
 
-    //------------------------
-   // no3 + passn trans
-  //-------------------------
+    /*------------------------*/
+   /* no3 + passn trans*/
+  /*-------------------------*/
   gate[47]  = "no3_pn"       ; input[47] = 4 ; up[47] = 1 ; down[47] = 3 ;  other[47] = 0 ; passn[47] = 1 ; switchn[47] = 0 ; passp[47] = 0 ; switchp[47] = 0 ; bleeder[47] = 0 ;
   gate[48]  = "no3_pp"       ; input[48] = 4 ; up[48] = 1 ; down[48] = 3 ;  other[48] = 0 ; passn[48] = 0 ; switchn[48] = 0 ; passp[48] = 1 ; switchp[48] = 0 ; bleeder[48] = 0 ;
   gate[49]  = "no3_pn_bleed" ; input[49] = 4 ; up[49] = 1 ; down[49] = 3 ;  other[49] = 0 ; passn[49] = 1 ; switchn[49] = 0 ; passp[49] = 0 ; switchp[49] = 0 ; bleeder[49] = 1 ;
   gate[50]  = "no3_pp_bleed" ; input[50] = 4 ; up[50] = 1 ; down[50] = 3 ;  other[50] = 0 ; passn[50] = 0 ; switchn[50] = 0 ; passp[50] = 1 ; switchp[50] = 0 ; bleeder[50] = 1 ;
 
-    //------------------------
-   // no3 + switch
-  //-------------------------
+    /*------------------------*/
+   /* no3 + switch*/
+  /*-------------------------*/
   gate[51]  = "no3_sn"       ; input[51] = 4 ; up[51] = 1 ; down[51] = 3 ;  other[51] = 0 ; passn[51] = 0 ; switchn[51] = 1 ; passp[51] = 0 ; switchp[51] = 0 ; bleeder[51] = 0 ;
   gate[52]  = "no3_sp"       ; input[52] = 4 ; up[52] = 1 ; down[52] = 3 ;  other[52] = 0 ; passn[52] = 0 ; switchn[52] = 0 ; passp[52] = 0 ; switchp[52] = 1 ; bleeder[52] = 0 ;
   gate[53]  = "no3_sn_bleed" ; input[53] = 4 ; up[53] = 1 ; down[53] = 3 ;  other[53] = 0 ; passn[53] = 0 ; switchn[53] = 1 ; passp[53] = 0 ; switchp[53] = 0 ; bleeder[53] = 1 ;
   gate[54]  = "no3_sp_bleed" ; input[54] = 4 ; up[54] = 1 ; down[54] = 3 ;  other[54] = 0 ; passn[54] = 0 ; switchn[54] = 0 ; passp[54] = 0 ; switchp[54] = 1 ; bleeder[54] = 1 ;
 
-    //------------------------
-   // no4 + passn trans
-  //-------------------------
+    /*------------------------*/
+   /* no4 + passn trans*/
+  /*-------------------------*/
   gate[55]  = "no4_pn"       ; input[55] = 5 ; up[55] = 1 ; down[55] = 4 ;  other[55] = 0 ; passn[55] = 1 ; switchn[55] = 0 ; passp[55] = 0 ; switchp[55] = 0 ; bleeder[55] = 0 ;
   gate[56]  = "no4_pp"       ; input[56] = 5 ; up[56] = 1 ; down[56] = 4 ;  other[56] = 0 ; passn[56] = 0 ; switchn[56] = 0 ; passp[56] = 1 ; switchp[56] = 0 ; bleeder[56] = 0 ;
   gate[57]  = "no4_pn_bleed" ; input[57] = 5 ; up[57] = 1 ; down[57] = 4 ;  other[57] = 0 ; passn[57] = 1 ; switchn[57] = 0 ; passp[57] = 0 ; switchp[57] = 0 ; bleeder[57] = 1 ;
   gate[58]  = "no4_pp_bleed" ; input[58] = 5 ; up[58] = 1 ; down[58] = 4 ;  other[58] = 0 ; passn[58] = 0 ; switchn[58] = 0 ; passp[58] = 1 ; switchp[58] = 0 ; bleeder[58] = 1 ;
 
-    //------------------------
-   // no4 + switch
-  //-------------------------
+    /*------------------------*/
+   /* no4 + switch*/
+  /*-------------------------*/
   gate[59]  = "no4_sn"       ; input[59] = 5 ; up[59] = 1 ; down[59] = 4 ;  other[59] = 0 ; passn[59] = 0 ; switchn[59] = 1 ; passp[59] = 0 ; switchp[59] = 0 ; bleeder[59] = 0 ;
 gate[60]  = "no4_sp"       ; input[60] = 5 ; up[60] = 1 ; down[60] = 4 ;  other[60] = 0 ; passn[60] = 0 ; switchn[60] = 0 ; passp[60] = 0 ; switchp[60] = 1 ; bleeder[60] = 0 ;
   gate[61]  = "no4_sn_bleed" ; input[61] = 5 ; up[61] = 1 ; down[61] = 4 ;  other[61] = 0 ; passn[61] = 0 ; switchn[61] = 1 ; passp[61] = 0 ; switchp[61] = 0 ; bleeder[61] = 1 ;
@@ -4360,15 +4360,15 @@ void mcc_genbenchtrans()
  char bufn[1024] ;
  char bufp[1024] ;
  char *gate[MCC_NB_GATES] ; 
- int input[MCC_NB_GATES] ;  // contenu = determine le nb d entrees de la gate
- int up[MCC_NB_GATES] ;     // contenu = determine le nb de transistor pmos de la gate
- int down[MCC_NB_GATES] ;   // contenu = determine le nb de transistor nmos de la gate
- int other[MCC_NB_GATES] ;  // contenu = valeur 0 ou vdd a driver pour le reste des signaux
- int passn[MCC_NB_GATES] ;   // contenu = nb de pass trans n a driver
- int switchn[MCC_NB_GATES] ;// contenu = nb de switch n a driver 
- int passp[MCC_NB_GATES] ;   // contenu = nb de pass trans p  a driver
- int switchp[MCC_NB_GATES] ;// contenu = nb de switch p a driver
- int bleeder[MCC_NB_GATES] ;// contenu = nb de bleeder a driver
+ int input[MCC_NB_GATES] ;  /* contenu = determine le nb d entrees de la gate*/
+ int up[MCC_NB_GATES] ;     /* contenu = determine le nb de transistor pmos de la gate*/
+ int down[MCC_NB_GATES] ;   /* contenu = determine le nb de transistor nmos de la gate*/
+ int other[MCC_NB_GATES] ;  /* contenu = valeur 0 ou vdd a driver pour le reste des signaux*/
+ int passn[MCC_NB_GATES] ;   /* contenu = nb de pass trans n a driver*/
+ int switchn[MCC_NB_GATES] ;/* contenu = nb de switch n a driver */
+ int passp[MCC_NB_GATES] ;   /* contenu = nb de pass trans p  a driver*/
+ int switchp[MCC_NB_GATES] ;/* contenu = nb de switch p a driver*/
+ int bleeder[MCC_NB_GATES] ;/* contenu = nb de bleeder a driver*/
  int capa[4] ;
  int slope[3] ;
  int nbgate = MCC_NB_GATES ;
@@ -4433,13 +4433,13 @@ void mcc_genbenchtrans()
     if(MCC_DEBUG_GATE != NULL) 
      if(strcmp(MCC_DEBUG_GATE,gate[i]) != 0)
        continue ;
-    // only duals
+    /* only duals*/
     if( !MCC_DEBUG_GATE ) 
       {
-       // zap the pass trans
+       /* zap the pass trans*/
        if (( passn[i] || passp [i] ) && ( MCC_DEBUG_PASS_TRANS == 'X' )) 
          continue;
-       // zap the switchs
+       /* zap the switchs*/
        if (( switchn[i] || switchp[i] ) && ( MCC_DEBUG_SWITCH == 'X' )) 
          continue;
       }
@@ -4468,16 +4468,16 @@ void mcc_genbenchtrans()
  for(i = 0 ; i < 9 ; i++)
     taberr[i] = 0 ;
 
- for(i = 0 ; i < nbgate ; i++)       // gate variation
- for(j = 0 ; j < input[i] ; j++)     // input variation 
- for(k = 0 ; k < 4 ; k++)            // transition variation
- for(c = 0 ; c < 4 ; c++)            // capa variation
- for(s = 0 ; s < 3 ; s++)            // slowpe variation
+ for(i = 0 ; i < nbgate ; i++)       /* gate variation*/
+ for(j = 0 ; j < input[i] ; j++)     /* input variation */
+ for(k = 0 ; k < 4 ; k++)            /* transition variation*/
+ for(c = 0 ; c < 4 ; c++)            /* capa variation*/
+ for(s = 0 ; s < 3 ; s++)            /* slowpe variation*/
    {
     if( !passn[i] && !passp[i] && !switchn[i] && !switchp[i] && k > 1 )
       continue ;
     if(( passn[i] || passp[i] || switchn[i] || switchp[i] ) && ( k > 1 ) && (j != input[i]-1))
-      // if input is not the cmd of the pass or switch
+      /* if input is not the cmd of the pass or switch*/
       continue ;
      
 
@@ -4508,25 +4508,25 @@ void mcc_genbenchtrans()
        continue ;
     if( !MCC_DEBUG_GATE ) 
       {
-       // zap the pass trans
+       /* zap the pass trans*/
        if (( passn[i] || passp [i] ) && ( MCC_DEBUG_PASS_TRANS == 'X' )) 
          continue;
-       // zap the switchs
+       /* zap the switchs*/
        if (( switchn[i] || switchp[i] ) && ( MCC_DEBUG_SWITCH == 'X' )) 
          continue;
       }
 
-    if(( passn[i] || passp[i] || switchn[i] || switchp[i] ) && (j == input[i]-1))  // if input is the cmd of the pass or switch
+    if(( passn[i] || passp[i] || switchn[i] || switchp[i] ) && (j == input[i]-1))  /* if input is the cmd of the pass or switch*/
      {
-      if ( passn[i] || switchn[i] )  // pass trans or switch on nmos 
+      if ( passn[i] || switchn[i] )  /* pass trans or switch on nmos */
        {
-        if ( transition[k] == MCC_DU || transition[k] == MCC_DD )   // transition doesn t exist
+        if ( transition[k] == MCC_DU || transition[k] == MCC_DD )   /* transition doesn t exist*/
           continue;
         other[i] =  ( transition[k] == MCC_UD ) ? 1 : 0;
        }
-      else                                                         // pass trans or switch on pmos 
+      else                                                         /* pass trans or switch on pmos */
        {
-        if ( transition[k] == MCC_UD || transition[k] == MCC_UU ) // transition doesn t exist
+        if ( transition[k] == MCC_UD || transition[k] == MCC_UU ) /* transition doesn t exist*/
           continue;
         other[i] =  ( transition[k] == MCC_DU ) ? 0 : 1;
        }
@@ -4607,7 +4607,7 @@ FUNC : mcc_genbench
 \**********************************************************************************/
 void mcc_genbench()
 {
-// sim_set_result_file_extension('p', 0, &MCC_SPICEOUT);
+/* sim_set_result_file_extension('p', 0, &MCC_SPICEOUT);*/
  mcc_genbenchtrans() ;
 }
 
@@ -4649,13 +4649,13 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
   if ( ptmodeln->MODELTYPE != MCC_BSIM4 || ptmodelp->MODELTYPE != MCC_BSIM4 ) return;
 
   if ( debug_pmos ) {
-    // PMOS 
+    /* PMOS */
     
     L = MCC_LP*1.0e-6;
     W =  MCC_WP*1.0e-6;
 
     if ( debug_igb ) {
-      // Igb 
+      /* Igb */
       file = fopen ("Igb_pmos_vgs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# vgs Igb\n");
@@ -4691,7 +4691,7 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
     }
     
     if ( debug_igixl ) {
-      // GIDL GISL debug
+      /* GIDL GISL debug*/
       file = fopen ("Igixl_pmos_vgs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# vgs Igidl Igisl\n");
@@ -4730,7 +4730,7 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
     }
     
     if ( debug_ixb ) {
-      // Jonction IV debug
+      /* Jonction IV debug*/
       file = fopen ("Ixb_pmos_vbs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# var Idb Isb\n");
@@ -4759,7 +4759,7 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
     }
  
     if ( debug_igx ) {
-      // Gate tunneling : Igs, Igd
+      /* Gate tunneling : Igs, Igd*/
       file = fopen ("Igx_pmos_vgs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# vgs Igd Igs\n");
@@ -4774,7 +4774,7 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
     }
  
     if ( debug_igcx ) {
-      // Gate tunneling : Igcs, Igcd
+      /* Gate tunneling : Igcs, Igcd*/
       file = fopen ("Igcx_pmos_vgs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# vgs Igcd Igcs\n");
@@ -4792,13 +4792,13 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
  /*-----------------------------------------------------------------------------*/ 
 
   if ( debug_nmos ) {
-    //- NMOS
+    /*- NMOS*/
     L = MCC_LN*1.0e-6;
     W =  MCC_WN*1.0e-6;
 
 
     if ( debug_igb ) {
-      // Igb 
+      /* Igb */
       file = fopen ("Igb_nmos_vgs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# vgs Igb\n");
@@ -4834,7 +4834,7 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
     }
     
     if ( debug_igixl ) {
-      // GIDL GISL debug
+      /* GIDL GISL debug*/
       file = fopen ("Igixl_nmos_vgs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# vgs Igidl Igisl\n");
@@ -4873,7 +4873,7 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
     }
     
     if ( debug_ixb ) {
-      // Jonction IV debug
+      /* Jonction IV debug*/
       file = fopen ("Ixb_nmos_vbs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# var Idb Isb\n");
@@ -4902,7 +4902,7 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
     }
       
     if ( debug_igx ) {
-      // Gate tunneling : Igs, Igd
+      /* Gate tunneling : Igs, Igd*/
       file = fopen ("Igx_nmos_vgs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# vgs Igd Igs\n");
@@ -4917,7 +4917,7 @@ void mcc_calcul_leak (elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam
     }
     
     if ( debug_igcx ) {
-      // Gate tunneling : Igcs, Igcd
+      /* Gate tunneling : Igcs, Igcd*/
       file = fopen ("Igcx_nmos_vgs.dat","w");
       avt_printExecInfo(file, "#", "", "");
       fprintf (file,"# vgs Igcd Igcs\n");
@@ -5081,7 +5081,7 @@ void mcc_fill_current_for_rsat(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lo
                 {
                   switch (m)
                     {
-                    case 0: // BSIM
+                    case 0: /* BSIM*/
                       MCC_CALC_CUR = MCC_CALC_MODE;
                       if( j==MCC_TRANS_N ) 
                         vbs = pvbs[k]+lotrsparam_n->VBULK;
@@ -5089,14 +5089,14 @@ void mcc_fill_current_for_rsat(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lo
                         vbs = pvbs[k]+lotrsparam_p->VBULK-MCC_VDDmax;
                       ic = mcc_spicecurrent(pvgs[l],i*MCC_DC_STEP,vbs,j,trsparam) ;
                       break;
-                    case 1: // MCC
+                    case 1: /* MCC*/
 /*                      MCC_CALC_CUR = MCC_SIM_MODE;
                       save_optim(&so[j][k][l], 0, j);
                       MCC_VGS=pvgs[l];
                       ic = mcc_spicecurrent(pvgs[l],i*MCC_DC_STEP,pvbs[k],j,trsparam) ;*/
                       ic=0;
                       break;
-                    case 2: // ELP
+                    case 2: /* ELP*/
                       ic = mcc_current(pvgs[l],i*MCC_DC_STEP,fabs(pvbs[k]),j) ;
                       break;
                     }
@@ -5152,7 +5152,7 @@ void mcc_fill_current_for_rsat(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lo
         pvgs=n_vgs_values, pvbs=n_vbs_values;
       else
         pvgs=p_vgs_values, pvbs=p_vbs_values;
-      //    for (m=0; m<3; m++)
+      /*    for (m=0; m<3; m++)*/
       for (k=0; k<2; k++)
         for (l=0; l<2; l++)
           {
@@ -5162,9 +5162,9 @@ void mcc_fill_current_for_rsat(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lo
             fprintf(f,"set ylabel \"IDS (A)\"\n") ;
             fprintf(f,"set grid\n") ;
             fprintf(f,"set key top left\n");
-//            fprintf(f,"set xrange [0.0:%g]\n", MCC_VDDmax);
+/*            fprintf(f,"set xrange [0.0:%g]\n", MCC_VDDmax);*/
             fprintf(f,"plot '%s' using 1:%d title '%s vbs=%.2f/vgs=%.2f' with lines,\\\n", name, 2+ j*12+0*4+k*2+l, mcc_getmccname( j==0?ptmodeln:ptmodelp ),pvbs[k], pvgs[l]);
-//            fprintf(f,"     '%s' using 1:%d title 'MCC vbs=%.2f/vgs=%.2f' with lines,\\\n", name, 2+ j*12+1*4+k*2+l, pvbs[k], pvgs[l]);
+/*            fprintf(f,"     '%s' using 1:%d title 'MCC vbs=%.2f/vgs=%.2f' with lines,\\\n", name, 2+ j*12+1*4+k*2+l, pvbs[k], pvgs[l]);*/
             fprintf(f,"     '%s' using 1:%d title 'elp vbs=%.2f/vgs=%.2f' with lines\n", name, 2+ j*12+2*4+k*2+l, pvbs[k], pvgs[l]);
             fprintf(f,"pause -1 'Hit CR to finish'\n") ;
           }
@@ -5206,12 +5206,12 @@ typedef struct
   double capai;
 } allforbilan;
 
-//#define DEBUGBC
+/*#define DEBUGBC*/
 static void get_bilan_capa(elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrsparam_p, int trans, allforbilan *afb, float input_voltage, float output_voltage)
 {
   float vgs, vbs, vds;
   float startv, endv;
-  // NMOS ***********
+  /* NMOS ************/
   vds=output_voltage;
   vgs=input_voltage;
   vbs=lotrsparam_n->VBULK;
@@ -5228,7 +5228,7 @@ static void get_bilan_capa(elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrs
   afb->cgdn=afb->cgdni*(MCC_WNeff+afb->ndeltaw)*(MCC_LNeff+afb->ndeltal)*1e-12;
 
       
-  //CD 
+  /*CD */
   if (trans==0)
     {
       startv=lotrsparam_n->VBULK-MCC_VDDmax;
@@ -5249,7 +5249,7 @@ static void get_bilan_capa(elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrs
   printf("  CG=%g CD=%g Cov=%g CGD=%g\n", afb->cgaten, afb->cdrainn, afb->covn, afb->cgdn);
 #endif
       
-  // PMOS ***********
+  /* PMOS ************/
   vds=MCC_VDDmax-output_voltage;
   vgs=MCC_VDDmax-input_voltage;
   vbs=lotrsparam_p->VBULK;
@@ -5266,7 +5266,7 @@ static void get_bilan_capa(elp_lotrs_param *lotrsparam_n, elp_lotrs_param *lotrs
 
   afb->cgdp=afb->cgdpi*(MCC_WPeff+afb->pdeltaw)*(MCC_LPeff+afb->pdeltal)*1e-12;
 
-  //CD 
+  /*CD */
   if (trans==0)
     {
       startv=lotrsparam_p->VBULK-MCC_VDDmax;

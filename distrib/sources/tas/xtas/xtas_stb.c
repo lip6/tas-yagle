@@ -46,12 +46,12 @@ Widget      STB_MAX_IT_NB ;
 Widget      STBUSECACHE ;
 Widget      STBCACHESIZE ;
 Widget      NBERROR ;
-//char        STBTYPE ;
-//char        STBMONOPHASE ;
-//char        STBLEVEL ;
-//char        STBCONT ;
-//char        STBFILE ;
-//char        STBCTK ;
+/*char        STBTYPE ;*/
+/*char        STBMONOPHASE ;*/
+/*char        STBLEVEL ;*/
+/*char        STBCONT ;*/
+/*char        STBFILE ;*/
+/*char        STBCTK ;*/
 long        MaxSig ;
 static      Widget XtasStbAnalysisWidget = NULL ;
 chain_list *XTAS_STB_SESSION             = NULL ;
@@ -87,7 +87,7 @@ extern  long  CTK_REPORT_DELTA_SLOPE_MIN;
 extern  float CTK_REPORT_CTK_MIN        ;
 extern  long  CTK_REPORT_NOISE_MIN      ; 
 
-//extern void rcx_env_error( char *msg );
+/*extern void rcx_env_error( char *msg );*/
 
 xtas_stb_param_struct *XtasStbParam = NULL;
 
@@ -369,11 +369,11 @@ XtPointer call_data ;
  /* supprime pour avoir acces aux info sur les crosstalk 
   * dans la fenetre Detailed Path sans avoir a garder 
   * la fenetere de Stability Resulte ouverte */
-// if(XtasMainParam->stbfig != NULL) {
-//    stb_ctk_clean(XtasMainParam->stbfig); 
-// 	stb_delstbfig(XtasMainParam->stbfig) ;
-// 	XtasMainParam->stbfig = NULL  ;
-// }
+/* if(XtasMainParam->stbfig != NULL) {*/
+/*    stb_ctk_clean(XtasMainParam->stbfig); */
+/* 	stb_delstbfig(XtasMainParam->stbfig) ;*/
+/* 	XtasMainParam->stbfig = NULL  ;*/
+/* }*/
  TTV_MAX_SIG = MaxSig  ;
 }
 
@@ -630,7 +630,7 @@ XtPointer call_data ;
    XtFree( tas_current_signal) ;
  tas_current_signal = XmTextGetString( widget ) ;
  XtVaSetValues (widget, XmNcursorPositionVisible, True, NULL);
- XtasStbSigName = tas_current_signal  ; //pour interfacage avec debug
+ XtasStbSigName = tas_current_signal  ; /*pour interfacage avec debug*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1553,7 +1553,7 @@ stbfig_list *stbfig  ;
                                                NULL ) ;
  n = 0 ;
  sprintf (text_title, XTAS_NAME": Stability Analysis Results - %s", XtasMainParam->ttvfig->INFO->FIGNAME);
-// XtSetArg( args[n], XmNtitle , XTAS_NAME": Stability Analysis Results") ;n++ ;
+/* XtSetArg( args[n], XmNtitle , XTAS_NAME": Stability Analysis Results") ;n++ ;*/
  XtSetArg( args[n], XmNtitle, text_title) ;n++ ;
  if(XTAS_DISPLAY_NEW)  { 
          XtSetArg( args[n], XmNwidth, 850) ; n++ ;
@@ -1645,17 +1645,17 @@ int    XtasStbGetParamValue (void)
         }
 
 
-//        switch(XTAS_STB_CTK_CACHE_UNIT) {
-//            case   XTAS_STB_CACHE_UNIT_KB  :
-//                RCN_CACHE_SIZE =  (val * 1024)/(long)1;
-//                break;
-//            case   XTAS_STB_CACHE_UNIT_MB  :
-//                XtasStbParam->cache_size =  (val * 1048576)/(long)1;
-//                break;
-//            case   XTAS_STB_CACHE_UNIT_GB  :
-//                RCN_CACHE_SIZE =  (val * 1073741824)/(long)1;
-//                break;
-//        }
+/*        switch(XTAS_STB_CTK_CACHE_UNIT) {*/
+/*            case   XTAS_STB_CACHE_UNIT_KB  :*/
+/*                RCN_CACHE_SIZE =  (val * 1024)/(long)1;*/
+/*                break;*/
+/*            case   XTAS_STB_CACHE_UNIT_MB  :*/
+/*                XtasStbParam->cache_size =  (val * 1048576)/(long)1;*/
+/*                break;*/
+/*            case   XTAS_STB_CACHE_UNIT_GB  :*/
+/*                RCN_CACHE_SIZE =  (val * 1073741824)/(long)1;*/
+/*                break;*/
+/*        }*/
     }
 
     if((XtasStbParam->ctk_var & STB_CTK_REPORT) == STB_CTK_REPORT) { 
@@ -1730,7 +1730,7 @@ int    XtasStbGetParamValue (void)
 /*---------------------------------------------------------------------------*/
 void    XtasStbUpdateVariables (void)
 {
-//    STB_SILENT          = 'N';
+/*    STB_SILENT          = 'N';*/
     STB_ANALYSIS_VAR    = XtasStbParam->analysis_var;
     STB_GRAPH_VAR       = XtasStbParam->graph_var   ;
     STB_MODE_VAR        = XtasStbParam->mode_var    ;
@@ -1846,9 +1846,9 @@ Widget  widget ;
 XtPointer client_data ;
 XtPointer call_data ;
 {
-  //XtVaSetValues(CTK_TOGGLE, XmNset, False, NULL);
-  //XtSetSensitive(FILE_TTX_TOGGLE, True);
-  //XtSetSensitive(CTK_FORM, False);
+  /*XtVaSetValues(CTK_TOGGLE, XmNset, False, NULL);*/
+  /*XtSetSensitive(FILE_TTX_TOGGLE, True);*/
+  /*XtSetSensitive(CTK_FORM, False);*/
 /*  XalLeaveLimitedLoop() ;*/
 }
 
@@ -2323,7 +2323,7 @@ XtPointer cbs  ;
         XTAS_STB_CTK_CACHE_UNIT = XTAS_STB_CACHE_UNIT_MB;
     else        XTAS_STB_CTK_CACHE_UNIT = XTAS_STB_CACHE_UNIT_GB;
 
-    //mbkfree(text);
+    /*mbkfree(text);*/
 }
 #endif
 
@@ -2383,10 +2383,10 @@ XtPointer call_data ;
   Widget   form, form_t, dbase_form, ebase_form, fbase_form  ;
   Widget   row_widget, row2, frame_widget, label_widget, toggle, tmp_widget ;
   Widget   gbase_form, hbase_form, option_form, button;
-//  Widget   unit_list;
-//  int count_unit = XtNumber (CACHE_UNIT);
-//  int i;
-//  XmStringTable str_list;
+/*  Widget   unit_list;*/
+/*  int count_unit = XtNumber (CACHE_UNIT);*/
+/*  int i;*/
+/*  XmStringTable str_list;*/
   Atom     WM_DELETE_WINDOW;
   char     buf[128];
   Pixmap   pixmap;
@@ -2424,7 +2424,7 @@ XtPointer call_data ;
     XtAddCallback( XtasStbAnalysisWidget, XmNhelpCallback, XtasHelpCallback, (XtPointer)(XTAS_HELP_MAIN|XTAS_SRC_STABPARAM)) ;
     WM_DELETE_WINDOW = XmInternAtom(XtDisplay(XtasDeskMainForm), "WM_DELETE_WINDOW", False);
     XmAddWMProtocolCallback(XtParent(XtasStbAnalysisWidget), WM_DELETE_WINDOW, XtasCancelStabilityCallback, (XtPointer )XtasStbAnalysisWidget);
-    //XmAddTabGroup( XtasStbAnalysisWidget ) ;
+    /*XmAddTabGroup( XtasStbAnalysisWidget ) ;*/
 
     n = 0 ;
     form = XtCreateManagedWidget( "XtasDeskMainForm", xmFormWidgetClass, XtasStbAnalysisWidget, args, n ) ;
@@ -2453,15 +2453,15 @@ XtPointer call_data ;
 
 
     /****** CTK ******/
-//    n = 0 ;
-//    XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ) ; n++ ;
-//    XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ) ; n++ ;
-//    XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ) ; n++ ;
-//    dbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, form, args, n ) ;
-//    form_t = dbase_form ;
-//    n = 0 ;
-//    ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, dbase_form, args, n ) ; 
-//
+/*    n = 0 ;*/
+/*    XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ) ; n++ ;*/
+/*    dbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, form, args, n ) ;*/
+/*    form_t = dbase_form ;*/
+/*    n = 0 ;*/
+/*    ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, dbase_form, args, n ) ; */
+/**/
     text = XmStringCreateSimple( "Crosstalk Analysis" ) ;
     CTK_TOGGLE = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, ANALYSIS_FORM,
                                       XmNset,           ((XtasStbParam->ctk_var & STB_CTK) == STB_CTK) ? True:False,
@@ -2540,7 +2540,7 @@ XtPointer call_data ;
                                            XmNradioBehavior,   True,
                                            XmNradioAlwaysOne,  True,
                                            NULL) ;
-    //XmAddTabGroup( row_widget ) ;
+    /*XmAddTabGroup( row_widget ) ;*/
 
     
 
@@ -2579,13 +2579,13 @@ XtPointer call_data ;
 
 
     /*--------------------- Stop conditions ---------------------------------------------*/
-//    n = 0 ;
-//    XtSetArg( args[n], XmNborderWidth,      0                 ) ; n++ ;
-//    XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ) ; n++ ;
-//    XtSetArg( args[n], XmNtopWidget,        ebase_form        ) ; n++ ;
-//    XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ) ; n++ ;
-//    XtSetArg( args[n], XmNleftWidget,       ebase_form        ) ; n++ ;
-//    ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, fbase_form, args, n ) ;
+/*    n = 0 ;*/
+/*    XtSetArg( args[n], XmNborderWidth,      0                 ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNtopWidget,        ebase_form        ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNleftWidget,       ebase_form        ) ; n++ ;*/
+/*    ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, fbase_form, args, n ) ;*/
 
     n = 0 ;
     XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ) ; n++ ;
@@ -2635,7 +2635,7 @@ XtPointer call_data ;
                                            XmNorientation,     XmVERTICAL,
                                            XmNisAligned,       True,
                                            NULL) ;
-  //XmAddTabGroup( row_widget ) ;
+  /*XmAddTabGroup( row_widget ) ;*/
     /*------------------------------------------------------------------------------------------*/
     n = 0 ;
     XtSetArg( args[n], XmNborderWidth,      0                 ) ; n++ ;
@@ -2992,36 +2992,36 @@ XtPointer call_data ;
 
     XmTextSetString( STBCACHESIZE, buf) ;       
 
-//#if XTAS_MOTIF_VERSION >= 20100
-//    /* create the List items */
-//    str_list = (XmStringTable) XtMalloc (count_unit * sizeof (XmString *));
-//    
-//    for (i = 0; i < count_unit; i++)
-//        str_list[i] = XmStringCreateLocalized (CACHE_UNIT[i]);
-//    
-//    /* create the combobox */
-//    n = 0;
-//    XtSetArg (args[n], XmNleftAttachment,   XmATTACH_WIDGET ); n++;
-//    XtSetArg (args[n], XmNleftWidget,       STBCACHESIZE    ); n++;
-//    XtSetArg (args[n], XmNleftOffset,       10              ); n++;
-//    XtSetArg( args[n], XmNwidth,            60              ); n++;
-//    XtSetArg (args[n], XmNitems,            str_list        ); n++;
-//    XtSetArg (args[n], XmNitemCount,        count_unit      ); n++;
-//    XtSetArg (args[n], XmNpositionMode,     XmONE_BASED     ); n++;
-//    XtSetArg (args[n], XmNselectedPosition, 2               ); n++;
-//    CACHE_UNIT_LIST= XmCreateDropDownList (USECACHE_FORM, "XtasList", args, n);
-//    //XtAddCallback (list_w, XmNdefaultActionCallback, sel_callback, NULL);
-//    
-//    
-//    for (i = 0; i < count_unit; i++)
-//        XmStringFree (str_list[i]);
-//    XtFree ((XtPointer) str_list);  
-//
-//    XtAddCallback (CACHE_UNIT_LIST, XmNselectionCallback, XtasAnalysisCtkCacheUnitCallback, NULL);
-//    XTAS_STB_CTK_CACHE_UNIT = XTAS_STB_CACHE_UNIT_MB;
-//
-//    XtManageChild (CACHE_UNIT_LIST);   
-//#else
+/*#if XTAS_MOTIF_VERSION >= 20100*/
+/*    /* create the List items */
+/*    str_list = (XmStringTable) XtMalloc (count_unit * sizeof (XmString *));*/
+/*    */
+/*    for (i = 0; i < count_unit; i++)*/
+/*        str_list[i] = XmStringCreateLocalized (CACHE_UNIT[i]);*/
+/*    */
+/*    /* create the combobox */
+/*    n = 0;*/
+/*    XtSetArg (args[n], XmNleftAttachment,   XmATTACH_WIDGET ); n++;*/
+/*    XtSetArg (args[n], XmNleftWidget,       STBCACHESIZE    ); n++;*/
+/*    XtSetArg (args[n], XmNleftOffset,       10              ); n++;*/
+/*    XtSetArg( args[n], XmNwidth,            60              ); n++;*/
+/*    XtSetArg (args[n], XmNitems,            str_list        ); n++;*/
+/*    XtSetArg (args[n], XmNitemCount,        count_unit      ); n++;*/
+/*    XtSetArg (args[n], XmNpositionMode,     XmONE_BASED     ); n++;*/
+/*    XtSetArg (args[n], XmNselectedPosition, 2               ); n++;*/
+/*    CACHE_UNIT_LIST= XmCreateDropDownList (USECACHE_FORM, "XtasList", args, n);*/
+/*    //XtAddCallback (list_w, XmNdefaultActionCallback, sel_callback, NULL);*/
+/*    */
+/*    */
+/*    for (i = 0; i < count_unit; i++)*/
+/*        XmStringFree (str_list[i]);*/
+/*    XtFree ((XtPointer) str_list);  */
+/**/
+/*    XtAddCallback (CACHE_UNIT_LIST, XmNselectionCallback, XtasAnalysisCtkCacheUnitCallback, NULL);*/
+/*    XTAS_STB_CTK_CACHE_UNIT = XTAS_STB_CACHE_UNIT_MB;*/
+/**/
+/*    XtManageChild (CACHE_UNIT_LIST);   */
+/*#else*/
     text = XmStringCreateSimple("Mb");
     n = 0;
     XtSetArg (args[n], XmNtopAttachment,    XmATTACH_FORM   ); n++;
@@ -3032,7 +3032,7 @@ XtPointer call_data ;
     XtSetArg (args[n], XmNlabelString,      text            ); n++;
     CACHE_UNIT_LIST = XtCreateManagedWidget( "XtasMainTitles", xmLabelWidgetClass, USECACHE_FORM, args, n ) ;
     XmStringFree( text ) ;
-//#endif    
+/*#endif    */
 
     XtSetSensitive(CTK_FORM, ((XtasStbParam->ctk_var & STB_CTK) == STB_CTK) ? True:False);
     
@@ -3077,7 +3077,7 @@ XtPointer call_data ;
     XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ) ; n++ ;
     XtSetArg ( args[n], XmNtopWidget,       frame_widget      ); n++;
     XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ) ; n++ ;
-//    XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ) ; n++ ;
+/*    XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ) ; n++ ;*/
     hbase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, ebase_form, args, n ) ;
 
     text = XmStringCreateSimple( "Capacitance For Delays" ) ;
@@ -3191,16 +3191,16 @@ XtPointer call_data ;
     XtAddCallback( toggle, XmNvalueChangedCallback, XtasAnalysisCtkNoiseCallback, (XtPointer)RCX_NOISE_FINE) ;
 
 /*--------------------------------- horizontal separator ----------------------------------------*/
-//    n = 0 ;
-//    XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM   ) ; n++ ;
-//    XtSetArg( args[n], XmNleftOffset,       5              ) ; n++ ;
-//    XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM   ) ; n++ ;
-//    XtSetArg( args[n], XmNrightOffset,      5              ) ; n++ ;
-//    XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET ) ; n++ ;
-//    XtSetArg( args[n], XmNtopWidget,        row_widget      ) ; n++ ;
-//    XtSetArg( args[n], XmNtopOffset,        5               ) ; n++ ;
-//    XtSetArg( args[n], XmNorientation,      XmHORIZONTAL    ) ; n++ ;
-//    gbase_form = XtCreateManagedWidget( "XtasSeparator", xmSeparatorWidgetClass, hbase_form, args, n ) ;
+/*    n = 0 ;*/
+/*    XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM   ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNleftOffset,       5              ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM   ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNrightOffset,      5              ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNtopWidget,        row_widget      ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNtopOffset,        5               ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNorientation,      XmHORIZONTAL    ) ; n++ ;*/
+/*    gbase_form = XtCreateManagedWidget( "XtasSeparator", xmSeparatorWidgetClass, hbase_form, args, n ) ;*/
 
     /*------------------------------------------------------------------------------------------*/
     n = 0;
@@ -3244,7 +3244,7 @@ XtPointer call_data ;
     XtSetArg ( args[n], XmNleftAttachment,  XmATTACH_WIDGET     ); n++;
     XtSetArg ( args[n], XmNleftWidget,      label_widget        ); n++;
     XtSetArg ( args[n], XmNleftOffset,      10        ); n++;
-//    XtSetArg ( args[n], XmNheight,          30                  ); n++;
+/*    XtSetArg ( args[n], XmNheight,          30                  ); n++;*/
     XtSetArg ( args[n], XmNwidth,           45                  ); n++;
     CTK_MARGIN = XtCreateManagedWidget ("XtasUserField", xmTextWidgetClass, gbase_form, args, n);
     sprintf (buf, "%ld", XtasStbParam->ctk_margin);
@@ -3260,7 +3260,7 @@ XtPointer call_data ;
     XtSetArg ( args[n], XmNleftWidget,      CTK_MARGIN      ); n++;
     XtSetArg ( args[n], XmNleftOffset,      10 ); n++;
     XtSetArg ( args[n], XmNlabelString,     text            ); n++;
-//    XtSetArg ( args[n], XmNheight,          30              ); n++;
+/*    XtSetArg ( args[n], XmNheight,          30              ); n++;*/
     label_widget = XtCreateManagedWidget ("XtasLabels", xmLabelWidgetClass, gbase_form, args, n);
     XmStringFree (text);
 
@@ -3272,7 +3272,7 @@ XtPointer call_data ;
     XtSetArg( args[n], XmNtopOffset,        10              ) ; n++ ;
     XtSetArg( args[n], XmNbottomAttachment, XmATTACH_WIDGET ) ; n++ ;
     XtSetArg( args[n], XmNbottomWidget,     gbase_form      ) ; n++ ;
-  //  XtSetArg( args[n], XmNbottomOffset,     5               ) ; n++ ;
+  /*  XtSetArg( args[n], XmNbottomOffset,     5               ) ; n++ ;*/
     XtSetArg( args[n], XmNorientation,      XmVERTICAL      ) ; n++ ;
     gbase_form = XtCreateManagedWidget( "XtasSeparator", xmSeparatorWidgetClass, ebase_form, args, n ) ;
     
@@ -3553,7 +3553,7 @@ XtPointer call_data ;
                                            XmNradioBehavior,   True,
                                            XmNradioAlwaysOne,  True,
                                            NULL) ;
-    //XmAddTabGroup( row_widget ) ;
+    /*XmAddTabGroup( row_widget ) ;*/
 
     text = XmStringCreateSimple( "Flip Flop" ) ;
     toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
@@ -3627,7 +3627,7 @@ XtPointer call_data ;
                                            XmNradioBehavior,   True,
                                            XmNradioAlwaysOne,  True,
                                            NULL) ;
-    //XmAddTabGroup( row_widget ) ;
+    /*XmAddTabGroup( row_widget ) ;*/
 
     text = XmStringCreateSimple( "All Levels" ) ;
     toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
@@ -3693,7 +3693,7 @@ XtPointer call_data ;
                                            XmNradioBehavior,   False,
                                            XmNradioAlwaysOne,  False,
                                            NULL) ;
-    //XmAddTabGroup( row_widget ) ;
+    /*XmAddTabGroup( row_widget ) ;*/
 
     text = XmStringCreateSimple( "Setup" ) ;
     toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
@@ -3758,7 +3758,7 @@ XtPointer call_data ;
                                            XmNradioBehavior,   False,
                                            XmNradioAlwaysOne,  False,
                                            NULL) ;
-    //XmAddTabGroup( row_widget ) ;
+    /*XmAddTabGroup( row_widget ) ;*/
 
     text = XmStringCreateSimple( "sto" ) ;
     toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
@@ -3824,7 +3824,7 @@ XtPointer call_data ;
                                            XmNradioBehavior,   True,
                                            XmNradioAlwaysOne,  True,
                                            NULL) ;
-    //XmAddTabGroup( row_widget ) ;
+    /*XmAddTabGroup( row_widget ) ;*/
 
     text = XmStringCreateSimple( "ttx" ) ;
     FILE_TTX_TOGGLE = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
@@ -3853,7 +3853,7 @@ XtPointer call_data ;
     XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ) ; n++ ;
     XtSetArg( args[n], XmNrightAttachment,  XmATTACH_POSITION ) ; n++ ;
     XtSetArg( args[n], XmNrightPosition,    70                ) ; n++ ;
-//    XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ) ; n++ ;
+/*    XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ) ; n++ ;*/
     dbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, form, args, n ) ;
     form_t = dbase_form ;
     n = 0 ;
@@ -3904,7 +3904,7 @@ XtPointer call_data ;
     XtSetArg( args[n], XmNshadowThickness,       2                 ) ; n++ ;
 
     STBMARGIN = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, fbase_form, args, n) ;
-    //XmAddTabGroup( STBMARGIN ) ;
+    /*XmAddTabGroup( STBMARGIN ) ;*/
     XmTextSetString( STBMARGIN, "0" ) ;
 
     text = XmStringCreateSimple( "Number of Error" ) ;
@@ -3919,7 +3919,7 @@ XtPointer call_data ;
     XtSetArg( args[n], XmNleftAttachment,        XmATTACH_WIDGET   ) ; n++ ;
     XtSetArg( args[n], XmNleftWidget,            STBMARGIN      ) ; n++ ;
     XtSetArg( args[n], XmNleftOffset,            50      ) ; n++ ;
-//    XtSetArg( args[n], XmNheight,           30                ) ; n++ ;
+/*    XtSetArg( args[n], XmNheight,           30                ) ; n++ ;*/
     XtSetArg( args[n], XmNwidth,            120               ) ; n++ ;
     label_widget = XtCreateManagedWidget( "XtasSubTitles", xmLabelGadgetClass, fbase_form, args, n ) ;
     XmStringFree( text ) ;
@@ -3936,7 +3936,7 @@ XtPointer call_data ;
     XtSetArg( args[n], XmNshadowThickness,       2                 ) ; n++ ;
 
     NBERROR = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, fbase_form, args, n) ;
-    //XmAddTabGroup( NBERROR ) ;
+    /*XmAddTabGroup( NBERROR ) ;*/
     XmTextSetString( NBERROR ,"100" ) ;
 /****---------****/
     n = 0 ;
@@ -4003,7 +4003,7 @@ XtPointer call_data ;
                                      XmNlabelType,         XmPIXMAP,
                                      XmNlabelPixmap,       pixmap,
                                      XmNwidth,             40,
-                               //      XmNheight,            60,
+                               /*      XmNheight,            60,*/
                                      XmNpushButtonEnabled, True,
                                      XmNsensitive, True,
       		                         XmNtopAttachment,     XmATTACH_OPPOSITE_WIDGET,

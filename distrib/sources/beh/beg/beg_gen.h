@@ -40,7 +40,7 @@
 
 #define BEG_HTSIZE             50
 
-// error and warning
+/* error and warning*/
 #define BEG_ERR_SING_N_VECT   "001"
 #define BEG_ERR_BETYPE        "002"
 #define BEG_ERR_OUT_AS_IN     "003"
@@ -63,7 +63,7 @@
     
 #define BEG_TRA_X             "017"
 
-// structure for loop detection
+/* structure for loop detection*/
 typedef struct beg_ld
 {
   struct beg_ld     *NEXT       ;
@@ -83,7 +83,7 @@ typedef struct beg_ld
   char              *LVAR       ;
 } beg_ld_list;
 
-// structure for beg
+/* structure for beg*/
 typedef struct beg_obj
 {
   struct beg_obj    *NEXT       ;
@@ -102,17 +102,17 @@ typedef struct beg_obj
 beg_obj_list;
 
 
-//extern    befig_list      *BEG_HEAD_BEFIG;
-//extern    befig_list      *BEG_WORK_BEFIG;
-//
-//extern    BEG_OBJ          BEG_WORKLIST;
-//
-//extern    ht              *BEG_POR_TABLE;
-//extern    ht              *BEG_SIG_TABLE;
-//
-//extern    chain_list      *BEG_POT_LIST; // potentially-in-port list
+/*extern    befig_list      *BEG_HEAD_BEFIG;*/
+/*extern    befig_list      *BEG_WORK_BEFIG;*/
+/**/
+/*extern    BEG_OBJ          BEG_WORKLIST;*/
+/**/
+/*extern    ht              *BEG_POR_TABLE;*/
+/*extern    ht              *BEG_SIG_TABLE;*/
+/**/
+/*extern    chain_list      *BEG_POT_LIST; // potentially-in-port list*/
 
-// parser function
+/* parser function*/
 extern chain_list      *beg_genStr2Abl      (char             *str);
 extern chain_list      *beg_genStable       (chain_list       *atm, int attrib);
 extern chain_list      *beg_genEquCnd       (chain_list *abl, chain_list *bitstr);

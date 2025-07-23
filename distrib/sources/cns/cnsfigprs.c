@@ -80,7 +80,7 @@ loadcnsfig(char *filename, lofig_list *ptlofig)
 {
     cnsfig_list    *ptcnsfig;
     
-    //static int first_time=1;
+    /*static int first_time=1;*/
     if (CNS_TRACE_MODE >= CNS_TRACE)
         (void) printf("TRA_cns loadcnsfig in\n");
 
@@ -108,7 +108,7 @@ loadcnsfig(char *filename, lofig_list *ptlofig)
         cnsfigyydebug = 0;
         setcnslofig(ptlofig);
 	
-	// zinaps le 31/12/2002
+	/* zinaps le 31/12/2002*/
 /*	if (first_time==1) first_time=0;
         else cnsfigyyrestart(); 
 */

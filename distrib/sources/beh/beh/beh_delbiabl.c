@@ -58,7 +58,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
         {
         if ((ptbiabl->VALABL != NULL) || (ptbiabl->CNDABL != NULL))
           beh_warning(310,NULL,NULL);
-          //(stderr,"BEH_warning : biabl not empty\n");
+          /*(stderr,"BEH_warning : biabl not empty\n");*/
         }
       else
         {

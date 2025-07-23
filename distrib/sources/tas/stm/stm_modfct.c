@@ -37,7 +37,7 @@ static timing_function *stm_modfct_alloc(char *ins, char *localname,
   tfct->FCT         = (APICallFunc *)mbkalloc(sizeof(APICallFunc));
   tfct->FCT->NAME   = cf->NAME;
   tfct->FCT->ARGS   = APIDupARGS(cf->ARGS);
-//  tfct->CACHE       = NULL;
+/*  tfct->CACHE       = NULL;*/
   tfct->SHARE       = NULL;
 
   return tfct;
@@ -56,7 +56,7 @@ timing_function *stm_modfct_duplicate (timing_function *fct)
   else
   {
     res     = stm_modfct_alloc(fct->INS,fct->LOCALNAME,fct->FCT);
-//    stm_modfct_alloc_cache(res,stm_getCache(fct));
+/*    stm_modfct_alloc_cache(res,stm_getCache(fct));*/
     stm_modfct_share(res,fct);
     
     return res;
@@ -81,7 +81,7 @@ void stm_modfct_destroy (timing_function *fct)
     if (!fct) return;
 
     APIFreeTARGS(fct->FCT->ARGS);
-//    stm_freeCache(fct->CACHE);
+/*    stm_freeCache(fct->CACHE);*/
     stm_modfct_unShare(fct->SHARE);
     mbkfree(fct->FCT);
     mbkfree(fct);

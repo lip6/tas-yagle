@@ -40,7 +40,7 @@ static inline int __Compare_Vector(tree_list *instance, tree_list *model,
   int bound1,bound2;
   if (!instance || !model) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 225);
-//    fprintf(stderr,"__Compare_Vector: NULL pointer\n");
+/*    fprintf(stderr,"__Compare_Vector: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(instance)) {
@@ -56,22 +56,22 @@ static inline int __Compare_Vector(tree_list *instance, tree_list *model,
     if (TOKEN(model)==GEN_TOKEN_TO) {
       bound1=Verif_Exp_VHDL(instance->NEXT/*low*/,env_instance);
       bound2=Verif_Exp_VHDL(model->NEXT/*low*/,env_model);
-//      printf("HERE3 \n");
+/*      printf("HERE3 \n");*/
       if (bound1!=bound2) return 1;
       bound1=Verif_Exp_VHDL(instance->NEXT->NEXT/*high*/,env_instance);
       bound2=Verif_Exp_VHDL(model->NEXT->NEXT/*high*/,env_model);
-//      printf("HERE4 \n");
+/*      printf("HERE4 \n");*/
       if (bound1!=bound2) return 1;
       return 0;
     }
     else if (TOKEN(model)==GEN_TOKEN_DOWNTO) {
       bound1=Verif_Exp_VHDL(instance->NEXT/*low*/,env_instance);
       bound2=Verif_Exp_VHDL(model->NEXT->NEXT/*low*/,env_model);
-//      printf("HERE2 \n");
+/*      printf("HERE2 \n");*/
       if (bound1!=bound2) return 1;
       bound1=Verif_Exp_VHDL(instance->NEXT->NEXT/*high*/,env_instance);
       bound2=Verif_Exp_VHDL(model->NEXT/*high*/,env_model);
-//      printf("HERE1 \n");
+/*      printf("HERE1 \n");*/
       if (bound1!=bound2) return 1;
       return 0;
     }
@@ -120,7 +120,7 @@ extern int Compare_Vector(tree_list *instance, tree_list *model,
 { 
   if (!instance || !model) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 226);
-//    fprintf(stderr,"Compare_Vector: NULL pointer\n");
+/*    fprintf(stderr,"Compare_Vector: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(instance)) {
@@ -163,7 +163,7 @@ static inline int __Bound_Vector(tree_list *instance, tree_list *model,
 { 
   if (!instance || !model) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 227);
-//    fprintf(stderr,"__Bound_Vector: NULL pointer\n");
+/*    fprintf(stderr,"__Bound_Vector: NULL pointer\n");*/
     EXIT(1);
   }
   return 0;
@@ -232,7 +232,7 @@ static inline int __Bound_Vector(tree_list *instance, tree_list *model,
     else return 1;
     break;
   default: /*it's surely an exp*/
-    // zinaps: on n'a pas d'information sur les variables, on ne peut donc pas tester les bornes ici
+    /* zinaps: on n'a pas d'information sur les variables, on ne peut donc pas tester les bornes ici*/
 #if 0
     if (TOKEN(model)==GEN_TOKEN_TO) {
       int bound, bound_up,bound_down;
@@ -270,7 +270,7 @@ extern int Bound_Vector(tree_list *instance, tree_list *model,
 { 
   if (!instance || !model) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 228);
-//    fprintf(stderr,"Bound_Vector: NULL pointer\n");
+/*    fprintf(stderr,"Bound_Vector: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(instance)) {
@@ -310,7 +310,7 @@ static inline int __Verif_Vector(tree_list *tree, ptype_list *env)
   int res1,res2;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 229);
-//    fprintf(stderr,"__Verif_Vector: NULL pointer\n");
+/*    fprintf(stderr,"__Verif_Vector: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -367,7 +367,7 @@ extern int Verif_Vector(tree_list *tree, ptype_list *env)
 { 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 230);
-//    fprintf(stderr,"Verif_Vector: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Vector: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -401,7 +401,7 @@ static inline int __Size_Vector(tree_list *tree, ptype_list *env)
   int res1,res2;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 231);
-//    fprintf(stderr,"__Size_Vector: NULL pointer\n");
+/*    fprintf(stderr,"__Size_Vector: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -416,13 +416,13 @@ static inline int __Size_Vector(tree_list *tree, ptype_list *env)
     nbvars+=__Count_Vars_Exp_VHDL(tree->NEXT)+__Count_Vars_Exp_VHDL(tree->NEXT->NEXT);
     if (res1<0 || res2<0) {
     avt_errmsg(GNS_ERRMSG, "159", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-//      fprintf(stderr,"%s:%d: negative vector index\n", FILE_NAME(tree),LINE(tree));
+/*      fprintf(stderr,"%s:%d: negative vector index\n", FILE_NAME(tree),LINE(tree));*/
       Inc_Error();
       return (res1<res2)?res2-res1+1:res1-res2+1;
     }
     if (res1>res2) {
     avt_errmsg(GNS_ERRMSG, "160", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-//      fprintf(stderr,"%s:%d: vector direction error\n", FILE_NAME(tree),LINE(tree));
+/*      fprintf(stderr,"%s:%d: vector direction error\n", FILE_NAME(tree),LINE(tree));*/
       Inc_Error();
       return res1-res2+1;
     }
@@ -435,13 +435,13 @@ static inline int __Size_Vector(tree_list *tree, ptype_list *env)
     nbvars+=__Count_Vars_Exp_VHDL(tree->NEXT)+__Count_Vars_Exp_VHDL(tree->NEXT->NEXT);
     if (res1<0 || res2<0) {
     avt_errmsg(GNS_ERRMSG, "159", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-    //  fprintf(stderr,"%s:%d: negative vector index\n", FILE_NAME(tree),LINE(tree));
+    /*  fprintf(stderr,"%s:%d: negative vector index\n", FILE_NAME(tree),LINE(tree));*/
       Inc_Error();
       return (res1<res2)?res2-res1+1:res1-res2+1;
     }
     if (res1>res2) {
     avt_errmsg(GNS_ERRMSG, "160", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-    //  fprintf(stderr,"%s:%d: vector direction error\n", FILE_NAME(tree),LINE(tree));
+    /*  fprintf(stderr,"%s:%d: vector direction error\n", FILE_NAME(tree),LINE(tree));*/
       Inc_Error();
       return res1-res2+1;
     }
@@ -463,7 +463,7 @@ extern int Size_Vector(tree_list *tree, ptype_list *env)
 { 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 232);
-//    fprintf(stderr,"Size_Vector: NULL pointer\n");
+/*    fprintf(stderr,"Size_Vector: NULL pointer\n");*/
     EXIT(1);
   }
   nbvars=0;

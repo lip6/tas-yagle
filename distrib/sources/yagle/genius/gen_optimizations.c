@@ -48,7 +48,7 @@ int SameRadical(char *a, char *b)
 }
 
 
-// acceleration des operation sur lofig chain
+/* acceleration des operation sur lofig chain*/
 
 char *ccname(locon_list *lc)
 {
@@ -128,7 +128,7 @@ void checklofig(losig_list *ls)
     {
       p=getptype(ls->USER,LOFIGCHAIN);
 
-      pred=(chain_list *)MAKEHEAD((long)&p->DATA); // tres dangereux : alignement sur 1 octet
+      pred=(chain_list *)MAKEHEAD((long)&p->DATA); /* tres dangereux : alignement sur 1 octet*/
       for (cl=(chain_list *)p->DATA; cl!=NULL; pred=cl, cl=cl->NEXT)
        {
          lc=(locon_list *)cl->DATA;
@@ -167,7 +167,7 @@ void createlofigchainhash(losig_list *ls)
     {
       p=getptype(ls->USER,LOFIGCHAIN);
 
-      pred=(chain_list *)MAKEHEAD((long)&p->DATA); // tres dangereux : alignement sur 1 octet
+      pred=(chain_list *)MAKEHEAD((long)&p->DATA); /* tres dangereux : alignement sur 1 octet*/
 
       for (cl=(chain_list *)p->DATA; cl!=NULL; pred=cl, cl=cl->NEXT)
        {
@@ -222,7 +222,7 @@ int fastremovelofigchainconnector(losig_list *ls, locon_list *lc)
       else
        {
          prev=(chain_list *)item;
-         next=prev->NEXT; // it's <lc>
+         next=prev->NEXT; /* it's <lc>*/
          prev->NEXT=prev->NEXT->NEXT;
        }
       
@@ -269,9 +269,9 @@ void fastswaplofigchain(losig_list *ls, locon_list *lc, locon_list *newcl, int n
   if ((p=getptype(ls->USER,FAST_LOFIGCHAIN_PTYPE))!=NULL)
     {
       p=getptype(ls->USER,LOFIGCHAIN);
-      if (p->DATA!=NULL) // on ne sait jamais
+      if (p->DATA!=NULL) /* on ne sait jamais*/
        {
-         // newcl and cl USER have been swapped
+         /* newcl and cl USER have been swapped*/
          p1=getptype(newcl->USER, FAST_LOFIGCHAIN_PTYPE);
 
          item=(long)p1->DATA;
@@ -281,7 +281,7 @@ void fastswaplofigchain(losig_list *ls, locon_list *lc, locon_list *newcl, int n
              if (cl->DATA!=lc) 
               {
           avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 34);
-//                printf("%s found instead of %s\n",ccname(cl->DATA), ccname(lc));
+/*                printf("%s found instead of %s\n",ccname(cl->DATA), ccname(lc));*/
                 EXIT(68);
               }
              cl->DATA=newcl;
@@ -292,20 +292,20 @@ void fastswaplofigchain(losig_list *ls, locon_list *lc, locon_list *newcl, int n
              if (cl->NEXT->DATA!=lc) 
               {
           avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 35);
-//                printf("%s found instead of %s\n",ccname(cl->NEXT->DATA), ccname(lc));
+/*                printf("%s found instead of %s\n",ccname(cl->NEXT->DATA), ccname(lc));*/
                 EXIT(69);
               }
              cl->NEXT->DATA=newcl;
            }
 
-//         checklofig(ls);
+/*         checklofig(ls);*/
          return;
        }
     }
 
   p=getptype(ls->USER,LOFIGCHAIN);
   for (cl=(chain_list *)p->DATA, count=0;cl!=NULL && cl->DATA!=lc; cl=cl->NEXT, count++) ;
-  if (cl==NULL) //EXIT(56);
+  if (cl==NULL) /*EXIT(56);*/
           avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 36);
   cl->DATA=newcl;
 
@@ -325,19 +325,19 @@ int fastaddlofigchainconnector(losig_list *ls, locon_list *lc)
   if ((p=getptype(ls->USER,FAST_LOFIGCHAIN_PTYPE))!=NULL)
     {
       p=getptype(ls->USER,LOFIGCHAIN);
-      if (p->DATA!=NULL) // on ne sait jamais
+      if (p->DATA!=NULL) /* on ne sait jamais*/
        {
          prems=(locon_list *)((chain_list *)p->DATA)->DATA;
          p1=getptype(prems->USER, FAST_LOFIGCHAIN_PTYPE);
 
-         // a enlever
-         if (!ISHEAD((long)p1->DATA)) //EXIT(65);
+         /* a enlever*/
+         if (!ISHEAD((long)p1->DATA)) /*EXIT(65);*/
           avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 37);
 
          p->DATA=addchain((chain_list *)p->DATA, lc);
          lc->USER=addptype(lc->USER, FAST_LOFIGCHAIN_PTYPE, p1->DATA);
          p1->DATA=p->DATA;
-//         checklofig(ls);
+/*         checklofig(ls);*/
 
          return 1;
        }
@@ -347,7 +347,7 @@ int fastaddlofigchainconnector(losig_list *ls, locon_list *lc)
   return 0;
 }
 
-// optimization des match failed en reordonnant les lofigchain
+/* optimization des match failed en reordonnant les lofigchain*/
 
 static ht *OFTEN_FAILING_SIGNALS=NULL;
 static chain_list *ALL_FAILING_SIGNALS=NULL;
@@ -471,12 +471,12 @@ void ProcessSignalStatistics()
              if (ch->NEXT->DATA==stat->lastunmatched) chcon=ch;
            }
          
-         if (ch!=NULL && ch->DATA!=stat->lastunmatched) // si ce n'est pas le dernier
+         if (ch!=NULL && ch->DATA!=stat->lastunmatched) /* si ce n'est pas le dernier*/
            {
              if (p->DATA!=NULL && ((chain_list *)p->DATA)->DATA==stat->lastunmatched) 
-              // si c'est le premier
+              /* si c'est le premier*/
               {
-                // first in the list
+                /* first in the list*/
                 wasfast=losigisspedup(ls);
                 if (wasfast) { preds=getpred((locon_list *)((chain_list *)p->DATA)->DATA); *preds=ch; } 
                 ch->NEXT= p->DATA;
@@ -489,7 +489,7 @@ void ProcessSignalStatistics()
               if (chcon!=NULL)
                 {
                   wasfast=losigisspedup(ls);
-                  //wasfast=updatefastlofigchain(ls);
+                  /*wasfast=updatefastlofigchain(ls);*/
                   if (wasfast) { preds=getpred((locon_list *)((chain_list *)p->DATA)->DATA); *preds=ch; } 
                   ch->NEXT=(chain_list *)p->DATA;
                   tmp=chcon->NEXT->NEXT;
@@ -507,11 +507,11 @@ void ProcessSignalStatistics()
       else
        if (stat->pass>15)
          {
-           // too old, remove
+           /* too old, remove*/
            DelHeapItem(&stat_heap, stat); 
            delhtitem(OFTEN_FAILING_SIGNALS, ls);
            if (gethtitem(OFTEN_FAILING_SIGNALS, ls)!=EMPTYHT)
-             avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 38); //EXIT(59);
+             avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 38); /*EXIT(59);*/
            if (pred==NULL) ALL_FAILING_SIGNALS=cl->NEXT;
            else pred->NEXT=cl->NEXT;
            cl->NEXT=NULL;
@@ -552,11 +552,11 @@ chain_list *RemoveLofigChainLocon(chain_list *cl, locon_list *lc)
 {
   chain_list *pred, *ch;
   if (cl==NULL) return NULL;
-  for (ch=cl, pred=NULL; ch!=NULL && ch->DATA!=lc; pred=ch, ch=ch->NEXT) ; //printf("%s ",ccname(ch->DATA));
+  for (ch=cl, pred=NULL; ch!=NULL && ch->DATA!=lc; pred=ch, ch=ch->NEXT) ; /*printf("%s ",ccname(ch->DATA));*/
   if (ch==NULL)
     {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 39);
-      //fprintf(stderr,"RemoveLofigChainLocon: locon '%s' not found (%s)\n",ccname(lc),(char *)lc->SIG->NAMECHAIN->DATA);
+      /*fprintf(stderr,"RemoveLofigChainLocon: locon '%s' not found (%s)\n",ccname(lc),(char *)lc->SIG->NAMECHAIN->DATA);*/
       EXIT(1);
     }
   if (pred!=NULL)
@@ -598,9 +598,9 @@ void TransistorKeyV2(lotrs_list *lt, long long *key0, long long *key1)
   res |= (s=KeyContrib2ValueFor(lt->SOURCE->SIG)) << 16;
   if (SPI_IGNORE_BULK=='N' && lt->BULK->SIG!=NULL)
     res |= KeyContrib2ValueFor(lt->BULK->SIG);
-  // else case does not matter
+  /* else case does not matter*/
   *key0=res;
-  res &= ~(long long)0x0ffffffff0000LL; // removes drain and source
+  res &= ~(long long)0x0ffffffff0000LL; /* removes drain and source*/
   res |= s << 32;
   res |= d << 16;
   *key1=res;
@@ -669,7 +669,7 @@ int QuickMatchChance(loins_list *model_ins, losig_list *ls, ptype_list *env)
   return QUICK_FAKE_MATCH;
 }
 
-void AddQuickMatchChance(losig_list *ls, long key) // toujours pour les fakes
+void AddQuickMatchChance(losig_list *ls, long key) /* toujours pour les fakes*/
 {
   long val;
   ht *h;

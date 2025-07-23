@@ -46,7 +46,7 @@ fclMarkCorrespondingSignal(char *signame, char *marks)
         }
         if (type == 0) {
             avt_errmsg(FCL_API_ERRMSG, "001", AVT_ERROR, pttok);
-            //printf("fclMarkSignal: Illegal markings\n");
+            /*printf("fclMarkSignal: Illegal markings\n");*/
             return 0;
         }
     }
@@ -56,7 +56,7 @@ fclMarkCorrespondingSignal(char *signame, char *marks)
     if ((type & FCL_BYPASS) == FCL_BYPASS) 
     {
       inf_AddString(ifl, INF_LOADED_LOCATION, signal->NAMECHAIN->DATA, INF_BYPASS, INF_ALL, getwhere());
-      //infAddList (ifl, INF_LOADED_LOCATION, signal->NAMECHAIN->DATA, INF_BYPASS, 'd',NULL, getwhere());
+      /*infAddList (ifl, INF_LOADED_LOCATION, signal->NAMECHAIN->DATA, INF_BYPASS, 'd',NULL, getwhere());*/
     }
     if ((ptuser = getptype(signal->USER, FCL_TRANSFER_PTYPE)) != NULL) {
         ptuser->DATA = (void *)((long)ptuser->DATA | type);
@@ -80,7 +80,7 @@ fclMarkCorrespondingTransistor(char *transname, char *marks)
     transistor = gns_GetCorrespondingTransistor(transname);
     if (transistor == NULL) {
         avt_errmsg(FCL_API_ERRMSG, "002", AVT_ERROR, transname);
-        //printf("fclMarkTransistor: transistor '%s' does not exist\n", transname);
+        /*printf("fclMarkTransistor: transistor '%s' does not exist\n", transname);*/
         return 0;
     }
     copymarks = mbkstrdup(marks);
@@ -93,7 +93,7 @@ fclMarkCorrespondingTransistor(char *transname, char *marks)
         }
         if (type == 0) {
             avt_errmsg(FCL_API_ERRMSG, "001", AVT_ERROR, pttok);
-//            printf("fclMarkTransistor: Illegal markings\n");
+/*            printf("fclMarkTransistor: Illegal markings\n");*/
             return 0;
         }
     }
@@ -119,7 +119,7 @@ fclOrientCorrespondingSignal(char *signame, int level)
         if (level > oldlevel) {
             newlevel = level;
             avt_errmsg(FCL_API_ERRMSG, "003", AVT_ERROR, signame, newlevel);
-//            printf("fclOrientSignal: multiple orientation on '%s', resolved to %u\n", signame, newlevel);
+/*            printf("fclOrientSignal: multiple orientation on '%s', resolved to %u\n", signame, newlevel);*/
         }
         else newlevel = oldlevel;
         ptuser->DATA = (void *)((long)newlevel);
@@ -146,7 +146,7 @@ fclCmpUpConstraint(chain_list *siglist)
         newchain = addchain(newchain, ptlosig->NAMECHAIN->DATA);
     }
     inf_AddList(INF_FIG, INF_LOADED_LOCATION, INF_CMPU, "", newchain, getwhere());
-//    ifl->LOADED.INF_CMPU = addchain(ifl->LOADED.INF_CMPU, newchain);
+/*    ifl->LOADED.INF_CMPU = addchain(ifl->LOADED.INF_CMPU, newchain);*/
 }
 
 void
@@ -166,7 +166,7 @@ fclCmpDnConstraint(chain_list *siglist)
         newchain = addchain(newchain, ptlosig->NAMECHAIN->DATA);
     }
     inf_AddList(INF_FIG, INF_LOADED_LOCATION, INF_CMPD, "", newchain, getwhere());
-//    ifl->LOADED.INF_CMPD = addchain(ifl->LOADED.INF_CMPD, newchain);
+/*    ifl->LOADED.INF_CMPD = addchain(ifl->LOADED.INF_CMPD, newchain);*/
 }
 
 void
@@ -186,7 +186,7 @@ fclMuxUpConstraint(chain_list *siglist)
         newchain = addchain(newchain, ptlosig->NAMECHAIN->DATA);
     }
     inf_AddList(INF_FIG, INF_LOADED_LOCATION, INF_MUXU, "", newchain, getwhere());
-  //  ifl->LOADED.INF_MUXU = addchain(ifl->LOADED.INF_MUXU, newchain);
+  /*  ifl->LOADED.INF_MUXU = addchain(ifl->LOADED.INF_MUXU, newchain);*/
 }
 
 void
@@ -206,7 +206,7 @@ fclMuxDnConstraint(chain_list *siglist)
         newchain = addchain(newchain, ptlosig->NAMECHAIN->DATA);
     }
     inf_AddList(INF_FIG, INF_LOADED_LOCATION, INF_MUXD, "", newchain, getwhere());
-//    ifl->LOADED.INF_MUXD = addchain(ifl->LOADED.INF_MUXD, newchain);
+/*    ifl->LOADED.INF_MUXD = addchain(ifl->LOADED.INF_MUXD, newchain);*/
 }
 
 void

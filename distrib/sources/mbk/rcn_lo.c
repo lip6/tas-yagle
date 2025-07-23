@@ -45,25 +45,25 @@ char rcn_existcapa( lofig, losig )
 lofig_list *lofig;
 losig_list *losig;
 {
-  // Pas de rc, donc pas de capa
+/* Pas de rc, donc pas de capa */
   if( !losig->PRCN )
     return 0;
   
-  // Est-ce qu'il y a une capacité ? On ne fait surtout pas de refresh pour 
-  // la calculer, on veut juste savoir si il y en a une.
+/* Est-ce qu'il y a une capacité ? On ne fait surtout pas de refresh pour */
+/* la calculer, on veut juste savoir si il y en a une. */
   if( rcn_getcapa( NULL, losig ) > 0.0 )
     return 1;
     
-  // Est-ce qu'il y a des éléments RC dans le rc ?
+/* Est-ce qu'il y a des éléments RC dans le rc ? */
   if( losig->PRCN->PWIRE || losig->PRCN->PCTC )
     return 1;
     
-  // On a un cache, donc on trouvera dedans des rc. Un test plus précis serait
-  // de savoir si le signal est cacheable, mais seul le parser le sait.
+/* On a un cache, donc on trouvera dedans des rc. Un test plus précis serait */
+  /* de savoir si le signal est cacheable, mais seul le parser le sait.*/
   if( rcn_getlofigcache( lofig ) )
     return 1;
   
-  // On a rien trouvé, il n'y a donc pas de capacité sur ce signal.
+  /* On a rien trouvé, il n'y a donc pas de capacité sur ce signal.*/
   return 0;
 }
 
@@ -1320,7 +1320,7 @@ lorcnet_list	*pt;
 void freelowire(pt)
 lowire_list	*pt;
 {
- // static int msg=0;
+ /* static int msg=0;*/
   freelowireparams(pt);
 /*  if( pt->USER && msg==0 )
   {
@@ -2368,7 +2368,7 @@ losig_list *losig;
   int         nextline;
   
   if( RCNCACHETABLE_LINE == NULL ) {
-    // Premier appel : on construit le cache
+    /* Premier appel : on construit le cache*/
     RCNCACHETABLE_LINE = (rcncacheline*) mbkalloc( sizeof( rcncacheline ) * 
                                                    RCNCACHETABLE_SIZE        );
     RCNCACHETABLE_FREE = 0;                                                    
@@ -2384,7 +2384,7 @@ losig_list *losig;
   
   if( ptl ) {
 
-    // C'est un rajeunissement de la ligne de cache
+    /* C'est un rajeunissement de la ligne de cache*/
 
     line = (int)((long)ptl->DATA);
 
@@ -2527,7 +2527,7 @@ int rcn_mergectclosig( losig_list *losig )
     if( (long) existctc == EMPTYHT ) 
       addhtitem( htnodeagrlist, (void*)nodeagr, (long) loctc );
     else {
-      // On a une ctc en double
+      /* On a une ctc en double*/
       existctc->CAPA = existctc->CAPA + loctc->CAPA;
       delloctc( loctc ); loctc=NULL;
       n++;
@@ -2566,7 +2566,7 @@ void delloctc( loctc_list *ptctc )
   lonode_list   *ptnode;
   chain_list    *scanchain;
 
-  // Efface la ctc des listes chainées.
+  /* Efface la ctc des listes chainées.*/
  
   freeloctcparams (ptctc);
 

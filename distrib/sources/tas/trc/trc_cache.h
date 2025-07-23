@@ -1,10 +1,10 @@
-// USER des lofig
+/* USER des lofig*/
 
 #define RCX_FILEPOS     0x5243580F
-// Gestion des offsets dans les fichiers pour le cache.
+/* Gestion des offsets dans les fichiers pour le cache.*/
 
 #define RCX_CACHE_SET 0x52435810
-// Indique le la lofig est lue avec le cache actif.
+/* Indique le la lofig est lue avec le cache actif.*/
 
 /* Active le cache de la description des RC. Ce chache ne doit être activé que 
 sur des lofig qu'on lit à partir d'un fichier. L'appel doit se faire avant

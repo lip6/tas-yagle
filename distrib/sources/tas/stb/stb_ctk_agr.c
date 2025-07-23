@@ -434,7 +434,7 @@ int stb_ctk_parse_signals( agrstbfile *file, char *line )
       return ret ;
     }
     
-    // ttvsig = ttv_getsig( file->STBFIG->FIG, token );
+    /* ttvsig = ttv_getsig( file->STBFIG->FIG, token );*/
     chain = getStartForNode_HT( file->STBFIG, token, 0 );
     
     if( !chain || !chain->DATA ) {

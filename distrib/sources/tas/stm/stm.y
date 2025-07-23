@@ -667,7 +667,7 @@ model       : _MODEL '(' modelname tmodel ')'
                         stm_model->TTYPE = tran;
                         stm_model->UTYPE = STM_MOD_MODFCT;
                         stm_model->UMODEL.FUNCTION = stm_modfct_create (stm_fct_ins, stm_fct_localname, stm_fct_fct);
-                        //stm_model->UMODEL.FUNCTION = stm_modfct_create (stm_fct_fct, stm_fct_file, stm_fct_ins, NULL, sim_model_number);
+                        /*stm_model->UMODEL.FUNCTION = stm_modfct_create (stm_fct_fct, stm_fct_file, stm_fct_ins, NULL, sim_model_number);*/
                         break;
 
                     /*************/

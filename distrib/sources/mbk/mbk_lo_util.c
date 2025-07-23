@@ -34,6 +34,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <regex.h>
+#include <math.h>
 
 #include MUT_H
 #include MLO_H
@@ -428,7 +429,7 @@ static void cleancorrespinstanceconnector (locon_list * lc)
 /* mettre a jour la valeur des resistances, des capas et des transistors dans figins */
 /* detruire le contexte de ptins */
 
-//extern eqt_ctx *spi_init_eqt ();
+/*extern eqt_ctx *spi_init_eqt ();*/
 
 eqt_param *MBK_GLOBALPARAMS = NULL;
 chain_list *MBK_GLOBALFUNC=NULL;
@@ -450,7 +451,7 @@ extern float SPI_SCALE_DIODEFACTOR;
 */
 #define EQTFAST 1
 
-static inline double opt_eval(eqt_ctx *ctx, optparam_list *ptopt)
+static double opt_eval(eqt_ctx *ctx, optparam_list *ptopt)
 {
   if (ptopt->EQT_EXPR==NULL)
     return eqt_eval (ctx, ptopt->UDATA.EXPR, EQTFAST);
@@ -480,8 +481,8 @@ static void print_mlu_error(lofig_list *fig, eqt_ctx *ctx, char *var, char *expr
       strcat(buf,"'");
       strcat(buf,(char *)ch->DATA);
       strcat(buf,"'");
-//      eqt_addvar(ctx, (char *)ch->DATA, 0);
-//      *unk=addchain(*unk, ch->DATA);
+/*      eqt_addvar(ctx, (char *)ch->DATA, 0);*/
+/*      *unk=addchain(*unk, ch->DATA);*/
     }
   freechain(cl);
 
@@ -498,7 +499,7 @@ static int m_is_allowed(char what)
 {
   switch (what)
   {
-    case 'i': // instances
+    case 'i': /* instances*/
       switch (V_INT_TAB[__SIM_TOOLMODEL].VALUE)
       {
         case SIM_TOOLMODEL_ELDO:
@@ -509,9 +510,9 @@ static int m_is_allowed(char what)
         default:
           return 0;
       }
-    case 't': // transistors
+    case 't': /* transistors*/
       return 1;
-    case 'r': // resistor
+    case 'r': /* resistor*/
       switch (V_INT_TAB[__SIM_TOOLMODEL].VALUE)
       {
         case SIM_TOOLMODEL_ELDO:
@@ -522,7 +523,7 @@ static int m_is_allowed(char what)
         default:
           return 0;
       }
-    case 'c': // capacitor
+    case 'c': /* capacitor*/
       switch (V_INT_TAB[__SIM_TOOLMODEL].VALUE)
       {
         case SIM_TOOLMODEL_ELDO:
@@ -569,7 +570,7 @@ static void flatten_eval_montecarlo(eqt_ctx *evalctx, eqt_ctx *origctx, char *su
               res[i]=eqt_eval(evalctx, (char *)pt->DATA, EQTFAST);
               if (!eqt_resistrue(evalctx))
                 avt_errmsg(MCC_ERRMSG, "038", AVT_ERROR, (char *)pt->TYPE, (char *)pt->DATA, " : set to 0");
-              else if (!finite(res[i]))
+              else if (!isfinite(res[i]))
                 avt_errmsg(MCC_ERRMSG, "038", AVT_ERROR, (char *)pt->TYPE, (char *)pt->DATA," : returned NaN or Inf");
             }
 
@@ -590,7 +591,7 @@ int  lotrs_cond_check(char* cond, eqt_ctx *ctx) {
    double value;
    if( !cond ) return 1;
    value = eqt_eval(ctx, cond, EQTNORMAL );
-   if (!finite(value))
+   if (!isfinite(value))
           avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, ".if evaluation", cond, " : returned NaN or Inf");
    if ( value == 0.0 ) return 0;
    else return 1;
@@ -648,7 +649,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
 
 
 
-   // get default parameters
+   /* get default parameters*/
   
 
 /*   if (*moreparams!=NULL) {
@@ -704,7 +705,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
            addhtitem(allparams, ptopt->UNAME.SPECIAL, (long)ptopt->UDATA.EXPR);
          }
        mbk_recur_Eval_Start(ctx, allparams, fig->NAME);
-//       delht(allparams);
+/*       delht(allparams);*/
      }
 
 /*   if (param_tab)
@@ -712,9 +713,9 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
    if (MBK_GLOBALFUNC)
       eqt_import_func(MBK_GLOBALFUNC, ctx);*/
    defaults = eqt_export_vars (ctx);
-//   ins_ctx=min_ctx=NULL;
+/*   ins_ctx=min_ctx=NULL;*/
 
-   // Update instances
+   /* Update instances*/
    for (ptins = fig->LOINS; ptins; ptins = ptins->NEXT) {
       if (MLU_TRACE_EQT)
          fprintf (stdout, "\n----------------\nINSTANCE %s\n\n", ptins->INSNAME);
@@ -778,7 +779,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
                   print_mlu_error(fig, ctx, ptopt->UNAME.SPECIAL, ptopt->UDATA.EXPR, NULL, NULL);
                   value = opt_eval (ctx, ptopt);
                }
-               else if (!finite(value))
+               else if (!isfinite(value))
                   avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, ptopt->UNAME.SPECIAL, ptopt->UDATA.EXPR," : returned NaN or Inf");
                else if (MLU_TRACE_EQT)
                   fprintf (stdout, "---> '%s' = %g\n", ptopt->UDATA.EXPR, value);
@@ -811,10 +812,10 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
           xy->Y += y;
       }
    }
-//   if (ins_ctx!=NULL) eqt_term (ins_ctx);
-//   if (min_ctx!=NULL) eqt_term(min_ctx);
+/*   if (ins_ctx!=NULL) eqt_term (ins_ctx);*/
+/*   if (min_ctx!=NULL) eqt_term(min_ctx);*/
 
-   // update capacitances and wires
+   /* update capacitances and wires*/
    for (ptsig = fig->LOSIG; ptsig; ptsig = ptsig->NEXT) {
       if ((var=getlosigalim_expr(ptsig))!=NULL)
       {
@@ -844,7 +845,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
                capa_diode_flag = 1;
                diode_area=1;
                diode_pj=0;
-               continue; // don't try to evaluate anything
+               continue; /* don't try to evaluate anything*/
             }
             if (!strcasecmp (var, "diode_subckt")) {
                diodesubckt=ptopt->UDATA.EXPR;
@@ -856,7 +857,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
                   print_mlu_error(fig, ctx, "{capa value}", ptopt->UDATA.EXPR, NULL,NULL);
                   value = opt_eval (ctx, ptopt);
                }
-               else if (!finite(value))
+               else if (!isfinite(value))
                  avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, "{capa value}", ptopt->UDATA.EXPR," : returned NaN or Inf");
                else if (value<0)
                {
@@ -911,7 +912,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
                                      (diode_area > 0.0) ? diode_area:0.0,  
                                      (diode_pj > 0.0) ? diode_pj:0.0
                                    );
-           if (!finite(value))
+           if (!isfinite(value))
              avt_errmsg(MBK_ERRMSG, "071", AVT_ERROR, "NaN or Inf for");
            else if (value<0)
              avt_errmsg(MBK_ERRMSG, "071", AVT_ERROR, "negative");
@@ -943,7 +944,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
                 print_mlu_error(fig, ctx, var, ptopt->UDATA.EXPR, NULL, NULL);
                 value = opt_eval (ctx, ptopt);
              }
-             else if (!finite(value))
+             else if (!isfinite(value))
                avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, var, ptopt->UDATA.EXPR," : returned NaN or Inf");
              else if (MLU_TRACE_EQT)
                 fprintf (stdout, "RESI ---> '%s' = %g\n", ptopt->UDATA.EXPR, value);
@@ -980,7 +981,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
       }
    }
 
-   // update transistor sizes
+   /* update transistor sizes*/
    ptpttrs_prev = &fig->LOTRS;
    for (pttrs = fig->LOTRS; pttrs; pttrs = pttrs->NEXT) {
      if(lotrs_cond_check(pttrs->COND, ctx) == 0) {
@@ -1011,9 +1012,9 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
                if (!eqt_resistrue (ctx)) {
                   value = 0.0;
                   print_mlu_error(fig, ctx, *(ptopt->UNAME.STANDARD-1), ptopt->UDATA.EXPR, NULL, NULL);
-        //          avt_errmsg(MBK_ERRMSG, "002", AVT_ERROR, ptopt->UDATA.EXPR);
+        /*          avt_errmsg(MBK_ERRMSG, "002", AVT_ERROR, ptopt->UDATA.EXPR);*/
                }
-               else if (!finite(value))
+               else if (!isfinite(value))
                  avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, *(ptopt->UNAME.STANDARD-1), ptopt->UDATA.EXPR," : returned NaN or Inf");
                ptopt->UNAME.STANDARD -= 1;
                if (need_scale (*(ptopt->UNAME.STANDARD))) ptopt->UDATA.VALUE = value * scale;
@@ -1039,9 +1040,9 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
             if (!eqt_resistrue (ctx)) {
                value = 0.0;
                print_mlu_error(fig, ctx, var, ptopt->UDATA.EXPR, NULL, NULL);
-//               avt_errmsg(MBK_ERRMSG, "002", AVT_ERROR, ptopt->UDATA.EXPR);
+/*               avt_errmsg(MBK_ERRMSG, "002", AVT_ERROR, ptopt->UDATA.EXPR);*/
             }
-            else if (!finite(value))
+            else if (!isfinite(value))
               avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, var, ptopt->UDATA.EXPR," : returned NaN or Inf");
          }
          else {
@@ -1195,7 +1196,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
          avt_errmsg(MBK_ERRMSG, "004", AVT_WARNING);
    }
 
-   // create new transistors due to M factor and update lofigchain
+   /* create new transistors due to M factor and update lofigchain*/
    for (ptduptrs = ptduptrslist; ptduptrs; ptduptrs = ptduptrs->NEXT) {
       for (i=1; i < ptduptrs->TYPE; i++) {
          ptnewlotrs = rduplotrs((lotrs_list *)ptduptrs->DATA);
@@ -1227,10 +1228,10 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
    }
    freeptype(ptduptrslist);
         
-   // add new transistors due to M factor 
+   /* add new transistors due to M factor */
    fig->LOTRS = (lotrs_list *)append((chain_list *)ptnewlotrslist, (chain_list *)fig->LOTRS);
 
-   // create new instances due to M factor and update lofigchain
+   /* create new instances due to M factor and update lofigchain*/
    for (ptduptrs = ptduploinslist; ptduptrs; ptduptrs = ptduptrs->NEXT) {
       for (i=1; i < ptduptrs->TYPE; i++) {
          ptins=(loins_list *)ptduptrs->DATA;
@@ -1255,10 +1256,10 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
    }
    freeptype(ptduploinslist);
         
-   // add new transistors due to M factor 
+   /* add new transistors due to M factor */
    fig->LOINS = (loins_list *)append((chain_list *)ptnewloinslist, (chain_list *)fig->LOINS);
     
-//   eqt_term (ctx);
+/*   eqt_term (ctx);*/
    if (defaults)
       eqt_free_param (defaults);
 
@@ -1267,7 +1268,7 @@ void flatten_parameters (lofig_list * fig, loins_list *ptfatherloins, eqt_param 
      eqt_term(EQT_CONTEXT_HIERARCHY[i]);
      EQT_CONTEXT_HIERARCHY[i]=NULL;
    }
-   Tx=Ty=R=A=0; // avoid warning
+   Tx=Ty=R=A=0; /* avoid warning*/
 }
 
 
@@ -1345,7 +1346,7 @@ void flatten_setup_realname_from_hiername (lofig_list * lf, AdvancedNameAllocato
       }
    }
 }
-// -------------------
+/* -------------------*/
 static int buildmatchrule(inffig_list *ifl, char *section, mbk_match_rules *mr)
 {
   chain_list *cl;
@@ -1362,8 +1363,8 @@ static int buildmatchrule(inffig_list *ifl, char *section, mbk_match_rules *mr)
   }
   return 0;
 }
-// -------------------
-static inline int sighasnorc(losig_list *ls)
+/* -------------------*/
+static int sighasnorc(losig_list *ls)
 {
   if (ls->PRCN==NULL || mbk_LosigIsVSS(ls) || mbk_LosigIsVDD(ls) || ls->PRCN->PWIRE==NULL) return 1;
   return 0;
@@ -1399,7 +1400,7 @@ static void transfert_direction_information_from_instance_to_figure(loins_list *
   }
 }
 
-// -------------------
+/* -------------------*/
 void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, AdvancedNameAllocator * ana, char concat)
 {
    struct st_interf {
@@ -1449,7 +1450,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
    int scanctcnode;
    losig_list *othersig;
    chain_list *posttreatsig = NULL;
-//   ptype_list *ptbksig = NULL;
+/*   ptype_list *ptbksig = NULL;*/
    int maxnode_itrf;
    int newnode_itrf;
    chain_list *chainhtab;
@@ -1494,10 +1495,10 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
    mbk_match_rules IGNORE_NAMES;
 
    inffig_list *ifl;
-   //---------NEW-------------
+   /*---------NEW-------------*/
    ht *globalht=NULL;
    int local_concat, keptoldsig, has_ignore_names;
-   // ------ end of declarations ------------
+   /* ------ end of declarations ------------*/
    
          MBK_HANDLE_GLOBAL_NODES=V_BOOL_TAB[__MBK_HANDLE_GLOBAL_NODES].VALUE;
 
@@ -1544,7 +1545,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
 
 
    for (scanlosig = ptfig->LOSIG; scanlosig != NULL; scanlosig = scanlosig->NEXT)
-      scanlosig->FLAGS = 0;   // pas candidat
+      scanlosig->FLAGS = 0;   /* pas candidat*/
 
    /* si insname == NULL on met a plat au niveau transistor */
 
@@ -1646,7 +1647,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
             else
               {
                 avt_log( LOGSTATPRS, 3, "instance '%s' ignored in circuit '%s'\n", buf_insname, ptfig->NAME);
-                scanins->INSNAME=NULL, removed++; // marquage pour remove
+                scanins->INSNAME=NULL, removed++; /* marquage pour remove*/
               }
             buf_insname[insname_length] = '\0';
          }
@@ -1670,7 +1671,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
             else
               {
                 avt_log( LOGSTATPRS, 3, "transistor '%s' ignored in circuit '%s'\n", scantrs->TRNAME, ptfig->NAME);
-                scantrs->TRNAME=(char *)1, removed++; // marquage? pour remove
+                scantrs->TRNAME=(char *)1, removed++; /* marquage? pour remove*/
               }
          }
          
@@ -1703,7 +1704,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
                ptptype = getptype( ptcon->SIG->USER, LOFIGCHAIN );
                for( scanchain = (chain_list*)ptptype->DATA ; scanchain ; scanchain = scanchain->NEXT ) {
                  eptcon = (locon_list*)scanchain->DATA ;
-                 if( !eptcon->PNODE ) // inutile de le vérifier, mais bon...
+                 if( !eptcon->PNODE ) /* inutile de le vérifier, mais bon... */
                    eptcon->PNODE = addnum( NULL, 1l );
                }
                nblorc++;
@@ -1719,7 +1720,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
                ptptype = getptype( scanlosig->USER, LOFIGCHAIN );
                for( scanchain = (chain_list*)ptptype->DATA ; scanchain ; scanchain = scanchain->NEXT ) {
                  eptcon = (locon_list*)scanchain->DATA ;
-                 if( !eptcon->PNODE ) // inutile de le vérifier, mais bon...
+                 if( !eptcon->PNODE ) /* inutile de le vérifier, mais bon... */
                    eptcon->PNODE = addnum( NULL, 1l );
                }
                nblorc++;
@@ -1737,7 +1738,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
             avt_errmsg(MBK_ERRMSG, "006", AVT_FATAL, ptfig->NAME);
 
          if (scanlosig->TYPE == INTERNAL) {
-   //---------NEW-------------
+   /*---------NEW-------------*/
            keptoldsig=0;
            local_concat=concat;
            
@@ -1754,7 +1755,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
                    newsig=(losig_list *)key;
                    if (sighasnorc(newsig))
                      {
-                       keptoldsig=1; // do nothing
+                       keptoldsig=1; /* do nothing*/
                      }
                    else
                      {
@@ -1765,10 +1766,10 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
                  {
                    newsig = addlosig (ptfig, maxsig, NULL, INTERNAL);
                    local_concat=NO;
-//                   addhtitem(globalht, getsigname(scanlosig), (long)newsig);
+/*                   addhtitem(globalht, getsigname(scanlosig), (long)newsig);*/
                  }
              }
-     //-------------
+     /*-------------*/
            else
              {
                newsig = addlosig (ptfig, maxsig, NULL, INTERNAL);
@@ -2000,7 +2001,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
             if (newsig->PRCN)
             {
                nbinterf = newsig->PRCN->NBNODE;
-               if (nbinterf<=1) nbinterf=2; //should always be >=2
+               if (nbinterf<=1) nbinterf=2; /*should always be >=2*/
             }
             else
                nbinterf = 1;
@@ -2379,9 +2380,9 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
          delloins (ptfig, ptins->INSNAME);
       }
       else
-         ptins->INSNAME = NULL;   // flag pour delete
+         ptins->INSNAME = NULL;   /* flag pour delete*/
 
-      // zinaps le 14/1/2003
+      /* zinaps le 14/1/2003*/
       if (FlattenOnCreateLOINS != NULL)
          for (scanins = figins->LOINS; scanins; scanins = scanins->NEXT)
             FlattenOnCreateLOINS (scanins);
@@ -2524,8 +2525,8 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
                            rebuildctc = addchain (rebuildctc, othersig);
                         }
                         othersig->FLAGS |= LFREBUILDCTC;
-//                        ptctc->CAPA += ptctc2->CAPA;
-//                        ptctc2->CAPA = -1.0;
+/*                        ptctc->CAPA += ptctc2->CAPA;*/
+/*                        ptctc2->CAPA = -1.0;*/
                         ptctc2->CAPA += ptctc->CAPA;
                         if ((cnt=rcn_isCapaDiode(ptctc))!=0) rcn_setCapaDiode(ptctc2, cnt);
                         ptctc->CAPA = -1.0;
@@ -2534,7 +2535,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
                   }
                   if (ptctc->CAPA>0)
                     chainhtab = addchain (chainhtab, ptctc);
-//                  chainhtab = addchain (chainhtab, ptctc);
+/*                  chainhtab = addchain (chainhtab, ptctc);*/
                   addhtitem (htab, (void *)key, (long)chainhtab);
                }
             }
@@ -2552,8 +2553,8 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
 
 
 
-   // Greg, le 30/09/02 : il faut assurer la cohérence des champs PREV dans les 
-   // ctc.... gros bordel.
+ /* Greg, le 30/09/02 : il faut assurer la cohérence des champs PREV dans les  */
+   /* ctc.... gros bordel.*/
 
    if (!GROUP_MODE) {
       for (scanchain = rebuildctc; scanchain; scanchain = scanchain->NEXT) {
@@ -2572,8 +2573,8 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
                   
                   if (ptctc->SIG1==ptctc->SIG2)
                    {
-                     // la ctc est presente 2 fois dans la liste
-                     // on l'enleve la 2eme fois
+                     /* la ctc est presente 2 fois dans la liste*/
+                     /* on l'enleve la 2eme fois*/
                      if (ptctc->CAPA<-1.5) freeloctc(ptctc); 
                      else ptctc->CAPA=-2;
                      scanctc->NEXT=NULL; freechain(scanctc);
@@ -2589,7 +2590,7 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
                      prevctc = scanctc;
                    }
                }
-//            }
+/*            }*/
          }
       }
    }
@@ -2603,8 +2604,8 @@ void flattenlofig_bypointer (lofig_list * ptfig, chain_list * ptinslist, Advance
                   ptctc = (loctc_list *) scanctc->DATA;
                   if (ptctc->SIG1==ptctc->SIG2)
                    {
-                     // la ctc est presente 2 fois dans la liste
-                     // on l'enleve la 2eme fois
+                     /* la ctc est presente 2 fois dans la liste*/
+                     /* on l'enleve la 2eme fois*/
                      if (ptctc->CAPA<-1.5) freeloctc(ptctc); 
                      else ptctc->CAPA=-2;
                      scanctc->NEXT=NULL; freechain(scanctc);
@@ -3173,7 +3174,7 @@ loadBlackList()
         return;
     }
 
-    BLACKLIST = NULL; //addht (10);
+    BLACKLIST = NULL; /*addht (10);*/
     while (!feof (fpBlackBox)) {
         if (fscanf (fpBlackBox, "%s\n", buffer) != 0) {
             BLACKLIST=addchain(BLACKLIST, namealloc (buffer));
@@ -3830,7 +3831,7 @@ chain_list *list;
 
 
 
-struct typoin {               /* structure used by dast_dbg *//* to store its state       */
+struct typoin {              /* structure used by dast_dbg to store its state */
    short type;               /* code of the current structure */
    short mark;               /* stop mark            */
    void *data;               /* pointer of the structure */
@@ -3876,8 +3877,8 @@ struct typoin {               /* structure used by dast_dbg *//* to store its st
 #define VHD_dataDFN 35
 
 #define VHD_MAXDFN 37
-static int vhd_getcmd ();
-static int vhd_hash ();
+static int vhd_getcmd (char prvcmd[3][20] );
+static int vhd_hash (char*);
 
 void mlodebug (head_pnt, stru_name)
 
@@ -4316,10 +4317,7 @@ char *stru_name;
 }
 
 
-static int vhd_getcmd (prvcmd)
-
-char prvcmd[3][20];
-
+static int vhd_getcmd ( char prvcmd[3][20] )
 {
    char readstr[60];
    char comd0[20];
@@ -4347,10 +4345,7 @@ char prvcmd[3][20];
 
 
 
-static int vhd_hash (str)
-
-char *str;
-
+static int vhd_hash (char* str)
 {
    int code = 0;
 
@@ -4381,7 +4376,7 @@ optparam_list *dupoptparam (optparam_ptr)
 optparam_list *optparam_ptr;
 {
    optparam_list *optparam_rpt = NULL;   /* Returned optparam pointer    */
-//   eqt_ctx dummy;
+/*   eqt_ctx dummy;*/
    static eqt_ctx *dummy=NULL;
    if (optparam_ptr == NULL)
       return NULL;
@@ -4393,10 +4388,10 @@ optparam_list *optparam_ptr;
        if (optparam_rpt->EQT_EXPR==NULL)
          {
            if (dummy==NULL) dummy=spi_init_eqt ();
-//           optparam_ptr->EQT_EXPR=optparam_rpt->EQT_EXPR=eqt_create (&dummy, optparam_ptr->UDATA.EXPR);
+/*           optparam_ptr->EQT_EXPR=optparam_rpt->EQT_EXPR=eqt_create (&dummy, optparam_ptr->UDATA.EXPR);*/
            optparam_ptr->EQT_EXPR=optparam_rpt->EQT_EXPR=eqt_create (dummy, optparam_ptr->UDATA.EXPR);
            if (optparam_rpt->EQT_EXPR!=NULL) ((eqt_node *)optparam_rpt->EQT_EXPR)->REF_COUNT=2;
-//           eqt_term (dummy);
+/*           eqt_term (dummy);*/
          }
        else
          ((eqt_node *)optparam_rpt->EQT_EXPR)->REF_COUNT++;
@@ -4844,7 +4839,7 @@ lofig_list *lofig_ptr;
          locon_pt = locon_pt->NEXT;
       }
 
-      // zinaps le 20/7/2002
+      /* zinaps le 20/7/2002*/
       if (lotrs_pt->BULK) {
          lotrs_pt->BULK = duplocon (lotrs_pt->BULK);
       }
@@ -5080,7 +5075,7 @@ locon_list *c;
    return 0;
 }
 
-//_____________________________________________________
+/*_____________________________________________________*/
 
 int bigcomp (const void *p1, const void *p2)
 {
@@ -5101,7 +5096,7 @@ int bigcomp (const void *p1, const void *p2)
    return 0;
 }
 
-//_____________________________________________________
+/*_____________________________________________________*/
 
 int littlecomp (const void *p1, const void *p2)
 {
@@ -5123,7 +5118,7 @@ int littlecomp (const void *p1, const void *p2)
 }
 
 
-//_____________________________________________________
+/*_____________________________________________________*/
 
 chain_list *sort_sigs (losig_list * sig_list, ht * endht)
 {
@@ -5312,7 +5307,7 @@ void freeflatmodel (lofig_list * fig)
       mbkfree (pttrs->GRID);
       mbkfree (pttrs->SOURCE);
       mbkfree (pttrs->DRAIN);
-      //      mbkfree((void *)pttrs->BULK);
+      /*      mbkfree((void *)pttrs->BULK);*/
       ptold = pttrs->NEXT;
       dellotrsuser (pttrs);
       mbkfree (pttrs);
@@ -5572,7 +5567,7 @@ void mbk_freeparallel (lofig_list * ptlofig)
          for (ptchain = transchain; ptchain; ptchain = ptchain->NEXT) {
             ptparatrans = (lotrs_list *) ptchain->DATA;
             ptparatrans->USER=testanddelptype(ptparatrans->USER, MBK_TRANS_PARALLEL);
-//            ptparatrans->USER = delptype (ptparatrans->USER, MBK_TRANS_PARALLEL);
+/*            ptparatrans->USER = delptype (ptparatrans->USER, MBK_TRANS_PARALLEL);*/
          }
          freechain (transchain);
       }
@@ -5752,9 +5747,9 @@ int mbk_recur_Eval(eqt_ctx *ctx, ht *allparams, char *name, char *where)
           support=eqt_GetVariables(ctx, expr, 0);
           mbk_recur_Eval_PrintError(name, expr, support, where);
           freechain(support);
-//          avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, name, expr," : set to 0");
+/*          avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, name, expr," : set to 0");*/
         }
-      else if (!finite(value))
+      else if (!isfinite(value))
         avt_errmsg(MBK_ERRMSG, "051", AVT_ERROR, name, expr," : returned NaN or Inf");
       eqt_addvar(ctx, name, value);
       return 0;
@@ -5938,7 +5933,7 @@ void mbk_CheckPowerSupplies(lofig_list *lf)
                               Board_Display_sub(NULL, LOGERROR, 0, b, "    ");
                               Board_FreeBoard(b);
               
-//                              avt_fprintf(stdout, "\n");            
+/*                              avt_fprintf(stdout, "\n");            */
                               i++;
                             }
                         }

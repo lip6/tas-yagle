@@ -12,12 +12,12 @@ typedef struct biinfo
 
 typedef struct
 {
-  // gen_corresp.c
+  /* gen_corresp.c*/
   int CORRESP_DEBUG;
   int NO_UPDATE;
   lofig_list *GEN_HEAD_LOFIG;
   ht *GEN_HT_LOFIG;
-//  chain_list *TRANS_TO_SUPPRESS;
+/*  chain_list *TRANS_TO_SUPPRESS;*/
 
   HeapAlloc corresp_heap;
   HeapAlloc subinst_heap;
@@ -25,7 +25,7 @@ typedef struct
   int nbalim, nbins;
   char *GENIUS_TO_SPY, *GENIUS_SPY;
 
-  // gen_env.c
+  /* gen_env.c*/
   char       *GENIUS_LIB_NAME;              /* file with all models names */
   char       *GENIUS_LIB_PATH;              /* directory */
   struct tree  *GENIUS_TREE;      /* syntaxical result of model files */
@@ -35,11 +35,11 @@ typedef struct
   int GEN_OPTIONS_PACK;
   ExecutionContext *genius_ec;
 
-  // gen_execute_VHDL.c
+  /* gen_execute_VHDL.c*/
   int VAR_UNKNOWN;     /*flag if variable isn't found in environment*/
   int VAR_UNDEF;       /*flag if var. with no value*/
 
-  // gen_model_utils.c
+  /* gen_model_utils.c*/
   char GEN_SEPAR;
   chain_list *blocks_to_free;
   model_list *HEAD_MODEL;                /*list of all models*/
@@ -48,19 +48,19 @@ typedef struct
 
   lofig_list *GENIUS_HEAD_LOFIG;
   ht *GENIUS_HT_LOFIG;
-  chain_list *ModelTrace; // list of models marked as visited by the user
+  chain_list *ModelTrace; /* list of models marked as visited by the user*/
 
-  //gen_new_king.c
+  /*gen_new_king.c*/
   HeapAlloc ea_heap;
 
-  //gen_optimization.c
+  /*gen_optimization.c*/
   HeapAlloc lcu_heap;
   HeapAlloc stat_heap;
 
-  //gen_search_global.c
+  /*gen_search_global.c*/
   lofig_list *GENIUS_GLOBAL_LOFIG;
 
-  // gen_search_utils.c
+  /* gen_search_utils.c*/
   char tabs[200];
   lofig_list *current_lofig;
   ptype_list *ALL_ENV, *GEN_USER;
@@ -73,7 +73,7 @@ typedef struct
   HeapAlloc all_loins_heap;
   HeapAlloc loconmark_heap;
 
-  //gen_symmetric.c
+  /*gen_symmetric.c*/
   HeapAlloc swap_heap;
   ht *radindexht;
   char **radtable;
@@ -98,15 +98,15 @@ typedef struct
 
 extern lofig_list *GEN_HEAD_LOFIG;
 extern ht *GEN_HT_LOFIG;
-//extern chain_list *TRANS_TO_SUPPRESS;
+/*extern chain_list *TRANS_TO_SUPPRESS;*/
 extern struct foundmodel *FOUND_MODEL;
 extern HeapAlloc corresp_heap;
 extern HeapAlloc subinst_heap;
 
 extern int nbalim, nbins;
-//extern char *GENIUS_TO_SPY, *GENIUS_SPY;
+/*extern char *GENIUS_TO_SPY, *GENIUS_SPY;*/
 
-// gen_env.c
+/* gen_env.c*/
 extern  char       *GENIUS_LIB_NAME;              /* file with all models names */
 extern  char       *GENIUS_LIB_PATH;              /* directory */
 extern  struct tree  *GENIUS_TREE;      /* syntaxical result of model files */
@@ -116,11 +116,11 @@ extern  int GEN_DEBUG_LEVEL;
 extern  int GEN_OPTIONS_PACK;
 extern  ExecutionContext *genius_ec;
 
-// gen_execute_VHDL.c
+/* gen_execute_VHDL.c*/
 extern int VAR_UNKNOWN;     /*flag if variable isn't found in environment*/
 extern int VAR_UNDEF;       /*flag if var. with no value*/
 
-// gen_model_utils.c
+/* gen_model_utils.c*/
 extern   char GEN_SEPAR;
 
 extern  chain_list *blocks_to_free;
@@ -132,18 +132,18 @@ extern mark_list *HEAD_MARK;                   /*list of allocated marks*/
 extern  lofig_list *GENIUS_HEAD_LOFIG;
 extern  ht *GENIUS_HT_LOFIG;
 
-extern chain_list *ModelTrace; // list of models marked as visited by the user
+extern chain_list *ModelTrace; /* list of models marked as visited by the user*/
 
-//gen_new_king.c
+/*gen_new_king.c*/
 extern HeapAlloc ea_heap;
 
-//gen_optimization.c
+/*gen_optimization.c*/
 extern HeapAlloc lcu_heap;
 extern HeapAlloc stat_heap;
-//gen_search_global.c
+/*gen_search_global.c*/
 extern  lofig_list *GENIUS_GLOBAL_LOFIG;
 
-// gen_search_utils.c
+/* gen_search_utils.c*/
 extern  char tabs[200];
 extern  lofig_list *current_lofig;
 extern  ptype_list *ALL_ENV, *GEN_USER;
@@ -157,7 +157,7 @@ extern  corresp_t *CUR_CORRESP_TABLE;
 extern  HeapAlloc all_loins_heap;
 extern  HeapAlloc loconmark_heap;
 
-//gen_symmetric.c
+/*gen_symmetric.c*/
 extern  HeapAlloc swap_heap;
 extern  ht *radindexht;
 extern char **radtable;

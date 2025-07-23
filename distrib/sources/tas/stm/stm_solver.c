@@ -19,7 +19,7 @@
 #include "stm.h" 
 
 #define STM_UNDEF ((float)1.0e20)
-//#define STM_SOLVE_I_TRACE
+/*#define STM_SOLVE_I_TRACE*/
 #define STM_CALC_WITH_VBS
 
 /******************************************************************************\
@@ -28,13 +28,13 @@ Global definition
 
 stm_solver_parameter stm_solver_standard={
 
-  /* DEFAULT_TIME_STEP      */      10.0 ,       //  10 FS
-  /* MIN_TIME_STEP          */       1.0 ,       //   1 FS
-  /* MAX_TIME_STEP          */     100.0 ,       // 100 Fs
-  /* MAX_DELTA_CURRENT      */       0.000100 ,  //  100uA
-  /* MIN_DELTA_CURRENT      */       0.000001 ,  //    1uA
-  /* MAX_DELTA_VOLTAGE      */       0.001000 ,  // 1000uV
-  /* MIN_DELTA_VOLTAGE      */       0.000010 ,  //   10uV
+  /* DEFAULT_TIME_STEP      */      10.0 ,       /*  10 FS*/
+  /* MIN_TIME_STEP          */       1.0 ,       /*   1 FS*/
+  /* MAX_TIME_STEP          */     100.0 ,       /* 100 Fs*/
+  /* MAX_DELTA_CURRENT      */       0.000100 ,  /*  100uA*/
+  /* MIN_DELTA_CURRENT      */       0.000001 ,  /*    1uA*/
+  /* MAX_DELTA_VOLTAGE      */       0.001000 ,  /* 1000uV*/
+  /* MIN_DELTA_VOLTAGE      */       0.000010 ,  /*   10uV*/
   /* MAX_ITER               */  100000 ,
   /* VARIABLE_STEP          */       1 ,
   /* PLOTFILE               */    NULL ,
@@ -47,12 +47,12 @@ stm_solver_parameter stm_solver_standard={
 };
 
 stm_solver_i_param stm_solver_i_standard={
-  /* I_EPSILON              */       1.0e-7 ,    // 0,1uA
-  /* V_EPSILON              */       1.0e-5 ,    // 10uV
+  /* I_EPSILON              */       1.0e-7 ,    /* 0,1uA*/
+  /* V_EPSILON              */       1.0e-5 ,    /* 10uV*/
   /* MAXITER                */      30 ,
   /* DICHOTOMIE             */       5 ,
-  /* MINDELTAVOLTAGE        */       1e-4,       // 1mV
-  /* MINCURRENT             */       1e-25        // 0.1uA  
+  /* MINDELTAVOLTAGE        */       1e-4,       /* 1mV*/
+  /* MINCURRENT             */       1e-25        /* 0.1uA  */
 };
 
 /******************************************************************************\
@@ -192,13 +192,13 @@ char stm_solver_i( stm_solver_maillon_list *head,
   printf( "solver vout=%g\n", vout );
   #endif
   
-  // Récupère la fin de la chaine.
+  /* Récupère la fin de la chaine.*/
   for( base = head ; base->NEXT ; base = base->NEXT );
 
-  // Polarisation de la branche
+  /* Polarisation de la branche*/
   vbase = base->MAILLON->VS ;
 
-  // Différence de potentiel absolue dans la branche
+  /* Différence de potentiel absolue dans la branche*/
   vbr = fabs( vout - vbase );
 
   if( vbr < param->MINDELTAVOLTAGE ) {
@@ -206,13 +206,13 @@ char stm_solver_i( stm_solver_maillon_list *head,
     return 1;
   }
 
-  // Récupère le courant estimé dans la branche.
+  /* Récupère le courant estimé dans la branche.*/
   if( !stm_solver_estim_imax( head, vout, &iestim ) )
     return 0;
 
   i = iestim ;
 
-  // Teste si tous les transistors sont passant
+  /* Teste si tous les transistors sont passant*/
   if( fabs(i) < param->MINCURRENT ) {
     *ibr=0.0;
     return 1;
@@ -232,7 +232,7 @@ char stm_solver_i( stm_solver_maillon_list *head,
 
   do 
   {
-    // Propage les tensions
+    /* Propage les tensions*/
     last              = NULL;
     bloque            = 0;
 
@@ -255,7 +255,7 @@ char stm_solver_i( stm_solver_maillon_list *head,
       #endif
 
       if( fabs(vds) > 10.0*vbr ) {
-        // Il y a un transistor qui n'est pas passant...
+        /* Il y a un transistor qui n'est pas passant...*/
         bloque=1;
         break;
       }
@@ -266,10 +266,10 @@ char stm_solver_i( stm_solver_maillon_list *head,
       last         = maillon;
     }
 
-    // Vérification de la solution
+    /* Vérification de la solution*/
 
     if( bloque == 1 ) {
-      // Convergence sur i
+      /* Convergence sur i*/
       if( imax != STM_UNDEF ) {
         #ifdef STM_SOLVE_I_TRACE
         printf( "\n" );
@@ -287,7 +287,7 @@ char stm_solver_i( stm_solver_maillon_list *head,
       #ifdef STM_SOLVE_I_TRACE
       printf( "vd=%g ", maillon->VD );
       #endif
-      // Convergence sur v
+      /* Convergence sur v*/
       if( i > 0.0 ) {
         if( maillon->VD > vout ) {
           vdmax = maillon->VD ;

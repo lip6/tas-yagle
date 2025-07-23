@@ -42,7 +42,7 @@ static cone_list *CUR_ROOT;
 static chain_list   *VAR_LIST;
 
 static int      local;
-//static int      incomplete;
+/*static int      incomplete;*/
 static int      numholes;
 
 static int      total_son_arcs;
@@ -261,7 +261,7 @@ build(edge_list  *ptedge, int depth, int *ptrescode, int invonly, int force)
                     
             stop = TRUE;
 
-            //if ((ptcone->TYPE & CNS_CONFLICT) != 0 && (ptcone->TYPE & YAG_HASDUAL) != 0) {
+            /*if ((ptcone->TYPE & CNS_CONFLICT) != 0 && (ptcone->TYPE & YAG_HASDUAL) != 0) {*/
             if ((ptcone->TYPE & YAG_HASDUAL) != 0 && (!force || depth != 0)) {
                 inputlist = (edge_list *)getptype(ptcone->USER, YAG_DUALINPUTS_PTYPE)->DATA;
             }

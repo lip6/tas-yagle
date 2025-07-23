@@ -170,7 +170,7 @@ zennod_list *znodN;
   chain_list    *chainx;
   char           buf[64];
   zennod_list   *znodx;
-//  pNode          bdds;
+/*  pNode          bdds;*/
   chain_list    *abls;
   
   if ((!znod->INNOD)||(znod->BDD!=znod->SBDD))
@@ -184,7 +184,7 @@ zennod_list *znodN;
       if (znodx!=znodN)
       {
         abls = substExpr(abls,znodx->NAME,zen_testStuck(znodx,NULL));
-//        bdds = ablToBddCct(znod->CCT,zen_testStuck(znodx,NULL));
+/*        bdds = ablToBddCct(znod->CCT,zen_testStuck(znodx,NULL));*/
         znod->SBDD = ablToBddCct(znod->CCT,abls);
         if (znod->SBDD==BDD_one)
         {
@@ -217,7 +217,7 @@ chain_list  *path;
   if (bdd==BDD_zero)     { RET(FALS); }
   else if (bdd==BDD_one) { RET(TRUS); }
   else               { RET(zen_reduceBdd(zfig,znod)); }
-  // on laisse le tout propre
+  /* on laisse le tout propre*/
 fin :
   return res;
 }
@@ -225,8 +225,8 @@ fin :
 /*}}}************************************************************************/
 /*{{{ les gestionnaires pour le temps                                       */
 /****************************************************************************/
-pid_t       ZEN_CHILD; // pid du fils
-pid_t       ZEN_FATHER;// pid du pere
+pid_t       ZEN_CHILD; /* pid du fils*/
+pid_t       ZEN_FATHER;/* pid du pere*/
 
 void zen_killChild()
 {
@@ -258,23 +258,23 @@ zenfig_list *ZenFig;
 {
   int               res;
 
-//  ZEN_FATHER = getpid();
-//  switch (ZEN_CHILD=fork())
-//  {
-//    case -1 : ZEN_ERROR(0,"zen_algo2");
-//    case  0 :
+/*  ZEN_FATHER = getpid();*/
+/*  switch (ZEN_CHILD=fork())*/
+/*  {*/
+/*    case -1 : ZEN_ERROR(0,"zen_algo2");*/
+/*    case  0 :*/
     res = zen_algo1(ZenFig);
-//              zen_killFather();
+/*              zen_killFather();*/
               return res;
-//    default : mbksetautoackchld(ZEN_CHILD);
-//              signal(SIGALRM,zen_killChild);
-//              //      signal(SIGCHLD,zen_killFather);
-//              alarm(ZEN_DELAY);
+/*    default : mbksetautoackchld(ZEN_CHILD);*/
+/*              signal(SIGALRM,zen_killChild);*/
+/*              //      signal(SIGCHLD,zen_killFather);*/
+/*              alarm(ZEN_DELAY);*/
 
-//              mbkwaitpid(ZEN_CHILD,1,NULL);
-//              pause();
-//              return 3;
-//  }
+/*              mbkwaitpid(ZEN_CHILD,1,NULL);*/
+/*              pause();*/
+/*              return 3;*/
+/*  }*/
 }
 
 /*}}}************************************************************************/
@@ -308,7 +308,7 @@ chain_list  *Chain;
 
   for (chainx=Chain;chainx;chainx=chainx->NEXT)
     ((zennod_list*)chainx->DATA)->VALUE = 'X';
-  return NULL;//zen_freechain(Chain);
+  return NULL;/*zen_freechain(Chain);*/
 }
 
 /*}}}************************************************************************/
@@ -317,12 +317,12 @@ chain_list  *Chain;
 /* applique une contrainte a un noeud et tient a jour la liste des noeuds   */
 /* modifie                                                                  */
 /****************************************************************************/
-int zen_setNodValue(znod,Value,level)  // renvoit 0 si OK sinon 1
+int zen_setNodValue(znod,Value,level)  /* renvoit 0 si OK sinon 1*/
 zennod_list *znod;
 char         Value;
 int          level;
 {
-//  chain_list    *ScanChain;
+/*  chain_list    *ScanChain;*/
   int            res;
 
   if      (znod->VALUE==Value)         return TRUS;
@@ -332,22 +332,22 @@ int          level;
     znod->VALUE = Value;
     if      (Value=='0') znod->NBDD = BDD_zero;
     else if (Value=='1') znod->NBDD = BDD_one;
-//    switch (zen_simulNod(znod))
-//    {
-//      case DONT : return DONT;
-//      case FALS : return FALS;
-//      default   :
-//        if ((Value=='1')||(Value=='0'))
-//          switch (toto(znod,Value))
-//          {
-//            case FALS : return FALS;
-//            case DONT : return DONT;
-//            default   : break;
-//          }
+/*    switch (zen_simulNod(znod))*/
+/*    {*/
+/*      case DONT : return DONT;*/
+/*      case FALS : return FALS;*/
+/*      default   :*/
+/*        if ((Value=='1')||(Value=='0'))*/
+/*          switch (toto(znod,Value))*/
+/*          {*/
+/*            case FALS : return FALS;*/
+/*            case DONT : return DONT;*/
+/*            default   : break;*/
+/*          }*/
         if ((res=zen_simulAOutNod(znod,level))!=TRUS) return res;
         else if (znod->VALUE==Value) return TRUS;
         else return FALS;
-//    }
+/*    }*/
   }
   else return TRUS;
 }
@@ -387,8 +387,8 @@ int zen_simulNod(znod,level)
 zennod_list *znod;
 int          level;
 {
-  if      (!(znod->NBDD))               return TRUS; // entree primaire
-  else if (znod->NBDD==ZEN_EXPLODEDBDD) return DONT; // explosion
+  if      (!(znod->NBDD))               return TRUS; /* entree primaire*/
+  else if (znod->NBDD==ZEN_EXPLODEDBDD) return DONT; /* explosion*/
   else if (zen_doBddFSetNod(znod))
   {
     if      (znod->NBDD==BDD_zero) return zen_setNodValue(znod,'0',level);
@@ -437,18 +437,18 @@ zennod_list *inznod;
 int          level;
 {
   chain_list    *abl;
-//  chain_list    *abls;
+/*  chain_list    *abls;*/
 
   switch (inznod->VALUE)
   {
     case '0' : abl = notExpr(createAtom(inznod->NAME))      ; break;
     case '1' : abl = createAtom(inznod->NAME)               ; break;
     case 'X' : abl = bddToAblCct(inznod->CCT,inznod->NBDD)  ; break;
-    default  : //return TRUS;
+    default  : /*return TRUS;*/
   abl = bddToAblCct(inznod->CCT,inznod->NBDD);
-//  abls = bddToAblCct(znod->CCT,znod->BDD);
-//  abls = substExpr(abls,inznod->NAME,abl);
-//  znod->NBDD = ablToBddCct(znod->CCT,abls);
+/*  abls = bddToAblCct(znod->CCT,znod->BDD);*/
+/*  abls = substExpr(abls,inznod->NAME,abl);*/
+/*  znod->NBDD = ablToBddCct(znod->CCT,abls);*/
   znod->NBDD = constraintBdd(znod->NBDD,ablToBddCct(znod->CCT,abl));
   return TRUS;
   }
@@ -510,17 +510,17 @@ zennod_list *znod;
   chain_list    *chainx;
   zennod_list   *ScanNod;
   int            bddIndex;
-//  chain_list    *abl;
+/*  chain_list    *abl;*/
 
-  // on ajoute un pour effectuer un and binaire (au moins deux operandes).
+  /* on ajoute un pour effectuer un and binaire (au moins deux operandes).*/
   listBdd = addListBdd(NULL,BDD_one);
   for (chainx=znod->INNOD;chainx;chainx=chainx->NEXT)
     if (zen_ZNodGotValue(ScanNod=chainx->DATA))
     {
       bddIndex = searchInputCct(znod->CCT,ScanNod->NAME);
       nodeA = createNodeTermBdd(bddIndex);
-//      abl = createAtom(ScanNod->NAME);
-//      nodeA = ablToBddCct(znod->CCT,abl);
+/*      abl = createAtom(ScanNod->NAME);*/
+/*      nodeA = ablToBddCct(znod->CCT,abl);*/
       if (ScanNod->VALUE=='0') nodeA = notBdd(nodeA);
       listBdd = addListBdd(listBdd,nodeA);
     }

@@ -1,9 +1,9 @@
-// $Header: /users10/chaos1/sources/sources/distrib/sources/api/tcl/avtshell_tclsh.i,v 1.12 2008/04/15 14:49:08 fabrice Exp $
-//
-// SWIG File for building new tclsh program
-// Dave Beazley
-// April 25, 1996
-//
+/* $Header: /users10/chaos1/sources/sources/distrib/sources/api/tcl/avtshell_tclsh.i,v 1.12 2008/04/15 14:49:08 fabrice Exp $*/
+/**/
+/* SWIG File for building new tclsh program*/
+/* Dave Beazley*/
+/* April 25, 1996*/
+/**/
 
 #ifdef AUTODOC
 %subsection "tclsh.i"

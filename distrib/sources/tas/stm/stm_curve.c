@@ -392,7 +392,7 @@ void stm_model_plot( char            *filename,
         if( ts > param.MODEL.DUAL.PARAMTIMING.STRANS )
           tin = param.MODEL.DUAL.PARAMTIMING.STRANS ;
         qcf = -param.MODEL.DUAL.PARAMTIMING.ICF0*( tin-tin*tin/(2.0*param.MODEL.DUAL.PARAMTIMING.STRANS) );
-        //qcf = -param.MODEL.DUAL.PARAMTIMING.ICF0*ts ;
+        /*qcf = -param.MODEL.DUAL.PARAMTIMING.ICF0*ts ;*/
       }
       else
         qcf = 0.0 ;

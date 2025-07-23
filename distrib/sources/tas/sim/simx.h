@@ -128,7 +128,7 @@ typedef SIM_FLOAT (*PWL_FUNCTION) (SIM_FLOAT, void *);
 
 /* Measure description                                                        */
 #define SIM_MEASURE_SIGNAL      ((char)'s')
-//#define SIM_MEASURE_SIGNAL_NODE ((char)'n')
+/*#define SIM_MEASURE_SIGNAL_NODE ((char)'n')*/
 #define SIM_MEASURE_LOCON       ((char)'l')
 
 /* Measured value                                                             */
@@ -158,7 +158,7 @@ typedef SIM_FLOAT (*PWL_FUNCTION) (SIM_FLOAT, void *);
 
 #define SIM_IC_LOCON            ((char)'c')
 #define SIM_IC_SIGNAL           ((char)'s')
-//#define SIM_IC_SIGNAL_NODE      ((char)'n')
+/*#define SIM_IC_SIGNAL_NODE      ((char)'n')*/
 
 /* Unit management                                                            */
 #define SIM_UNIT_TIME                    ((SIM_FLOAT)1.0)
@@ -191,7 +191,7 @@ typedef SIM_FLOAT (*PWL_FUNCTION) (SIM_FLOAT, void *);
 #define SIM_EXT_CAPA 0xfab11105
 /* Definition of stuck                                                        */
 typedef struct {
-  char          VALUE;      // SIM_ZERO, SIM_ONE
+  char          VALUE;      /* SIM_ZERO, SIM_ONE*/
 } sim_stuck_level;
 
 typedef struct {
@@ -204,13 +204,13 @@ typedef union {
 } sim_ustuck;
 
 typedef struct {
-  char          TYPE;        // SIM_STUCK_LEVEL, SIM_STUCK_VALUE
+  char          TYPE;        /* SIM_STUCK_LEVEL, SIM_STUCK_VALUE*/
   sim_ustuck    MODEL;
 } sim_stuck;
 
 /* Definition of slope                                                        */
 typedef struct {
-  char          TRANSITION;  // SIM_RISE, SIM_FALL
+  char          TRANSITION;  /* SIM_RISE, SIM_FALL*/
   SIM_FLOAT     TRISE;
   SIM_FLOAT     TSTART;
 } sim_slope_single;
@@ -228,7 +228,7 @@ typedef union {
 } sim_uslope;
 
 typedef struct {
-  char          TYPE;    // SIM_SLOPE_SINGLE, SIM_SLOPE_PATTERN
+  char          TYPE;    /* SIM_SLOPE_SINGLE, SIM_SLOPE_PATTERN*/
   sim_uslope    MODEL;
 } sim_slope;
 
@@ -257,7 +257,7 @@ typedef struct sim_input {
   struct sim_input     *NEXT;
   char                 *LOCON_NAME;
   char                 *LOSIG_NAME;
-  char                  TYPE;  // SIM_STUCK, SIM_SLOPE, SIM_FUNC, SIM_LOAD
+  char                  TYPE;  /* SIM_STUCK, SIM_SLOPE, SIM_FUNC, SIM_LOAD*/
   sim_uinput            UINPUT;
   char                 *DELTAVAR;
   SIM_FLOAT VDD, VSS;
@@ -269,8 +269,8 @@ typedef struct sim_input {
 
 typedef struct sim_measure_detail {
   struct sim_measure_detail  *NEXT;
-  char                       *NODE_NAME;  // nom original du noeud
-  char                       *PRINT_NAME; // nom drive (alias du nom original)
+  char                       *NODE_NAME;  /* nom original du noeud*/
+  char                       *PRINT_NAME; /* nom drive (alias du nom original)*/
   SIM_FLOAT                  *DATA;
 } sim_measure_detail;
 
@@ -281,8 +281,8 @@ typedef union sim_measure_where {
 
 typedef struct sim_measure {
   struct sim_measure   *NEXT;
-  char                  TYPE; // SIM_MEASURE_SIGNAL_NODE,SIM_MEASURE_SIGNAL, SIM_MEASURE_LOCON
-  char                  WHAT; // SIM_MEASURE_VOLTAGE, SIM_MEASURE_CURRENT
+  char                  TYPE; /* SIM_MEASURE_SIGNAL_NODE,SIM_MEASURE_SIGNAL, SIM_MEASURE_LOCON*/
+  char                  WHAT; /* SIM_MEASURE_VOLTAGE, SIM_MEASURE_CURRENT*/
   sim_measure_uwhere    WHERE;
   sim_measure_detail   *DETAIL;
   chain_list           *NODENAME; 
@@ -291,7 +291,7 @@ typedef struct sim_measure {
 /* Initial condition                                                          */
 
 typedef struct sim_ic_level {
-  char  LEVEL;  // SIM_ZERO, SIM_ONE
+  char  LEVEL;  /* SIM_ZERO, SIM_ONE*/
 } sim_ic_level;
 
 typedef struct sim_ic_voltage {
@@ -311,8 +311,8 @@ typedef union sim_ic_where {
 typedef struct sim_ic {
   struct sim_ic         *NEXT;
   sim_ic_uwhere          WHERE;
-  char                   LOCATE; // SIM_IC_LOCON, SIM_IC_SIGNAL
-  char                   TYPE;   // SIM_IC_LEVEL, SIM_IC_VOLTAGE.
+  char                   LOCATE; /* SIM_IC_LOCON, SIM_IC_SIGNAL*/
+  char                   TYPE;   /* SIM_IC_LEVEL, SIM_IC_VOLTAGE.*/
   sim_uic                UIC;
   chain_list            *NODENAME;
   SIM_FLOAT VDD, VSS;
@@ -337,11 +337,11 @@ typedef struct {
   char         *TOOL_STDOUTFILE;
   int           TOOL;
   chain_list   *TECHNOFILELIST;
-  char          DRIVE_NETLIST; // SIM_YES, SIM_NO.
-  char          OVR_FILES;     // SIM_YES, SIM_NO.
-  char          REMOVE_FILES;  // SIM_YES, SIM_NO.
-  char          NOISE_TYPE;    // SIM_MIN, SIM_MAX.
-  char          TRANSISTOR_AS_INSTANCE; // SIM_YES, SIM_NO.
+  char          DRIVE_NETLIST; /* SIM_YES, SIM_NO.*/
+  char          OVR_FILES;     /* SIM_YES, SIM_NO.*/
+  char          REMOVE_FILES;  /* SIM_YES, SIM_NO.*/
+  char          NOISE_TYPE;    /* SIM_MIN, SIM_MAX.*/
+  char          TRANSISTOR_AS_INSTANCE; /* SIM_YES, SIM_NO.*/
   PWL_FUNCTION  PWL_FUNC;
 } sim_parameter ;
 
@@ -363,7 +363,7 @@ typedef struct {
   sim_measure          *LMEASURE;
   sim_translate        *TRANSLATION;
   ht                   *HTINPUT;
-//  ht                   *CONTEXT_HT;
+/*  ht                   *CONTEXT_HT;*/
   char                  OUTPUT_READ;
   char                 *OUTPUT_FILE;
   long                  NUMBER;
@@ -380,27 +380,27 @@ typedef struct {
 
 typedef struct sim_timing {
     struct sim_timing *NEXT;
-    char              *ROOT4USR;  // noeud origine vu par l'utilisateur
-    char              *NODE4USR;  // noeud destination vu par l'utilisateur
-    char              *ROOT;      // noeud origine
-    char              *NODE;      // noeud destination
-    SIM_FLOAT          DELAY;     // delay entre root et node
-    SIM_FLOAT          SLOPE;     // slope du noeud destinataire
-    char               ROOTEVENT; // SIM_FALL ou SIM_RISE
-    int                IDXREVENT; // INDEX of ROOT EVENT 
-    char               NODEEVENT; // SIM_FALL ou SIM_RISE
-    int                IDXNEVENT; // INDEX of NODE EVENT 
+    char              *ROOT4USR;  /* noeud origine vu par l'utilisateur*/
+    char              *NODE4USR;  /* noeud destination vu par l'utilisateur*/
+    char              *ROOT;      /* noeud origine*/
+    char              *NODE;      /* noeud destination*/
+    SIM_FLOAT          DELAY;     /* delay entre root et node*/
+    SIM_FLOAT          SLOPE;     /* slope du noeud destinataire*/
+    char               ROOTEVENT; /* SIM_FALL ou SIM_RISE*/
+    int                IDXREVENT; /* INDEX of ROOT EVENT */
+    char               NODEEVENT; /* SIM_FALL ou SIM_RISE*/
+    int                IDXNEVENT; /* INDEX of NODE EVENT */
 } sim_timing;
 
 
 typedef struct sim_noise {
     struct sim_noise *NEXT;
-    char             *NAME;       // nom du noeud vu par l'utilisateur
-    char             *NODENAME;   // nom du noeud dans le circuit
-    SIM_FLOAT         VTHNOISE;   // valeur du seuil de detection du bruit
-    SIM_FLOAT        *TAB;        // tableau contenant toutes les tensions du noeud
-    chain_list       *IDXPEAK;    // indice du bruit : DATA = int (indice du TAB)
-    chain_list       *IDXC;       // indice de passage au seuil : DATA = int (indice du TAB)
+    char             *NAME;       /* nom du noeud vu par l'utilisateur*/
+    char             *NODENAME;   /* nom du noeud dans le circuit*/
+    SIM_FLOAT         VTHNOISE;   /* valeur du seuil de detection du bruit*/
+    SIM_FLOAT        *TAB;        /* tableau contenant toutes les tensions du noeud*/
+    chain_list       *IDXPEAK;    /* indice du bruit : DATA = int (indice du TAB)*/
+    chain_list       *IDXC;       /* indice de passage au seuil : DATA = int (indice du TAB)*/
 } sim_noise;
 
 typedef struct sim_slopes

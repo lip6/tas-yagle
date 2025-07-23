@@ -32,7 +32,7 @@ static struct dct_recrd  *MGL_DCRHED;	/* free dct_recrd's head	*/
 static struct dct_entry *mgl_addent(struct dct_entry *head, char *key);
 static struct dct_recrd *mgl_addrcd(struct dct_recrd *head, char *key);
 
-// copie de mbk_util.c
+/* copie de mbk_util.c*/
 #define HASH_MULT 314159
 #define HASH_PRIME 516595003
 
@@ -69,8 +69,8 @@ mgl_deltab(struct dct_entry **head, char *key_str, char *ctx_str)
     struct dct_recrd *last_recrd = NULL;
     char name[500];
 
-    // par Fabrice le 11/2/2002
-    //index = (int) key_str % MGL_HSZDFN;
+    /* par Fabrice le 11/2/2002*/
+    /*index = (int) key_str % MGL_HSZDFN;*/
     index=HASH_FUNC(key_str, name, 0);
     entry_pnt = head[index];
 
@@ -147,8 +147,8 @@ mgl_addtab(struct dct_entry **head, char *key_str, char *ctx_str, int field, lon
     struct dct_recrd *recrd_pnt;
     char name[500];
     
-    // par Fabrice le 11/2/2002
-    //index = (int) key_str % MGL_HSZDFN;
+    /* par Fabrice le 11/2/2002*/
+    /*index = (int) key_str % MGL_HSZDFN;*/
     index=HASH_FUNC(key_str, name, 0);
 
     entry_pnt = head[index];
@@ -222,8 +222,8 @@ mgl_chktab(struct dct_entry **head, char *key_str, char *ctx_str, int field)
     struct dct_recrd *recrd_pnt;
     char name[500];
     
-    // par Fabrice le 11/2/2002
-    //    entry_pnt = head[(int) key_str % MGL_HSZDFN];
+    /* par Fabrice le 11/2/2002*/
+    /*    entry_pnt = head[(int) key_str % MGL_HSZDFN];*/
     entry_pnt = head[HASH_FUNC(key_str, name, 0)];
 
     while (entry_pnt != NULL) {

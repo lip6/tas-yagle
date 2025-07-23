@@ -30,8 +30,6 @@
 * Modified, rewritten and maintained by Frederic Petrot since september 1990   *
 * Modified by Gregoire Avot for RCN support.                                   *
 *******************************************************************************/
-static void vtigetdate();
-void vtisavelofig();
 
 #define HNSRCN_X 543345
 #define HNSRCN_I 543346
@@ -40,4 +38,3 @@ struct rcnhns {
 	int   position;
 };
 
-void    wire_point();

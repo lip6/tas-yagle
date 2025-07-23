@@ -61,27 +61,27 @@
 #define BEH_FLAG_NORMAL             1
 #define BEH_FLAG_FORCEBUS           2
 
-//#define BEH_WARMSG_AUX_NOT_EMPTY       300
-//#define BEH_WARMSG_BUS_NOT_EMPTY       301
-//#define BEH_WARMSG_BUX_NOT_EMPTY       302    
-//#define BEH_WARMSG_DER_NOT_EMPTY       303
-//#define BEH_WARMSG_FIG_NOT_EMPTY       304
-//#define BEH_WARMSG_GEN_NOT_EMPTY       305
-//#define BEH_WARMSG_MSG_NOT_EMPTY       306
-//#define BEH_WARMSG_OUT_NOT_EMPTY       307
-//#define BEH_WARMSG_QUAD_NOT_EMPTY      308
-//#define BEH_WARMSG_REG_NOT_EMPTY       309
-//#define BEH_WARMSG_BIABL_NOT_EMPTY     310
-//#define BEH_WARMSG_BINODE_NOT_EMPTY    311
-//#define BEH_WARMSG_BI                  312
-//#define BEH_WARMSG_SINGLE              313
-//#define BEH_WARMSG_VAUX_NOT_EMPTY      315
-//#define BEH_WARMSG_VOUT_NOT_EMPTY      316
-//#define BEH_WARMSG_VBUX_NOT_EMPTY      317
-//#define BEH_WARMSG_VBUS_NOT_EMPTY      318
-//#define BEH_WARMSG_VREG_NOT_EMPTY      319
-//#define BEH_WARMSG_VBIABL_NOT_EMPTY    320
-//
+/*#define BEH_WARMSG_AUX_NOT_EMPTY       300*/
+/*#define BEH_WARMSG_BUS_NOT_EMPTY       301*/
+/*#define BEH_WARMSG_BUX_NOT_EMPTY       302    */
+/*#define BEH_WARMSG_DER_NOT_EMPTY       303*/
+/*#define BEH_WARMSG_FIG_NOT_EMPTY       304*/
+/*#define BEH_WARMSG_GEN_NOT_EMPTY       305*/
+/*#define BEH_WARMSG_MSG_NOT_EMPTY       306*/
+/*#define BEH_WARMSG_OUT_NOT_EMPTY       307*/
+/*#define BEH_WARMSG_QUAD_NOT_EMPTY      308*/
+/*#define BEH_WARMSG_REG_NOT_EMPTY       309*/
+/*#define BEH_WARMSG_BIABL_NOT_EMPTY     310*/
+/*#define BEH_WARMSG_BINODE_NOT_EMPTY    311*/
+/*#define BEH_WARMSG_BI                  312*/
+/*#define BEH_WARMSG_SINGLE              313*/
+/*#define BEH_WARMSG_VAUX_NOT_EMPTY      315*/
+/*#define BEH_WARMSG_VOUT_NOT_EMPTY      316*/
+/*#define BEH_WARMSG_VBUX_NOT_EMPTY      317*/
+/*#define BEH_WARMSG_VBUS_NOT_EMPTY      318*/
+/*#define BEH_WARMSG_VREG_NOT_EMPTY      319*/
+/*#define BEH_WARMSG_VBIABL_NOT_EMPTY    320*/
+/**/
 
 #ifdef LEFT
 #undef LEFT

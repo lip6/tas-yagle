@@ -481,7 +481,7 @@ find_inputs(inffig_list *ifl, cone_list *ptcone, locon_list *ptcon, edge_list **
     }
 
     if (YAG_CONTEXT->YAG_USE_CONNECTOR_DIRECTION==TRUE && !mbk_can_cross_transistor_to(ptcon->SIG, pttrans, 'i'))        {
-//        printf("(3)blocked: %s from %s to %s\n", pttrans->TRNAME, getsigname(ptcon->SIG), getsigname(ptnextsig));
+/*        printf("(3)blocked: %s from %s to %s\n", pttrans->TRNAME, getsigname(ptcon->SIG), getsigname(ptnextsig));*/
         return BLOCKED;
     }
 

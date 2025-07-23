@@ -42,9 +42,9 @@ static inline void eatAllInstances(befig_list *befig, loins_list *loins,
     figx        = (befig_list *)gethtitem(befight,loinx->INSNAME);
     if (figx != (void *)EMPTYHT)
     {
-      // i change instance signal names
+      /* i change instance signal names*/
       beh_changeNameInterface(signalht,figx);
-      // TODO correspondance table have to be updated
+      /* TODO correspondance table have to be updated*/
 
       ptx = begGetCorrespHT(figx->NAME);
       if (ptx!=NULL)
@@ -74,15 +74,15 @@ void eatInstance(loins_list *loins, ht *corht, ht *fight, ht *sight)
   long           tmp;
   befig_list    *befig;
 
-  // in this case corht is unused and should be NULL so
+  /* in this case corht is unused and should be NULL so*/
   corht         = NULL;
   
   if ((tmp = gethtitem(fight,loins->INSNAME)) != EMPTYHT)
   {
     befig       = (befig_list*)tmp;
-    // i change instance signal names
+    /* i change instance signal names*/
     beh_changeNameInterface(sight,befig);
-    // TODO correspondance table have to be updated
+    /* TODO correspondance table have to be updated*/
     beg_updateConsDir(befig);
     beg_eat_figure(befig);
   }
@@ -102,7 +102,7 @@ void beg_addAllInstances(char *curbefig, befig_list *befig, loins_list *loins, h
 {
   loins_list    *loinsx;
   befig_list    *figx;
-  char           buf[1024]; //, *curbefig;
+  char           buf[1024]; /*, *curbefig;*/
   ht            *htloins, *corht, *tht;
   ptype_list    *ptx, head, *modh;
   chain_list    *chainx, *inslist, *modlist;
@@ -110,7 +110,7 @@ void beg_addAllInstances(char *curbefig, befig_list *befig, loins_list *loins, h
   long           tmp;
   int            i;
 
-  //  curbefig          = befig->NAME;
+  /*  curbefig          = befig->NAME;*/
   corlist           = NULL;
   
   corht=NULL;
@@ -123,12 +123,12 @@ void beg_addAllInstances(char *curbefig, befig_list *befig, loins_list *loins, h
     }
   /*
     )!=NULL getptype(befig->USER,BEG_CORRESP_PTYPE)))
-    corht           = ptx; //((chain_list*)(ptx->DATA))->DATA;
+    corht           = ptx; |*((chain_list*)(ptx->DATA))->DATA;*|
     else
     corht           = NULL;
   */
 
-  // get the a list of instance classed by model 
+  /* get the a list of instance classed by model */
   htloins           = addht(32);
   for (loinsx = loins; loinsx; loinsx = loinsx->NEXT)
     {
@@ -162,11 +162,11 @@ void beg_addAllInstances(char *curbefig, befig_list *befig, loins_list *loins, h
             }
         }
     }
-  // get list of models
+  /* get list of models*/
   modlist           = GetAllHTElems(htloins);
   delht(htloins);
   
-  // go trough the list of models to sort by instanciation count
+  /* go trough the list of models to sort by instanciation count*/
   head.NEXT         = NULL;
   for ( i = 0; modlist; modlist = delchain(modlist,modlist), i ++)
     {
@@ -184,11 +184,11 @@ void beg_addAllInstances(char *curbefig, befig_list *befig, loins_list *loins, h
           modh->NEXT    = ptx->NEXT;
           ptx->NEXT     = modh;
         }
-      // on the same time replace list of instance by one 
-      // behavioral figure containing all of this model instanciations
+      /* on the same time replace list of instance by one */
+      /* behavioral figure containing all of this model instanciations*/
       inslist         = reverse(modh->DATA);
       sprintf(buf,"tmp_figure_for_beg%d",i);
-      // TODO perhaps find something else about namealloc
+      /* TODO perhaps find something else about namealloc*/
       if ((mode & DISABLE_CREATE_BEH)==0)
         {
           beg_def_befig(namealloc(buf));
@@ -211,7 +211,7 @@ void beg_addAllInstances(char *curbefig, befig_list *befig, loins_list *loins, h
         }
     }
 
-  // add all the temporally behavioral figures
+  /* add all the temporally behavioral figures*/
   if ((mode & DISABLE_CREATE_BEH)==0)
     {
       beg_def_befig(befig->NAME);
@@ -319,11 +319,11 @@ void beg_topLevel(befig_list **befig, chain_list *insbefigs, int compact,
     addhtitem(befight,figx->NAME,(long)figx);
   }
 
-  // pre-treatment of cnsfig to avoid signal problem
-  // this signal problem occurs when genius has several top-level instances :
-  // each genius instances has a signal name which could be different on other instances
-  // and need is to have a single name for all instances
-  //   .. anto ..
+  /* pre-treatment of cnsfig to avoid signal problem*/
+  /* this signal problem occurs when genius has several top-level instances :*/
+  /* each genius instances has a signal name which could be different on other instances*/
+  /* and need is to have a single name for all instances*/
+  /*   .. anto ..*/
   signalht          = NULL;
   *morealiases = NULL;
   for (loinx = loins; loinx; loinx = loinx->NEXT)
@@ -336,17 +336,17 @@ void beg_topLevel(befig_list **befig, chain_list *insbefigs, int compact,
       beh_addRefName(&signalht,figx);
      }
   }
-  // i have a table of correspondance between circuit signals names and 
-  // all instances signals names
-  // i have to create a single name TODO for it i use the defined strategy,
-  // by default i take the first instance signal name
-  // here NULL correspond to the function
+  /* i have a table of correspondance between circuit signals names and */
+  /* all instances signals names*/
+  /* i have to create a single name TODO for it i use the defined strategy,*/
+  /* by default i take the first instance signal name*/
+  /* here NULL correspond to the function*/
   beh_createName(signalht,NULL);
-  // i change the circuit signals name by the new name
-  // i rechange also signals which belong to the main inteface
+  /* i change the circuit signals name by the new name*/
+  /* i rechange also signals which belong to the main inteface*/
   beh_changeNameInside(signalht,yagfig);
 
-  // carefull, don't want to free the yagfig->NAME env
+  /* carefull, don't want to free the yagfig->NAME env*/
   beg_eat_por(yagfig);
   yagfig->NAME      = NULL;
   beg_eat_figure(yagfig);
@@ -359,7 +359,7 @@ void beg_topLevel(befig_list **befig, chain_list *insbefigs, int compact,
   else mode=DISABLE_COMPACT;
   
   topfig            = beg_get_befig(BEG_NOVERIF);
-  //eatAllInstances(*befig,loins,befight,signalht);
+  /*eatAllInstances(*befig,loins,befight,signalht);*/
   beg_addAllInstances(topfig->NAME, topfig,loins,befight,signalht,mode,eatInstance);
   
   topfig            = beg_get_befig(BEG_NOVERIF);
@@ -368,8 +368,8 @@ void beg_topLevel(befig_list **befig, chain_list *insbefigs, int compact,
   *befig            = topfig;
   
   delht(befight);
-//  delht(signalht);
-  // cleaning the BEG structures
+/*  delht(signalht);*/
+  /* cleaning the BEG structures*/
   beg_terminate(topfig);
 
   if (V_BOOL_TAB[__API_USE_CORRESP].VALUE)
@@ -410,12 +410,12 @@ ht *begGetCorrespHTCreate(char *name)
   if ((l=gethtitem(CORRESP_HT_HT, name))==EMPTYHT)
   {
     htb         = addht(BEGAPI_HT_BASE);
-//    ptype       = addptype(befig->USER,BEG_CORRESP_PTYPE,addchain(NULL,htb));
-//    befig->USER = ptype;
+/*    ptype       = addptype(befig->USER,BEG_CORRESP_PTYPE,addchain(NULL,htb));*/
+/*    befig->USER = ptype;*/
     addhtitem(CORRESP_HT_HT, name, (long)htb);
   }
   else
-    // htb         = ((chain_list*)ptype->DATA)->DATA;
+    /* htb         = ((chain_list*)ptype->DATA)->DATA;*/
     htb=(ht *)l;
 
   return htb;

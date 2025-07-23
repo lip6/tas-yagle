@@ -149,7 +149,7 @@ ttvfig_list *tas_main ()
     ttvfig = tas_core (mode);
     stm_pwl_finish ();
 
-    // zinaps : 5/5/2003, genius needs the lofig until the end
+    /* zinaps : 5/5/2003, genius needs the lofig until the end*/
     if (mode == TAS_KEEP_LOFIG && TAS_CONTEXT->TAS_LOFIG && TAS_CONTEXT->TAS_NOTAS == 'N') {
         if (!has_fctmodel(ttvfig))
         {
@@ -157,7 +157,7 @@ ttvfig_list *tas_main ()
           tas_freelofig (TAS_CONTEXT->TAS_LOFIG);
         }
     }
-    // ---
+    /* ---*/
 
     if (TAS_CONTEXT->TAS_SUPBLACKB == 'Y') {
         if (ttvfig == NULL) {
@@ -258,7 +258,7 @@ ttvfig_list *tas_core (int keeplofig)
             
             TAS_CONTEXT->TAS_LOFIG = lofig;
             cnsfig->NAME = TAS_CONTEXT->TAS_FILEOUT;
-            infclone (cnsfig->NAME, ifl);    // <- on suit le changement de nom
+            infclone (cnsfig->NAME, ifl);    /* <- on suit le changement de nom*/
             TAS_CONTEXT->TAS_CNSFIG = cnsfig;
             getrusage (RUSAGE_SELF, &end);
             time (&tend);
@@ -322,7 +322,7 @@ ttvfig_list *tas_core (int keeplofig)
                     lofig = getlofig (TAS_CONTEXT->TAS_FILEIN, 'A');
                     TAS_CONTEXT->TAS_FILENAME = lofig->NAME;
                 }
-            // if special operating cond were specified in spi file...
+            /* if special operating cond were specified in spi file...*/
             tas_update_mcctemp (ifl);
 
             if (lofig) TAS_CONTEXT->TAS_FILENAME = lofig->NAME;
@@ -371,7 +371,7 @@ ttvfig_list *tas_core (int keeplofig)
                 lofigchain (lofig);
 
                 /* les shrinks */
-                //elpLofigShrink (lofig);
+                /*elpLofigShrink (lofig);*/
             }
             else {
                 lofigchain (lofig);
@@ -632,7 +632,7 @@ ttvfig_list *tas_core (int keeplofig)
             fflush (stdout);
         }
 
-        // tas_displaymemoryusage( cnsfig );
+        /* tas_displaymemoryusage( cnsfig );*/
 
         /*liberation de la memoire */
         if (TAS_CONTEXT->TAS_HIER == 'N') {
@@ -716,7 +716,7 @@ ttvfig_list *tas_core (int keeplofig)
                 mbk_comcheck( 0, 0, ttv_signtimingfigure( ttvfig ) );
                 ttv_drittv (ttvfig, TTV_FILE_DTX, (long)0, NULL);
 
-                // SSTA STUFF
+                /* SSTA STUFF*/
                 if (MBK_SOCK!=-1)
                 {
                   if (TAS_PVT_COUNT>0)
@@ -1197,7 +1197,7 @@ ttvfig_list *hitas_tcl (char *figname)
     if (getenv("TASREADCNS"))
        TAS_CONTEXT->TAS_CNS_LOAD='Y';
 
-    { // configuration check level I
+    { /* configuration check level I*/
       lofig_list *lf;
       locon_list *lc;
       chain_list *data;

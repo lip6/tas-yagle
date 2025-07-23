@@ -65,7 +65,7 @@ char   *name;
     }
 
   EXIT(0) ;
-} // cnsdiff_error
+} /* cnsdiff_error*/
 
 
 /****************************************************************************/
@@ -86,32 +86,32 @@ char *argv[];
          NAMEFIG1 = namealloc(argv[i]) ;
        else 
          NAMEFIG2 = namealloc(argv[i]) ;
-     } // if (argv[i] ...)
+     } /* if (argv[i] ...)*/
      else {
        if(strcmp(argv[i],"-h") == 0) {
          maskopt |= DIFF_OPT_HELP ;
-       } // if ( -h )
+       } /* if ( -h )*/
         else if (strcmp(argv[i],"-v") == 0) {
          maskopt |= DIFF_OPT_VERBOSE ;
-       } // else if ( -v )
+       } /* else if ( -v )*/
        else if (strcmp(argv[i],"-nf") == 0) {
          maskopt |= DIFF_OPT_NOOUT ;
-       } // else if ( -nf )
+       } /* else if ( -nf )*/
        else if (strcmp(argv[i],"-error=first") == 0) {
          maskopt |= DIFF_OPT_FIRST ;
-       } // else if ( -error=first )
+       } /* else if ( -error=first )*/
        else if (strcmp(argv[i],"-error=all") == 0) {
          maskopt |= DIFF_OPT_ALL ;
-       } // else if ( -error=all )
+       } /* else if ( -error=all )*/
        else if (strcmp(argv[i],"-out=") == 0) {
          maskopt |= DIFF_OPT_OUTFILE ;
-       } // else if ( )
+       } /* else if ( )*/
                        
-     } // else (argv[i] ...)
-  } // for (argc ..)
+     } /* else (argv[i] ...)*/
+  } /* for (argc ..)*/
     
   return maskopt;
-} // cnsdiff_getopt
+} /* cnsdiff_getopt*/
 
 /****************************************************************************/
 /*                        function main()                                   */
@@ -222,4 +222,4 @@ int main(argc,argv)
  
   EXIT(countingerror) ; 
   return countingerror;
-} // main
+} /* main*/

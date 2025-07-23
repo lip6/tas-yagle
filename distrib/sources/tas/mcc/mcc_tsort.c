@@ -1,7 +1,7 @@
 #include "mcc_tsort.h"
 #include "mcc_util.h"
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 char *mcc_MakeScript (lofig_list *fig, double m, char *options)
 {
@@ -13,7 +13,7 @@ char *mcc_MakeScript (lofig_list *fig, double m, char *options)
     return mcc_DumpScript (couples,options);
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 int mcc_GetL (char *size)
 {
@@ -22,7 +22,7 @@ int mcc_GetL (char *size)
     else return atoi (pt+1);
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 int mcc_GetW (char *size)
 {
@@ -37,7 +37,7 @@ int mcc_GetW (char *size)
     }
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 char *mcc_GetCoupledPTrans (char *model, chain_list *plist, chain_list *nlist)
 {
@@ -57,7 +57,7 @@ char *mcc_GetCoupledPTrans (char *model, chain_list *plist, chain_list *nlist)
     }
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 char *mcc_GetCoupledNTrans (char *model, chain_list *plist, chain_list *nlist)
 {
@@ -77,7 +77,7 @@ char *mcc_GetCoupledNTrans (char *model, chain_list *plist, chain_list *nlist)
     }
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 int mcc_IsACouple (int lp, int ln, int wp, int wn)
 {
@@ -88,7 +88,7 @@ int mcc_IsACouple (int lp, int ln, int wp, int wn)
 }
 
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 couple_t *mcc_MakeCouples (tlist_t *models)
 {
@@ -104,7 +104,7 @@ couple_t *mcc_MakeCouples (tlist_t *models)
     TPMOS = reverse (TPMOS);
     TNMOS = reverse (TNMOS);
 
-    // order models: P ones then N ones 
+    /* order models: P ones then N ones */
     for (tl = models; tl; tl = tl->NEXT)
         if (mbk_istransp (tl->MODEL))
             pn_models = addchain (pn_models, tl);
@@ -124,7 +124,7 @@ couple_t *mcc_MakeCouples (tlist_t *models)
     freechain (pn_models);
 
     for (tl = head_tlist; tl; tl = tl->NEXT) {
-        if (mbk_istransp (tl->MODEL)) { // assoc P models with N models
+        if (mbk_istransp (tl->MODEL)) { /* assoc P models with N models*/
             p_model = tl->MODEL;
             p_msizes = tl->MSIZES;
             n_model = mcc_GetCoupledNTrans (p_model, TPMOS, TNMOS);
@@ -169,7 +169,7 @@ couple_t *mcc_MakeCouples (tlist_t *models)
                 }
             }
         }
-        else { //remaining N models
+        else { /*remaining N models*/
             n_model = tl->MODEL;
             n_msizes = tl->MSIZES;
             p_model = mcc_GetCoupledPTrans (n_model, TPMOS, TNMOS);
@@ -195,7 +195,7 @@ couple_t *mcc_MakeCouples (tlist_t *models)
     return head_couple;
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 tlist_t *mcc_SortModels (lofig_list *figlist, double m)
 {
@@ -252,7 +252,7 @@ tlist_t *mcc_SortModels (lofig_list *figlist, double m)
                     msize = (char*)msz->DATA;
                     mw = mcc_GetW (msize);
                     ml = mcc_GetL (msize);
-                    //if (((l * (1 - m) <= ml && l * (1 + m) >= ml)) && ((w * (1 - m) <= mw && w * (1 + m) >= mw)))
+                    /*if (((l * (1 - m) <= ml && l * (1 + m) >= ml)) && ((w * (1 - m) <= mw && w * (1 + m) >= mw)))*/
                     if (l <= ml*(1+m) && l >= ml * (1-m) && w <= mw*(1+m) && w >= mw*(1-m))
                         break;
                 }
@@ -264,7 +264,7 @@ tlist_t *mcc_SortModels (lofig_list *figlist, double m)
     return models;
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 void mcc_CleanModels (tlist_t *models)
 {
@@ -285,7 +285,7 @@ void mcc_CleanModels (tlist_t *models)
     }
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 void mcc_DumpModels (tlist_t *models)
 {
@@ -320,7 +320,7 @@ void mcc_DumpModels (tlist_t *models)
     }
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 char *mcc_DumpScript (couple_t *couples, char *options)
 {
@@ -356,8 +356,8 @@ char *mcc_DumpScript (couple_t *couples, char *options)
     fprintf (f, "set spicestdout    = 'SPICESTDOUT = %s'\n", MCC_SPICESTDOUT);
     fprintf (f, "set transtep       = 'STEP = %g'\n", V_FLOAT_TAB[ __SIM_TRAN_STEP ].VALUE*1e9);
     fprintf (f, "set dcstep         = 'STEP = %g'\n", MCC_DC_STEP);
-    //fprintf (f, "set spicemodeltype = 'SPICEMODELTYPE = MM9'\n");
-    //fprintf (f, "set spicelevel     = 'SPICELEVEL = 59'\n");
+    /*fprintf (f, "set spicemodeltype = 'SPICEMODELTYPE = MM9'\n");*/
+    /*fprintf (f, "set spicelevel     = 'SPICELEVEL = 59'\n");*/
 
         
     fprintf (f, "\n");
@@ -395,8 +395,8 @@ char *mcc_DumpScript (couple_t *couples, char *options)
         fprintf (f, "echo $spicetool      >> .mccgenelp\n");
         fprintf (f, "echo $spiceout       >> .mccgenelp\n");
         fprintf (f, "echo $spicestdout    >> .mccgenelp\n");
-        //fprintf (f, "echo $spicemodeltype >> .mccgenelp\n");
-        //fprintf (f, "echo $spicelevel     >> .mccgenelp\n");
+        /*fprintf (f, "echo $spicemodeltype >> .mccgenelp\n");*/
+        /*fprintf (f, "echo $spicelevel     >> .mccgenelp\n");*/
         fprintf (f, "echo $tnmodelname    >> .mccgenelp\n");
         fprintf (f, "echo $tpmodelname    >> .mccgenelp\n");
 
@@ -416,7 +416,7 @@ char *mcc_DumpScript (couple_t *couples, char *options)
     return strdup (buf);
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 
 void mcc_DumpCouples (couple_t *head_couple)
 {

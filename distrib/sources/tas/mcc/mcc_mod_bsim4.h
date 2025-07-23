@@ -24,7 +24,7 @@
 
 extern void    mcc_initparam_bsim4(mcc_modellist *ptmodel) ;
 
-// specific func for bsim43
+/* specific func for bsim43*/
 extern int mcc_need_stress_bs43 ( mcc_modellist *ptmodel, 
                                   elp_lotrs_param *lotrsparam
                                 );
@@ -95,7 +95,7 @@ extern void    mcc_calc_inv_sb_bs43 ( mcc_modellist *ptmodel,
                                       double L,
                                       double *inv_sa,
                                       double *inv_saref);
-// low level func
+/* low level func*/
 extern double mcc_calc_coxe_bsim4 ( mcc_modellist *ptmodel );
 extern double mcc_calc_coxp_bsim4 ( mcc_modellist *ptmodel );
 extern double mcc_calc_coxeff_bsim4 (mcc_modellist *ptmodel,
@@ -117,7 +117,7 @@ extern double  mcc_calc_vbi_bsim4 (mcc_modellist *ptmodel,double temp,
 extern double  mcc_calc_vbx_bsim4 (mcc_modellist *ptmodel,double Leff,double Weff,
                                    double BINUNIT,double temp);
 
-// dimensions
+/* dimensions*/
 extern double  mcc_calc_leff_bsim4 (mcc_modellist *ptmodel,elp_lotrs_param *lotrsparam,double L,double W);
 extern double  mcc_calc_weffcj_bsim4 (mcc_modellist *ptmodel, elp_lotrs_param *lotrsparam, double L,double W);
 extern double  mcc_calc_weff_bsim4 (mcc_modellist *ptmodel,elp_lotrs_param *lotrsparam,double L,double W);
@@ -127,7 +127,7 @@ extern double  mcc_calcDLC_bsim4  (mcc_modellist *ptmodel, elp_lotrs_param *lotr
 extern double  mcc_calcDWC_bsim4  (mcc_modellist *ptmodel, elp_lotrs_param *lotrsparam,double L, double W) ;
 extern double  mcc_calcDWCJ_bsim4  (mcc_modellist *ptmodel, elp_lotrs_param *lotrsparam, double L, double W) ;
 
-// efficace voltage
+/* efficace voltage*/
 extern double mcc_calc_vbseff_bsim4  (mcc_modellist *ptmodel,
                                       double Vbs,
                                       double Leff, double Weff,
@@ -166,7 +166,7 @@ extern void mcc_calc_vdseff_bsim4 ( mcc_modellist *ptmodel,
                                     int getparm_flag
                                   );
 
-// high level func
+/* high level func*/
 extern double  mcc_calcVTH_bsim4 (mcc_modellist *ptmodel, 
                                   double L, 
                                   double W, 

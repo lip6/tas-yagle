@@ -1161,7 +1161,7 @@ void XtasCancelCallback( widget, root_widget, call_data )
 
 {
    XtUnmanageChild( root_widget );
-//   XalLeaveLimitedLoop();
+/*   XalLeaveLimitedLoop();*/
 }
 
 
@@ -1320,7 +1320,7 @@ XtPointer call_data;
    XtManageChild( *Xtas_pt_buttons );
    XmAddTabGroup( *Xtas_pt_buttons );
 
-//   XalLeaveLimitedLoop();
+/*   XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1469,6 +1469,6 @@ void XtasOptionsButtonsTreat( parent, pt_buttons_widget, button_menus, button_op
                      &button_options[i].selected );
    }
    XtManageChild( prompt );
-//   XalLimitedLoop( prompt );
+/*   XalLimitedLoop( prompt );*/
 }
 

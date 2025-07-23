@@ -19,7 +19,7 @@
 #ifndef TAS
 #define TAS
 
-//#define USEOLDTEMP
+/*#define USEOLDTEMP*/
 
 /* LISTE DES INCLUDE */
 
@@ -172,8 +172,8 @@
 #define TAS_LINK_CARAC     ((long) 0x20100000 )
 #define TAS_LINK_BLDUP     ((long) 0x20200000 )
 #define TAS_LINK_BLDDOWN   ((long) 0x20300000 )
-//#define TAS_LINK_DELAYRC   ((long) 0x20400000 )
-//#define TAS_LINK_RESISRC   ((long) 0x20500000 )
+/*#define TAS_LINK_DELAYRC   ((long) 0x20400000 )*/
+/*#define TAS_LINK_RESISRC   ((long) 0x20500000 )*/
 #define TAS_LINK_CAPA      ((long) 0x20600000 )
 #define TAS_LINK_VPOL      ((long) 0x20700000 )
 #define TAS_LINK_UNUSED_SWITCH_COMMAND ((long) 0x20800000 )
@@ -262,7 +262,7 @@
 #define TAS_LOCON_OUTCONE  ((long) 0x40000032 ) /* list des entree d'un locon*/
 #define TAS_SIG_ONLYEND    ((long) 0x40000033 ) /* list des entree d'un locon*/
 #define TAS_FIG_LOSIGRCX   ((long) 0x40000034 ) /* list des entree d'un locon*/
-#define TAG_CONE_OUTPUT_CAPACITANCE ((long) 0x40000035 ) // TAS_CAPAOUT/connecteur
+#define TAG_CONE_OUTPUT_CAPACITANCE ((long) 0x40000035 ) /* TAS_CAPAOUT/connecteur*/
 #define TAS_SIG_FORCERCDELAY  ((long) 0x400000036 ) /* info du .inf              */
 
 #define TAS_CASE           ((int)(mcc_use_multicorner() == 0 ) ? elpTYPICAL : (TAS_PATH_TYPE == 'm') ? elpBEST : elpWORST)
@@ -378,12 +378,12 @@ typedef struct delay
          long    RCLL,RCHH;
          long    FRCLL,FRCHH;
 #ifdef USEOLDTEMP
-         //--
+         /*--*/
          long    RLH,RHL;
          long    RLL,RHH;
          long    SLH,SHL;
          long    SLL,SHH;
-         //--
+         /*--*/
 #endif
          timing_model  *TMLH;
          timing_model  *TMHL;
@@ -622,7 +622,7 @@ extern double*      tas_DynamicCapas     __P((double, int));
 extern void           tas_handler_core      __P(( void ));
 extern float          tas_gettotalcapa (lofig_list *lofig, losig_list *losig, int type);
 
-// pour les API et surtout ttv_API
+/* pour les API et surtout ttv_API*/
 extern void        tas_simu_set_progression ( void (*callfn)( void*, char*, int ) );
 
 extern double      tas_get_input_slope      ( ttvcritic_list* );
@@ -639,7 +639,7 @@ extern int         tas_simu_netlist         ( ttvfig_list*, lofig_list* ,
                                               int mcruns,
                                               int plot
                                             );
-// pour les API et surtout ttv_API
+/* pour les API et surtout ttv_API*/
 extern ttvfig_list *tas_builtfig(lofig_list *lofig);
 extern void tas_loconorient        (lofig_list *lofig, ttvfig_list *ttvfig);
 extern void tas_setsigname         (lofig_list *lofig);
@@ -656,7 +656,7 @@ extern void tas_detectinout        (cnsfig_list*);
 extern int  tas_version            ();
 extern int  tas_top_main           (int argc, char *argv[]);
 
-// pour le solveur STM
+/* pour le solveur STM*/
 extern timing_iv*          tpiv_dualmodel( cone_list *cone, branch_list *head, link_list *active, float vref, float pconf0, float pconf1, float fin_vi, float fin_vf, float fin_vs, float vouti );
 
 extern char                tpiv_calc_i( tpiv_i *model, float ve, float vs, float *is );

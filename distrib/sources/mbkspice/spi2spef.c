@@ -16,9 +16,9 @@
 #include "spi_hash.h"
 #include "spi_parse.h"
 
-//#define CORRECT_CONNECT
-//#define FULLVALUE
-//#define DELAY_DEBUG_STAT
+/*#define CORRECT_CONNECT*/
+/*#define FULLVALUE*/
+/*#define DELAY_DEBUG_STAT*/
 extern float             SPI_SCALE_RESIFACTOR ;
 extern float             SPI_SCALE_CAPAFACTOR ;
 
@@ -88,7 +88,7 @@ void _spispef_complete_node(subckt *cir, char *name, __node_ *n, int mark, int j
   e->next=cir->all_equi;
   if (cir->all_equi!=NULL) cir->all_equi->a.prev=e;
   e->a.prev=NULL;
-//  e->tag=0;
+/*  e->tag=0;*/
   cir->all_equi=e;
 }
 
@@ -96,17 +96,17 @@ void _spispef_mergenodes(subckt *cir, __node_ *a, __node_ *b)
 {
   __node_ *n;
   if (a->signal==b->signal) return;
-//  printf("merge %d %d\n",a->index,b->index);  
+/*  printf("merge %d %d\n",a->index,b->index);  */
   if (a->signal->b.nbnodes>b->signal->b.nbnodes)
     {
       a->signal->nbelem+=b->signal->nbelem;
-//      a->signal->tag|=b->signal->tag;
+/*      a->signal->tag|=b->signal->tag;*/
       n=b->signal->nodes;
       a->signal->b.nbnodes+=b->signal->b.nbnodes;
 
       a->signal->lastnode->SUIV=b->signal->nodes;
       a->signal->lastnode=b->signal->lastnode;
-//      a->signal->nodes=(__node_ *)append((chain_list *)a->signal->nodes, (chain_list *)b->signal->nodes);
+/*      a->signal->nodes=(__node_ *)append((chain_list *)a->signal->nodes, (chain_list *)b->signal->nodes);*/
       if (a->signal->firstline==-1 ||
           b->signal->firstline<a->signal->firstline) a->signal->firstline=b->signal->firstline;
       if (a->signal->lastline==-1 ||
@@ -125,12 +125,12 @@ void _spispef_mergenodes(subckt *cir, __node_ *a, __node_ *b)
   else
     {
       b->signal->nbelem+=a->signal->nbelem;
-//      b->signal->tag|=a->signal->tag;
+/*      b->signal->tag|=a->signal->tag;*/
       n=a->signal->nodes;
       b->signal->b.nbnodes+=a->signal->b.nbnodes;
       b->signal->lastnode->SUIV=a->signal->nodes;
       b->signal->lastnode=a->signal->lastnode;
-      //b->signal->nodes=(__node_ *)append((chain_list *)b->signal->nodes, (chain_list *)a->signal->nodes);     
+      /*b->signal->nodes=(__node_ *)append((chain_list *)b->signal->nodes, (chain_list *)a->signal->nodes);     */
       if (b->signal->firstline==-1 ||
           a->signal->firstline<b->signal->firstline) b->signal->firstline=a->signal->firstline;
       if (b->signal->lastline==-1 ||
@@ -249,7 +249,7 @@ static void _ParasiticDriveNet(subckt *cir, __equi_ *e)
   char buf[1024], buf0[1024];
   __names_ *nam;
 
-//  printf("ending %s\n",e->a.nom);
+/*  printf("ending %s\n",e->a.nom);*/
   for (i=e->items, totcapa=0; i!=NULL; i=i->next)
     {
       if (i->type=='c') totcapa+=i->value;
@@ -270,7 +270,7 @@ static void _ParasiticDriveNet(subckt *cir, __equi_ *e)
       {
       fprintf(cir->of, "*CONN\n");
       
-//      for (n=e->nodes, num=0; n!=NULL; n=n->SUIV) n->index=num++;
+/*      for (n=e->nodes, num=0; n!=NULL; n=n->SUIV) n->index=num++;*/
       
       for (n=e->nodes; n!=NULL; n=n->SUIV)
         {
@@ -385,7 +385,7 @@ static void checkstart(__equi_ *e, int line)
       e->items=NULL;
       freeitemspace-=e->nbelem;
 
-//      printf("starting %s , %d, f=%d\n",e->a.nom,e->nbelem, freeitemspace);
+/*      printf("starting %s , %d, f=%d\n",e->a.nom,e->nbelem, freeitemspace);*/
       if (e->tag & TAG_ALIM) EXIT(6);
     }
 /*  else  if (e->firstline==line && freeitemspace<e->nbelem)
@@ -414,11 +414,11 @@ static void CreateSpeforAnyOther(spifile *sf, chain_list *cl)
   int         Tx, Ty, R, A;
   chain_list *fifodf=NULL, *elem;
 #ifdef ENABLE_STATS
-  // -----
+  /* -----*/
   long df_temp0;
   long df_time=time(NULL), df_starttime=df_time;
   long df_temp=0;
-  // -----
+  /* -----*/
 #endif
 
   l=lireligne(sf, cir);
@@ -464,8 +464,8 @@ static void CreateSpeforAnyOther(spifile *sf, chain_list *cl)
               if ((where=filepath(cir->NOM, "spef"))!=NULL)
                 {
                   avt_log(-1, 0, "File '%s.spef' already exists, no spef generation done\n",where);
-//                  printf("[info] using existing parasitic file '%s.spef'\n",cir->NOM);
-//                  fclose(cir->of);
+/*                  printf("[info] using existing parasitic file '%s.spef'\n",cir->NOM);*/
+/*                  fclose(cir->of);*/
                   cir->of=NULL;
                   cir->nbequi=0;
                   
@@ -474,7 +474,7 @@ static void CreateSpeforAnyOther(spifile *sf, chain_list *cl)
                       cir=(subckt *)ch->DATA;
                       if (((subckt *)ch->DATA)->nbequi!=0) break;
                     }
-                  if (ch==NULL) // no more circuit to complete
+                  if (ch==NULL) /* no more circuit to complete*/
                     forcedexit=1;
                 }
               else
@@ -483,7 +483,7 @@ static void CreateSpeforAnyOther(spifile *sf, chain_list *cl)
                     EXIT(142);
                   for (run_equi=cir->all_equi; run_equi!=NULL; run_equi=run_equi->next)
                     if (run_equi->firstline!=-1) run_equi->b.nbnodes=i++;
-                  // drive header
+                  /* drive header*/
                   _ParasiticDriveHeader(cir, cir->NOM, e->NEXT);
                 }
             }
@@ -494,14 +494,14 @@ static void CreateSpeforAnyOther(spifile *sf, chain_list *cl)
         }
       else if (strcasecmp( (char*)(l->DATA), ".ENDS" ) == 0 )
         {
-//-----------------
-//          cir->nbequi=0;
+/*-----------------*/
+/*          cir->nbequi=0;*/
           if (cir->of!=NULL)
             {
               if (cir->nbequi==0) 
                 {
                   fclose(cir->of);
-//                  printf("closed %s\n",cir->NOM);
+/*                  printf("closed %s\n",cir->NOM);*/
                 }
 #ifdef ENABLE_STATS
               else
@@ -516,9 +516,9 @@ static void CreateSpeforAnyOther(spifile *sf, chain_list *cl)
           __item_ *i;
           if (countchain(l)<4) 
               avt_errmsg (SPI_ERRMSG, "036", AVT_FATAL, sf->filename, sf->msl_line );
-          a=ajoutenoeud( cir, (char *)l->NEXT->DATA, 0 ); //getnode(cir, (char *)l->NEXT->DATA, 0); // node0
-          b=ajoutenoeud( cir, (char *)l->NEXT->NEXT->DATA, 0 ); //b=getnode(cir, (char *)l->NEXT->NEXT->DATA, 0); // node1
-          // ---------
+          a=ajoutenoeud( cir, (char *)l->NEXT->DATA, 0 ); /*getnode(cir, (char *)l->NEXT->DATA, 0); // node0*/
+          b=ajoutenoeud( cir, (char *)l->NEXT->NEXT->DATA, 0 ); /*b=getnode(cir, (char *)l->NEXT->NEXT->DATA, 0); // node1*/
+          /* ---------*/
           checkstart(a->signal, cir->TOTAL_LINE_COUNTER/*sf->msl_line*/);
           if ((a->signal->tag & TAG_MASK)==1)
             {
@@ -542,9 +542,9 @@ static void CreateSpeforAnyOther(spifile *sf, chain_list *cl)
           __item_ *i;
           if (countchain(l)<4) 
                 avt_errmsg (SPI_ERRMSG, "038", AVT_FATAL, sf->filename, sf->msl_line );
-          a=ajoutenoeud( cir, (char *)l->NEXT->DATA, 0 ); //a=getnode(cir, (char *)l->NEXT->DATA, 0); // node0
-          b=ajoutenoeud( cir, (char *)l->NEXT->NEXT->DATA, 0 ); //b=getnode(cir, (char *)l->NEXT->NEXT->DATA, 0); // node1
-// ---------
+          a=ajoutenoeud( cir, (char *)l->NEXT->DATA, 0 ); /*a=getnode(cir, (char *)l->NEXT->DATA, 0); // node0*/
+          b=ajoutenoeud( cir, (char *)l->NEXT->NEXT->DATA, 0 ); /*b=getnode(cir, (char *)l->NEXT->NEXT->DATA, 0); // node1*/
+/* ---------*/
           checkstart(a->signal, cir->TOTAL_LINE_COUNTER/*sf->msl_line*/);
           if ((a->signal->tag & TAG_MASK)==1)
             {
@@ -562,7 +562,7 @@ static void CreateSpeforAnyOther(spifile *sf, chain_list *cl)
               cir->nbequi--;
             }
 
-// ---------
+/* ---------*/
           if (b->signal!=a->signal)
             {
               checkstart(b->signal, cir->TOTAL_LINE_COUNTER/*sf->msl_line*/);
@@ -660,7 +660,7 @@ void SpiceToSpef(char *name, char *ext, chain_list *cirs, long freespace)
 
           for (n=e->nodes, num=1; n!=NULL; n=n->SUIV) n->index=num++;          
 
-          //                            printf("[%d %d] %d elem, %s\n",e->firstline,e->lastline,e->nbelem, nom);
+          /*                            printf("[%d %d] %d elem, %s\n",e->firstline,e->lastline,e->nbelem, nom);*/
         }
       cir->nbequi=cnt-cnt0;
 #ifdef ENABLE_STATS
@@ -674,7 +674,7 @@ void SpiceToSpef(char *name, char *ext, chain_list *cirs, long freespace)
   if (maxelem>freeitemspace)
     {
       fprintf(stderr,"Can not drive spef with the current space restriction (maximum: %d rc), needed %d\n",freeitemspace,maxelem);
-      return; // free!!!
+      return; /* free!!!*/
     }
 
 

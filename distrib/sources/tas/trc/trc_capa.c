@@ -1008,7 +1008,7 @@ RCXFLOAT rcx_getnodecapa( losig_list  *ptsig,
 
   ptrcx = getrcx( ptsig );
   
-  // Capacité due aux capacités couplées.
+  /* Capacité due aux capacités couplées.*/
   c = 0.0 ;
   for( chain = node->CTCLIST ; chain ; chain = chain->NEXT ) {
     ctc = (loctc_list*)chain->DATA;
@@ -1016,7 +1016,7 @@ RCXFLOAT rcx_getnodecapa( losig_list  *ptsig,
   }
   capa = capa + c;
 
-  // Capacité due aux fils.
+  /* Capacité due aux fils.*/
   c = 0.0 ;
   for( chain = node->WIRELIST ; chain ; chain = chain->NEXT ) {
     lowire = (lowire_list*)(chain->DATA);
@@ -1024,7 +1024,7 @@ RCXFLOAT rcx_getnodecapa( losig_list  *ptsig,
   }
   capa = capa + c;
 
-  // Capacité due aux connecteurs.
+  /* Capacité due aux connecteurs.*/
   c = 0.0 ;
   for( chain = getloconnode( node ) ; chain ; chain = chain->NEXT ) {
     
@@ -1054,11 +1054,11 @@ RCXFLOAT rcx_getnodecapa( losig_list  *ptsig,
   }
   capa = capa + c ;
 
-  // Application du correctif pour les capacités de couplage globales.
+  /* Application du correctif pour les capacités de couplage globales.*/
 
   capa = capa * coefctc ;
   
-  // Redimensionnement des capacités
+  /* Redimensionnement des capacités*/
 
   capa = capa * tlc_getcapafactor();
 

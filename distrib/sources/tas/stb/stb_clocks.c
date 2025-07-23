@@ -402,7 +402,7 @@ ptype_list *stb_build_generated_clock_info(chain_list *clocklist)
     {
       min=get_clock_latency_tree(&tvs->NODE[i], TTV_FIND_MIN, NULL);
       max=get_clock_latency_tree(&tvs->NODE[i], TTV_FIND_MAX, NULL);
-      pt=addptype(pt, (long)&tvs->NODE[i], addchain(addchain(NULL, max), min)); //min puis max
+      pt=addptype(pt, (long)&tvs->NODE[i], addchain(addchain(NULL, max), min)); /*min puis max*/
     }
     clocklist=clocklist->NEXT;
   }
@@ -438,10 +438,10 @@ long stb_get_generated_clock_skew(ptype_list *geneclockinfo, ttvevent_list *tve0
   *common_node=NULL;
   for (pt=geneclockinfo; pt!=NULL && pt->TYPE!=(long)tve0; pt=pt->NEXT) ;
   if (pt==NULL) return TTV_NOTIME;
-  c0=(chain_list *)((chain_list *)pt->DATA)->DATA; // min
+  c0=(chain_list *)((chain_list *)pt->DATA)->DATA; /* min*/
   for (pt=geneclockinfo; pt!=NULL && pt->TYPE!=(long)tve1; pt=pt->NEXT) ;
   if (pt==NULL) return TTV_NOTIME;
-  c1=(chain_list *)((chain_list *)pt->DATA)->NEXT->DATA; // max
+  c1=(chain_list *)((chain_list *)pt->DATA)->NEXT->DATA; /* max*/
   while (c0!=NULL && c1!=NULL)
   {
     scli0=(stb_clock_latency_information *)c0->DATA;

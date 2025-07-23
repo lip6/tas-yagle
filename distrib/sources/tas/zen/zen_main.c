@@ -14,9 +14,9 @@
 /****************************************************************************/
 
 #include "zen_main.h"
-//#include <sys/types.h>
-//#include <sys/stat.h>
-//#include <fcntl.h>
+/*#include <sys/types.h>*/
+/*#include <sys/stat.h>*/
+/*#include <fcntl.h>*/
 #include EQT_H
 
 struct stat *st;
@@ -89,18 +89,18 @@ char  **argv;
   befig_list    *BeFigure;
   char          *BeNameFile = NULL;
   char          *PaNameFile = NULL;
-//  char           buf[256];
-//  FILE          *file;
+/*  char           buf[256];*/
+/*  FILE          *file;*/
   ptype_list    *path;
-//  char          *top;
-//  int            i;
-//  char           key[8];
+/*  char          *top;*/
+/*  int            i;*/
+/*  char           key[8];*/
 
-//  pCircuit cct;
-//  chain_list *abl;
-//  chain_list *abl2;
-//  pNode bdd;
-//  pNode bdd2;
+/*  pCircuit cct;*/
+/*  chain_list *abl;*/
+/*  chain_list *abl2;*/
+/*  pNode bdd;*/
+/*  pNode bdd2;*/
 
 #ifdef AVERTEC
   avtenv() ;
@@ -120,39 +120,39 @@ char  **argv;
   
   if (!beh_chkbefig(BeFigure,0))
   {
-    // on cree les dependances in>>out (berin) liste des sorties qui dependent
-    // des entrees
+    /* on cree les dependances in>>out (berin) liste des sorties qui dependent*/
+    /* des entrees*/
     beh_depend(BeFigure);
-    // on construit tous les bdds pour chaque expression
+    /* on construit tous les bdds pour chaque expression*/
     zen_makbehbdd(BeFigure);
   }
-//  st = mbkalloc(sizeof(struct stat));
+/*  st = mbkalloc(sizeof(struct stat));*/
   ZEN_TRACE(0,"loaded");
-//  while (1)
-//  {
-//    fgets(key,8,stdin);
-//    fread(key,1,1,stdin);
-//    if (key[0]=='q') EXIT(1);
-//    if (getch()=='q') EXIT(1);    
-//    if ((file=fopen(PaNameFile,"r")))
-//    {
-//      sleep(2);
-//    stat("/users/disk01/antony/dev/test/zen/file.inf",st);
-//    if (st->st_size!=0){
-//      fclose(file);
+/*  while (1)*/
+/*  {*/
+/*    fgets(key,8,stdin);*/
+/*    fread(key,1,1,stdin);*/
+/*    if (key[0]=='q') EXIT(1);*/
+/*    if (getch()=='q') EXIT(1);    */
+/*    if ((file=fopen(PaNameFile,"r")))*/
+/*    {*/
+/*      sleep(2);*/
+/*    stat("/users/disk01/antony/dev/test/zen/file.inf",st);*/
+/*    if (st->st_size!=0){*/
+/*      fclose(file);*/
       path = zen_loadPath(PaNameFile);
-//      if (path)
-//      {
+/*      if (path)*/
+/*      {*/
       zen_remplacebebux(BeFigure);
       zen_remplacebebus(BeFigure);
 
       ZenFig = zen_createzenfig(BeFigure,path);
       zen_the_question(ZenFig);
       zen_freezenfig(ZenFig);
-//      unlink(PaNameFile);
-//      }}
-//    }
-//  }
+/*      unlink(PaNameFile);*/
+/*      }}*/
+/*    }*/
+/*  }*/
   beh_frebefig(BeFigure);
   EXIT(0);
 }

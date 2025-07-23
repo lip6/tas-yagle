@@ -12,6 +12,9 @@
 /****************************************************************************/
 
 #include "stm_API_cache.h"
+#ifndef M_PI
+#  define M_PI 3.14159265358979323846
+#endif
 
 static double            THRESHOLD      = 120.0;
 static stm_tree4cache   *APISTM_TREE    = NULL;
@@ -69,7 +72,7 @@ void             stm_test_threshold(void);
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-void stm_API_ActionTerminate() // commentaire pour desactiver l'ajout de token
+void stm_API_ActionTerminate() /* commentaire pour desactiver l'ajout de token*/
 {
   APISTM_TREE   = stm_freeAllTree(APISTM_TREE);
 }
@@ -401,7 +404,7 @@ int stm_delayThresholdOK(double inslope, double outload, double threshold)
   else
   {
 #ifdef _PRINT
-    //    printf("delai ok\n");
+    /*    printf("delai ok\n");*/
 #endif
     return CURRENT->TRESRES;
   }
@@ -511,7 +514,7 @@ static double stm_getValue(timing_table *table, double inslope,
                            double outload,
                            float (*func)(timing_table *, float, float))
 {
-//  stm_displayTable(table);
+/*  stm_displayTable(table);*/
   if (CURRENT->TRESRES == STM_THRESHOLD_MATCH_XY)
   {
     int      x, y;
@@ -817,7 +820,7 @@ static void stm_storeInTable(timing_table **curtable, double inslope,
     table->SET2D[x][y]  = delay;
     type                = 'M';
     restable            = table;
-//    stm_fillTbl(restable,x,y,type);
+/*    stm_fillTbl(restable,x,y,type);*/
   }
   else if (table)
   {
@@ -876,7 +879,7 @@ static void stm_storeInTable(timing_table **curtable, double inslope,
       }
     }
     restable->SET2D[x][y] = delay; 
-//    stm_fillTbl(restable,x,y,type);
+/*    stm_fillTbl(restable,x,y,type);*/
     stm_modtbl_destroy(table);
   }
   else
@@ -971,13 +974,13 @@ static int stm_gettimingfunction_and_signalcapa(char *output,
   if (tmodel == NULL)
   {
     avt_errmsg(STM_API_ERRMSG, "001", AVT_ERROR, modelname);
-    //fprintf(stderr,"stm model '%s' does not exist\n",modelname);
+    /*fprintf(stderr,"stm model '%s' does not exist\n",modelname);*/
     return -1;
   }
   if (tmodel->UTYPE != STM_MOD_MODFCT)
   {
     avt_errmsg(STM_API_ERRMSG, "002", AVT_ERROR, modelname);
-//    fprintf(stderr,"stm model '%s' is not a function\n",modelname);
+/*    fprintf(stderr,"stm model '%s' is not a function\n",modelname);*/
     return -1;
   }
   *tf       = tmodel->UMODEL.FUNCTION;
@@ -1020,11 +1023,11 @@ static void stm_fillTbl(timing_table *tbl, int xind, int yind, char type)
          stm_fillCol(tbl,yind,down,xind);
          stm_fillNewLine(tbl,yind);
          break;
-    case 'N' : // New
+    case 'N' : /* New*/
          stm_fillNewCol(tbl,xind);
          stm_fillNewLine(tbl,yind);
          break;
-    case 'M' : // Match
+    case 'M' : /* Match*/
          stm_fillFindLeftnRight(tbl,xind,yind,&beg,&end);
          stm_fillLine(tbl,beg,xind,yind);
          stm_fillLine(tbl,xind,end,yind);
@@ -1252,13 +1255,13 @@ void stm_test_threshold()
     for (x = x0; x <= x1; x += (x1-x0)/nb) 
     {
       Y   = y/90;
-      //      Y   = log(pow(Y,(1.0-1/y)));
+      /*      Y   = log(pow(Y,(1.0-1/y)));*/
       Y   = log(pow(Y,2));
       X   = (2*(x-x0)/(x1-x0) - 1);
       X   = X*Y;
       res = exp(-pow(X,2)) * 100 * pow(y/90,1.0/3);
-      //      fprintf(f,"%4.3g %4.1f %7.2f\n",x,y,res);
-      //      fprintf(f,"\n");
+      /*      fprintf(f,"%4.3g %4.1f %7.2f\n",x,y,res);*/
+      /*      fprintf(f,"\n");*/
     }
     fprintf(f,"\n");
   }

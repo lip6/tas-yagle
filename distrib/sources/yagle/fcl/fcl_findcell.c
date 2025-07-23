@@ -26,7 +26,7 @@
 /*
    ####====================================================================####
    ##                                                                        ##
-   ##                            find_mem()                                  ##
+   ##                            fclFind()                                   ##
    ##                                                                        ##
    ## Recherche d'un sous-graphe dans un graphe representant des netlists du ##
    ## point de vue transistor                                                ##
@@ -38,11 +38,7 @@
    ##           elements des points memoires marques                         ## 
    ####====================================================================####
  */
-void 
-fclFind(ptlofig_c, ptlofig_m, ptbefig_m)
-    lofig_list     *ptlofig_c;
-    lofig_list     *ptlofig_m;
-    befig_list     *ptbefig_m;
+void fclFind( lofig_list *ptlofig_c, lofig_list *ptlofig_m, befig_list *ptbefig_m )
 {
     partition_list *ptsolution = NULL;
     void           *ptcle = NULL;

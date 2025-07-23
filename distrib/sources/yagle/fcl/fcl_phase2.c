@@ -21,15 +21,16 @@
    ##                                                                        ##
    ####====================================================================####
  */
-static void            init_phase2();       /* init                           */
-static void            clean_phase2();      /* netoie                           */
-static int             parcours_sig();      /* parcours les S connectes a un T  */
-static int             parcours_trs_ins();  /* parcours les T connectes a un S  */
-static int             test_non_match();    /* cherche les branches perdues     */
-static void            clear();             /* supprime les match de la phase 2 */
-//static int             rebouclage();        /* supprime les solutions bouclees  */
-static int             check_couplings();   /* remove broken couplings          */
-static num_list       *get_numlist_intersect();
+
+static void      init_phase2( lofig_list *ptlofig );
+static void      clean_phase2( lofig_list *ptlofig );
+static int       parcours_sig( locon_list *ptlocon, char sourcetype, int precniveau );
+static int       parcours_trs_ins( locon_list *ptlocon );
+static int       test_non_match( lofig_list *ptlofig_m );
+static void      clear( lofig_list *ptlofig );
+/*static int       rebouclage();        /* supprime les solutions bouclees  */
+static int       check_couplings();   /* remove broken couplings          */
+static num_list *get_numlist_intersect( chain_list *ptnumlistchain );
 /*
    ####====================================================================####
    ##                                                                        ##
@@ -71,13 +72,7 @@ int             FCL_NEED_ONE = FALSE;
  */
 
 void
-fclPhase2(ptlofig_c, ptlofig_m, ptbefig_m, ptsolution, ptcle, findall)
-    lofig_list     *ptlofig_c;
-    lofig_list     *ptlofig_m;
-    befig_list     *ptbefig_m;
-    partition_list *ptsolution;
-    void           *ptcle;
-    int             findall;
+fclPhase2( lofig_list *ptlofig_c, lofig_list *ptlofig_m, befig_list *ptbefig_m, partition_list *ptsolution, void *ptcle, int findall )
 {
     chain_list     *ptchain;        /* parcours de tous les vecteurs camdidats  */
     lotrs_list     *ptlotrs;        /* vecteur cle type                         */
@@ -217,11 +212,7 @@ fclPhase2(ptlofig_c, ptlofig_m, ptbefig_m, ptsolution, ptcle, findall)
    ##                                                                        ##
    ####====================================================================####
  */
-static int
-parcours_sig(ptlocon, sourcetype, precniveau)
-    locon_list     *ptlocon;        /* Ptr sur LOCON par lequel on arrive   */
-    char            sourcetype;
-    int             precniveau;
+static int parcours_sig( locon_list *ptlocon, char sourcetype, int precniveau )
 {
     fcl_label       prevcon;        /* label du connecteur precedent        */
     ptype_list     *ptuser;        /* pointeur sur le ptype MATCH du TRS   */
@@ -413,9 +404,7 @@ parcours_sig(ptlocon, sourcetype, precniveau)
    ##                                                                        ##
    ####====================================================================####
  */
-static int
-parcours_trs_ins(ptlocon)
-    locon_list     *ptlocon;
+static int parcours_trs_ins( locon_list *ptlocon )
 {
     fcl_label       label;        /* label du connecteur             */
     chain_list     *ptfils;        /* Liste des fils du Vect courrant */
@@ -556,9 +545,7 @@ parcours_trs_ins(ptlocon)
    ##  sortie : rien                                                         ##
    ####====================================================================####
  */
-static void
-clear(ptlofig)
-    lofig_list     *ptlofig;
+static void clear( lofig_list *ptlofig )
 {
     losig_list     *ptlosig;
     lotrs_list     *ptlotrs;
@@ -597,9 +584,7 @@ clear(ptlofig)
    ##  sortie : rien                                                         ##
    ####====================================================================####
  */
-static void
-init_phase2(ptlofig)
-    lofig_list     *ptlofig;
+static void init_phase2( lofig_list *ptlofig )
 {
     losig_list     *ptlosig = (losig_list *) NULL;
     ptype_list     *ptype;
@@ -626,9 +611,7 @@ init_phase2(ptlofig)
     }
 }
 
-static void
-clean_phase2(ptlofig)
-    lofig_list     *ptlofig;
+static void clean_phase2( lofig_list *ptlofig )
 {
     losig_list     *ptlosig = (losig_list *) NULL;
     ptype_list     *ptype;
@@ -749,9 +732,7 @@ check_couplings()
     return 1;
 }
 
-static num_list *
-get_numlist_intersect(ptnumlistchain)
-    chain_list *ptnumlistchain;
+static num_list * get_numlist_intersect( chain_list *ptnumlistchain )
 {
     num_list   *ptfirstnumlist;
     num_list   *ptcurnumlist;
@@ -792,9 +773,7 @@ get_numlist_intersect(ptnumlistchain)
    ##                                                                        ##
    ####====================================================================####
  */
-static int
-test_non_match(ptlofig_m)
-    lofig_list     *ptlofig_m;
+static int test_non_match( lofig_list *ptlofig_m )
 {
     lotrs_list     *ptlotrs;
     loins_list     *ptloins;

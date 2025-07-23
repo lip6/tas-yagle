@@ -9,16 +9,16 @@
 #endif
 #include MUT_H
 #include AVT_H
-//#include "mbk_matrix.h"
+/*#include "mbk_matrix.h" */
 
-//#define FINEST_PIVOT
-//#define GAUSS
+/*#define FINEST_PIVOT*/
+/*#define GAUSS*/
 
-// ----- optimizaions ------
+/* ----- optimizaions ------*/
 #define OPTIM_REDUCE
 #define OPTIM_MULTIPLY
 
-// -------------------------
+/* -------------------------*/
 void mbk_FreeMatrix(mbk_matrix *mm)
 {
   DeleteHeap(&mm->mbk_matrix_elem_heap);
@@ -176,13 +176,13 @@ static mbk_matrix_elem *matrix_get(mbk_matrix *mm, int x, int y, mbk_matrix_elem
   return res;
 }
 
-static inline void get_up_down(mbk_matrix_elem *mme, int y, mbk_matrix_elem **up, mbk_matrix_elem **down)
+static void get_up_down(mbk_matrix_elem *mme, int y, mbk_matrix_elem **up, mbk_matrix_elem **down)
 {
   if (mme->y>y) { *down=mme; *up=(*down)->UP; }
   else { *up=mme; *down=(*up)->DOWN; }
 }
 
-static inline void get_left_right(mbk_matrix_elem *mme, int x, mbk_matrix_elem **left, mbk_matrix_elem **right)
+static void get_left_right(mbk_matrix_elem *mme, int x, mbk_matrix_elem **left, mbk_matrix_elem **right)
 {
   if (mme->x>x) { *right=mme; *left=(*right)->LEFT; }
   else { *left=mme; *right=(*left)->RIGHT; }
@@ -212,7 +212,7 @@ static mbk_matrix_elem *matrix_create_elem(mbk_matrix *mm, mbk_matrix_elem *left
   return mme;
 }
 
-// a utiliser que si l'element n'existe pas
+/* a utiliser que si l'element n'existe pas*/
 static mbk_matrix_elem *matrix_create_for_set(mbk_matrix *mm, int x, int y)
 {
   mbk_matrix_elem *mme, *last;
@@ -266,7 +266,7 @@ static mbk_matrix_elem *matrix_create_for_set(mbk_matrix *mm, int x, int y)
 }
 
 
-static inline void settracker(mbk_matrix *mm, mbk_matrix_elem *mme)
+static void settracker(mbk_matrix *mm, mbk_matrix_elem *mme)
 {
   int d1, d2;
   if (mm->tracker0==mme || mm->tracker1==mme) return;
@@ -363,12 +363,12 @@ void mbk_SetMatrixValue(mbk_matrix *mm, int x, int y, double val)
     }
 }
 
-inline int mbk_GetMatrixNZUR(mbk_matrix *mm, int x)
+ int mbk_GetMatrixNZUR(mbk_matrix *mm, int x)
 {
   return mm->col[x].NZ;
 }
 
-inline int mbk_GetMatrixNZLC(mbk_matrix *mm, int y)
+ int mbk_GetMatrixNZLC(mbk_matrix *mm, int y)
 {
   return mm->line[y].NZ;
 }
@@ -473,7 +473,7 @@ static int findPivot(mbk_matrix *u, chain_list **unlockedlines, chain_list **unl
       *y=(int)(long)tmpfree->DATA;
       *tmp=(*tmp)->NEXT;
       tmpfree->NEXT=NULL; freechain(tmpfree);
-      // ligne et column du pivot sont enleves des listes des col et ligne non bloque
+      /* ligne et column du pivot sont enleves des listes des col et ligne non bloque*/
     }
   else
     {
@@ -503,7 +503,7 @@ static int findPivot(mbk_matrix *u, chain_list **unlockedlines, chain_list **unl
           avt_error("mbk_matrix", 2, AVT_ERR, "<NaN> or <Inf> value found in matrix\n");
           return 1;
         }
-      // enleve ligne et column du pivot des listes des col et ligne non bloque
+      /* enleve ligne et column du pivot des listes des col et ligne non bloque*/
       tmpfree=*bestx; *bestx=(*bestx)->NEXT;
       tmpfree->NEXT=NULL; freechain(tmpfree);
       tmpfree=*besty; *besty=(*besty)->NEXT;
@@ -544,11 +544,11 @@ static int findPivot(mbk_matrix *u, chain_list **unlockedlines, chain_list **unl
   double highest=-DBL_MAX, val;
   int xx, yy;
 
-//  colcandidates=find_lowestNZ(u->col, unlockedcols);
+/*  colcandidates=find_lowestNZ(u->col, unlockedcols);*/
   colfound=NULL; linefound=NULL;
   linecandidates=find_lowestNZ(u->line, unlockedlines);
 
-// version en dessous, on parcourt quasiment toute la matrice dans notre cas
+/* version en dessous, on parcourt quasiment toute la matrice dans notre cas*/
 #if 0
   if (linecandidates->NEXT!=NULL)
     {
@@ -596,7 +596,7 @@ static int findPivot(mbk_matrix *u, chain_list **unlockedlines, chain_list **unl
   *x=(int)(long)(*colfound)->DATA;
   *y=(int)(long)(*linefound)->DATA;
 
-  // enleve ligne et column du pivot des listes des col et ligne non bloque
+  /* enleve ligne et column du pivot des listes des col et ligne non bloque*/
   tmpfree=*colfound; *colfound=(*colfound)->NEXT;
   tmpfree->NEXT=NULL; freechain(tmpfree);
   tmpfree=*linefound; *linefound=(*linefound)->NEXT;
@@ -771,9 +771,9 @@ void followline(mbk_matrix *mm, int dy, int sy, char *locking, double mult)
           na=a->RIGHT;
           preva=a; a=na;
         }
-      else //if (a->x>b->x)
+      else /*if (a->x>b->x)*/
         {
-          //              na=a->RIGHT;
+          /*              na=a->RIGHT;*/
           val=0-(b->value*mult);
           if (locking[b->x]==0)
             {
@@ -795,7 +795,7 @@ void followline(mbk_matrix *mm, int dy, int sy, char *locking, double mult)
 
 
 
-// elem(dy)(x) = elem(dy)(x) - elem(sy)(x) * mult 
+/* elem(dy)(x) = elem(dy)(x) - elem(sy)(x) * mult */
 void mbk_MatrixLineMultThenSub(mbk_matrix *u, int dy, int sy, char *locking, double mult)
 {
 /*  double sval, dval;

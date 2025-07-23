@@ -19,7 +19,7 @@ typedef struct { struct eqt_node *NODE ; double VALUE ; } noeud_val_type;
 /* function declarations                                                      */
 /******************************************************************************/
 
-int yyerror();
+int yyerror(char*);
 int yylex();
 
 %}
@@ -365,7 +365,7 @@ equ                 : number
                        if (EQT_CTX->SPECIAL_FUNC[EQTSPECFUNC_NOM_MOD]!=NULL) 
                          $$.VALUE = EQT_CTX->SPECIAL_FUNC[EQTSPECFUNC_NOM_MOD](namealloc($3)) ; 
                        else
-                         yyerror();
+                         yyerror(NULL);
                       }
                     }
                     | T_NOMDEV '('  T_VAR ')'         
@@ -376,7 +376,7 @@ equ                 : number
                        if (EQT_CTX->SPECIAL_FUNC[EQTSPECFUNC_NOM_DEV]!=NULL) 
                          $$.VALUE = EQT_CTX->SPECIAL_FUNC[EQTSPECFUNC_NOM_DEV](namealloc($3)) ; 
                        else
-                         yyerror();
+                         yyerror(NULL);
                       }
                     }
                      | T_NOMSUB '('  T_VAR ')'         
@@ -387,7 +387,7 @@ equ                 : number
                        if (EQT_CTX->SPECIAL_FUNC[EQTSPECFUNC_NOM_SUB]!=NULL) 
                          $$.VALUE = EQT_CTX->SPECIAL_FUNC[EQTSPECFUNC_NOM_SUB](namealloc($3)) ; 
                        else
-                         yyerror();
+                         yyerror(NULL);
                       }
                     }
                     /* Logical operation */
@@ -397,7 +397,7 @@ equ                 : number
                         $$.NODE = eqt_addbinarynode (EQTNOTEQ, $1.NODE, $3.NODE) ;
                       else 
                         $$.VALUE = mbk_cmpdouble($1.VALUE, $3.VALUE, EQT_PRECISION)!=0;
-//                        $$.VALUE = $1.VALUE != $3.VALUE;
+/*                        $$.VALUE = $1.VALUE != $3.VALUE;*/
                     }
                     | equ T_EQ equ       
                     { 
@@ -405,7 +405,7 @@ equ                 : number
                         $$.NODE = eqt_addbinarynode (EQTEQ, $1.NODE, $3.NODE) ;
                       else 
                         $$.VALUE = mbk_cmpdouble($1.VALUE, $3.VALUE, EQT_PRECISION)==0;
-//                        $$.VALUE = $1.VALUE == $3.VALUE;
+/*                        $$.VALUE = $1.VALUE == $3.VALUE;*/
                     }
                     | equ T_SUP equ       
                     { 
@@ -413,7 +413,7 @@ equ                 : number
                         $$.NODE = eqt_addbinarynode (EQTSUP, $1.NODE, $3.NODE) ;
                       else 
                         $$.VALUE = mbk_cmpdouble($1.VALUE, $3.VALUE, EQT_PRECISION)>0;
-//                        $$.VALUE = $1.VALUE > $3.VALUE;
+/*                        $$.VALUE = $1.VALUE > $3.VALUE;*/
                     }
                     | equ T_SUPEQ equ       
                     { 
@@ -421,7 +421,7 @@ equ                 : number
                         $$.NODE = eqt_addbinarynode (EQTSUPEQ, $1.NODE, $3.NODE) ;
                       else 
                         $$.VALUE = mbk_cmpdouble($1.VALUE, $3.VALUE, EQT_PRECISION)>=0;
-//                        $$.VALUE = $1.VALUE >= $3.VALUE;
+/*                        $$.VALUE = $1.VALUE >= $3.VALUE;*/
                     }
                     | equ T_INF equ       
                     { 
@@ -429,7 +429,7 @@ equ                 : number
                         $$.NODE = eqt_addbinarynode (EQTINF, $1.NODE, $3.NODE) ;
                       else 
                         $$.VALUE = mbk_cmpdouble($1.VALUE, $3.VALUE, EQT_PRECISION)<0;
-//                        $$.VALUE = $1.VALUE < $3.VALUE;
+/*                        $$.VALUE = $1.VALUE < $3.VALUE;*/
                     }
                     | equ T_INFEQ equ       
                     { 
@@ -437,7 +437,7 @@ equ                 : number
                         $$.NODE = eqt_addbinarynode (EQTINFEQ, $1.NODE, $3.NODE) ;
                       else 
                         $$.VALUE = mbk_cmpdouble($1.VALUE, $3.VALUE, EQT_PRECISION)<=0;
-//                        $$.VALUE = $1.VALUE <= $3.VALUE;
+/*                        $$.VALUE = $1.VALUE <= $3.VALUE;*/
                     }
                     | equ T_AND equ       
                     { 
@@ -510,7 +510,7 @@ number              : T_NUMBER
 
 extern void eqtinit() ;
 
-int yyerror ()
+int yyerror (char* unused)
 {
     eqtinit() ;
     eqt_freenode(EQT_CTX->EQUA_NODE);

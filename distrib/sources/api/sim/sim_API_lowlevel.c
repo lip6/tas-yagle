@@ -8,16 +8,16 @@
 #include "gen_API.h"
 #include "sim_API_extract.h"
 
-//#############################################################################
-//#############################################################################
+/*#############################################################################*/
+/*#############################################################################*/
 
-//typedef SIM_FLOAT (*PWL_FUNCTION) (SIM_FLOAT, void *);
+/*typedef SIM_FLOAT (*PWL_FUNCTION) (SIM_FLOAT, void *);*/
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 chain_list  *FLOAT_TO_FREE = NULL;
 chain_list  *SIM_MODEL     = NULL;
-//PWL_FUNCTION PWL_FUNC      = NULL;
+/*PWL_FUNCTION PWL_FUNC      = NULL;*/
 int          READ_RESULT   = 0;
 char         SIM_SEPAR     = '.';
 
@@ -28,7 +28,7 @@ char *gen_sim_devect(char *name)
 }
 
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_DriveTransistorAsInstance(sim_model *sc, char mode)
 {
@@ -39,11 +39,11 @@ void sim_DriveTransistorAsInstance(sim_model *sc, char mode)
 }
 
 
-void sim_API_Action_Initialize ()// commentaire pour desactiver l'ajout de token
+void sim_API_Action_Initialize ()/* commentaire pour desactiver l'ajout de token*/
 {
     char *str;
     READ_RESULT = 0;
-//    PWL_FUNC = NULL;
+/*    PWL_FUNC = NULL;*/
 
     FLOAT_TO_FREE = NULL;
     SIM_MODEL = NULL;
@@ -55,9 +55,9 @@ void sim_API_Action_Initialize ()// commentaire pour desactiver l'ajout de token
 
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
-void sim_API_Action_Terminate ()// commentaire pour desactiver l'ajout de token
+void sim_API_Action_Terminate ()/* commentaire pour desactiver l'ajout de token*/
 {
     char *figname;
     char separ = SEPAR;
@@ -84,11 +84,11 @@ void sim_API_Action_Terminate ()// commentaire pour desactiver l'ajout de token
     SEPAR = separ;
 }
 
-//#############################################################################
-//#############################################################################
-//_______________ UTILS _______________________________________________________
-//#############################################################################
-//#############################################################################
+/*#############################################################################*/
+/*#############################################################################*/
+/*_______________ UTILS _______________________________________________________*/
+/*#############################################################################*/
+/*#############################################################################*/
 
 sim_model *sim_new_model_if_null (lofig_list *fig)
 {
@@ -102,12 +102,12 @@ sim_model *sim_new_model_if_null (lofig_list *fig)
     return sc;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 sim_model *sim_CreateContext (lofig_list *fig)
 {
     sim_model *mod = sim_new_model_if_null ((lofig_list*)fig);
-//    SIM_MODEL = addchain (SIM_MODEL, mod);
+/*    SIM_MODEL = addchain (SIM_MODEL, mod);*/
     return mod;
 }
 
@@ -118,7 +118,7 @@ void sim_FreeContext (sim_model *model)
   model->FIG=NULL;
   sim_free_context (model);
 }
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_read_tab_if_null (sim_model *sc)
 {
@@ -128,11 +128,11 @@ void sim_read_tab_if_null (sim_model *sc)
     }
 }
 
-//#############################################################################
-//#############################################################################
-//_______________ GENERAL PARAMETERS __________________________________________
-//#############################################################################
-//#############################################################################
+/*#############################################################################*/
+/*#############################################################################*/
+/*_______________ GENERAL PARAMETERS __________________________________________*/
+/*#############################################################################*/
+/*#############################################################################*/
 
 void sim_SetSimulatorType (sim_model *sc, char *type)
 {
@@ -163,102 +163,102 @@ void sim_SetSimulatorType (sim_model *sc, char *type)
     else {
         V_INT_TAB[__SIM_TOOL].VALUE = SIM_TOOL_HSPICE;
         avt_errmsg(SIM_API_ERRMSG, "015", AVT_WARNING, type);
-//        fprintf (stderr, "'%s' command file is generated with default wrapper\n", type);
+/*        fprintf (stderr, "'%s' command file is generated with default wrapper\n", type);*/
     }
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_SetSlopeForm (sim_model *sc, void *f)
 {
     sc->PARAMETER.PWL_FUNC = (PWL_FUNCTION)f;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
-void sim_SetSimulationTime (sim_model *sc, double time) // unit: SECOND
+void sim_SetSimulationTime (sim_model *sc, double time) /* unit: SECOND*/
 {
     if (!sc) return;
     sim_parameter_set_tran_tmax ((sim_model*)sc, SIM_UNIT_X_TO_Y (time, 1, SIM_UNIT_TIME));
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
-void sim_SetSimulationSlope (sim_model *sc, double slope) // unit: SECOND
+void sim_SetSimulationSlope (sim_model *sc, double slope) /* unit: SECOND*/
 {
     if (!sc) return;
     sim_parameter_set_slope ((sim_model*)sc, SIM_UNIT_X_TO_Y (slope, 1, SIM_UNIT_TIME));
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
-void sim_SetSimulationStep (sim_model *sc, double step) // unit: SECOND
+void sim_SetSimulationStep (sim_model *sc, double step) /* unit: SECOND*/
 {
     if (!sc) return;
     sim_parameter_set_tran_step ((sim_model*)sc, SIM_UNIT_X_TO_Y (step, 1, SIM_UNIT_TIME));
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
-void sim_SetSimulationSupply (sim_model *sc, double v_max) // unit: VOLT
+void sim_SetSimulationSupply (sim_model *sc, double v_max) /* unit: VOLT*/
 {
     if (!sc) return;
     sim_parameter_set_alim ((sim_model*)sc, SIM_UNIT_X_TO_Y (v_max, 1, SIM_UNIT_VOLTAGE), 'i');
 }
 
-void sim_SetInputSwing (sim_model *sc, double v_vss, double v_max) // unit: VOLT
+void sim_SetInputSwing (sim_model *sc, double v_vss, double v_max) /* unit: VOLT*/
 {
     if (!sc) return;
     sim_parameter_set_alim ((sim_model*)sc, SIM_UNIT_X_TO_Y (v_max, 1, SIM_UNIT_VOLTAGE), 'i');
     sim_parameter_set_vss ((sim_model*)sc, SIM_UNIT_X_TO_Y (v_vss, 1, SIM_UNIT_VOLTAGE), 'i');
 }
 
-void sim_SetOutputSwing (sim_model *sc, double v_vss, double v_max) // unit: VOLT
+void sim_SetOutputSwing (sim_model *sc, double v_vss, double v_max) /* unit: VOLT*/
 {
     if (!sc) return;
     sim_parameter_set_alim ((sim_model*)sc, SIM_UNIT_X_TO_Y (v_max, 1, SIM_UNIT_VOLTAGE), 'o');
     sim_parameter_set_vss ((sim_model*)sc, SIM_UNIT_X_TO_Y (v_vss, 1, SIM_UNIT_VOLTAGE), 'o');
 }
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
-double sim_GetSimulationSupply () // unit: VOLT
+double sim_GetSimulationSupply () /* unit: VOLT*/
 {
   return V_FLOAT_TAB[__SIM_POWER_SUPPLY].VALUE;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
-void sim_SetSimulationTemp (sim_model *sc, double temp) // unit: CELSIUS
+void sim_SetSimulationTemp (sim_model *sc, double temp) /* unit: CELSIUS*/
 {
     if (!sc) return;
     sim_parameter_set_temperature ((sim_model*)sc, temp);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
-void sim_SetDelayVTH (sim_model *sc, double vth) // pourcentage de VDD
+void sim_SetDelayVTH (sim_model *sc, double vth) /* pourcentage de VDD*/
 {
     if (!sc) return;
     sim_parameter_set_delayVTH ((sim_model*)sc, vth, vth);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
-void sim_SetSlopeVTH (sim_model *sc, double vth_low, double vth_high) // pourcentage de VDD
+void sim_SetSlopeVTH (sim_model *sc, double vth_low, double vth_high) /* pourcentage de VDD*/
 {
     if (!sc) return;
     sim_parameter_set_slopeVTHH ((sim_model*)sc, vth_high);
     sim_parameter_set_slopeVTHL ((sim_model*)sc, vth_low);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_AddSimulationTechnoFile (sim_model *sc, char *tech_file)
 {
     if (!sc) return;
     sim_parameter_add_techno_file ((sim_model*)sc, tech_file);
 }
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_SetSimulationOutputFile (sim_model *sc, char *output_file)
 {
@@ -266,7 +266,7 @@ void sim_SetSimulationOutputFile (sim_model *sc, char *output_file)
     MCC_SPICEOUT = output_file;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_SetSimulationCall (sim_model *sc, char *sim_call)
 {
@@ -275,23 +275,23 @@ void sim_SetSimulationCall (sim_model *sc, char *sim_call)
         sim_parameter_set_tool_cmd ((sim_model*)sc, sim_call);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_NoiseSetAnalyseType (sim_model *sc, char noise_type)
 {
     if (!sc) return;
     if ((noise_type != SIM_MIN) && (noise_type != SIM_MAX))
         avt_errmsg(SIM_API_ERRMSG, "010", AVT_ERROR);
-//        fprintf (stderr,"\n[SIMAPI ERR] sim_SetNoiseAnanlyseType : noise_type must be SIM_MIN or SIM_MAX\n");
+/*        fprintf (stderr,"\n[SIMAPI ERR] sim_SetNoiseAnanlyseType : noise_type must be SIM_MIN or SIM_MAX\n");*/
     else
         sim_parameter_set_noise_type ((sim_model*)sc,noise_type);
 }
 
-//#############################################################################
-//#############################################################################
-//_______________ DC values ___________________________________________________ 
-//#############################################################################
-//#############################################################################
+/*#############################################################################*/
+/*#############################################################################*/
+/*_______________ DC values ___________________________________________________ */
+/*#############################################################################*/
+/*#############################################################################*/
 
 void sim_AddStuckLevelVector (sim_model *sc, char *node, char *level)
 {
@@ -310,7 +310,7 @@ void sim_AddStuckLevelVector (sim_model *sc, char *node, char *level)
     if (vectorindex (node) == -1) 
         vectorbounds (((sim_model*)sc)->FIG, namealloc (node), &left, &right);
 
-    if ((vectorindex (node) != -1) || (left == -1 && right == -1)) { //vector element || not a vector
+    if ((vectorindex (node) != -1) || (left == -1 && right == -1)) { /*vector element || not a vector*/
         if (!strcmp (val, "0"))
             sim_input_set_stuck_level ((sim_model*)sc, gen_sim_devect (node), SIM_ZERO);
         else
@@ -318,16 +318,16 @@ void sim_AddStuckLevelVector (sim_model *sc, char *node, char *level)
             sim_input_set_stuck_level ((sim_model*)sc, gen_sim_devect (node), SIM_ONE);
         else
             avt_errmsg(SIM_API_ERRMSG, "011", AVT_ERROR, val, node);
-//            fprintf (stderr, "AddStuckLevelVector: bad value 0x%s for node %s\n", val, node);
+/*            fprintf (stderr, "AddStuckLevelVector: bad value 0x%s for node %s\n", val, node);*/
         return;
     }
     
-    if (left != -1 && right != -1) { // a vector
+    if (left != -1 && right != -1) { /* a vector*/
 
         sim_hex2bin (binary, val);
         lbin = strlen (binary);
 
-        if (left <= right) { // v (left TO right)
+        if (left <= right) { /* v (left TO right)*/
             for (i = left; i <= right; i++) {
                 if (j < lbin) {
                     if (binary[j] == '1')
@@ -337,12 +337,12 @@ void sim_AddStuckLevelVector (sim_model *sc, char *node, char *level)
                         sim_input_set_stuck_level ((sim_model*)sc, sim_vectorize (node, i), SIM_ZERO);
                     j++;
                 }
-                else // Fill the remaining LSB (right) bits with '0'
+                else /* Fill the remaining LSB (right) bits with '0'*/
                     sim_input_set_stuck_level ((sim_model*)sc, sim_vectorize (node, i), SIM_ZERO);
             }
         }
                 
-        if (left > right) { // v (left DOWNTO right)
+        if (left > right) { /* v (left DOWNTO right)*/
             j = lbin - 1;
             for (i = right; i <= left; i++) {
                 if (j >= 0) {
@@ -353,7 +353,7 @@ void sim_AddStuckLevelVector (sim_model *sc, char *node, char *level)
                         sim_input_set_stuck_level ((sim_model*)sc, sim_vectorize (node, i), SIM_ZERO);
                     j--;
                 }
-                else // Fill the remaining LSB (left) bits with '0'
+                else /* Fill the remaining LSB (left) bits with '0'*/
                     sim_input_set_stuck_level ((sim_model*)sc, sim_vectorize (node, i), SIM_ZERO);
             }
         }
@@ -372,7 +372,7 @@ void sim_AddStuckLevel(sim_model *sc, char *node, int level)
     if (level!=0 && level!=1)
       {
         avt_errmsg(SIM_API_ERRMSG, "011", AVT_ERROR, level, node);
-//        fprintf (stderr, "AddStuckLevel: bad value '%c' for node %s\n", level, node);
+/*        fprintf (stderr, "AddStuckLevel: bad value '%c' for node %s\n", level, node);*/
         return;
       }
 
@@ -409,7 +409,7 @@ void sim_AddStuckLevel(sim_model *sc, char *node, int level)
     
     SEPAR = separ;
 }
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_AddStuckVoltage (sim_model *sc, char *node, double voltage)
 {
@@ -422,7 +422,7 @@ void sim_AddStuckVoltage (sim_model *sc, char *node, double voltage)
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 /*
 void sim_AddStuckLevel (sim_model *sc, char *node, int level)
 {
@@ -444,14 +444,14 @@ void sim_AddStuckLevel (sim_model *sc, char *node, int level)
     SEPAR = separ;
 }
 */
-//#############################################################################
-//#############################################################################
-//_______________ PWL _________________________________________________________ 
-//#############################################################################
-//#############################################################################
-//
+/*#############################################################################*/
+/*#############################################################################*/
+/*_______________ PWL _________________________________________________________ */
+/*#############################################################################*/
+/*#############################################################################*/
+/**/
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_AddSignalSlope (sim_model *sc, char *node, double start_time, double transition_time, char sense)
 {
@@ -461,12 +461,12 @@ void sim_AddSignalSlope (sim_model *sc, char *node, double start_time, double tr
     SIM_FLOAT s_time = SIM_UNIT_X_TO_Y (start_time, 1.0, SIM_UNIT_TIME);
     SIM_FLOAT *data = (SIM_FLOAT*)malloc (7 * sizeof (SIM_FLOAT)); 
 
-//    FLOAT_TO_FREE = addchain (FLOAT_TO_FREE, data);
+/*    FLOAT_TO_FREE = addchain (FLOAT_TO_FREE, data);*/
 
     if (!sc) return;
     SEPAR = SIM_SEPAR;
 
-//    sim_new_model_if_null (((sim_model*)sc)->FIG);
+/*    sim_new_model_if_null (((sim_model*)sc)->FIG);*/
     sense=toupper(sense);
     switch (sense) {
         case SIM_RISE:
@@ -506,12 +506,12 @@ void sim_AddSignalSlope (sim_model *sc, char *node, double start_time, double tr
             break;
         default:
             avt_errmsg(SIM_API_ERRMSG, "013", AVT_ERROR);
-//            fprintf (stderr, "[SIMAPI WAR] AddInputSlope param 4: allowed values are SIM_RISE and SIM_FALL\n");
+/*            fprintf (stderr, "[SIMAPI WAR] AddInputSlope param 4: allowed values are SIM_RISE and SIM_FALL\n");*/
     }
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_AddSlope (sim_model *sc, char *node, double start_time, double transition_time, char sense)
 {
@@ -521,18 +521,18 @@ void sim_AddSlope (sim_model *sc, char *node, double start_time, double transiti
     SIM_FLOAT s_time = SIM_UNIT_X_TO_Y (start_time, 1.0, SIM_UNIT_TIME);
     SIM_FLOAT *data = (SIM_FLOAT*)malloc (7 * sizeof (SIM_FLOAT)); 
 
-//    FLOAT_TO_FREE = addchain (FLOAT_TO_FREE, data);
+/*    FLOAT_TO_FREE = addchain (FLOAT_TO_FREE, data);*/
 
     if (!sc) return;
     if (sim_find_locon(vnode, sc->FIG, NULL, NULL)==NULL)
       {
          avt_errmsg(SIM_API_ERRMSG, "008", AVT_ERROR, node);
-         //avt_error("sim_api", 0, AVT_ERR, "Connector '%s' could not be found in netlist.\n", node);
+         /*avt_error("sim_api", 0, AVT_ERR, "Connector '%s' could not be found in netlist.\n", node);*/
         return;
       }
     SEPAR = SIM_SEPAR;
 
-//    sim_new_model_if_null (((sim_model*)sc)->FIG);
+/*    sim_new_model_if_null (((sim_model*)sc)->FIG);*/
     sense=toupper(sense);
     switch (sense) {
         case SIM_RISE:
@@ -565,26 +565,26 @@ void sim_AddSlope (sim_model *sc, char *node, double start_time, double transiti
             break;
         default:
             avt_errmsg(SIM_API_ERRMSG, "013", AVT_ERROR);
-//            fprintf (stderr, "[SIMAPI WAR] AddInputSlope param 4: allowed values are SIM_RISE and SIM_FALL\n");
+/*            fprintf (stderr, "[SIMAPI WAR] AddInputSlope param 4: allowed values are SIM_RISE and SIM_FALL\n");*/
     }
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_AddOutLoad (sim_model *sc, char *node, double load)
 {
-    //char *vnode = gen_sim_devect (node);
+    /*char *vnode = gen_sim_devect (node);*/
     char separ = SEPAR;
     if (!sc) return;
     SEPAR = SIM_SEPAR;
     
-    //TODO sim_input_set_out_load ((sim_model*)sc, vnode, load);
+    /*TODO sim_input_set_out_load ((sim_model*)sc, vnode, load);*/
 
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_AddWaveForm (sim_model *sc, char *node, double trise, double tfall, double periode, char *pattern)
 {
@@ -603,11 +603,11 @@ void sim_AddWaveForm (sim_model *sc, char *node, double trise, double tfall, dou
     SEPAR = separ;
 }
 
-//#############################################################################
-//#############################################################################
-//_______________ Initial IC values ___________________________________________
-//#############################################################################
-//#############################################################################
+/*#############################################################################*/
+/*#############################################################################*/
+/*_______________ Initial IC values ___________________________________________*/
+/*#############################################################################*/
+/*#############################################################################*/
 
 void sim_add_init_level (sim_model *sc, char *node, char locate, int level)
 {
@@ -624,13 +624,13 @@ void sim_add_init_level (sim_model *sc, char *node, char locate, int level)
             break;
         default:
             avt_errmsg(SIM_API_ERRMSG, "014", AVT_ERROR);
-//            fprintf (stderr, "[SIMAPI WAR] AddInitLevel param 2: allowed values are 0 and 1\n");
+/*            fprintf (stderr, "[SIMAPI WAR] AddInitLevel param 2: allowed values are 0 and 1\n");*/
     }
 
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_AddInitLevel (sim_model *sc, char *node, int level)
 {
@@ -646,7 +646,7 @@ void sim_AddInitLevel (sim_model *sc, char *node, int level)
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_add_init_voltage (sim_model *sc, char *node, char locate, double voltage)
 {
@@ -659,7 +659,7 @@ void sim_add_init_voltage (sim_model *sc, char *node, char locate, double voltag
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_AddInitVoltage (sim_model *sc, char *node, double volt)
 {
@@ -676,11 +676,11 @@ void sim_AddInitVoltage (sim_model *sc, char *node, double volt)
 }
 
 
-//#############################################################################
-//#############################################################################
-//_______________ Mesure PRINT points _________________________________________
-//#############################################################################
-//#############################################################################
+/*#############################################################################*/
+/*#############################################################################*/
+/*_______________ Mesure PRINT points _________________________________________*/
+/*#############################################################################*/
+/*#############################################################################*/
 
 void sim_AddMeasure (sim_model *sc, char *node)
 {
@@ -695,7 +695,7 @@ void sim_AddMeasure (sim_model *sc, char *node)
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_AddMeasureCurrent (sim_model *sc, char *node)
 {
@@ -709,11 +709,11 @@ void sim_AddMeasureCurrent (sim_model *sc, char *node)
 }
 
 
-//#############################################################################
-//#############################################################################
-//_______________ Simulation primitives _______________________________________
-//#############################################################################
-//#############################################################################
+/*#############################################################################*/
+/*#############################################################################*/
+/*_______________ Simulation primitives _______________________________________*/
+/*#############################################################################*/
+/*#############################################################################*/
 
 void sim_RunSimulation (sim_model *sc, char *sim_call)
 {
@@ -737,11 +737,11 @@ void sim_RunSimulation (sim_model *sc, char *sim_call)
     sim_freeMeasAllArg(sc);
 }
 
-//#############################################################################
-//#############################################################################
-//_______________ Computing primitives ________________________________________
-//#############################################################################
-//#############################################################################
+/*#############################################################################*/
+/*#############################################################################*/
+/*_______________ Computing primitives ________________________________________*/
+/*#############################################################################*/
+/*#############################################################################*/
 
 double sim_ExtractMinSlope (sim_model *sc, char *node)
 {
@@ -763,8 +763,8 @@ double sim_ExtractMinSlope (sim_model *sc, char *node)
     return slope;
 }
 
-//_____________________________________________________________________________
-//
+/*_____________________________________________________________________________*/
+/**/
 double sim_ExtractMaxSlope (sim_model *sc, char *node)
 {
     double slope, vth_low, vth_high;
@@ -785,7 +785,7 @@ double sim_ExtractMaxSlope (sim_model *sc, char *node)
     return slope;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ExtractMinDelay (sim_model *sc, char *node_a, char *node_b)
 {
@@ -810,7 +810,7 @@ double sim_ExtractMinDelay (sim_model *sc, char *node_a, char *node_b)
     return delay;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ExtractMaxDelay (sim_model *sc, char *node_a, char *node_b)
 {
@@ -835,7 +835,7 @@ double sim_ExtractMaxDelay (sim_model *sc, char *node_a, char *node_b)
     return delay;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void *sim_ExtractAllTimings (sim_model *sc, char *node_a, char *node_b)
 {
@@ -860,7 +860,7 @@ void *sim_ExtractAllTimings (sim_model *sc, char *node_a, char *node_b)
     return (sim_timing*)tmglist;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ExtractMinTransitionDelay (sim_model *sc, char *node_a, char *node_b, char *transition)
 {
@@ -887,7 +887,7 @@ double sim_ExtractMinTransitionDelay (sim_model *sc, char *node_a, char *node_b,
     return delay;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ExtractMaxTransitionDelay (sim_model *sc, char *node_a, char *node_b, char *transition)
 {
@@ -914,7 +914,7 @@ double sim_ExtractMaxTransitionDelay (sim_model *sc, char *node_a, char *node_b,
     return delay;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ExtractMinTransitionSlope (sim_model *sc, char *node, char *transition)
 {
@@ -935,7 +935,7 @@ double sim_ExtractMinTransitionSlope (sim_model *sc, char *node, char *transitio
     return slope;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ExtractMaxTransitionSlope (sim_model *sc, char *node, char *transition)
 {
@@ -956,7 +956,7 @@ double sim_ExtractMaxTransitionSlope (sim_model *sc, char *node, char *transitio
     return slope;
 }
 
-//__________ Timing API  ______________________________________________________
+/*__________ Timing API  ______________________________________________________*/
 
 void *sim_GetTimingFromList (chain_list *list)
 {
@@ -966,7 +966,7 @@ void *sim_GetTimingFromList (chain_list *list)
         return NULL;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void *sim_GetTimingNext (void *timing)
 {
@@ -976,7 +976,7 @@ void *sim_GetTimingNext (void *timing)
         return NULL;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void *sim_GetTiming (char *root, char *node)
 {
@@ -986,7 +986,7 @@ void *sim_GetTiming (char *root, char *node)
         return NULL;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void *sim_GetTimingByEvent (char *root, char *node, char *nodeevent)
 {
@@ -996,7 +996,7 @@ void *sim_GetTimingByEvent (char *root, char *node, char *nodeevent)
         return NULL;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_GetTimingDelay (void *timing)
 {
@@ -1006,7 +1006,7 @@ double sim_GetTimingDelay (void *timing)
         return 0.0;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_GetTimingMinDelay (void *timing)
 {
@@ -1016,7 +1016,7 @@ double sim_GetTimingMinDelay (void *timing)
         return 0.0;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_GetTimingMaxDelay (void *timing)
 {
@@ -1026,7 +1026,7 @@ double sim_GetTimingMaxDelay (void *timing)
         return 0.0;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_GetTimingSlope (void *timing)
 {
@@ -1036,7 +1036,7 @@ double sim_GetTimingSlope (void *timing)
         return 0.0;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_GetTimingMinSlope (void *timing)
 {
@@ -1046,7 +1046,7 @@ double sim_GetTimingMinSlope (void *timing)
         return 0.0;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_GetTimingMaxSlope (void *timing)
 {
@@ -1056,7 +1056,7 @@ double sim_GetTimingMaxSlope (void *timing)
         return 0.0;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 char *sim_GetTimingRoot (void *timing)
 {
@@ -1066,7 +1066,7 @@ char *sim_GetTimingRoot (void *timing)
         return NULL;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 char *sim_GetTimingNode (void *timing)
 {
@@ -1076,7 +1076,7 @@ char *sim_GetTimingNode (void *timing)
         return NULL;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 char *sim_GetTimingRootInNetlist (void *timing)
 {
@@ -1086,7 +1086,7 @@ char *sim_GetTimingRootInNetlist (void *timing)
         return NULL;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 char *sim_GetTimingNodeInNetlist (void *timing)
 {
@@ -1096,7 +1096,7 @@ char *sim_GetTimingNodeInNetlist (void *timing)
         return NULL;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 char sim_GetTimingRootEvent (void *timing)
 {
@@ -1106,7 +1106,7 @@ char sim_GetTimingRootEvent (void *timing)
         return 0;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 char sim_GetTimingNodeEvent (void *timing)
 {
@@ -1116,7 +1116,7 @@ char sim_GetTimingNodeEvent (void *timing)
         return 0;
 }
 
-//______ Noise API ____________________________________________________________
+/*______ Noise API ____________________________________________________________*/
 
 void sim_NoiseExtract (sim_model *sc, char *node, double vthnoise, double tinit, double tfinal)
 {
@@ -1134,7 +1134,7 @@ void sim_NoiseExtract (sim_model *sc, char *node, double vthnoise, double tinit,
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseGetVth (sim_model *sc, char *name)
 {
@@ -1156,7 +1156,7 @@ double sim_NoiseGetVth (sim_model *sc, char *name)
     return vthnoise;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 chain_list *sim_NoiseGetMomentList (sim_model *sc, char *name)
 {
@@ -1178,7 +1178,7 @@ chain_list *sim_NoiseGetMomentList (sim_model *sc, char *name)
     return tclst;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseGetMoment (sim_model *sc, chain_list *noise_tclist)
 {
@@ -1197,7 +1197,7 @@ double sim_NoiseGetMoment (sim_model *sc, chain_list *noise_tclist)
     return res;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseGetPeakValue (sim_model *sc, char *name,chain_list *noise_peaklist)
 {
@@ -1219,7 +1219,7 @@ double sim_NoiseGetPeakValue (sim_model *sc, char *name,chain_list *noise_peakli
     return res;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseGetPeakMoment (sim_model *sc, chain_list *noise_peaklist)
 {
@@ -1238,7 +1238,7 @@ double sim_NoiseGetPeakMoment (sim_model *sc, chain_list *noise_peaklist)
     return res;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 chain_list *sim_NoiseGetPeakList (sim_model *sc, char *name)
 {
@@ -1260,7 +1260,7 @@ chain_list *sim_NoiseGetPeakList (sim_model *sc, char *name)
     return peaklst;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMaxPeakValue (sim_model *sc, char *name)
 {
@@ -1277,7 +1277,7 @@ double sim_NoiseExtractMaxPeakValue (sim_model *sc, char *name)
     return maxpeak;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMinPeakValue (sim_model *sc, char *name)
 {
@@ -1294,7 +1294,7 @@ double sim_NoiseExtractMinPeakValue (sim_model *sc, char *name)
     return minpeak;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMaxPeakMoment (sim_model *sc, char *name)
 {
@@ -1311,7 +1311,7 @@ double sim_NoiseExtractMaxPeakMoment (sim_model *sc, char *name)
     return maxpeak_time;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMinPeakMoment (sim_model *sc, char *name)
 {
@@ -1328,7 +1328,7 @@ double sim_NoiseExtractMinPeakMoment (sim_model *sc, char *name)
     return minpeak_time;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseGetMomentBeforePeak (sim_model *sc, char *name,chain_list *peakl)
 {
@@ -1347,7 +1347,7 @@ double sim_NoiseGetMomentBeforePeak (sim_model *sc, char *name,chain_list *peakl
     return beforepeakintant;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseGetMomentAfterPeak (sim_model *sc, char *name,chain_list *peakl)
 {
@@ -1366,7 +1366,7 @@ double sim_NoiseGetMomentAfterPeak (sim_model *sc, char *name,chain_list *peakl)
     return afterpeakintant;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseGetPeakDuration (sim_model *sc, char *name,chain_list *peakl)
 {
@@ -1385,7 +1385,7 @@ double sim_NoiseGetPeakDuration (sim_model *sc, char *name,chain_list *peakl)
     return peakduration;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMomentBeforeMaxPeak (sim_model *sc, char *name)
 {
@@ -1401,7 +1401,7 @@ double sim_NoiseExtractMomentBeforeMaxPeak (sim_model *sc, char *name)
     return instant;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMomentBeforeMinPeak (sim_model *sc, char *name)
 {
@@ -1417,7 +1417,7 @@ double sim_NoiseExtractMomentBeforeMinPeak (sim_model *sc, char *name)
     return instant;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMomentAfterMaxPeak (sim_model *sc, char *name)
 {
@@ -1433,7 +1433,7 @@ double sim_NoiseExtractMomentAfterMaxPeak (sim_model *sc, char *name)
     return instant;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMomentAfterMinPeak (sim_model *sc, char *name)
 {
@@ -1449,7 +1449,7 @@ double sim_NoiseExtractMomentAfterMinPeak (sim_model *sc, char *name)
     return instant;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMaxPeakDuration (sim_model *sc, char *name)
 {
@@ -1465,7 +1465,7 @@ double sim_NoiseExtractMaxPeakDuration (sim_model *sc, char *name)
     return duration;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_NoiseExtractMinPeakDuration (sim_model *sc, char *name)
 {
@@ -1481,7 +1481,7 @@ double sim_NoiseExtractMinPeakDuration (sim_model *sc, char *name)
     return duration;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void sim_DriveNodeState (sim_model *sc, char *filename,char *node_ref,char *node_state2drive,char type)
 {
@@ -1506,7 +1506,7 @@ void sim_DriveNodeState (sim_model *sc, char *filename,char *node_ref,char *node
     SEPAR = separ;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 /*void sim_DriveFile2Plot (sim_model *sc, chain_list *name2plot)
 {
@@ -1522,8 +1522,8 @@ void sim_DriveNodeState (sim_model *sc, char *filename,char *node_ref,char *node
     SEPAR = separ;
 }*/
 
-//_____________________________________________________________________________
-//
+/*_____________________________________________________________________________*/
+/**/
 double sim_ExtractCommutInstant (sim_model *sc, char *node,double voltage)
 {
     double instant;

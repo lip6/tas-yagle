@@ -40,7 +40,7 @@ static int stb_falseslack_match_name(ttvfig_list *tvf, ttvsig_list *tvs, char *r
   return 0;
 }
 
-static inline void *getkey_forsignal(ttvsig_list *tvs)
+static  void *getkey_forsignal(ttvsig_list *tvs)
 {
   return tvs;
 }
@@ -295,7 +295,7 @@ int stb_isfalseslack(stbfig_list *stbfig, ttvevent_list *startck, ttvevent_list 
 
  fpi=(falseslack_info *)ptype->DATA;
 
- // GESTION DES NON WILDCARDS
+ /* GESTION DES NON WILDCARDS*/
  if ((l=gethtitem(fpi->START_HASH, getkey_forsignal(eventin->ROOT)))!=EMPTYHT) nwi_start=(nowildcard_info *)l;
  else nwi_start=NULL;
  if ((l=gethtitem(fpi->END_HASH, getkey_forsignal(eventout->ROOT)))!=EMPTYHT) nwi_end=(nowildcard_info *)l;
@@ -306,10 +306,10 @@ int stb_isfalseslack(stbfig_list *stbfig, ttvevent_list *startck, ttvevent_list 
  
  orig_nwi_start=nwi_start;
  orig_nwi_end=nwi_end;
- l=1; // start
+ l=1; /* start*/
  if (nwi_end!=NULL && nwi_start!=NULL)
    {
-     // on grade la liste la plus courte
+     /* on grade la liste la plus courte*/
      usew=0;
      if (nwi_end->nb<nwi_start->nb) nwi_start=nwi_end, l=2;
    }
@@ -380,7 +380,7 @@ int stb_isfalseslack(stbfig_list *stbfig, ttvevent_list *startck, ttvevent_list 
      }
    }
 
- // GESTION DES WILDCARDS
+ /* GESTION DES WILDCARDS*/
  for(pt = fpi->WILDCARDS ; pt != NULL ; pt = pt->NEXT)
    {
      if ((pt->setuphold & type)!=0 && check_goodtype(pt->setuphold,eventout))

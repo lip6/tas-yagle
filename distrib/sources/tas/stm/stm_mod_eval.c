@@ -71,7 +71,7 @@ float stm_mod_slew_pi (timing_model* tmodel, float c1, float c2, float r, float 
                   load -= cconf;
                 }
                 else {
-                  //load = c1 + c2;
+                  /*load = c1 + c2;*/
                   load = stm_modscm_capaeq (tmodel->UMODEL.SCM, slew, r, c1, c2, signame );
                 }
                 f = stm_modscm_slew (tmodel->UMODEL.SCM, slew, pwl, ptpwl, load);

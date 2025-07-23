@@ -59,13 +59,13 @@
 
 #define CBH_EXISTBDD        ((int)  0x0000)
 
-#define CBH_NO_CONSTRAINT   ((int)  0x0000) // pas de contrainte
-#define CBH_CONSTRAINT_0    ((int)  0x0001) // contrainte 0
-#define CBH_CONSTRAINT_1    ((int)  0x0002) // contrainte 1
-#define CBH_CONSTRAINT_Z    ((int)  0x0003) // contrainte hz
-#define CBH_CONSTRAINT_X    ((int)  0x0004) // contrainte conflict
-#define CBH_CONSTRAINT_U    ((int)  0x0005) // contrainte inconnue
-#define CBH_CONSTRAINT_N    ((int)  0x0008) // contrainte not-used
+#define CBH_NO_CONSTRAINT   ((int)  0x0000) /* pas de contrainte*/
+#define CBH_CONSTRAINT_0    ((int)  0x0001) /* contrainte 0*/
+#define CBH_CONSTRAINT_1    ((int)  0x0002) /* contrainte 1*/
+#define CBH_CONSTRAINT_Z    ((int)  0x0003) /* contrainte hz*/
+#define CBH_CONSTRAINT_X    ((int)  0x0004) /* contrainte conflict*/
+#define CBH_CONSTRAINT_U    ((int)  0x0005) /* contrainte inconnue*/
+#define CBH_CONSTRAINT_N    ((int)  0x0008) /* contrainte not-used*/
 #define CBH_CST_FULL        ((int)  0x0006)
 #define CBH_NOT_LEAF        ((int)  0x0007)
 

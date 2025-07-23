@@ -29,11 +29,11 @@
 * global variables                                                           *
 *****************************************************************************/
 
-// useful when we are not confident with my modification
-//
-// ...anto...
-//
-//#define STBPARSE_OLDFASHION 1
+/* useful when we are not confident with my modification*/
+/**/
+/* ...anto...*/
+/**/
+/*#define STBPARSE_OLDFASHION 1*/
 
 static stb_parse    *STAB;
 

@@ -172,18 +172,18 @@ XtPointer cbs;
         REQUEST_TYPE |= XTAS_ACCESS;
         form = XtParent (XTAS_GETPATH_FIELD[8]);
         XtSetSensitive (form, True);
-//        form = XtNameToWidget (XtasGetPathWidget, "*XtasToggleStart");
-//        XtVaSetValues (form, XmNset, False, XmNsensitive, False, NULL);
-//        form = XtNameToWidget (XtasGetPathWidget, "*XtasToggleEnd");
-//        XtVaSetValues (form, XmNset, True, NULL);
+/*        form = XtNameToWidget (XtasGetPathWidget, "*XtasToggleStart");*/
+/*        XtVaSetValues (form, XmNset, False, XmNsensitive, False, NULL);*/
+/*        form = XtNameToWidget (XtasGetPathWidget, "*XtasToggleEnd");*/
+/*        XtVaSetValues (form, XmNset, True, NULL);*/
     }
     else {
         REQUEST_TYPE &= ~XTAS_ACCESS;
         REQUEST_TYPE |= XTAS_PATHS;
         form = XtParent (XTAS_GETPATH_FIELD[8]);
         XtSetSensitive (form, False);
-//        form = XtNameToWidget (XtasGetPathWidget, "*XtasToggleStart");
-//        XtSetSensitive (form, True);
+/*        form = XtNameToWidget (XtasGetPathWidget, "*XtasToggleStart");*/
+/*        XtSetSensitive (form, True);*/
     }
 }
 
@@ -601,7 +601,7 @@ XtPointer call_data;
   
  XtasSetLabelString( XtasDeskMessageField, XTAS_NULINFO );
  XalSetCursor( XtasTopLevel, NORMAL ); 
- //XalLeaveLimitedLoop();
+ /*XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -622,7 +622,7 @@ Widget  widget;
 XtPointer client_data;
 XtPointer call_data;
 {
-  //XalLeaveLimitedLoop();
+  /*XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1722,5 +1722,5 @@ XtPointer call_data;
       }
   }
   XtManageChild( XtasGetPathWidget );
- // XalLimitedLoop( XtasGetPathWidget );
+ /* XalLimitedLoop( XtasGetPathWidget );*/
 }

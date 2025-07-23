@@ -33,13 +33,13 @@
 /* ###--------------------------------------------------------------### */
 
 
-extern void	mvl_addtab();
-extern int	mvl_chktab();
-extern void     mvl_toolbug();
-extern void     mvl_message();
-extern void     mvl_error();
-extern char     *mvl_vhdlname();
-extern void     *mvl_name();
-extern char     *mvl_abl2str();
-extern void     *mvl_vectnam();
+extern void  mvl_addtab ( struct dct_entry **head, char *key_str, char *ctx_str, int field, long valu );
+extern long  mvl_chktab ( struct dct_entry **head, char *key_str, char *ctx_str, int field );
+extern void  mvl_toolbug ( int code, char *str1, char *str2, int nbr1 );
+extern void  mvl_message ( int code, char *str1, int nmb1 );
+extern void  mvl_error ( int code, char *str1 );
+extern char *mvl_vhdlname ( char* name );
+extern void  mvl_name ( char *name, char *new_name  );
+extern char *mvl_abl2str ();
+extern void *mvl_vectnam( void *pt_list, int *left, int *right, char **name, char type );
 extern char     mvl_chkconsistency();

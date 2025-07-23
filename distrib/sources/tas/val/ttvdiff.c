@@ -371,12 +371,12 @@ char *argv[];
             if ((MODC[j] = atof(tmpargv)) < 0)
               diff_error() ;
 
-            //printf("%s\n",tmpargv);
+            /*printf("%s\n",tmpargv);*/
 
             strcpy(tmpargv,tmpargv+co+1);
             if ((co=retkeycomma(tmpargv)) == -1) 
             {
-              //printf("%s\n",tmpargv);
+              /*printf("%s\n",tmpargv);*/
               if((MODC[j+1] = atof(tmpargv)) < 0)
                 diff_error() ;
               if (tmpargv[co+1]=='\0')

@@ -223,7 +223,7 @@ void efg_add_lotrs_capa (lofig_list *fig,locon_list *locon,int incr_index)
     if (EFG_CALC_EQUI_CAPA == EFG_OUT_TRANSISTOR)
       efg_add_blockedlotrs (fig, locon, incr_index);
     else {
-      // get event on sig
+      /* get event on sig*/
       signame = efg_getlosigname (locon->SIG);
       if ( EFGCONTEXT &&  EFGCONTEXT->SPISIG && 
           (spisig = efg_GetSpiSigByName (EFGCONTEXT->SPISIG, signame)) ) {
@@ -235,7 +235,7 @@ void efg_add_lotrs_capa (lofig_list *fig,locon_list *locon,int incr_index)
           capatype = ELP_CAPA_TYPICAL;
       }
       if ( !getptype (locon->USER, EFG_LOCON_CAPA) ) {
-        //if (!getptype (locon->SIG->USER,EFG_SIG_SET)) return;
+        /*if (!getptype (locon->SIG->USER,EFG_SIG_SET)) return;*/
         if ( locon->PNODE ) 
           node = locon->PNODE->DATA;
         else
@@ -933,7 +933,7 @@ losig_list *efg_addlosig (lofig_list *fig,losig_list *sig, int incr_index)
                                  EFG_ALIAS_ORG,
                                  efg_getlosigname(sig));
 
-      // remplit une ht pour les signaux de la figure extraite
+      /* remplit une ht pour les signaux de la figure extraite*/
       ptype = getptype (fig->USER,EFG_FIG_HTSIG);
       if (!ptype) {
           htsig = addht (50);
@@ -961,7 +961,7 @@ losig_list *efg_addlosig (lofig_list *fig,losig_list *sig, int incr_index)
       losig->USER = addptype (losig->USER,
                               EFG_CORRESP,
                               sig );
-      // on ne traite pas les RC des signaux d'alim
+      /* on ne traite pas les RC des signaux d'alim*/
       if (sig->PRCN != NULL) {
           if (!getptype(sig->USER,EFG_SIG_ALIM)) {
               duplorcnet( losig, sig );
@@ -970,9 +970,9 @@ losig_list *efg_addlosig (lofig_list *fig,losig_list *sig, int incr_index)
               addlorcnet (losig);
       }
 
-	  // duplique les ptypes concernant les infos pour la sensibilisation
+	  /* duplique les ptypes concernant les infos pour la sensibilisation*/
 	  efg_dup_ptype (losig,sig);
-	  // duplique les infos d alimentation
+	  /* duplique les infos d alimentation*/
       if ( getlosigalim(sig, &alim) )
       {
         addlosigalim(losig, alim, NULL);
@@ -1131,25 +1131,25 @@ void efg_clearaddedequivcapa(lotrs_list *trs)
   ptype_list *pt;
   if ((pt=getptype(trs->GRID->USER, EFG_LOCON_CAPA))!=NULL)
    {
-//     printf("ERROR G %s %g\n",trs->TRNAME,((loctc_list *)pt->DATA)->CAPA);
+/*     printf("ERROR G %s %g\n",trs->TRNAME,((loctc_list *)pt->DATA)->CAPA);*/
      delloctc((loctc_list *)pt->DATA);
      trs->GRID->USER=delptype(trs->GRID->USER, EFG_LOCON_CAPA);
    }
   if ((pt=getptype(trs->DRAIN->USER, EFG_LOCON_CAPA))!=NULL)
    {
-//     printf("ERROR D %s %g\n",trs->TRNAME,((loctc_list *)pt->DATA)->CAPA);
+/*     printf("ERROR D %s %g\n",trs->TRNAME,((loctc_list *)pt->DATA)->CAPA);*/
      delloctc((loctc_list *)pt->DATA);
      trs->DRAIN->USER=delptype(trs->DRAIN->USER, EFG_LOCON_CAPA);
    }
   if ((pt=getptype(trs->SOURCE->USER, EFG_LOCON_CAPA))!=NULL)
    {
-//     printf("ERROR S %s %g\n",trs->TRNAME,((loctc_list *)pt->DATA)->CAPA);
+/*     printf("ERROR S %s %g\n",trs->TRNAME,((loctc_list *)pt->DATA)->CAPA);*/
      delloctc((loctc_list *)pt->DATA);
      trs->SOURCE->USER=delptype(trs->SOURCE->USER, EFG_LOCON_CAPA);
    }
   if (trs->BULK!=NULL && (pt=getptype(trs->BULK->USER, EFG_LOCON_CAPA))!=NULL)
    {
-//     printf("ERROR B %s %g\n",trs->TRNAME,((loctc_list *)pt->DATA)->CAPA);
+/*     printf("ERROR B %s %g\n",trs->TRNAME,((loctc_list *)pt->DATA)->CAPA);*/
      delloctc((loctc_list *)pt->DATA);
      trs->BULK->USER=delptype(trs->BULK->USER, EFG_LOCON_CAPA);
    }
@@ -1179,9 +1179,9 @@ lotrs_list *efg_add_blockedlotrs (lofig_list *fig,locon_list *con,int incr_index
         return NULL;
     trs = (lotrs_list*)con->ROOT;
     if ((ptype = getptype (trs->USER,EFG_CORRESP)) == NULL) {
-        // zinaps : error check
+        /* zinaps : error check*/
         efg_clearaddedequivcapa(trs);
-        //
+        /**/
 		if ((alim=cns_get_lotrs_multivoltage(trs))!=NULL)
 		{
 	      vss=efg_try_to_add_alim_to_the_context(NULL, alim->VSSMIN);
@@ -1258,7 +1258,7 @@ lotrs_list *efg_add_blockedlotrs (lofig_list *fig,locon_list *con,int incr_index
           else
           {
             if ((drain=check_already_alim(trs->DRAIN->SIG, vss, vdd))==NULL)
-              drain =  vss; //MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;
+              drain =  vss; /*MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;*/
             else
               drainalim=1;
           }
@@ -1270,7 +1270,7 @@ lotrs_list *efg_add_blockedlotrs (lofig_list *fig,locon_list *con,int incr_index
           else
           {
             if ((source=check_already_alim(trs->SOURCE->SIG, vss, vdd))==NULL)
-              source = vdd; //MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;
+              source = vdd; /*MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;*/
             else
               sourcealim=1;
 
@@ -1281,11 +1281,11 @@ lotrs_list *efg_add_blockedlotrs (lofig_list *fig,locon_list *con,int incr_index
             else if (drainalim && drain==vdd) source=vss;
           }
         }
-        else { // con = bulk
+        else { /* con = bulk*/
           return NULL;
         }
-        // rajoute un transisor bloque en plus si le 1er transitor fait partie
-        // d une branche non fonctionnel (a cause d evenetuelles contraintes)
+        /* rajoute un transisor bloque en plus si le 1er transitor fait partie*/
+        /* d une branche non fonctionnel (a cause d evenetuelles contraintes)*/
         if (newsig == 2) {
           if ( V_STR_TAB[__EFG_TRS_ALIAS].VALUE ) 
             sprintf ( buf, "nFct%s%d",V_STR_TAB[__EFG_TRS_ALIAS].VALUE,EFG_TRS_INDEX);
@@ -1329,7 +1329,7 @@ lotrs_list *efg_add_blockedlotrs (lofig_list *fig,locon_list *con,int incr_index
           if (lotrs)
           {
             lotrs->MODINDEX = trs->MODINDEX;
-            // subcktname of the figure 
+            /* subcktname of the figure */
             if ( (ptype = getptype ( trs->USER, TRANS_FIGURE )) )
               lotrs->USER = addptype ( lotrs->USER, TRANS_FIGURE, ptype->DATA );
             efg_copy_lotrs_param(trs, lotrs);
@@ -1360,7 +1360,7 @@ lotrs_list *efg_add_blockedlotrs (lofig_list *fig,locon_list *con,int incr_index
           if ( V_STR_TAB[__EFG_TRS_ALIAS].VALUE )
             lotrs->USER = addptype (lotrs->USER,EFG_ALIAS_ORG,trs->TRNAME);
         }
-        // champ pour le nom du transitor
+        /* champ pour le nom du transitor*/
         lotrs->MODINDEX = trs->MODINDEX;
 
         if ( pnode_drain )
@@ -1370,14 +1370,14 @@ lotrs_list *efg_add_blockedlotrs (lofig_list *fig,locon_list *con,int incr_index
         if ( pnode_grid )
            lotrs->GRID->PNODE = dupnumlst(trs->GRID->PNODE);
         
-        // subcktname of the figure 
+        /* subcktname of the figure */
         if ( (ptype = getptype ( trs->USER, TRANS_FIGURE )) )
           lotrs->USER = addptype ( lotrs->USER, TRANS_FIGURE, ptype->DATA );
 
         trs->USER = addptype (trs->USER,EFG_CORRESP,lotrs);
         lotrs->USER = addptype (lotrs->USER,EFG_CORRESP,trs);
 
-        // specific instance params
+        /* specific instance params*/
         efg_copy_lotrs_param(trs, lotrs);
 /*        val = getlotrsparam (trs,MBK_MULU0,NULL,&status);
         if ( status == 1 )
@@ -1477,7 +1477,7 @@ locon_list *efg_addloconfromlosig (lofig_list *figext,losig_list *origsig,int in
     lofigchain = (chain_list *)ptype->DATA;
     for ( chain = lofigchain ; chain ; chain=chain->NEXT ) {
       locon = (locon_list *)chain->DATA;
-      //if ( locon->TYPE == 'E' && !efg_get_locon ( figext, locon->NAME ) )
+      /*if ( locon->TYPE == 'E' && !efg_get_locon ( figext, locon->NAME ) )*/
       if ( locon->TYPE == 'E' )
         return efg_addlocon ( figext, locon, incr_index);
     }
@@ -1498,9 +1498,9 @@ lotrs_list *efg_addlotrs (lofig_list *fig,lotrs_list *trs,int incr_index)
     if ( !fig || !trs )
         return NULL;
     if ((ptype = getptype (trs->USER,EFG_CORRESP)) == NULL) {
-        // zinaps: error check
+        /* zinaps: error check*/
         efg_clearaddedequivcapa(trs);
-        //
+        /**/
         grid = efg_addlosig (fig,trs->GRID->SIG,incr_index);
         if ( trs->GRID->SIG->TYPE == 'E' ) 
           efg_addloconfromlosig (fig,trs->GRID->SIG,incr_index);
@@ -1509,10 +1509,10 @@ lotrs_list *efg_addlotrs (lofig_list *fig,lotrs_list *trs,int incr_index)
             if (!efg_get_locon ( fig, signame ) ) {
                locon = addlocon (fig,signame,grid,'I');
                efg_locon_add_lofigchain( locon );
-               // zinaps: marquage pour eviter le multiple ajout d'un meme locon
+               /* zinaps: marquage pour eviter le multiple ajout d'un meme locon*/
                trs->GRID->USER = addptype (trs->GRID->USER, EFG_CORRESP, locon);
                locon->USER = addptype (locon->USER, EFG_CORRESP, trs->GRID);
-               //
+               /**/
                grid->TYPE = 'E';
                locon->TYPE = 'E';
                if ( trs->GRID->PNODE )
@@ -1555,23 +1555,23 @@ lotrs_list *efg_addlotrs (lofig_list *fig,lotrs_list *trs,int incr_index)
           if ( V_STR_TAB[__EFG_TRS_ALIAS].VALUE )
             lotrs->USER = addptype (lotrs->USER,EFG_ALIAS_ORG,trs->TRNAME);
         }
-        // champ pour le nom du transitor
+        /* champ pour le nom du transitor*/
         lotrs->MODINDEX = trs->MODINDEX;
         
-        // locon GRID specific duplication
+        /* locon GRID specific duplication*/
         if (getptype(trs->GRID->SIG->USER,EFG_SIG_VSS) == NULL)
            lotrs->GRID->PNODE = dupnumlst(trs->GRID->PNODE);
-        // locon DRAIN specific duplication
+        /* locon DRAIN specific duplication*/
         if (getptype(trs->DRAIN->SIG->USER,EFG_SIG_VSS) == NULL)
            lotrs->DRAIN->PNODE = dupnumlst(trs->DRAIN->PNODE);
-        // locon SOURCE specific duplication
+        /* locon SOURCE specific duplication*/
         if (getptype(trs->SOURCE->SIG->USER,EFG_SIG_VSS) == NULL)
            lotrs->SOURCE->PNODE = dupnumlst(trs->SOURCE->PNODE);
-        // locon BULK specific duplication
+        /* locon BULK specific duplication*/
         if (trs->BULK->SIG && getptype(trs->BULK->SIG->USER,EFG_SIG_VSS) == NULL)
            lotrs->BULK->PNODE = dupnumlst(trs->BULK->PNODE);
 
-        // subcktname of the figure 
+        /* subcktname of the figure */
         if ( (ptype = getptype ( trs->USER, TRANS_FIGURE )) )
           lotrs->USER = addptype ( lotrs->USER, TRANS_FIGURE, ptype->DATA );
         
@@ -1585,7 +1585,7 @@ lotrs_list *efg_addlotrs (lofig_list *fig,lotrs_list *trs,int incr_index)
         trs->USER = addptype (trs->USER,EFG_CORRESP,lotrs);
         lotrs->USER = addptype (lotrs->USER,EFG_CORRESP,trs);
         
-        // specific instance params
+        /* specific instance params*/
         efg_copy_lotrs_param(trs, lotrs);
 /*
         mulu0 = getlotrsparam (trs,MBK_MULU0,NULL,&status);
@@ -1619,7 +1619,7 @@ lotrs_list *efg_addlotrs (lofig_list *fig,lotrs_list *trs,int incr_index)
     }
     else {
         lotrs = (lotrs_list*)ptype->DATA;
-        if ( lotrs->FLAGS == EFG_BLOCK_TRS ) { // if it was added blocked by another not fonctionnal cone
+        if ( lotrs->FLAGS == EFG_BLOCK_TRS ) { /* if it was added blocked by another not fonctionnal cone*/
           efg_lotrs_remove_lofigchain( lotrs );
           dellotrs ( fig, lotrs );
           trs->USER = delptype (trs->USER,EFG_CORRESP);
@@ -1682,7 +1682,7 @@ loins_list *efg_addloins (lofig_list *fig,loins_list *ins,int incr_index)
 
     newloins = addloins( fig, ins->INSNAME, figins,sigchain);
 
-    // update locon name
+    /* update locon name*/
     for (loconins = newloins->LOCON ; loconins ; loconins=loconins->NEXT) {
       loconins->NAME = efg_getlosigname (loconins->SIG);
       for (locon = ins->LOCON ; locon ; locon=locon->NEXT) {
@@ -1762,7 +1762,7 @@ losig_list *efg_GetHierSigByName (lofig,name,loinsname,instance,firstcall)
     losig_list  *losig;
     lofig_list  *newlofig;
 
-    //name = namealloc (name);
+    /*name = namealloc (name);*/
     if ((lofig != NULL) && (name != NULL)) {
       if ((losig=mbk_quickly_getlosigbyname(lofig, name))!=NULL)
       {
@@ -1776,7 +1776,7 @@ losig_list *efg_GetHierSigByName (lofig,name,loinsname,instance,firstcall)
             return losig;
           }
       }*/
-      // ca sert a quoi??? vvvvv
+      /* ca sert a quoi??? vvvvv*/
       leftunconcatname (name,&left,&right);
       if (left == NULL) {
         if ((losig=mbk_quickly_getlosigbyname(lofig, right))!=NULL)
@@ -1784,7 +1784,7 @@ losig_list *efg_GetHierSigByName (lofig,name,loinsname,instance,firstcall)
           if (firstcall == 'Y') *loinsname = lofig->NAME;
           return losig;
         }
-      // ^^^^^
+      /* ^^^^^*/
 /*        for (losig = lofig->LOSIG ; losig ; losig = losig->NEXT) {
           if (mbkissignalname (losig, right )) {
             if (firstcall == 'Y')
@@ -2174,7 +2174,7 @@ chain_list *efg_set_extra_capa (lofig_list *figext,char *signame, float capaval)
     chain_list *added_ctclist = NULL;
     ptype_list *ptype;
     
-    // retrouve le signal <=> nom
+    /* retrouve le signal <=> nom*/
 
     ptype = getptype (figext->USER,EFG_FIG_HTSIG);
     if (ptype != NULL) {
@@ -2331,7 +2331,7 @@ Rajoute une transistor ou capacite
 \*****************************************************************************/
 void efg_add_lotrs_capa_dup (lofig_list *fig,locon_list *locon)
 {
-  // le locon est un locon de la figure extraite
+  /* le locon est un locon de la figure extraite*/
   chain_list *chain;
   ptype_list *ptype;
   losig_list *destsig;
@@ -2350,7 +2350,7 @@ void efg_add_lotrs_capa_dup (lofig_list *fig,locon_list *locon)
     if (EFG_CALC_EQUI_CAPA == EFG_OUT_TRANSISTOR)
       efg_add_blockedlotrs_dup (fig, locon);
     else {
-      // get event on sig
+      /* get event on sig*/
       signame = efg_getlosigname (locon->SIG);
       if ( EFGCONTEXT &&  EFGCONTEXT->SPISIG && 
           (spisig = efg_GetSpiSigByName (EFGCONTEXT->SPISIG, signame)) ) {
@@ -2405,7 +2405,7 @@ lotrs_list *efg_add_blockedlotrs_dup (lofig_list *fig,locon_list *con)
     if ( !fig || !con || efg_SigIsAlim (con->SIG) == 'Y')
         return NULL;
     
-    trs = (lotrs_list*)con->ROOT; //trs de la figure extraite
+    trs = (lotrs_list*)con->ROOT; /*trs de la figure extraite*/
 
    	if ((alim=cns_get_lotrs_multivoltage(trs))!=NULL)
 	{
@@ -2421,9 +2421,9 @@ lotrs_list *efg_add_blockedlotrs_dup (lofig_list *fig,locon_list *con)
     if ( con == trs->GRID ) { 
       int drainalim=0, sourcealim=0;
       grid = con->SIG;
-      if ((drain=check_already_alim(trs->DRAIN->SIG, vss, vdd))==NULL) drain =  vss; //MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;
+      if ((drain=check_already_alim(trs->DRAIN->SIG, vss, vdd))==NULL) drain =  vss; /*MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;*/
       else drainalim=1;
-      if ((source=check_already_alim(trs->SOURCE->SIG, vss, vdd))==NULL) source = vdd; //MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;
+      if ((source=check_already_alim(trs->SOURCE->SIG, vss, vdd))==NULL) source = vdd; /*MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;*/
       else sourcealim=1;
       if (sourcealim!=drainalim)
         {
@@ -2441,7 +2441,7 @@ lotrs_list *efg_add_blockedlotrs_dup (lofig_list *fig,locon_list *con)
       if ((drain=check_already_alim(trs->DRAIN->SIG, vss, vdd))==NULL) drain =  MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;
       if ((grid=check_already_alim(trs->GRID->SIG, vss, vdd))==NULL) grid =  MLO_IS_TRANSN (trs->TYPE) ? vss : vdd;
     }
-    else { // con = bulk
+    else { /* con = bulk*/
       return NULL;
     }
     sprintf ( buf, "dup%s",trs->TRNAME);
@@ -2468,7 +2468,7 @@ lotrs_list *efg_add_blockedlotrs_dup (lofig_list *fig,locon_list *con)
       if ( V_STR_TAB[__EFG_TRS_ALIAS].VALUE )
         lotrs->USER = addptype (lotrs->USER,EFG_ALIAS_ORG,trs->TRNAME);
     }
-    // champ pour le nom du transitor
+    /* champ pour le nom du transitor*/
     lotrs->MODINDEX = trs->MODINDEX;
 
     if ( (con == trs->DRAIN) && (trs->DRAIN->PNODE) )
@@ -2478,15 +2478,15 @@ lotrs_list *efg_add_blockedlotrs_dup (lofig_list *fig,locon_list *con)
     if ( (con == trs->GRID) && (trs->GRID->PNODE) )
        lotrs->GRID->PNODE = dupnumlst(trs->GRID->PNODE);
     
-    // subcktname of the figure 
+    /* subcktname of the figure */
     if ( (ptype = getptype ( trs->USER, TRANS_FIGURE )) )
       lotrs->USER = addptype ( lotrs->USER, TRANS_FIGURE, ptype->DATA );
         
     lofigchain (fig);
 
-    // specific instance params
+    /* specific instance params*/
     efg_copy_lotrs_param(trs, lotrs);
-/*    // specific instance params
+/*    |* specific instance params*|
     val = getlotrsparam (trs,MBK_MULU0,NULL,&status);
     if ( status == 1 )
       addlotrsparam(lotrs, *MBK_MULU0, val, NULL);

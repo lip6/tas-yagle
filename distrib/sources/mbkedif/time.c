@@ -33,7 +33,7 @@
 
 char *EdifTime()
 {
-int EdifMonth();
+int EdifMonth(char*);
 char *date;
 long tim;
 char day[6];
@@ -54,8 +54,7 @@ char month[6];
 	return date;
 }
 
-int EdifMonth(month)
-char *month;
+int EdifMonth( char *month )
 {
 	if (!strcmp(month, "Jan"))
 		return 1;

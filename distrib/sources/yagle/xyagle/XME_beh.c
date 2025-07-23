@@ -27,6 +27,8 @@
 #include BVL_H
 #include XSB_H
 #include XTB_H
+#include CGV_H
+#include XYA_H
 #include XMX_H
 
 #include "XME_beh.h"

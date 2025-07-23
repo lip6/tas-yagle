@@ -290,9 +290,9 @@ char *argv[];
   if ((TTVFIG = ttv_getttvfig(NAMEFIG,filetype)) == NULL)
     ren_error() ;
   
-//  if ((maskopt&REN_OPT_STM)==REN_OPT_STM)
-//    if (!(MODELSTM = stm_getcell(NAMEFIG)))
-//      ren_error();
+/*  if ((maskopt&REN_OPT_STM)==REN_OPT_STM)*/
+/*    if (!(MODELSTM = stm_getcell(NAMEFIG)))*/
+/*      ren_error();*/
   
   strcat(NEWNAME,"_");
   strcat(NEWNAME,NAMEEXT);
@@ -310,7 +310,7 @@ char *argv[];
       EXIT(1) ;
   #endif
   ren_ttvfigren(maskopt) ;
-//  if ((maskopt&REN_OPT_STM)==REN_OPT_STM) ren_stmren(maskopt);
+/*  if ((maskopt&REN_OPT_STM)==REN_OPT_STM) ren_stmren(maskopt);*/
 
   getrusage(RUSAGE_SELF,&Tend) ;
   time(&tTend) ;

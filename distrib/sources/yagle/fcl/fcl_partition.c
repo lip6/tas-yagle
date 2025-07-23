@@ -31,12 +31,7 @@
   ##  sortie : un pointeur sur le debut des partitions                      ##
   ####====================================================================####
 */
-partition_list *
-addpartition(ptpartition, ptdata, valeur, type)
-    partition_list *ptpartition;
-    void           *ptdata;
-    fcl_label       valeur;
-    char            type;
+partition_list *addpartition( partition_list *ptpartition, void *ptdata, fcl_label valeur, char type )
 {
     partition_list *pt;
 
@@ -73,9 +68,7 @@ addpartition(ptpartition, ptdata, valeur, type)
   ##  sortie : un pointeur sur le debut des partitions                      ##
   ####====================================================================####
 */
-partition_list *
-smallestpartition(ptpartition)
-    partition_list *ptpartition;
+partition_list * smallestpartition( partition_list *ptpartition )
 {
     for (; ptpartition->NEXT;) {
         if (ptpartition->NEXT->NBELEM < ptpartition->NBELEM) {
@@ -103,11 +96,7 @@ smallestpartition(ptpartition)
   ##  sortie : un pointeur sur la partition                                 ##
   ####====================================================================####
 */
-partition_list *
-getpartition(ptpartition, valeur, type)
-    partition_list *ptpartition;
-    fcl_label       valeur;
-    char            type;
+partition_list * getpartition( partition_list *ptpartition, fcl_label valeur, char type )
 {
     partition_list *pt;
 
@@ -132,11 +121,7 @@ getpartition(ptpartition, valeur, type)
   ##  sortie : un pointeur sur la tete des partitions                       ##
   ####====================================================================####
 */
-partition_list *
-delpartition(ptpartition, valeur, type)
-    partition_list *ptpartition;
-    fcl_label       valeur;
-    char            type;
+partition_list * delpartition( partition_list *ptpartition, fcl_label valeur, char type )
 {
     partition_list *pt;
     partition_list *pt_before = ptpartition;
@@ -174,11 +159,7 @@ delpartition(ptpartition, valeur, type)
   ##  sortie : un pointeur sur le debut des partitions                      ##
   ####====================================================================####
 */
-partition_list *
-removepartitionelement(ptpartition, valeur, type)
-    partition_list *ptpartition;
-    fcl_label       valeur;
-    char            type;
+partition_list *removepartitionelement( partition_list *ptpartition, fcl_label valeur, char type )
 {
     partition_list *pt;
 
@@ -207,10 +188,7 @@ removepartitionelement(ptpartition, valeur, type)
   ##  sortie : un pointeur sur le debut des partitions                      ##
   ####====================================================================####
 */
-partition_list *
-comparepartition(ptpartition_c, ptpartition_m)
-    partition_list *ptpartition_c;
-    partition_list *ptpartition_m;
+partition_list * comparepartition( partition_list *ptpartition_c, partition_list *ptpartition_m )
 {
     partition_list *pt;
     partition_list *ptcandidat;
@@ -260,9 +238,7 @@ comparepartition(ptpartition_c, ptpartition_m)
 }
 
 
-void
-printpartition(ptpartition)
-    partition_list *ptpartition;
+void printpartition( partition_list *ptpartition )
 {
     partition_list *pt;
 
@@ -271,9 +247,7 @@ printpartition(ptpartition)
     }
 }
 
-void
-displaypartition(ptpartition)
-    partition_list *ptpartition;
+void displaypartition( partition_list *ptpartition )
 {
     losig_list     *ptsig;
     chain_list     *ptchain;

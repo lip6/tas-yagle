@@ -37,7 +37,7 @@ extern double  mcc_calcVTH_bsim3v3 (mcc_modellist *ptmodel, double L, double W,
 
 extern double  mcc_calcIDS_bsim3v3 (mcc_modellist *ptmodel, double vbs, 
                                     double vgs, double vds, double W, double L, 
-                                    //double AX, double PX,
+                                    /*double AX, double PX,*/
                                     double temp,
                                     elp_lotrs_param *lotrsparam) ;
 

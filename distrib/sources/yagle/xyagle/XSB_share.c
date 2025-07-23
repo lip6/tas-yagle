@@ -22,9 +22,9 @@
 #include BEF_H
 #include BVL_H
 #include XSB_H
-#include XMX_H
 #include CGV_H
 #include XYA_H
+#include XMX_H
 
 #include "XSB_share.h"
 
@@ -68,15 +68,13 @@ char            XYAG_SWITCH_COLOR_MAP = XYAG_FALSE;
 
 library        *XYAG_SYMBOL_LIBRARY = NULL;
 
-//#ifdef xcones
-//char XYAGLE_NAME[] = "XCones";
-//#else
-//char XYAGLE_NAME[] = "Xyagle";
-//#endif
+/*#ifdef xcones*/
+/*char XYAGLE_NAME[] = "XCones";*/
+/*#else*/
+/*char XYAGLE_NAME[] = "Xyagle";*/
+/*#endif*/
 
-char *
-XyagPostTreatString(Text)
-    char           *Text;
+char * XyagPostTreatString( char *Text )
 {
     char            OnlySpace;
     int             Counter;
@@ -169,7 +167,7 @@ Xyaggetenv()
     else
         strcpy(IN_LO, "spi");
 
-//    XYAG_SYMBOL_LIBRARY =  slib_get_library();
+/*    XYAG_SYMBOL_LIBRARY =  slib_get_library();*/
     sprintf(name,"/tmp/default.slib%ld",time(NULL));
     if ((f=fopen(name,"wt"))==NULL)
     {
@@ -203,13 +201,13 @@ Xyaggetenv()
     unlink(name);
 
 
-    // gestion d'un context perso pour les lofigs
+    /* gestion d'un context perso pour les lofigs*/
     XYAG_ctx=mbkCreateContext();
     lf=HEAD_LOFIG;
     mbkSwitchContext(XYAG_ctx);
     addlocked(lf);
     mbkSwitchContext(XYAG_ctx);
-    // gestion d'un context perso pour les cnss
+    /* gestion d'un context perso pour les cnss*/
     CNS_ctx=cnsCreateContext();
 
 }

@@ -43,8 +43,8 @@ char           *avt_gettcldistpath();
 
 static jmp_buf interactive_exit;
 
-//static char   copyright[] = " - Copyright (C) 2001-2005 LAAS-CNRS";
-//static char  *version = ELTCLSH_VERSION;
+/*static char   copyright[] = " - Copyright (C) 2001-2005 LAAS-CNRS";*/
+/*static char  *version = ELTCLSH_VERSION;*/
 
 void avt_interactive_exit( int ignored )
 {

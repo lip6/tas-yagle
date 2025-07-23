@@ -47,7 +47,7 @@
 
 int NB_TAT_LOSIG = 0;
 
-//#define MBK_TRACE_BAD_PTYPE
+/*#define MBK_TRACE_BAD_PTYPE*/
 
 /*******************************************************************************
  * global variable for netlist view                                             *
@@ -898,7 +898,7 @@ int freelofig(lofig_list *ptfig)
     mbkfree((void *)pttrs->GRID);
     mbkfree((void *)pttrs->SOURCE);
     mbkfree((void *)pttrs->DRAIN);
-    //		mbkfree((void *)pttrs->BULK);
+    /*		mbkfree((void *)pttrs->BULK);*/
     ptold = (void *)pttrs->NEXT;
     freelotrsparams (pttrs);
     dellotrsuser( pttrs );
@@ -2175,8 +2175,8 @@ void delloconuser( ptlocon )
   freeptype(ptlocon->USER); ptlocon->USER=NULL;
 }
 
-//typedef struct  eqt_param eqt_param;
-//extern void     eqt_free_param  (eqt_param *param);
+/*typedef struct  eqt_param eqt_param;*/
+/*extern void     eqt_free_param  (eqt_param *param);*/
 
 void dellofiguser( ptlofig )
      lofig_list *ptlofig;
@@ -2218,7 +2218,7 @@ void dellofiguser( ptlofig )
         case LOFIG_INFO:
           mbkfree(scanptype->DATA);
           break;
-        case 0x00079350: // SPEF_INDEX
+        case 0x00079350: /* SPEF_INDEX*/
           delit((it *)scanptype->DATA);
           break;
         default:
@@ -2266,7 +2266,7 @@ void delloinsuser( ptloins )
           eqt_free_param((eqt_param*)scanptype->DATA);
           break;
         case PH_INTERF:
-        case PH_REAL_INTERF: // should not happen for now, perhaps later
+        case PH_REAL_INTERF: /* should not happen for now, perhaps later*/
           freechain( scanptype->DATA );
           del = 1;
           break;
@@ -2461,7 +2461,7 @@ losig_list* mbk_quickly_getlosigbyname( lofig_list *lofig, char *name )
   return (losig_list *)l;
 }
 
-// for this one name must be nameallocated
+/* for this one name must be nameallocated*/
 loins_list* mbk_quickly_getloinsbyname( lofig_list *lofig, char *name )
 {
   loins_list *li;
@@ -2483,7 +2483,7 @@ loins_list* mbk_quickly_getloinsbyname( lofig_list *lofig, char *name )
   return (loins_list *)l;
 }
 
-// for this one name must be nameallocated
+/* for this one name must be nameallocated*/
 lotrs_list* mbk_quickly_getlotrsbyname( lofig_list *lofig, char *name )
 {
   lotrs_list *ptlotrs;
@@ -2509,7 +2509,7 @@ int mbk_istranscrypt(char *name)
 {
   chain_list *ptchain;
     
-  //    name = namealloc(name);
+  /*    name = namealloc(name);*/
   for (ptchain = CRYPTMOS; ptchain; ptchain = ptchain->NEXT) {
     if (ptchain->DATA == name) return 1;
   }
@@ -2520,7 +2520,7 @@ int mbk_istransn(char *name)
 {
   chain_list *ptchain;
     
-  //    name = namealloc(name);
+  /*    name = namealloc(name);*/
   for (ptchain = TNMOS; ptchain; ptchain = ptchain->NEXT) {
     if (ptchain->DATA == name) return 1;
   }
@@ -2531,7 +2531,7 @@ int mbk_istransp(char *name)
 {
   chain_list *ptchain;
     
-  //    name = namealloc(name);
+  /*    name = namealloc(name);*/
   for (ptchain = TPMOS; ptchain; ptchain = ptchain->NEXT) {
     if (ptchain->DATA == name) return 1;
   }
@@ -2649,7 +2649,7 @@ void mbk_losig_setfilepos( lofig_list     *lofig,
     offset_std = *(MBK_OFFSET_STD*)pos;
     setititem( look, losig->INDEX, (long)offset_std );
   }
-  else { //MBK_FILE_LFS
+  else { /*MBK_FILE_LFS*/
 
     offset_lfs = *(MBK_OFFSET_LFS*)pos;
     ptl = getptype( lofig->USER, flagheap );
@@ -2739,7 +2739,7 @@ void mbk_losig_clearfilepos( lofig_list *lofig,
     lofig->USER = delptype( lofig->USER, flagheap );
   }
 
-  file=NULL; //unused parameter.
+  file=NULL; /*unused parameter.*/
 }
 
 void mbkSwitchContext(mbkContext *ctx)
@@ -2792,10 +2792,10 @@ int mbk_MarkAlim(losig_list *ls)
 
   for (ch=ls->NAMECHAIN; ch!=NULL; ch=ch->NEXT)
    {
-     // type yagle
+     /* type yagle*/
      if (ls->TYPE=='D') flags|=MBK_ALIM_VDD_FLAG;
      else if (ls->TYPE=='S') flags|=MBK_ALIM_VSS_FLAG;
-     // ----
+     /* ----*/
      if (isvss((char *)ch->DATA)) flags|=MBK_ALIM_VSS_FLAG;
      if (isvdd((char *)ch->DATA)) flags|=MBK_ALIM_VDD_FLAG;
      if (isglobalvss((char *)ch->DATA)) flags|=MBK_ALIM_VSS_FLAG|MBK_HAS_GLOBAL_NODE_FLAG;
@@ -2970,9 +2970,9 @@ lofiginfo *mbk_getlofiginfo(lofig_list *lf, int create)
   }
   else return (lofiginfo *)pt->DATA;
   lfif=mbkalloc(sizeof(lofiginfo));
-  // init
+  /* init*/
   lfif->scale=1;
-  //
+  /**/
   lf->USER=addptype(lf->USER, LOFIG_INFO, lfif);
   return lfif;
 }

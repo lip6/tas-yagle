@@ -36,7 +36,7 @@ int main()
   fclenv();
 
   elpenv();
-//  mccenv();
+/*  mccenv();*/
 
   elpLoadOnceElp();
 
@@ -55,7 +55,7 @@ int main()
   if (err) 
     {
       avt_errmsg(GNS_ERRMSG, "039", AVT_ERR, err);
-      //fprintf(stderr,"*** %d error(s) detected,  I can't get farther!! ***\n",err);
+      /*fprintf(stderr,"*** %d error(s) detected,  I can't get farther!! ***\n",err);*/
       return err;
     }
   if (!GENIUS_PRIORITY) return 0;
@@ -77,7 +77,7 @@ int main()
   if (err)
     {
       avt_errmsg(GNS_ERRMSG, "039", AVT_ERR, err);
-      //fprintf(stderr,"*** %d error(s) detected,  I can't get farther!! ***\n",err);
+      /*fprintf(stderr,"*** %d error(s) detected,  I can't get farther!! ***\n",err);*/
       return err;
     }
 
@@ -91,7 +91,7 @@ int main()
   if (err) 
     {
       avt_errmsg(GNS_ERRMSG, "039", AVT_ERR, err);
-      //fprintf(stderr,"\n%d error(s) detected,  I can't get farther!!\n",err);
+      /*fprintf(stderr,"\n%d error(s) detected,  I can't get farther!!\n",err);*/
       return err;
     }
   

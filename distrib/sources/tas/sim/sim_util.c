@@ -42,13 +42,13 @@ float  SIM_VT_SLOPEIN              = -1.0;
 
 
 extern char *spi_devect (char *name);
-static inline locon_list *findLoconInFig(lofig_list *fig, char *loconName);
-static inline losig_list *findLosigInFig(lofig_list *fig, char *losigName);
-static inline loins_list *findLoinsInFig(lofig_list *fig, char *loinsName);
-static inline lotrs_list *findLotrsInFig(lofig_list *fig, char *lotrsName);
-static inline locon_list *findLoconInLoins(loins_list *ins, char *loconName,char *loconName2);
-static inline locon_list *findLoconInTrs(lotrs_list *trs, char *loconName,char *loconName2);
-static inline locon_list* sim_find_by_nameInt(char        *name, lofig_list  *topfig, locon_list **loconfound, losig_list **losigfound, chain_list **listins, chain_list  *hiername);
+static  locon_list *findLoconInFig(lofig_list *fig, char *loconName);
+static  losig_list *findLosigInFig(lofig_list *fig, char *losigName);
+static  loins_list *findLoinsInFig(lofig_list *fig, char *loinsName);
+static  lotrs_list *findLotrsInFig(lofig_list *fig, char *lotrsName);
+static  locon_list *findLoconInLoins(loins_list *ins, char *loconName,char *loconName2);
+static  locon_list *findLoconInTrs(lotrs_list *trs, char *loconName,char *loconName2);
+static  locon_list* sim_find_by_nameInt(char        *name, lofig_list  *topfig, locon_list **loconfound, losig_list **losigfound, chain_list **listins, chain_list  *hiername);
 
 int sim_SetPowerSupply (lofig_list *lofig)
 {
@@ -87,7 +87,7 @@ void simenv ()
     }
     else SIM_OUTLOAD = SIM_TRANSISTOR_OUTLOAD;
 
-    //Simulator related options
+    /*Simulator related options*/
     if (V_INT_TAB[__SIM_TOOLMODEL].SET && !V_INT_TAB[__SIM_TOOL].SET) {
         switch (V_INT_TAB[__SIM_TOOLMODEL].VALUE) {
             case SIM_TOOLMODEL_SPICE: V_INT_TAB[__SIM_TOOL].VALUE = SIM_TOOL_SPICE; break;
@@ -252,7 +252,7 @@ void simenv ()
     
     SIM_DEFAULT_REMOVE_FILES = V_BOOL_TAB[__SIM_REMOVE_FILES].VALUE?SIM_YES:SIM_NO;
 
-    // zinaps le 12/10/2004
+    /* zinaps le 12/10/2004*/
     if ((SIM_VTH<0 || SIM_VTH>1) && SIM_VTH!=-1)
      { avt_error("sim", 1, AVT_ERR, "invalid value for variable 'simVth', it should range from 0 to 1\n"); stoprequest=1; }
     if ((SIM_VTH_HIGH<0 || SIM_VTH_HIGH>1) && SIM_VTH_HIGH!=-1)
@@ -268,7 +268,7 @@ void simenv ()
      { avt_error("sim", 5, AVT_ERR, "'simVthLow' value must be lower than 'simVth'\n"); stoprequest=1; }
  
     if (stoprequest) EXIT(1);
-    // ---------------------
+    /* ---------------------*/
     spi_env();
 }
 
@@ -292,8 +292,8 @@ void sim_warning( char *msg, ... )
   
   va_start( arg, msg );
 
-//  fflush( stdout );
-//  fprintf( stderr, "\n\n *** Warning in sim library ***\n" );
+/*  fflush( stdout );*/
+/*  fprintf( stderr, "\n\n *** Warning in sim library ***\n" );*/
   vsprintf( buf, msg, arg );
   avt_error("sim", -1, AVT_WAR, buf);
 }
@@ -393,9 +393,9 @@ void sim_find_by_name( char *name,
   if (listins)
     *listins    = NULL;
   
-  // recherche d'abord sur l interface
+  /* recherche d'abord sur l interface*/
   locon         = findLoconInFig(topfig,name);
-  // puis les signaux
+  /* puis les signaux*/
   losig         = findLosigInFig(topfig,name);
     
   if (!locon && !losig)
@@ -419,7 +419,7 @@ void sim_find_by_name( char *name,
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline locon_list *findLoconInFig(lofig_list *fig, char *loconName)
+static  locon_list *findLoconInFig(lofig_list *fig, char *loconName)
 {
   locon_list    *locon = fig->LOCON;
   
@@ -434,7 +434,7 @@ static inline locon_list *findLoconInFig(lofig_list *fig, char *loconName)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline locon_list *findLoconInLoins(loins_list *ins, char *loconName,
+static  locon_list *findLoconInLoins(loins_list *ins, char *loconName,
                                            char *loconName2)
 {
   locon_list    *locon = ins->LOCON;
@@ -454,7 +454,7 @@ static inline locon_list *findLoconInLoins(loins_list *ins, char *loconName,
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline losig_list *findLosigInFig(lofig_list *fig, char *losigName)
+static  losig_list *findLosigInFig(lofig_list *fig, char *losigName)
 {
   losig_list    *losig = fig->LOSIG;
   
@@ -469,7 +469,7 @@ static inline losig_list *findLosigInFig(lofig_list *fig, char *losigName)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline loins_list *findLoinsInFig(lofig_list *fig, char *loinsName)
+static  loins_list *findLoinsInFig(lofig_list *fig, char *loinsName)
 {
   loins_list    *loins = fig->LOINS;
   
@@ -484,7 +484,7 @@ static inline loins_list *findLoinsInFig(lofig_list *fig, char *loinsName)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline lotrs_list *findLotrsInFig(lofig_list *fig, char *lotrsName)
+static  lotrs_list *findLotrsInFig(lofig_list *fig, char *lotrsName)
 {
   lotrs_list    *lotrs = fig->LOTRS;
   
@@ -499,7 +499,7 @@ static inline lotrs_list *findLotrsInFig(lofig_list *fig, char *lotrsName)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline locon_list *findLoconInTrs(lotrs_list *trs, char *loconName,
+static  locon_list *findLoconInTrs(lotrs_list *trs, char *loconName,
                                          char *loconName2)
 {
   locon_list    *locon;
@@ -543,10 +543,10 @@ locon_list* sim_find_by_nameInt(char        *name,
   chain_list    *chainx, *ins = NULL, *headTrs;
   lofig_list    *figx;
   
-  // descend la hiérarchie. Les noms sont de la forme
-  // A.B.locon
-  // A.tr.locon
-  // A.losig
+  /* descend la hiérarchie. Les noms sont de la forme*/
+  /* A.B.locon*/
+  /* A.tr.locon*/
+  /* A.losig*/
   for (figx = topfig, chainx = hiername; chainx; chainx = chainx->NEXT)
   {
     insname         = (char*)chainx->DATA;
@@ -560,7 +560,7 @@ locon_list* sim_find_by_nameInt(char        *name,
   }
   
   headTrs           = chainx;
-  signame           = insname; // the last visited is a signal name
+  signame           = insname; /* the last visited is a signal name*/
   
   /* C'est sur une instance */
   if (ins)
@@ -579,7 +579,7 @@ locon_list* sim_find_by_nameInt(char        *name,
      correspond à un nom hiérarchique. */
   if (!locon && headTrs->NEXT)
   {
-    // creation of transistor name
+    /* creation of transistor name*/
     strcpy(nomtrs,(char*)headTrs->DATA);
     for (chainx = headTrs->NEXT; chainx->NEXT; chainx = chainx->NEXT)
     {
@@ -594,7 +594,7 @@ locon_list* sim_find_by_nameInt(char        *name,
     locon           = findLoconInTrs(lotrs,chainx->DATA,name);
   }
 
-  // C'est peut etre un signal
+  /* C'est peut etre un signal*/
   if (!locon)
     losig           = findLosigInFig(figx,signame);
 
@@ -942,7 +942,7 @@ sim_model *simDuplicate(sim_model *src)
   sim_measure_detail *smd, *smd0, *smdprev;
   sim_translate *smt;
 
-  // base
+  /* base*/
   sm=(sim_model *)mbkalloc(sizeof(sim_model));
   memcpy(sm, src, sizeof(sim_model));
 
@@ -951,7 +951,7 @@ sim_model *simDuplicate(sim_model *src)
     {
       sm->FIG=rduplofig(src->FIG);
       lofigchain(sm->FIG);
-      // renommage ?
+      /* renommage ?*/
       mbkSwitchContext(mc);
       addhtitem(HT_LOFIG, sm->FIG->NAME, (long)sm->FIG);
       sm->FIG->NEXT=HEAD_LOFIG;
@@ -966,7 +966,7 @@ sim_model *simDuplicate(sim_model *src)
     sm->PARAMETER.TOOL_OUTFILE=mbkstrdup(sm->PARAMETER.TOOL_OUTFILE);
   if (sm->OUTPUT_FILE!=NULL)
     sm->OUTPUT_FILE=mbkstrdup(sm->OUTPUT_FILE);
-  // sim_ic
+  /* sim_ic*/
   for (ic=src->LIC, icprev=NULL; ic!=NULL; icprev=ic0, ic=ic->NEXT)
     {
       ic0=(sim_ic *)mbkalloc(sizeof(sim_ic));
@@ -975,7 +975,7 @@ sim_model *simDuplicate(sim_model *src)
       ic0->NODENAME=dupchainlst(ic->NODENAME);
     }
 
-  // sim_input
+  /* sim_input*/
   sm->HTINPUT=addht(10);
   for (si=src->LINPUT, siprev=NULL; si!=NULL; siprev=si0, si=si->NEXT)
     {
@@ -985,7 +985,7 @@ sim_model *simDuplicate(sim_model *src)
       addhtitem(sm->HTINPUT, si0->LOCON_NAME, (long)si0);
     }
 
-  // sim_measure
+  /* sim_measure*/
   for (sme=src->LMEASURE, smeprev=NULL; sme!=NULL; smeprev=sme0, sme=sme->NEXT)
     {
       sme0=(sim_measure *)mbkalloc(sizeof(sim_measure));
@@ -1001,13 +1001,13 @@ sim_model *simDuplicate(sim_model *src)
         }
     }
 
-  // sim_translate
+  /* sim_translate*/
   for (smt=src->TRANSLATION; smt!=NULL; smt=smt->NEXT)
     {
       sim_input_add_alias(sm, smt->signal, smt->equiv);
     }
 
-  // sim extraction
+  /* sim extraction*/
   mfe_duprules(&(sm->LRULES),src->LRULES);
   mfe_duplabels(&(sm->LLABELS),src->LLABELS);
 
@@ -1217,7 +1217,7 @@ sim_model *sim_get_ctx()
   return __SIM_CTX__;
 }
 
-// Renvoie le nom hierarchique du signal en fonction du simulateur utilise
+/* Renvoie le nom hierarchique du signal en fonction du simulateur utilise*/
 char *sim_get_hier_signame (sim_model *model, char *signal)
 {
   char buf[BUFSIZ];

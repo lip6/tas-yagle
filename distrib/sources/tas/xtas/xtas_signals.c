@@ -631,23 +631,23 @@ void    XtasSignalsCtkInfoAnswerEventCallback (parent, client_data, call_data)
         else
             XtasDisplayCtkInfo( XtasSignalsWorkWidget[client], &ptsig->NODE[0], XtasErrorWidget);
     }
-//    XalLeaveLimitedLoop();
+/*    XalLeaveLimitedLoop();*/
     
 }
 
-///*---------------------------------------------------------------------------*/
-///*                                                                           */
-///* FUNCTION : XtasSignalsCtkCancelCallback                                   */
-///*                                                                           */
-///*                                                                           */
-///*---------------------------------------------------------------------------*/
-//void    XtasSignalsCtkCancelCallback (parent, client_data, call_data)
-//    Widget      parent      ;
-//    XtPointer   client_data ;
-//    XtPointer   call_data   ;
-//{
-//    XtDestroyWidget ((Widget) client_data);
-//}
+/*/*---------------------------------------------------------------------------*/
+/*/*                                                                           */
+/*/* FUNCTION : XtasSignalsCtkCancelCallback                                   */
+/*/*                                                                           */
+/*/*                                                                           */
+/*/*---------------------------------------------------------------------------*/
+/*void    XtasSignalsCtkCancelCallback (parent, client_data, call_data)*/
+/*    Widget      parent      ;*/
+/*    XtPointer   client_data ;*/
+/*    XtPointer   call_data   ;*/
+/*{*/
+/*    XtDestroyWidget ((Widget) client_data);*/
+/*}*/
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -673,7 +673,7 @@ void    XtasSignalsCtkInfoAskEvent (client)
     if (!widget) {
         n = 0;
         sprintf (text_title, XTAS_NAME" : Crosstalk Information - %s", XtasMainParam->ttvfig->INFO->FIGNAME);
-//        XtSetArg ( args[n], XmNtitle,           XTAS_NAME" : Crosstalk Information"); n++;
+/*        XtSetArg ( args[n], XmNtitle,           XTAS_NAME" : Crosstalk Information"); n++;*/
         XtSetArg ( args[n], XmNtitle, text_title); n++;
         XtSetArg ( args[n], XmNdialogStyle, XmDIALOG_APPLICATION_MODAL); n++;
         widget = XmCreatePromptDialog (XtasSignalsWorkWidget[client], "XtasCTkaskEvent", args, n);
@@ -727,7 +727,7 @@ void    XtasSignalsCtkInfoAskEvent (client)
     }
 
     XtManageChild (widget);
-//    XalLimitedLoop (widget);
+/*    XalLimitedLoop (widget);*/
     
 }
 /*---------------------------------------------------------------------------*/

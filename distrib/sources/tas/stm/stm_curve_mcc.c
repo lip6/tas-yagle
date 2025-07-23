@@ -197,7 +197,7 @@ float stm_get_t (float v, float vt, float vi, float vf, float F)
            if( vt/2.0 > vf - 2.0*(vf-vt) ) {
              t0 = F * atanh(vt/2.0 / (vf - vt));
              if (v < vt/2.0)
-               // return ((2 * t0) * (v - vt) / vt + 2 * t0) ;
+               /* return ((2 * t0) * (v - vt) / vt + 2 * t0) ;*/
                return 2*t0*v/vt ;
              else
                return (F * atanh((v - vt)/(vf - vt)) + 2*t0);
@@ -219,7 +219,7 @@ float stm_get_t (float v, float vt, float vi, float vf, float F)
            if( vi-vt/2.0 < 2*(vi-vt-vf) ) {
              t0 = F * atanh(vt/2.0 / (vi - vt - vf));
              if (v > vi-vt/2.0)
-                //return ((2 * t0) * (v - (vi - vt)) / (vi - vt) + 2 * t0) ;
+                /*return ((2 * t0) * (v - (vi - vt)) / (vi - vt) + 2 * t0) ;*/
                 return -2.0*t0*(v-vi)/vt;
              else
                 return (F * atanh((vi - vt - v) / (vi - vt - vf)) + 2 * t0) ;
@@ -351,7 +351,7 @@ stm_curve* stm_curve_mcc_c_old( timing_model *model,
       break ;
     }
     
-  // Comportement statique
+  /* Comportement statique*/
 
   nbe = 10;
   nbs = 10;
@@ -551,7 +551,7 @@ stm_curve* stm_curve_mcc_c( timing_model *model,
       t ++;
     }
     
-  // Comportement statique
+  /* Comportement statique*/
 
   nbe = 10;
   nbs = 10;

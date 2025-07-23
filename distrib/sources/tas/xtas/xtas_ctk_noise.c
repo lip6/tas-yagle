@@ -293,17 +293,17 @@ void    XtasNoiseScoreOkCallback (parent, client_data, call_data)
     stb_ctk_sort_stat(XtasNoiseTab, STB_CTK_SORT_SCORE_TOTAL);
     if (XTAS_DISPLAY_NEW == 0) {
         scroll = XtNameToWidget ((Widget)tas_winfos->wrkwidget, "*XtasScrollNoiseWidget");
-//        if (!scroll) {
-//            pan_widget = XtNameToWidget ((Widget)tas_winfos->wrkwidget, "*XtasPanWindow");
-//            XtVaGetValues (pan_widget, XmNnumChildren, &nb, XmNchildren, &widget_list, NULL);
-////            for (i=0 ; i<nb ; i++) 
-////               XtDestroyWidget (widget_list[i]); 
-//            XtDestroyWidget (widget_list[0]); 
-//            label = XtNameToWidget ((Widget)tas_winfos->wrkwidget, "*XtasTitlesInsideAlimMax");
-//            if (pan_widget && label)
-//                XtasCreateNoiseGraphicalScrollList (pan_widget, tas_winfos, label);
-//        }
-//        else 
+/*        if (!scroll) {*/
+/*            pan_widget = XtNameToWidget ((Widget)tas_winfos->wrkwidget, "*XtasPanWindow");*/
+/*            XtVaGetValues (pan_widget, XmNnumChildren, &nb, XmNchildren, &widget_list, NULL);*/
+/*//            for (i=0 ; i<nb ; i++) */
+/*//               XtDestroyWidget (widget_list[i]); */
+/*            XtDestroyWidget (widget_list[0]); */
+/*            label = XtNameToWidget ((Widget)tas_winfos->wrkwidget, "*XtasTitlesInsideAlimMax");*/
+/*            if (pan_widget && label)*/
+/*                XtasCreateNoiseGraphicalScrollList (pan_widget, tas_winfos, label);*/
+/*        }*/
+/*        else */
             XtasNoiseTreatTopCallback (NULL, (XtPointer)scroll, NULL);
     }
     else {
@@ -352,7 +352,7 @@ void    XtasNoiseScoreConfigCallback (parent, client_data, call_data)
         XtUnmanageChild(XmSelectionBoxGetChild(XtasNoiseScoresWidget,XmDIALOG_HELP_BUTTON)) ;
         XtAddCallback( XtasNoiseScoresWidget, XmNokCallback, XtasNoiseScoreOkCallback, (XtPointer)client_data ) ;
         XtAddCallback( XtasNoiseScoresWidget, XmNcancelCallback, XtasCancelCallback, (XtPointer)XtasNoiseScoresWidget ) ;
-//        XtAddCallback( XtasNoiseScoresWidget, XmNhelpCallback, XtasHelpCallback, (XtPointer)(XTAS_HELP_MAIN|)) ;
+/*        XtAddCallback( XtasNoiseScoresWidget, XmNhelpCallback, XtasHelpCallback, (XtPointer)(XTAS_HELP_MAIN|)) ;*/
         WM_DELETE_WINDOW = XmInternAtom(XtDisplay(XtasNoiseResultsWidget), "WM_DELETE_WINDOW", False);
         XmAddWMProtocolCallback(XtParent(XtasNoiseScoresWidget), WM_DELETE_WINDOW, XtasCancelCallback, (XtPointer )XtasNoiseScoresWidget);
  
@@ -1039,11 +1039,11 @@ void XtasCtkInfoSortByNameCallback (parent, list_w, call_data)
 
    if (click > 0) {
        qsort( tabagressors, c, sizeof(char*), (int (*)(const void*, const void*))XtasAlphaStrCmp);
-//       XtVaSetValues (XtNameToWidget (XtParent(parent), "*XtasArrowSigButton"), XmNarrowDirection, XmARROW_DOWN, NULL);
+/*       XtVaSetValues (XtNameToWidget (XtParent(parent), "*XtasArrowSigButton"), XmNarrowDirection, XmARROW_DOWN, NULL);*/
    }
    else {
        qsort( tabagressors, c, sizeof(char*), (int (*)(const void*, const void*))XtasReverseAlphaStrCmp);
-//       XtVaSetValues (XtNameToWidget (XtParent(parent), "*XtasArrowSigButton"), XmNarrowDirection, XmARROW_UP, NULL);
+/*       XtVaSetValues (XtNameToWidget (XtParent(parent), "*XtasArrowSigButton"), XmNarrowDirection, XmARROW_UP, NULL);*/
    }
 
    XmListDeleteAllItems (list_w);
@@ -1158,7 +1158,7 @@ void XtasDisplayCtkInfo( parent, event, errorWidget)
     if(detail != NULL) {
         n = 0;
         sprintf (text_title, XTAS_NAME": Crosstalk Infos - %s", XtasMainParam->ttvfig->INFO->FIGNAME);
-//        XtSetArg( args[n], XmNtitle,    XTAS_NAME": Crosstalk Infos" ); n++;
+/*        XtSetArg( args[n], XmNtitle,    XTAS_NAME": Crosstalk Infos" ); n++;*/
         XtSetArg( args[n], XmNtitle, text_title ); n++;
         XtSetArg( args[n], XmNminWidth,  450 ); n++;
         XtSetArg( args[n], XmNminHeight, 410 ); n++;
@@ -1391,7 +1391,7 @@ void XtasDisplayCtkInfo( parent, event, errorWidget)
         n = 0;
         XtSetArg (args[n], XmNtopAttachment,     XmATTACH_FORM      ); n++;
         XtSetArg (args[n], XmNtopOffset,         7                  ); n++;
-    //    XtSetArg (args[n], XmNtopWidget,         frame2          ); n++;
+    /*    XtSetArg (args[n], XmNtopWidget,         frame2          ); n++;*/
         XtSetArg (args[n], XmNleftAttachment,    XmATTACH_FORM      ); n++;
         XtSetArg (args[n], XmNleftOffset,        XTAS_CTK_OFFSET    ); n++;
         XtSetArg (args[n], XmNlabelString,       text               ); n++;
@@ -1489,7 +1489,7 @@ void XtasDisplayCtkInfo( parent, event, errorWidget)
         XtAddCallback (list_widget, XmNdefaultActionCallback, XtasCtkInfoDetailCallback, ctkInfoWidget);
         
         XtAddCallback (SIG_label_widget, XmNactivateCallback, XtasCtkInfoSortByNameCallback, list_widget);
-//        XtAddCallback (ARROWSIG_label_widget, XmNactivateCallback, XtasCtkInfoSortByNameCallback, list_widget);
+/*        XtAddCallback (ARROWSIG_label_widget, XmNactivateCallback, XtasCtkInfoSortByNameCallback, list_widget);*/
         XtAddCallback (CAPA_label_widget, XmNactivateCallback, XtasCtkInfoSortByCapaValueCallback, list_widget);
 
 
@@ -1984,7 +1984,7 @@ Widget XtasCreateNoiseTextualScrollList(scform, tas_winfos, label_widget)
     XtSetArg( args[n], XmNrightAttachment,        XmATTACH_FORM        ) ; n++ ;
     XtSetArg( args[n], XmNscrollingPolicy,        XmSTATIC             ) ; n++ ;
     XtSetArg( args[n], XmNvisibleItemCount,       25                   ) ; n++ ;
-//    XtSetArg( args[n], XmNheight,                 250                  ) ; n++ ;
+/*    XtSetArg( args[n], XmNheight,                 250                  ) ; n++ ;*/
     scroll = XmCreateScrolledList( list_form, "XtasTextualDisplay", args , n ) ;
     XmListDeleteAllItems( scroll ) ;
 
@@ -2038,7 +2038,7 @@ Widget XtasCreateNoiseTextualScrollList(scform, tas_winfos, label_widget)
             position++  ;
     }
 
-//    mbkfree(XtasNoiseTab) ;
+/*    mbkfree(XtasNoiseTab) ;*/
 
     XtAddCallback (scroll,
             XmNbrowseSelectionCallback,
@@ -2149,13 +2149,13 @@ void XtasNoiseFillGraphicalList ( new, widget, win_struct)
         return;
     }
 
-//    if (!row_widget && (new==0)) {
-//        sub_form = XtNameToWidget (widget, "*XtasUserField");
-//        if (sub_form) {
-//            XtUnmanageChild (sub_form);
-//            XtDestroyWidget (sub_form);
-//        }
-//    }
+/*    if (!row_widget && (new==0)) {*/
+/*        sub_form = XtNameToWidget (widget, "*XtasUserField");*/
+/*        if (sub_form) {*/
+/*            XtUnmanageChild (sub_form);*/
+/*            XtDestroyWidget (sub_form);*/
+/*        }*/
+/*    }*/
 
    
     if((XtasNoiseTab == NULL) || (XtasNoiseTab->NBDISPLAY == 0))
@@ -2168,7 +2168,7 @@ void XtasNoiseFillGraphicalList ( new, widget, win_struct)
         XtSetArg( args[n], XmNrightOffset,            10                   ) ; n++ ;
         XtSetArg( args[n], XmNheight,                 342                  ) ; n++ ;
         
-   //     XtSetArg( args[n], XmNvisibleItemCount,       25                   ) ; n++ ;
+   /*     XtSetArg( args[n], XmNvisibleItemCount,       25                   ) ; n++ ;*/
         row_widget = XmCreateList( widget, "XtasUserField", args , n ) ;
         XmListDeleteAllItems( row_widget ) ;
 
@@ -2549,31 +2549,31 @@ Widget XtasCreateNoiseGraphicalScrollList(scform, tas_winfos,label_widget)
                                            args, n );
     
     
-//    if((XtasNoiseTab == NULL) || (XtasNoiseTab->NBDISPLAY == 0))
-//    {
-//        n=0 ;
-//        XtSetArg( args[n], XmNtopAttachment,          XmATTACH_FORM        ) ; n++ ;
-//        XtSetArg( args[n], XmNbottomAttachment,       XmATTACH_FORM        ) ; n++ ;
-//        XtSetArg( args[n], XmNleftAttachment,         XmATTACH_FORM        ) ; n++ ;
-//        XtSetArg( args[n], XmNrightAttachment,        XmATTACH_FORM        ) ; n++ ;
-//        XtSetArg( args[n], XmNrightOffset,            10                   ) ; n++ ;
-//        XtSetArg( args[n], XmNheight,                 342                  ) ; n++ ;
-//        
-//   //     XtSetArg( args[n], XmNvisibleItemCount,       25                   ) ; n++ ;
-//        sc_nonoise = XmCreateList( scroll, "XtasUserField", args , n ) ;
-//        XmListDeleteAllItems( sc_nonoise ) ;
-//
-//        sprintf(text,"no noise                                                     \
-//                                                                                   \
-//                                                                                   \
-//       ") ;
-//        motif_string = XmStringCreateSimple(text) ;
-//
-//        XmListAddItemUnselected( sc_nonoise, motif_string, ++position ) ;
-//        XmStringFree( motif_string ) ;
-//        XtManageChild( sc_nonoise );
-//
-//    }
+/*    if((XtasNoiseTab == NULL) || (XtasNoiseTab->NBDISPLAY == 0))*/
+/*    {*/
+/*        n=0 ;*/
+/*        XtSetArg( args[n], XmNtopAttachment,          XmATTACH_FORM        ) ; n++ ;*/
+/*        XtSetArg( args[n], XmNbottomAttachment,       XmATTACH_FORM        ) ; n++ ;*/
+/*        XtSetArg( args[n], XmNleftAttachment,         XmATTACH_FORM        ) ; n++ ;*/
+/*        XtSetArg( args[n], XmNrightAttachment,        XmATTACH_FORM        ) ; n++ ;*/
+/*        XtSetArg( args[n], XmNrightOffset,            10                   ) ; n++ ;*/
+/*        XtSetArg( args[n], XmNheight,                 342                  ) ; n++ ;*/
+/*        */
+/*   //     XtSetArg( args[n], XmNvisibleItemCount,       25                   ) ; n++ ;*/
+/*        sc_nonoise = XmCreateList( scroll, "XtasUserField", args , n ) ;*/
+/*        XmListDeleteAllItems( sc_nonoise ) ;*/
+/**/
+/*        sprintf(text,"no noise                                                     \*/
+/*                                                                                   \*/
+/*                                                                                   \*/
+/*       ") ;*/
+/*        motif_string = XmStringCreateSimple(text) ;*/
+/**/
+/*        XmListAddItemUnselected( sc_nonoise, motif_string, ++position ) ;*/
+/*        XmStringFree( motif_string ) ;*/
+/*        XtManageChild( sc_nonoise );*/
+/**/
+/*    }*/
 
     
     XtVaGetValues (scroll, XmNhorizontalScrollBar, &tmp_widget, NULL);
@@ -2586,9 +2586,9 @@ Widget XtasCreateNoiseGraphicalScrollList(scform, tas_winfos,label_widget)
     XtAddCallback (tmp_widget, XmNtoTopCallback, XtasNoiseColumnsTitleMoveWithHSBCallback, label_widget);
     XtAddCallback (tmp_widget, XmNtoBottomCallback, XtasNoiseColumnsTitleMoveWithHSBCallback, label_widget);
   
-//    if((XtasNoiseTab == NULL) || (XtasNoiseTab->NBDISPLAY == 0))
-//        XtasNoiseFillGraphicalList (2, scroll, tas_winfos);
-//    else
+/*    if((XtasNoiseTab == NULL) || (XtasNoiseTab->NBDISPLAY == 0))*/
+/*        XtasNoiseFillGraphicalList (2, scroll, tas_winfos);*/
+/*    else*/
         XtasNoiseFillGraphicalList (1, scroll, tas_winfos);
     
     XtManageChild( scroll );
@@ -3025,34 +3025,34 @@ Widget XtasCreateNoiseList( parent, tas_winfos)
     form = XtCreateManagedWidget( "XtasShellSubForm", xmFormWidgetClass, form_widget, args, n ) ;
 
     /* Max Noise label */
-    //sprintf(buffer,"Max noise :     %.0f mV (rise peak)", XtasNoiseTab[0].OVR_MAX*1000.0) ;
-    //text = XmStringCreateSimple (buffer);
-    //n = 0 ;
-    //XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM            ) ; n++ ;
-    //XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM            ) ; n++ ;
-    //XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM            ) ; n++ ;
-    //frame = XtCreateManagedWidget( "XtasFrame", xmFrameWidgetClass, form, args, n ) ;
-    //XtSetArg( args[n], XmNrecomputeSize,    False                    ) ; n++ ;
-    //XtSetArg( args[n], XmNlabelString,      text                     ) ; n++ ;
-    //XtSetArg( args[n], XmNalignment,        XmALIGNMENT_BEGINNING    ) ; n++ ;
-    //label_widget = XtCreateManagedWidget( "XtasSubTitles", xmLabelGadgetClass, frame, args, n ) ;
-    //XmStringFree (text);
+    /*sprintf(buffer,"Max noise :     %.0f mV (rise peak)", XtasNoiseTab[0].OVR_MAX*1000.0) ;*/
+    /*text = XmStringCreateSimple (buffer);*/
+    /*n = 0 ;*/
+    /*XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM            ) ; n++ ;*/
+    /*XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM            ) ; n++ ;*/
+    /*XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM            ) ; n++ ;*/
+    /*frame = XtCreateManagedWidget( "XtasFrame", xmFrameWidgetClass, form, args, n ) ;*/
+    /*XtSetArg( args[n], XmNrecomputeSize,    False                    ) ; n++ ;*/
+    /*XtSetArg( args[n], XmNlabelString,      text                     ) ; n++ ;*/
+    /*XtSetArg( args[n], XmNalignment,        XmALIGNMENT_BEGINNING    ) ; n++ ;*/
+    /*label_widget = XtCreateManagedWidget( "XtasSubTitles", xmLabelGadgetClass, frame, args, n ) ;*/
+    /*XmStringFree (text);*/
 
-    ///* On signal label */
-    //sprintf(buffer,"On signal :   (%s)  %s ",((XtasNoiseTab[0].NODE->TYPE & TTV_NODE_UP) == TTV_NODE_UP) ? "Rise":"Fall", 
-    //                                        XtasNoiseTab[0].NODE->ROOT->NAME) ;
-    //text = XmStringCreateSimple (buffer);
-    //n = 0 ;
-    //XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET          ) ; n++ ;
-    //XtSetArg( args[n], XmNtopWidget,        frame                    ) ; n++ ;
-    //XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM            ) ; n++ ;
-    //XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM            ) ; n++ ;
-    //frame = XtCreateManagedWidget( "XtasFrame", xmFrameWidgetClass, form, args, n ) ;
-    //XtSetArg( args[n], XmNrecomputeSize,    False                    ) ; n++ ;
-    //XtSetArg( args[n], XmNlabelString,      text                     ) ; n++ ;
-    //XtSetArg( args[n], XmNalignment,        XmALIGNMENT_BEGINNING    ) ; n++ ;
-    //label_widget = XtCreateManagedWidget( "XtasSubTitles", xmLabelGadgetClass, frame, args, n ) ;
-    //XmStringFree (text);
+    /*/* On signal label */
+    /*sprintf(buffer,"On signal :   (%s)  %s ",((XtasNoiseTab[0].NODE->TYPE & TTV_NODE_UP) == TTV_NODE_UP) ? "Rise":"Fall", */
+    /*                                        XtasNoiseTab[0].NODE->ROOT->NAME) ;*/
+    /*text = XmStringCreateSimple (buffer);*/
+    /*n = 0 ;*/
+    /*XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET          ) ; n++ ;*/
+    /*XtSetArg( args[n], XmNtopWidget,        frame                    ) ; n++ ;*/
+    /*XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM            ) ; n++ ;*/
+    /*XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM            ) ; n++ ;*/
+    /*frame = XtCreateManagedWidget( "XtasFrame", xmFrameWidgetClass, form, args, n ) ;*/
+    /*XtSetArg( args[n], XmNrecomputeSize,    False                    ) ; n++ ;*/
+    /*XtSetArg( args[n], XmNlabelString,      text                     ) ; n++ ;*/
+    /*XtSetArg( args[n], XmNalignment,        XmALIGNMENT_BEGINNING    ) ; n++ ;*/
+    /*label_widget = XtCreateManagedWidget( "XtasSubTitles", xmLabelGadgetClass, frame, args, n ) ;*/
+    /*XmStringFree (text);*/
 
 
 
@@ -3060,8 +3060,8 @@ Widget XtasCreateNoiseList( parent, tas_winfos)
     n = 0 ;
     XtSetArg( args[n], XmNborderWidth,      0               ) ; n++ ;
     XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM   ) ; n++ ;
-//    XtSetArg( args[n], XmNtopWidget,        frame           ) ; n++ ;
-//    XtSetArg( args[n], XmNtopOffset,        10              ) ; n++ ;
+/*    XtSetArg( args[n], XmNtopWidget,        frame           ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNtopOffset,        10              ) ; n++ ;*/
     XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM   ) ; n++ ;
     XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM   ) ; n++ ;
     XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM   ) ; n++ ;
@@ -3421,8 +3421,8 @@ Widget XtasCreateNoiseList( parent, tas_winfos)
     separator2 = XtCreateManagedWidget( "separator2", xmSeparatorWidgetClass, form_widget, args, n ) ;
 
     n = 0 ;
-//    XtSetArg( args[n], XmNbottomAttachment, XmATTACH_WIDGET            ) ; n++ ;
-//    XtSetArg( args[n], XmNbottomWidget,     separator2    ) ; n++ ;
+/*    XtSetArg( args[n], XmNbottomAttachment, XmATTACH_WIDGET            ) ; n++ ;*/
+/*    XtSetArg( args[n], XmNbottomWidget,     separator2    ) ; n++ ;*/
     XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET            ) ; n++ ;
     XtSetArg( args[n], XmNtopWidget,        dbase_form    ) ; n++ ;
     XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM              ) ; n++ ;
@@ -3667,10 +3667,10 @@ int    XtasNoiseAnalysis (void)
             ttv_getsigname (XtasMainParam->stbfig->FIG, buf, ptsig);
 
             if ((width = strlen(buf)) > XtasNoiseLabelSigNameLength ) {
-///                if (width < XTAS_NOISE_NAME_MAX_LENGTH)
+/*/                if (width < XTAS_NOISE_NAME_MAX_LENGTH)*/
                     XtasNoiseLabelSigNameLength = width;
-///                else
-///                    XtasNoiseLabelSigNameLength = XTAS_NOISE_NAME_MAX_LENGTH;
+/*/                else*/
+/*/                    XtasNoiseLabelSigNameLength = XTAS_NOISE_NAME_MAX_LENGTH;*/
             }
 
 /*            if ((width = strlen(ptsig->NETNAME)) > XtasNoiseLabelNetNameLength ) {
@@ -3681,7 +3681,7 @@ int    XtasNoiseAnalysis (void)
             }
 */
         }
-//        width = XTAS_NOISE_WINDOW_WIDTH_T + (XtasNoiseLabelSigNameLength*7) + (XtasNoiseLabelNetNameLength*7);
+/*        width = XTAS_NOISE_WINDOW_WIDTH_T + (XtasNoiseLabelSigNameLength*7) + (XtasNoiseLabelNetNameLength*7);*/
 
         width = XTAS_NOISE_WINDOW_WIDTH_T + (XtasNoiseLabelSigNameLength*7);
     }
@@ -3697,7 +3697,7 @@ int    XtasNoiseAnalysis (void)
 
     n = 0 ;
     sprintf (buf, XTAS_NAME": Noise Analysis Results - %s", XtasMainParam->ttvfig->INFO->FIGNAME);
-//    XtSetArg (args[n], XmNtitle , XTAS_NAME": Noise Analysis Results");n++ ;
+/*    XtSetArg (args[n], XmNtitle , XTAS_NAME": Noise Analysis Results");n++ ;*/
     XtSetArg (args[n], XmNtitle , buf);n++ ;
     XtSetArg (args[n], XmNwidth , XTAS_DISPLAY_NEW ? width:XTAS_NOISE_WINDOW_WIDTH_G); n++ ;
     XtSetValues (tas_winfos->topwidget, args, n);
@@ -3754,7 +3754,7 @@ void    XtasNoiseOkCallback ( parent, client_data, call_data)
     }
 
     if (XtasNoiseTab) {
-//        mbkfree (XtasNoiseTab);
+/*        mbkfree (XtasNoiseTab);*/
         XtasNoiseTab = NULL;
     }
 
@@ -3858,10 +3858,10 @@ void XtasNoiseCallback (parent, client_data, call_data)
             n = 0;
             XtSetArg ( args[n], XmNtitle,       XTAS_NAME": Noise Parameterization"   ); n++;
             XtSetArg ( args[n], XmNdialogStyle, XmDIALOG_APPLICATION_MODAL             ); n++;
-//            XtSetArg ( args[n], XmNminWidth,    200                                    ); n++;
-//            XtSetArg ( args[n], XmNmaxWidth,    200                                    ); n++;
-//            XtSetArg ( args[n], XmNminHeight,   200                                    ); n++;
-//            XtSetArg ( args[n], XmNmaxHeight,   200                                    ); n++;
+/*            XtSetArg ( args[n], XmNminWidth,    200                                    ); n++;*/
+/*            XtSetArg ( args[n], XmNmaxWidth,    200                                    ); n++;*/
+/*            XtSetArg ( args[n], XmNminHeight,   200                                    ); n++;*/
+/*            XtSetArg ( args[n], XmNmaxHeight,   200                                    ); n++;*/
             XtasNoiseParamWidget = XmCreatePromptDialog (tas_winfos->topwidget, "XtasParamBox", args, n);
     	    HelpFather = XtasNoiseParamWidget;
             XtUnmanageChild(XmSelectionBoxGetChild(XtasNoiseParamWidget,XmDIALOG_TEXT));

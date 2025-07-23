@@ -437,7 +437,7 @@ module_item         : parameter_decl
 primitive           : T_PRIMITIVE Identifier
                     {
                         
-//                      BGL_CONTEXT(PILE_CONDITION)=NULL; // ca doit etre deja le cas
+/*                      BGL_CONTEXT(PILE_CONDITION)=NULL; |/ ca doit etre deja le cas*/
                         BGL_CONTEXT(PILE_CONDITION)=addchain(BGL_CONTEXT(PILE_CONDITION),BGL_CONTEXT(HSHTAB));
                         BGL_CONTEXT(PILE_CONDITION)=addchain(BGL_CONTEXT(PILE_CONDITION),BGL_CONTEXT(ALLSIGNALS));
 
@@ -531,8 +531,8 @@ combinational_entry : input_list ':' output_symbol ';'
                                 int count;
                                 if ($3=='1')
                                 {
-                                // creation d'une expression type 0 and 1 and !2
-                                // les numéros sont des terminaux à expanser
+                                /* creation d'une expression type 0 and 1 and !2*/
+                                /* les numéros sont des terminaux à expanser */
                                 for (input=BGL_CONTEXT(NM2LST),count=0;input!=NULL;input=input->NEXT,count++)
                                 {
                                         sprintf(name,"%d",count);
@@ -550,7 +550,7 @@ combinational_entry : input_list ':' output_symbol ';'
                                                 case 'u':
                                                 case 'd':
                                                           avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"250");
-                                                          // EXIT(15);
+                                                          /* EXIT(15);*/
                                         }
                                 }
                                 }
@@ -579,7 +579,7 @@ sequential_entry_eclr : sequential_entry
                                 if ($1.cond_sig!=-1 && $2.cond_sig!=-1)
                                 {
                                         if ($1.cond_sig!=$2.cond_sig || $1.xedge!=$2.xedge) 
-                                        { //      EXIT(42);
+                                        { /*      EXIT(42);*/
                                           avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"251");
                                         }
                                 }
@@ -597,12 +597,12 @@ sequential_entry    : input_list ':' state ':' next_state ';'
                                 $$.cond_sig=-1;
                                 $$.abl0=$$.abl1=$$.abl_cond=NULL;
 
-//                              BGL_CONTEXT(NM2LST)=addchain(BGL_CONTEXT(NM2LST),(void *)(long)$3);
+/*                              BGL_CONTEXT(NM2LST)=addchain(BGL_CONTEXT(NM2LST),(void *)(long)$3);*/
                                 BGL_CONTEXT(NM2LST)=append(BGL_CONTEXT(NM2LST),addchain(NULL,(void *)(long)$3));
                                 if ($5=='1' || $5=='0')
                                 {
-                                // creation d'une expression type 0 and 1 and !2
-                                // les numéros sont des terminaux à expanser
+                                /* creation d'une expression type 0 and 1 and !2*/
+                                /* les numéros sont des terminaux à expanser */
                                 for (input=BGL_CONTEXT(NM2LST),count=0;input!=NULL;input=input->NEXT,count++)
                                 {
                                         sprintf(name,"%d",count);
@@ -1148,7 +1148,7 @@ gate_instantiation  : gatetype drive_delay_clr gate_instance_list ';'
                         {
                                 instanceterms=(chain_list *)allinstances->DATA;
 
-                                if ($1==NOT || $1==-1) // NOT or BUF
+                                if ($1==NOT || $1==-1) /* NOT or BUF */
                                 {
                                         if (countchain(instanceterms)!=2)
                                          { bgl_error(91, "Bad number of arguments in primitive", bgl_getcontext(parm)); /*EXIT (1);*/ }
@@ -1169,18 +1169,18 @@ gate_instantiation  : gatetype drive_delay_clr gate_instance_list ';'
                                         if (((bgl_expr *)(instanceterms->DATA))->WIDTH!=1)
                                         { bgl_error(38, "", bgl_getcontext(parm)); /*EXIT(1);*/ }
 
-                                        if ($1==-2 || $1==-3) reop=-1; // buf
+                                        if ($1==-2 || $1==-3) reop=-1; /* buf*/
                                         else reop=NOT;
 
                                         bgl_NewSimpleOperation(&out,reop,(bgl_expr *)(instanceterms->NEXT)->DATA);
                                 
-                                        if ($1==-2 || $1==-4) // if 0
+                                        if ($1==-2 || $1==-4) /* if 0*/
                                         {
                                         ((bgl_expr *)(instanceterms->DATA))->LIST_ABL->DATA=notExpr(((bgl_expr *)(instanceterms->DATA))->LIST_ABL->DATA);
                                         }
                                 }
                                 else 
-                                if ($1==-6 || $1==-7) // PULLUP PULLDOWN
+                                if ($1==-6 || $1==-7) /* PULLUP PULLDOWN*/
                                 {
                                         if (countchain(instanceterms)!=1)
                                          { bgl_error(91, "Bad number of arguments in primitive", bgl_getcontext(parm));/* EXIT (1);*/ }
@@ -1203,10 +1203,10 @@ gate_instantiation  : gatetype drive_delay_clr gate_instance_list ';'
                                 }
                                 else
                                   avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"252");
-                                // EXIT(89); // ne doit jamais arriver
+                                /* EXIT(89); // ne doit jamais arriver*/
                                 
                                 for (cl=instanceterms; cl != NULL && cl->NEXT!=NULL; cl=cl->NEXT) ;
-                                // cl = lvalue
+                                /* cl = lvalue*/
                                 ((bgl_expr *)cl->DATA)->IDENT=reverse(((bgl_expr *)cl->DATA)->IDENT);
                                 if ($1!=-6 && $1!=-7) cl0=out.LIST_ABL;
                                 for (id=((bgl_expr *)cl->DATA)->IDENT;id!=NULL;id=id->NEXT)
@@ -1217,7 +1217,7 @@ gate_instantiation  : gatetype drive_delay_clr gate_instance_list ';'
 #endif
                                         if (sig==0)
                                           avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"253");
-                                        // EXIT(88);
+                                        /* EXIT(88);*/
                                 if ($1!=-6 && $1!=-7)
                                 {
                                 sig->BIABL=
@@ -1238,7 +1238,7 @@ gate_instantiation  : gatetype drive_delay_clr gate_instance_list ';'
                                 }
 
                                 sig->BIABL->FLAG |= BEH_CND_NOPRECEDE;
-                                sig->BIABL->TIME=0; // ???
+                                sig->BIABL->TIME=0; /* ???*/
 
                                 if ($1==-2 || $1==-3 || $1==-4 || $1==-5)
                                 {
@@ -1509,19 +1509,19 @@ statement           : assignment ';'
                                 {
                                 if ($1.type==0)
                                   avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"254");
-                                // EXIT(26);
+                                /* EXIT(26);*/
 
                                 if (BGL_CONTEXT(CURRENT_EDGE_ABL)!=NULL)
                                   avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"255");
-                                // EXIT(67);
+                                /* EXIT(67);*/
 
-                                // recherche not stable
+                                /* recherche not stable*/
                                 where=0;
                                 bgl_search_stable((chain_list *)$1.u.expr.LIST_ABL->DATA,&stable_part,&where);
                                 
                                 if (where>1)
                                   avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"256");
-                                  // EXIT(68);
+                                  /* EXIT(68);*/
                                 else if (where==1)
                                         {
                                         BGL_CONTEXT(CURRENT_EDGE_ABL)=stable_part;
@@ -1700,7 +1700,7 @@ lvalue              : identifier_hopt
                             }
 
                         if (whoiam==(bgldecl_list *)1)
-                        { // a devectoriser
+                        { /* a devectoriser*/
                                 left=beh_chktab(BGL_CONTEXT(HSHTAB), $1, BGL_CONTEXT(FIGNAME), BGL_LFTDFN);
                                 right=beh_chktab(BGL_CONTEXT(HSHTAB), $1, BGL_CONTEXT(FIGNAME), BGL_RGTDFN);
 
@@ -2204,7 +2204,7 @@ primary             : IntegerLit
 					/* looking for a bug? => should never happen */
 					if ((whoiam=(bgldecl_list *)beh_chktab(BGL_CONTEXT(HSHTAB), $1, BGL_CONTEXT(FIGNAME), BGL_PNTDFN)) == 0) 
                       avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"257");
-					//EXIT(1);
+					/*EXIT(1);*/
 
 }
 				else
@@ -2214,7 +2214,7 @@ primary             : IntegerLit
                             }
 
                         if (whoiam==(bgldecl_list *)1)
-                        { // a devectoriser
+                        { /* a devectoriser*/
                                 left=beh_chktab(BGL_CONTEXT(HSHTAB), $1, BGL_CONTEXT(FIGNAME), BGL_LFTDFN);
                                 right=beh_chktab(BGL_CONTEXT(HSHTAB), $1, BGL_CONTEXT(FIGNAME), BGL_RGTDFN);
 
@@ -2235,7 +2235,7 @@ primary             : IntegerLit
                                         $$.LIST_ABL=addchain($$.LIST_ABL,createAtom(extname));
                                         $$.WIDTH++;
                                         whoiam=(bgldecl_list *)beh_chktab(BGL_CONTEXT(HSHTAB), namealloc(extname), BGL_CONTEXT(FIGNAME), BGL_PNTDFN);
-//                                      whoiam->OBJTYPE|=SIG_IS_IN;
+/*                                      whoiam->OBJTYPE|=SIG_IS_IN;*/
                                 }
                         }
                         else
@@ -2247,7 +2247,7 @@ primary             : IntegerLit
 #ifdef BGL_DEBUG
                                 printf("- %s\n",$1);
 #endif
-//                              whoiam->OBJTYPE|=SIG_IS_IN;
+/*                              whoiam->OBJTYPE|=SIG_IS_IN;*/
                         }
                         }
                     }
@@ -2269,7 +2269,7 @@ primary             : IntegerLit
 					/* looking for a bug? => should never happen */
 					if ((whoiam=(bgldecl_list *)beh_chktab(BGL_CONTEXT(HSHTAB), namealloc(extname), BGL_CONTEXT(FIGNAME), BGL_PNTDFN)) == 0) 
                       avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"259");
-					//EXIT(1);
+					/*EXIT(1);*/
 				 }
 				 else
                                         { bgl_error(17, extname, bgl_getcontext(parm)); /*EXIT(1);*/ }
@@ -2282,7 +2282,7 @@ primary             : IntegerLit
                                 $$.IDENT=addchain(NULL,namealloc(extname));
                                 $$.LIST_ABL=addchain(NULL,createAtom(extname));
                                 $$.WIDTH=1;
-//                              whoiam->OBJTYPE|=SIG_IS_IN;
+/*                              whoiam->OBJTYPE|=SIG_IS_IN;*/
                         }
                         else {
                                 bgl_error(18, "", bgl_getcontext(parm)); /*EXIT(1);*/
@@ -2294,7 +2294,7 @@ primary             : IntegerLit
                         int left,right,i,inc=1;
                         bgldecl_list *whoiam;
                         char extname[200];
-                        // bornes inf
+                        /* bornes inf*/
 
                         if (!(BGL_CONTEXT(FLAGS) & DONTCARE))
                         {
@@ -2309,7 +2309,7 @@ primary             : IntegerLit
 					/* looking for a bug? => should never happen */
 					if ((whoiam=(bgldecl_list *)beh_chktab(BGL_CONTEXT(HSHTAB), $1, BGL_CONTEXT(FIGNAME), BGL_PNTDFN)) == 0) 
                       avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"260");
-					//EXIT(1);
+					/*EXIT(1);*/
 				}
 				else
                                 	{ bgl_error(17, $1, bgl_getcontext(parm));/* EXIT(1);*/ }
@@ -2343,7 +2343,7 @@ primary             : IntegerLit
                                 $$.IDENT=addchain($$.IDENT,namealloc(extname));
                                 $$.LIST_ABL=addchain($$.LIST_ABL,createAtom(extname));
                                 $$.WIDTH++;
-//                              whoiam->OBJTYPE|=SIG_IS_IN;
+/*                              whoiam->OBJTYPE|=SIG_IS_IN;*/
                         }
                         }
                     }
@@ -2617,7 +2617,7 @@ bgl_bcomperror(char *str, bgl_bcompcontext *context)
     context->ERRFLG++;
     
     avt_errmsg(BGL_ERRMSG,"037",AVT_ERROR,context->FILENAME,context->LINENUM,str);
-//    fprintf(stderr, "`%s` Error line %d : %s\n", context->FILENAME, context->LINENUM, str);
+/*    fprintf(stderr, "`%s` Error line %d : %s\n", context->FILENAME, context->LINENUM, str);*/
     return 1;
 }
 

@@ -39,5 +39,5 @@ extern char               MVL_CURFIL[];	/* current file name		*/
 static struct dct_entry  *MVL_DCEHED;	/* free dct_entry's head	*/
 static struct dct_recrd  *MVL_DCRHED;	/* free dct_recrd's head	*/
 
-static struct dct_entry *mvl_addent();
-static struct dct_recrd *mvl_addrcd();
+extern void mvl_toolbug ( int code, char *str1, char *str2, int nbr1 );
+extern void mvl_error   ( int code, char *str1 );

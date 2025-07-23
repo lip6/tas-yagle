@@ -56,7 +56,7 @@ int ttv_canbeinfalsepath(ttvevent_list *ev, char where)
     case 'f': if ((ev->TYPE & TTV_NODE_FALSEPATHNODE)!=0) return 1;
               return 0;
     default:
-              // error
+              /* error*/
               return 0;
   }
 }
@@ -393,7 +393,7 @@ ttvfig_list *ttvfig ;
 /* ttvfig : figure                                                           */
 /*                                                                           */
 /*****************************************************************************/
-static inline int ttv_falsepathdetailretcode(ttvfig_list *tvf, ttvevent_list *latch, ttvline_list *line, int onenodemode, int anystartdir)
+static  int ttv_falsepathdetailretcode(ttvfig_list *tvf, ttvevent_list *latch, ttvline_list *line, int onenodemode, int anystartdir)
 {
   stbck *ck;
   stbnode *node;
@@ -410,7 +410,7 @@ static inline int ttv_falsepathdetailretcode(ttvfig_list *tvf, ttvevent_list *la
       cmdlist = ttv_getlatchaccess(tvf,latch,TTV_FIND_MAX) ;
       oclock=NULL;
       type =0;
-      // une seule clock?
+      /* une seule clock?*/
       for (pt=cmdlist; pt!=NULL; pt=pt->NEXT)
       {
         if ((pt0=getptype(((ttvevent_list *)pt->DATA)->USER, STB_ONE_OR_NO_CLOCK_EVENT))!=NULL)
@@ -436,7 +436,7 @@ static inline int ttv_falsepathdetailretcode(ttvfig_list *tvf, ttvevent_list *la
       if (pt==NULL && ((type & (TTV_NODE_UP|TTV_NODE_DOWN))!=(TTV_NODE_UP|TTV_NODE_DOWN)
                        || anystartdir))
       {
-        // tout les chemins seront des false path, inutile de lancer la recherche en parallele
+        /* tout les chemins seront des false path, inutile de lancer la recherche en parallele*/
         return 2;
       }
     }
@@ -470,7 +470,7 @@ static int ttv_isfalsedetailpath(ttvfig_list *ttvfig,ttvevent_list *eventin,ttve
   while (ptype!=NULL && ptype->DATA==NULL) {nothingtriggered=1; ptype=ptype->NEXT;}
 
   if((type & TTV_FIND_DUAL) != TTV_FIND_DUAL && node->FIND->OUTLINE!=NULL && (node->FIND->OUTLINE->TYPE & TTV_LINE_RC)!=0)
-    node=node->FIND->OUTLINE->ROOT; // special case RC at input of path
+    node=node->FIND->OUTLINE->ROOT; /* special case RC at input of path*/
 
   while(node->FIND->OUTLINE != NULL)
     {
@@ -516,7 +516,7 @@ static int ttv_isfalsedetailpath(ttvfig_list *ttvfig,ttvevent_list *eventin,ttve
           {
             pt->SIGLIST=(ptype_list *)reverse((chain_list *)pt->SIGLIST);
             if ((node->FIND->OUTLINE->TYPE & TTV_LINE_RC)!=0 && node->FIND->OUTLINE->NODE==eventin)
-              return ttv_falsepathdetailretcode(ttvfig,latch, line, onenodemode,anystartdir); // special case RC at input of path
+              return ttv_falsepathdetailretcode(ttvfig,latch, line, onenodemode,anystartdir); /* special case RC at input of path*/
           }
           return 0;
         }
@@ -529,7 +529,7 @@ static int ttv_isfalsedetailpath(ttvfig_list *ttvfig,ttvevent_list *eventin,ttve
           if(ttv_falsepath_match_name(pt->FIG, node->ROOT, ptype->DATA)
              || (rcnode!=NULL && ttv_falsepath_match_name(pt->FIG, rcnode->ROOT, ptype->DATA))
                           )
-// mbk_TestREGEX(ttv_getsigname(pt->FIG,buf,node->ROOT), ptype->DATA))
+/* mbk_TestREGEX(ttv_getsigname(pt->FIG,buf,node->ROOT), ptype->DATA))*/
             {
               ptype = ptype->NEXT ;
               if(ptype == NULL)
@@ -571,7 +571,7 @@ static int falsepath_matchhz(long type, ttvfalsepath_list *pt)
 {
   if ((type & TTV_FIND_HZ)!=0 && (pt->CLOCK==NULL || pt->CLOCK[0]=='^')) return 1;
   if ((type & TTV_FIND_HZ)==0 && (pt->CLOCK==NULL || pt->CLOCK[0]=='°')) return 1;
-//  if (pt->CLOCK!=NULL && pt->CLOCK[0]=='^' && pt->CLOCK[0]=='°')
+/*  if (pt->CLOCK!=NULL && pt->CLOCK[0]=='^' && pt->CLOCK[0]=='°')*/
   return 0;
 }
 
@@ -598,7 +598,7 @@ int ttv_isfalsepath(ttvfig_list *ttvfig,ttvevent_list *eventin,ttvevent_list *ev
 
  fpi=(falsepath_info *)ptype->DATA;
 
- // GESTION DES NON WILDCARDS
+ /* GESTION DES NON WILDCARDS*/
  if ((ptype=getptype(eventin->ROOT->USER, TTV_SIG_FALSEPATH_START))!=NULL) nwi_start=(nowildcard_info *)ptype->DATA;
  else nwi_start=NULL;
  if ((ptype=getptype(eventout->ROOT->USER, TTV_SIG_FALSEPATH_END))!=NULL) nwi_end=(nowildcard_info *)ptype->DATA;
@@ -606,10 +606,10 @@ int ttv_isfalsepath(ttvfig_list *ttvfig,ttvevent_list *eventin,ttvevent_list *ev
 
  orig_nwi_start=nwi_start;
  orig_nwi_end=nwi_end;
- l=1; // start
+ l=1; /* start*/
  if (nwi_end!=NULL && nwi_start!=NULL)
    {
-     // on grade la liste la plus courte
+     /* on grade la liste la plus courte*/
      usew=0;
      if (nwi_end->nb<nwi_start->nb) nwi_start=nwi_end, l=2;
    }
@@ -678,7 +678,7 @@ int ttv_isfalsepath(ttvfig_list *ttvfig,ttvevent_list *eventin,ttvevent_list *ev
      }
    }
 
- // GESTION DES WILDCARDS
+ /* GESTION DES WILDCARDS*/
  for(pt = fpi->WILDCARDS ; pt != NULL ; pt = pt->NEXT)
    {
     if(((eventin->TYPE & pt->SLOPEIN) == (long)0) ||
@@ -744,7 +744,7 @@ int ttv_hasaccessfalsepath(ttvfig_list *ttvfig,ttvevent_list *eventout, chain_li
 
  fpi=(falsepath_info *)ptype->DATA;
 
- // GESTION DES NON WILDCARDS
+ /* GESTION DES NON WILDCARDS*/
  if ((ptype=getptype(eventout->ROOT->USER, TTV_SIG_FALSEPATH_END))!=NULL) nwi_end=(nowildcard_info *)ptype->DATA;
  else nwi_end=NULL;
 
@@ -775,7 +775,7 @@ int ttv_hasaccessfalsepath(ttvfig_list *ttvfig,ttvevent_list *eventout, chain_li
        }
    }
 
- // GESTION DES WILDCARDS
+ /* GESTION DES WILDCARDS*/
  for(pt = fpi->WILDCARDS ; pt != NULL ; pt = pt->NEXT)
    {
      if((eventout->TYPE & pt->SLOPEOUT) !=0 && ttv_falsepath_match_name(pt->FIG, eventout->ROOT, pt->SIGOUT))

@@ -38,179 +38,179 @@ static int vhd_2puiss(int exp);
 void bvl_error (int code, char *str1)
 {
   BVL_ERRFLG++;
-//  fprintf (stderr,"`%s` Error %d line %d :",BVL_CURFIL,code,BEH_LINNUM);
+/*  fprintf (stderr,"`%s` Error %d line %d :",BVL_CURFIL,code,BEH_LINNUM);*/
 
   switch (code)
   {
     case 1:
          avt_errmsg(BVL_ERRMSG,"001",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"`%s` is incompatible with the entity name\n",str1);
+/*         fprintf (stderr,"`%s` is incompatible with the entity name\n",str1);*/
          break;
     case 2:
          avt_errmsg(BVL_ERRMSG,"002",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"bad entity declaration\n");
+/*         fprintf (stderr,"bad entity declaration\n");*/
          break;
     case 3:
          avt_errmsg(BVL_ERRMSG,"003",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"bad port clause declaration\n");
+/*         fprintf (stderr,"bad port clause declaration\n");*/
          break;
     case 4:
          avt_errmsg(BVL_ERRMSG,"004",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"port `%s` already declared\n",str1);
+/*         fprintf (stderr,"port `%s` already declared\n",str1);*/
          break;
     case 5:
          avt_errmsg(BVL_ERRMSG,"005",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"illegal port declaration (mode, type, kind)\n");
+/*         fprintf (stderr,"illegal port declaration (mode, type, kind)\n");*/
          break;
     case 6:
          avt_errmsg(BVL_ERRMSG,"006",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"bad port declaration\n");
+/*         fprintf (stderr,"bad port declaration\n");*/
          break;
     case 7:
          avt_errmsg(BVL_ERRMSG,"007",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"`%s` is incompatible with the architecture name\n",str1);
+/*         fprintf (stderr,"`%s` is incompatible with the architecture name\n",str1);*/
          break;
     case 8:
          avt_errmsg(BVL_ERRMSG,"008",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"bad architecture declaration\n");
+/*         fprintf (stderr,"bad architecture declaration\n");*/
          break;
     case 9:
          avt_errmsg(BVL_ERRMSG,"009",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"illegal declaration\n");
+/*         fprintf (stderr,"illegal declaration\n");*/
          break;
     case 10:
          avt_errmsg(BVL_ERRMSG,"010",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"signal `%s` already declared\n",str1);
+/*         fprintf (stderr,"signal `%s` already declared\n",str1);*/
          break;
     case 11:
          avt_errmsg(BVL_ERRMSG,"011",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"illegal signal declaration (type, kind)\n");
+/*         fprintf (stderr,"illegal signal declaration (type, kind)\n");*/
          break;
     case 17:
          avt_errmsg(BVL_ERRMSG,"012",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"`%s` unknown port or signal\n",str1);
+/*         fprintf (stderr,"`%s` unknown port or signal\n",str1);*/
          break;
     case 18:
          avt_errmsg(BVL_ERRMSG,"013",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"illegal concurrent statement\n");
+/*         fprintf (stderr,"illegal concurrent statement\n");*/
          break;
     case 19:
          avt_errmsg(BVL_ERRMSG,"014",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"label `%s` already declared\n",str1);
+/*         fprintf (stderr,"label `%s` already declared\n",str1);*/
          break;
     case 20:
          avt_errmsg(BVL_ERRMSG,"015",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"`%s` is incompatible with the block's label\n",str1);
+/*         fprintf (stderr,"`%s` is incompatible with the block's label\n",str1);*/
          break;
     case 21:
          avt_errmsg(BVL_ERRMSG,"016",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"input port `%s` cannot be assigned\n",str1);
+/*         fprintf (stderr,"input port `%s` cannot be assigned\n",str1);*/
          break;
     case 22:
          avt_errmsg(BVL_ERRMSG,"017",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"illegal unguarded signal assignment for `%s`\n", str1);
+/*         fprintf (stderr,"illegal unguarded signal assignment for `%s`\n", str1);*/
          break;
     case 23:
          avt_errmsg(BVL_ERRMSG,"018",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"ilegal guarded signal assignment `%s`\n",str1);
+/*         fprintf (stderr,"ilegal guarded signal assignment `%s`\n",str1);*/
          break;
     case 25:
          avt_errmsg(BVL_ERRMSG,"019",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"some choices missing in the selected signal assignment\n");
+/*         fprintf (stderr,"some choices missing in the selected signal assignment\n");*/
          break;
     case 26:
          avt_errmsg(BVL_ERRMSG,"020",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"output port `%s` cannot be read\n",str1);
+/*         fprintf (stderr,"output port `%s` cannot be read\n",str1);*/
          break;
     case 28:
          avt_errmsg(BVL_ERRMSG,"021",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"duplicate choice in selected signal assignment\n");
+/*         fprintf (stderr,"duplicate choice in selected signal assignment\n");*/
          break;
     case 30:
          avt_errmsg(BVL_ERRMSG,"022",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"illegal use of OTHERS in selected signal assignment\n");
+/*         fprintf (stderr,"illegal use of OTHERS in selected signal assignment\n");*/
          break;
     case 32:
          avt_errmsg(BVL_ERRMSG,"023",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"null array not supported\n");
+/*         fprintf (stderr,"null array not supported\n");*/
          break;
     case 33:
          avt_errmsg(BVL_ERRMSG,"024",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"incompatible constraint and type\n");
+/*         fprintf (stderr,"incompatible constraint and type\n");*/
          break;
     case 35:
          avt_errmsg(BVL_ERRMSG,"025",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"illegal assignment of `%s` (widths mismatch)\n",str1);
+/*         fprintf (stderr,"illegal assignment of `%s` (widths mismatch)\n",str1);*/
          break;
     case 36:
          avt_errmsg(BVL_ERRMSG,"026",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"signal `%s` used out of declared range\n",str1);
+/*         fprintf (stderr,"signal `%s` used out of declared range\n",str1);*/
          break;
     case 38:
          avt_errmsg(BVL_ERRMSG,"027",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"width or/and type mismatch\n");
+/*         fprintf (stderr,"width or/and type mismatch\n");*/
          break;
     case 39:
          avt_errmsg(BVL_ERRMSG,"028",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"signal `%s` assigned more than once\n",str1);
+/*         fprintf (stderr,"signal `%s` assigned more than once\n",str1);*/
          break;
     case 40:
          avt_errmsg(BVL_ERRMSG,"029",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"signal `%s` never assigned\n",str1);
+/*         fprintf (stderr,"signal `%s` never assigned\n",str1);*/
          break;
     case 41:
          avt_errmsg(BVL_ERRMSG,"030",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"illegal condition on signal `%s`\n",str1);
+/*         fprintf (stderr,"illegal condition on signal `%s`\n",str1);*/
          break;
 
     case 68:
          avt_errmsg(BVL_ERRMSG,"031",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"BEPOR type is unknown\n");
+/*         fprintf (stderr,"BEPOR type is unknown\n");*/
          break;
     case 73:
          avt_errmsg(BVL_ERRMSG,"032",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"`%s` is not a bit string litteral\n",str1);
+/*         fprintf (stderr,"`%s` is not a bit string litteral\n",str1);*/
          break;
     case 74:
          avt_errmsg(BVL_ERRMSG,"033",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"bad generic declaration\n");
+/*         fprintf (stderr,"bad generic declaration\n");*/
          break;
     case 75:
          avt_errmsg(BVL_ERRMSG,"034",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"bad generic element\n");
+/*         fprintf (stderr,"bad generic element\n");*/
          break;
     case 76:
          avt_errmsg(BVL_ERRMSG,"035",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"`%s`: when expression must be a constant\n",str1);
+/*         fprintf (stderr,"`%s`: when expression must be a constant\n",str1);*/
          break;
     case 77:
          avt_errmsg(BVL_ERRMSG,"036",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"illegal generic declaration (type, kind)\n");
+/*         fprintf (stderr,"illegal generic declaration (type, kind)\n");*/
          break;
     case 78:
          avt_errmsg(BVL_ERRMSG,"037",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"illegal constant declaration (type, kind)\n");
+/*         fprintf (stderr,"illegal constant declaration (type, kind)\n");*/
          break;
     case 79:
          avt_errmsg(BVL_ERRMSG,"038",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str1);
-//         fprintf (stderr,"illegal use of attribute STABLE on `%s`\n",str1);
+/*         fprintf (stderr,"illegal use of attribute STABLE on `%s`\n",str1);*/
          break;
     case 80:
          avt_errmsg(BVL_ERRMSG,"039",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"different delays not supported on waveforms\n");
+/*         fprintf (stderr,"different delays not supported on waveforms\n");*/
          break;
 
     default:
          avt_errmsg(BVL_ERRMSG,"040",AVT_ERROR,BVL_CURFIL,BEH_LINNUM);
-//         fprintf (stderr,"syntax error\n");
+/*         fprintf (stderr,"syntax error\n");*/
          break;
   }
 
   if (BVL_ERRFLG > V_INT_TAB[__VHDL_MAXERR].VALUE)
   {
-//    fprintf (stderr,"Too many errors. Cannot continue further more\n");
-//    fprintf (stderr,"\nHave a nice day...\n");
-//    EXIT (1);
+/*    fprintf (stderr,"Too many errors. Cannot continue further more\n");*/
+/*    fprintf (stderr,"\nHave a nice day...\n");*/
+/*    EXIT (1);*/
     avt_errmsg(BVL_ERRMSG,"041",AVT_FATAL);
   }
 
@@ -225,7 +225,7 @@ void vbe_bcomperror(char *str)
 {
   BVL_ERRFLG++;
   avt_errmsg(BVL_ERRFLG,"042",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str);
-//  fprintf(stderr,"`%s` Error line %d : %s\n",BVL_CURFIL,BEH_LINNUM,str);
+/*  fprintf(stderr,"`%s` Error line %d : %s\n",BVL_CURFIL,BEH_LINNUM,str);*/
 }
 
 /*}}}************************************************************************/
@@ -237,7 +237,7 @@ void vhd_bcomperror(char *str)
 {
   BVL_ERRFLG++;
   avt_errmsg(BVL_ERRFLG,"042",AVT_ERROR,BVL_CURFIL,BEH_LINNUM,str);
-  //fprintf(stderr,"`%s` Error line %d : %s\n",BVL_CURFIL,BEH_LINNUM,str);
+  /*fprintf(stderr,"`%s` Error line %d : %s\n",BVL_CURFIL,BEH_LINNUM,str);*/
 }
 
 /*}}}************************************************************************/
@@ -407,7 +407,7 @@ char *bvl_vectorize(char *name)
     {
       if (name [i] == ' ')
       {
-        //// added by anto
+        /*// added by anto*/
         j       = i;
         while ((name[j]!='\0')&&(name[j]!=':'))
           j++;
@@ -418,7 +418,7 @@ char *bvl_vectorize(char *name)
           sprintf (tmp1,"%s(%d %s %d)",new_name,
                    left,(left<right)?"TO":"DOWNTO",right);
         }
-        ////
+        /*//*/
         else
           sprintf (tmp1, "%s(%s)", new_name, &name[i+1]);
       }
@@ -728,7 +728,7 @@ char *bvl_abl2str (chain_list *expr, char *chaine, int *size_pnt)
            beg_get_vectname(operand->DATA,&name,NULL,NULL,BEG_SEARCH_ABL);
            bvl_mystrcat(chaine,"%s'STABLE",bvl_vhdlname(name));
            break;
-           // added by anto to compute vectabl
+           /* added by anto to compute vectabl*/
       case REPLICATE:
            strcat (chaine,"(");
            for (i = 0; i < REP_NB(expr); i ++)
@@ -884,7 +884,7 @@ char *bvl_abl2strbool(chain_list *expr, char *chaine, int *size_pnt)
 
   if (ATOM(expr))
   {
-    // added by anto to compute vectabl
+    /* added by anto to compute vectabl*/
     if (isBitStr(expr->DATA))
       strcat (chaine, expr->DATA);
     else
@@ -917,11 +917,11 @@ char *bvl_abl2strbool(chain_list *expr, char *chaine, int *size_pnt)
            if (operand->NEXT && OPER(operand) == STABLE)
            {
              beg_get_vectname(VALUE_ATOM(CADR(operand)),&name,NULL,NULL,BEG_SEARCH_ABL);
-             //strcat(chaine,bvl_vectorize(((chain_list*)operand->NEXT->DATA)->DATA));
+             /*strcat(chaine,bvl_vectorize(((chain_list*)operand->NEXT->DATA)->DATA));*/
              bvl_mystrcat(chaine, "%s'EVENT",bvl_vhdlname(name));
-             //strcat(chaine, "'EVENT");
+             /*strcat(chaine, "'EVENT");*/
            }
-           // added by anto to compute vectabl
+           /* added by anto to compute vectabl*/
            else if (isBitStr(operand->DATA))
              strcat (chaine, operand->DATA);
            else
@@ -940,7 +940,7 @@ char *bvl_abl2strbool(chain_list *expr, char *chaine, int *size_pnt)
              strcat (chaine, buffer);
            }
            break;
-           // added by anto to compute vectabl
+           /* added by anto to compute vectabl*/
       case CAT :
            {
              char          *bitstr;

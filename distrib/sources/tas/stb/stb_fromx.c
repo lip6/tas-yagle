@@ -27,7 +27,7 @@
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void
+static  void
 getroundtime(inffig_list *inf, char *key, char *field, double unit, long *res)
 {
   double         tmp;
@@ -83,7 +83,7 @@ fillckpulse(stb_fromX_t *fxt, char *ckname, stb_parse_pulse *pulse)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline char edge(char org)
+static  char edge(char org)
 {
   switch (org)
   {
@@ -94,7 +94,7 @@ static inline char edge(char org)
   }
 }
 
-static inline char relat(char org)
+static  char relat(char org)
 {
   switch (org)
   {
@@ -104,7 +104,7 @@ static inline char relat(char org)
   }
 }
 
-static inline char stabi(char org)
+static  char stabi(char org)
 {
   switch (org)
   {
@@ -113,7 +113,7 @@ static inline char stabi(char org)
     default : printf("2) Ca va pas non!!\n"); return 0;
   }
 }
-static inline char hzstate(char org)
+static  char hzstate(char org)
 {
   switch (org)
   {
@@ -161,10 +161,10 @@ treatpin(stb_fromX_t *fxt, stb_parse *stab, char *name, char *type, int def)
           phase           = stb_parse_phase(stab,ipss->CKNAME,ipss->CKNAME?edge(ipss->CKEDGE):0);
           
           for (ipsss = ipss->STABILITY; ipsss; ipsss = ipsss->NEXT)
-            { // foreach stability
+            { /* foreach stability*/
               stability     = stabi(ipsss->STABILITY);
               
-              if (ipsss->TIME_LIST) // if not an integer list
+              if (ipsss->TIME_LIST) /* if not an integer list*/
                 stb_parse_stability(stab,stability,0,NULL,__buildlonglist(ipsss->TIME_LIST));
               
               else if (ipsss->CKNAME)
@@ -214,10 +214,10 @@ treatstboutnode(stb_fromX_t *fxt, stb_parse *stab, char *name, char *type)
       phase           = stb_parse_phase(stab,ipss->CKNAME,edge(ipss->CKEDGE));
       
       for (ipsss = ipss->STABILITY; ipsss; ipsss = ipsss->NEXT)
-      { // foreach stability
+      { /* foreach stability*/
         stability     = stabi(ipsss->STABILITY);
   
-        if (ipsss->TIME_LIST) // if not an integer list
+        if (ipsss->TIME_LIST) /* if not an integer list*/
           stb_parse_stability(stab,stability,0,NULL,__buildlonglist(ipsss->TIME_LIST));
   
         else if (ipsss->CKNAME)
@@ -273,7 +273,7 @@ int stb_fromX_STEP1_traditional(stb_fromX_t *fxt, stb_parse *stab)
 
   stb_parse_name(stab,fxt->STBFIG->FIG->INFO->FIGNAME,1);
  
-  // header
+  /* header*/
   getroundtime(fxt->INFFIG,INF_STB_HEADER,INF_DEFAULT_PERIOD,
                fxt->UNIT,&stab->PARSEDFIG->CLOCKPERIOD);
   getroundtime(fxt->INFFIG,INF_STB_HEADER,INF_SETUPMARGIN,
@@ -281,23 +281,23 @@ int stb_fromX_STEP1_traditional(stb_fromX_t *fxt, stb_parse *stab)
   getroundtime(fxt->INFFIG,INF_STB_HEADER,INF_HOLDMARGIN,
                fxt->UNIT,&stab->PARSEDFIG->HOLD);
 
-  // clock
+  /* clock*/
   list          = inf_GetEntriesByType(fxt->INFFIG,INF_CLOCK_TYPE,INF_ANY_VALUES);
   for (chainx = list; chainx; chainx = delchain(chainx,chainx))
   {
 
     if (inf_GetInt(fxt->INFFIG, (char *)chainx->DATA, INF_CLOCK_TYPE, &cltype))
       {
-        if ((cltype & INF_CLOCK_VIRTUAL)!=0) stab->VIRTUAL=1; //continue;
+        if ((cltype & INF_CLOCK_VIRTUAL)!=0) stab->VIRTUAL=1; /*continue;*/
         if ((cltype & INF_CLOCK_INVERTED)!=0) stab->INVERTED = 1;
         if ((cltype & INF_CLOCK_IDEAL)!=0) stab->IDEAL = 1;
       }
-    // if (inf_GetString(fxt->INFFIG, (char *)chainx->DATA, INF_PREFERED_CLOCK, &def) && def!=NULL) stab->INVERTED = 1;
+    /* if (inf_GetString(fxt->INFFIG, (char *)chainx->DATA, INF_PREFERED_CLOCK, &def) && def!=NULL) stab->INVERTED = 1;*/
     fillckpulse(fxt,chainx->DATA,&pulse);
     stb_parse_cklocon(stab,chainx->DATA,&pulse,fxt->INFFIG);
   }
 
-  // equiv clock domain
+  /* equiv clock domain*/
 
   if (V_BOOL_TAB[__STB_CREATE_EQUIV_GROUPS].VALUE)
     equiv_auto=stb_auto_create_equivalent_groups(stab);
@@ -340,7 +340,7 @@ int stb_fromX_STEP1_traditional(stb_fromX_t *fxt, stb_parse *stab)
 
   stb_parse_eqvt_clocks(stab);
 
-  // async clock groups
+  /* async clock groups*/
   list          = inf_GetValuesByType(fxt->INFFIG,INF_ASYNC_CLOCK_GROUP);  
   for (chainx = list; chainx; chainx = delchain(chainx,chainx))
     { 
@@ -362,7 +362,7 @@ int stb_fromX_STEP1_traditional(stb_fromX_t *fxt, stb_parse *stab)
       stb_parse_domain_groups(stab,clocklist);
     }
 
-  // priority clock
+  /* priority clock*/
   list=inf_GetEntriesByType(fxt->INFFIG,INF_PREFERED_CLOCK,INF_ANY_VALUES);
   for (chainx = list, list=NULL; chainx; chainx = delchain(chainx,chainx))
     { 
@@ -371,11 +371,11 @@ int stb_fromX_STEP1_traditional(stb_fromX_t *fxt, stb_parse *stab)
     }
   stab->PARSEDFIG->PRIOCLOCK = list;
 
-  //---->
+  /*---->*/
   stb_parse_ckdeclar(fxt, stab);
-  //<----
+  /*<----*/
 
-  // disable
+  /* disable*/
   if (inf_GetPointer(fxt->INFFIG, INF_DISABLE_PATH, INF_ASSOCLIST, (void **)&list))
     {
       for (chainx = list; chainx; chainx = chainx->NEXT)
@@ -385,7 +385,7 @@ int stb_fromX_STEP1_traditional(stb_fromX_t *fxt, stb_parse *stab)
         }
     }
 
-  // verif
+  /* verif*/
   stb_parse_wenable( stab );
 
   list          = inf_GetEntriesByType(fxt->INFFIG,INF_VERIF_STATE,INF_ANY_VALUES);
@@ -402,7 +402,7 @@ int stb_fromX_STEP1_traditional(stb_fromX_t *fxt, stb_parse *stab)
       stb_parse_command(stab,name,state);
     }
   
-  // nosetup/hold
+  /* nosetup/hold*/
   list          = inf_GetEntriesByType(fxt->INFFIG,INF_NOCHECK,INF_ANY_VALUES);
   for (chainx = list; chainx; chainx = delchain(chainx,chainx))
     { 
@@ -423,7 +423,7 @@ int stb_fromX_STEP1_traditional(stb_fromX_t *fxt, stb_parse *stab)
     i ++;
   }
 
-//  ttv_setdirectives(fxt->STBFIG ,fxt->INFFIG);
+/*  ttv_setdirectives(fxt->STBFIG ,fxt->INFFIG);*/
   stb_setfalseslack(fxt->STBFIG ,fxt->INFFIG);
   stb_setprobability(fxt->STBFIG ,fxt->INFFIG);
 
@@ -453,7 +453,7 @@ int stb_fromX_STEP2_stability(stb_fromX_t *fxt, stb_parse *stab)
 int stb_fromX_STEP3_finish(stb_fromX_t *fxt, stb_parse *stab)
 {
   stb_parse_stb_file(stab);
-  // to avoid warning:
+  /* to avoid warning:*/
   fxt=NULL;
   return 0;
 }

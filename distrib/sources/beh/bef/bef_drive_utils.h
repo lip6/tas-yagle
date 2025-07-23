@@ -21,6 +21,6 @@
 #include MUT_H
 #include BEH_H
 #include BEG_H
-//#include LOG_H
+/*#include LOG_H*/
 
 #endif

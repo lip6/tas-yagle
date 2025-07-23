@@ -14,5 +14,5 @@
 
 extern void     ren_ttvfigren           __P(( long
                                            ));
-//extern void     ren_stmren              __P(( long
-//                                           ));
+/*extern void     ren_stmren              __P(( long*/
+/*                                           ));*/

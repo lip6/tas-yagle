@@ -38,4 +38,4 @@ extern int         pool;
 extern void spef_cache_free( lofig_list *lofig );
 extern unsigned long int spef_cache_parse( lofig_list *lofig, losig_list *losig );
 
-//extern lofig_list *spf_Annotate(lofig_list *lofig, char *spf_file_name);
+/*extern lofig_list *spf_Annotate(lofig_list *lofig, char *spf_file_name);*/

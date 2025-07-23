@@ -190,8 +190,8 @@ char            force;
       strcpy( tmp, spi_makename( getsigname(losig) ) );
       spi_vect( tmp );
       if( losig->TYPE != 'E' ) {
-        // On choisi un noeud pour driver un nom "court". On en prend un sur
-        // sur le premier connecteur sur le signal.
+        /* On choisi un noeud pour driver un nom "court". On en prend un sur*/
+        /* sur le premier connecteur sur le signal.*/
         locon=spichooseonelocon( losig );
         if( locon && locon->PNODE->DATA == node )
           sprintf( names[curnames], "%s", tmp );
@@ -204,7 +204,7 @@ char            force;
                  );
         }
       }
-      else { // signal externe : on ne change pas le noeud sur l'interface.
+      else { /* signal externe : on ne change pas le noeud sur l'interface.*/
         locon = spi_getextlocon( losig );
         if( locon && locon->PNODE && locon->PNODE->DATA==node ) {
           sprintf( names[curnames], "%s", tmp );
@@ -305,7 +305,7 @@ char		**vss;
     }
   }
 
-  // zinaps le 20/8/2002
+  /* zinaps le 20/8/2002*/
   for( signal = ptfig->LOSIG ;
        signal && !(*vdd && *vss) ;
        signal = signal->NEXT
@@ -340,7 +340,7 @@ char 		*vss;
   int		 nbr;
   lowire_list	*scanlowire;
   int            nbctc, cnt;
-//  chain_list    *scanchain;
+/*  chain_list    *scanchain;*/
   chain_list    *headctc;
   loctc_list    *ptctc;
   char *name1, *name2;
@@ -360,7 +360,7 @@ char 		*vss;
        qui n'est pas supporté par titan. solution bourrin car ca ne prend
        pas en compte un ensemble de résistances arrivant nul part. */
 
-    env = NULL; //getenv("MBK_SPI_DRIVE_WIRE_NOT_CONNECTED");
+    env = NULL; /*getenv("MBK_SPI_DRIVE_WIRE_NOT_CONNECTED");*/
     if( env ) {
       if( strcasecmp( env, "yes" )==0 )
         drivewirenotconnected = 'y';
@@ -520,7 +520,7 @@ char 		*vss;
                 );
       }
     }
-    //spi_print( df, "\n" );
+    /*spi_print( df, "\n" );*/
     rcn_unlock_signal(ptfig, scanlosig);
   }
 #if 0
@@ -676,7 +676,7 @@ locon_list      *liste;
       for( scannum = tetenum, n=0 ; n<num && scannum!=NULL; scannum = scannum->NEXT, n++ );
       if (scannum!=NULL && n<=num)
         spi_print( df, "%s ", spinamenodedetail( signal, scannum->DATA, force ) );
-      else // zinaps : 25/4/2003
+      else /* zinaps : 25/4/2003*/
         spi_print( df, "%s ", spinamenode( signal, SPI_NONODES ) );
 
     }
@@ -877,7 +877,7 @@ FILE		*df;
     if (SPI_FLAGS & SPI_FULL_DRIVE)
       {
         optparam_list *optparams, *ptopt;
-        // drive les parametres des instances
+        /* drive les parametres des instances*/
         if ((pt = getptype (scanloins->USER, PARAM_CONTEXT))!=NULL)
           {
             ep=(eqt_param *)pt->DATA;
@@ -954,7 +954,7 @@ static char *modelname(lotrs_list *tr, int in_SPI_TRANSISTOR_AS_INSTANCE)
 
 
 
-// zinaps: le 27/9/2002
+/* zinaps: le 27/9/2002*/
 static char *strip(char *name)
 {
   static char temp[1024];
@@ -970,7 +970,7 @@ static char *strip(char *name)
 static float bestunit(float val, char **unit)
 {
   if (val<1e3) { *unit="U"; return val; }
-//  if (val<1e6) { *unit='m'; return val*1e-6; }
+/*  if (val<1e6) { *unit='m'; return val*1e-6; }*/
   *unit=""; return val*1e-6;
 }
 
@@ -1038,7 +1038,7 @@ void            sorttransistormos(lofig_list *ptfig, FILE *df, char *vss, char *
     {
       done=0;
       modname = getlotrsmodel(scantrs);
-      isdiode = 0; //(mbk_isdioden(modname) || mbk_isdiodep(modname));
+      isdiode = 0; /*(mbk_isdioden(modname) || mbk_isdiodep(modname));*/
       isjfet = (mbk_isjfetn(modname) || mbk_isjfetp(modname));
       if (V_INT_TAB[__SIM_TRANSISTOR_AS_INSTANCE].VALUE==2)
       {
@@ -1133,7 +1133,7 @@ void            sorttransistormos(lofig_list *ptfig, FILE *df, char *vss, char *
           sortconnecteur( df, scantrs->DRAIN  );
           sortconnecteur( df, scantrs->GRID   );
           sortconnecteur( df, scantrs->SOURCE );
-          // zinaps le 20/8/2002
+          /* zinaps le 20/8/2002*/
           if( scantrs->BULK && scantrs->BULK->SIG )
             {
               sortconnecteur( df, scantrs->BULK  );
@@ -1580,15 +1580,15 @@ void		spicesavelofiginfile( lofig_list *ptfig, FILE *df, int driveincludes )
 
   spi_env();
 
-  // Zinaps: coherence entre les formats mbk
+  /* Zinaps: coherence entre les formats mbk*/
   {
     loins_list *ls;
-    // connecteurs primaux
+    /* connecteurs primaux*/
     ptfig->LOCON=(locon_list *)reverse((chain_list *)ptfig->LOCON);
     for (ls=ptfig->LOINS;ls!=NULL;ls=ls->NEXT)
       ls->LOCON=(locon_list *)reverse((chain_list *)ls->LOCON);
   }
-  // Zinaps: c'est tout
+  /* Zinaps: c'est tout*/
 
   /* On va travailler sur les fonctions RCN : */
   lofigchain( ptfig );
@@ -1680,15 +1680,15 @@ void		spicesavelofiginfile( lofig_list *ptfig, FILE *df, int driveincludes )
     }
   sortcircuit( ptfig, df );
 
-  // Zinaps: coherence entre les formats mbk, retour a la normal
+  /* Zinaps: coherence entre les formats mbk, retour a la normal*/
   {
     loins_list *ls;
-    // connecteurs primaux
+    /* connecteurs primaux*/
     ptfig->LOCON=(locon_list *)reverse((chain_list *)ptfig->LOCON);
     for (ls=ptfig->LOINS;ls!=NULL;ls=ls->NEXT)
       ls->LOCON=(locon_list *)reverse((chain_list *)ls->LOCON);
   }
-  // Zinaps: c'est tout
+  /* Zinaps: c'est tout*/
 
   spi_cleanextlocon(ptfig);
   freesignalnoeud(ptfig );
@@ -1720,7 +1720,7 @@ lofig_list	*ptfig;
   spiceprintdate( ptfig->NAME, df );
 
 
-//---------->
+/*---------->*/
   spicesavelofiginfile( ptfig, df, 1);
 
   if( fclose(df) == -1 )
@@ -1793,7 +1793,7 @@ char *s;
 {
   int i,p1;
 
-//  if (!MBK_DEVECT) return;
+/*  if (!MBK_DEVECT) return;*/
 
   if( s == NULL )
     return;

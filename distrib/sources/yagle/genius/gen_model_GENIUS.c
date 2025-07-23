@@ -40,7 +40,7 @@ static inline chain_list *SigTree2chain(tree_list *tree, chain_list *list)
 { 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 240);
-//    fprintf(stderr,"SigTree2chain: NULL pointer\n");
+/*    fprintf(stderr,"SigTree2chain: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -148,12 +148,12 @@ extern chain_list *Get_Losig_Generic(locon_list *locon, chain_list *signal,
  
   if (locon && !signal) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 251);
-//      fprintf(stderr,"Get_Losig_Generic: no signal for locon %s\n",locon->NAME);
+/*      fprintf(stderr,"Get_Losig_Generic: no signal for locon %s\n",locon->NAME);*/
       EXIT(1);
   }    
   if (!locon && signal) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 252);
-//      fprintf(stderr,"Get_Losig_Generic: no locon for signal\n");
+/*      fprintf(stderr,"Get_Losig_Generic: no locon for signal\n");*/
       EXIT(1);
   }    
   
@@ -172,7 +172,7 @@ extern chain_list *Get_Losig_Generic(locon_list *locon, chain_list *signal,
   tree=(tree_list*)signal->DATA;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 241);
-//      fprintf(stderr,"Get_Losig_Generic: NULL pointer\n");
+/*      fprintf(stderr,"Get_Losig_Generic: NULL pointer\n");*/
       EXIT(1);
   }
 
@@ -186,7 +186,7 @@ extern chain_list *Get_Losig_Generic(locon_list *locon, chain_list *signal,
     }
     if (!sig) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 242);
-//      fprintf(stderr,"Get_Losig_Generic: NULL pointer\n");
+/*      fprintf(stderr,"Get_Losig_Generic: NULL pointer\n");*/
       EXIT(1);
     }  
     
@@ -237,7 +237,7 @@ static inline tree_list *__Get_Loins_Generic(tree_list *tree, tree_list *archi)
   tree_list *temp0, *temp1;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 243);
-//    fprintf(stderr,"__Get_Loins_Generic: NULL pointer\n");
+/*    fprintf(stderr,"__Get_Loins_Generic: NULL pointer\n");*/
     EXIT(1);
   }
   
@@ -253,7 +253,7 @@ static inline tree_list *__Get_Loins_Generic(tree_list *tree, tree_list *archi)
   case ';':
     temp0=__Get_Loins_Generic(tree->NEXT,archi);
     temp1=__Get_Loins_Generic(tree->NEXT->NEXT,archi);
-//    return PUT_BIN(';',__Get_Loins_Generic(tree->NEXT,archi),__Get_Loins_Generic(tree->NEXT->NEXT,archi));
+/*    return PUT_BIN(';',__Get_Loins_Generic(tree->NEXT,archi),__Get_Loins_Generic(tree->NEXT->NEXT,archi));*/
     return PUT_BIN(';',temp0,temp1);
     break;
   case GEN_TOKEN_EXCLUDE:
@@ -277,14 +277,14 @@ static inline tree_list *__Get_Loins_Generic(tree_list *tree, tree_list *archi)
       model=getlofig(modelname,'P');       /* 'P' (partial) for only interface */
       if (!model) {
     avt_errmsg(GNS_ERRMSG, "161", AVT_FATAL,modelname);
-//        fprintf(stderr,"__Get_Loins: no model %s found\n",modelname);
+/*        fprintf(stderr,"__Get_Loins: no model %s found\n",modelname);*/
         EXIT(1);
       }
       signals=SigTree2chain(tree->NEXT->NEXT,NULL);
       sigchain=Get_Losig_Generic(model->LOCON,signals,NULL);
       FIG->LOINS=gen_addloins(FIG,insname,model,sigchain,signals);
       
-      // flags in loins
+      /* flags in loins*/
       ms=(misc_stuffs *)archi->DATA->NEXT->NEXT->NEXT->NEXT->DATA->DATA;
 
       for (lc=FIG->LOINS->LOCON, lcm=model->LOCON; lc!=NULL && lcm!=NULL; lc=lc->NEXT, lcm=lcm->NEXT)
@@ -293,7 +293,7 @@ static inline tree_list *__Get_Loins_Generic(tree_list *tree, tree_list *archi)
             if (!gns_isunusedsig(lc->SIG))
               {
                 lc->SIG->USER=addptype(lc->SIG->USER, GEN_UNUSED_FLAG_PTYPE, NULL);
-//                printf("i %s unu %s", insname, lc->NAME);
+/*                printf("i %s unu %s", insname, lc->NAME);*/
               }
           if (ms!=NULL) {
             for (p=ms->STOP_POWER; p!=NULL && p->DATA!=getsigname(lc->SIG); p=p->NEXT) ;
@@ -317,8 +317,8 @@ static inline tree_list *__Get_Loins_Generic(tree_list *tree, tree_list *archi)
           if (p!=NULL) { flags|=LOINS_IS_EXCLUDE_AT_END; p->TYPE=-p->TYPE; }
         }
       FIG->LOINS->USER=addptype(FIG->LOINS->USER, GENIUS_LOINS_FLAGS_PTYPE, (void *)flags);
-//      printf("%s %s %ld\n",FIG->NAME, insname, flags);
-      FIG->LOINS->USER=addptype(FIG->LOINS->USER, GEN_GENERIC_MAP_PTYPE, ((tree_list *)tree->NEXT->NEXT->NEXT->DATA)->DATA); // (<model_var>,<circuit_expr>)+ single chain list
+/*      printf("%s %s %ld\n",FIG->NAME, insname, flags);*/
+      FIG->LOINS->USER=addptype(FIG->LOINS->USER, GEN_GENERIC_MAP_PTYPE, ((tree_list *)tree->NEXT->NEXT->NEXT->DATA)->DATA); /* (<model_var>,<circuit_expr>)+ single chain list*/
       freechain(sigchain);
       freechain(signals);
       return PUT_ATO(GEN_TOKEN_LOINS,FIG->LOINS);
@@ -340,7 +340,7 @@ void verif_instance_flags(ptype_list *p, char *file, char *type)
         {
           failed=1;
       avt_errmsg(GNS_ERRMSG, "162", AVT_ERROR, file, (int)p->TYPE, type, (char *)p->DATA);
-//          fprintf(stderr,"%s:%d: %s instance '%s' can't be found\n", file, (int)p->TYPE, type, (char *)p->DATA);
+/*          fprintf(stderr,"%s:%d: %s instance '%s' can't be found\n", file, (int)p->TYPE, type, (char *)p->DATA);*/
         }
     }
   if (failed) EXIT(1);
@@ -355,7 +355,7 @@ void verif_instance_flags_chainlist(chain_list *p, char *file, char *type)
         {
           failed=1;
       avt_errmsg(GNS_ERRMSG, "162", AVT_ERROR, file, 0, type, (char *)p->DATA);
-//          fprintf(stderr,"%s:%d: %s instance '%s' can't be found\n", file, (int)p->TYPE, type, (char *)p->DATA);
+/*          fprintf(stderr,"%s:%d: %s instance '%s' can't be found\n", file, (int)p->TYPE, type, (char *)p->DATA);*/
         }
     }
   if (failed) EXIT(1);
@@ -371,7 +371,7 @@ static inline tree_list* clean_tree(tree_list *tree, loins_list* loins)
   
   if (!tree || !loins) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 244);
-//    fprintf(stderr,"clean_tree: NULL pointer\n");
+/*    fprintf(stderr,"clean_tree: NULL pointer\n");*/
     EXIT(1);
   }
   
@@ -444,7 +444,7 @@ static inline void Add_Reference_Generic(tree_list *generic_tree, tree_list *beg
   
   if (!generic_tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 245);
-//    fprintf(stderr,"Add_Reference_Generic: NULL pointer\n");
+/*    fprintf(stderr,"Add_Reference_Generic: NULL pointer\n");*/
     EXIT(1);
   }
   
@@ -492,7 +492,7 @@ extern tree_list *Get_Loins_Generic(tree_list *tree, tree_list *archi)
   
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 246);
-//    fprintf(stderr,"Get_Loins_Generic: NULL pointer\n");
+/*    fprintf(stderr,"Get_Loins_Generic: NULL pointer\n");*/
     EXIT(1);
   }
   tree_generic=__Get_Loins_Generic(tree, archi);
@@ -517,7 +517,7 @@ extern void Get_Signals_Generic(tree_list *tree)
 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 247);
-//    fprintf(stderr,"Get_Signals_Generic: NULL pointer\n");
+/*    fprintf(stderr,"Get_Signals_Generic: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -541,7 +541,7 @@ extern void Get_Signals_Generic(tree_list *tree)
     for (cl=lst; cl!=NULL; cl=cl->NEXT)
       {
         sig=(losig_list *)cl->DATA;
-        //printf("%s : range %p (%d)\n",sig->NAMECHAIN->DATA, sigrangetree,sigrangetree==NULL?0:TOKEN(sigrangetree));
+        /*printf("%s : range %p (%d)\n",sig->NAMECHAIN->DATA, sigrangetree,sigrangetree==NULL?0:TOKEN(sigrangetree));*/
         sig->USER=addptype(sig->USER, GEN_REAL_RANGE_PTYPE, Duplicate_Tree(sigrangetree));
       }
     freechain(lst);
@@ -563,7 +563,7 @@ extern void Get_Signals_Generic(tree_list *tree)
       sigrangetree=NULL;
     }
 
-//    FIG->LOSIG->USER=addptype(FIG->LOSIG->USER, GEN_REAL_RANGE_PTYPE, tree);
+/*    FIG->LOSIG->USER=addptype(FIG->LOSIG->USER, GEN_REAL_RANGE_PTYPE, tree);*/
 
     break;
   default:
@@ -585,7 +585,7 @@ extern void Get_Locon_Generic(int dir, tree_list *tree)
 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 248);
-//    fprintf(stderr,"Get_Locon_Generic: NULL pointer\n");
+/*    fprintf(stderr,"Get_Locon_Generic: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -645,7 +645,7 @@ extern void Get_Port_Generic(tree_list *tree)
 {
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 249);
-//    fprintf(stderr,"Get_Port_Generic: NULL pointer\n");
+/*    fprintf(stderr,"Get_Port_Generic: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -693,7 +693,7 @@ extern chain_list* Get_Generic(tree_list* tree, chain_list *var)
 {
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 250);
-//    fprintf(stderr,"Get_Generic: NULL pointer\n");
+/*    fprintf(stderr,"Get_Generic: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {

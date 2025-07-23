@@ -41,7 +41,7 @@ char           mode;		/* recursive delete or not (Y or N)	*/
       if ((ptbequad->BDD     != NULL) || (ptbequad->GEX      != NULL) ||
 	  (ptbequad->VARLIST != NULL) || (ptbequad->DERIVATE != NULL))
         beh_warning(308,NULL,NULL);
-        //(stderr, "BEH_warning : bequad not empty\n");
+        /*(stderr, "BEH_warning : bequad not empty\n");*/
       }
     else
       {

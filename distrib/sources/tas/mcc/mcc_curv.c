@@ -65,7 +65,7 @@ void mcc_printplot(int type, int forcecalc, float nc_vt, float pc_vt, mcc_modell
  pcurrent = mcc_current(MCC_VDDmax,MCC_VDDmax,0.0,MCC_TRANS_P) * 1.1 ;
 
  if (nc_vt>-100) ncurrent_vt=nc_vt;
- else ncurrent_vt = mcc_spicesimcurrent(MCC_VTN,MCC_VDDmax,0.0,MCC_TRANS_N) ; // ABR
+ else ncurrent_vt = mcc_spicesimcurrent(MCC_VTN,MCC_VDDmax,0.0,MCC_TRANS_N) ; /* ABR*/
  
  if (pc_vt>-100) pcurrent_vt=pc_vt;
  else pcurrent_vt = mcc_spicesimcurrent(MCC_VTP,MCC_VDDmax,0.0,MCC_TRANS_P) ;
@@ -325,7 +325,7 @@ FILE *file;
 
  while(var <= MCC_VDDmax)
  {
-//  if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))
+/*  if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))*/
   {
    fprintf(file,"%.3e %.3e %.3e %.3e %.3e %.3e %.3e\n",var, 
      i[0]=mcc_current(var,MCC_VDDmax,0.0,MCC_TRANS_N),

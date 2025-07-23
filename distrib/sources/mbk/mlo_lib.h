@@ -85,7 +85,7 @@
 
 /* USER field of connector*/
 #define LOCON_INFORMATION 0x06031501
-// flags
+/* flags*/
 #define   LOCON_INFORMATION_INPUT 1
 #define   LOCON_INFORMATION_OUTPUT 2
 
@@ -238,7 +238,7 @@ int freelofig(lofig_list *ptfig);
   extern           void  freelomodel __P((lofig_list *ptmodel));
   extern            int  dellosig __P((lofig_list *ptfig, long index));
   extern            int  delloins __P((lofig_list *ptfig, char *insname));
-extern int delflaggedloins(lofig_list *ptfig); // flag => loins->INSNAME=NULL
+extern int delflaggedloins(lofig_list *ptfig); /* flag => loins->INSNAME=NULL*/
   extern            int  dellotrs __P((lofig_list *ptfig, lotrs_list *pttrs));
   extern            int  delflaggedlotrs(lofig_list *ptfig, char *flagname);
   extern            int  dellocon __P((lofig_list *ptfig, char *name));
@@ -324,10 +324,10 @@ void mbkFreeContext(mbkContext *ctx);
 void mbkFreeAndSwitchContext(mbkContext *ctx);
 char *mbk_putconname(locon_list *lc, char *buf);
 losig_list* mbk_quickly_getlosigbyname( lofig_list *lofig, char *name );
-loins_list* mbk_quickly_getloinsbyname( lofig_list *lofig, char *name ); // name must be nameallocated
-lotrs_list* mbk_quickly_getlotrsbyname( lofig_list *lofig, char *name ); // name must be nameallocated
+loins_list* mbk_quickly_getloinsbyname( lofig_list *lofig, char *name ); /* name must be nameallocated*/
+lotrs_list* mbk_quickly_getlotrsbyname( lofig_list *lofig, char *name ); /* name must be nameallocated*/
 
-// indique ou mettre les RC
+/* indique ou mettre les RC*/
 int mbk_rc_are_internal(loins_list *li, locon_list *lc);
 void mbk_set_rc_internal(locon_list *lc);
 void mbk_set_rc_external(locon_list *lc);
@@ -336,7 +336,7 @@ void mbk_build_hierarchy_list(lofig_list *lf, ht *tabin, chain_list **list);
 void mbk_set_cut_info(char *pref, long insptype, long tranptype);
 lofig_list *mbk_modify_hierarchy(lofig_list *bbox, chain_list *recognised, int paralleltransistorwerehidden);
 
-// fonctions de gestion des alims
+/* fonctions de gestion des alims*/
 int mbk_MarkAlim(losig_list *ls);
 void mbk_MarkLofig(lofig_list *lf);
 int mbk_GetAlimFlags(losig_list *ls);
@@ -351,7 +351,7 @@ void duplosigalim (losig_list *losig_ptr, losig_list *losig_rpt);
 lofiginfo *mbk_getlofiginfo(lofig_list *lf, int create);
 void mbk_copylosiginfo(losig_list *source, losig_list *dest);
 
-// new
+/* new*/
 void mbk_init_NewBKSIG(NewBKSIG *bksig);
 void mbk_free_NewBKSIG(NewBKSIG *bksig);
 losig_list *mbk_NewBKSIG_getindex(lofig_list *ptfig, int index);

@@ -231,8 +231,8 @@ label_widget = XtVaCreateManagedWidget( "XalToolRights", xmLabelWidgetClass, for
                                          XmNtopOffset,        5,
                                          XmNrightAttachment,  XmATTACH_FORM,
                                          XmNleftAttachment,   XmATTACH_FORM,
-//                                         XmNbottomAttachment,  XmATTACH_POSITION,
-//                                         XmNbottomPosition,    90,
+/*                                         XmNbottomAttachment,  XmATTACH_POSITION,*/
+/*                                         XmNbottomPosition,    90,*/
                                          NULL);
 XmStringFree( text_bis ); XmStringFree( text_ter ); XmStringFree( text );
 

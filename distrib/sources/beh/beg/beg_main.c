@@ -21,7 +21,7 @@ void dotest()
 
 void addaccutest()
 {
-  //{{{
+  /*{{{*/
   beg_def_befig  ("addaccu");
 
   beg_def_por    ("a(0:3)"   ,'I');
@@ -60,23 +60,23 @@ void addaccutest()
 
   befig     = beg_get_befig(0);
   savebefig      (befig,0);
-  //}}}
+  /*}}}*/
 }
 
 void amdtest()
 {
-  //{{{
+  /*{{{*/
   beg_def_befig  ("amd");
-  //beg_def_por    ("cke"      ,'I');
-  //beg_def_por    ("fonc"     ,'I');
-  //beg_def_por    ("test"     ,'I');
-  //beg_def_por    ("scin"     ,'I');
+  /*beg_def_por    ("cke"      ,'I');*/
+  /*beg_def_por    ("fonc"     ,'I');*/
+  /*beg_def_por    ("test"     ,'I');*/
+  /*beg_def_por    ("scin"     ,'I');*/
   beg_def_por    ("scout"    ,'O');
-  //beg_def_por    ("i(8:0)"   ,'I');
-  //beg_def_por    ("a(3:0)"   ,'I');
-  //beg_def_por    ("b(3:0)"   ,'I');
-  //beg_def_por    ("d(3:0)"   ,'I');
-  //beg_def_por    ("noe"      ,'I');
+  /*beg_def_por    ("i(8:0)"   ,'I');*/
+  /*beg_def_por    ("a(3:0)"   ,'I');*/
+  /*beg_def_por    ("b(3:0)"   ,'I');*/
+  /*beg_def_por    ("d(3:0)"   ,'I');*/
+  /*beg_def_por    ("noe"      ,'I');*/
   beg_def_por    ("r0"       ,'O');
   beg_def_por    ("r3"       ,'O');
   beg_def_por    ("q0"       ,'O');
@@ -86,7 +86,7 @@ void amdtest()
   beg_def_por    ("signe"    ,'O');
   beg_def_por    ("np"       ,'O');
   beg_def_por    ("ng"       ,'O');
-  //beg_def_por    ("cin"      ,'I');
+  /*beg_def_por    ("cin"      ,'I');*/
   beg_def_por    ("cout"     ,'O');
   beg_def_por    ("y(3:0)"   ,'O');
   beg_def_por    ("vddi"     ,'I');
@@ -293,12 +293,12 @@ void amdtest()
   beh_biterize(befig2);
   savebefig(befig2,0);
   beh_frebefig(befig2);
-  //}}}
+  /*}}}*/
 }
 
 void conflicttest()
 {
-  //{{{
+  /*{{{*/
 #ifdef size
 #undef size
 #endif
@@ -324,7 +324,7 @@ void conflicttest()
   beg_compact();
 
   befig    = beg_get_befig (0);
-  //
+  /**/
   beg_def_befig(namealloc("testconflict2"));
   for (i = 0; i < 128; i ++)
   {
@@ -332,7 +332,7 @@ void conflicttest()
             "(dafi(%d)=0b0 and dinla%d_net202=0b0) or "
             "dinla%d_dinbpdw=0b1",i,
             128,128);
-            //128-i,128-i);
+            /*128-i,128-i);*/
     sprintf(buf[0],"dati(%d)",i);
     beg_def_process (buf[0] ,buf[1],"0b0",0,BEG_REG);
 
@@ -341,20 +341,20 @@ void conflicttest()
             "(dinla%d_dinbpup=0b0 and dinla%d_net202=0b0) or "
             "dinla%d_dinipup=0b0",i,
             128,128,128,128);
-            //128-i,128-i,128-i,128-i);
+            /*128-i,128-i,128-i,128-i);*/
     sprintf(buf[0],"dati(%d)",i);
     beg_def_process (buf[0] ,buf[1],"0b0",0,BEG_REG|BEG_PRE);
   }
   beg_sort();
   beg_compact();
   fig       = beg_get_befig(0);
-//  savebefig(fig,0);
+/*  savebefig(fig,0);*/
 
   beg_eat_figure(befig);
 
   fig       = beg_get_befig(0);
   savebefig(fig,0);
-  //}}}
+  /*}}}*/
 }
 
 /*{{{                                                                       */
@@ -400,8 +400,8 @@ int main(int argc, char **argv)
   
   switch (test)
   {
-    case 1 : // test -1- parser d'expression
-         //{{{
+    case 1 : /* test -1- parser d'expression*/
+         /*{{{*/
          str    = namealloc("je(3 downto 1) & xab & (('1'&'0') "
                             "and test(1 downto 0) ) & (le xor premier)");
          printf("Test de : \"%s\"\n",str);
@@ -423,15 +423,15 @@ int main(int argc, char **argv)
          printf("Test de : \"%s\"\n",str);
          abl    = beg_genStr2Abl(str);
          displayExpr(abl);
-         //}}}
-    case 2 : // test -2- inversion d'expression
-         //{{{
+         /*}}}*/
+    case 2 : /* test -2- inversion d'expression*/
+         /*{{{*/
          invertVectAbl(abl);
          displayExpr(abl);
-         //}}}
+         /*}}}*/
          break;
-    case 3 : // test -3- parser de bit string
-         //{{{
+    case 3 : /* test -3- parser de bit string*/
+         /*{{{*/
          if (!strcmp("\"111101011010001001\"",beg_genBitStr("0O 7_5_3211")))
            printf("OK\n");
          else
@@ -441,10 +441,10 @@ int main(int argc, char **argv)
            printf("OK\n");
          else
            printf("Test FAILED\n");
-         //}}}
+         /*}}}*/
          break;
     case 4 :
-         //{{{
+         /*{{{*/
          abl    = createBitStr(genUBitStr(10));
          printf("abl  :");
          displayExpr(abl);
@@ -487,52 +487,52 @@ int main(int argc, char **argv)
          repToCatVectAbl(abl);
          printf("abl  :");
          displayExpr(abl);
-         //}}}
+         /*}}}*/
          break;
-    case 5 : // test -
-//         //{{{
-//         str    = namealloc("testrigolo2, 1");
-//         str3 = beg_changeName(str,str,"i",0,1);
-//         if (str3)
-//           printf("%s#\n",str3);
-//         else
-//           printf("erreur\n");
-//
-//         str2   = mbkstrdup("testrigolo2, 1");
-//         //         str3 = beg_changeName(str,str2,"i",1,1);
-//         if (str3)
-//           printf("%s#\n",str3);
-//         else
-//           printf("erreur\n");
-//         str2   = namealloc("testrigolo2, 2");
-//         //         str3 = beg_changeName(str,str2,"i",2,1);
-//         if (str3)
-//           printf("%s#\n",str3);
-//         else
-//           printf("erreur\n");
-//         str2   = namealloc("testrigolo1, 3");
-//         //         str3 = beg_changeName(str,str2,"i",3,1);
-//         if (str3)
-//           printf("%s#\n",str3);
-//         else
-//           printf("erreur\n");
-//         str2   = namealloc("testrigolo2, 4");
-//         //         str3 = beg_changeName(str,str2,"i",4,1);
-//         if (str3)
-//           printf("%s#\n",str3);
-//         else
-//           printf("erreur\n");
-//         str2   = namealloc("testrigolo2, 5");
-//         //         str3 = beg_changeName(str,str2,"i",5,1);
-//         if (str3)
-//           printf("%s#\n",str3);
-//         else
-//           printf("erreur\n");
-//         //}}}
-    case 6 : // test -6- generation de beh + driver vectoriel
-         //{{{
+    case 5 : /* test -*/
+/*         //{{{*/
+/*         str    = namealloc("testrigolo2, 1");*/
+/*         str3 = beg_changeName(str,str,"i",0,1);*/
+/*         if (str3)*/
+/*           printf("%s#\n",str3);*/
+/*         else*/
+/*           printf("erreur\n");*/
+/**/
+/*         str2   = mbkstrdup("testrigolo2, 1");*/
+/*         //         str3 = beg_changeName(str,str2,"i",1,1);*/
+/*         if (str3)*/
+/*           printf("%s#\n",str3);*/
+/*         else*/
+/*           printf("erreur\n");*/
+/*         str2   = namealloc("testrigolo2, 2");*/
+/*         //         str3 = beg_changeName(str,str2,"i",2,1);*/
+/*         if (str3)*/
+/*           printf("%s#\n",str3);*/
+/*         else*/
+/*           printf("erreur\n");*/
+/*         str2   = namealloc("testrigolo1, 3");*/
+/*         //         str3 = beg_changeName(str,str2,"i",3,1);*/
+/*         if (str3)*/
+/*           printf("%s#\n",str3);*/
+/*         else*/
+/*           printf("erreur\n");*/
+/*         str2   = namealloc("testrigolo2, 4");*/
+/*         //         str3 = beg_changeName(str,str2,"i",4,1);*/
+/*         if (str3)*/
+/*           printf("%s#\n",str3);*/
+/*         else*/
+/*           printf("erreur\n");*/
+/*         str2   = namealloc("testrigolo2, 5");*/
+/*         //         str3 = beg_changeName(str,str2,"i",5,1);*/
+/*         if (str3)*/
+/*           printf("%s#\n",str3);*/
+/*         else*/
+/*           printf("erreur\n");*/
+/*         //}}}*/
+    case 6 : /* test -6- generation de beh + driver vectoriel*/
+         /*{{{*/
          beg_def_befig("testchip");
-         // test of por
+         /* test of por*/
          beg_def_por  ("tet(1)",'I');
          beg_def_por  ("s"     ,'O');
          beg_def_por  ("a"     ,'I');
@@ -541,14 +541,14 @@ int main(int argc, char **argv)
          beg_def_por  ("z(5:2)",'O');
          beg_def_por  ("y(7:0)",'O');
 
-         // test of assertion
+         /* test of assertion*/
          beg_assertion("ck and ck'event"   ,"horloge stable",'W',"horloge1");
          beg_assertion("ck and ck'stable"   ,"horloge stable",'W',"horloge2");
          beg_assertion("ck and not ck'stable(23)" ,"horloge stable",'W',"horloge3");
          beg_assertion("ck and ck'event and a" ,"horloge stable",'W',"horloge4");
          beg_assertion("a"      ,"horloge stable",'W',"horloge5");
 
-         // test of signal
+         /* test of signal*/
          beg_def_sig  ("b(8)"     ,"r and tet(1)"             ,156);
          beg_def_sig  ("b(2:0)"   ,"0b 011"                   ,156);
          beg_def_sig  ("b(5:3)"   ,"0b 101"                   ,156);
@@ -558,7 +558,7 @@ int main(int argc, char **argv)
          beg_def_sig  ("k"       ,"c(4)"                     ,156);
          beg_def_sig  ("c(3:1)"   ,"(a and r) & '0' & tet(1)" ,254);
 
-         // test of multiplexer
+         /* test of multiplexer*/
          beg_def_mux  ("u"        ,"ab(5:4)"  ,"0b 11"    ,"f and e(4)"   ,26);
          beg_def_mux  ("u"        ,0          ,"0b 01"    ,"c(3) and e(4)",27);
          beg_def_mux  ("u"        ,0          ,"0b 10"    ,"c(3)"         ,23);
@@ -567,7 +567,7 @@ int main(int argc, char **argv)
          beg_def_mux  ("x(5:4)"   ,"ab(5:4)"  ,"0b 11"    ,"c(3) & e(4)"  ,27);
          beg_def_mux  ("x(5:4)"   ,"ab(5:4)"  ,"default"  ,"b(4) & e(4)"  ,28);
 
-         // test of process
+         /* test of process*/
          beg_def_process("r"        ,"not ck and ck'event and cm"   ,"c(3) and e(4)",26,BEG_REG);
 
          beg_def_process("r2"       ,"cm"       ,"c(3) and e(4)",26,BEG_REG);
@@ -589,37 +589,37 @@ int main(int argc, char **argv)
          beg_def_process("y(5:4)"   ,"a & not a"        ,"b(4) & e(4)"  ,25,BEG_BUS);
          beg_def_process("y(5:4)"   ,"^2 a"             ,"d(4) & e(4)"  ,26,BEG_BUS);
 
-         // test of preconditionned bus
+         /* test of preconditionned bus*/
          beg_def_process("z(5:4)"   ,"not (a) & a"      ,"c(3) & e(4)"  ,27,BEG_BUS|BEG_PRE);
          beg_def_process("z(5:4)"   ,"f & not a"        ,"b(4) & e(4)"  ,28,BEG_BUS|BEG_PRE);
          beg_def_process("z(5:4)"   ,"^2 a"             ,"d(4) & e(4)"  ,29,BEG_BUS|BEG_PRE);
 
-         // test of loop
+         /* test of loop*/
          beg_def_loop   ("n(i)"     ,"com(i)","g(i)" ,"i(0:8)"     ,33,0);
          beg_def_loop   ("n(i)"     ,"m(i)"  ,"g(i)" ,"i(0:8)"     ,33,0);
          beg_def_loop   ("n(i)"     ,"g(i)"  ,"m(i)" ,"i(0:8)"     ,33,0);
 
-         // test of mixed loop and non loop
+         /* test of mixed loop and non loop*/
          beg_def_process("nn(9)"    ,"g(4)"             ,"m(4)"      ,33,BEG_REG);
          beg_def_loop   ("nn(9)"    ,"ck and ck'event and not com(j)","d(j)","j(0:8)",33,BEG_REG);
          beg_def_process("nn(9)"    ,"g(4)"             ,"m(4)"      ,33,BEG_REG);
 
-         // test of mulitple loop
+         /* test of mulitple loop*/
          beg_def_loop   ("m(i)"     ,"ck and ck'event and com(i)"    ,"g(i)","i(0:8)",33,BEG_REG);
          beg_def_loop   ("m(i)"     ,"ck and ck'event and not com(i)","d(i)","i(0:8)",33,BEG_REG);
          beg_def_loop   ("m(j)"     ,"ck and ck'event and not com(j)","d(j)","j(0:8)",33,BEG_REG);
          beg_def_process("m(9)"     ,"ck and ck'event and not com(9)","d(9)",33,BEG_REG);
 
-         // test of single conditionned by loop
+         /* test of single conditionned by loop*/
          beg_def_loop   ("h"     ,"ck and ck'event and not com(j)","d(j)","j(0:8)",33,BEG_REG);
 
-         // test of vector conditionned by loop
+         /* test of vector conditionned by loop*/
          beg_def_loop   ("nm(9:5)"  ,"not com(j)","nm(9:5)" ,"j(0:8)"   ,33,0);
 
-         // test of biloop
+         /* test of biloop*/
          beg_def_biloop ("o(j+8*i)" ,"ck and ck'event and not com(j)","d(i)","i(9:6)","j(8:0)",33,BEG_REG);
 
-         // test of loop detection
+         /* test of loop detection*/
          beg_def_process("ld(2)"    ,"ck and ck'event and g(3)","m(2)"  ,33,BEG_REG);
          beg_def_process("ld(3)"    ,"ck and ck'event and g(4)","m(3)" ,33,BEG_REG);
          beg_def_process("ld(4)"    ,"ck and ck'event and g(5)","m(4)" ,36,BEG_REG);
@@ -649,9 +649,9 @@ int main(int argc, char **argv)
          beg_def_por    ("se 1"  ,'O');
          beg_def_por    ("se 2"  ,'O');
 
-         //obj = beg_getObjByName(befig,namealloc("lv"),str);
-         //printf("test getObjByName %s %d:%d\n",beg_getName(obj),beg_getLeft(obj),
-         //       beg_getRight(obj));
+         /*obj = beg_getObjByName(befig,namealloc("lv"),str);*/
+         /*printf("test getObjByName %s %d:%d\n",beg_getName(obj),beg_getLeft(obj),*/
+         /*       beg_getRight(obj));*/
 
          beg_eat_figure (befig);
 
@@ -662,33 +662,33 @@ int main(int argc, char **argv)
          savebefig      (befig,0);
 
          dotest         ();
-         //}}}
+         /*}}}*/
          break;
-    case 7 : // perform addacu test
+    case 7 : /* perform addacu test*/
          addaccutest();
          break;
 
-    case 8 : // perform amd test
+    case 8 : /* perform amd test*/
          amdtest();
          break;
-    case 9 : // perform addacu test
-         //{{{
+    case 9 : /* perform addacu test*/
+         /*{{{*/
          beg_def_befig ("biloop");
 
-         //beg_def_por  ("m(0:3)"   ,'I');
-         //beg_def_por  ("b(0:3)"   ,'I');
+         /*beg_def_por  ("m(0:3)"   ,'I');*/
+         /*beg_def_por  ("b(0:3)"   ,'I');*/
 
 
-         //beg_def_process ("m(0)" ,"b(0)"   ,"0b1" ,0,BEG_REG);
+         /*beg_def_process ("m(0)" ,"b(0)"   ,"0b1" ,0,BEG_REG);*/
          beg_def_loop ("m(i)"     ,"c(i)"   ,"0b1" ,"i(0:7)",33,BEG_REG);
 
-         //beg_def_process ("m(1)" ,"b(1)"   ,"0b1" ,0,BEG_REG);
+         /*beg_def_process ("m(1)" ,"b(1)"   ,"0b1" ,0,BEG_REG);*/
          beg_def_loop ("m(i+8)" ,"c(i+8)"   ,"0b1" ,"i(0:7)",33,BEG_REG);
 
-         //beg_def_process ("m(2)" ,"b(2)"   ,"0b1" ,0,BEG_REG);
+         /*beg_def_process ("m(2)" ,"b(2)"   ,"0b1" ,0,BEG_REG);*/
          beg_def_loop ("m(i+16)" ,"c(i+16)"   ,"0b1" ,"i(0:7)",33,BEG_REG);
 
-         //beg_def_process ("m(3)" ,"b(3)"   ,"0b1" ,0,BEG_REG);
+         /*beg_def_process ("m(3)" ,"b(3)"   ,"0b1" ,0,BEG_REG);*/
          beg_def_loop ("m(i+24)" ,"c(i+24)"   ,"0b1" ,"i(0:7)",33,BEG_REG);
 
          beg_sort();
@@ -697,15 +697,15 @@ int main(int argc, char **argv)
          befig = beg_get_befig (0);
          savebefig     (befig,0);
 
-         //}}}
+         /*}}}*/
          break;
     case 10 :
-         //{{{
+         /*{{{*/
          beg_testCalcRange();
-         //}}}
+         /*}}}*/
          break;
     case 11 :
-         //{{{
+         /*{{{*/
          {
 #ifdef size
 #undef size
@@ -749,10 +749,10 @@ int main(int argc, char **argv)
            befig = beg_get_befig (0);
            savebefig     (befig,0);
          }
-         //}}}
+         /*}}}*/
          break;
     case 12 :
-         //{{{
+         /*{{{*/
          {
            int            i,j;
 #ifdef size
@@ -796,7 +796,7 @@ int main(int argc, char **argv)
            befig    = beg_get_befig (0);
            savebefig(befig,0);
          }
-         //}}}
+         /*}}}*/
          break;
     case 13 :
          conflicttest();
@@ -848,7 +848,7 @@ int main(int argc, char **argv)
            beg_sort();
            beg_compact();
            befig    = beg_get_befig (0);
-           //savebefig(befig,0);
+           /*savebefig(befig,0);*/
            list     = addchain(list,befig);
          }
          /* */
@@ -878,7 +878,7 @@ int main(int argc, char **argv)
          beg_sort();
          beg_compact();
          befig      = beg_get_befig (0);
-         //savebefig(befig,0);
+         /*savebefig(befig,0);*/
          
          beg_def_befig  ("por_pb_top");
          for (; list; list = delchain(list,list))
@@ -887,7 +887,7 @@ int main(int argc, char **argv)
          beg_sort();
          beg_compact();
          befig2     = beg_get_befig (0);
-         //savebefig(befig2,0);
+         /*savebefig(befig2,0);*/
          
          beg_eat_figure (befig);
          befig      = beg_get_befig (0);
@@ -919,8 +919,8 @@ int main(int argc, char **argv)
          break;
     case 18:
          /*{{{                                                                       */
-         // bug concerning hasardous loop given by driver
-         //
+         /* bug concerning hasardous loop given by driver*/
+         /**/
          /*-------------------------*/
          printf("Phase 1\n");
          printf("    Constructing the Main figure");

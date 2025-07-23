@@ -32,7 +32,7 @@ void sim_parse_eldo_chi(char *filename, char *argv[], int nbx, int nby, double *
   file = fopen( filename, "r" );
   if( !file ) {
     avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, filename);
-    //fprintf( stderr, "\nSIM error : can't open file %s\n", filename );
+    /*fprintf( stderr, "\nSIM error : can't open file %s\n", filename );*/
     EXIT(1);
   }
  
@@ -56,7 +56,7 @@ void sim_parse_eldo_chi(char *filename, char *argv[], int nbx, int nby, double *
           for (i=0; i<nby; i++) cur_data[i]=0;
           lasty=0;
 
-          // recherche du nom
+          /* recherche du nom*/
           strcpy( titleline, prevline );
           ret=strstr(prevline, "("); 
 
@@ -67,7 +67,7 @@ void sim_parse_eldo_chi(char *filename, char *argv[], int nbx, int nby, double *
             }
           }
 
-          // contruction du tableau de valeurs
+          /* contruction du tableau de valeurs*/
           while ((ret=fgets( buffer, SIMBUFSIZE, file ))!=NULL && strcmp(buffer,"Y\n")!=0)
             {
               if (sscanf(buffer
@@ -84,7 +84,7 @@ void sim_parse_eldo_chi(char *filename, char *argv[], int nbx, int nby, double *
               while (lasty<nby)
                 cur_data[lasty]=cur_data[lasty-1];
             }
-          // recherche d'un eventuel nom a la fin du tableau
+          /* recherche d'un eventuel nom a la fin du tableau*/
           if (ret!=NULL && fgets( buffer, SIMBUFSIZE, file )!=NULL)
             {
               if (sscanf(buffer, "1: V(%s", tm)==1) {
@@ -98,7 +98,7 @@ void sim_parse_eldo_chi(char *filename, char *argv[], int nbx, int nby, double *
               if (sscanf(buffer, "1: %s", tm)==1) strcpy(cur_name,tm);
             }
 
-          // recherche de l'entree de la variable
+          /* recherche de l'entree de la variable*/
           for (i=0; i<nbx && strcasecmp(argv[i], cur_name)!=0; i++) ;
           if (i<nbx)
             {

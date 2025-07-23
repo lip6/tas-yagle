@@ -59,5 +59,5 @@ extern int Exp_VHDL_Undef();
 
 extern int __Count_Vars_Exp_VHDL(tree_list *tree);
 
-// return the list of variables in an expression
+/* return the list of variables in an expression*/
 extern chain_list *GetnameS_Exp_VHDL(tree_list *tree);

@@ -301,7 +301,7 @@ CallbackFullExtract(MyWidget, ClientData, CallData)
       XyagFigureCgv = (cgvfig_list *)OPEN_STACK->DATA;
       xyagRetreiveState();
       XyagChangeTopLevelTitle(XyagFigureCgv->NAME);
-//      XyagInitializeZoom();
+/*      XyagInitializeZoom();*/
 
       XyagDisplayFigure(0, 0, XyagGraphicDx, XyagGraphicDy);
       
@@ -355,7 +355,7 @@ CallbackPreviousExtract(MyWidget, ClientData, CallData)
       XyagFigureCgv = (cgvfig_list *)OPEN_STACK->DATA;
       xyagRetreiveState();
       XyagChangeTopLevelTitle(XyagFigureCgv->NAME);
-//      XyagInitializeZoom();
+/*      XyagInitializeZoom();*/
 
       XyagDisplayFigure(0, 0, XyagGraphicDx, XyagGraphicDy);
       

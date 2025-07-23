@@ -31,7 +31,7 @@
 #include "tma_API.h"
 #include "../ttv/ttv_API_LOCAL.h"
 #include "../ttv/ttv_API.h"
-//#include "tma_API_blackbox.h"
+/*#include "tma_API_blackbox.h"*/
 
 /**********************************************************/
 
@@ -58,7 +58,7 @@ BehavioralFigure *beh_getbefig (char *name)
     }
 
     avt_errmsg(TMA_API_ERRMSG, "001", AVT_WARNING, beh_name);
-//    fprintf (stderr, "Warning: Unable to get behavioral figure for  '%s'\n", beh_name);
+/*    fprintf (stderr, "Warning: Unable to get behavioral figure for  '%s'\n", beh_name);*/
     return NULL;
 }
 
@@ -83,7 +83,7 @@ TimingFigure *tma_abstract_old (TimingFigure *fig, BehavioralFigure *befig)
     tma_DetectClocksFromBeh (fig, befig);
     ttv_init_stm(fig);
     blackbox = tma_CreateBlackBox (fig, namealloc ("avt_bkbox"));
-    //blackbox = tma_APIBlackBox (fig, namealloc ("avt_bkbox"));
+    /*blackbox = tma_APIBlackBox (fig, namealloc ("avt_bkbox"));*/
     tma_AddInsertDelays (blackbox, fig);
     tma_UpdateSetReset (blackbox, befig);
 
@@ -108,7 +108,7 @@ TimingFigure *tma_DuplicateInterface (TimingFigure *fig, char *newname, chain_li
       EXIT (1);
 #endif
     figname = fig->INFO->FIGNAME;
-//    sprintf (buf, "%s_blackbox", figname);
+/*    sprintf (buf, "%s_blackbox", figname);*/
     blackboxname = namealloc (newname);
 
     blackbox = tma_DupTtvFigHeader (blackboxname, fig);

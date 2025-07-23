@@ -29,10 +29,7 @@ static char     MenuBuffer[MENU_BUFFER_SIZE];
 |                       XyagBuildMenus                        |
 \------------------------------------------------------------*/
 
-void 
-XyagBuildMenus(Father, Menu)
-    Widget          Father;
-    XyagMenuItem   *Menu;
+void XyagBuildMenus( Widget Father, XyagMenuItem *Menu )
 {
 
     Widget          Button;
@@ -65,7 +62,7 @@ XyagBuildMenus(Father, Menu)
         }
 
         if (Menu[Counter].CALLBACK != NULL) {
-            XtAddCallback(Button, XmNactivateCallback, Menu[Counter].CALLBACK, Menu[Counter].CALLDATA);
+            XtAddCallback(Button, XmNactivateCallback, (XtCallbackProc)Menu[Counter].CALLBACK, Menu[Counter].CALLDATA);
         }
 
         if (Menu[Counter].HELP == True) {

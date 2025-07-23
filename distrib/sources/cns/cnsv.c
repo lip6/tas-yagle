@@ -28,9 +28,9 @@
 /* CNS environment variables */
 
 char           *CNS_VERSION = NULL;
-//int             CNS_DRIVE_NORMAL = 0;
-//int             CNS_DRIVE_VERBOSE = 0;
-//int             CNS_DRIVE_FULL = 0;
+/*int             CNS_DRIVE_NORMAL = 0;*/
+/*int             CNS_DRIVE_VERBOSE = 0;*/
+/*int             CNS_DRIVE_FULL = 0;*/
 int             CNS_TRACE_MODE = 0;
 int             CNS_DEBUG_MODE = 0;
 int             CNS_VIEW_LEVEL = 0;

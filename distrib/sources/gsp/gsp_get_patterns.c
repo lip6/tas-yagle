@@ -99,14 +99,14 @@ ptype_list *gsp_verif_pat (cnsfig_list *cf, lofig_list *fig,ptype_list *patterns
         if ((ls=mbk_quickly_getlosigbyname(fig, (char *)ptype->DATA))!=NULL)
           {
             osig=efg_get_org_sig(ls);
-            //if ((orgname=efg_get_origsigname(ls))==NULL) orgname=getsigname(ls);
+            /*if ((orgname=efg_get_origsigname(ls))==NULL) orgname=getsigname(ls);*/
             cn=efg_getcone(osig);
-//            cn=getcone(cf, 0, orgname);
+/*            cn=getcone(cf, 0, orgname);*/
             if (cn!=NULL)
               {
                 assic=addptype(assic,(long)ptype->DATA,cn);
                 cn->USER=addptype(cn->USER, EFG_CONE_STUCK_GSP, (ptype->TYPE==GSP_STUCK_ONE)?(void *)1:(void *)0);
-//                cn->XM=(ptype->TYPE==GSP_STUCK_ONE)?1:0;
+/*                cn->XM=(ptype->TYPE==GSP_STUCK_ONE)?1:0;*/
                 err=0;
                 avt_log(LOGGSP,2,"gsp_vefif_pat : Stuck %s to %d deleted..., initial condition used instead\n",
                         cn->NAME/*(char*)ptype->DATA*/, ptype->TYPE==GSP_STUCK_ONE?1:0);
@@ -233,7 +233,7 @@ void gsp_traversecones(ptcone,depth)
 
   depth++;
   ci=gsp_get_cone_info(ptcone);
-  //    ptuser = getptype(ptcone->USER, GSP_CONE_NUMBER);
+  /*    ptuser = getptype(ptcone->USER, GSP_CONE_NUMBER);*/
   if (ci->Date == 0)
     ci->Date = depth;
   avt_log(LOGGSP,2,"traversecone %3ld] %s\n",(long)ptuser->DATA,ptcone->NAME);
@@ -275,7 +275,7 @@ void gsp_new_numbercones (figname,ptconelist)
         ci->Date=number;
         ci->MinDate=number;
       }
-    //    ptcone->USER = addptype(ptcone->USER, GSP_CONE_NUMBER, (void*)number);
+    /*    ptcone->USER = addptype(ptcone->USER, GSP_CONE_NUMBER, (void*)number);*/
     avt_log(LOGGSP,2,"New cone '%s' %s%s (number=%ld)\n",
             ptcone->NAME,!efg_test_signal_flags(ptlosig, EFG_SIG_SET_OUTPATH)?"+":"",gsp_FindSigSlope(ptlosig)?"R":"F",number) ;
   }
@@ -485,7 +485,7 @@ pNode gsp_SetConstraints (pCircuit ptconecct,chain_list *bddchainState,chain_lis
   avt_log(LOGGSP,2,"==== Constraints application ====\n");
   for (chain = bddchainState ; chain ; chain=chain->NEXT) {
     Tf = (pNode)chain->DATA;
-    Ti = Tf; // this input (on path) must be stable
+    Ti = Tf; /* this input (on path) must be stable*/
       
     ic = constraintBdd (ic,Ti) ;
     fc = constraintBdd (fc,Tf) ;
@@ -721,7 +721,7 @@ ptype_list *gsp_treat_switch ( chain_list *detect_switch,
       oppsig = efg_getlosigcone (opposite_switch_cmd);
     }
     
-    // si la commande du switch n est pas un signal du chemin alors on continue...
+    /* si la commande du switch n est pas un signal du chemin alors on continue...*/
     if  ( oppsig && !getptype (oppsig->USER,EFG_SIG_SET) ) {
       cmd = getsigname(sig);
       oppcmd = getsigname(oppsig);
@@ -934,12 +934,12 @@ losig_list *gsp_GetOppositeSwitchCommandSignal(cone_list *ptcone, char *name)
 static int checkoutofpathsig_input(losig_list *input, gsp_cone_info *ci, int min, int max)
 {
   if (ci==NULL) return 0;
-  if (!efg_test_signal_flags(input, EFG_SIG_SET_OUTPATH)) return 0; // do nothing
+  if (!efg_test_signal_flags(input, EFG_SIG_SET_OUTPATH)) return 0; /* do nothing*/
   if (min==-1 || max==-1) return 0;
   if (ci->Date<min || max<ci->MinDate)
     {
-      if (ci->Date<min) return 1; // entree plus rapide, utiliser l'etat final
-      else return -1; // entree plus lente, utiliser l'etat initial
+      if (ci->Date<min) return 1; /* entree plus rapide, utiliser l'etat final*/
+      else return -1; /* entree plus lente, utiliser l'etat initial*/
     }
   else
     return 0;
@@ -1027,7 +1027,7 @@ losig_list *gsp_FindSimpleCorrelationForToBeStuckConnectors(cone_list *cone,int 
   if ( depth == maxdepth ) return NULL;
   if ((cone->TECTYPE & CNS_DUAL_CMOS) == CNS_DUAL_CMOS && cone->INCONE!=NULL && cone->INCONE->NEXT==NULL)
     {
-      // inverseur
+      /* inverseur*/
       *tog=((*tog)+1) & 1;
       ptinedge=cone->INCONE;
       if ((ptinedge->TYPE & CNS_EXT) == 0)
@@ -1286,7 +1286,7 @@ static int gsp_checkfulldatawrite(cone_list  *ptcone)
       if ((ptinedge->TYPE & CNS_EXT) != 0) continue;
       if ((ptinedge->TYPE & CNS_COMMAND) != 0) continue;
       if ((ptinedge->TYPE & CNS_MEMSYM) != 0) continue;
-      // une data
+      /* une data*/
       ptinputcone = ptinedge->UEDGE.CONE;
       sig = efg_getlosigcone(ptinputcone) ;
       if ((getptype(sig->USER,EFG_SIG_SET)!=NULL || 
@@ -1315,7 +1315,7 @@ static int gsp_coneatonestep(cone_list *ptcone, cone_list *input)
         if ((ptinedge->TYPE & CNS_FEEDBACK) != 0) continue;
         if ((ptinedge->TYPE & CNS_EXT) != 0) continue;
         if ((ptinedge->TYPE & CNS_MEMSYM) != 0) continue;
-        // une data
+        /* une data*/
         ptinputcone = ptinedge->UEDGE.CONE;
         if (ptinputcone==input) return 1;
       }
@@ -1349,7 +1349,7 @@ void gsp_applystucks(pNode *condition, ptype_list *switchcmd, pCircuit ptconecct
 
       while (cmdchain!=NULL)
       {
-        // filter with command state          
+        /* filter with command state          */
         cmdname=getsigname((losig_list *)cmdchain->DATA);
         if ( cmdchain->TYPE!=0)
           ablcst = createAtom_no_NA( cmdname ) ;
@@ -1399,8 +1399,8 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
   ptype_list *cmdchain=NULL ;
   chain_list *losigchain = NULL, *after_current_cone_losigchain=NULL ;
   ptype_list *out_of_path_stuck=NULL, *pt;
-  chain_list *bddchainState = NULL ; // contraint a positionner par etat
-  chain_list *bddchainEvent = NULL ; // contraint a positionner par event
+  chain_list *bddchainState = NULL ; /* contraint a positionner par etat*/
+  chain_list *bddchainEvent = NULL ; /* contraint a positionner par event*/
   chain_list *res_abl = NULL ;
   chain_list *cone_outpath = NULL ;
   chain_list *exp_bdd = NULL ;     /* abl expansees des sup des cone_outpath */
@@ -1565,7 +1565,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
             last_cone_number_min=last_cone_number_max=-1;
             ptpathsig = locon->SIG;
           }
-          if ( locon->TYPE == 'C' ) {// connector from gns instances
+          if ( locon->TYPE == 'C' ) {/* connector from gns instances*/
             if ( efg_sig_is_onpath (locon->SIG,figname) ) {
               if (!efg_test_signal_flags(locon->SIG, EFG_SIG_SET_OUTPATH))
                 {
@@ -1584,7 +1584,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
         }
         ptinputcone = ptinedge->UEDGE.CONE;
         if((ptinputcone->TECTYPE & CNS_ZERO)==CNS_ZERO || (ptinputcone->TECTYPE & CNS_ONE)==CNS_ONE) continue;
-        // Traitement des latchs 
+        /* Traitement des latchs */
         if ( (ptinedge->TYPE & CNS_COMMAND) == CNS_COMMAND && ptinputcone->NAME==cone_ci->cmd) {
           int tog, dtog=0;
           if ( (cone_ci->cmd_state & EFG_SPISIG_CMDDIR_MASK) == EFG_SPISIG_CMDDIR_MASK)
@@ -1727,7 +1727,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
                 else indep_var++;
               }
             }
-            else// if ((ptcone->TYPE & CNS_PRECHARGE)==CNS_PRECHARGE)
+            else/* if ((ptcone->TYPE & CNS_PRECHARGE)==CNS_PRECHARGE)*/
               {
                 int tog=0;
                 losig_list *lsigd;
@@ -1750,7 +1750,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
         }
       }
 
-      // correction
+      /* correction*/
       if (ptpathsig!=NULL && getchain(losigchain, ptpathsig)==NULL)
         {
           after_current_cone_losigchain=delchaindata(after_current_cone_losigchain,  ptpathsig);
@@ -1771,7 +1771,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
     
       gsp_constraint_abl_with_stuck( ptcone, &sup_abl, &sdn_abl );
      
-      // switch treatment ...
+      /* switch treatment ...*/
       if ( detect_switch ) {
         switchcmd = gsp_treat_switch ( detect_switch, &sup_abl, &sdn_abl);
         for (pt=switchcmd; pt!=NULL; pt=pt->NEXT)
@@ -2104,7 +2104,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
           freeExpr(tmpabl);
         }
       }
-      // signaux plus tardifs, on prend l'etat initial
+      /* signaux plus tardifs, on prend l'etat initial*/
       for (chain = after_current_cone_losigchain ; chain ; chain = chain->NEXT) {
         done = 0;
         ptpathsig = (losig_list*)chain->DATA ;
@@ -2236,7 +2236,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
       else
         {
           avt_log(LOGGSP,2,"Unknown transition for out signal %s\n",ptcone->NAME) ;
-          if (!GSP_QUIET_MODE) // fprintf(stderr,"[GSP ERR] Unknown transition for out signal %s\n",ptcone->NAME) ;
+          if (!GSP_QUIET_MODE) /* fprintf(stderr,"[GSP ERR] Unknown transition for out signal %s\n",ptcone->NAME) ;*/
             avt_errmsg(GSP_ERRMSG, "003", AVT_ERROR, ptcone->NAME);
         
           freechain(losigchain); freechain(after_current_cone_losigchain);
@@ -2257,11 +2257,11 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
         int j=0, donothing=0;
         char *order;
         
-        if ((ptcone->TYPE & CNS_MEMSYM)!=0) order="ch"; // conflictuel prioritaire puis hz
-        else if (latch) order="b"; // "hc"; // hz puis conflictuel
+        if ((ptcone->TYPE & CNS_MEMSYM)!=0) order="ch"; /* conflictuel prioritaire puis hz*/
+        else if (latch) order="b"; /* "hc"; // hz puis conflictuel*/
         else
         {
-          order="h"; // hz only
+          order="h"; /* hz only*/
           if (checkmode==0 && nbatonestep>0)
             donothing=1;
         }
@@ -2312,9 +2312,9 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
         
       }
       else {
-        // la transition de sortie part de l etat HZ 
-        // on ne peut pas partir d'un etat HZ car on
-        // ne pourrait plus estime la propagation  
+        /* la transition de sortie part de l etat HZ */
+        /* on ne peut pas partir d'un etat HZ car on*/
+        /* ne pourrait plus estime la propagation  */
         avt_log(LOGGSP,2,"\n###=> HZ detected but threated if not...\n") ;
         condition = gsp_SetConstraints (ptconecct,bddchainState,bddchainEvent,rup,rdn,outtransition,'N',&ic,&fc) ;
         gsp_applystucks(&condition, switchcmd, ptconecct, gsp_simple_correlation_list, &rup, &rdn, (sigendflag && latch)?1:0, cmdchain, loglvl1, disacmd);
@@ -2337,7 +2337,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
             freeExpr(ptuser1->DATA); 
           }
         freeptype(var2exp);
-        //freechain(exp_bdd) ;
+        /*freechain(exp_bdd) ;*/
       }
 
       if ( equalBdd( condition ,BDD_zero) != 1 ) {
@@ -2362,7 +2362,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
 /*
           if (cone_ci->cmd)
             {
-              // filter with command state
+              |* filter with command state*|
               if ( (cone_ci->cmd_state & EFG_SPISIG_CMDDIR_MASK) == EFG_SPISIG_CMDDIR_MASK)
                 ablcst = createAtom_no_NA( cone_ci->cmd ) ;
               else
@@ -2405,7 +2405,7 @@ chain_list * gsp_calcconetransfer (char *figname,cone_list  *ptcone,char corner,
                     freeExpr(ablcst);
                     condition = constraintBdd (condition,cst) ;
                   }
-                // delete the cmd constraint
+                /* delete the cmd constraint*/
                 if ( stuck == GSP_STUCK_ONE )
                   ablcst = createAtom_no_NA( cmdname ) ;
                 else
@@ -2464,7 +2464,7 @@ static int getsoluce(pNode bdd, pCircuit circuit, ptype_list *start, chain_list 
       cnt++;
       if (start!=NULL)
         {
-          // gestion du corner
+          /* gestion du corner*/
           if (*lst==NULL)
             *lst=addchain(*lst, dupptypelst(start));
           else
@@ -2480,7 +2480,7 @@ static int getsoluce(pNode bdd, pCircuit circuit, ptype_list *start, chain_list 
                   *lst=addchain(NULL, dupptypelst(start));
                 }
             }
-          // --
+          /* --*/
         }
     }
   else if (equalBdd(bdd,BDD_zero) != 1)
@@ -2562,7 +2562,7 @@ ptype_list *gsp_SpiceFindInput (ptype_list *ptype,pNode bdd,pCircuit circuit,cha
     if (nbsol!=NULL) *nbsol=1;
     return ptype;
   }
-  else if (equalBdd(bdd,BDD_zero) == 1) { // cas rajoute 27/10/2005, est-ce la bonne action?
+  else if (equalBdd(bdd,BDD_zero) == 1) { /* cas rajoute 27/10/2005, est-ce la bonne action?*/
     return ptype;
   }
 
@@ -2570,7 +2570,7 @@ ptype_list *gsp_SpiceFindInput (ptype_list *ptype,pNode bdd,pCircuit circuit,cha
     return gsp_SpiceFindInput_allsol(bdd, circuit, corner,nbsol);
   
   name = searchIndexCct (circuit,bdd->index) ;
-  // verif if deja stucke
+  /* verif if deja stucke*/
   for ( ptptype = ptype ; ptptype ; ptptype=ptptype->NEXT ) {
     if ( ptptype->DATA == name ) {
       already_set = 1;
@@ -2788,7 +2788,7 @@ ptype_list *gsp_spisetinputs_from_cone(char *figname,chain_list *ptconelist,char
 
   ptcct = gsp_buildspicecct(ptconelist);
 
-  // compute initial state for out of path cones
+  /* compute initial state for out of path cones*/
   for (ptchain = ptconelist; ptchain; ptchain = ptchain->NEXT) 
     {
       cone=(cone_list *)ptchain->DATA;
@@ -2988,7 +2988,7 @@ chain_list *gsp_fix_unset_input2zero (lofig_list *figext,ptype_list **constraint
   for (locon = figext->LOCON ; locon ; locon=locon->NEXT) {
     ok = 2;
     if (getptype (locon->SIG->USER,EFG_SIG_SET) != NULL) continue;
-//    if ((orgname=efg_get_origsigname(locon->SIG))==NULL) orgname=getsigname(locon->SIG);
+/*    if ((orgname=efg_get_origsigname(locon->SIG))==NULL) orgname=getsigname(locon->SIG);*/
     osig=efg_get_org_sig(locon->SIG);
     if ((cone=efg_getcone(osig))!=NULL/* || (cone=getcone(cnsfig, 0, orgname))!=NULL*/)
       {
@@ -3029,10 +3029,10 @@ chain_list *gsp_fix_unset_input2zero (lofig_list *figext,ptype_list **constraint
             ok = 0;
             break;
           }
-          // added to threat transistor as resistor...
+          /* added to threat transistor as resistor...*/
           origlotrs = efg_get_org_trs ( lotrs );
           if ( origlotrs )
-            // test if the link is resistive...
+            /* test if the link is resistive...*/
             if ( (linktype = getptype ( origlotrs->USER, CNS_LINKTYPE))) {
               if ( ((long)linktype->DATA & CNS_RESIST) == CNS_RESIST ) {
                 if ( MLO_IS_TRANSN (origlotrs->TYPE) ) {
@@ -3372,7 +3372,7 @@ ptype_list *gsp_get_patterns(lofig_list *lofig,cnsfig_list *cnsfig,lofig_list *f
       ins_pat = gsp_merge_all_hz_cst (figext,ins_pat);
     freechain (chaininstance);
   }
-  //globalpat = gsp_ModifCstLst (globalpat,usrlstcst);
+  /*globalpat = gsp_ModifCstLst (globalpat,usrlstcst);*/
   globalpat = gsp_MergeCst (cone_pat,ins_pat);
 
   cl=gsp_build_initial_condition_pattern_hash(globalpat, chaincone, spisig);
@@ -3405,7 +3405,7 @@ ptype_list *gsp_get_patterns(lofig_list *lofig,cnsfig_list *cnsfig,lofig_list *f
       if (getptype(spisignal->SRCSIG->USER, EFG_FORCE_IC)!=NULL) spisignal->ADDIC=1;
     }
 
-  /*    // =====> liberation des differents marquages
+  /*    |* =====> liberation des differents marquages*|
         efg_FreeMarksOnExtFig (figext);
         efg_FreeMarksOnFig (lofig);
         efg_freecontext ();
@@ -3476,7 +3476,7 @@ chain_list *gsp_GetSupFromCone(conelist)
       return NULL;
     }        
     cnsConeFunction_once(ptcone,1);
-    //        cnsConeFunction(ptcone,1);
+    /*        cnsConeFunction(ptcone,1);*/
     ptuser = getptype(ptcone->USER, CNS_UPEXPR);
     if (ptuser != NULL) {
       /* apply bin "and" */

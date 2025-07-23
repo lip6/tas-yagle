@@ -19,7 +19,7 @@ inline void bgl_CheckSize(bgl_expr *me,bgl_expr *you,bgl_bcompcontext *context)
 }
 
 int bgl_compare(int op, bgl_expr *out, bgl_expr *a, bgl_expr *b);
-void bgl_NewSimpleOperation(bgl_expr *out, short oper, bgl_expr *expr1); // NOT or -1=buff
+void bgl_NewSimpleOperation(bgl_expr *out, short oper, bgl_expr *expr1); /* NOT or -1=buff*/
 int countchain(chain_list *doubl);
 int CheckSize(chain_list *cl, int skeepfirst);
 

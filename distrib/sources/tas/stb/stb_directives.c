@@ -86,8 +86,8 @@ static int stb_isafter(stbfig_list *sf, stbnode *node, char phase)
   long orig, dest;
   char p;
 
-  // pas de ckindex sur les noeuds intermediaires, j'utilise ctkckindex
-  // on fait + confiance au ctkckindex: les 2 events des commandes ont la meme phase sinon
+  /* pas de ckindex sur les noeuds intermediaires, j'utilise ctkckindex*/
+  /* on fait + confiance au ctkckindex: les 2 events des commandes ont la meme phase sinon*/
   if ((p=stb_directive_getphase(node))!=STB_NO_INDEX)
     {
       if (stb_cmpphase(sf,p,phase)>=0/*p>=phase*/) return 1;
@@ -222,7 +222,7 @@ stbdebug_list *stb_calc_directive_setuphold(stbfig_list *stbfig, stbdebug_list *
   stbpair_list *STBHZ[2][256], **pSTBHZ;
   inffig_list *ifl;
   ttvsig_list *sig;
-  // ------------
+  /* ------------*/
 
   ttv_directive *sd;
   long setup, hold;
@@ -397,7 +397,7 @@ stbdebug_list *stb_calc_directive_setuphold(stbfig_list *stbfig, stbdebug_list *
                                             break;
                                           }
                                     }
-                                  // IIII
+                                  /* IIII*/
                                   for( j=0; j<2; j++)
                                     for (i=0; i<node->NBINDEX; i++)
                                       {
@@ -410,7 +410,7 @@ stbdebug_list *stb_calc_directive_setuphold(stbfig_list *stbfig, stbdebug_list *
                                   else
                                     stb_transferstbline (stbfig, nodex->EVENT, nodex , STBTAB[diff], STBHZ[diff], 0, 1, NULL, inputck, 1, (nodex->FLAG & STB_NODE_STABCORRECT)!=0?STB_TRANSFERT_CORRECTION:0) ;
 
-                                  // OOOO
+                                  /* OOOO*/
                                   for(i = 0 ; i < (int)stbfig->PHASENUMBER ; i++)
                                     {
                                       phaseused[i]=0;
@@ -471,7 +471,7 @@ stbdebug_list *stb_calc_directive_setuphold(stbfig_list *stbfig, stbdebug_list *
                                       delaymin = delaymax = 0 ;
                                     }
 
-                                  // falseslack check
+                                  /* falseslack check*/
                                   if (delay!=NULL && ifl!=NULL && ifl->LOADED.INF_FALSESLACK!=NULL && (flags & STB_DEBUG_DIRECTIVE_DELAYMODE)==0)
                                     {
                                       ttvevent_list *startclock, *endclocksetup, *endclockhold;
@@ -588,7 +588,7 @@ stbdebug_list *stb_calc_directive_setuphold(stbfig_list *stbfig, stbdebug_list *
                                                       period=stb_getperiod(stbfig, id);
                                                       if ((flags & STB_DEBUG_DIRECTIVE_DELAYMODE)==0 && stb_cmpphase(stbfig, i, id)>0/*i>id*/)
                                                         {
-                                                          //                                                mperiod=period;
+                                                          /*                                                mperiod=period;*/
                                                           mperiod= stb_synchronize_slopes(stbfig, i, id, period, 0);
                                                         }
                                                       else 
@@ -671,7 +671,7 @@ stbdebug_list *stb_calc_directive_setuphold(stbfig_list *stbfig, stbdebug_list *
                                   hold=worsthold;
                                   thisdetail->setup.VALUE=setup;
                                   thisdetail->hold.VALUE=hold;
-                                  //stb_assign_operations(outdir, detail, datamoved, EventPeriodeHold);
+                                  /*stb_assign_operations(outdir, detail, datamoved, EventPeriodeHold);*/
                                   stb_add_infos(stbfig, event, outdir, detail, inputck, sig1event, useddelay);
 
                                   if (falseslack_setup[outdir]) setup=thisdetail->setup.VALUE=STB_NO_TIME;

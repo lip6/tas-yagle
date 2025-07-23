@@ -30,7 +30,7 @@ XtPointer client_data ;
 XtPointer call_data ;
 {
     printf("Cancel !\n");
-//    XalLeaveLimitedLoop() ;
+/*    XalLeaveLimitedLoop() ;*/
 }
 
 
@@ -97,10 +97,10 @@ char *mess;
 
   if( !XtasStbInProgressWidget )
    {
-//    text = XmStringCreateSimple( "Stability analysis with crosstalk in progress..." ) ;
+/*    text = XmStringCreateSimple( "Stability analysis with crosstalk in progress..." ) ;*/
     text = XmStringCreateSimple( "Analysis in progress..." ) ;
     n = 0 ;
-//    XtSetArg( args[n], XmNtitle, XTAS_NAME" : Stability Analysis " ) ; n++ ;
+/*    XtSetArg( args[n], XmNtitle, XTAS_NAME" : Stability Analysis " ) ; n++ ;*/
     XtSetArg( args[n], XmNtitle, XTAS_NAME" : Analysis " ) ; n++ ;
     XtSetArg( args[n], XmNmessageString, text ) ; n++ ;
     XtSetArg( args[n], XmNwidth, 350) ; n++ ;
@@ -112,7 +112,7 @@ char *mess;
     XtUnmanageChild (XtNameToWidget (XtasStbInProgressWidget,"Cancel"));
     XtUnmanageChild (XtNameToWidget (XtasStbInProgressWidget,"OK"));
     XtUnmanageChild (XmMessageBoxGetChild (XtasStbInProgressWidget,XmDIALOG_SEPARATOR));
-    //XmAddTabGroup( XtasStbInProgressWidget ) ;
+    /*XmAddTabGroup( XtasStbInProgressWidget ) ;*/
     XtAddCallback( XtasStbInProgressWidget, XmNcancelCallback, XtasCancelStbInProgress, (XtPointer)XtasStbInProgressWidget ) ;
     XmStringFree(text);
 
@@ -171,26 +171,26 @@ char *mess;
     XtSetArg( args[n], XmNalignment,        XmALIGNMENT_BEGINNING) ; n++ ;
     XtSetArg( args[n], XmNlabelString,      textItNum       ) ; n++ ;
     XtasStbInProgressItNum = XtCreateManagedWidget( "XtasMainTitles", xmLabelWidgetClass, subform, args, n ) ;
-//    XmStringFree( textItNum ) ;
+/*    XmStringFree( textItNum ) ;*/
 
 /*----------------------------------------------------------------------------------------*/
 /*                              form 2: bar                                               */
 /*----------------------------------------------------------------------------------------*/
  
-//    row = XtVaCreateManagedWidget( "XtasRow", xmRowColumnWidgetClass, form,
-//                                           XmNtopAttachment,   XmATTACH_WIDGET,
-//                                           XmNtopWidget,       frame,
-//                                           XmNtopOffset,       25,   
-//                                           XmNleftAttachment,  XmATTACH_FORM,
-//                                           XmNrightAttachment,  XmATTACH_FORM,
-//                                           XmNbottomAttachment,  XmATTACH_FORM,
-//                                           XmNpacking,         XmPACK_COLUMN,
-//                                           //XmNspacing,         0,
-//                                           //XmNmarginWidth,         0,
-//                                           XmNnumColumns,      2,
-//                                           XmNorientation,     XmVERTICAL,
-//                                           NULL) ;
-//       
+/*    row = XtVaCreateManagedWidget( "XtasRow", xmRowColumnWidgetClass, form,*/
+/*                                           XmNtopAttachment,   XmATTACH_WIDGET,*/
+/*                                           XmNtopWidget,       frame,*/
+/*                                           XmNtopOffset,       25,   */
+/*                                           XmNleftAttachment,  XmATTACH_FORM,*/
+/*                                           XmNrightAttachment,  XmATTACH_FORM,*/
+/*                                           XmNbottomAttachment,  XmATTACH_FORM,*/
+/*                                           XmNpacking,         XmPACK_COLUMN,*/
+/*                                           //XmNspacing,         0,*/
+/*                                           //XmNmarginWidth,         0,*/
+/*                                           XmNnumColumns,      2,*/
+/*                                           XmNorientation,     XmVERTICAL,*/
+/*                                           NULL) ;*/
+/*       */
     n = 0 ;
     XtSetArg( args[n], XmNborderWidth,      0                   ) ; n++ ;
     XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET     ) ; n++ ;
@@ -270,7 +270,7 @@ char *mess;
   XmStringFree(textItNum);
   XmStringFree(textPercent);
 
-  //  XtRealizeWidget (XtasStbInProgressWidget);
+  /*  XtRealizeWidget (XtasStbInProgressWidget);*/
   XalForceUpdate(XtasStbInProgressWidget) ;
 }
 

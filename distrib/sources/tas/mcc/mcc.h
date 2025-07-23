@@ -93,9 +93,9 @@ extern char *mcc_getfisrtarg            __P((char *,
                                              char *
                                            )) ;
 extern char *mcc_initstr                __P((char *)) ;
-//extern void mcc_initcalcparam           __P(()) ;
-//extern void mcc_calcspiparam            __P(()) ;
-//extern char *mcc_getline                __P((char *)) ;
+/*extern void mcc_initcalcparam           __P(()) ;*/
+/*extern void mcc_calcspiparam            __P(()) ;*/
+/*extern char *mcc_getline                __P((char *)) ;*/
 extern int mcc_gettab                   __P((
                                              char *,
                                              char **,

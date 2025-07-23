@@ -86,7 +86,7 @@ void sim_parse_titan_ppr( char *filename,
   file = fopen( filename, "r" );
   if( !file ) {
     avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, filename);
-//    fprintf( stderr, "\nSIM error : can't open file %s\n", filename );
+/*    fprintf( stderr, "\nSIM error : can't open file %s\n", filename );*/
     EXIT(1);
   }
  

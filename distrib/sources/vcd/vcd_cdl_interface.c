@@ -163,7 +163,7 @@ trans_list *cdl_get_waveform(char *signal)
   chain_list    *chain;
      
 
-  // trouver le correspondant de 'signal'
+  /* trouver le correspondant de 'signal'*/
   cdl       = namealloc(signal);
   vcd       = vcd_getVCDFromCDLName(cdl);
   
@@ -172,11 +172,11 @@ trans_list *cdl_get_waveform(char *signal)
   
   waveform  = vcd_get_waveform (vcd);
 
-  // post-traiter waveform
+  /* post-traiter waveform*/
 
   if (waveform && ind != -1)
   {
-//    tmp     = vcd_db->SIG_TAB[gethtitem(vcd_db->SIG_HT,namealloc(vcd))];
+/*    tmp     = vcd_db->SIG_TAB[gethtitem(vcd_db->SIG_HT,namealloc(vcd))];*/
     for(chain = vcd_db->SIG_TAB[gethtitem(vcd_db->SIG_HT,namealloc(vcd))]; chain; chain = chain->NEXT){
         tmp = (char*)chain->DATA;
         if (sscanf(tmp,"%*[^[][%d:%d]%c",&left,&right,&test) == 2)
@@ -245,7 +245,7 @@ chain_list *cdl_get_current_events(void)
 
   current_events    = vcd_get_current_events();
   
-  // post-traiter current_events
+  /* post-traiter current_events*/
   for (chainx = current_events; chainx; chainx = chainx->NEXT)
     vcd_unVectEvent(&res,chainx->DATA);
 
@@ -264,7 +264,7 @@ void cdl_free_event_list (chain_list *events)
     chain_list *evt;
 
     if (!events) return;
-    if (!events->DATA) return; // has already been freed
+    if (!events->DATA) return; /* has already been freed*/
 
     for (evt = events; evt; evt = evt->NEXT) {
         if (!(trn = (trans_list*)evt->DATA)) continue;
@@ -287,7 +287,7 @@ chain_list *cdl_get_state(void)
 
   state             = vcd_get_state();
 
-    // post-traiter state
+    /* post-traiter state*/
   for (chainx = state; chainx; chainx = chainx->NEXT)
     vcd_unVectState(&res,chainx->DATA);
   

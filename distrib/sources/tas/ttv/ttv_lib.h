@@ -192,11 +192,11 @@
 #define TTV_SIG_CAPAS      ((long) 0x0000000a ) /* contient les 6 capaval    */
 #define TTV_SIG_MULTICYCLE_OUT ((long) 0x0000000b ) /* regles multicycle avec le 'out' matchant le signal*/
 #define TTV_SIG_MULTICYCLE_IN  ((long) 0x0000000c ) /* regles multicycle avec le 'in' matchant le signal*/
-//#define TTV_SIG_PATH_DELAY_MARGINS ((long) 0x0000000d ) /* marquage pour le delay margin */
+/*#define TTV_SIG_PATH_DELAY_MARGINS ((long) 0x0000000d ) /* marquage pour le delay margin */
 #define TTV_SIG_FLAGS     ((long) 0x0000000e ) /* marquage pour le no cross */
 #define TTV_SIG_MARKED    ((long) 0x0000000f ) /* marquage pour le no cross */
-#define TTV_SIG_OUTPUT_CAPACITANCE ((long) 0x00000010 ) // capaout/signal
-#define TTV_SIG_DONE_PTYPE ((long) 0x00000011 ) // capaout/signal
+#define TTV_SIG_OUTPUT_CAPACITANCE ((long) 0x00000010 ) /* capaout/signal*/
+#define TTV_SIG_DONE_PTYPE ((long) 0x00000011 ) /* capaout/signal*/
 #define TTV_SIG_PATH_DELAY_MARGINS_REGEX ((long) 0x00000012 ) /* marquage pour le delay margin */
 #define TTV_SIG_TMP_MARKED    ((long) 0x00000013 ) /* marquage temporaire */
 #define TTV_SIG_UTD_OUTPUT_CAPA 0x00000014 /* UDT output capacitance */
@@ -408,7 +408,7 @@ extern int TTV_MARK_MODE;
 #define TTV_MARK_MODE_DO  1
 #define TTV_MARK_MODE_USE 2
 
-// mask pour le champ clock_flag de ttvcritic
+/* mask pour le champ clock_flag de ttvcritic*/
 #define TTV_NODE_FLAG_ISCLOCK         1
 #define TTV_NODE_FLAG_FIRST_OF_DETAIL 2
 #define TTV_NODE_FLAG_ISLATCH_ACCESS  4
@@ -425,13 +425,13 @@ extern int TTV_MARK_MODE;
 #define TTV_SIG_GATE_LATCH               98
 #define TTV_SIG_GATE_FLIPFLOP            99
 
-// mask pour les flags de signaux
+/* mask pour les flags de signaux*/
 #define TTV_SIG_FLAGS_DONTCROSS 0x1
 #define TTV_SIG_FLAGS_ISDATA    0x2
 #define TTV_SIG_FLAGS_ISSLAVE   0x4
 #define TTV_SIG_FLAGS_ISMASTER  0x8
-//#define TTV_SIG_FLAGS_ISSET     0x10
-//#define TTV_SIG_FLAGS_ISRESET   0x20
+/*#define TTV_SIG_FLAGS_ISSET     0x10*/
+/*#define TTV_SIG_FLAGS_ISRESET   0x20*/
 #define TTV_SIG_FLAGS_TRANSPARENT 0x40
 
 #define TTV_FINDSTRUCT_FLAGS_NOFILTERMAX 1
@@ -499,7 +499,7 @@ typedef struct ttvfind                          /* evenement d'un signal     */
   char                 FLAGS;
   char PERIODE ;             /* phase max d'origine       */
   char ORGPHASE ;            /* phase min d'origine       */
-//  char ORGPHASE, PHASE ;            /  phase min d'origine       /
+/*  char ORGPHASE, PHASE ;            /  phase min d'origine       /*/
   ttvfind_stb_stuff   *STB;
 }
 ttvfind_list ;
@@ -524,7 +524,7 @@ typedef struct ttvsig                           /* signal pour le timing     */
      long                 TYPE ;                /* type de signal            */
      struct ttvevent      NODE[2] ;             /* 2 evenement du signal     */
      ptype_list        *USER ;                /* champs utilisateur        */ 
-     int PNODE[2];  // pas dans le champ NODE pour gagner en 64bits
+     int PNODE[2];  /* pas dans le champ NODE pour gagner en 64bits*/
     }
 ttvsig_list ;
 
@@ -761,7 +761,7 @@ typedef struct
 {
   int RuleNumber;
   float Multiplier;
-  long Flags; // inf miscdata->lval
+  long Flags; /* inf miscdata->lval*/
 } ttv_MultiCycleInfo;
 
 #define TTV_MULTICYCLE_ANYINPUT    0x1000000 /* a eviter: les collisions avec les flags multicycle de inf*/
@@ -1455,7 +1455,7 @@ long ttv_calcnodeconstraint(ttvfig_list *ttvfig, long level, ttvevent_list *node
 void ttv_init_stm(ttvfig_list *ttvfig);
 
 
-// propagation functions
+/* propagation functions*/
 
 long ttv_RecomputeLineChain(ttvfig_list *tvf, ttvfig_list *tvi, chain_list *ordered_line_list, long inputSLEW, long *outputSLEW, float *energy, float capa, long type, long mode, int doref);
 void ttv_RecomputeCleanLineChain(chain_list *ordered_line_list);
@@ -1537,7 +1537,7 @@ extern long            ttv_getnodeslope   __P(( ttvfig_list *, ttvfig_list *, tt
 #define TTV_MORE_OPTIONS_KEEP_PHASE_INFO                0x40000
 #define TTV_MORE_OPTIONS_CRITIC_PARA_SEARCH             0x80000
 #define TTV_MORE_OPTIONS_ADD_ASYNCHRONOUS_ACCESS        0x100000
-//#define TTV_MORE_OPTIONS_ENABLE_START_ON_TTV_SIG_Q 8
+/*#define TTV_MORE_OPTIONS_ENABLE_START_ON_TTV_SIG_Q 8*/
 
 extern long TTV_MORE_SEARCH_OPTIONS;
 extern chain_list *TTV_EXPLICIT_CLOCK_NODES, *TTV_EXPLICIT_START_NODES, *TTV_EXPLICIT_END_NODES;

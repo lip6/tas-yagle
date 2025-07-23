@@ -84,7 +84,7 @@ void XtasDispCancelCallback( widget, root_widget, call_data )
 {
    XTAS_DISPLAY_NEW = XTAS_PREV_DISP ; 
    XtUnmanageChild( root_widget );
-//   XalLeaveLimitedLoop();
+/*   XalLeaveLimitedLoop();*/
 }
 
 
@@ -272,7 +272,7 @@ XtPointer call_data;
 
    ttv_setcachesize( Sizes, Sizel );
 
-//   XalLeaveLimitedLoop();
+/*   XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -292,7 +292,7 @@ Widget  widget;
 XtPointer client_data;
 XtPointer call_data;
 {
-//   XalLeaveLimitedLoop();
+/*   XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -401,7 +401,7 @@ void XtasOptionsDisplayTypeTreat( parent )
                    &XTAS_DISPLAY_NEW );
 
    XtManageChild( prompt );
-//   XalLimitedLoop( prompt );
+/*   XalLimitedLoop( prompt );*/
 }
     
 /*---------------------------------------------------------------------------*/
@@ -584,7 +584,7 @@ void XtasOptionsMemorySizeTreat( parent )
 
 
    XtManageChild( prompt );
-//   XalLimitedLoop( prompt );
+/*   XalLimitedLoop( prompt );*/
 }
 
 /*---------------------------------------------------------------------------*/

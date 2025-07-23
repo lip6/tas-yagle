@@ -5,7 +5,7 @@ extern API_COMMINUCATION TTV_COM;
 extern API_COMMINUCATION STB_COM;
 extern API_COMMINUCATION CTK_API_COM;
 
-// --- TTV ---
+/* --- TTV ---*/
 
 #define TTV_getcurrentline 1
 #define TTV_getdelaytype   2
@@ -14,11 +14,11 @@ extern API_COMMINUCATION CTK_API_COM;
 #define TTV_getttvfig      3
 
 
-// --- STB ---
+/* --- STB ---*/
 
 #define STB_getstbfig      1
 
-// --- CTK API ---
+/* --- CTK API ---*/
 #define CTK_getctkstruct       1
 #define CTK_rundefaultaction   2
 #define CTK_getctknetlist      3

@@ -30,7 +30,7 @@ void AssignBin (char *port_name, char *value)
                 bval[range - i] = value[i];
     bval[i + 1] = '\0';
 
-    //port->VALUE = strdup (bval);
+    /*port->VALUE = strdup (bval);*/
     port->VALUE = strdup (bval + 1);
 }
 
@@ -71,6 +71,6 @@ void Assign (char *port_name, int value)
             reverse_endianess (&bval[0] + 1);
     }
 
-    //port->VALUE = strdup (bval);
+    /*port->VALUE = strdup (bval);*/
     port->VALUE = strdup (bval + 1);
 }

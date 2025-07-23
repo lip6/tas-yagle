@@ -29,7 +29,7 @@ static double spfgetval(char *txt, int line, char *err, int capa);
 * function declarations                                                      *
 *****************************************************************************/
 
-  int yyerror();
+  int yyerror(char*);
   int yylex();
   static char *circuitname;
 
@@ -427,7 +427,7 @@ empty                : {}
 
 extern char *spftext;
 
-int yyerror()
+int yyerror(char* unused)
 {
   char *tok=spftext;
   if (*tok=='\n') tok="<CR>";

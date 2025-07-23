@@ -162,18 +162,18 @@
 |                          Add Functions                      |
 \------------------------------------------------------------*/
 
-char XyagComputeHexagon(); //long long X1, long long Y1, long long X2, long long Y2, XPoint *Points);
-char XyagComputeArrow(); //long long X1, long long Y1, long long X2, long long Y2, XPoint *Points);
+char XyagComputeHexagon(); /*long long X1, long long Y1, long long X2, long long Y2, XPoint *Points);*/
+char XyagComputeArrow(); /*long long X1, long long Y1, long long X2, long long Y2, XPoint *Points);*/
 
-  extern xyagfig_list   *XyagAddFigure();
-  extern xyagobj_list   *XyagAddUserDefined();
-  extern xyagobj_list   *XyagAddCircle();
-  extern xyagobj_list   *XyagAddLine();
-  extern xyagobj_list   *XyagAddRectangle();
-  extern xyagobj_list   *XyagAddTriangle();
-  extern xyagobj_list   *XyagAddHexagon();
-  extern xyagobj_list   *XyagAddCell();
-  extern xyagobj_list   *XyagAddText();
+  extern xyagfig_list *XyagAddFigure();
+  extern xyagobj_list *XyagAddUserDefined( symbol_list *ptmotif, long X, long Y, long DX, long DY, short Layer );
+  extern xyagobj_list *XyagAddCircle( long X, long Y, long R, short Layer );
+  extern xyagobj_list *XyagAddLine( long, long, long, long, short, short );
+  extern xyagobj_list *XyagAddRectangle( long X, long Y, long DX, long DY, short Layer );
+  extern xyagobj_list *XyagAddTriangle( long X, long Y, long DX, long DY, short Layer );
+  extern xyagobj_list *XyagAddHexagon( long X, long Y, long DX, long DY, short Layer );
+  extern xyagobj_list *XyagAddCell( long X, long Y, long DX, long DY, short Layer );
+  extern xyagobj_list *XyagAddText( long X, long Y, long Type, char *Name, short Layer, long scale );
 
 /*------------------------------------------------------------\
 |                          Del Functions                      |
@@ -185,27 +185,27 @@ char XyagComputeArrow(); //long long X1, long long Y1, long long X2, long long Y
 |                   Flag Set & Clear Functions                |
 \------------------------------------------------------------*/
 
-  extern void XyagSelectObject();
-  extern void XyagUnselectObject();
-  extern void XyagAcceptObject();
-  extern void XyagRejectObject();
-  extern void XyagConnectObject();
-  extern void XyagDisconnectObject();
+extern void XyagSelectObject( xyagobj_list *Object );
+extern void XyagUnselectObject( xyagobj_list *Object );
+extern void XyagAcceptObject( xyagobj_list *Object );
+extern void XyagRejectObject( xyagobj_list *Object );
+extern void XyagConnectObject( xyagobj_list *Object );
+extern void XyagDisconnectObject( xyagobj_list *Object );
 
 /*------------------------------------------------------------\
 |                          Select Functions                   |
 \------------------------------------------------------------*/
 
-  extern void XyagAddSelect();
-  extern void XyagDelSelect();
-  extern void XyagPurgeSelect();
+extern void XyagAddSelect( xyagobj_list *Object );
+extern void XyagDelSelect();
+extern void XyagPurgeSelect();
 
 /*------------------------------------------------------------\
 |                          Connect Functions                  |
 \------------------------------------------------------------*/
 
-  extern void XyagAddConnect();
-  extern void XyagDelConnect();
+extern void XyagAddConnect( xyagobj_list *Object );
+extern void XyagDelConnect();
 
 /*------------------------------------------------------------\
 |                          Bound Compute                      |
@@ -217,14 +217,14 @@ char XyagComputeArrow(); //long long X1, long long Y1, long long X2, long long Y
 |                        Load Functions                       |
 \------------------------------------------------------------*/
 
- extern void XyagLoadFigure();
+ extern void XyagLoadFigure(char*);
 
 /*------------------------------------------------------------\
 |                    Error Message Functions                  |
 \------------------------------------------------------------*/
 
   extern char *XyagGetErrorMessage();
-  extern void  XyagExitErrorMessage();
+  extern void  XyagExitErrorMessage( int );
   extern void  XyagInitializeErrorMessage(char Debug);
 
 /*------------------------------------------------------------\
@@ -237,10 +237,10 @@ char XyagComputeArrow(); //long long X1, long long Y1, long long X2, long long Y
 void xyagSaveState();
 void xyagRetreiveState();
 int XyagLoadFigureByType(char *Name, int type, int silent); 
-// type can be : CGV_FROM_CNS or CGV_FROM_LOFIG
+/* type can be : CGV_FROM_CNS or CGV_FROM_LOFIG*/
 int XyagFileOpenByType(char *Name, int type);
 
-// XYAGLE INTERACTION FONCTIONS
+/* XYAGLE INTERACTION FONCTIONS*/
 void XyagHiLight(cgv_interaction *itr, int complete);
 void XyagExtract(cgv_interaction *itr, int complete);
 

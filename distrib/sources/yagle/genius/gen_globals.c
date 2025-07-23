@@ -62,7 +62,7 @@ lofig_list *gen_getlofig (char *name)
   lofig_list *head_lofig, *fig;
   ht *ht_lofig;
 
-  // Contextualize HEAD_LOFIG ___________________________
+  /* Contextualize HEAD_LOFIG ___________________________*/
 
   head_lofig = HEAD_LOFIG;
   HEAD_LOFIG = GEN_HEAD_LOFIG;
@@ -72,7 +72,7 @@ lofig_list *gen_getlofig (char *name)
 
   fig = getloadedlofig (name);
 
-  // Release HEAD_LOFIG _________________________________
+  /* Release HEAD_LOFIG _________________________________*/
 
   GEN_HEAD_LOFIG = HEAD_LOFIG;
   HEAD_LOFIG = head_lofig;
@@ -238,7 +238,7 @@ lotrs_list *_gen_GetCorrespondingTransistor(char *name, corresp_t * level, int m
   if (arbo == NULL) {
     freechain (mainarbo);
     if (!mode) avt_errmsg(GNS_ERRMSG, "036", AVT_ERROR, gen_info (), name);
-             //fprintf (stderr, "%s: gns_GetCorrespondingTransistor() can't go thru '%s'\n", gen_info (), name);
+             /*fprintf (stderr, "%s: gns_GetCorrespondingTransistor() can't go thru '%s'\n", gen_info (), name);*/
     return NULL;
   }
     
@@ -253,13 +253,13 @@ lotrs_list *_gen_GetCorrespondingTransistor(char *name, corresp_t * level, int m
       if (entry!=EMPTYHT) return (lotrs_list *)entry;
     }
   if (!mode) avt_errmsg(GNS_ERRMSG, "006", AVT_ERROR, gen_info (), name);
-             //fprintf (stderr, "%s: gns_GetCorrespondingTransistor() can't find transistor '%s' in model\n", gen_info (), name);
+             /*fprintf (stderr, "%s: gns_GetCorrespondingTransistor() can't find transistor '%s' in model\n", gen_info (), name);*/
   return NULL;
 }
 
 lotrs_list *gen_GetCorrespondingTransistor(char *name, corresp_t * level)
 {
-  return _gen_GetCorrespondingTransistor(name, level, 0); // display errors
+  return _gen_GetCorrespondingTransistor(name, level, 0); /* display errors*/
 }
 
 subinst_t *gen_GetCorrespondingInstance (char *name, corresp_t * level)
@@ -276,7 +276,7 @@ subinst_t *gen_GetCorrespondingInstance (char *name, corresp_t * level)
   if (arbo == NULL) {
     freechain (mainarbo);
     avt_errmsg(GNS_ERRMSG, "036", AVT_FATAL, gen_info (), name);
-    //fprintf (stderr, "%s: gns_GetCorrespondingInstance() can't go thru '%s'\n", gen_info (), name);
+    /*fprintf (stderr, "%s: gns_GetCorrespondingInstance() can't go thru '%s'\n", gen_info (), name);*/
     EXIT (1);
   }
 
@@ -292,7 +292,7 @@ subinst_t *gen_GetCorrespondingInstance (char *name, corresp_t * level)
   }
   freechain (mainarbo);        
   avt_errmsg(GNS_ERRMSG, "037", AVT_ERROR, gen_info (), name);
-  //fprintf (stderr, "%s: gns_GetCorrespondingInstance() can't find instance '%s' in model\n", gen_info (), name);
+  /*fprintf (stderr, "%s: gns_GetCorrespondingInstance() can't find instance '%s' in model\n", gen_info (), name);*/
   return NULL;
 }
 
@@ -418,7 +418,7 @@ void destroy_genius_context(ALL_FOR_GNS *all)
   ALL_ENV=var;
   GNS_TEMPLATE_HT=all->TEMPLATE_HT;
   current_lofig=NULL;
-  // le external aussi
+  |* le external aussi*|
  */
 
   all = NULL;

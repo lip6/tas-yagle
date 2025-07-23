@@ -56,13 +56,13 @@ char *path_name;
   if (sigsetjmp( XtasMyEnv , 1 ) == 0)
   {
     befig = loadbefig(NULL,path_name,BVL_KEEPAUX);
-    // = vhdlloadbefig( NULL, path_name, BVL_KEEPAUX) ;
+    /* = vhdlloadbefig( NULL, path_name, BVL_KEEPAUX) ;*/
 
     if ((befig!=NULL)&&(!beh_chkbefig(befig,0)))
     {
       beh_depend(befig);
       zen_makbehbdd(befig);
-      //      beh_makbdd( befig );
+      /*      beh_makbdd( befig );*/
     }
     else return NULL;
 
@@ -158,7 +158,7 @@ char         mode;
 {
   FILE      *file;
   char       buf[256];
-  //int        existFalsePath = 0;
+  /*int        existFalsePath = 0;*/
 
   sprintf(buf,"%s.inf",filename);
   file = fopen(buf,"a");
@@ -174,15 +174,15 @@ char         mode;
 /*                               FUNCTIONS                                   */
 /*---------------------------------------------------------------------------*/
 
-//void XtasFalsCancelCallback( widget, path_set, call_data )
-//
-// Widget                  widget;
-// XtasPathListSetStruct  *path_set;
-// XtPointer               call_data;
-//
-//{
-//   XalLeaveLimitedLoop();
-//}
+/*void XtasFalsCancelCallback( widget, path_set, call_data )*/
+/**/
+/* Widget                  widget;*/
+/* XtasPathListSetStruct  *path_set;*/
+/* XtPointer               call_data;*/
+/**/
+/*{*/
+/*   XalLeaveLimitedLoop();*/
+/*}*/
 
 /*---------------------------------------------------------------------------*/
 /*                               FUNCTIONS                                   */
@@ -295,7 +295,7 @@ XtPointer       call_data;
 {
   if (XTASFALS_SUPPRESS != 'n')
     XtasFalsPrintFalsPath(XTASFALS_FILENAME, XTASFALS_TASPATH, XTASFALS_SAVEPATHTYPE);
-//  XalLeaveLimitedLoop();
+/*  XalLeaveLimitedLoop();*/
   return;
 }
 
@@ -317,14 +317,14 @@ XtPointer       call_data;
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-//void XtasFalsResultCancelCallback( widget, client_data , call_data )
-//Widget          widget;
-//XtPointer       client_data ;
-//XtPointer       call_data;
-//{
-//  XTASFALS_SAVEPATHTYPE = 'n';
-//  return;
-//}
+/*void XtasFalsResultCancelCallback( widget, client_data , call_data )*/
+/*Widget          widget;*/
+/*XtPointer       client_data ;*/
+/*XtPointer       call_data;*/
+/*{*/
+/*  XTASFALS_SAVEPATHTYPE = 'n';*/
+/*  return;*/
+/*}*/
 
 
 /*}}}************************************************************************/
@@ -450,7 +450,7 @@ char    *resultString;
 
 
   sprintf (text_title, XTAS_NAME" : False Path Test - %s", XtasMainParam->ttvfig->INFO->FIGNAME);
-//  XtSetArg( args[n], XmNtitle, XTAS_NAME" : False Path Test" ); n++;
+/*  XtSetArg( args[n], XmNtitle, XTAS_NAME" : False Path Test" ); n++;*/
   XtSetArg( args[n], XmNtitle, text_title); n++;
   XtSetArg( args[n], XmNdialogStyle, XmDIALOG_APPLICATION_MODAL); n++;
 
@@ -484,10 +484,10 @@ char    *resultString;
       XtasHelpCallback,
       (XtPointer)(XTAS_HELP_MAIN|XTAS_SRC_FLSPATHS)); */
 
-//  XtAddCallback( XtasFalsResultWidget,
-//      XmNcancelCallback,
-//      XtasFalsResultCancelCallback,
-//      (XtPointer)NULL );
+/*  XtAddCallback( XtasFalsResultWidget,*/
+/*      XmNcancelCallback,*/
+/*      XtasFalsResultCancelCallback,*/
+/*      (XtPointer)NULL );*/
 
 
   n = 0;
@@ -535,8 +535,8 @@ char    *resultString;
                                                XmNheight,         15,
                                               NULL);
   n = 0 ;
-//  XtSetArg( args[n], XmNtopAttachment,          XmATTACH_FORM   ) ; n++ ;
-//  XtSetArg( args[n], XmNbottomAttachment,       XmATTACH_FORM   ) ; n++ ;
+/*  XtSetArg( args[n], XmNtopAttachment,          XmATTACH_FORM   ) ; n++ ;*/
+/*  XtSetArg( args[n], XmNbottomAttachment,       XmATTACH_FORM   ) ; n++ ;*/
   XtSetArg( args[n], XmNleftAttachment,         XmATTACH_WIDGET ) ; n++ ;
   XtSetArg( args[n], XmNleftWidget,             label_widget    ) ; n++ ;
   XtSetArg( args[n], XmNleftOffset,             7               ) ; n++ ;
@@ -547,7 +547,7 @@ char    *resultString;
   XtSetArg( args[n], XmNalignment,              XmALIGNMENT_CENTER) ; n++ ;
 
   result = XtCreateManagedWidget( "XtasUserField", xmTextFieldWidgetClass, ebase_form, args, n) ;
-//  //XmAddTabGroup( NBERROR ) ;
+/*  //XmAddTabGroup( NBERROR ) ;*/
   XmTextSetString( result , (char *)path->DATA ) ;
   XtAddCallback( result, XmNfocusCallback, XtasFlsPathsFocusCallback, NULL); 
   XtAddCallback( result, XmNlosingFocusCallback, XtasLosingFlsPathsFocusCallback, NULL); 
@@ -593,7 +593,7 @@ char    *resultString;
   XtSetArg( args[n], XmNalignment,              XmALIGNMENT_CENTER) ; n++ ;
 
   result = XtCreateManagedWidget( "XtasUserField", xmTextFieldWidgetClass, ebase_form, args, n) ;
-  //XmAddTabGroup( NBERROR ) ;
+  /*XmAddTabGroup( NBERROR ) ;*/
   XmTextSetString( result, (char *)XTASFALS_TASPATH->DATA ) ;
 
   XtAddCallback( result, XmNfocusCallback, XtasFlsPathsFocusCallback, NULL); 
@@ -606,50 +606,50 @@ char    *resultString;
 
   
   /*-------------------------------  2e sub form -------------------------------------------------------*/
-//  n = 0;
-//  XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//  ebase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, form, args, n );
-//
-//  n = 0;
-//  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET     ); n++;
-//  XtSetArg( args[n], XmNtopWidget    ,    ebase_form     ); n++;
-//  XtSetArg( args[n], XmNtopOffset,    25    ); n++;
-//  ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, form, args, n );
-//
-//
-//
-//  /* affiche le resultat */         
-//  n = 0;
-//  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNleftOffset,       10                ); n++;
-//  XtSetArg( args[n], XmNrightOffset,      20               ); n++;
-//  XtSetArg( args[n], XmNwidth,            170               ); n++ ;
-//  XtSetArg( args[n], XmNalignment,              XmALIGNMENT_END) ; n++ ;
-//
-//  text = XmStringCreateSimple( "RESULT:" );
-//  XtSetArg( args[n], XmNlabelString,      text ); n++;
-//  label_widget = XtCreateManagedWidget( "XtasMainTitles", xmLabelWidgetClass, ebase_form, args, n );
-//  XmStringFree( text );
-//
-//  n = 0 ;
-//  XtSetArg( args[n], XmNtopAttachment,          XmATTACH_FORM   ) ; n++ ;
-//  XtSetArg( args[n], XmNbottomAttachment,       XmATTACH_FORM   ) ; n++ ;
-//  XtSetArg( args[n], XmNleftAttachment,         XmATTACH_WIDGET ) ; n++ ;
-//  XtSetArg( args[n], XmNleftWidget,             label_widget    ) ; n++ ;
-//  XtSetArg( args[n], XmNwidth,                  60              ) ; n++ ;
-//  XtSetArg( args[n], XmNshadowThickness,        2               ) ; n++ ;
-//  XtSetArg( args[n], XmNeditable,               False           ) ; n++ ;
-//  XtSetArg( args[n], XmNcursorPositionVisible,  False           ) ; n++ ;
-//  XtSetArg( args[n], XmNalignment,              XmALIGNMENT_CENTER) ; n++ ;
-//
-//  result = XtCreateManagedWidget( "XtasUserField", xmTextFieldWidgetClass, ebase_form, args, n) ;
-//  //XmAddTabGroup( NBERROR ) ;
-//  XmTextSetString( result ,resultString ) ;
+/*  n = 0;*/
+/*  XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*  ebase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, form, args, n );*/
+/**/
+/*  n = 0;*/
+/*  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET     ); n++;*/
+/*  XtSetArg( args[n], XmNtopWidget    ,    ebase_form     ); n++;*/
+/*  XtSetArg( args[n], XmNtopOffset,    25    ); n++;*/
+/*  ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, form, args, n );*/
+/**/
+/**/
+/**/
+/*  /* affiche le resultat */
+/*  n = 0;*/
+/*  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNleftOffset,       10                ); n++;*/
+/*  XtSetArg( args[n], XmNrightOffset,      20               ); n++;*/
+/*  XtSetArg( args[n], XmNwidth,            170               ); n++ ;*/
+/*  XtSetArg( args[n], XmNalignment,              XmALIGNMENT_END) ; n++ ;*/
+/**/
+/*  text = XmStringCreateSimple( "RESULT:" );*/
+/*  XtSetArg( args[n], XmNlabelString,      text ); n++;*/
+/*  label_widget = XtCreateManagedWidget( "XtasMainTitles", xmLabelWidgetClass, ebase_form, args, n );*/
+/*  XmStringFree( text );*/
+/**/
+/*  n = 0 ;*/
+/*  XtSetArg( args[n], XmNtopAttachment,          XmATTACH_FORM   ) ; n++ ;*/
+/*  XtSetArg( args[n], XmNbottomAttachment,       XmATTACH_FORM   ) ; n++ ;*/
+/*  XtSetArg( args[n], XmNleftAttachment,         XmATTACH_WIDGET ) ; n++ ;*/
+/*  XtSetArg( args[n], XmNleftWidget,             label_widget    ) ; n++ ;*/
+/*  XtSetArg( args[n], XmNwidth,                  60              ) ; n++ ;*/
+/*  XtSetArg( args[n], XmNshadowThickness,        2               ) ; n++ ;*/
+/*  XtSetArg( args[n], XmNeditable,               False           ) ; n++ ;*/
+/*  XtSetArg( args[n], XmNcursorPositionVisible,  False           ) ; n++ ;*/
+/*  XtSetArg( args[n], XmNalignment,              XmALIGNMENT_CENTER) ; n++ ;*/
+/**/
+/*  result = XtCreateManagedWidget( "XtasUserField", xmTextFieldWidgetClass, ebase_form, args, n) ;*/
+/*  //XmAddTabGroup( NBERROR ) ;*/
+/*  XmTextSetString( result ,resultString ) ;*/
 
   
   /*-------------------------------  horizontal separator    ----------------------------------------------*/
@@ -659,25 +659,25 @@ char    *resultString;
     XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ) ; n++ ;
     XtSetArg( args[n], XmNtopWidget,    ebase_form   ) ; n++ ;
     XtSetArg( args[n], XmNtopOffset,    5   ) ; n++ ;
- //   XtSetArg( args[n], XmNbottomOffset, 25   ) ; n++ ;
+ /*   XtSetArg( args[n], XmNbottomOffset, 25   ) ; n++ ;*/
     XtSetArg( args[n], XmNorientation,      XmHORIZONTAL      ) ; n++ ;
     ebase_form = XtCreateManagedWidget( "XtasSeparator", xmSeparatorWidgetClass, form, args, n ) ;
 
    
  
   /*-------------------------------  3e sub form    -------------------------------------------------------*/
-//  n = 0;
-//  XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//  XtSetArg( args[n], XmNtopOffset,        10                ); n++;
-//  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//  XtSetArg( args[n], XmNtopWidget,        ebase_form        ); n++;
-//  XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ); n++;
-//  dbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, form, args, n );
+/*  n = 0;*/
+/*  XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*  XtSetArg( args[n], XmNtopOffset,        10                ); n++;*/
+/*  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*  XtSetArg( args[n], XmNtopWidget,        ebase_form        ); n++;*/
+/*  XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ); n++;*/
+/*  dbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, form, args, n );*/
   n = 0;
   XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
- // XtSetArg( args[n], XmNtopOffset,    25   ); n++;
+ /* XtSetArg( args[n], XmNtopOffset,    25   ); n++;*/
   XtSetArg( args[n], XmNtopWidget,        ebase_form        ); n++;
   XtSetArg( args[n], XmNbottomAttachment,    XmATTACH_FORM   ); n++;
   dbase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, form, args, n );
@@ -717,18 +717,18 @@ char    *resultString;
   XtSetArg( args[n], XmNcursorPositionVisible,  False           ) ; n++ ;
 
   result = XtCreateManagedWidget( "XtasUserField", xmTextFieldWidgetClass, ebase_form, args, n) ;
-  //XmAddTabGroup( NBERROR ) ;
+  /*XmAddTabGroup( NBERROR ) ;*/
   XmTextSetString( result ,resultString ) ;
 
   /*-------------------------------  vertical separator    ----------------------------------------------*/
     n = 0 ;
     XtSetArg( args[n], XmNtopAttachment,  XmATTACH_FORM ) ; n++ ;
-//    XtSetArg( args[n], XmNtopOffset,  10 ) ; n++ ;
+/*    XtSetArg( args[n], XmNtopOffset,  10 ) ; n++ ;*/
     XtSetArg( args[n], XmNbottomAttachment,  XmATTACH_FORM ) ; n++ ;
     XtSetArg( args[n], XmNleftAttachment,    XmATTACH_WIDGET   ) ; n++ ;
     XtSetArg( args[n], XmNleftWidget,        ebase_form   ) ; n++ ;
     XtSetArg( args[n], XmNleftOffset,        25   ) ; n++ ;
- //   XtSetArg( args[n], XmNbottomOffset,     25   ) ; n++ ;
+ /*   XtSetArg( args[n], XmNbottomOffset,     25   ) ; n++ ;*/
     XtSetArg( args[n], XmNorientation,      XmVERTICAL      ) ; n++ ;
     ebase_form = XtCreateManagedWidget( "XtasSeparator", xmSeparatorWidgetClass, dbase_form, args, n ) ;
 
@@ -746,16 +746,16 @@ char    *resultString;
 
   /*------------------------- Choice of suppression  ------------------------------------------------------*/
 
-//  n = 0;
-//  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNtopOffset,        15     ); n++;
-//  XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//  XtSetArg( args[n], XmNleftOffset,       15     ); n++;
+/*  n = 0;*/
+/*  XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNtopOffset,        15     ); n++;*/
+/*  XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*  XtSetArg( args[n], XmNleftOffset,       15     ); n++;*/
 
   text = XmStringCreateSimple( "Suppress False Path from :" );
-//  XtSetArg( args[n], XmNlabelString,      text ); n++;
-//  label_widget = XtCreateManagedWidget( "XtasMainTitles", xmLabelWidgetClass, fbase_form, args, n );
+/*  XtSetArg( args[n], XmNlabelString,      text ); n++;*/
+/*  label_widget = XtCreateManagedWidget( "XtasMainTitles", xmLabelWidgetClass, fbase_form, args, n );*/
   toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, fbase_form,
                                       XmNtopAttachment, XmATTACH_FORM,
                                       XmNtopOffset,     15,
@@ -789,7 +789,7 @@ char    *resultString;
       XmNradioBehavior,   True,
       XmNradioAlwaysOne,  True,
       NULL);
-  //XmAddTabGroup( row_widget );
+  /*XmAddTabGroup( row_widget );*/
 
   XtAddCallback( toggle, XmNvalueChangedCallback, XtasFalsPathSupressCallback, (XtPointer)row_widget ) ;
 
@@ -819,7 +819,7 @@ char    *resultString;
     XtSetSensitive(row_widget,True);
   
   XtManageChild(XtasFalsResultWidget);
-//  XalLimitedLoop(XtasFalsResultWidget);
+/*  XalLimitedLoop(XtasFalsResultWidget);*/
 }
 
 
@@ -934,11 +934,11 @@ void XtasPathsFalsCallback( widget, client_data , call_data )
     }
 
     XtManageChild(XtasWarningFalsePath);
-//    XalLimitedLoop(XtasWarningFalsePath);
+/*    XalLimitedLoop(XtasWarningFalsePath);*/
 
 
   }
-//      XtasFalsOkCallback(tas_winfos->topwidget,path_set,0);
+/*      XtasFalsOkCallback(tas_winfos->topwidget,path_set,0);*/
   else 
       XalDrawMessage( XtasWarningWidget, XTAS_NPATERR );
   

@@ -436,7 +436,7 @@ stb_initckpath (stbfig, event)
             else if (opev->CK->SUPMAX!=STB_NO_TIME && opev->CK->SUPMAX!=stbevent->CK->SUPMAX) stbevent->CK->SUPMAX=opev->CK->SUPMAX;
           }
         change=1;
-//        printf("$ %s %d %d %d %d\n",event->ROOT->NAME, stbevent->CK->SDNMIN, stbevent->CK->SDNMAX, stbevent->CK->SUPMIN, stbevent->CK->SUPMAX);
+/*        printf("$ %s %d %d %d %d\n",event->ROOT->NAME, stbevent->CK->SDNMIN, stbevent->CK->SDNMAX, stbevent->CK->SUPMIN, stbevent->CK->SUPMAX);*/
       }
     }
   return change;
@@ -943,7 +943,7 @@ void stb_initsetuphold (stbfig_list *stbfig, ttvsig_list *ptsig)
                 else
                   cmd=event;
 
-                stb_getstbck(node, cmd); // a voir pour le cmd
+                stb_getstbck(node, cmd); /* a voir pour le cmd*/
 
                 if (node->CK != NULL && (node->CK->CMD==NULL || node->CK->CMD==cmd))
                   {
@@ -2075,7 +2075,7 @@ stb_initclock (stbfig,ctk)
  for (chain = stbfig->MEMORY; chain; chain = chain->NEXT)
   {
    ptsig = (ttvsig_list *) chain->DATA;
-//   if (getptype (ptsig->USER,STB_IS_CLOCK)!=NULL) continue;
+/*   if (getptype (ptsig->USER,STB_IS_CLOCK)!=NULL) continue;*/
    chaincmd = ttv_getlrcmd (stbfig->FIG, ptsig);
    index = STB_NO_INDEX;
    active = 0;
@@ -2325,7 +2325,7 @@ stb_initclock (stbfig,ctk)
       }
     }
    freechain (chaincmd);
-   // vraie clock en debut de stbck
+   /* vraie clock en debut de stbck*/
    stb_getstbck(stb_getstbnode (ptsig->NODE), NULL);
    stb_getstbck(stb_getstbnode (ptsig->NODE+1), NULL);
   }
@@ -2660,12 +2660,12 @@ stb_initclock (stbfig,ctk)
          if (i == 0)
          {
           stb_getstbnode (ptsig->NODE + 1)->CK->CKINDEX = index;
-//          stb_getstbnode (ptsig->NODE + 1)->CK->ORIGINAL_CLOCK=ckevent;
+/*          stb_getstbnode (ptsig->NODE + 1)->CK->ORIGINAL_CLOCK=ckevent;*/
          }
          else
          {
           stb_getstbnode (ptsig->NODE)->CK->CKINDEX = index;
-//          stb_getstbnode (ptsig->NODE)->CK->ORIGINAL_CLOCK=ckevent;
+/*          stb_getstbnode (ptsig->NODE)->CK->ORIGINAL_CLOCK=ckevent;*/
          }
         }
       }
@@ -2677,11 +2677,11 @@ stb_initclock (stbfig,ctk)
 
     }
 
-   // mise a jour des setup et hold pour les flip-flop et les latchs
+   /* mise a jour des setup et hold pour les flip-flop et les latchs*/
    stb_initsetuphold (stbfig, ptsig);
   }
 
- // initialisation des SETUP et HOLD qui valent encore STB_NO_TIME pour les MEMORY
+ /* initialisation des SETUP et HOLD qui valent encore STB_NO_TIME pour les MEMORY*/
  stb_initunsetsetuphold(stbfig);
 
 /* for (chain = stbfig->MEMORY; chain; chain = chain->NEXT)
@@ -2760,11 +2760,11 @@ stb_initclock (stbfig,ctk)
        ckevent = (ttvevent_list *) ptype->DATA;
        stb_getstbnode (event)->CK->CKINDEX =
        stb_getstbnode (ckevent)->CK->CKINDEX;
-//       stb_getstbnode (event)->CK->ORIGINAL_CLOCK=ckevent;
+/*       stb_getstbnode (event)->CK->ORIGINAL_CLOCK=ckevent;*/
        cmd->USER = delptype (cmd->USER, STB_NODE_CLOCK);
       }
 #if 0
-     // [!] checker qu'il y a un cknode->CK plus loin sinon coredump
+     /* [!] checker qu'il y a un cknode->CK plus loin sinon coredump*/
      node = stb_getstbnode (event);
      if (node->CK)
       if (node->CK->TYPE == STB_TYPE_EVAL)

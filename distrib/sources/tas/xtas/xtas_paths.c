@@ -119,15 +119,15 @@ void    XtasFillPathInfosForm (FocusSet)
         sprintf (buf, " ");
         XtasSetLabelString (label, buf);
     }
-//    /* Latch Command */
-//    label = XtNameToWidget (FocusSet->PATH_SET->TOP_LEVEL, "*XtasPathInfosLatchCmdLabel");
-//    if (!label) 
-//        return;
-//    if (path->CMDLATCH)
-//        sprintf (buf, "%s", path->CMDLATCH->ROOT->NAME);
-//    else
-//        sprintf (buf, " ");
-//    XtasSetLabelString (label, buf);
+/*    /* Latch Command */
+/*    label = XtNameToWidget (FocusSet->PATH_SET->TOP_LEVEL, "*XtasPathInfosLatchCmdLabel");*/
+/*    if (!label) */
+/*        return;*/
+/*    if (path->CMDLATCH)*/
+/*        sprintf (buf, "%s", path->CMDLATCH->ROOT->NAME);*/
+/*    else*/
+/*        sprintf (buf, " ");*/
+/*    XtasSetLabelString (label, buf);*/
     
 }
 
@@ -552,7 +552,7 @@ XtPointer call_data;
  XtasWindowStruct * top = (XtasWindowStruct *)client_data ;
 
  XtasRemovePathSession(top) ;
-// XalLeaveLimitedLoop();
+/* XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -759,12 +759,12 @@ XtasPathListSetStruct  *XtasPathSet;
       n = 0;
       XtSetArg( args[n], XmNborderWidth, 1 ); n++;
       XtSetArg( args[n], XmNborderColor, tas_backg_color ); n++;
-   //   XtSetArg( args[n], XmNwidth,                 690             ); n++;
+   /*   XtSetArg( args[n], XmNwidth,                 690             ); n++;*/
       sub_form = XtCreateManagedWidget( "XtasSubForm",
                                          xmFormWidgetClass,
                                          row_widget,
                                          args, n );
-      //XmAddTabGroup( sub_form );
+      /*XmAddTabGroup( sub_form );*/
    
       if ( (r_pixmap == XmUNSPECIFIED_PIXMAP) || (f_pixmap == XmUNSPECIFIED_PIXMAP) )
       {
@@ -1928,7 +1928,7 @@ Widget XtasCreatePathsList( parent, XtasPathSet, tas_winfos )
                                            40, 40 );
    XtasAddDummyButton( tas_winfos->butwidget );
    XtManageChild( tas_winfos->butwidget );
-   //XmAddTabGroup( tas_winfos->butwidget );
+   /*XmAddTabGroup( tas_winfos->butwidget );*/
    
     /*-------- separator ---*/
    /*===== New Widget =====*/   
@@ -2397,7 +2397,7 @@ Widget XtasCreatePathsList( parent, XtasPathSet, tas_winfos )
                      XmNbrowseSelectionCallback,
                      XtasSigPathSelectCallback,
                      (XtPointer)XtasPathSet );
-      //XmAddTabGroup( list_widget );
+      /*XmAddTabGroup( list_widget );*/
       XtasPathSet->SIGNAL_LIST_SET->SIGLIST_SCROLL = list_widget;
       XtasFillSigPathList( XtasPathSet );
       
@@ -2661,9 +2661,9 @@ Widget XtasCreatePathsList( parent, XtasPathSet, tas_winfos )
                                     frame,
                                     args, n );
   
-//   if (((XtasPathSet->PARAM->REQUEST_TYPE & XTAS_SBS) == XTAS_SBS) ||
-//       ( XtasPathSet->PARAM->CRITIC == 'P'  ))
-//   {
+/*   if (((XtasPathSet->PARAM->REQUEST_TYPE & XTAS_SBS) == XTAS_SBS) ||*/
+/*       ( XtasPathSet->PARAM->CRITIC == 'P'  ))*/
+/*   {*/
      if (!XTAS_DISPLAY_NEW) {
        /*----------------------*/
       /*===== New Widget =====*/   
@@ -2807,7 +2807,7 @@ Widget XtasCreatePathsList( parent, XtasPathSet, tas_winfos )
       }
       else if (XtasPathSet->PARAM->CRITIC == 'P')
        text = XmStringCreateSimple( "Parallel Paths List" );
-//   }
+/*   }*/
    else if ((XtasPathSet->PARAM->REQUEST_TYPE & XTAS_CRITIC) == XTAS_CRITIC)
    {
       if ((XtasPathSet->PARAM->REQUEST_TYPE & XTAS_PATHS) == XTAS_PATHS)

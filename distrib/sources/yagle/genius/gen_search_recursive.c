@@ -63,8 +63,8 @@ static chain_list* STACK_CIRCUIT_FOUNDINS;
 static int PHASE;
 static char* FIRST_MODEL_FIGNAME;
 static char* FIRST_MODEL_INSNAME;
-static int ABORT_SYMMETRY=0; // Force the abort of symmetry in case of "no way to match"
-static int EMERGENCY_ABORT=0; // CIRCUIT_LOFIGCHAIN n'est plus valide
+static int ABORT_SYMMETRY=0; /* Force the abort of symmetry in case of "no way to match"*/
+static int EMERGENCY_ABORT=0; /* CIRCUIT_LOFIGCHAIN n'est plus valide*/
 static loins_list *PREVIOUS_INS=NULL;
 static ptype_list *GLOBAL_CURFOUNDINS_VAR=NULL;
 
@@ -114,14 +114,14 @@ static  int BitNumber_Losig(locon_list* circuit_con, locon_list* model_con,
 
   if (!model_con || !circuit_con) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 69);
-//    fprintf(stderr,"BitNumber_Losig: NULL pointer\n");
+/*    fprintf(stderr,"BitNumber_Losig: NULL pointer\n");*/
     EXIT(1);
   }   
 
   p=getptype(model_con->USER,GENCONCHAIN);
   if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 70);
-//    fprintf(stderr,"BitNumber_Losig: NULL pointer\n");
+/*    fprintf(stderr,"BitNumber_Losig: NULL pointer\n");*/
     EXIT(1);
   }   
   gen=(genconchain_list*)p->DATA;
@@ -151,7 +151,7 @@ static  int BitNumber_Losig(locon_list* circuit_con, locon_list* model_con,
     high_src=Eval_Exp_VHDL(gen->LOCON_EXP->NEXT->NEXT,GLOBAL_CURFOUNDINS_VAR);
     if (low_src<=bit_wanted && (high_src==UNDEF || high_src>=bit_wanted)) {
       /*low_dest is not really the low bound of vector (it could be)*/
-//      low_dest=Eval_Exp_VHDL(gen->LOSIG_EXP->NEXT,env);
+/*      low_dest=Eval_Exp_VHDL(gen->LOSIG_EXP->NEXT,env);*/
       numbit=UNDEF;
       if (TOKEN(gen->LOSIG_EXP)==GEN_TOKEN_TO)
         {
@@ -179,7 +179,7 @@ static  int BitNumber_Losig(locon_list* circuit_con, locon_list* model_con,
     high_src=Eval_Exp_VHDL(gen->LOCON_EXP->NEXT,GLOBAL_CURFOUNDINS_VAR);
     if (low_src<=bit_wanted && (high_src==UNDEF || high_src>=bit_wanted)) {
       /*low_dest is not really the low bound of vector (it could be)*/
-//      low_dest=Eval_Exp_VHDL(gen->LOSIG_EXP->NEXT,env);
+/*      low_dest=Eval_Exp_VHDL(gen->LOSIG_EXP->NEXT,env);*/
       numbit=UNDEF;
       if (TOKEN(gen->LOSIG_EXP)==GEN_TOKEN_TO)
         {
@@ -238,7 +238,7 @@ static  void Generic_backward()
    
   if (!STACK_CIRCUIT_FOUNDINS) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 71);
-//    fprintf(stderr,"Generic_backward: NULL pointer\n");
+/*    fprintf(stderr,"Generic_backward: NULL pointer\n");*/
     EXIT(1);
   }
   
@@ -267,7 +267,7 @@ static  void Generic_reduce()
    
   if (!STACK_CIRCUIT_FOUNDINS) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 72);
-//    fprintf(stderr,"Generic_reduce: NULL pointer\n");
+/*    fprintf(stderr,"Generic_reduce: NULL pointer\n");*/
     EXIT(1);
   }
    
@@ -298,14 +298,14 @@ static  void memorize_gen(loins_list *ins)
   l=getptype(ins->USER,GEN_FOUNDINS_PTYPE);
   if (!l) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 73);
-//    fprintf(stderr,"Take_Generic: PTYPE not found\n");
+/*    fprintf(stderr,"Take_Generic: PTYPE not found\n");*/
     EXIT(1);
   }
   nbhit++;
   /*add to the list the new element*/
   found=l->DATA;
 
-  if (found==first_instance_in_for) return; // to avoid including first instance
+  if (found==first_instance_in_for) return; /* to avoid including first instance*/
 
   if (found->FLAG==SELECT || found->FLAG==PRESEL || found->FLAG==PRESEL_HEAD || found->FLAG==SELECT_HEAD || found->FLAG==ALONE || found->FLAG==CHAIN || found->FLAG==CHOICE) return;
 
@@ -376,7 +376,7 @@ static  void Take_Generic()
 
   if (mbk_LosigIsVDD(MODEL_LOCON->SIG) || mbk_LosigIsVSS(MODEL_LOCON->SIG)) 
     {
-      //     for (l=CIRCUIT_LOFIGCHAIN; l; l=l->NEXT) remove_pending_con((locon_list *)l->DATA);
+      /*     for (l=CIRCUIT_LOFIGCHAIN; l; l=l->NEXT) remove_pending_con((locon_list *)l->DATA);*/
       freechain(CIRCUIT_LOFIGCHAIN);
       CIRCUIT_LOFIGCHAIN=NULL;
       return;
@@ -416,7 +416,7 @@ static  void Take_Generic()
             else CIRCUIT_LOFIGCHAIN=l->NEXT;
             del=l;
             l=l->NEXT;
-            //      remove_pending_con((locon_list *)del->DATA);
+            /*      remove_pending_con((locon_list *)del->DATA);*/
             del->NEXT=NULL;    /*break recursivity of freechain*/
             freechain(del);
           }
@@ -471,7 +471,7 @@ static  int Are_Locon_Equal(locon_list** circuit_c, locon_list* model_con,
 
   if (!circuit_con || !model_con) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 74);
-//    fprintf(stderr,"Are_Locon_Equal: NULL pointer\n");
+/*    fprintf(stderr,"Are_Locon_Equal: NULL pointer\n");*/
     EXIT(1);
   }
 
@@ -484,7 +484,7 @@ static  int Are_Locon_Equal(locon_list** circuit_c, locon_list* model_con,
   /* we shouldn't have this case because we have stop it earlier*/
   if (model_con->TYPE=='E') {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 104);
-    //fprintf(stderr,"Are_Locon_Equal: connector should be internal\n");
+    /*fprintf(stderr,"Are_Locon_Equal: connector should be internal\n");*/
     EXIT(1);
   }
    
@@ -495,11 +495,11 @@ static  int Are_Locon_Equal(locon_list** circuit_c, locon_list* model_con,
   if (circuit_con->TYPE=='T') {
     temp=level;
     lotrs=(lotrs_list*)circuit_ins;
-    //      if (getptype(lotrs->USER, GENIUS_GHOST_PTYPE)!=NULL) return 0;
+    /*      if (getptype(lotrs->USER, GENIUS_GHOST_PTYPE)!=NULL) return 0;*/
     if ((MLO_IS_TRANSN(lotrs->TYPE) && mbk_istransn(model_ins->FIGNAME))
         || (MLO_IS_TRANSP(lotrs->TYPE) && mbk_istransp(model_ins->FIGNAME))) {
       if (model_con->NAME==MBK_GRID_NAME) {/*it must be a grid*/
-        if (lotrs->GRID!=circuit_con) { reason="transistor grid mismached"; return 0; } //zinaps: prendre en compte le bulk
+        if (lotrs->GRID!=circuit_con) { reason="transistor grid mismached"; return 0; } /*zinaps: prendre en compte le bulk*/
       }   
       else {/*it must a source or drain*/
         if (lotrs->GRID==circuit_con) { reason="transistor grid mismached"; return 0;}
@@ -518,7 +518,7 @@ static  int Are_Locon_Equal(locon_list** circuit_c, locon_list* model_con,
       GLOBAL_CURFOUNDINS_VAR=lastfoundins_var;
 
       flags=(long)getptype(model_ins->USER, GENIUS_LOINS_FLAGS_PTYPE)->DATA;
-      // a mathed without loins can not reduce results
+      /* a mathed without loins can not reduce results*/
       if (match && (flags & LOINS_IS_WITHOUT))
         {
           if (PHASE==1) Generic_backward();
@@ -546,7 +546,7 @@ static  int Are_Locon_Equal(locon_list** circuit_c, locon_list* model_con,
   p=getptype(circuit_ins->USER,GEN_FOUNDINS_PTYPE);
   if (!p) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 105);
-//    fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");
+/*    fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");*/
     EXIT(1);
   }
   foundins=p->DATA;
@@ -563,15 +563,15 @@ static  int Are_Locon_Equal(locon_list** circuit_c, locon_list* model_con,
   syms=GetSymmetricChain(circuit_con);
   if (syms==NULL)
     {
-      // old behaviour
-      //OLD:       if (vectorradical(circuit_con->NAME)!=model_con->NAME) return 0;
+      /* old behaviour*/
+      /*OLD:       if (vectorradical(circuit_con->NAME)!=model_con->NAME) return 0;*/
       if (fastradical(circuit_con)!=model_con->NAME) { reason="connector name mismached"; return 0; }
       /* instead of model, bit vector is defined by environment variablers */
       if (fastindex(circuit_con)!=bit_wanted) { reason="connector index mismached"; return 0;}
     }
   else
     {
-      // we are carefull about the "fixed" tags, we use protect(), backward() and reduce()
+      /* we are carefull about the "fixed" tags, we use protect(), backward() and reduce()*/
       Protect();
       if (PHASE==1) Generic_protect();
 
@@ -633,7 +633,7 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
   
   if (!model_gensig) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 75);
-//    fprintf(stderr,"Find_Locon: NULL pointer\n");
+/*    fprintf(stderr,"Find_Locon: NULL pointer\n");*/
     EXIT(1);
   }
    
@@ -651,7 +651,7 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
   model_ins=(loins_list *)model_con->ROOT;
   flags=(long)getptype(model_ins->USER, GENIUS_LOINS_FLAGS_PTYPE)->DATA;
 
-  // partial without accelerator
+  /* partial without accelerator*/
   if (flags & LOINS_IS_WITHOUT)
     {
       ptype_list *p;
@@ -659,14 +659,14 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
       p=getptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE);
       if (!p || (long)p->DATA==-1)
         {
-          //       printf(" new count %p %d\n",p,p!=NULL?(long)p->DATA:-1);
+          /*       printf(" new count %p %d\n",p,p!=NULL?(long)p->DATA:-1);*/
           count=CountFakeInstanceLocon(model_ins->LOCON, env);
           if (!p) model_ins->USER=addptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE, (void *)count);
           else p->DATA=(void *)count;
         }
       else count=(long)p->DATA;
 
-      //       printf("count0=%d\n",count);
+      /*       printf("count0=%d\n",count);*/
       count--;
        
       if (count!=0) quickend=1;
@@ -678,10 +678,10 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
           switch(quieryresult)
             {
             case QUICK_NONE_MATCH: quickend=1; break;
-            case QUICK_ONE_OR_MORE_MATCH: break; // check if really matches
+            case QUICK_ONE_OR_MORE_MATCH: break; /* check if really matches*/
             case QUICK_FAKE_MATCH:
               reason="there is already a fake on this signal"; 
-              return 0; //this place is already taken by another fake, math=0
+              return 0; /*this place is already taken by another fake, math=0*/
             }
         }
     }
@@ -693,7 +693,7 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
   if (!quickend && (mbk_istransn(model_ins->FIGNAME) || mbk_istransp(model_ins->FIGNAME)))
     {
       ComputeModelTransistorKeyV2(model_ins->LOCON, env, &modeltrkey, &modeltrmask);
-//             gen_printf(2, "modelins(%s) key=%llx, mask=%llx\n",model_ins->INSNAME,modeltrkey,modeltrmask);
+/*             gen_printf(2, "modelins(%s) key=%llx, mask=%llx\n",model_ins->INSNAME,modeltrkey,modeltrmask);*/
       modelinsistran=1;
     }
 
@@ -714,7 +714,7 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
   */             
               ret=Is_Gensig_Match(model_gensig->NEXT,bit_sig,env);
 
-//              GLOBAL_CURFOUNDINS_VAR=oldfoundins_var;
+/*              GLOBAL_CURFOUNDINS_VAR=oldfoundins_var;*/
               
               if (EMERGENCY_ABORT) 
                 {
@@ -727,7 +727,7 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
               if (ret) 
                 {
                   
-                  //           remove_pending_con((locon_list *)l->DATA);
+                  /*           remove_pending_con((locon_list *)l->DATA);*/
           
                   /*           if (l!=CIRCUIT_LOFIGCHAIN) UpdateSignalStatistics(((locon_list *)l->DATA)->SIG, (locon_list *)l->DATA, STAT_COUNT_SUCESS);*/
                   l->NEXT=NULL;    /*break recursivity of freechain*/
@@ -749,15 +749,15 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
             {
               long long key0, key1;
               TransistorKeyV2((lotrs_list *)con->ROOT, &key0, &key1);
-//              gen_printf(2, "curtran key0=%llx, key1=%llx, mask=%llx\n",key0, key1,modeltrmask);
+/*              gen_printf(2, "curtran key0=%llx, key1=%llx, mask=%llx\n",key0, key1,modeltrmask);*/
               if ((key0 & modeltrmask)!=modeltrkey && (key1 & modeltrmask)!=modeltrkey)
                 {
                   pred=l;
                   l=l->NEXT;
-//                             gen_printf(2, "cont\n");
+/*                             gen_printf(2, "cont\n");*/
                   continue;
                 }
-//                     gen_printf(2, "check\n");
+/*                     gen_printf(2, "check\n");*/
             }
           else
             if (con->TYPE=='T' && modelinsistran==0)
@@ -773,8 +773,8 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
             {
               /*if this choice match*/
               int good=0, failedtoswap;
-              locon_list *last=NULL; // to search thru the symmetrics
-        //      printf("2.%s %c.",con->NAME,con->TYPE);
+              locon_list *last=NULL; /* to search thru the symmetrics*/
+        /*      printf("2.%s %c.",con->NAME,con->TYPE);*/
 
               Protect();
 
@@ -823,7 +823,7 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
 
                           do 
                             {
-                              // get next symmetric
+                              /* get next symmetric*/
                  
                               last=GetNextSymmetric(con, last);
                               if (last!=NULL)
@@ -837,7 +837,7 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
                       ABORT_SYMMETRY=0;
                     }
                 }
-              //  printf("(%s.%s)\n",con->TYPE=='T'?((lotrs_list *)con->ROOT)->TRNAME:((loins_list *)con->ROOT)->INSNAME,con->NAME);
+              /*  printf("(%s.%s)\n",con->TYPE=='T'?((lotrs_list *)con->ROOT)->TRNAME:((loins_list *)con->ROOT)->INSNAME,con->NAME);*/
               if (good)
                 {
                   /*extract from possibilities*/
@@ -850,9 +850,9 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
 
                   ret=Is_Gensig_Match(model_gensig->NEXT,bit_sig,env);
 
-//                  GLOBAL_CURFOUNDINS_VAR=oldfoundins_var;
+/*                  GLOBAL_CURFOUNDINS_VAR=oldfoundins_var;*/
 
-                  if (EMERGENCY_ABORT) // CIRCUIT_LOFIGCHAIN n'est plus coherent
+                  if (EMERGENCY_ABORT) /* CIRCUIT_LOFIGCHAIN n'est plus coherent*/
                     {
                       CIRCUIT_LOFIGCHAIN=addchain(CIRCUIT_LOFIGCHAIN, l->DATA);
                       l->NEXT=NULL;
@@ -869,18 +869,18 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
                       if (!p || (long)p->DATA==-1)
                         {
                           count=CountFakeInstanceLocon(model_ins->LOCON, env);
-                          //             printf("count1=%d\n",count);
+                          /*             printf("count1=%d\n",count);*/
                           if (!p) model_ins->USER=addptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE, (void *)count);
                           else p->DATA=(void *)count;
                
                         }
                       else count=(long)p->DATA;
 
-                      //             printf(" count1=%ld ",count);
+                      /*             printf(" count1=%ld ",count);*/
                       count--;
                       if (count==0)
                         {
-                          //             gen_printf(2," <WITHOUT REJECT1> ");
+                          /*             gen_printf(2," <WITHOUT REJECT1> ");*/
                           ret=0;
                           /*             if (pred) pred->NEXT=l;
                                                  else CIRCUIT_LOFIGCHAIN=l;*/
@@ -895,20 +895,20 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
                         }
                       else
                         {
-                          //             gen_printf(2," <WITHOUT REJECT2> ");
+                          /*             gen_printf(2," <WITHOUT REJECT2> ");*/
                           ret=!ret;
                         }
                     }
     
                   if (ret) 
                     {
-                      //             remove_pending_con((locon_list *)l->DATA);
-                      // printf("|%d %d %d|",enteringDECISION_CHANGE_MODE,DECISION_CHANGE_MODE,GOTO_MODE);
+                      /*             remove_pending_con((locon_list *)l->DATA);*/
+                      /* printf("|%d %d %d|",enteringDECISION_CHANGE_MODE,DECISION_CHANGE_MODE,GOTO_MODE);*/
                       if (!enteringDECISION_CHANGE_MODE && DECISION_CHANGE_MODE && !GOTO_MODE)
                         {
                           DECISION_CHANGE_MODE=0;
                           UpdateSignalStatistics(((locon_list *)l->DATA)->SIG, (locon_list *)l->DATA, STAT_FORCE_CHANGE);
-                          //             gen_printf(2," <FORCE CHANGE %s> ",((locon_list *)l->DATA)->SIG->NAMECHAIN->DATA);
+                          /*             gen_printf(2," <FORCE CHANGE %s> ",((locon_list *)l->DATA)->SIG->NAMECHAIN->DATA);*/
                         }
                       else
                         if (l!=CIRCUIT_LOFIGCHAIN) UpdateSignalStatistics(((locon_list *)l->DATA)->SIG, (locon_list *)l->DATA, STAT_COUNT_SUCESS);
@@ -953,18 +953,18 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
 */
       retcode=Is_Gensig_Match(model_gensig->NEXT,bit_sig,env);
 
-//      GLOBAL_CURFOUNDINS_VAR=oldfoundins_var;
+/*      GLOBAL_CURFOUNDINS_VAR=oldfoundins_var;*/
 
       if (retcode)
         {
-          // peut etre pas necessaire ici mais on ne sais jamais
-          if (EMERGENCY_ABORT) { return 0;} // CIRCUIT_LOFIGCHAIN n'est plus valide
+          /* peut etre pas necessaire ici mais on ne sais jamais*/
+          if (EMERGENCY_ABORT) { return 0;} /* CIRCUIT_LOFIGCHAIN n'est plus valide*/
 
           if (!IMustChangeDecision())
             {
               long count;
-              //           gen_printf(2," <WITHOUT0> ");
-              // marquage special pour les instances "without"
+              /*           gen_printf(2," <WITHOUT0> ");*/
+              /* marquage special pour les instances "without"*/
               /*           p=getptype(model_ins->USER,GEN_VISITED_PTYPE);
                                if (p!=NULL) p->DATA=model_ins;
                                else model_ins->USER=addptype(model_ins->USER,GEN_VISITED_PTYPE, model_ins);
@@ -974,11 +974,11 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
               else 
                 {
                   count=CountFakeInstanceLocon(model_ins->LOCON, env);
-                  //           printf("count=%d\n",count);
+                  /*           printf("count=%d\n",count);*/
                   if (!p) p=model_ins->USER=addptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE, (void *)count);
                   else p->DATA=(void *)count;
                 }       
-              //           printf(" count2=%ld ",count);
+              /*           printf(" count2=%ld ",count);*/
               addwithoutcount(model_ins, count);
               count--;
               if (count!=0)
@@ -989,20 +989,20 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
               else
                 p->DATA=(void *)-1;
               /*model_ins->USER=delptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE);*/
-              //           printf(" count=%ld ",count);
+              /*           printf(" count=%ld ",count);*/
               gen_printf(2," %s marked ",model_ins->INSNAME);
               return 1;
             }
           else
             {
-              //           gen_printf(2," <GREEEE> ");
-              //           if ((p=getptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE))!=NULL)
-              //         p->DATA=(void *)-1; /*model_ins->USER=delptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE);*/
+              /*           gen_printf(2," <GREEEE> ");*/
+              /*           if ((p=getptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE))!=NULL)*/
+              /*         p->DATA=(void *)-1; /*model_ins->USER=delptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE);*/
               DECISION_CHANGE_MODE=1;
               return 0;
             }
         }
-      // enlever count
+      /* enlever count*/
       /*       if ((p=getptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE))!=NULL)
                p->DATA=(void *)-1;*/
       /*  if (getptype(model_ins->USER, GENIUS_LOINS_COUNT_PTYPE)!=NULL)
@@ -1013,7 +1013,7 @@ static  int Find_Locon(gensigchain_list *model_gensig, int bit_sig, int bit_con,
   /*not found*/
   if (!con) return 0;
 
-  // set fixed?
+  /* set fixed?*/
 
   return 1;
 }
@@ -1131,7 +1131,7 @@ static  int Is_Gensig_Match(gensigchain_list* gen, int bit_wanted, ptype_list* e
     /* an array match with another array*/
     if (all_var_def && low_src<=bit_wanted && (high_src==UNDEF || high_src>=bit_wanted)) {
       /*low_dest is not really the low bound of vector (it could be)*/
-//      low_dest=Eval_Exp_VHDL(gen->LOCON_EXP->NEXT,env);
+/*      low_dest=Eval_Exp_VHDL(gen->LOCON_EXP->NEXT,env);*/
       numbit=UNDEF;
       if (TOKEN(gen->LOCON_EXP)==GEN_TOKEN_TO)
         {
@@ -1221,14 +1221,14 @@ static  int Is_Losig_Match(losig_list* circuit_sig, losig_list* model_sig, int b
 
   if (circuit_sig==NULL)
     {
-      // unused connector on instance
-      // always matchs
+      /* unused connector on instance*/
+      /* always matchs*/
       return 1;
     }
 
   if (!model_sig || !circuit_sig) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 77);
-//    fprintf(stderr,"Is_Losig_Match: NULL pointer\n");
+/*    fprintf(stderr,"Is_Losig_Match: NULL pointer\n");*/
     EXIT(1);
   }
 
@@ -1240,16 +1240,16 @@ static  int Is_Losig_Match(losig_list* circuit_sig, losig_list* model_sig, int b
   if (bit_wanted==UNDEF) {
     if (PHASE!=2) return 1;
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 106);
-//    fprintf(stderr,"Is_Losig_Match: undeterminate bit number\n");
+/*    fprintf(stderr,"Is_Losig_Match: undeterminate bit number\n");*/
     EXIT(3);
   }   
    
   /*control if already visited, it must match*/
-  // printf(">>>> %s for %s(%d)\n",circuit_sig->NAMECHAIN->DATA,model_sig->NAMECHAIN->DATA, bit_wanted);
-  match=controlmark(1,model_sig,bit_wanted,circuit_sig,NULL); // normally NULL should not matter here
+  /* printf(">>>> %s for %s(%d)\n",circuit_sig->NAMECHAIN->DATA,model_sig->NAMECHAIN->DATA, bit_wanted);*/
+  match=controlmark(1,model_sig,bit_wanted,circuit_sig,NULL); /* normally NULL should not matter here*/
   if (match==1) return 1;
   if (!match) { avt_errmsg(GNS_ERRMSG, "005", AVT_WARNING, 9);
-//          printf("- visited but no match -\n");
+/*          printf("- visited but no match -\n");*/
           return 0;
   }
 
@@ -1268,14 +1268,14 @@ static  int Is_Losig_Match(losig_list* circuit_sig, losig_list* model_sig, int b
   p=getptype(circuit_sig->USER,LOFIGCHAIN);
   if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 78);
-//    fprintf(stderr,"Is_Losig_Match: No LOFIGCHAIN in circuit\n");
+/*    fprintf(stderr,"Is_Losig_Match: No LOFIGCHAIN in circuit\n");*/
     EXIT(1);
   }
 
 #if 1
   if (model_sig->FLAGS==2)
     {
-      // uniquement interne et en l'air
+      /* uniquement interne et en l'air*/
       cl=(chain_list *)p->DATA;
       if (cl!=NULL && cl->NEXT==NULL)
         {
@@ -1288,9 +1288,9 @@ static  int Is_Losig_Match(losig_list* circuit_sig, losig_list* model_sig, int b
     }
   else if (model_sig->FLAGS==1)
     {
-      // uniquement connecte a l'interface et une instance
-      // il suffit qu'il y ait plus de 2 elements dans le lofigchain pour que
-      // ca marche
+      /* uniquement connecte a l'interface et une instance*/
+      /* il suffit qu'il y ait plus de 2 elements dans le lofigchain pour que*/
+      /* ca marche*/
       cl=(chain_list *)p->DATA;
       if (cl!=NULL && cl->NEXT!=NULL)
         {
@@ -1330,7 +1330,7 @@ static  int Is_Losig_Match(losig_list* circuit_sig, losig_list* model_sig, int b
           l->NEXT=NULL; freechain(l);
           if (pred==NULL) {  p->DATA=next; }
           else { pred->NEXT=next; }
-          //       if (wasfast) checklofig(lc->SIG);
+          /*       if (wasfast) checklofig(lc->SIG);*/
         }
       else
         {
@@ -1352,7 +1352,7 @@ static  int Is_Losig_Match(losig_list* circuit_sig, losig_list* model_sig, int b
   p=getptype(model_sig->USER,GENSIGCHAIN);
   if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 79);
-//    fprintf(stderr,"Is_Losig_Match: NULL pointer\n");
+/*    fprintf(stderr,"Is_Losig_Match: NULL pointer\n");*/
     EXIT(1);
   }   
 
@@ -1377,7 +1377,7 @@ static  int Is_Losig_Match(losig_list* circuit_sig, losig_list* model_sig, int b
           cnt++;
           if (GEN_DEBUG_LEVEL==4 && cnt>=5) break;
         }
-      //if (cnt>=5 && l!=NULL) gen_printf(4,"\t ...etc...\n");
+      /*if (cnt>=5 && l!=NULL) gen_printf(4,"\t ...etc...\n");*/
       gen_printf(4,"- view <<<< -\n");
     }
 #endif
@@ -1388,14 +1388,14 @@ static  int Is_Losig_Match(losig_list* circuit_sig, losig_list* model_sig, int b
   if (EMERGENCY_ABORT) EMERGENCY_ABORT=0;
   if (match==-1) {
      avt_errmsg(GNS_ERRMSG, "092", AVT_FATAL, bit_wanted,(char*) model_sig->NAMECHAIN->DATA);
-//    fprintf(stderr,"Is_Losig_Match: %d Out of bounds for signal %s\n",bit_wanted,(char*) model_sig->NAMECHAIN->DATA);
+/*    fprintf(stderr,"Is_Losig_Match: %d Out of bounds for signal %s\n",bit_wanted,(char*) model_sig->NAMECHAIN->DATA);*/
     EXIT(3);
   }   
 
   if (match && EXTERNAL_FLAG && !CIRCUIT_LOFIGCHAIN) {
     /*not enough connectors to assume one external connector in lofigchain*/
     if (GEN_DEBUG_LEVEL>1) gen_printf(1,"WARNING: circuit signal '%s' matched but no other connector could be found outside the instance\n",(char *)circuit_sig->NAMECHAIN->DATA);
-    //      match=0;
+    /*      match=0;*/
   }
 
   if (match && !(PHASE==0 && EXTERNAL_FLAG)) Take_Generic();
@@ -1459,7 +1459,7 @@ static  int Is_Locon_Match(locon_list* circuit_con, locon_list* model_con,
 
   if (!model_con || !circuit_con) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 80);
-//    fprintf(stderr,"Is_Locon_Match: NULL pointer\n");
+/*    fprintf(stderr,"Is_Locon_Match: NULL pointer\n");*/
     EXIT(1);
   }   
 
@@ -1475,7 +1475,7 @@ static  int Is_Locon_Match(locon_list* circuit_con, locon_list* model_con,
   p=getptype(model_con->USER,GENCONCHAIN);
   if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 81);
-//    fprintf(stderr,"Is_Locon_Match: NULL pointer\n");
+/*    fprintf(stderr,"Is_Locon_Match: NULL pointer\n");*/
     EXIT(1);
   }   
   /* get bit number for model */
@@ -1544,7 +1544,7 @@ static  int Is_Locon_Match(locon_list* circuit_con, locon_list* model_con,
 
   if (match==-1) {
         avt_errmsg(GNS_ERRMSG, "093", AVT_FATAL, bit_wanted,model_con->NAME);
-//    fprintf(stderr,"Is_Locon_Match: %d Out of bounds for locon %s\n",bit_wanted,model_con->NAME);
+/*    fprintf(stderr,"Is_Locon_Match: %d Out of bounds for locon %s\n",bit_wanted,model_con->NAME);*/
     EXIT(3);
   }   
 
@@ -1588,24 +1588,24 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
 
   if (!lotrs || !model_ins) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 82);
-//    fprintf(stderr,"Is_Lotrs_Match: NULL pointer\n");
+/*    fprintf(stderr,"Is_Lotrs_Match: NULL pointer\n");*/
     EXIT(1);
   }
   
   if (!mbk_istransn(model_ins->FIGNAME) && !mbk_istransp(model_ins->FIGNAME)) {
      avt_errmsg(GNS_ERRMSG, "094", AVT_FATAL, model_ins->FIGNAME);
-//    fprintf(stderr,"Is_Lotrs_Match: parameter discrepancy\n");
+/*    fprintf(stderr,"Is_Lotrs_Match: parameter discrepancy\n");*/
     EXIT(1);
   }
   /*search transistor*/
   if (MLO_IS_TRANSN(lotrs->TYPE) && !mbk_istransn(model_ins->FIGNAME)) {
      avt_errmsg(GNS_ERRMSG, "094", AVT_FATAL, model_ins->FIGNAME);
-    //fprintf(stderr,"Is_Lotrs_Match: parameter discrepancy\n");
+    /*fprintf(stderr,"Is_Lotrs_Match: parameter discrepancy\n");*/
     EXIT(1);
   }      
   if (MLO_IS_TRANSP(lotrs->TYPE) && !mbk_istransp(model_ins->FIGNAME)) {
      avt_errmsg(GNS_ERRMSG, "094", AVT_FATAL, model_ins->FIGNAME);
-    //fprintf(stderr,"Is_Lotrs_Match: parameter discrepancy\n");
+    /*fprintf(stderr,"Is_Lotrs_Match: parameter discrepancy\n");*/
     EXIT(1);
   }     
 
@@ -1640,7 +1640,7 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
         gen_printf(2,"%s[MATCHED] Specific transistor model (%s)\n", tabs, model_ins->FIGNAME);
     }
 
-  // transistor parameter match
+  /* transistor parameter match*/
   p=getptype(model_ins->USER,GEN_GENERIC_MAP_PTYPE);
    
   for (cl=p->DATA, ret=0; cl!=NULL;cl=cl->NEXT, ret++)
@@ -1649,7 +1649,7 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
       if (ret>=NB_TRAN_PARAM)
         {
           avt_errmsg(GNS_ERRMSG, "095", AVT_FATAL, gmi->FILE, gmi->LINE,model_ins->INSNAME);
-//          fprintf(stderr,"%s:%d: Too many parameters for transistor '%s'\n",gmi->FILE, gmi->LINE,model_ins->INSNAME);
+/*          fprintf(stderr,"%s:%d: Too many parameters for transistor '%s'\n",gmi->FILE, gmi->LINE,model_ins->INSNAME);*/
           EXIT(1);
         }
 
@@ -1662,10 +1662,10 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
       if (gmi->right.value<=0.0)
         {
           avt_errmsg(GNS_ERRMSG, "097", AVT_FATAL, gmi->FILE, gmi->LINE,model_ins->INSNAME);
-//          fprintf(stderr,"%s:%d: A positive non nul number was expected for instance '%s'\n",gmi->FILE, gmi->LINE, model_ins->INSNAME);
+/*          fprintf(stderr,"%s:%d: A positive non nul number was expected for instance '%s'\n",gmi->FILE, gmi->LINE, model_ins->INSNAME);*/
           EXIT(1);
         }
-      // looking for explicit assignation
+      /* looking for explicit assignation*/
       if (gmi->left==NULL) param=transistor_params[ret];
       else param=gmi->left;
 
@@ -1715,7 +1715,7 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
                 else
                   {
                     avt_errmsg(GNS_ERRMSG, "098", AVT_FATAL, gmi->FILE, gmi->LINE,param);
-//                    fprintf(stderr,"%s:%d: unknown transistor parameter '%s'\n",gmi->FILE, gmi->LINE, param);
+/*                    fprintf(stderr,"%s:%d: unknown transistor parameter '%s'\n",gmi->FILE, gmi->LINE, param);*/
                     EXIT(1);             
                   }
     }
@@ -1724,7 +1724,7 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
   p=getptype(model_ins->USER,GENERIC_PTYPE);
   if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 83);
- //   fprintf(stderr,"Is_Lotrs_Match: NULL pointer\n");
+ /*   fprintf(stderr,"Is_Lotrs_Match: NULL pointer\n");*/
     EXIT(1);
   }
   sav_for_flag=FOR_FLAG;
@@ -1736,7 +1736,7 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
    
   if (model_con->NAME!=MBK_GRID_NAME) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 84);
-//    fprintf(stderr,"Is_Lotrs_Match: computing error\n");
+/*    fprintf(stderr,"Is_Lotrs_Match: computing error\n");*/
     EXIT(3);
   }   
 
@@ -1756,7 +1756,7 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
 
   if (SPI_IGNORE_BULK=='N' || (lotrs->BULK!=NULL && lotrs->BULK->SIG!=NULL))
     {
-      // bulk
+      /* bulk*/
       bit_wanted=BitNumber_Losig(lotrs->BULK,model_con->NEXT->NEXT->NEXT/*bulk*/,env);
       if (bit_wanted==-2) match=0;
       else 
@@ -1834,7 +1834,7 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
           tabs[strlen(tabs)-2]='\0';
           gen_printf(2,"%s[%s] Matching transistor '%s' - '%s' in model\n",tabs,match!=0?"SUCESS":"FAILED",lotrs->TRNAME!=NULL?lotrs->TRNAME:"??",model_ins->INSNAME);
 #endif       
-          lotrs->FLAGS=1; // reconnu a l'envers
+          lotrs->FLAGS=1; /* reconnu a l'envers*/
           return match;
         }
       }   
@@ -1909,7 +1909,7 @@ static  int Is_Lotrs_Match(lotrs_list* lotrs, loins_list* model_ins,
   tabs[strlen(tabs)-2]='\0';
   gen_printf(2,"%s[%s] Matching transistor '%s' - '%s' in model\n",tabs,match!=0?"SUCESS":"FAILED",lotrs->TRNAME!=NULL?lotrs->TRNAME:"??",model_ins->INSNAME);
 #endif
-  lotrs->FLAGS=0; // reconnu a l'endroit
+  lotrs->FLAGS=0; /* reconnu a l'endroit*/
   return match;
 
  badthing:
@@ -1939,13 +1939,13 @@ static  int Mark_Loins(loins_list* circuit_ins, loins_list* model_ins, ptype_lis
 
   if (!circuit_ins || !model_ins) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 85);
-    //fprintf(stderr,"Mark_Loins: NULL pointer\n");
+    /*fprintf(stderr,"Mark_Loins: NULL pointer\n");*/
     EXIT(1);
   }
    
   if (circuit_ins->FIGNAME!=model_ins->FIGNAME) {
      avt_errmsg(GNS_ERRMSG, "099", AVT_FATAL, model_ins->FIGNAME);
-//    fprintf(stderr,"Mark_Loins: parameter discrepancy\n");
+/*    fprintf(stderr,"Mark_Loins: parameter discrepancy\n");*/
     EXIT(1);
   }
 
@@ -1961,7 +1961,7 @@ static  int Mark_Loins(loins_list* circuit_ins, loins_list* model_ins, ptype_lis
               circuit_ins->INSNAME);*/
       EXIT(3);
     }
-    //OLD:      if (vectorradical(circuit_con->NAME)!=model_con->NAME) {
+    /*OLD:      if (vectorradical(circuit_con->NAME)!=model_con->NAME) {*/
     if (fastradical(circuit_con)!=model_con->NAME) {
      avt_errmsg(GNS_ERRMSG, "101", AVT_FATAL, circuit_con->NAME,model_con->NAME,circuit_ins->INSNAME, model_ins->INSNAME);
     
@@ -1994,7 +1994,7 @@ static  int Mark_Loins(loins_list* circuit_ins, loins_list* model_ins, ptype_lis
                 tryagain=0;
                 Protect();
                 
-                //          gen_printf(3,"[%s]",circuit_con->NAME);
+                /*          gen_printf(3,"[%s]",circuit_con->NAME);*/
                 if ((match0=controlmark(0,model_con->SIG,bit_wanted,circuit_con->SIG,circuit_con))!=0) { abort=0; Reduce(); break; }
                 Backward();
                 
@@ -2009,9 +2009,9 @@ static  int Mark_Loins(loins_list* circuit_ins, loins_list* model_ins, ptype_lis
             
             if (abort==1) 
               {
-                //          gen_printf(3,"failed(%s)",circuit_con->NAME);
+                /*          gen_printf(3,"failed(%s)",circuit_con->NAME);*/
                 gen_printf(3,"%s'%s' could not be associated\n",tabs, circuit_con->NAME);
-                //          gen_printf(2,"-- %d ++\n",external_swaps);
+                /*          gen_printf(2,"-- %d ++\n",external_swaps);*/
                 if (external_swaps==0) ABORT_SYMMETRY=1;
                 match=0; 
                 break; 
@@ -2037,7 +2037,7 @@ static  int Mark_Loins(loins_list* circuit_ins, loins_list* model_ins, ptype_lis
         EXIT(3);
       } 
     } 
-    else//OLD: if (vectorradical(circuit_con->NAME)!=vectorradical(circuit_con->NEXT->NAME)) {
+    else/*OLD: if (vectorradical(circuit_con->NAME)!=vectorradical(circuit_con->NEXT->NAME)) {*/
       if (fastradical(circuit_con)!=fastradical(circuit_con->NEXT)) {
         /* change of name vector*/
         model_con=model_con->NEXT;
@@ -2051,7 +2051,7 @@ static  int Mark_Loins(loins_list* circuit_ins, loins_list* model_ins, ptype_lis
         p=getptype(model_con->USER,GENCONCHAIN);
         if (!p) {
           avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 86);
-//          fprintf(stderr,"Mark_Loins: ptype not found\n");
+/*          fprintf(stderr,"Mark_Loins: ptype not found\n");*/
           EXIT(1);
         }
         tree=((genconchain_list*)p->DATA)->LOSIG_EXP;
@@ -2064,7 +2064,7 @@ static  int Mark_Loins(loins_list* circuit_ins, loins_list* model_ins, ptype_lis
               locon_list *locon,*pred=NULL;
               /*search last*/
               for (locon=circuit_con->NEXT;
-                   locon && //OLD: vectorradical(locon->NAME)==vectorradical(circuit_con->NEXT->NAME); 
+                   locon && /*OLD: vectorradical(locon->NAME)==vectorradical(circuit_con->NEXT->NAME); */
                      fastradical(locon)==fastradical(circuit_con->NEXT); 
                    locon=locon->NEXT) pred=locon;
               /*keep higher index*/
@@ -2088,7 +2088,7 @@ static  int Mark_Loins(loins_list* circuit_ins, loins_list* model_ins, ptype_lis
               locon_list *locon,*pred=NULL;
               /*search last*/
               for (locon=circuit_con->NEXT;
-                   locon && // OLD: vectorradical(locon->NAME)==vectorradical(circuit_con->NEXT->NAME); 
+                   locon && /* OLD: vectorradical(locon->NAME)==vectorradical(circuit_con->NEXT->NAME); */
                      fastradical(locon)==fastradical(circuit_con->NEXT); 
                    locon=locon->NEXT) pred=locon;
               /*keep higher index*/
@@ -2101,7 +2101,7 @@ static  int Mark_Loins(loins_list* circuit_ins, loins_list* model_ins, ptype_lis
             }   
             tree=((genconchain_list*)p->DATA)->LOSIG_EXP;
             tree=tree->NEXT->DATA;/*TOKEN(tree)=high bound of vector*/
-            //           printf("(?==%d)",circuit_end-circuit_begin+model_begin);
+            /*           printf("(?==%d)",circuit_end-circuit_begin+model_begin);*/
             Solve_Equ_VHDL(tree,circuit_end-circuit_begin+model_begin,env);
           }
         }   
@@ -2127,14 +2127,14 @@ static  int Is_Loins_Match(foundins_list* circuit_foundins,
    
   if (!circuit_foundins || !model_ins) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 87);
-//    fprintf(stderr,"Is_Loins_Match: NULL pointer\n");
+/*    fprintf(stderr,"Is_Loins_Match: NULL pointer\n");*/
     EXIT(1);
   }
   circuit_ins=circuit_foundins->LOINS;
   
   if (circuit_ins->FIGNAME!=model_ins->FIGNAME) {
      avt_errmsg(GNS_ERRMSG, "103", AVT_FATAL, circuit_ins->FIGNAME,model_ins->FIGNAME);
-//    fprintf(stderr,"Is_Loins_Match: parameter discrepancy with %s and %s\n",circuit_ins->FIGNAME,model_ins->FIGNAME);
+/*    fprintf(stderr,"Is_Loins_Match: parameter discrepancy with %s and %s\n",circuit_ins->FIGNAME,model_ins->FIGNAME);*/
     EXIT(1);
   }
   if (getptype(model_ins->USER, GNS_FORCE_MATCH)!=NULL)
@@ -2175,7 +2175,7 @@ static  int Is_Loins_Match(foundins_list* circuit_foundins,
     {
       *lastlocon=circuit_con;
       /* we mark the connector as fixed */
-      //       setfixed(circuit_con);
+      /*       setfixed(circuit_con);*/
       /*       if (GEN_DEBUG_LEVEL>4)
                printf(">>> set >>> %s.%s\n",((loins_list *)circuit_con->ROOT)->INSNAME, circuit_con->NAME);
       */
@@ -2187,7 +2187,7 @@ static  int Is_Loins_Match(foundins_list* circuit_foundins,
                 circuit_ins->INSNAME);*/
         EXIT(3);
       }
-      //OLD:       if (vectorradical(circuit_con->NAME)!=model_con->NAME) {
+      /*OLD:       if (vectorradical(circuit_con->NAME)!=model_con->NAME) {*/
       if (fastradical(circuit_con)!=model_con->NAME) {
      avt_errmsg(GNS_ERRMSG, "101", AVT_FATAL, circuit_con->NAME,model_con->NAME,circuit_ins->INSNAME, model_ins->INSNAME);
 /*        fprintf(stderr, "Is_Loins_Match: connectors %s and %s mismatch in loins %s and %s\n",
@@ -2207,7 +2207,7 @@ static  int Is_Loins_Match(foundins_list* circuit_foundins,
           EXIT(3);
         } 
       } 
-      else // OLD: if (vectorradical(circuit_con->NAME)!=vectorradical(circuit_con->NEXT->NAME)) {
+      else /* OLD: if (vectorradical(circuit_con->NAME)!=vectorradical(circuit_con->NEXT->NAME)) {*/
         if (fastradical(circuit_con)!=fastradical(circuit_con->NEXT)) {
           /* change of vector name*/
           model_con=model_con->NEXT;
@@ -2233,7 +2233,7 @@ static  int Is_Loins_Match(foundins_list* circuit_foundins,
 
 
 
-// zinaps : a commenter
+/* zinaps : a commenter*/
 static  int Is_Loins_Match_Syms(foundins_list* circuit_foundins, loins_list* model_ins, ptype_list *env)
 {
   locon_list *lastupto=NULL, *lastlocon, *tmpcon, *last=NULL;
@@ -2246,14 +2246,14 @@ static  int Is_Loins_Match_Syms(foundins_list* circuit_foundins, loins_list* mod
   Protect();
   if (PHASE==1) Generic_protect();
 
-  // Saving old env values
+  /* Saving old env values*/
   for (p=env, i=0; p!=NULL; p=p->NEXT, i++) oldenv[i]=p->TYPE;
 
   do 
     {
-      // ------------------------------------
-      // Assigning generic map values
-      // ------------------------------------
+      /* ------------------------------------*/
+      /* Assigning generic map values*/
+      /* ------------------------------------*/
 #if 0     
 #ifdef ZINAPS_DUMP
       gen_printf(3,"circuit_foundins->var: ");
@@ -2272,23 +2272,23 @@ static  int Is_Loins_Match_Syms(foundins_list* circuit_foundins, loins_list* mod
           if (gmi->type!='n')
         {
           avt_errmsg(GNS_ERRMSG, "104", AVT_FATAL, gmi->FILE, gmi->LINE,model_ins->INSNAME);
-//          fprintf(stderr,"%s:%d: A variable name was expected for instance '%s', found a number\n",gmi->FILE, gmi->LINE,model_ins->INSNAME);
+/*          fprintf(stderr,"%s:%d: A variable name was expected for instance '%s', found a number\n",gmi->FILE, gmi->LINE,model_ins->INSNAME);*/
           EXIT(1);
         }
 
-      // looking for explicit assignation
+      /* looking for explicit assignation*/
       if (gmi->left/*cl->NEXT->DATA*/!=NULL)
         {
-          // searching for this generic in the circuit instance // explicit assignment
+          /* searching for this generic in the circuit instance // explicit assignment*/
           for (p1=circuit_foundins->VAR;p1!=NULL && p1->DATA!=gmi->left/*cl->NEXT->DATA*/;p1=p1->NEXT) ;
         }
-      else p1=p2; // implicit assignment
+      else p1=p2; /* implicit assignment*/
       
       if (p1==NULL)
         {
-          // generic not found
+          /* generic not found*/
           avt_errmsg(GNS_ERRMSG, "031", AVT_FATAL, (char *)cl->NEXT->DATA);
-//          fprintf(stderr,"Is_Loins_Match: Generic variable '%s' not define\n",(char *)cl->NEXT->DATA);
+/*          fprintf(stderr,"Is_Loins_Match: Generic variable '%s' not define\n",(char *)cl->NEXT->DATA);*/
           EXIT(1);
         }
       
@@ -2297,7 +2297,7 @@ static  int Is_Loins_Match_Syms(foundins_list* circuit_foundins, loins_list* mod
       if (env0==NULL)
         {
           avt_errmsg(GNS_ERRMSG, "105", AVT_FATAL, gmi->right.name);
-//          avt_error("gns", 20, AVT_ERR,"Could not find generic variable '%s' in entity variable list\n",gmi->right.name);
+/*          avt_error("gns", 20, AVT_ERR,"Could not find generic variable '%s' in entity variable list\n",gmi->right.name);*/
           EXIT(1);
         }
 
@@ -2306,7 +2306,7 @@ static  int Is_Loins_Match_Syms(foundins_list* circuit_foundins, loins_list* mod
               for (p=env, i=0; p!=NULL; p=p->NEXT, i++) p->TYPE=oldenv[i];
               if (PHASE==1) Generic_backward();
               Backward();          
-              return 0; // no match
+              return 0; /* no match*/
             }
       env0->TYPE=p1->TYPE;
           
@@ -2317,7 +2317,7 @@ static  int Is_Loins_Match_Syms(foundins_list* circuit_foundins, loins_list* mod
       /*recursive search*/
       if ((match=Is_Loins_Match(circuit_foundins, model_ins, env,&lastlocon))!=0) break;
       
-      // will never match, we put back the the old env values
+      /* will never match, we put back the the old env values*/
       for (p=env, i=0; p!=NULL; p=p->NEXT, i++) p->TYPE=oldenv[i];
 
       if (PHASE==1) Generic_backward();
@@ -2330,22 +2330,22 @@ static  int Is_Loins_Match_Syms(foundins_list* circuit_foundins, loins_list* mod
       
       if (!match && lastlocon!=NULL)
     {
-      // if the instance does not match, we try to swap the different connectors
-      // with their symmetric one by one
-      // for each swap, we try the modified instance
+      /* if the instance does not match, we try to swap the different connectors*/
+      /* with their symmetric one by one*/
+      /* for each swap, we try the modified instance*/
       
-      // has the faulty connector got a sym?
-          //      printf("here %s\n",lastlocon->NAME);
+      /* has the faulty connector got a sym?*/
+          /*      printf("here %s\n",lastlocon->NAME);*/
       if (GetSymmetricChain(lastlocon)==NULL) break;
 
       if (last!=NULL && lastlocon!=lastupto)
         {
           last=NULL;
-          // have we gone backward?
+          /* have we gone backward?*/
           for (tmpcon=circuit_foundins->LOINS->LOCON;tmpcon!=lastlocon && tmpcon!=lastupto; tmpcon=tmpcon->NEXT) ;
-              //          printf("%p ; %p ; %p\n",tmpcon, lastlocon,lastupto);
-          if (tmpcon==lastlocon) break; // break the dead loop
-              //          lastupto=lastlocon;
+              /*          printf("%p ; %p ; %p\n",tmpcon, lastlocon,lastupto);*/
+          if (tmpcon==lastlocon) break; /* break the dead loop*/
+              /*          lastupto=lastlocon;*/
         }
       lastupto=lastlocon;
       do 
@@ -2383,14 +2383,14 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
 
   if (!circuit_ins || !model_ins) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 88);
-//    fprintf(stderr,"Is_Loins_Match: NULL pointer\n");
+/*    fprintf(stderr,"Is_Loins_Match: NULL pointer\n");*/
     EXIT(1);
   }
    
   p=getptype(circuit_ins->USER,GEN_FOUNDINS_PTYPE);
   if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 89);
-//    fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");
+/*    fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");*/
     EXIT(1);
   }
   circuit_foundins=p->DATA;
@@ -2402,7 +2402,7 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
     else { ABORT_SYMMETRY=1; return 0;}
   }
 
-  // fake instance : visited = self
+  /* fake instance : visited = self*/
   p1=getptype(model_ins->USER,GEN_VISITED_PTYPE);
 
   if (p1!=NULL && p1->DATA!=circuit_foundins->LOINS) { ABORT_SYMMETRY=1; return 0;}
@@ -2430,7 +2430,7 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
     p=getptype(model_ins->USER,GENERIC_PTYPE);
     if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 90);
-//      fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");
+/*      fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");*/
       EXIT(1);
     }
 
@@ -2476,7 +2476,7 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
       case PRESEL: return 1;
       case SELECT: case PRESEL_HEAD:     
       case SELECT_HEAD:
-        if (circuit_foundins->VISITED==NULL) { ABORT_SYMMETRY=1; return 0; }// it's a HEAD of another loop
+        if (circuit_foundins->VISITED==NULL) { ABORT_SYMMETRY=1; return 0; }/* it's a HEAD of another loop*/
         return 1; /*we have already caught it, stop*/
       case 0: case UNSELECT: 
         circuit_foundins->FLAG=PRESEL; /*try it in this loop*/   
@@ -2486,7 +2486,7 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
         p=getptype(model_ins->USER,GENERIC_PTYPE);
         if (!p) {
           avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 91);
-     //     fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");
+     /*     fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");*/
           EXIT(1);
         }
         goto check_label;
@@ -2495,7 +2495,7 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
         if (circuit_foundins->VISITED==NULL)
           {
             ABORT_SYMMETRY=1;
-            return 0; // it's a HEAD of another loop
+            return 0; /* it's a HEAD of another loop*/
           }
 
         circuit_foundins->FLAG=PRESEL_HEAD; /*try it in this loop*/   
@@ -2505,7 +2505,7 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
         p=getptype(model_ins->USER,GENERIC_PTYPE);
         if (!p) {
            avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 92);
-//          fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");
+/*          fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");*/
           EXIT(1);
         }
         goto check_label;
@@ -2522,7 +2522,7 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
     p=getptype(model_ins->USER,GENERIC_PTYPE);
     if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 94);
-//      fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");
+/*      fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");*/
       EXIT(1);
     }
 
@@ -2583,7 +2583,7 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
     p=getptype(model_ins->USER,GENERIC_PTYPE);
     if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 98);
-//      fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");
+/*      fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");*/
       EXIT(1);
     }
 
@@ -2605,12 +2605,12 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
       case ALONE: break;      /*let's try it like this maybe it is an */
         /*instance in a loop which has been driven by another loop*/
       case CHOICE: case CHAIN:  /*belongs to another loop*/
-        setfixed(CIRCUIT_LOCON); // ??? really put this here, i don't know
+        setfixed(CIRCUIT_LOCON); /* ??? really put this here, i don't know*/
         match = Mark_Loins(circuit_ins, model_ins, env, NULL);
         if (!match) { return 0;}
         gen_printf(0,"\n\t"); /*to be clean in display*/
         /*give this occurrence to an iterative algo(faster)*/
-//        printf("recursion!!!!!!!!!!!!!\n");
+/*        printf("recursion!!!!!!!!!!!!!\n");*/
         return continue_search_on(tree,circuit_foundins,model_ins,env);
         break;
       case 0: case UNSELECT: return 0;break;/*not selected in a loop*/
@@ -2624,7 +2624,7 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
   }   
   else {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 101);
-//    fprintf(stderr,"Is_Loins_Match: phase %d error\n",PHASE);
+/*    fprintf(stderr,"Is_Loins_Match: phase %d error\n",PHASE);*/
     EXIT(3);
   }
 
@@ -2636,8 +2636,8 @@ static  int Put_Loins_Flags(loins_list* circuit_ins, loins_list* model_ins,
   else FOR_FLAG=0;
   if (FOR_FLAG) atleastFOR_FLAG++;
   
-  //   setfixed(from_connector); // when jumping to another instance, we block the connector
-  setfixed(CIRCUIT_LOCON); // when jumping to another instance, we block the connector
+  /*   setfixed(from_connector); // when jumping to another instance, we block the connector*/
+  setfixed(CIRCUIT_LOCON); /* when jumping to another instance, we block the connector*/
   gen_printf(4,"1. %s (%s) is now fixed\n",CIRCUIT_LOCON->NAME, (char *)CIRCUIT_LOCON->SIG->NAMECHAIN->DATA);
   gen_printf(2,"%sGoing through signal '%s' in model - connector '%s'\n",tabs,(char *)from_connector->SIG->NAMECHAIN->DATA,from_connector->NAME);
 
@@ -2683,7 +2683,7 @@ extern int Search_Phase(int phase, foundins_list* circuit_foundins,
     p=getptype(model_ins->USER,GENERIC_PTYPE);
     if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 102);
-//      fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");
+/*      fprintf(stderr,"Is_Loins_Match: PTYPE not found\n");*/
       EXIT(1);
     }
     if (TOKEN((tree_list*)p->DATA)==GEN_TOKEN_FOR) FOR_FLAG=1;
@@ -2738,7 +2738,7 @@ extern void free_Generic_foundins()
    
   if (STACK_CIRCUIT_FOUNDINS) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 103);
-//    fprintf(stderr,"free_Generic_foundins: Stack not empty\n");
+/*    fprintf(stderr,"free_Generic_foundins: Stack not empty\n");*/
     EXIT(1);
   }
   
@@ -2751,8 +2751,8 @@ extern void free_Generic_foundins()
 }
 
 
-// handle of non existant instances
-// backtracking
+/* handle of non existant instances*/
+/* backtracking*/
 
 typedef struct
 {
@@ -2784,7 +2784,7 @@ void AddDecisionSnapshot(loins_list *li, loins_list *forwho)
   else
     bk1=NULL;
 
-  //  printf("/bts:%p %p/",BackTrackStack,bk1);
+  /*  printf("/bts:%p %p/",BackTrackStack,bk1);*/
 
   if (bk1==NULL || bk1->ins!=li || bk1->forwho!=forwho)
     {
@@ -2801,13 +2801,13 @@ void AddDecisionSnapshot(loins_list *li, loins_list *forwho)
   else
     bk=bk1;
 
-  //  printf("ins=%s %p\n",bk->ins->INSNAME,bk->path);
+  /*  printf("ins=%s %p\n",bk->ins->INSNAME,bk->path);*/
   if (bk->counter!=-1)
     EXIT(24);
 
   bk->counter=BackTrackCounter;
 
-  // printf("add snapshot at <%s->%s> %ld\t",li->INSNAME,forwho->INSNAME,BackTrackCounter);
+  /* printf("add snapshot at <%s->%s> %ld\t",li->INSNAME,forwho->INSNAME,BackTrackCounter);*/
 }
 
 int IMustChangeDecision()
@@ -2831,13 +2831,13 @@ int IMustChangeDecision()
     cl->NEXT=addchain(NULL, (void *)bk->counter);
       GOTO_MODE=0;
       bk->counter=-1;
-      //      printf("final decision change at snapshot at %ld\n",BackTrackCounter);
+      /*      printf("final decision change at snapshot at %ld\n",BackTrackCounter);*/
       return 1;
     }
   else
     if (GOTO_TRACK!=NULL && (long)GOTO_TRACK->DATA==BackTrackCounter)
       {
-        //      printf("decision change at snapshot at %ld\n",BackTrackCounter);
+        /*      printf("decision change at snapshot at %ld\n",BackTrackCounter);*/
         GOTO_TRACK=GOTO_TRACK->NEXT;
         return 1;
       }
@@ -2847,7 +2847,7 @@ int IMustChangeDecision()
 void IncreaseBackTrackCounter()
 {
   BackTrackCounter++;
-  //  printf("<-(%ld)->",BackTrackCounter);
+  /*  printf("<-(%ld)->",BackTrackCounter);*/
 }
 
 int ThereAreDecisionToChange()

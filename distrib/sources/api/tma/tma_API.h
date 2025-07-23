@@ -71,7 +71,7 @@ DoubleList *tma_GetConnectorAxis(TimingFigure *tvf, char *type, char *name);
   -addpins {<pinlist>} % Add non existing connectors into the blackbox. Direction of pins can be defined in the list. eg. {input0 {input1 i} {output o}}. See {ttv_AddConnector} for available pin directions.
   EXAMPLE % {set bbox [tmabs $tf NULL * * * -maxsim 4 -simulate * -verbose -enablecache]}
 */
-void tmabs(void); // (void) disables the gns wrappers
+void tmabs(void); /* (void) disables the gns wrappers*/
 
 /*
     MAN tma_SetMaxCapacitance

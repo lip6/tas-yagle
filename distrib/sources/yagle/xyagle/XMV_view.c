@@ -650,7 +650,7 @@ void XyagViewDep(X1, Y1, Mode, Mode2)
     }
     else 
       {
-//	XyagDelConnect();
+/*	XyagDelConnect();*/
 /*        for (*/Select = XyagHeadSelect; /*Select; Select = Select->NEXT) 
 	  {*/
 	    if (Mode2 == 0) {
@@ -683,7 +683,7 @@ void XyagViewDep(X1, Y1, Mode, Mode2)
 	      xyagRetreiveState();
 
 	      XyagDisplayMessage();
-//	      XyagInitializeZoom();
+/*	      XyagInitializeZoom();*/
 	      XyagDisplayFigure(0, 0, XyagGraphicDx, XyagGraphicDy);
 	      
 	      XyagRefreshGraphicWindow(0, 0, XyagGraphicDx, XyagGraphicDy);
@@ -702,7 +702,7 @@ void XyagViewDep(X1, Y1, Mode, Mode2)
 		   cgv_hilite_net(XyagFigureCgv, (cgvcon_list *)Select->OBJECT->USER, Mode, XyagDepthOfDep-1, XyagAddConnect);
                XyagDelSelect();
             }
-//	  }
+/*	  }*/
 	XyagZoomRefresh();
     }
  
@@ -716,8 +716,8 @@ void XyagThruTree(long X1, long Y1)
 
     XyagEditSelectPoint(X1, Y1);
 
-    mbkSwitchContext(XYAG_ctx); // dans XYAGLE
-    cnsSwitchContext(CNS_ctx); // dans XYAGLE
+    mbkSwitchContext(XYAG_ctx); /* dans XYAGLE*/
+    cnsSwitchContext(CNS_ctx); /* dans XYAGLE*/
 
     if (XyagHeadSelect == NULL) 
       {
@@ -760,9 +760,9 @@ void XyagThruTree(long X1, long Y1)
 		    if (XyagFigure != NULL) XyagChangeTopLevelTitle(XyagFigure->NAME);
 		    else XyagChangeTopLevelTitle( NULL);
 
-		    //XyagDisplayMessage();
+		    /*XyagDisplayMessage();*/
 		    
-//		    XyagInitializeZoom();
+/*		    XyagInitializeZoom();*/
 		    XyagDisplayFigure(0, 0, XyagGraphicDx, XyagGraphicDy);
 		    XyagRefreshGraphicWindow(0, 0, XyagGraphicDx, XyagGraphicDy);
 		    XyagSetMouseCursor(XyagGraphicWindow, XYAG_NORMAL_CURSOR);
@@ -795,7 +795,7 @@ void XyagThruTree(long X1, long Y1)
                             if (XyagFigure != NULL) XyagChangeTopLevelTitle(XyagFigure->NAME);
                             else XyagChangeTopLevelTitle( NULL);
                             
-//                            XyagInitializeZoom();
+/*                            XyagInitializeZoom();*/
                             XyagDisplayFigure(0, 0, XyagGraphicDx, XyagGraphicDy);
                             XyagRefreshGraphicWindow(0, 0, XyagGraphicDx, XyagGraphicDy);
                             XyagSetMouseCursor(XyagGraphicWindow, XYAG_NORMAL_CURSOR);
@@ -807,8 +807,8 @@ void XyagThruTree(long X1, long Y1)
 	  }
       }
 
-    cnsSwitchContext(CNS_ctx); // hors XYAGLE
-    mbkSwitchContext(XYAG_ctx); // hors XYAGLE
+    cnsSwitchContext(CNS_ctx); /* hors XYAGLE*/
+    mbkSwitchContext(XYAG_ctx); /* hors XYAGLE*/
 }
 
 void XyagHiLight(cgv_interaction *itr, int complete)
@@ -842,7 +842,7 @@ void XyagExtract(cgv_interaction *itr, int complete)
   
   XyagDisplayMessage();
 
-//  XyagInitializeZoom();
+/*  XyagInitializeZoom();*/
   XyagDisplayFigure(0, 0, XyagGraphicDx, XyagGraphicDy);
   
   XyagRefreshGraphicWindow(0, 0, XyagGraphicDx, XyagGraphicDy);

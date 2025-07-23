@@ -350,7 +350,7 @@ cell               : _CELL '(' celltype ')' '(' cell_instance ')' timing_spec_li
 					   		delht (htport) ;
 					   		htport = NULL ;
 						}
-				       	//bck_view (annot) ;
+				       	/*bck_view (annot) ;*/
                         if (loins==NULL) mbkfree(annot);
 				   }
                    ;

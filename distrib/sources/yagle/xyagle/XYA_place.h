@@ -56,6 +56,6 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern void XyagTraceFigure();
+extern void XyagTraceFigure( cgvfig_list *CgvFig );
 
 # endif 

@@ -432,7 +432,7 @@ void                 cgv_extract_net        (cgvfig_list     *Figure,
 cgvfig_list         *finish_extract         (cgvfig_list     *parent);
 
 
-// CGV INTERACTION OBJECTS / FUNCTIONS
+/* CGV INTERACTION OBJECTS / FUNCTIONS*/
 cgv_interaction     *cgv_NetObject          (cgv_interaction *head,
                                              char            *name);
 cgv_interaction     *cgv_GateObject         (cgv_interaction *head,

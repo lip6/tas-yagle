@@ -23,8 +23,8 @@
  
 /* 10/26/95 parser functions: prsh.h                                          */
 
-branch_list    *idx2br();
-int             yywrap();
+branch_list *idx2br( sbrstruc *ptbrstruc, long index );
+int          yywrap();
 
 cone_list   *getcone             (cnsfig_list    *ptcnsfig,
                                   long            index,

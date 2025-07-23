@@ -15,7 +15,7 @@
 
 extern chain_list *SIM_HEAD_NOISE;
 
-// noise function
+/* noise function*/
 extern SIM_FLOAT sim_find_vmax (SIM_FLOAT *tab,int ind1,int ind2,int *tvmax);
 extern SIM_FLOAT sim_find_vmin (SIM_FLOAT *tab,int ind1,int ind2,int *tvmin);
 extern sim_noise *sim_noise_extract (sim_model *model,char type, char *name, SIM_FLOAT vthnoise,SIM_FLOAT tinit, SIM_FLOAT tfinal);

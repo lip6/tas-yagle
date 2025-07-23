@@ -323,7 +323,7 @@ int stb_ctk_score_ctk( stbfig_list *stbfig, stb_ctk_detail *detail )
   score = stb_ctk_good_score( score );
 
   mbkfree( tabcapa );
-  stbfig = NULL ; // unused parameter 
+  stbfig = NULL ; /* unused parameter */
   return score ;
 }
 
@@ -381,11 +381,11 @@ int stb_ctk_score_activity( stbfig_list *stbfig, stb_ctk_detail *detail )
   score = ceil( r );
   score = stb_ctk_good_score( score );
 
-  stbfig = NULL ; // unused  parameter
+  stbfig = NULL ; /* unused  parameter*/
   return score ;
 }
 
-// probabilite d'occurence de l'agression
+/* probabilite d'occurence de l'agression*/
 int stb_ctk_score_propability( stbfig_list *stbfig, stb_ctk_detail *detail )
 {
   int                            score = 0 ;
@@ -408,7 +408,7 @@ int stb_ctk_score_propability( stbfig_list *stbfig, stb_ctk_detail *detail )
 
   score = (int)mbk_long_round(10-log(1/proba));
   if (score<0) score=0;
-  stbfig = NULL ; // unused parameter 
+  stbfig = NULL ; /* unused parameter */
   return score ;
 }
 

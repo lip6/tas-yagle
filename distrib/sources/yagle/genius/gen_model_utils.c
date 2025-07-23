@@ -36,7 +36,7 @@ char GEN_SEPAR = '.';
 
 chain_list *blocks_to_free=NULL;
 
-//#define NOHEAPALLOC
+/*#define NOHEAPALLOC*/
 /*head unreachable by foreigners like for lofig in alliance*/
 model_list *HEAD_MODEL=NULL;                /*list of all models*/
 /*to accelerate memory allocation*/
@@ -124,7 +124,7 @@ extern genconchain_list* addgenconchain(genconchain_list *gen,
    genconchain_list *new;
    if (!losig) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 25);
-      //fprintf(stderr,"addgenconchain: NULL pointer\n");
+      /*fprintf(stderr,"addgenconchain: NULL pointer\n");*/
       EXIT(1);
    }
    new=(genconchain_list*)mbkalloc(sizeof(genconchain_list));
@@ -162,7 +162,7 @@ extern gensigchain_list* addgensigchain(gensigchain_list *gen,
    gensigchain_list *new;
    if (!locon) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 26);
-//      fprintf(stderr,"addgensigchain: NULL pointer\n");
+/*      fprintf(stderr,"addgensigchain: NULL pointer\n");*/
       EXIT(1);
    }
    new=(gensigchain_list*)mbkalloc(sizeof(gensigchain_list));
@@ -170,7 +170,7 @@ extern gensigchain_list* addgensigchain(gensigchain_list *gen,
    new->LOCON=locon;
    new->LOCON_EXP=vectcon;
    new->LOSIG_EXP=vectsig;
-   new->ghost=0; // care about this connexion
+   new->ghost=0; /* care about this connexion*/
 
    return new;
 }
@@ -195,7 +195,7 @@ static inline void Free_Generic(tree_list *gen)
 {
   if (!gen) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 27);
-    //fprintf(stderr,"Free_Generic: NULL pointer\n");
+    /*fprintf(stderr,"Free_Generic: NULL pointer\n");*/
     EXIT(1);
   }
    switch(TOKEN(gen)) {
@@ -243,7 +243,7 @@ extern void Dump_Generic(tree_list *gen)
 {
   if (!gen) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 28);
-    //fprintf(stderr,"Dump_Generic: NULL pointer\n");
+    /*fprintf(stderr,"Dump_Generic: NULL pointer\n");*/
     EXIT(1);
   }
    switch(TOKEN(gen)) {
@@ -450,7 +450,7 @@ extern void addmodel(lofig_list *fig, chain_list *variables, tree_list *generic,
    
    if (fig==NULL) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 29);
-      //fprintf(stderr,"addmodel: NULL pointer\n");
+      /*fprintf(stderr,"addmodel: NULL pointer\n");*/
       EXIT(1);
    }
    m=(model_list*) mbkalloc(sizeof(model_list));
@@ -484,10 +484,10 @@ void CleanGENCONandGENSIG(lofig_list *lf)
 
   FinishCleanLofigMarks(lf);
   
-  // grad the signals to modify
+  /* grad the signals to modify*/
   for (lc=lf->LOCON;lc!=NULL;lc=lc->NEXT)
     {
-      // destroy genconchain
+      /* destroy genconchain*/
       if ((pt=getptype(lc->USER,GENCONCHAIN))!=NULL) 
 	{
 	  freegenconchain((genconchain_list *)pt->DATA);
@@ -505,7 +505,7 @@ void CleanGENCONandGENSIG(lofig_list *lf)
 
       for (lc=li->LOCON;lc!=NULL;lc=lc->NEXT)
 	{
-	  // destroy genconchain
+	  /* destroy genconchain*/
 	  if ((pt=getptype(lc->USER,GENCONCHAIN))!=NULL) 
 	    {
 	      freegenconchain((genconchain_list *)pt->DATA);
@@ -532,12 +532,12 @@ void CleanGENCONandGENSIG(lofig_list *lf)
 	 }
     }
 
-  // freeing symmetry info
+  /* freeing symmetry info*/
   pt=getptype(lf->USER, GEN_SYM_INFO_PTYPE);
   if (pt==NULL) EXIT(66);
   lf->USER=delptype(lf->USER, GEN_SYM_INFO_PTYPE);
 
-  // freeing coupling info
+  /* freeing coupling info*/
   pt=getptype(lf->USER, GEN_COUPLED_INFO_PTYPE);
   if (pt==NULL) EXIT(67);
   lf->USER=delptype(lf->USER, GEN_COUPLED_INFO_PTYPE);
@@ -579,7 +579,7 @@ extern void freemodel()
    }
    HEAD_MODEL=NULL;
 
-   // dummy transistor model cleanup
+   /* dummy transistor model cleanup*/
 
    for (cl=TNMOS;cl!=NULL;cl=cl->NEXT)
      {
@@ -719,19 +719,19 @@ int CheckModelInstances(model_list *model)
 		  if (nbinterf!=0 && total==2)
 		    {
 		      avt_errmsg(GNS_ERRMSG, "061", AVT_ERR, model->NAME, lc->NAME, loins->INSNAME);
-              //fprintf(stderr,"in model '%s', connector '%s' of unexistant instance '%s' must not be linked the model interface\n",model->NAME, lc->NAME, loins->INSNAME);
+              /*fprintf(stderr,"in model '%s', connector '%s' of unexistant instance '%s' must not be linked the model interface\n",model->NAME, lc->NAME, loins->INSNAME);*/
 		      retcode=1;
 		    }
 		  if (total==1)
 		    {
 		      avt_errmsg(GNS_ERRMSG, "062", AVT_ERR, model->NAME, lc->NAME, loins->INSNAME);
-		      //fprintf(stderr,"in model '%s', if connector '%s' of unexistant instance '%s' is not used, it must be linked to a supply\n",model->NAME, lc->NAME, loins->INSNAME);
+		      /*fprintf(stderr,"in model '%s', if connector '%s' of unexistant instance '%s' is not used, it must be linked to a supply\n",model->NAME, lc->NAME, loins->INSNAME);*/
 		      retcode=1;
 		    }
 		  if (nbwithout!=1)
 		    {
 		      avt_errmsg(GNS_ERRMSG, "063", AVT_ERR, model->NAME, lc->NAME, loins->INSNAME);
-		      //fprintf(stderr,"in model '%s', connector '%s' of unexistant instance '%s' must not be linked to another unexistant instance connector\n",model->NAME, lc->NAME, loins->INSNAME);
+		      /*fprintf(stderr,"in model '%s', connector '%s' of unexistant instance '%s' must not be linked to another unexistant instance connector\n",model->NAME, lc->NAME, loins->INSNAME);*/
 		      retcode=1;
 		    }
 		}
@@ -756,7 +756,7 @@ int CheckModelInstances(model_list *model)
                 if (gensig->LOCON->TYPE=='E') counte++;
                 else counti++;
               }
-            if (counte>0 && counti==1) ls->FLAGS=1; // une connexion a l'interface
+            if (counte>0 && counti==1) ls->FLAGS=1; /* une connexion a l'interface*/
             else if (counte==0 && counti==1) ls->FLAGS=2; // uniquement interne non connecté a +ieurs lofig
             else ls->FLAGS=0;
           }
@@ -821,9 +821,9 @@ void CheckLoinsLofigInconsistancy(loins_list *li, lofig_list *lf)
       if (lc0->NAME!=lc1->NAME)
 	{
 	  if (first==1) avt_errmsg(GNS_ERRMSG, "064", AVT_ERROR, li->INSNAME, li->FIGNAME);
-                  //fprintf(stderr,"Inconsistancies found for instance '%s' of model '%s'\n",li->INSNAME, li->FIGNAME);
+                  /*fprintf(stderr,"Inconsistancies found for instance '%s' of model '%s'\n",li->INSNAME, li->FIGNAME);*/
       avt_errmsg(GNS_ERRMSG, "065", AVT_ERROR, lc0->NAME, lc1->NAME);
-	  //fprintf(stderr,"\tConnector '%s' of instance mismatched with connector '%s' of model\n",lc0->NAME, lc1->NAME);
+	  /*fprintf(stderr,"\tConnector '%s' of instance mismatched with connector '%s' of model\n",lc0->NAME, lc1->NAME);*/
 	  first=0;
 	  count++;
 	}
@@ -833,7 +833,7 @@ void CheckLoinsLofigInconsistancy(loins_list *li, lofig_list *lf)
         if (lc1->DIRECTION!=UNKNOWN && lc0->DIRECTION!=lc1->DIRECTION)
           {
             if (first==1) avt_errmsg(GNS_ERRMSG, "066", AVT_ERROR, lc0->NAME, li->INSNAME, li->FIGNAME);
-                          // fprintf(stderr,"Inconsistancies found for connector '%s' of instance '%s' with model '%s'\n", lc0->NAME, li->INSNAME, li->FIGNAME);
+                          /* fprintf(stderr,"Inconsistancies found for connector '%s' of instance '%s' with model '%s'\n", lc0->NAME, li->INSNAME, li->FIGNAME);*/
             first=0;
             count++;
           }
@@ -842,9 +842,9 @@ void CheckLoinsLofigInconsistancy(loins_list *li, lofig_list *lf)
   if (count<=5 && (lc0!=NULL || lc1!=NULL))
     {
       if (first==1) avt_errmsg(GNS_ERRMSG, "064", AVT_ERROR, li->INSNAME, li->FIGNAME);
-                    // fprintf(stderr,"Inconsistancies found for instance '%s' of model '%s'\n",li->INSNAME, li->FIGNAME);
+                    /* fprintf(stderr,"Inconsistancies found for instance '%s' of model '%s'\n",li->INSNAME, li->FIGNAME);*/
       avt_errmsg(GNS_ERRMSG, "067", AVT_ERROR);
-      //fprintf(stderr,"\tConnector number mismatched\n");
+      /*fprintf(stderr,"\tConnector number mismatched\n");*/
     }
   if (count!=0) EXIT(1);
 }
@@ -860,9 +860,9 @@ char *completename(char *geniusmodel, char *model, char *archi)
   return geniusmodel;    
 }
 
-// _________________________________________________
+/* _________________________________________________*/
 
-chain_list *ModelTrace=NULL; // list of models marked as visited by the user
+chain_list *ModelTrace=NULL; /* list of models marked as visited by the user*/
 
 extern int gns_ModelVisitedDuringInit(char *name);
 extern void gns_MarkModelVisitedDuringInit(char *name);

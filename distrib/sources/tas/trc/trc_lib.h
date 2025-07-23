@@ -18,40 +18,40 @@
 
 #define RCXFLOAT double
 
-// Bidouilles de Marc. Pour l'instant, ça marche.
-#define TRC_LOCON_AWE    (long)0x00000007  // TMP
-extern int TRC_MARK_CON; // SOLUTION TMP
+/* Bidouilles de Marc. Pour l'instant, ça marche. */
+#define TRC_LOCON_AWE    (long)0x00000007  /* TMP*/
+extern int TRC_MARK_CON; /* SOLUTION TMP*/
 
 
-// Les convertions d'unités entre TAS, RCX et le SI...
+/* Les convertions d'unités entre TAS, RCX et le SI... */
 
-// Tas et TTV : capa=fF, délais=pS
-// Alliance :   capa=pF, délais=pS
+/* Tas et TTV : capa=fF, délais=pS */
+/* Alliance :   capa=pF, délais=pS */
 
 #define RCX_PTRTESTANDSET( p, v ) if(p) *p=v;
 #define RCX_UNIT_TIME_TAS_TO_SI (1e-12)
 #define RCX_UNIT_CAPA_ALC_TO_SI (1e-12)
 
-// Structures temporaires crée sur les agresseurs créée par rcx_getagrlist() et 
-// libérée par rcx_freeagrlist(). L'utilisateur doit remplir les champs FMINUP,
-// FMINDW, EVENT et ACTIF.
+/* Structures temporaires crée sur les agresseurs créée par rcx_getagrlist() et */
+/* libérée par rcx_freeagrlist(). L'utilisateur doit remplir les champs FMINUP, */
+/* FMINDW, EVENT et ACTIF.*/
 
 typedef struct rcxparam {
   char                  *INSNAME;
   lofig_list            *LOFIG;
   losig_list            *SIGNAL;
-  RCXFLOAT               FMINUP;        // Front minimum avec crosstalk
-  RCXFLOAT               F0UP;          // Front minimum sans crosstalk
+  RCXFLOAT               FMINUP;        /* Front minimum avec crosstalk*/
+  RCXFLOAT               F0UP;          /* Front minimum sans crosstalk*/
   RCXFLOAT               FMINDW;
   RCXFLOAT               F0DW;
-  RCXFLOAT               CC;            // Capacité de couplage vers l'agresseur
-  RCXFLOAT               CCA;           // Valeur totale des ctc sur l'agresseur
+  RCXFLOAT               CC;            /* Capacité de couplage vers l'agresseur */
+  RCXFLOAT               CCA;           /* Valeur totale des ctc sur l'agresseur*/
   char                   ACTIF;
   chain_list            *SIGLOCAL;
   ptype_list            *USER;
 } rcxparam ;
 
-// Champ ACTIF :
+/* Champ ACTIF :*/
 #define RCX_AGRBEST   0x01
 #define RCX_AGRWORST  0x02
 #define RCX_MTX_BEST  0x04 
@@ -61,11 +61,11 @@ typedef struct rcxparam {
 à indiquer que cet agresseur a été éliminé car il existe une contrainte de
 mutuelle exclusion avec un autre agresseur. C'est géré par STB-CTK. */
 
-// Ptype sur le losig qui pointe vers le rcxparam.
+/* Ptype sur le losig qui pointe vers le rcxparam.*/
 #define RCX_REALAGRESSOR 0x52435808
 
 
-// Information sur la transition du signal
+/* Information sur la transition du signal*/
 
 /* Note concernant les slopes :
 
@@ -92,15 +92,15 @@ typedef struct {
 } rcx_slope_param ;
 
 typedef struct {
-  RCXFLOAT      F0MAX;  // Front max sans crosstalk
-  RCXFLOAT      FCCMAX; // Front max avec crosstalk
-  char          SENS;   // Sens de transition
-  RCXFLOAT      CCA;    // Somme des ctc sur le signal victime
+  RCXFLOAT      F0MAX;  /* Front max sans crosstalk*/
+  RCXFLOAT      FCCMAX; /* Front max avec crosstalk*/
+  char          SENS;   /* Sens de transition*/
+  RCXFLOAT      CCA;    /* Somme des ctc sur le signal victime*/
   rcx_slope_param MIN ;
   rcx_slope_param MAX ;
 } rcx_slope; 
 
-// La vue RCX.
+/* La vue RCX.*/
 
 typedef struct rcx
 {
@@ -115,20 +115,20 @@ typedef struct rcx
 
 
 
-// Définition du sens d'une transition
+/* Définition du sens d'une transition */
 
 #define TRC_SLOPE_UP   'U'
 #define TRC_SLOPE_DOWN 'D'
 
-// Type de résultat
+/* Type de résultat */
 #define RCX_MIN 'm'
 #define RCX_MAX 'M'
 
-// Sens relatifs des transitions
+/* Sens relatifs des transitions*/
 #define RCX_SAME     's'
 #define RCX_OPPOSITE 'o'
 
-// Champ USER des locon
+/* Champ USER des locon*/
 #define RCXNAME    ((long)1665)
 #define RCX_LOCONCAPA_HEAP  0x5243580A
 #define RCX_LOCONCAPA_SPACE 0x5243580D
@@ -136,29 +136,29 @@ typedef struct rcx
 #define RCX_LOCON_DN 0x5243580C
 #define RCX_FAKE 0x524358FA
 
-// Champ USER des losig
+/* Champ USER des losig*/
 #define PTYPERCX   ((long)1664)
 #define RCX_FAKE 0x524358FA
 
-// Arguments pour la fonction setrcxmodel()
+/* Arguments pour la fonction setrcxmodel()*/
 #define RCX_BEST   ((int)1)
 #define RCX_NOR    ((int)2)
 #define RCX_NOCTC  ((int)3)
 #define RCX_NORCTC ((int)4)
 #define RCX_ALL    ((int)0)
 
-// Arguments pour la fonction rcx_crosstalkactive()
+/* Arguments pour la fonction rcx_crosstalkactive()*/
 #define RCX_NOCROSSTALK  0
 #define RCX_MILLER       1
 #define RCX_QUERY       -1
 
-// Arguments pour la fonction rcx_rcnload()
+/* Arguments pour la fonction rcx_rcnload()*/
 #define RCX_CAPALOAD  0x1
 #define RCX_PILOAD    0x2
 #define RCX_BESTLOAD  0x3
 #define RCX_LOADERROR 0x4
 
-// Interface de la fonction rcx_getsigcapa()
+/* Interface de la fonction rcx_getsigcapa()*/
 
 #define RCX_SIGCAPA_GROUND ((char)0x01)
 #define RCX_SIGCAPA_CTK    ((char)0x02)
@@ -244,7 +244,7 @@ extern char RCX_CTK_SLOPE_DELAY ;
 #define RCXI_UP                 ((char)'u')
 #define RCXI_DW                 ((char)'d')
 
-// Modèle Miller : 0c-2c ou -1c-3c
+/* Modèle Miller : 0c-2c ou -1c-3c */
 
 #define RCX_MILLER2C ((char)2)
 #define RCX_MILLER4C ((char)4)
@@ -275,7 +275,7 @@ typedef struct rcx_triangle {
   rcx_build_tr        *BUILD ;
 } rcx_triangle ;
 
-// zinaps : 4/3/2004
+/* zinaps : 4/3/2004*/
 
 #define RCX_ORIGIN_GROUP_PTYPE 0x04030400
 #define RCX_DESTINATION_GROUP_PTYPE 0x04030401
@@ -297,8 +297,8 @@ typedef struct
 } rcx_delays;
 
 /* Argument 'slope' pour rcx_getloconcapa */
-// #define TRC_SLOPE_UP   'U'
-// #define TRC_SLOPE_DOWN 'D'
+/* #define TRC_SLOPE_UP   'U'*/
+/* #define TRC_SLOPE_DOWN 'D'*/
    #define TRC_SLOPE_UNK  'n'
 
 /* Argument 'type' pour rcx_getloconcapa */

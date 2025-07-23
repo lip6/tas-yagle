@@ -17,7 +17,7 @@
 #include "sim.h"
 #include "sim_meas.h"
 
-chain_list *SIM_HEAD_TMG = NULL; // init for each action !!!!
+chain_list *SIM_HEAD_TMG = NULL; /* init for each action !!!!*/
 
 /*---------------------------------------------------------------------------*/
 
@@ -88,7 +88,7 @@ sim_timing *sim_GetTmgList (sim_model *model, char type1, char *name1,
     
 
   if (!m1 && m2) {
-    // Only fill slope
+    /* Only fill slope*/
     while ((md2 = sim_measure_detail_scan(m2,md2))) {
       /* Compute timings */
       tab2 = sim_measure_detail_get_data( md2 );
@@ -99,7 +99,7 @@ sim_timing *sim_GetTmgList (sim_model *model, char type1, char *name1,
         tpfinal= 0.0;
 
       delay = tpfinal - tpinit;
-      // Fill the timing structure
+      /* Fill the timing structure*/
       delay_list  = sim_timing_add (delay_list,NULL,name2);
       sim_timing_setnodesname (delay_list,NULL,
                                sim_measure_detail_get_name (md2));
@@ -125,7 +125,7 @@ sim_timing *sim_GetTmgList (sim_model *model, char type1, char *name1,
           tpfinal= 0.0;
 
         delay = tpfinal - tpinit;
-        // Fill the timing structure
+        /* Fill the timing structure*/
         delay_list  = sim_timing_add (delay_list,name1,name2);
         sim_timing_setnodesname (delay_list,sim_measure_detail_get_name (md1),
                                  sim_measure_detail_get_name (md2));
@@ -248,7 +248,7 @@ SIM_FLOAT sim_get_trans_delay (sim_model *model, char delaytype, char type1,
                                char *name1, char type2, char *name2,
                                char *transition, SIM_FLOAT th_in, SIM_FLOAT th_out)
 {
-  //    SIM_FLOAT           vth,vthl,vthh;
+  /*    SIM_FLOAT           vth,vthl,vthh;*/
   SIM_FLOAT           tpinit = -1.0, lasttp;
   SIM_FLOAT           tpfinal = -1.0;
   SIM_FLOAT           time, step, vddmax;
@@ -259,7 +259,7 @@ SIM_FLOAT sim_get_trans_delay (sim_model *model, char delaytype, char type1,
   sim_measure_detail *md1 = NULL, *prevmd1, *prevmd2,*md2  = NULL;
   int                 indice;
   char                trans = 'X';
-  //    char               *endstr;
+  /*    char               *endstr;*/
   char                trans1,trans2;
   long                ind1 = 1,ind2 = 1,ind;
   char                t1,t2,delay_ko;
@@ -383,8 +383,8 @@ SIM_FLOAT sim_get_trans_delay (sim_model *model, char delaytype, char type1,
     fprintf(stderr, "[SIM WAR] getdelay between %s %s: unknown delaytype, delay max assumed\n",name1,name2);
     delay = dmax;
   }
-  // Fill timing structure
-  // on met a jour le delay s'il existait
+  /* Fill timing structure*/
+  /* on met a jour le delay s'il existait*/
   if (delay_ko == 'N') {
     if ((tmglist = sim_timing_get_by_event (name1,name2,transition)) == NULL) {
       tmglist  = sim_timing_add (tmglist,name1,name2);
@@ -409,7 +409,7 @@ SIM_FLOAT sim_get_trans_delay (sim_model *model, char delaytype, char type1,
 SIM_FLOAT sim_get_trans_slope (sim_model *model, char slopetype, char typenode,char *name, char *transition, SIM_FLOAT th_in, SIM_FLOAT th_out) 
 {
   SIM_FLOAT       tc,slope=-1.0,smin = -1.0, smax = -1.0, lastslope;
-  //    SIM_FLOAT       vth,vthl,vthh;
+  /*    SIM_FLOAT       vth,vthl,vthh;*/
   SIM_FLOAT       time, step;
   SIM_FLOAT      *tab;
   sim_measure    *m;
@@ -433,7 +433,7 @@ SIM_FLOAT sim_get_trans_slope (sim_model *model, char slopetype, char typenode,c
       return 0.0;
   }
     
-  // Results array 
+  /* Results array */
   time = sim_parameter_get_tran_tmax (model);
   step = sim_parameter_get_tran_step (model);
   /*    vddmax = sim_parameter_get_alim (model, 'i');
@@ -443,7 +443,7 @@ SIM_FLOAT sim_get_trans_slope (sim_model *model, char slopetype, char typenode,c
 
   sim_getTransition(model, transition, trans_dir, trans_num);
   trans2find=toupper(trans_dir[0]); num=trans_num[0];
-  //    trans2=toupper(trans[1]); ind2=trans_num[1];
+  /*    trans2=toupper(trans[1]); ind2=trans_num[1];*/
   /*
     trans2find = transition[0];
     if (transition[1]=='l' || transition[1]=='L')
@@ -577,7 +577,7 @@ void sim_get_delay_slope (sim_model *model, SIM_FLOAT *tab, SIM_FLOAT *delay,
     
   /* Results array */
   step   = sim_parameter_get_tran_step (model);
-  //    vddmax = sim_parameter_get_alim (model, 'i');
+  /*    vddmax = sim_parameter_get_alim (model, 'i');*/
 
   sim_GetDelaySlopeByIndex (tab,delay,slope,vth,vthl,vthh,
                             time,step,indice,trans);
@@ -1294,7 +1294,7 @@ char sim_get_last_node_event (sim_model *model,char *name, char type)
   time = sim_parameter_get_tran_tmax (model);
   step = sim_parameter_get_tran_step (model);
   vddmax = sim_parameter_get_alim (model, 'i');
-  // beware: pas de diff entre start & end : a voir
+  /* beware: pas de diff entre start & end : a voir*/
   vth  = sim_parameter_get_delayVTHSTART  (model)*vddmax;
   vthl = sim_parameter_get_slopeVTHL (model)*vddmax;
   vthh = sim_parameter_get_slopeVTHH (model)*vddmax;
@@ -1432,7 +1432,7 @@ void sim_get_nodes_events (sim_model *model,char *filename,char *node1,
   fclose (file);
 }
 
-// fonction ki enleve le nom du top level par rapport au simulateur
+/* fonction ki enleve le nom du top level par rapport au simulateur*/
 char *sim_strip_top_name (sim_model *model,char *name)
 {
   char stringhier[BUFSIZ];
@@ -1473,7 +1473,7 @@ char *sim_strip_top_name (sim_model *model,char *name)
 int sim_get_rc_delay_slope (sim_model *model, spisig_list *spisig,
                             SIM_FLOAT *delay, SIM_FLOAT *slope,
                             char **nodercin, char **nodercout,
-                            char type  // SIM_MIN or SIM_MAX
+                            char type  /* SIM_MIN or SIM_MAX*/
                             )
 {
   char *node;
@@ -1529,7 +1529,7 @@ int sim_get_rc_delay_slope (sim_model *model, spisig_list *spisig,
 
   while ((md1 = sim_measure_detail_scan(m,md1))) {
     m2  = sim_measure_get ( model,
-                            //(char*)(spisig->LOCONRC->DATA),
+                            /*(char*)(spisig->LOCONRC->DATA),*/
                             efg_GetSpiSigLoconRc (spisig,'O'),
                             SIM_MEASURE_LOCON,
                             SIM_MEASURE_VOLTAGE
@@ -1645,7 +1645,7 @@ int sim_get_rc_delay_slope (sim_model *model, spisig_list *spisig,
 #if 0
 int sim_get_rc_delay_slope_meas (sim_model *model, spisig_list *spisig,
                                  SIM_FLOAT *ptdelay, SIM_FLOAT *ptslope,
-                                 char type  // SIM_MIN or SIM_MAX
+                                 char type  /* SIM_MIN or SIM_MAX*/
                                  )
 {
   chain_list *delay_label;
@@ -1657,7 +1657,7 @@ int sim_get_rc_delay_slope_meas (sim_model *model, spisig_list *spisig,
   double      dmax=0.0,dmin=0.0,smax=0.0,smin=0.0;
   int         valid = 0;
 
-  // Delay
+  /* Delay*/
   delay_label = sim_get_rc_label_delay ( spisig );
   for ( chain = delay_label ; chain ; chain=chain->NEXT ) {
     label = (char*)chain->DATA;
@@ -1675,7 +1675,7 @@ int sim_get_rc_delay_slope_meas (sim_model *model, spisig_list *spisig,
       }
     }
   }
-  // Slope
+  /* Slope*/
   start=1;
   slope_label = sim_get_rc_label_slope ( spisig );
   for ( chain = slope_label ; chain ; chain=chain->NEXT ) {
@@ -1842,8 +1842,8 @@ void sim_dump_delay (sim_model *model, char *name1, char *name2, char *transitio
     }
   }
 
-  // Fill timing structure
-  // on met a jour le delay s'il existait
+  /* Fill timing structure*/
+  /* on met a jour le delay s'il existait*/
   if (delay_ko == 'N') {
     if ((tmglist = sim_timing_get_by_event (name1,name2,transition)) == NULL) {
       tmglist  = sim_timing_add (tmglist,name1,name2);

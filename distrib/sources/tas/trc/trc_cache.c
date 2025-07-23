@@ -60,8 +60,8 @@ void rcx_set_cache_lofig( lofig_list *lofig,
   FILE *ptf;
   
   if( RCX_USECACHE == 'Y' ) {
-    // On vérifie si on peut faire de l'accès direct sur le fichier avant
-    // d'activer le cache.
+    /* On vérifie si on peut faire de l'accès direct sur le fichier avant*/
+    /* d'activer le cache.*/
     ptf = mbkfopen( filename, extname, "r" );
     if( ptf ) {
       if( MBKFOPEN_FILTER == YES ) {

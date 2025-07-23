@@ -626,7 +626,7 @@ stbgap_list *stb_overlapdev (stbfig_list *stbfig, ttvevent_list *refevent, chain
   
   if( n == 1 || n==0 ) 
     {
-//      sdi=mbkalloc(sizeof(stb_date_info)*STB_MAX_DATE);
+/*      sdi=mbkalloc(sizeof(stb_date_info)*STB_MAX_DATE);*/
       nb=0;
       for (scan_agr = eventlist; scan_agr; scan_agr = scan_agr->NEXT)
         {
@@ -1210,43 +1210,43 @@ chain_list *stb_mkanalyselist (ttvfig_list *fig)
     chain_list  *siglist = NULL;
     long         i;
     
-    // les commandes internes 
+    /* les commandes internes */
     for (i = 0; i < fig->NBILCMDSIG; i++) {
         siglist = addchain (siglist, &fig->ILCMDSIG[i]->NODE[0]);
         siglist = addchain (siglist, &fig->ILCMDSIG[i]->NODE[1]);
     }
-    // les signaux externes
+    /* les signaux externes*/
     for (i = 1; i < fig->NBESIG; i++) {
         siglist = addchain (siglist, &fig->ESIG[i]->NODE[0]);
         siglist = addchain (siglist, &fig->ESIG[i]->NODE[1]);
     }
-    // les connecteurs externes
-    //for (i = 0; i < fig->NBNCSIG; i++) {
-    //  siglist = addchain (siglist, &fig->NCSIG[i]->NODE[0]);
-    //  siglist = addchain (siglist, &fig->NCSIG[i]->NODE[1]);
-    //}
-    // les connecteurs externes
+    /* les connecteurs externes*/
+    /*for (i = 0; i < fig->NBNCSIG; i++) {*/
+    /*  siglist = addchain (siglist, &fig->NCSIG[i]->NODE[0]);*/
+    /*  siglist = addchain (siglist, &fig->NCSIG[i]->NODE[1]);*/
+    /*}*/
+    /* les connecteurs externes*/
     for (i = 0; i < fig->NBCONSIG; i++) {
         siglist = addchain (siglist, &fig->CONSIG[i]->NODE[0]);
         siglist = addchain (siglist, &fig->CONSIG[i]->NODE[1]);
     }
-    // les commandes externes 
+    /* les commandes externes */
     for (i = 0; i < fig->NBELCMDSIG; i++) {
         siglist = addchain (siglist, &fig->ELCMDSIG[i]->NODE[0]);
         siglist = addchain (siglist, &fig->ELCMDSIG[i]->NODE[1]);
     }
 
-    // les latchs 
+    /* les latchs */
     for (i = 1; i < fig->NBELATCHSIG; i++) {
         siglist = addchain (siglist, &fig->ELATCHSIG[i]->NODE[0]);
         siglist = addchain (siglist, &fig->ELATCHSIG[i]->NODE[1]);
     }
 
-    // les latchs 
-    //for (i = 0; i < fig->NBILATCHSIG; i++) {
-    //  siglist = addchain (siglist, &fig->ILATCHSIG[i]->NODE[0]);
-    //  siglist = addchain (siglist, &fig->ILATCHSIG[i]->NODE[1]);
-    //}
+    /* les latchs */
+    /*for (i = 0; i < fig->NBILATCHSIG; i++) {*/
+    /*  siglist = addchain (siglist, &fig->ILATCHSIG[i]->NODE[0]);*/
+    /*  siglist = addchain (siglist, &fig->ILATCHSIG[i]->NODE[1]);*/
+    /*}*/
 
     return siglist;
 }

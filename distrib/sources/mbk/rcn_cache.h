@@ -30,7 +30,7 @@ extern void rcn_lock_signal( lofig_list *lofig, losig_list *losig );
 extern void rcn_unlock_signal( lofig_list *lofig, losig_list *losig );
 extern char rcn_islock_signal( lofig_list *lofig, losig_list *losig );
 
-// --- Debug function
+/* --- Debug function*/
 void rcn_enablewritelofig( lofig_list *lofig );
 void rcn_disablewritelofig( lofig_list *lofig );
 
@@ -38,7 +38,7 @@ void rcn_disablewritesignal( losig_list* );
 void rcn_enblewritesignal( losig_list* );
 char rcn_iswritesignal( losig_list* );
 void rcn_checkwritesignal( losig_list *losig );
-// --- End of debug function.
-//
+/* --- End of debug function.*/
+/**/
 extern int rcn_hascache( lofig_list *lofig);
 

@@ -14,7 +14,7 @@
 /****************************************************************************/
 
 extern int AWECACHE ;
-// Lorsque cette variable est à 1, le cache est actif.
+/* Lorsque cette variable est à 1, le cache est actif. */
 
 extern char RCX_AWESTRAIGHT;
 extern char RCX_STEPTANH;
@@ -114,12 +114,12 @@ typedef struct {
 #define AWE_FLAGVALID           ((unsigned char)(0x80))
 #define AWE_FLAGERROR           ((unsigned char)(0x40))
 
-//FLAGVALID :
+/*FLAGVALID :*/
 #define AWE_FLAGNODELAY         ((unsigned char)(0x03))
 #define AWE_FLAGFILTER          ((unsigned char)(0x02))
 #define AWE_FLAGMOMENT          ((unsigned char)(0x01))
 
-//FLAGERROR :
+/*FLAGERROR :*/
 #define AWE_FLAGALLORDERFAILED  ((unsigned char)(0x01))
 
 #define AWE_MOMENT      ( AWE_FLAGVALID | AWE_FLAGMOMENT  )
@@ -152,10 +152,10 @@ typedef struct {
 #define AWESUMRESI 0x5243581F
 
 
-#define AWESIZETABNODE 200               // Taille d'un bloc alloué
+#define AWESIZETABNODE 200               /* Taille d'un bloc alloué */
 
-// Mémoire pour le calcul des moments. Allocation par bloc, sans libération
-// (pas de free)
+/* Mémoire pour le calcul des moments. Allocation par bloc, sans libération */
+/* (pas de free)*/
 awetabnode* aweallocnodes( void );
 void aweunallocnodes( awetabnode* );
 void awecleannodes( losig_list*, lonode_list* );
@@ -182,7 +182,7 @@ void build_awe_moment_with_loop( losig_list *losig,
                                  RCXFLOAT    coefctc
                                );
 
-// Calcul des moments.
+/* Calcul des moments.*/
 void awemoment( losig_list*, 
                     lonode_list*, 
                     int, 
@@ -192,7 +192,7 @@ void awemoment( losig_list*,
 RCXFLOAT awedownstream( losig_list *, lonode_list*, lowire_list*, int );
 RCXFLOAT awemaxmoment( losig_list*, lonode_list* );
 
-// Mémorisation des moments ou des coéfficients du filtre. Allocation par bloc, sans libération.
+/* Mémorisation des moments ou des coéfficients du filtre. Allocation par bloc, sans libération. */
 aweinfo_list* aweaddnodeinfo( losig_list*, 
                               locon_list*, 
                               long , 
@@ -220,10 +220,10 @@ void awesaveaweinfo( losig_list *losig, long type );
 void awefreeinfo( aweinfo_list *awe );
 void aweselectaweinfo( losig_list *losig, long type );
 
-// Transformation des moments en filtre.
+/* Transformation des moments en filtre.*/
 void awemomentfiltre( aweinfo_list* );
 
-// Calcul des délais et des fronts.
+/* Calcul des délais et des fronts. */
 RCXFLOAT awevoltage_straight( aweinfo_list *awe, 
 		               RCXFLOAT t,
 		               RCXFLOAT vmax, 
@@ -239,7 +239,7 @@ RCXFLOAT aweinstant_straight( aweinfo_list *awe,
 RCXFLOAT awedelay( aweinfo_list*, RCXFLOAT, RCXFLOAT, RCXFLOAT, RCXFLOAT, RCXFLOAT, RCXFLOAT, RCXFLOAT, RCXFLOAT, RCXFLOAT, mbk_pwl* );
 RCXFLOAT aweslope( aweinfo_list *awe, RCXFLOAT vmax, mbk_pwl **pwlout, rcx_slope *slope, char type, double coefctc ) ;
 
-// Transformation tangente hyperbolique en droite.
+/* Transformation tangente hyperbolique en droite.*/
 void awe_tanh_to_straight( RCXFLOAT, RCXFLOAT, RCXFLOAT, RCXFLOAT*, RCXFLOAT* );
 
 mbk_pwl* awe_tanh_to_pwl( RCXFLOAT inputslope, RCXFLOAT vmax, RCXFLOAT vt, RCXFLOAT vsat, RCXFLOAT rl, RCXFLOAT r, RCXFLOAT c1, RCXFLOAT c2 );

@@ -98,6 +98,7 @@ static long dirof(ttvevent_list *tve, int rev)
    }
   return dir;
 }
+
 void stb_getclockandtestslopes(stbfig_list *sf, ttvevent_list *tve, stbck *clock, ttvsig_list **tvs_setup, long *dir_setup, ttvsig_list **tvs_hold, long *dir_hold)
 {
   long active;
@@ -163,6 +164,7 @@ static void stb_delaymargins_setval(ttvevent_list *tve, long data, long clock, i
   else
      sdm->hold_data=data, sdm->hold_clock=clock;
 }
+
 void stb_delaymargins_getval(ttvevent_list *tve, long *data, long *clock, int setup)
 {
   ptype_list *pt;
@@ -179,6 +181,7 @@ void stb_delaymargins_getval(ttvevent_list *tve, long *data, long *clock, int se
       *data=sdm->hold_data, *clock=sdm->hold_clock;
   }
 }
+
 void stb_delaymargins_freeval(ttvevent_list *tve)
 {
   ptype_list *pt;
@@ -236,7 +239,7 @@ static int stb_find_latch_margin_fastmode(FILE *f, ttvfig_list *tvf, ttvsig_list
 
   if (!(factor_clock==1 && factor_data==1 && delta_clock==0 && delta_data==0))
     {
-      // --------------------- SETUP -----------------------------
+      /* --------------------- SETUP -----------------------------*/
 
       pthck=NULL;
       CPD=DPD=0;
@@ -256,7 +259,7 @@ static int stb_find_latch_margin_fastmode(FILE *f, ttvfig_list *tvf, ttvsig_list
         {
           for (pth=clockpath_min; pth!=NULL; pth=pth->NEXT)
             {
-//              if ((tvs->TYPE & (TTV_SIG_Q|TTV_SIG_R))!=0 && !isclockpath(pth, clocklist)) continue;
+/*              if ((tvs->TYPE & (TTV_SIG_Q|TTV_SIG_R))!=0 && !isclockpath(pth, clocklist)) continue;*/
 
               newdatapathdelay=pth->DELAY*factor_clock+delta_clock;
               if (lowestD==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay<oldSTART+oldNEWDELAY)
@@ -294,11 +297,11 @@ static int stb_find_latch_margin_fastmode(FILE *f, ttvfig_list *tvf, ttvsig_list
               newdatapathdelay=pth->DELAY*factor_data+delta_data;
               if (biggestU==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay>=oldSTART+oldNEWDELAY)
                 {
-                  // calcul d'intersection
+                  /* calcul d'intersection*/
                   ttv_checkpathoverlap(na, tvf, pth, cht, findmode, &localoverlapc, &localoverlapd);
                   if (biggestU==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay>oldSTART+oldNEWDELAY || (pth->DELAYSTART+newdatapathdelay==oldSTART+oldNEWDELAY && localoverlapd<overlapd))
                   {
-                    // ---------------------
+                    /* ---------------------*/
                     newdatapathdelay-=localoverlapd*factor_data;
                     if (biggestU==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay>oldSTART+oldNEWDELAY)
                       {
@@ -334,7 +337,7 @@ static int stb_find_latch_margin_fastmode(FILE *f, ttvfig_list *tvf, ttvsig_list
 
       if (cht!=NULL) delht(cht);
 
-      // update du setup
+      /* update du setup*/
       ret=1;
       margeclockf=margeclockf-overlapc*factor_clock+overlapc;
       
@@ -346,12 +349,12 @@ static int stb_find_latch_margin_fastmode(FILE *f, ttvfig_list *tvf, ttvsig_list
       stb_delaymargins_setval(node->EVENT, margedata, -margeclock, 1);
       for (ckl=node->CK; ckl!=NULL; ckl=ckl->NEXT)
         ckl->SETUP+=margedata-margeclock;
-//      clock->SETUP+=margedata-margeclock;
+/*      clock->SETUP+=margedata-margeclock;*/
       node->SETUP-=margedata-margeclock;
     }
 
 
-  // --------------------- HOLD -----------------------------
+  /* --------------------- HOLD -----------------------------*/
   biggestU=TTV_NOTIME;
   lowestD=TTV_NOTIME;
   CPD=DPD=0;
@@ -384,7 +387,7 @@ static int stb_find_latch_margin_fastmode(FILE *f, ttvfig_list *tvf, ttvsig_list
           
           for (pth=clockpath_max; pth!=NULL; pth=pth->NEXT)
             {
-//              if ((tvs->TYPE & (TTV_SIG_Q|TTV_SIG_R))!=0 && !isclockpath(pth, clocklist)) continue;
+/*              if ((tvs->TYPE & (TTV_SIG_Q|TTV_SIG_R))!=0 && !isclockpath(pth, clocklist)) continue;*/
 
               newdatapathdelay=pth->DELAY*factor_clock+delta_clock;
               if (lowestD==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay>oldSTART+oldNEWDELAY)
@@ -422,11 +425,11 @@ static int stb_find_latch_margin_fastmode(FILE *f, ttvfig_list *tvf, ttvsig_list
               newdatapathdelay=pth->DELAY*factor_data+delta_data;
               if (biggestU==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay<=oldSTART+oldNEWDELAY)
                 {
-                   // calcul d'intersection
+                   /* calcul d'intersection*/
                   ttv_checkpathoverlap(na, tvf, pth, cht, findmode, &localoverlapc, &localoverlapd);
                   if (biggestU==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay<oldSTART+oldNEWDELAY || (pth->DELAYSTART+newdatapathdelay==oldSTART+oldNEWDELAY && localoverlapd>overlapd))
                   {
-                    // ---------------------
+                    /* ---------------------*/
                     newdatapathdelay-=localoverlapd*factor_data;
                     if (biggestU==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay<oldSTART+oldNEWDELAY)
                       {
@@ -463,7 +466,7 @@ static int stb_find_latch_margin_fastmode(FILE *f, ttvfig_list *tvf, ttvsig_list
 
       if (cht!=NULL) delht(cht);
 
-      // update du hold
+      /* update du hold*/
       ret=1;
       margeclockf=margeclockf-overlapc*factor_clock+overlapc;
 
@@ -475,14 +478,14 @@ static int stb_find_latch_margin_fastmode(FILE *f, ttvfig_list *tvf, ttvsig_list
       stb_delaymargins_setval(node->EVENT, -margedata, margeclock, 0);
       for (ckl=node->CK; ckl!=NULL; ckl=ckl->NEXT)
         ckl->HOLD+=-margedata+margeclock;
-//      clock->HOLD+=-margedata+margeclock;
+/*      clock->HOLD+=-margedata+margeclock;*/
       node->HOLD-=-margedata+margeclock;
     }
   return ret;
 }
 
-/*
-// ----------------------------------- SLOW MODE ----------------------------------------------
+#ifdef THIS_IS_DISABLED
+/* ----------------------------------- SLOW MODE ----------------------------------------------*/
 
 static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list *tvs, int trans, inffig_list *ifl, char *infregex, chain_list *clocklist, NameAllocator *na, long findmode)
 {
@@ -523,7 +526,7 @@ static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list
 
   if (!(factor_clock==1 && factor_data==1 && delta_clock==0 && delta_data==0))
     {
-      // --------------------- SETUP -----------------------------
+      /* --------------------- SETUP -----------------------------*/
 
       pthck=NULL;
 
@@ -550,9 +553,9 @@ static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list
 
                   newdatapathdelay=pth->DELAY*factor_data+delta_data;
 
-                  // calcul d'intersection
+                  /* calcul d'intersection*/
                   overlap=checkpathoverlap(na, tvf, pth, cht, findmode);
-                  // ---------------------
+                  /* ---------------------*/
                   newdatapathdelay-=overlap*factor_data;
                   newclockpathdelay-=overlap*factor_clock;
 
@@ -577,7 +580,7 @@ static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list
 
       if (biggestU!=TTV_NOTIME)
         {
-          // update du setup
+          /* update du setup*/
           ret=1;
           
           if (f!=NULL) fprintf(f," Setup [data %s]: margin=%.1f%+.1f (c:%+.1f d:%+.1f o:%+.1f)\n", trans==0?"falling":"rising", clock->SETUP/TTV_UNIT, biggestU/TTV_UNIT, clockadd/TTV_UNIT, dataadd/TTV_UNIT, oversub/TTV_UNIT);
@@ -588,7 +591,7 @@ static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list
     }
 
 #if 0
-  // --------------------- HOLD -----------------------------
+  /* --------------------- HOLD -----------------------------*/
 
   sprintf(section,INF_PATHDELAYMARGINPREFIX"|"INF_PATHDELAYMARGINMAX","INF_PATHDELAYMARGINCLOCK",""%s", finddir_hold==__FINDDOWN__?INF_PATHDELAYMARGINFALL:INF_PATHDELAYMARGINRISE);
 
@@ -625,8 +628,8 @@ static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list
             }
           if (lowestD!=TTV_NOTIME)
             {
-              // calcul nouvelle marge et mise a jour du setup
-              // marge=diff_data+diffclock
+              /* calcul nouvelle marge et mise a jour du setup*/
+              /* marge=diff_data+diffclock*/
               margeclock=oldNEWDELAY-oldDELAY;
               
             }
@@ -648,9 +651,9 @@ static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list
               newdatapathdelay=pth->DELAY*factor_data+delta_data;
               if (biggestU==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay<oldSTART+oldNEWDELAY)
                 {
-                   // calcul d'intersection
+                   /* calcul d'intersection*/
                   overlap=checkpathoverlap(na, tvf, pth, cht);
-                  // ---------------------
+                  /* ---------------------*/
                   newdatapathdelay-=overlap*factor_data;
                   if (biggestU==TTV_NOTIME || pth->DELAYSTART+newdatapathdelay<oldSTART+oldNEWDELAY)
                     {
@@ -664,8 +667,8 @@ static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list
 
           if (biggestU!=TTV_NOTIME)
             {
-              // calcul nouvelle marge et mise a jour du setup
-              // marge=diff_data+diffclock
+              /* calcul nouvelle marge et mise a jour du setup*/
+              /* marge=diff_data+diffclock*/
               margedata=oldNEWDELAY-oldDELAY;
             }
           else margedata=0;
@@ -680,7 +683,7 @@ static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list
 
       if (biggestU!=TTV_NOTIME)
         {
-          // update du hold
+          /* update du hold*/
           ret=1;
           margeclock-=overlap*factor_clock;
           
@@ -693,7 +696,7 @@ static int stb_find_latch_margin_slowmode(FILE *f, ttvfig_list *tvf, ttvsig_list
 #endif
   return ret;
 }
-*/
+#endif
 
 
 void stb_computedelaymargin(stbfig_list *sbf)

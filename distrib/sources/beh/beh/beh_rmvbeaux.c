@@ -64,7 +64,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
         {
         if (ptbeaux->ABL != NULL)
           beh_warning(300,beauxname,NULL);
-          //(stderr,"BEH_warning : beaux `%s` not empty\n", beauxname);
+          /*(stderr,"BEH_warning : beaux `%s` not empty\n", beauxname);*/
         }
       else
         freeExpr (ptbeaux->ABL);

@@ -8,7 +8,7 @@
 #undef ECHO
 #define ECHO {strcpy(yylval.sval, yytext);} 
 #define YY_NO_UNPUT
-void yyJumpOver();
+void yyJumpOver( int );
 int  yylineno;
 %}
 
@@ -74,8 +74,7 @@ views       	(SYMBOLIC|symbolic|BEHAVIOR|behavior|MASKLAYOUT|masklayout)
 
 %%
 
-void yyJumpOver (nParenthesis)
-int nParenthesis;
+void yyJumpOver ( int nParenthesis )
 {
   char cRead;
   while(nParenthesis!=0) {

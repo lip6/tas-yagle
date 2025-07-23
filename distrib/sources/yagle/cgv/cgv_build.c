@@ -22,7 +22,7 @@
 #define BOX_SIZE_MIN 5
 #define BOX_SIZE_MAX (BOX_SIZE_MIN*3)
 
-//#define DEBUG
+/*#define DEBUG*/
 
 int CGV_SCALE = 1 ;
 
@@ -421,7 +421,7 @@ loc_buildplacefirst(Figure)
 |                Function  Loc Build Place In                 |
 \------------------------------------------------------------*/
 
-/*
+#ifdef THIS_IS_DISABLED
 static cgvfig_list *
 loc_buildplacein(Figure, ColumnFrom, ColumnTo)
     cgvfig_list    *Figure;
@@ -455,7 +455,7 @@ loc_buildplacein(Figure, ColumnFrom, ColumnTo)
                             CellFrom = (cgvcel_list *) BoxFrom->USER;
                             if (CellFrom->COL == ColumnFrom) {
                                 if (Begin) {
-                                    // juste une idee de grandeur 
+                                    /* juste une idee de grandeur */
                                     CumulY = BoxTo->Y + 2 * (BoxFrom->DY) + (BoxTo->DY);
                                     Begin = 0;
                                 }
@@ -499,13 +499,13 @@ loc_buildplacein(Figure, ColumnFrom, ColumnTo)
     }
     return (Figure);
 }
-*/
+#endif
 
 /*------------------------------------------------------------\
 |                Function  Loc Build Place Out                |
 \------------------------------------------------------------*/
 
-/*
+#ifdef THIS_IS_DISABLED
 static cgvfig_list *
 loc_buildplaceout(Figure, ColumnFrom, ColumnTo)
     cgvfig_list    *Figure;
@@ -544,7 +544,7 @@ loc_buildplaceout(Figure, ColumnFrom, ColumnTo)
                                 CellFrom = (cgvcel_list *) BoxFrom->USER;
                                 if (CellFrom->COL == ColumnFrom) {
                                     if (Begin) {
-                                        // juste une idee de grandeur  
+                                        /* juste une idee de grandeur  */
                                         CumulY = BoxFrom->Y +  2 * (BoxTo->DY + BoxFrom->DY);
                                         Begin = 0;
                                     }
@@ -554,16 +554,16 @@ loc_buildplaceout(Figure, ColumnFrom, ColumnTo)
                                         CumulY = BoxTo->Y - CGV_SCALE;
                                     }
                                     else {
-                                        //BoxTo->Y =  CumulY - BoxTo->DY;
+                                        /*BoxTo->Y =  CumulY - BoxTo->DY;*/
                                     }
-                                    // 3 fev 2000
+                                    /* 3 fev 2000*/
                                     if (FirstBox != NULL) {
                                         if (!IsCgvBoxPlaced(FirstBox)) {
                                             FirstBox->Y = BoxTo->Y + BoxTo->DY + 2*CGV_SCALE;
                                             SetCgvBoxPlaced(FirstBox);
                                         }
                                     }
-                                    // fin
+                                    /* fin*/
                                 }
                             }
                         }
@@ -571,11 +571,11 @@ loc_buildplaceout(Figure, ColumnFrom, ColumnTo)
                 }
             }
             if (!IsCgvBoxPlaced(BoxTo)) {
-                // 3 fev 2000
+                /* 3 fev 2000*/
                 if (Begin) {
                     FirstBox = BoxTo;
                 }
-                // fin
+                /* fin*/
                 else {
                     BoxTo->Y = CumulY - BoxTo->DY;
                     SetCgvBoxPlaced(BoxTo);
@@ -605,7 +605,7 @@ loc_buildplaceout(Figure, ColumnFrom, ColumnTo)
                                     CumulY = ConTo->Y_REL - CGV_SCALE;
                                 }
                                 else {
-                                    // ConTo->Y_REL =  CumulY;
+                                    /* ConTo->Y_REL =  CumulY;*/
                                 }
                             }
                         }
@@ -621,12 +621,13 @@ loc_buildplaceout(Figure, ColumnFrom, ColumnTo)
     }
     return (Figure);
 }
-*/
+#endif
 
 /*------------------------------------------------------------\
 |                  Function  Loc Build Place                  |
 \------------------------------------------------------------*/
-/*
+
+#ifdef THIS_IS_DISABLED
 static cgvfig_list *
 loc_buildplace(Figure)
     cgvfig_list    *Figure;
@@ -651,7 +652,7 @@ loc_buildplace(Figure)
 
     return (Figure);
 }
-*/
+#endif
 
 /*------------------------------------------------------------\
 |                 Function  Loc Routage Canal                 |
@@ -1056,7 +1057,7 @@ loc_isanyconbefore(Cell,FirstColumn)
     cgvcel_list   *Cell2Col;
     
     Current = Cell->COL;
-    CellBox = (cgvbox_list*)Cell->ROOT; // CellBox est une transparence
+    CellBox = (cgvbox_list*)Cell->ROOT; /* CellBox est une transparence*/
     Net = CellBox->CON_OUT->NET; 
 
     for (Chain = Net->CON_NET; Chain;Chain = Chain->NEXT) {
@@ -1124,39 +1125,39 @@ for (Column = FirstColumn;Column;Column=Column->NEXT) {
                                if (Cell2->NEXT) {
                                  Cell->NEXT = Cell2->NEXT;
                                  Cell->NEXT->PREV = Cell;
-                               } // if (Cell2->NEXT)
+                               } /* if (Cell2->NEXT)*/
                                else {
                                  Cell->NEXT = NULL;
                                  Column->LAST_CELL = Cell;
-                               } //  !Cell2->NEXT
-                             } // if (Cell2->PREV)
+                               } /*  !Cell2->NEXT*/
+                             } /* if (Cell2->PREV)*/
                              else {
                                Column->CELL = Cell2->NEXT;
                                if (Cell2->NEXT) {
                                  Cell2->NEXT->PREV = NULL;
-                               } // if (Cell2->NEXT)
+                               } /* if (Cell2->NEXT)*/
                                else {
                                  Cell->NEXT = NULL;
                                  Column->LAST_CELL = Cell;
-                               } //  !Cell2->NEXT
-                             } // !Cell2->PREV
+                               } /*  !Cell2->NEXT*/
+                             } /* !Cell2->PREV*/
                              cgvdeltransparence(Cell2,Figure);
                              Column->NUMBER_CELL--;
-                           } // if(!loc_isanyconbefore(Cell,FirstColumn))
-                        } // if(IsCgvBoxTransparence(Box))
+                           } /* if(!loc_isanyconbefore(Cell,FirstColumn))*/
+                        } /* if(IsCgvBoxTransparence(Box))*/
                         else {
                           SetCgvBoxTaged(Box2);
                           Cell2 = addcgvcel(Column2);
                           addcgvboxtocgvcel(Box2, Cell2);
                           Column2->NUMBER_CELL++;
-                        } // !IsCgvBoxTransparence(Box)
-                   } // if (IsCgvConIn(Con2))
-               } // if  Con2 != Con
-           } // for Chain  
-       } // if (Cell->TYPE == CGV_CEL_BOX)  
+                        } /* !IsCgvBoxTransparence(Box)*/
+                   } /* if (IsCgvConIn(Con2))*/
+               } /* if  Con2 != Con*/
+           } /* for Chain  */
+       } /* if (Cell->TYPE == CGV_CEL_BOX)  */
        ptnextcell = Cell->NEXT;
-   }    // for Cell
-} // for Column
+   }    /* for Cell*/
+} /* for Column*/
 
        
 }
@@ -1194,7 +1195,7 @@ void removefake(cgvfig_list *cgvf, cgvcol_list *col)
       if (c->TYPE == CGV_CEL_CON)
 	{
 	  con=(cgvcon_list *)c->ROOT;
-//	  printf("check con  %s\n",con->NAME);
+/*	  printf("check con  %s\n",con->NAME);*/
 	  if (strcmp(con->NAME,"$$**$$")==0)
 	    {
 	      if (col->CELL==c)
@@ -1222,7 +1223,7 @@ void removefake(cgvfig_list *cgvf, cgvcol_list *col)
 	      for (cl=con->NET->CON_NET; cl!=NULL; cl=cl->NEXT)
 		{
 		  boxcon=(cgvcon_list *)cl->DATA;
-//		  printf("%s\n",boxcon->NAME);
+/*		  printf("%s\n",boxcon->NAME);*/
 		  if (IsCgvConExternal(boxcon) && IsCgvConOut(boxcon)) continue;
 
 		  box=(cgvbox_list *)boxcon->ROOT;
@@ -1246,7 +1247,7 @@ void removefake(cgvfig_list *cgvf, cgvcol_list *col)
 
 		  pred=cl;
 
-		  //printf("remove on %s\n",box->NAME);
+		  /*printf("remove on %s\n",box->NAME);*/
 		  
 		  if (boxcon==box->CON_OUT)
 		    {
@@ -1257,7 +1258,7 @@ void removefake(cgvfig_list *cgvf, cgvcol_list *col)
 		      for (c0=box->CON_OUT; c0->NEXT!=boxcon; c0=c0->NEXT) ;
 		      c0->NEXT=c0->NEXT->NEXT;
 		    }
-//                  printf("remove on %s, out=%d, %p\n",box->NAME,box->NUMBER_OUT,box->CON_OUT);
+/*                  printf("remove on %s, out=%d, %p\n",box->NAME,box->NUMBER_OUT,box->CON_OUT);*/
 		}
 	      con->NET->CON_NET=NULL;
 	    }
@@ -1277,7 +1278,7 @@ void removecon(chain_list **ch, cgvcon_list *con)
         break;
       }
   if (cl==NULL) avt_errmsg(CGV_ERRMSG, "001", AVT_ERROR, 1);
-                // printf("NOT FOUND\n");
+                /* printf("NOT FOUND\n");*/
 }
 int cgv_has_input(chain_list *cl)
 {
@@ -1389,7 +1390,7 @@ cgvcol_list *merge(cgvfig_list *cgvf, cgvcol_list *old, cgvcol_list *new)
 		}
 	    }
 	}
-      prev_old=new;// oldold=prev_old;
+      prev_old=new;/* oldold=prev_old;*/
       new=nextnew;
     }
 
@@ -1415,7 +1416,7 @@ cgvcol_list *merge(cgvfig_list *cgvf, cgvcol_list *old, cgvcol_list *new)
 	    {
               Box=(cgvbox_list *)c->ROOT;
               if (Box->NAME==NULL) continue;
-//              printf("-- %s",Box->NAME);
+/*              printf("-- %s",Box->NAME);*/
               if (IsCgvBoxTransparence(Box) && !cgv_has_input(Box->CON_IN->NET->CON_NET))
                 {
                   for (cl=Box->CON_IN->NET->CON_NET; cl!=NULL; cl=cl->NEXT)
@@ -1427,17 +1428,17 @@ cgvcol_list *merge(cgvfig_list *cgvf, cgvcol_list *old, cgvcol_list *new)
                       cel=pBox->USER;
                       if (cel->COL==prev_old || cel->COL==old) 
                         {
-//                          printf(">%s<",pBox->NAME);
+/*                          printf(">%s<",pBox->NAME);*/
                           break;
                         }
                     }
                   if (cl==NULL)
                     {
                       Box->NAME=NULL;
-//                      printf(" X");
+/*                      printf(" X");*/
                     }
                 }
-//              printf(" -\n");
+/*              printf(" -\n");*/
             }
         }
     }
@@ -1546,7 +1547,7 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
     long            cpt_transparence = 0;
     int             nb_conin = 0;
 
-    // on compte les connecteurs d'entree +
+    /* on compte les connecteurs d'entree +*/
 
     nb_conin = 0;
     
@@ -1561,7 +1562,7 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
     firstcolumn = Column2 = addcgvcol();
     Column = addcgvcol();
 
-    for (net=Figure->NET; net!=NULL; net=net->NEXT) net->CANAL=0; // marquage
+    for (net=Figure->NET; net!=NULL; net=net->NEXT) net->CANAL=0; /* marquage*/
 
     for (Con = Figure->CON_OUT; Con != NULL; Con = Con->NEXT) {
       if (IsCgvConTaged(Con)) continue;
@@ -1627,7 +1628,7 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
 				SetCgvBoxReTaged(b);
 				Cell2 = addcgvcel(Column2);
 				addcgvboxtocgvcel(b, Cell2);
-//				printf("add %s under %s\n",b->NAME,Box->NAME);
+|*				printf("add %s under %s\n",b->NAME,Box->NAME);*|
 			      }
 			  }
 		      }
@@ -1653,13 +1654,13 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
                                     SetCgvBoxReTaged(b);
                                     Cell2 = addcgvcel(Column2);
                                     addcgvboxtocgvcel(b, Cell2);
-                                    //				printf("add %s under %s\n",b->NAME,Box->NAME);
+                                    /*				printf("add %s under %s\n",b->NAME,Box->NAME);*/
                                   }
                                 else
                                   if (!IsCgvBoxReTaged(b) && loc_test_trans(Con2->NET, Column2))
                                     {
                                       Box4 = loc_add_transparence(Figure, Con2->NET);
-                                      //Box4->NAME="2";
+                                      /*Box4->NAME="2";*/
                                       SetCgvBoxTaged(Box4);
                                       SetCgvBoxReTaged(Box4);
                                       Cell2 = addcgvcel(Column2);
@@ -1671,12 +1672,12 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
 			    if (!IsCgvBoxHit(b) && IsCgvConIn(Con2) && IsCgvConInternal(Con2)
 				&& !IsCgvBoxTaged(b))
 			      {
-//				b->misc.UNDER=Box;
+/*				b->misc.UNDER=Box;*/
 				SetCgvBoxTaged(b);
-//				SetCgvBoxReTaged(b);
+/*				SetCgvBoxReTaged(b);*/
 				Cell2 = addcgvcel(Column);
 				addcgvboxtocgvcel(b, Cell2);
-//				printf("add %s under %s\n",b->NAME,Box->NAME);
+/*				printf("add %s under %s\n",b->NAME,Box->NAME);*/
 			      }
 			  }
 		      }
@@ -1714,13 +1715,13 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
 			    SetCgvBoxTaged(Box4);
 			    Cell2 = addcgvcel(Column);
 			    addcgvboxtocgvcel(Box4, Cell2);
-//			    Box4->misc.UNDER=b;
+/*			    Box4->misc.UNDER=b;*/
 			  }
 			if (IsCgvConIn(Con2) && IsCgvConInternal(Con2) 
 			    && !IsCgvBoxReTaged(b) && loc_test_trans(Con2->NET, Column)) 
 			  {
 			    Box4 = loc_add_transparence(Figure, Con2->NET);
-//                            printf("=2=> %s\n", Box->NAME);
+/*                            printf("=2=> %s\n", Box->NAME);*/
 			    Box4->NAME="2";
 			    cpt_transparence++;
 			    SetCgvBoxTaged(Box4);
@@ -1731,14 +1732,14 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
 			if (IsCgvConOut(Con2) && IsCgvConExternal(Con2) 
 			    && loc_test_trans(Con2->NET, Column2)) 
 			  {
-//                            printf("=1=> %s\n", Box->NAME);
+/*                            printf("=1=> %s\n", Box->NAME);*/
 			    Box4 = loc_add_transparence(Figure, Con2->NET);
 			    Box4->NAME="1";
 			    SetCgvBoxTaged(Box4);
 			    SetCgvBoxReTaged(Box4);
 			    Cell2 = addcgvcel(Column2);
 			    addcgvboxtocgvcel(Box4, Cell2);
-//			    Box4->misc.UNDER=b;
+/*			    Box4->misc.UNDER=b;*/
 			  }
 /*			if (IsCgvConOut(Con2) && IsCgvConInternal(Con2) && !IsCgvBoxReTaged(b)
 			    && loc_test_trans(Con->NET, Column2)) 
@@ -1770,7 +1771,7 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
 			      if (!IsCgvBoxReTaged(b) || ((cgvcel_list *)b->USER)->COL==Column2)
 				{
 				  BoxBox4 = loc_add_transparence(Figure, Con->NET);
-				  //BoxBox4->NAME = namealloc("OUT_In_Int_Tag");
+				  /*BoxBox4->NAME = namealloc("OUT_In_Int_Tag");*/
 				  SetCgvBoxTaged(BoxBox4);
 				  SetCgvBoxReTaged(BoxBox4);
 				  BoxCell2 = addcgvcel(Column2);
@@ -1782,7 +1783,7 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
 			      && loc_test_trans(Con->NET, Column2)) 
 			    {
 			      Box4 = loc_add_transparence(Figure, Con2->NET);
-			      //Box4->NAME="6";
+			      /*Box4->NAME="6";*/
 			      SetCgvBoxTaged(Box4);
 			      SetCgvBoxReTaged(Box4);
 			      Cell2 = addcgvcel(Column2);
@@ -1796,7 +1797,7 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
 	  }
     }
         
-// les connecteurs externes d'entrees...        +
+/* les connecteurs externes d'entrees...        +*/
 #ifdef DEBUG
     fprintf(stdout,"\n");
 #endif
@@ -1835,7 +1836,7 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
 	    Figure=loc_placement_initial(Figure);
 	    unplaced--;
 
-//	    HEAD_CGVCOL=oldHEAD_CGVCOL;
+/*	    HEAD_CGVCOL=oldHEAD_CGVCOL;*/
 	    Column=HEAD_CGVCOL=merge(Figure, oldHEAD_CGVCOL, HEAD_CGVCOL);
 	  }
       }
@@ -1874,7 +1875,7 @@ static cgvfig_list *loc_placement_initial(cgvfig_list *Figure)
     {
       if (!IsCgvConTaged(Con))
 	{
-//	  printf("-- %s\n",Con->NAME);
+/*	  printf("-- %s\n",Con->NAME);*/
 	  Cell2 = addcgvcel(Column);
 	  addcgvcontocgvcel(Con, Cell2);
 	  SetCgvConUnTaged(Con);
@@ -1918,12 +1919,12 @@ void default_box(cgvbox_list *Box,  int H_ref)
   }
   if (Box->DY<3*CGV_SCALE) Box->DY=3*CGV_SCALE;
   if (IsCgvBoxCluster(Box)) {
-    //Box->DX = BOX_SIZE_MAX*CGV_SCALE;
+    /*Box->DX = BOX_SIZE_MAX*CGV_SCALE;*/
     Box->DX = Box->DY * (1+exp(-(Box->NUMBER_IN))) / H_cell_x ;
   }
   else {
     if (IsCgvBoxTransparence(Box)) {
-      //Box->DX = BOX_SIZE_MAX*CGV_SCALE;
+      /*Box->DX = BOX_SIZE_MAX*CGV_SCALE;*/
       Box->DX = Box->DY * (1+exp(-(Box->NUMBER_IN))) / H_cell_x ;
     }
     else {
@@ -1998,7 +1999,7 @@ cgvfig_list *loc_buildbox(cgvfig_list *Figure)
             }
             if (ptcgvcon) continue;
             for(ptcgvcon=Box->CON_OUT;ptcgvcon;ptcgvcon=ptcgvcon->NEXT) {
-	      if (strcmp(ptcgvcon->NAME,"$$**$$")==0) continue; // "fake for unplaced" connector
+	      if (strcmp(ptcgvcon->NAME,"$$**$$")==0) continue; /* "fake for unplaced" connector*/
              if (ptcgvcon->SUB_NAME!=NULL)
                ptslibpin = slib_getpin(Box->SYMBOL,ptcgvcon->SUB_NAME);
              else
@@ -2096,7 +2097,7 @@ int addmarge(cgvbox_list *box)
   return 0;
 }
 
-//static int DEBUG=0;
+/*static int DEBUG=0;*/
 
 int comp_moyenne(cgvcon_list *con, cgvcol_list *pred, int dir)
 {
@@ -2119,7 +2120,7 @@ int comp_moyenne(cgvcon_list *con, cgvcol_list *pred, int dir)
 		{
 		  if (hastransp) { cnb=0; cmoyenne=0; hastransp=0; }
 		  cmoyenne+=con0->Y_REL; cnb++; 
-//		  if (DEBUG)  printf("c+(%s): %d ",con0->NAME,con0->Y_REL);
+/*		  if (DEBUG)  printf("c+(%s): %d ",con0->NAME,con0->Y_REL);*/
 		}
 	    }
 	  else
@@ -2135,7 +2136,7 @@ int comp_moyenne(cgvcon_list *con, cgvcol_list *pred, int dir)
 		      if (!IsCgvBoxTransparence(b0) && hastransp)
 			{ cnb=0; cmoyenne=0; hastransp=0; }
 		      cmoyenne+=b0->Y+con0->Y_REL; cnb++;
-//		      if (DEBUG)  printf("c1(%s)+: %d ",con0->NAME,con0->Y_REL);
+/*		      if (DEBUG)  printf("c1(%s)+: %d ",con0->NAME,con0->Y_REL);*/
 		    }
 		}
 	    }
@@ -2155,7 +2156,7 @@ int comp_moyenne_last_chance(cgvcon_list *con)
     {
       con0 = (cgvcon_list *) cl->DATA;
       b0=(cgvbox_list *)con0->ROOT;
-//      if (!IsCgvBoxTaged(b0)) continue;
+/*      if (!IsCgvBoxTaged(b0)) continue;*/
       if (con0!=con)
 	{
 	  if (IsCgvConExternal(con0))
@@ -2179,7 +2180,7 @@ int comp_moyenne_sans_transparence(cgvcon_list *con)
 {
   chain_list *cl;
   cgvcon_list *con0;
-//  cgvcel_list *c;
+/*  cgvcel_list *c;*/
   int upper=12345678, y=FAILED_MOYENNE;
   cgvbox_list *b0;
   for (cl = con->NET->CON_NET; cl!=NULL; cl=cl->NEXT) 
@@ -2256,7 +2257,7 @@ void aligner_par_rapport_aux_entrees(cgvcol_list *cur, cgvcol_list *pred, int av
 	      con = (cgvcon_list *) tab[y]->ROOT;
 	      con->Y_REL = y*100*CGV_SCALE;
 	      box = (cgvbox_list *)con->ROOT;
-//	      fprintf(f,"con %s: y=%d\n",con->NAME, y);
+/*	      fprintf(f,"con %s: y=%d\n",con->NAME, y);*/
 	    }
 	  mbkfree(tab);
 	}
@@ -2268,10 +2269,10 @@ void aligner_par_rapport_aux_entrees(cgvcol_list *cur, cgvcol_list *pred, int av
 	  
 	  if (cell->TYPE == CGV_CEL_BOX) 
 	    {	      
-	      // les boites normales
+	      /* les boites normales*/
 	      box = (cgvbox_list *) cell->ROOT;
 	      tnb=0; tmoyenne=0;
-//	      if (strcmp(box->NAME,"tr_00589")==0) DEBUG=1;
+/*	      if (strcmp(box->NAME,"tr_00589")==0) DEBUG=1;*/
 	      for (con = box->CON_OUT; con!=NULL; con=con->NEXT)
 		{
 		  cmoyenne=comp_moyenne(con, pred, POUR_ENTREES);
@@ -2288,20 +2289,20 @@ void aligner_par_rapport_aux_entrees(cgvcol_list *cur, cgvcol_list *pred, int av
 		      tmoyenne0+=cmoyenne-con->Y_REL; cnb++;
 		    }
 		}
-//	      if (strcmp(box->NAME,"transparence_49")==0) printf("(0)%s: %d %d\n",box->NAME,tnb, cnb);
+/*	      if (strcmp(box->NAME,"transparence_49")==0) printf("(0)%s: %d %d\n",box->NAME,tnb, cnb);*/
 	      if (tnb==0 || cnb==0) {SetCgvBoxUnTaged(box);/*printf("2.untag %d %d %s\n",tnb, cnb,box->NAME);*/}
 	      if (tnb==0) { tmoyenne=tmoyenne0; tnb=cnb; }
 	      if (tnb!=0) box->Y=(tmoyenne/tnb);
-//	      DEBUG=0;
-//	      fprintf(f,"/ %s: tmoy=%d (%d) %s\n",box->NAME,tmoyenne, tnb,IsCgvBoxTaged(box)?"tagged":"x");
+/*	      DEBUG=0;*/
+/*	      fprintf(f,"/ %s: tmoy=%d (%d) %s\n",box->NAME,tmoyenne, tnb,IsCgvBoxTaged(box)?"tagged":"x");*/
 	    }
 	  else
 	    {
 	      con = (cgvcon_list *) cell->ROOT;
 	      cmoyenne=comp_moyenne(con, pred, POUR_ENTREES);
-//	      if (cmoyenne==FAILED_MOYENNE) {/*fprintf(f,"on %s.%s\n",box->NAME,con->NAME);*/EXIT(5);}
+/*	      if (cmoyenne==FAILED_MOYENNE) {|*fprintf(f,"on %s.%s\n",box->NAME,con->NAME);*|EXIT(5);}*/
 	      if (cmoyenne!=FAILED_MOYENNE) con->Y_REL=cmoyenne;
-//	      fprintf(f,">%s> %s: cmoy=%d (%d)\n",con->NAME,box->NAME,cnb, cmoyenne);
+/*	      fprintf(f,">%s> %s: cmoy=%d (%d)\n",con->NAME,box->NAME,cnb, cmoyenne);*/
 	    }
 	}
     }
@@ -2323,7 +2324,7 @@ void aligner_par_rapport_aux_sorties(cgvcol_list *cur, cgvcol_list *pred, int av
 	    {
 	      con = (cgvcon_list *) cell->ROOT;
 	      con->Y_REL = y;
-//	      fprintf(f,"con %s: y=%d\n",con->NAME, y);    
+/*	      fprintf(f,"con %s: y=%d\n",con->NAME, y);    */
 	      y+=100*CGV_SCALE;
 	    }
 	}
@@ -2335,7 +2336,7 @@ void aligner_par_rapport_aux_sorties(cgvcol_list *cur, cgvcol_list *pred, int av
 
 	  if (cell->TYPE == CGV_CEL_BOX) 
 	    {	      
-	      // les boites normales
+	      /* les boites normales*/
 	      box = (cgvbox_list *) cell->ROOT;
 	      tnb=0; tmoyenne=0;
 	      for (con = box->CON_IN; con!=NULL; con=con->NEXT)
@@ -2354,22 +2355,22 @@ void aligner_par_rapport_aux_sorties(cgvcol_list *cur, cgvcol_list *pred, int av
 		      tmoyenne0+=cmoyenne-con->Y_REL; cnb++;
 		    }
 		}
-//	      if (strcmp(box->NAME,"transparence_49")==0) printf("(1)%s: %d %d\n",box->NAME,tnb, cnb);
+/*	      if (strcmp(box->NAME,"transparence_49")==0) printf("(1)%s: %d %d\n",box->NAME,tnb, cnb);*/
 	      if (tnb==0 || cnb==0) {SetCgvBoxUnTaged(box);/*printf("untag %d %d %s\n",tnb, cnb,box->NAME);*/}
 	      if (tnb==0) { tmoyenne=tmoyenne0; tnb=cnb; }
 
 	      if (tnb!=0) box->Y=(tmoyenne/tnb);
-//	      fprintf(f,"> %s: tmoy=%d (%d) %s\n",box->NAME,tmoyenne, tnb,IsCgvBoxTaged(box)?"tagged":"x");
+/*	      fprintf(f,"> %s: tmoy=%d (%d) %s\n",box->NAME,tmoyenne, tnb,IsCgvBoxTaged(box)?"tagged":"x");*/
 	    }
 	  else
 	    {
 	      con = (cgvcon_list *) cell->ROOT;
 
 	      cmoyenne=comp_moyenne(con, pred, POUR_SORTIES);
-//	      if (cmoyenne==FAILED_MOYENNE) {fprintf(f,"on %s.%s\n",box->NAME,con->NAME);EXIT(8);}
+/*	      if (cmoyenne==FAILED_MOYENNE) {fprintf(f,"on %s.%s\n",box->NAME,con->NAME);EXIT(8);}*/
 	      if (cmoyenne!=FAILED_MOYENNE) con->Y_REL=cmoyenne;
 
-//	      fprintf(f,">%s> %s: cmoy=%d (%d)\n",con->NAME,box->NAME, cmoyenne, cnb);
+/*	      fprintf(f,">%s> %s: cmoy=%d (%d)\n",con->NAME,box->NAME, cmoyenne, cnb);*/
 	    }
 	}
     }
@@ -2388,7 +2389,7 @@ void justuntagiffree(cgvcol_list *cur, cgvcol_list *pred)
       
       if (cell->TYPE == CGV_CEL_BOX) 
 	{	      
-	  // les boites normales
+	  /* les boites normales*/
 	  box = (cgvbox_list *) cell->ROOT;
 	  tnb=0; tmoyenne=0;
 	  for (con = box->CON_IN; con!=NULL; con=con->NEXT)
@@ -2428,14 +2429,14 @@ void aligner_par_rapport_aux_sorties_et_aux_entrees(cgvcol_list *cur, cgvcol_lis
     {
       if (cell->TYPE == CGV_CEL_BOX) 
 	{	      
-	  // les boites normales
+	  /* les boites normales*/
 	  box = (cgvbox_list *) cell->ROOT;
 	  if (!IsCgvBoxTaged(box))
 	    {
 	      tnb=0; tmoyenne=0;
 	      for (con = box->CON_IN; con!=NULL; con=con->NEXT)
 		{
-//		  cmoyenne=comp_moyenne(con, pred, POUR_SORTIES);
+/*		  cmoyenne=comp_moyenne(con, pred, POUR_SORTIES);*/
 		  cmoyenne=comp_moyenne_sans_transparence(con);
 		  if (cmoyenne!=FAILED_MOYENNE)
 		    {
@@ -2444,7 +2445,7 @@ void aligner_par_rapport_aux_sorties_et_aux_entrees(cgvcol_list *cur, cgvcol_lis
 		}
 	      for (con = box->CON_OUT; con!=NULL; con=con->NEXT)
 		{
-//		  cmoyenne=comp_moyenne(con, cur->NEXT, POUR_ENTREES);
+/*		  cmoyenne=comp_moyenne(con, cur->NEXT, POUR_ENTREES);*/
 		  cmoyenne=comp_moyenne_sans_transparence(con);
 		  if (cmoyenne!=FAILED_MOYENNE)
 		    {
@@ -2455,7 +2456,7 @@ void aligner_par_rapport_aux_sorties_et_aux_entrees(cgvcol_list *cur, cgvcol_lis
 	      if (tnb!=0) 
 		{
 		  box->Y=(tmoyenne/tnb);
-//		  fprintf(f,"MOVED %s: tmoy=%d (%d)\n",box->NAME,tmoyenne, tnb);
+/*		  fprintf(f,"MOVED %s: tmoy=%d (%d)\n",box->NAME,tmoyenne, tnb);*/
 		}
 	    }
 	}
@@ -2470,7 +2471,7 @@ int find_space_for(cgvcol_list *c, int y, int size)
 
   for (cell = c->CELL, cnt=0; cell; cell = cell->NEXT) 
     {
-//      box=(cgvbox_list *)cell->ROOT;
+/*      box=(cgvbox_list *)cell->ROOT;*/
    /*   if (IsCgvBoxTaged(box))*/ cnt++;
     }
 
@@ -2506,18 +2507,18 @@ int find_space_for(cgvcol_list *c, int y, int size)
     }
 
   i--;
-//  if (i>=0) fprintf(f,"h(%s),",box->NAME);
+/*  if (i>=0) fprintf(f,"h(%s),",box->NAME);*/
   while (i>=0)
     {
       box=(cgvbox_list *)tab[i]->ROOT;
       box1=(cgvbox_list *)tab[i+1]->ROOT;
-//      fprintf(f,"%s-%s=%d,",box1->NAME,box->NAME,box1->Y-(box->Y+box->DY));
+/*      fprintf(f,"%s-%s=%d,",box1->NAME,box->NAME,box1->Y-(box->Y+box->DY));*/
       if (box1->Y-(box->Y+box->DY+addmarge(box))>=size) {mbkfree(tab);return box1->Y-size;}
       i--;
     }
   box=(cgvbox_list *)tab[0]->ROOT;
   mbkfree(tab);
-//  fprintf(f,"B");
+/*  fprintf(f,"B");*/
   return box->Y-size;
 }
 
@@ -2529,7 +2530,7 @@ int find_space_for2(cgvcol_list *c, int y, int size)
 
   for (cell = c->CELL, cnt=0; cell; cell = cell->NEXT) 
     {
-//      box=(cgvbox_list *)cell->ROOT;
+/*      box=(cgvbox_list *)cell->ROOT;*/
    /*   if (IsCgvBoxTaged(box))*/ cnt++;
     }
 
@@ -2564,18 +2565,18 @@ int find_space_for2(cgvcol_list *c, int y, int size)
     }
 
   i++;
-//  if (i>=0) fprintf(f,"h(%s),",box->NAME);
+/*  if (i>=0) fprintf(f,"h(%s),",box->NAME);*/
   while (i<cnt-1)
     {
       box=(cgvbox_list *)tab[i]->ROOT;
       box1=(cgvbox_list *)tab[i+1]->ROOT;
-//      fprintf(f,"%s-%s=%d,",box1->NAME,box->NAME,box1->Y-(box->Y+box->DY));
+/*      fprintf(f,"%s-%s=%d,",box1->NAME,box->NAME,box1->Y-(box->Y+box->DY));*/
       if (box1->Y-(box->Y+box->DY+addmarge(box))>=size) {mbkfree(tab);return box1->Y-size;}
       i++;
     }
   box=(cgvbox_list *)tab[cnt-1]->ROOT;
   mbkfree(tab);
-//  fprintf(f,"B");
+/*  fprintf(f,"B");*/
   return box->Y+box->DY+addmarge(box);
 }
 
@@ -2599,13 +2600,13 @@ int tasser_les_non_places(cgvcol_list *c, int moy)
 
   qsort(tab, cnt, sizeof(cgvcel_list *), comp_y);
 
-  cury=FAILED_MOYENNE; //((cgvbox_list *)(tab[cnt-1]->ROOT))->Y;
+  cury=FAILED_MOYENNE; /*((cgvbox_list *)(tab[cnt-1]->ROOT))->Y;*/
   for (i=cnt-1;i>=0;i--)
     {
       if (tab[i]->TYPE == CGV_CEL_BOX)
 	{
 	  box=(cgvbox_list *)tab[i]->ROOT;
-//	  printf("TG: %s\n",box->NAME);
+/*	  printf("TG: %s\n",box->NAME);*/
 	  if (IsCgvBoxTaged(box))
 	    {
 	      if (cury==FAILED_MOYENNE) { cury=box->Y+box->DY+addmarge(box); bcury=cury;/* printf("-- top=%s\n",box->NAME);*/ }
@@ -2614,13 +2615,13 @@ int tasser_les_non_places(cgvcol_list *c, int moy)
 	  if (!IsCgvBoxTaged(box)) 
 	    {
 	      cc++;
-	      //	  fprintf(f,"isuntag %s\n",box->NAME);
+	      /*	  fprintf(f,"isuntag %s\n",box->NAME);*/
 	    }
 	}
       else
 	{
 	  con = (cgvcon_list *) tab[i]->ROOT;
-//	  printf("%s: %d\n",con->NAME, con->Y_REL);
+/*	  printf("%s: %d\n",con->NAME, con->Y_REL);*/
 	  if (IsCgvConTaged(con))
 	    {
 	      if (cury==FAILED_MOYENNE) { cury=con->Y_REL+MARGE; bcury=cury; }
@@ -2635,7 +2636,7 @@ int tasser_les_non_places(cgvcol_list *c, int moy)
 	    }
 	}
     }
-//  printf("cc=%d, cury=%d, moy=%d\n",cc,cury,moy);
+/*  printf("cc=%d, cury=%d, moy=%d\n",cc,cury,moy);*/
   if (cc==0 || (concc==0 && cury==FAILED_MOYENNE)) { mbkfree(tab); return 0; }
   if (cury==FAILED_MOYENNE) { cury1=cury=moy; bcury=cury; }
 
@@ -2646,24 +2647,24 @@ int tasser_les_non_places(cgvcol_list *c, int moy)
       if (tab[i]->TYPE == CGV_CEL_BOX)
 	{   
 	  box=(cgvbox_list *)tab[i]->ROOT;
-	  //      if (!IsCgvBoxTaged(box)) printf("-1> %s %d\n",box->NAME,box->Y);
+	  /*      if (!IsCgvBoxTaged(box)) printf("-1> %s %d\n",box->NAME,box->Y);*/
 	  if (!IsCgvBoxTaged(box) && box->Y>=bcury) 
 	    {
 	      box->Y=cury;
 	      cury=box->Y+box->DY+addmarge(box);
-//	      printf("2. %s\n",box->NAME);
+/*	      printf("2. %s\n",box->NAME);*/
 	    }
 	}
       else
 	{
 	  con = (cgvcon_list *) tab[i]->ROOT;
-//	  printf("%s: [%d]\n",con->NAME, bcury);
+/*	  printf("%s: [%d]\n",con->NAME, bcury);*/
 	  if (!IsCgvConTaged(con) && con->Y_REL>=bcury)
 	    {
-//	      printf("2. %s\n",con->NAME);
+/*	      printf("2. %s\n",con->NAME);*/
 	      con->Y_REL=cury+ MARGE;
 	      cury=con->Y_REL;
-//	      SetCgvConTaged(con);
+/*	      SetCgvConTaged(con);*/
 	    }
 	}
     }
@@ -2673,24 +2674,24 @@ int tasser_les_non_places(cgvcol_list *c, int moy)
        if (tab[i]->TYPE == CGV_CEL_BOX)
 	{   
 	  box=(cgvbox_list *)tab[i]->ROOT;
-	  //      if (!IsCgvBoxTaged(box)) printf("-2> %s %d\n",box->NAME,box->Y);
+	  /*      if (!IsCgvBoxTaged(box)) printf("-2> %s %d\n",box->NAME,box->Y);*/
 	  if (!IsCgvBoxTaged(box) && box->Y<=bcury1) 
 	    {
 	      box->Y=cury1-(box->DY+addmarge(box));
 	      cury1=box->Y;
-//	      printf("1. %s\n",box->NAME);
+/*	      printf("1. %s\n",box->NAME);*/
 	    }
 	}
        else
 	 {
 	   con = (cgvcon_list *) tab[i]->ROOT;
-//	   printf("%s: [%d]\n",con->NAME, bcury1);
+/*	   printf("%s: [%d]\n",con->NAME, bcury1);*/
 	   if (!IsCgvConTaged(con) && con->Y_REL<=bcury1)
 	    {
-//	      printf("1. %s\n",con->NAME);
+/*	      printf("1. %s\n",con->NAME);*/
 	      con->Y_REL=cury1-MARGE;
 	      cury1=con->Y_REL;
-//	      SetCgvConTaged(con);
+/*	      SetCgvConTaged(con);*/
 	    }
 	 }
     }
@@ -2710,7 +2711,7 @@ void essayer_d_aligner_par_rapport_aux_entrees(cgvcol_list *cur, cgvcol_list *pr
 	  
       if (cell->TYPE == CGV_CEL_BOX) 
 	{	      
-	  // les boites normales
+	  /* les boites normales*/
 	  box = (cgvbox_list *) cell->ROOT;
 	  tnb=0; tmoyenne=0;
 	  besty=FAILED_MOYENNE;
@@ -2760,7 +2761,7 @@ void essayer_d_aligner_par_rapport_aux_entrees(cgvcol_list *cur, cgvcol_list *pr
 		}
 	    }
 
-	  //	      fprintf(f,"try %s: tmoy=%d \n",box->NAME, tmoyenne/tnb);
+	  /*	      fprintf(f,"try %s: tmoy=%d \n",box->NAME, tmoyenne/tnb);*/
 	  
 	  if (besty!=FAILED_MOYENNE)
 	    {	      
@@ -2796,7 +2797,7 @@ chain_list *aligner_les_transparences_de_boucle(cgvcol_list *cur)
     {
       if (cell->TYPE == CGV_CEL_BOX) 
 	{	      
-	  // les boites normales
+	  /* les boites normales*/
 	  box = (cgvbox_list *) cell->ROOT;
 	  if (!IsCgvBoxTaged(box)/* && IsCgvBoxTransparence(box)*/)
 	    {
@@ -2831,7 +2832,7 @@ static cgvfig_list *loc_laisser_pendouiller_out_vers_in(cgvfig_list *Figure, int
     fprintf(stdout,"\n");
 #endif
     HEAD_CGVCOL = (cgvcol_list *) reverse((chain_list *) HEAD_CGVCOL);
-//    fclose(f);
+/*    fclose(f);*/
     return (Figure);
 }
 /*
@@ -2863,14 +2864,14 @@ int colsize(cgvcol_list *cur)
     {
       if (cell->TYPE == CGV_CEL_BOX) 
 	{	      
-	  // les boites normales
+	  /* les boites normales*/
 	  box = (cgvbox_list *) cell->ROOT;
-//	  fprintf(f,"%s ",box->NAME);
+/*	  fprintf(f,"%s ",box->NAME);*/
 	  size+=box->DY;
 	}
     }
 
-//  fprintf(f,"= %d\n",size);
+/*  fprintf(f,"= %d\n",size);*/
   return size;
 }
 
@@ -2884,7 +2885,7 @@ void displaycol(cgvcol_list *c)
       if (cell->TYPE == CGV_CEL_BOX) 
 	{	      
 	  box = (cgvbox_list *) cell->ROOT;
-//	  printf("->%s\n",box->NAME);
+/*	  printf("->%s\n",box->NAME);*/
 /*	  if (strcmp(box->NAME,"tr_00589")==0)
 	    printf("%s :HERE\n",box->NAME);*/
 	}
@@ -2904,7 +2905,7 @@ static cgvcol_list *highestcolumn()
 	  }
       }
 
-//    fprintf(f,"best col size=%d\n",high);
+/*    fprintf(f,"best col size=%d\n",high);*/
     displaycol(best);
     return best;
 }
@@ -2928,9 +2929,9 @@ static void cleantags(cgvfig_list *cgvf)
 	      }
 	    else
 	      {
-//		SetCgvConTaged((cgvcon_list *) cell->ROOT);
+/*		SetCgvConTaged((cgvcon_list *) cell->ROOT);*/
 	      }
-//	    fprintf(f,"tag %s\n",box->NAME);
+/*	    fprintf(f,"tag %s\n",box->NAME);*/
 	  }
       }
 
@@ -3027,14 +3028,14 @@ void organiser_cellules(cgvcol_list *c, int centre)
 
   qsort(tab, cnt, sizeof(cgvcel_list *), comp_y);
 
-//  printf("new\n");
+/*  printf("new\n");*/
   for (i=0;i<cnt;i++)
     {
 /*      if (tab[i]->TYPE != CGV_CEL_BOX) 
 	printf("%s\n",((cgvcon_list *)tab[i]->ROOT)->NAME);
 */
-//      fprintf(f,"->\n");
-//      box=(cgvbox_list *)tab[i]->ROOT;
+/*      fprintf(f,"->\n");*/
+/*      box=(cgvbox_list *)tab[i]->ROOT;*/
       getcellinfo(tab[i], &y0, &dy0, &m0);
       if (i==0) spaceunder=100000;
       else 
@@ -3042,19 +3043,19 @@ void organiser_cellules(cgvcol_list *c, int centre)
 	  getcellinfo(tab[i-1], &y1, &dy1, &m1);
 	  /*box1=(cgvbox_list *)tab[i-1]->ROOT;*/
 	  spaceunder=y0 - ( y1 + dy1 + m1 ); 
-//      fprintf(f, "cunder: y=%d dy=%d y1=%d\n",box->Y, box->DY, box1->Y);
+/*      fprintf(f, "cunder: y=%d dy=%d y1=%d\n",box->Y, box->DY, box1->Y);*/
       }
 
       if (i==cnt-1) spaceover=100000;
       else 
 	{
 	  getcellinfo(tab[i+1], &y1, &dy1, &m1);
-	  //box1=(cgvbox_list *)tab[i+1]->ROOT;
+	  /*box1=(cgvbox_list *)tab[i+1]->ROOT;*/
 	  spaceover=y1 - ( y0 + dy0 + m0);
-//        fprintf(f, "cover: y=%d dy=%d y1=%d\n",box1->Y, box1->DY, box->Y);
+/*        fprintf(f, "cover: y=%d dy=%d y1=%d\n",box1->Y, box1->DY, box->Y);*/
       }
 	
-//      fprintf(f, "mv: %s u=%d o=%d\n",box->NAME, spaceunder, spaceover);
+/*      fprintf(f, "mv: %s u=%d o=%d\n",box->NAME, spaceunder, spaceover);*/
       if (spaceunder<0 && spaceover>0 && spaceover>=-spaceunder)
 	{ 
 	  setcelly(tab[i], getcelly(tab[i]) + -spaceunder);
@@ -3063,7 +3064,7 @@ void organiser_cellules(cgvcol_list *c, int centre)
 	if (spaceover<0 && spaceunder>0 && spaceunder>=-spaceover)
 	{
 	  setcelly(tab[i], getcelly(tab[i]) - -spaceover);
-//	  box->Y -= -spaceover;
+/*	  box->Y -= -spaceover;*/
 	  /*fprintf(f,"(y-%d)",-spaceover); */
 	}
       else if (spaceover<0 || spaceunder<0)
@@ -3080,39 +3081,39 @@ void organiser_cellules(cgvcol_list *c, int centre)
 	  if (movedir==1)
 	    {
 	      setcelly(tab[i], getcelly(tab[i]) - -spaceover);
-//	      box->Y -= -spaceover;
-//	      fprintf(f,"(2)y-%d=%d)",-spaceover,box->Y);
-//	      lastbox=box;
+/*	      box->Y -= -spaceover;*/
+/*	      fprintf(f,"(2)y-%d=%d)",-spaceover,box->Y);*/
+/*	      lastbox=box;*/
 	      y0=getcelly(tab[i]);
 	      for (j=i-1; j>=0; j--) 
 		{
-//		  box1=(cgvbox_list *)tab[j]->ROOT;
+/*		  box1=(cgvbox_list *)tab[j]->ROOT;*/
 		  getcellinfo(tab[j], &y1, &dy1, &m1);
 		  if (y0>= y1 + dy1 + m1) break;
 		  setcelly(tab[j], y0 - (dy1 + m1));
-//		  box1->Y=lastbox->Y-(box1->DY+addmarge(box1));
-//		  fprintf(f,"(%s moveddw %d)",box1->NAME,box1->Y);
+/*		  box1->Y=lastbox->Y-(box1->DY+addmarge(box1));*/
+/*		  fprintf(f,"(%s moveddw %d)",box1->NAME,box1->Y);*/
 		  getcellinfo(tab[j], &y0, &dy0, &m0);
-//		  y0=y1;
-//		  lastbox=box1;
+/*		  y0=y1;*/
+/*		  lastbox=box1;*/
 		}
 	    }
 	  else
 	    {
 	      setcelly(tab[i], getcelly(tab[i]) + -spaceunder);
-//	      box->Y += -spaceunder;
-//	      fprintf(f,"(2)y+%d)",-spaceunder);
-//	      lastbox=box;
+/*	      box->Y += -spaceunder;*/
+/*	      fprintf(f,"(2)y+%d)",-spaceunder);*/
+/*	      lastbox=box;*/
 	      getcellinfo(tab[i], &y0, &dy0, &m0);
 	      for (j=i+1; j<cnt; j++) 
 		{
-//		  box1=(cgvbox_list *)tab[j]->ROOT;
+/*		  box1=(cgvbox_list *)tab[j]->ROOT;*/
 		  getcellinfo(tab[j], &y1, &dy1, &m1);
 		  if (y1>= y0 + dy0 + m0) break;
 		  setcelly(tab[j], y0 + dy0 + m0);
-//		  box1->Y=lastbox->Y+lastbox->DY+addmarge(lastbox);
-//		  fprintf(f,"(%s movedup %d)",box1->NAME,box1->Y);
-//		  lastbox=box1;
+/*		  box1->Y=lastbox->Y+lastbox->DY+addmarge(lastbox);*/
+/*		  fprintf(f,"(%s movedup %d)",box1->NAME,box1->Y);*/
+/*		  lastbox=box1;*/
 		  getcellinfo(tab[j], &y0, &dy0, &m0);
 		}
 	    }
@@ -3266,7 +3267,7 @@ void aligner_en_avant_best(cgvcol_list *best, int centre, cgvfig_list *Figure)
 	}
 	}
       */
-      //organiser_cellules(c, centre);
+      /*organiser_cellules(c, centre);*/
     }
 #ifdef DEBUG
   fprintf(stdout,"\n");
@@ -3298,7 +3299,7 @@ buildcgvfig(Figure)
     fprintf(stdout, "----- Placement  initial -----\n");
     fflush(stdout);
 #endif
-//    addfakecon(Figure);
+/*    addfakecon(Figure);*/
     loc_placement_initial(Figure);
 #ifdef DEBUG
     fprintf(stdout, "--- Fabrication des boites ---\n");
@@ -3309,22 +3310,22 @@ buildcgvfig(Figure)
     fprintf(stdout, "---------  Placement ---------\n");
     fflush(stdout);
 #endif
-//    loc_buildplace(Figure);
+/*    loc_buildplace(Figure);*/
     updatecolumninfos(HEAD_CGVCOL);
 
 /* zinaps was here */
-//    f=fopen("r","wt");
-//    if (strchr(Figure->NAME,'#')==NULL)
+/*    f=fopen("r","wt");*/
+/*    if (strchr(Figure->NAME,'#')==NULL)*/
       {
 	cleantags(Figure);
 	loc_laisser_pendouiller_out_vers_in(Figure, 0);
 	best=highestcolumn();
 	tasser_cellules(best, &centre);
-	//    cleantags();
+	/*    cleantags();*/
 	aligner_en_avant_best(best, centre, Figure);
       }
 
-//    fclose(f);
+/*    fclose(f);*/
 
 /* --------------- */
 #ifdef DEBUG

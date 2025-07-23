@@ -54,7 +54,7 @@ ExecutionContext *Get_stm_C_context ()
         printf ("stmfct could not read rule files\n");
         EXIT (3);
     }
-    // call user init function
+    /* call user init function*/
     {
       APICallFunc cf;
       t_arg *ret;
@@ -257,7 +257,7 @@ float stm_modfct_slew (timing_function * fct, float slew, float load)
     if (!fct || !fct->FCT)
         return 0.0;
 
-    //printf ("stmfct SLEW recompute request instance = '%s' slope = %g load = %g\n", fct->INS, slew, load);
+    /*printf ("stmfct SLEW recompute request instance = '%s' slope = %g load = %g\n", fct->INS, slew, load);*/
     if (LATEST_GNS_RUN==NULL)
     {
       avt_errmsg (STM_ERRMSG, "048", AVT_ERROR);
@@ -311,7 +311,7 @@ float stm_modfct_delay (timing_function * fct, float slew, float load)
     if (!fct || !fct->FCT)
         return 0.0;
 
-    //printf ("stmfct DELAY recompute request instance = '%s' slope = %g load = %g\n", fct->INS, slew, load);
+    /*printf ("stmfct DELAY recompute request instance = '%s' slope = %g load = %g\n", fct->INS, slew, load);*/
     if (LATEST_GNS_RUN==NULL)
     {
       avt_errmsg (STM_ERRMSG, "048", AVT_ERROR);
@@ -329,7 +329,7 @@ float stm_modfct_delay (timing_function * fct, float slew, float load)
     stm_set_output_load (load * 1e-15);
     stm_set_current_arc(fct);
     stm_call_func (Get_stm_C_context (), fct);
-    stm_set_current_arc(NULL); // pour etre sur de voir une erreur hors context
+    stm_set_current_arc(NULL); /* pour etre sur de voir une erreur hors context*/
     APICallApiTerminateFunctions();
     out_genius_context_of ();
 /*
@@ -353,7 +353,7 @@ float stm_modfct_constraint (timing_function * fct, float inslew, float ckslew)
     if (!fct || !fct->FCT)
         return 0.0;
 
-//    printf ("stmfct CONSTRAINT recompute request instance = '%s' inslope = %g comslope = %g\n", fct->INS, inslew, ckslew);
+/*    printf ("stmfct CONSTRAINT recompute request instance = '%s' inslope = %g comslope = %g\n", fct->INS, inslew, ckslew);*/
     if (LATEST_GNS_RUN==NULL)
     {
       avt_error("stm", 1, AVT_ERR, "Gns informations not loaded, can't compute constraint\n");
@@ -371,7 +371,7 @@ float stm_modfct_constraint (timing_function * fct, float inslew, float ckslew)
     stm_set_command_slope (ckslew * 1e-15);
     stm_set_current_arc(fct);
     stm_call_func (Get_stm_C_context (), fct);
-    stm_set_current_arc(NULL); // pour etre sur de voir une erreur hors context
+    stm_set_current_arc(NULL); /* pour etre sur de voir une erreur hors context*/
     APICallApiTerminateFunctions();
     out_genius_context_of ();
 

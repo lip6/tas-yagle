@@ -3,7 +3,7 @@
 #include SDLR_H
 #include "Scheduler_transactions.h"
 
-//#define DEBUG
+/*#define DEBUG*/
 
 static void Scheduler_get_date_location(long date, int *high_offset, int *low_offset)
 {
@@ -20,7 +20,7 @@ void Scheduler_RemoveTransaction(Scheduler *S, Scheduler_Transaction *T)
   Scheduler_get_date_location(T->Date, &high, &low);
   if (S->DS.HIGH_OFFSET_Table[high]==NULL) { exit(6); return;}
 
-  // removing from global date ordering
+  /* removing from global date ordering*/
   if (T->Next!=NULL) T->Next->Previous=T->Previous;
   if (T->Previous!=NULL) T->Previous->Next=T->Next;
   else 
@@ -42,7 +42,7 @@ void Scheduler_RemoveTransaction(Scheduler *S, Scheduler_Transaction *T)
       else cl->DATA=T->Next;
     }
 
-  // removing from object list
+  /* removing from object list*/
   if (T->ObjectNext!=NULL) T->ObjectNext->ObjectPrevious=T->ObjectPrevious;
   if (T->ObjectPrevious!=NULL)
     T->ObjectPrevious->ObjectNext=T->ObjectNext;
@@ -145,14 +145,14 @@ Scheduler_Transaction *Scheduler_GetTransactions(Scheduler *S, long Date)
     }
   if (cl==NULL) return NULL;
 
-  // removing from global date ordering
+  /* removing from global date ordering*/
   et=(Scheduler_Transaction *)cl->DATA;
   if (prev==NULL) S->DS.HIGH_OFFSET_Table[high][low]=cl->NEXT;
   else prev->NEXT=cl->NEXT;
   cl->NEXT=NULL;
   freechain(cl);
 
-  // removing from object list
+  /* removing from object list*/
   for (cnt=et; cnt!=NULL; cnt=cnt->Next)
     {
       if (cnt->ObjectNext!=NULL) cnt->ObjectNext->ObjectPrevious=cnt->ObjectPrevious;

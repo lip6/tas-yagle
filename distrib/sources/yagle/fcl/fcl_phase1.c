@@ -22,13 +22,12 @@
    ####====================================================================####
  */
 
-partition_list *init_phase1();
-partition_list *phase1();
-partition_list *relabel_sig();
-partition_list *relabel_trs();
-partition_list *corrompre_trs();
-partition_list *corrompre_sig();
-void           *getcle();
+partition_list * init_phase1( lofig_list *ptlofig, char type );
+partition_list * relabel_sig( lofig_list *ptlofig, partition_list *ptpartition, char type );
+partition_list * relabel_trs( lofig_list *ptlofig, partition_list *ptpartition, char type );
+partition_list * corrompre_trs( partition_list *ptpartition );
+partition_list * corrompre_sig( partition_list *ptpartition );
+void           * getcle( partition_list *ptpartition_c, partition_list *ptpartition_m );
 
 
 /*
@@ -58,10 +57,7 @@ static chain_list     *ptchain_lotrs = NULL;        /* List des trs corrompus a 
    ##  sortie : pointeur sur une liste de partition                          ##
    ####====================================================================####
  */
-partition_list *
-init_phase1(ptlofig, type)
-    lofig_list     *ptlofig;
-    char            type;
+partition_list * init_phase1( lofig_list *ptlofig, char type )
 {
     losig_list     *ptlosig = NULL;
     lotrs_list     *ptlotrs = NULL;
@@ -169,9 +165,7 @@ init_phase1(ptlofig, type)
     return ptpartition;
 }
 
-void
-clean_phase1(ptlofig)
-    lofig_list     *ptlofig;
+void clean_phase1( lofig_list *ptlofig )
 {
     lotrs_list     *ptlotrs = NULL;
     ptype_list     *ptype;
@@ -208,11 +202,8 @@ static void freepartition(partition_list *ptpartition_c)
      ptpartition_c = delpartition(ptpartition_c, ptpartition_c->LABEL, ptpartition_c->TYPE);
   }
 }
-partition_list *
-phase1(ptlofig_c, ptlofig_m, ptcle)
-    lofig_list     *ptlofig_c;
-    lofig_list     *ptlofig_m;
-    void          **ptcle;
+
+partition_list * phase1( lofig_list *ptlofig_c, lofig_list *ptlofig_m, void **ptcle )
 {
     partition_list *ptpartition_c = (partition_list *) NULL;
     partition_list *ptpartition_m = (partition_list *) NULL;
@@ -347,11 +338,7 @@ phase1(ptlofig_c, ptlofig_m, ptcle)
    ##  sortie : pointeur sur une liste de partition de vecteurs renommes     ##
    ####====================================================================####
  */
-partition_list *
-relabel_sig(ptlofig, ptpartition, type)
-    lofig_list     *ptlofig;
-    partition_list *ptpartition;
-    char            type;
+partition_list * relabel_sig( lofig_list *ptlofig, partition_list *ptpartition, char type )
 {
     losig_list     *ptlosig;
     locon_list     *ptlocon;
@@ -432,11 +419,7 @@ relabel_sig(ptlofig, ptpartition, type)
    ##  sortie : pointeur sur une liste de partition de vecteurs renommes     ##
    ####====================================================================####
  */
-partition_list *
-relabel_trs(ptlofig, ptpartition, type)
-    lofig_list     *ptlofig;
-    partition_list *ptpartition;
-    char            type;
+partition_list * relabel_trs( lofig_list *ptlofig, partition_list *ptpartition, char type )
 {
     lotrs_list     *ptlotrs;
     ptype_list     *ptype;
@@ -517,9 +500,7 @@ relabel_trs(ptlofig, ptpartition, type)
    ##  sortie : pointeur sur une liste de partition de vecteur               ##
    ####====================================================================####
  */
-partition_list *
-corrompre_sig(ptpartition)
-    partition_list *ptpartition;
+partition_list * corrompre_sig( partition_list *ptpartition )
 {
     chain_list     *ptchain;
     chain_list     *ptchain2;
@@ -574,9 +555,7 @@ corrompre_sig(ptpartition)
    ##  sortie : pointeur sur une liste de partition de vecteur               ##
    ####====================================================================####
  */
-partition_list *
-corrompre_trs(ptpartition)
-    partition_list *ptpartition;
+partition_list * corrompre_trs( partition_list *ptpartition )
 {
     chain_list     *ptchain;
     losig_list     *ptlosig;
@@ -662,17 +641,14 @@ corrompre_trs(ptpartition)
    ##  sortie : pointeur sur un vecteur cle                                  ##
    ####====================================================================####
  */
-void           *
-getcle(ptpartition_c, ptpartition_m)
-    partition_list *ptpartition_c;
-    partition_list *ptpartition_m;
+void * getcle( partition_list *ptpartition_c, partition_list *ptpartition_m )
 {
     partition_list *ptpartition;
     void           *vect_cle;
 
     ptpartition = getpartition(ptpartition_m, ptpartition_c->LABEL, ptpartition_c->TYPE);
     vect_cle = (((chain_list *) (ptpartition->DATA))->DATA);
-//    freechain((chain_list *) (ptpartition->DATA));
+/*    freechain((chain_list *) (ptpartition->DATA));*/
 
     return (vect_cle);
 

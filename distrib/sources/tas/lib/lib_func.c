@@ -87,21 +87,21 @@ void    lib_func_treat_pin (char *cellname, lib_group *g, lofig_list *plofig, cb
             }
             
             dir = lib_get_char_dir(direction);
-//            style = lib_get_s_attr_val (LIB_GP_HEAD, SA_BUS_NAMING_STYLE);
-//            if (style) {
-//                if ( strstr(style,"%s") < strstr(style,"%d") )
-//                    s_d = 'Y';   /* le format est %s puis %d */
-//                else
-//                    s_d = 'N';   /* le format est %d puis %s */
-//            }
+/*            style = lib_get_s_attr_val (LIB_GP_HEAD, SA_BUS_NAMING_STYLE);*/
+/*            if (style) {*/
+/*                if ( strstr(style,"%s") < strstr(style,"%d") )*/
+/*                    s_d = 'Y';   /* le format est %s puis %d */
+/*                else*/
+/*                    s_d = 'N';   /* le format est %d puis %s */
+/*            }*/
  
             if (bit_from < bit_to)
                 for (i = bit_from ; i <= bit_to ; i++ ) {
                 /* get the pin name */
-//                if (s_d == 'Y')
-//                    sprintf (name, style, radical, i);
-//                else
-//                    sprintf (name, style, i, radical);
+/*                if (s_d == 'Y')*/
+/*                    sprintf (name, style, radical, i);*/
+/*                else*/
+/*                    sprintf (name, style, i, radical);*/
                 sprintf (name, "%s %d", radical, i);
                 pinname = namealloc (name);
 
@@ -111,10 +111,10 @@ void    lib_func_treat_pin (char *cellname, lib_group *g, lofig_list *plofig, cb
             else
                 for (i = bit_from ; i >= bit_to ; i-- ) {
                 /* get the pin name */
-//                if (s_d == 'Y')
-//                    sprintf (name, style, radical, i);
-//                else
-//                    sprintf (name, style, i, radical);
+/*                if (s_d == 'Y')*/
+/*                    sprintf (name, style, radical, i);*/
+/*                else*/
+/*                    sprintf (name, style, i, radical);*/
                 sprintf (name, "%s %d", radical, i);
                 pinname = namealloc (name);
 

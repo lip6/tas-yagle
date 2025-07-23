@@ -670,7 +670,7 @@ link_list **maillon_trans;
 /*
   if (TAS_PATH_TYPE == 'M')
   {
-    // existe t-il une autre branch qui passe tjs avec cette entree
+    |* existe t-il une autre branch qui passe tjs avec cette entree*|
     for (; chemin0; chemin0 = chemin0->NEXT) {
       if (!(chemin0->TYPE & CNS_BLEEDER) && chemin0->LINK->NEXT==NULL) {
           maillon2 = (link_list *) (chemin0->LINK);
@@ -763,7 +763,7 @@ link_list **maillon_trans;
 
   if (TAS_PATH_TYPE == 'M')
   {
-    // y a t-il un chemin avec un maillon (qui switch tout le temps)
+    /* y a t-il un chemin avec un maillon (qui switch tout le temps)*/
     if (trig_always!=NULL && trig_always!=chemin0) chemin0=NULL;
     else if (trig_always==NULL)
     {
@@ -1388,7 +1388,7 @@ char event;
     }
   } else {
     if ((type_transistor & CNS_TP) == CNS_TP) {
-      //bn = tas_getparam (maillonc->ULINK.LOTRS, TAS_CASE, TP_B);
+      /*bn = tas_getparam (maillonc->ULINK.LOTRS, TAS_CASE, TP_B);*/
       AX = tas_getparam(maillon1->ULINK.LOTRS, TAS_CASE, TP_A);
       BX = tas_getparam(maillon1->ULINK.LOTRS, TAS_CASE, TP_B);
       vddmax = tas_getparam(maillonc->ULINK.LOTRS, TAS_CASE, TP_VDDmax);
@@ -1398,7 +1398,7 @@ char event;
       rt = tas_getparam(maillon1->ULINK.LOTRS, TAS_CASE, TP_RT);
       kn = tas_getparam(maillonc->ULINK.LOTRS, TAS_CASE, TP_K);
       tas_getwlr2effdual(maillon1, rt, &wl, &r2);
-      //tas_getresforconflit (maillon0sav, maillon1, &wl, &r2);
+      /*tas_getresforconflit (maillon0sav, maillon1, &wl, &r2);*/
       ap = tas_get_an(r2, wl, AX, BX);
       bp = tas_get_bn(r2, wl, AX, BX);
       AX = tas_getparam(maillonc->ULINK.LOTRS, TAS_CASE, TP_A);
@@ -1406,7 +1406,7 @@ char event;
       tas_getwlr2effdual(maillonc, rt, &wl, &r2);
       an = tas_get_an(r2, wl, AX, BX);
       bn = tas_get_bn(r2, wl, AX, BX);
-      //QX = TAS_F5 (Yeq, Yc, kp, kn);
+      /*QX = TAS_F5 (Yeq, Yc, kp, kn);*/
       QX = TAS_F5(1, 1, ap / (1 + bp), an / (1 + bn));
       seuil = tas_threshold(an, bn, vtn, ap, bp, vtp, vddmax);
 
@@ -1420,7 +1420,7 @@ char event;
           * (1000 /
              tas_getparam(maillonc->ULINK.LOTRS, TAS_CASE, TP_SEUIL));
     } else {
-      //bp = tas_getparam (maillonc->ULINK.LOTRS, TAS_CASE, TP_B);
+      /*bp = tas_getparam (maillonc->ULINK.LOTRS, TAS_CASE, TP_B);*/
       AX = tas_getparam(maillon1->ULINK.LOTRS, TAS_CASE, TP_A);
       BX = tas_getparam(maillon1->ULINK.LOTRS, TAS_CASE, TP_B);
       vddmax = tas_getparam(maillon1->ULINK.LOTRS, TAS_CASE, TP_VDDmax);
@@ -1430,7 +1430,7 @@ char event;
       rt = tas_getparam(maillon1->ULINK.LOTRS, TAS_CASE, TP_RT);
       kp = tas_getparam(maillonc->ULINK.LOTRS, TAS_CASE, TP_K);
       tas_getwlr2effdual(maillon1, rt, &wl, &r2);
-      //tas_getresforconflit (maillon0sav, maillon1, &wl, &r2);
+      /*tas_getresforconflit (maillon0sav, maillon1, &wl, &r2);*/
       an = tas_get_an(r2, wl, AX, BX);
       bn = tas_get_bn(r2, wl, AX, BX);
       AX = tas_getparam(maillonc->ULINK.LOTRS, TAS_CASE, TP_A);
@@ -1438,7 +1438,7 @@ char event;
       tas_getwlr2effdual(maillonc, rt, &wl, &r2);
       ap = tas_get_an(r2, wl, AX, BX);
       bp = tas_get_bn(r2, wl, AX, BX);
-      //QX = TAS_F5 (Yc, Yeq, kp, kn);
+      /*QX = TAS_F5 (Yc, Yeq, kp, kn);*/
       QX = TAS_F5(1, 1, ap / (1 + bp), an / (1 + bn));
       seuil = tas_threshold(an, bn, vtn, ap, bp, vtp, vddmax);
       QX = tas_getparam(maillonc->ULINK.LOTRS, TAS_CASE, TP_VDDmax)
@@ -2004,7 +2004,7 @@ double tas_get_vdd_input(activelink)
 link_list *activelink;
 {
   cone_list *cone_avant;
-//    ptype_list *ptype;
+/*    ptype_list *ptype;*/
   alim_list *power;
   float alim;
 
@@ -2033,7 +2033,7 @@ double tas_get_vf_input(activelink)
 link_list *activelink;
 {
   cone_list *cone_avant;
-//    ptype_list *ptype;
+/*    ptype_list *ptype;*/
   alim_list *power;
   float alim, vf;
   ptype_list *ptype;
@@ -2411,7 +2411,7 @@ double gate_th;
   tabd[STM_RSAT] =
       (float) (tas_getparam(activelink->ULINK.LOTRS, TAS_CASE, TP_RS) /
                wl);
-//      tabd[STM_RLIN]   = (float)(tas_getparam (activelink->ULINK.LOTRS, TAS_CASE, TP_RT) / wl);
+/*      tabd[STM_RLIN]   = (float)(tas_getparam (activelink->ULINK.LOTRS, TAS_CASE, TP_RT) / wl);*/
   tabd[STM_RLIN] = (float) tas_get_rlin_br(link0);      /*rlin pour la branche */
   tabd[STM_DRC] = (float) delayrc;
   tabd[STM_RBR] = (float) Rbr;
@@ -4212,7 +4212,7 @@ tas_FP_UDM(delay_list * delaymin, delay_list * delaymax, cone_list * cone0,
 *                    tas_tpd()                                               *
 ----------------------------------------------------------------------------*/
 // si un break point n'a pas de délai calculé, on force le front par delaut pour
-// que des lines partent du breakpoint
+/* que des lines partent du breakpoint*/
 void tas_check_break_point_with_no_delay(cone_list *cone, char minmax)
 {
   ptype_list *ptype;
@@ -4249,7 +4249,7 @@ void tas_Leakage_Calculation(cone_list *cone)
   leakage_list *leakage;
   char   save=TAS_PATH_TYPE;
   
-//  if (cone->BREXT && (cone->BREXT->LINK->TYPE & (CNS_IN | CNS_INOUT))) return;
+/*  if (cone->BREXT && (cone->BREXT->LINK->TYPE & (CNS_IN | CNS_INOUT))) return;*/
   
   TAS_PATH_TYPE = 'M';
   for(branch = cone->BRVSS; branch; branch = branch->NEXT){
@@ -4420,7 +4420,7 @@ cone_list *cone0;
       if ((mode == CARAFRONT) || (mode == CARACAPA)
           || (mode == CARALES2)) {
         tas_store_scm_minandmax(cone0, input0, delaymin, delaymax);
-//                if(TAS_CONTEXT->TAS_CAPAOUT > 0.0001){
+/*                if(TAS_CONTEXT->TAS_CAPAOUT > 0.0001){*/
         if (tas_get_cone_output_capacitance(cone0) > 0.0001) {
 /*          if (TTV_HTCAPA_AXIS) {
             if (((long) gethtitem(TTV_HTCAPA_AXIS, cone0->NAME)
@@ -4445,7 +4445,7 @@ cone_list *cone0;
 
     case TAS_SCM_CPL:          /* SCM complet */
       tas_store_scm_minandmax(cone0, input0, delaymin, delaymax);
-//            if(TAS_CONTEXT->TAS_CAPAOUT > 0.0001){
+/*            if(TAS_CONTEXT->TAS_CAPAOUT > 0.0001){*/
       if (tas_get_cone_output_capacitance(cone0) > 0.0001) {
 /*        if (TTV_HTCAPA_AXIS) {
           if (((long) gethtitem(TTV_HTCAPA_AXIS, cone0->NAME) == EMPTYHT)
@@ -4631,7 +4631,7 @@ tas_getwlr2effgood(link_list * maillon1, double rx, double *wl, double *r2)
         (double) TAS_GETWIDTH(maillonc);
     if ((maillonc->TYPE & CNS_SWITCH) == CNS_SWITCH)
       lw /= tas_get_current_rate(maillonc);
-    //lw /= 1.7;
+    /*lw /= 1.7;*/
     *r2 = lw * tas_getparam(maillonc->ULINK.LOTRS, TAS_CASE, TP_R);
     maillonc = maillonc->NEXT;
   }
@@ -5009,7 +5009,7 @@ double *cgpoa;
 {
   cone_list *cone_avant;
   link_list *maillon;
-//    ptype_list *ptype;
+/*    ptype_list *ptype;*/
   alim_list *power;
   float alim;
 
@@ -6428,7 +6428,7 @@ double gate_th;
   double capao=0.0;
   float tab[STM_NB_DUAL_PARAMS];
   char fname[255];
-//  static char env_SIMUINV = 'u', *SIMUINVCONENAME = NULL;
+/*  static char env_SIMUINV = 'u', *SIMUINVCONENAME = NULL;*/
   static int fordebug = 0;
   double cgpa, cgda, cgdae[3], cgpoa, kf;
   char *env;
@@ -8268,8 +8268,8 @@ tas_compute_delays(timing_model * tmodel, cone_list * cone, float fin, float rin
 {
 
   locon_list *loconcone;
-  //chain_list *chaincone;
-  //chain_list *chainc;
+  /*chain_list *chaincone;*/
+  /*chain_list *chainc;*/
   rcx_list *ptrcx;
   RCXFLOAT r;
   RCXFLOAT c1;
@@ -8332,7 +8332,7 @@ tas_compute_delays(timing_model * tmodel, cone_list * cone, float fin, float rin
 
   if (TAS_CONTEXT->TAS_SIMU_CONE == 'Y') {
     findbe = (double) fin / 1.0e12;
-    capaout = tas_get_cone_output_capacitance(cone) / 1.0e-12;  //TAS_CONTEXT->TAS_CAPAOUT / 1.0e12;
+    capaout = tas_get_cone_output_capacitance(cone) / 1.0e-12;  /*TAS_CONTEXT->TAS_CAPAOUT / 1.0e12;*/
     sim_get_delay_slope_cone(TAS_CONTEXT->TAS_LOFIG,
                              TAS_CONTEXT->TAS_CNSFIG, cone, inputname,
                              eventin, findbe, eventout, capaout,

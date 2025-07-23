@@ -1026,8 +1026,8 @@ char *path_name;
   }  
 
  /* recherche de l'extension complete (dtx/ttx + filtre) */
-// if((ext_name = strchr(file_name, '.')) != NULL)
-//    *ext_name = '\0';
+/* if((ext_name = strchr(file_name, '.')) != NULL)*/
+/*    *ext_name = '\0';*/
   if (FILTER_SFX) {
       if ((ext_name = strstr(file_name, FILTER_SFX)) != NULL)
       if (*(ext_name+strlen (FILTER_SFX)) == '\0')
@@ -1130,7 +1130,7 @@ XtPointer   call_data;
         
     }
         
-//    XalLeaveLimitedLoop();
+/*    XalLeaveLimitedLoop();*/
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1158,7 +1158,7 @@ ttvfig_list *ttvfig;
     char            question[] = "Do you want to load the netlist\nwith crosstalk analysis results?";
     Atom            WM_DELETE_WINDOW;
 
-//    if(!XtasLoadCtxQuestion) {
+/*    if(!XtasLoadCtxQuestion) {*/
         motif_string = XmStringCreateLtoR(question, XmSTRING_DEFAULT_CHARSET);
         textOk = XmStringCreateSimple("   Yes   ");
         textCancel = XmStringCreateSimple("   No   ");
@@ -1180,9 +1180,9 @@ ttvfig_list *ttvfig;
         XtAddCallback(XtasLoadCtxQuestion, XmNcancelCallback, XtasLoadCtxCancelCallback, (XtPointer)XtasLoadCtxQuestion);
         WM_DELETE_WINDOW = XmInternAtom(XtDisplay(XtasMainWindow), "WM_DELETE_WINDOW", False);
         XmAddWMProtocolCallback(XtParent(XtasLoadCtxQuestion), WM_DELETE_WINDOW, XtasLoadCtxCancelCallback, (XtPointer )XtasLoadCtxQuestion);
-//    }
+/*    }*/
 
     XtManageChild(XtasLoadCtxQuestion);
-//    XalLimitedLoop(XtasLoadCtxQuestion);
+/*    XalLimitedLoop(XtasLoadCtxQuestion);*/
 
 }

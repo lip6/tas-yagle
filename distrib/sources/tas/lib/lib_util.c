@@ -438,7 +438,7 @@ void    lib_pushgroup(char *type, chain_list *names)
 {
     lib_group *p;
     
-    //printf("GROUP: %s(%s)\n", type, (names) ? ((char *)(names->DATA)):" ");
+    /*printf("GROUP: %s(%s)\n", type, (names) ? ((char *)(names->DATA)):" ");*/
     p = lib_creategroup(type, names);
     
     if(!LIB_GP_HEAD)
@@ -967,7 +967,7 @@ lib_scale_unit  *lib_get_time_unit(char *attr_val)
     
     s->FACTOR = atof(buf);
     
-    //lib_del_one_s_attr(LIB_CURRENT_GP,SA_TIME_UNIT);
+    /*lib_del_one_s_attr(LIB_CURRENT_GP,SA_TIME_UNIT);*/
     return s;
      
 }
@@ -998,7 +998,7 @@ lib_scale_unit  *lib_get_res_unit(char *attr_val)
     buf[i]='\0';
     
     s->FACTOR = atof(buf);
-    //lib_del_one_s_attr(LIB_CURRENT_GP,SA_RES_UNIT);
+    /*lib_del_one_s_attr(LIB_CURRENT_GP,SA_RES_UNIT);*/
     
     return s;
 }

@@ -588,7 +588,7 @@ stb_addstbfig(ptttvfig)
     ptnewfig->USER = NULL;
     ptnewfig->FLAGS = 0;
     CreateHeap(sizeof(stb_clock_tree), 4096, &ptnewfig->CLOCK_TREE_HEAP);
-//    CreateHeap(sizeof(stb_directive), 4096, &ptnewfig->DIRECTIVE_HEAP);
+/*    CreateHeap(sizeof(stb_directive), 4096, &ptnewfig->DIRECTIVE_HEAP);*/
 
     HEAD_STBFIG = ptnewfig;
     ptttvfig->USER = addptype(ptttvfig->USER, STB_FIGURE, ptnewfig);
@@ -645,7 +645,7 @@ stb_delstbfig(ptstbfig)
       stb_free_clock_tree_info(tve);
       stb_delaymargins_freeval(tve);
       tve->USER=testanddelptype(tve->USER, STB_BREAK_TEST_EVENT);
-//      tve->ROOT->USER=testanddelptype(tve->ROOT->USER, STB_DIRECTIVES);
+/*      tve->ROOT->USER=testanddelptype(tve->ROOT->USER, STB_DIRECTIVES);*/
       tve->ROOT->USER=testanddelptype(tve->ROOT->USER, STB_TRANSITION_PROBABILITY);
       tve->USER=testanddelptype (tve->USER, STB_NODE_CLOCK);
       if ((ptuser=getptype(tve->USER, STB_ONE_OR_NO_CLOCK_EVENT))!=NULL)
@@ -718,7 +718,7 @@ stb_delstbfig(ptstbfig)
         stb_delstbnode(ptttvsig->NODE + 1, ptstbfig->PHASENUMBER);
         if (getptype(ptttvsig->USER, STB_VIRTUAL_CLOCK) != NULL) {
             ptttvsig->USER = delptype(ptttvsig->USER, STB_VIRTUAL_CLOCK);
-            mbkfree(ptttvsig); // rajouter artificiellement
+            mbkfree(ptttvsig); /* rajouter artificiellement*/
         }
     }
     freechain(ptstbfig->CLOCK);
@@ -755,7 +755,7 @@ stb_delstbfig(ptstbfig)
         ptstbfig->FIG->USER = delptype (ptstbfig->FIG->USER, STB_FIGURE);
 
     DeleteHeap(&ptstbfig->CLOCK_TREE_HEAP);
-//    DeleteHeap(&ptstbfig->DIRECTIVE_HEAP);
+/*    DeleteHeap(&ptstbfig->DIRECTIVE_HEAP);*/
 
     stb_freefalseslack(ptstbfig);
 
@@ -863,7 +863,7 @@ stb_getsigfromlist(ptfig, ptlist, name)
             || mbk_TestREGEX(ttv_getsigname(ptfig, namebuf, ptttvsig), name))
             cl=addchain(cl, ptttvsig);
            
-//        if (namealloc(ttv_getsigname(ptfig, namebuf, ptttvsig)) == name) break;
+/*        if (namealloc(ttv_getsigname(ptfig, namebuf, ptttvsig)) == name) break;*/
     }
     return cl;
 /*    if (ptchain != NULL) return ptttvsig;
@@ -891,7 +891,7 @@ stb_geteqvtck(ptttvsig, ptlist)
     for (ptchain = ptlist; ptchain; ptchain = ptchain->NEXT) {
         pteqvtsig = (ttvsig_list *)ptchain->DATA;
         if (pteqvtsig == ptttvsig) continue;
-//        if ((ptuser = getptype(ptttvsig->USER, STB_EQUIVALENT)) == NULL) continue;
+/*        if ((ptuser = getptype(ptttvsig->USER, STB_EQUIVALENT)) == NULL) continue;*/
         if ((ptuser = getptype(pteqvtsig->USER, STB_EQUIVALENT)) == NULL) continue;
         if ((char)((long)ptuser->DATA) == eqvtindex) {
             reschain = addchain(reschain, pteqvtsig);
@@ -1235,7 +1235,7 @@ stb_getclock(stbfig_list  *ptstbfig, char phaseindex, char *namebuf, char *ptedg
     }
     else if (knownsig==NULL) return NULL;
 
-    // en cas de bug sur le original clock
+    /* en cas de bug sur le original clock*/
 
     for (ptchain = ptstbfig->CLOCK; ptchain; ptchain = ptchain->NEXT) {
         ptttvsig = (ttvsig_list *)ptchain->DATA;
@@ -1769,7 +1769,7 @@ void stb_init_var()
 *                           fonction stb_calperiode()                        *
 *****************************************************************************/
 /* fonction qui test L<O<=R en modulo */
-static inline int greater_lowerequal(char L, char O, char R)
+static  int greater_lowerequal(char L, char O, char R)
 {
   if (R>L) return L<O && O<=R;
   return O>L || O<=R;
@@ -1791,7 +1791,7 @@ long stb_calperiode(stbfig_list *stbfig, char u, stbnode *node, ptype_list *phas
       last_phase=phase;
     }
   if (node->CK!=NULL)
-//    if(!(last_phase==phaseinit && node->CK!=NULL && node->CK->TYPE == STB_TYPE_LATCH && (stbfig->STABILITYMODE & STB_STABILITY_LT) != 0))
+/*    if(!(last_phase==phaseinit && node->CK!=NULL && node->CK->TYPE == STB_TYPE_LATCH && (stbfig->STABILITYMODE & STB_STABILITY_LT) != 0))*/
     if (!(last_phase==phaseinit) 
     || !(node->CK->TYPE == STB_TYPE_LATCH || node->CK->TYPE == STB_TYPE_EVAL || node->CK->TYPE == STB_TYPE_PRECHARGE)
     || (stbfig->STABILITYMODE & STB_STABILITY_LT) == 0)
@@ -2010,8 +2010,8 @@ int stb_checkvalidcommand(ttvevent_list *tve, stbck *inputck)
 
 checkstruct sto_cfg[]=
   {
-//    { 'b', __STB_CTK},
-//    { 'b', __STB_DET_GRAPH},
+/*    { 'b', __STB_CTK},*/
+/*    { 'b', __STB_DET_GRAPH},*/
     { 'b', __STB_STABILITY_HOLD},
     { 'b', __STB_STABILITY_SETUP},
     { 'b', __STB_ENBALE_COMMAND_CHECK},
@@ -2293,7 +2293,7 @@ static chain_list *stb_getsiglist(ttvfig_list *tvf, ht *h, char *name, NameAlloc
   chains.DATA = name ;
   chains.NEXT = NULL ;
      
-  // a faire: filtrer les noeuds rc
+  /* a faire: filtrer les noeuds rc*/
   chainsig = ttv_getsigbytype_and_netname(tvf,NULL,TTV_SIG_TYPEALL,&chains) ;
   if (chainsig==NULL) avt_errmsg(STB_ERRMSG, "045", AVT_WARNING, name);
   return chainsig;
@@ -2375,7 +2375,7 @@ int stb_cmpphase(stbfig_list *sf, char a, char b)
     if (sf->PHASE_DATE[(int)a]<sf->PHASE_DATE[(int)b]) ret=-1;
     else if (sf->PHASE_DATE[(int)a]>sf->PHASE_DATE[(int)b]) ret=1;
   }
-//  printf("ret=%d a=%d b=%d\n",ret,a,b);
+/*  printf("ret=%d a=%d b=%d\n",ret,a,b);*/
   return ret;
 }
 long stb_synchronize_slopes(stbfig_list *ptstbfig, char startphase, char endphase, long endper, int mode)
@@ -2395,7 +2395,7 @@ long stb_synchronize_slopes(stbfig_list *ptstbfig, char startphase, char endphas
         if (edge==STB_SLOPE_DN) startslope=ck->SDNMIN; else startslope=ck->SUPMIN;
         ck=stb_getclock(ptstbfig, endphase, NULL, &edge, NULL);
         if (edge==STB_SLOPE_DN) endslope=ck->SDNMIN; else endslope=ck->SUPMIN;
-  //      endper=ck->PERIOD;
+  /*      endper=ck->PERIOD;*/
         if (mode & STB_SPECOUTMODE) endslope+=endper;
         per=((startslope-endslope+endper-1)/endper)*endper;
       }

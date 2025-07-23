@@ -17,8 +17,7 @@ struct befig *vlogloadbefig (befig_list *ptbefig, char *figname, unsigned int tr
 char *vlogfindbefig(char *name);
 char *vhdfindbefig(char *name);
 
-void 
-savebefig(befig_list *ptbefig, unsigned int trace_mode)
+void savebefig(befig_list *ptbefig, unsigned int trace_mode)
 {
     if (BEH_OUT == NULL) {
         BEH_OUT = V_STR_TAB[__BEH_OUT_FORMAT].VALUE;
@@ -35,8 +34,8 @@ savebefig(befig_list *ptbefig, unsigned int trace_mode)
     }
     else {
       avt_errmsg(BEF_ERRMSG,"000",AVT_ERROR,BEH_OUT);
-      //        fprintf(stderr, "BHL : Behavior out format %s is not a legal format!\n", BEH_OUT);
-      //        fprintf(stderr, "      Legal format are 'vhd' and 'vlg'\n");
+      /*        fprintf(stderr, "BHL : Behavior out format %s is not a legal format!\n", BEH_OUT);*/
+      /*        fprintf(stderr, "      Legal format are 'vhd' and 'vlg'\n");*/
       vlogsavebefig(ptbefig, trace_mode);
     }
 }
@@ -61,11 +60,7 @@ char *findbefig(char *name)
   return NULL;
 }
 
-struct befig *
-loadbefig(pt_befig, figname, trace_mode)
-    struct befig   *pt_befig;
-    char           *figname;
-    unsigned int    trace_mode;
+struct befig * loadbefig( struct befig *pt_befig, char *figname, unsigned int trace_mode )
 {
     if (BEH_IN == NULL) {
         BEH_IN = V_STR_TAB[__BEH_IN_FORMAT].VALUE;
@@ -82,14 +77,13 @@ loadbefig(pt_befig, figname, trace_mode)
     }
     else {
       avt_errmsg(BEF_ERRMSG,"001",AVT_ERROR,BEH_IN);
-//        fprintf(stderr, "BVL : BEH_IN_FORMAT = %s is not a legal format !\n", BEH_IN);
-//        EXIT(1);
+/*        fprintf(stderr, "BVL : BEH_IN_FORMAT = %s is not a legal format !\n", BEH_IN);*/
+/*        EXIT(1);*/
     }
     return NULL;
 }
 
-char *
-bef_getsuffix()
+char * bef_getsuffix()
 {
     char *str;
 
@@ -114,8 +108,8 @@ bef_getsuffix()
     }
     else {
       avt_errmsg(BEF_ERRMSG,"001",AVT_ERROR,BEH_IN);
-//        fprintf(stderr, "BVL : BEH_IN_FORMAT = %s is not a legal format !\n", BEH_IN);
-//        EXIT(1);
+/*        fprintf(stderr, "BVL : BEH_IN_FORMAT = %s is not a legal format !\n", BEH_IN);*/
+/*        EXIT(1);*/
     }
     return NULL;
 }

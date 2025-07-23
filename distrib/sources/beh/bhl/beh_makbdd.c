@@ -332,7 +332,7 @@ void beh_makbdd (befig_list *pt_befig)
 
   {
   int err_flg = 0;
-    // if (!(pt_befig->TYPE & BEH_NODE_BDD))
+    /* if (!(pt_befig->TYPE & BEH_NODE_BDD))*/
     {
     beh_indexbdd (pt_befig);
 

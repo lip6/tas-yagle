@@ -194,7 +194,7 @@ bevectaux_list *beh_delbevectaux(bevectaux_list *listvaux,
       {
         if (vaux->ABL)
           beh_warning(315,vaux->NAME,NULL);
-          //(stderr,"[BEH_WAR] bevectaux `%s` not empty\n",vaux->NAME);
+          /*(stderr,"[BEH_WAR] bevectaux `%s` not empty\n",vaux->NAME);*/
       }
       else
         freeExpr(vaux->ABL);
@@ -232,7 +232,7 @@ bevectout_list *beh_delbevectout(bevectout_list *listvout,
       {
         if (vout->ABL)
           beh_warning(316,vout->NAME,NULL);
-          //(stderr,"[BEH_WAR] bevectout `%s` not empty\n",vout->NAME);
+          /*(stderr,"[BEH_WAR] bevectout `%s` not empty\n",vout->NAME);*/
       }
       else
         freeExpr(vout->ABL);
@@ -296,7 +296,7 @@ bevectbux_list *beh_delbevectbux(bevectbux_list *listvbux,
       {
         if (vbux->VECTBIABL)
           beh_warning(317,vbux->NAME,NULL);
-          //(stderr,"[BEH_WAR] bevectbux `%s` not empty\n",vbux->NAME);
+          /*(stderr,"[BEH_WAR] bevectbux `%s` not empty\n",vbux->NAME);*/
       }
       else
         beh_frevectbiabl(vbux->VECTBIABL);
@@ -333,7 +333,7 @@ bevectbus_list *beh_delbevectbus(bevectbus_list *listvbus,
       {
         if (vbus->VECTBIABL)
           beh_warning(318,vbus->NAME,NULL);
-          //(stderr,"[BEH_WAR] bevectbus `%s` not empty\n",vbus->NAME);
+          /*(stderr,"[BEH_WAR] bevectbus `%s` not empty\n",vbus->NAME);*/
       }
       else
         beh_frevectbiabl(vbus->VECTBIABL);
@@ -370,7 +370,7 @@ bevectreg_list *beh_delbevectreg(bevectreg_list *listvreg,
       {
         if (vreg->VECTBIABL)
           beh_warning(319,vreg->NAME,NULL);
-          //(stderr,"[BEH_WAR] bevectreg `%s` not empty\n",vreg->NAME);
+          /*(stderr,"[BEH_WAR] bevectreg `%s` not empty\n",vreg->NAME);*/
       }
       else
         beh_frevectbiabl(vreg->VECTBIABL);
@@ -559,7 +559,7 @@ char             mode;
       {
         if (vbiabl->BIABL)
           beh_warning(320,NULL,NULL);
-          //(stderr,"[BEH_WAR] vectbiabl not empty\n");
+          /*(stderr,"[BEH_WAR] vectbiabl not empty\n");*/
       }
       else
         beh_frebiabl(vbiabl->BIABL);

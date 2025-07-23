@@ -390,7 +390,7 @@ char *argv[];
                           lotrsparam_n,lotrsparam_p);
 
 		MCC_CALC_CUR = calc;
-        if (MCC_VBULKP <= ELPMINVBULK) MCC_VBULKP=MCC_VDDmax; //sav a faire
+        if (MCC_VBULKP <= ELPMINVBULK) MCC_VBULKP=MCC_VDDmax; /*sav a faire*/
         if (MCC_VBULKN <= ELPMINVBULK) MCC_VBULKN=0.0;
 
 

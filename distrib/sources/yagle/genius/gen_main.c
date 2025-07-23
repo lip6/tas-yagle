@@ -43,19 +43,19 @@
 #include "gen_verif_global.h"
 #include "gen_search_global.h"
 #include "gen_search_utils.h"
-//#include "gen_corresp.h"
-//#include "gen_search_utils.h"
+/*#include "gen_corresp.h"*/
+/*#include "gen_search_utils.h"*/
 #include "gen_new_kind.h"
 #include "gen_main.h"
 #include "gen_display.h"
 #include "gen_globals.h"
-//#include "gen_corresp.h"
+/*#include "gen_corresp.h"*/
 
 ht *gns_create_template_hierarchy(lib_entry *files_list);
 
 void SaveContext(GeniusContext *GC)
 {
-    // gen_corresp.c
+    /* gen_corresp.c*/
   GC->GEN_HEAD_LOFIG=GEN_HEAD_LOFIG; GEN_HEAD_LOFIG=NULL;
   GC->GEN_HT_LOFIG=GEN_HT_LOFIG; GEN_HT_LOFIG=NULL;
 
@@ -65,7 +65,7 @@ void SaveContext(GeniusContext *GC)
   GC->GENIUS_TO_SPY=GENIUS_TO_SPY; GENIUS_TO_SPY=NULL;
   GC->GENIUS_SPY=GENIUS_SPY; GENIUS_SPY=NULL;
 
-  // gen_env.c
+  /* gen_env.c*/
   GC->GENIUS_LIB_NAME=GENIUS_LIB_NAME; GENIUS_LIB_NAME=NULL;
   GC->GENIUS_LIB_PATH=GENIUS_LIB_PATH; GENIUS_LIB_PATH=NULL;
   GC->GENIUS_TREE=GENIUS_TREE; GENIUS_TREE=NULL;
@@ -75,11 +75,11 @@ void SaveContext(GeniusContext *GC)
   GC->GEN_OPTIONS_PACK=GEN_OPTIONS_PACK; GEN_OPTIONS_PACK=0;
   GC->genius_ec=genius_ec; genius_ec=NULL;
 
-  // gen_execute_VHDL.c
+  /* gen_execute_VHDL.c*/
   GC->VAR_UNKNOWN=VAR_UNKNOWN; VAR_UNKNOWN=0;
   GC->VAR_UNDEF=VAR_UNDEF; VAR_UNDEF=0;
 
-  // gen_model_utils.c
+  /* gen_model_utils.c*/
   GC->GEN_SEPAR=GEN_SEPAR; GEN_SEPAR='.';
   GC->blocks_to_free=blocks_to_free; blocks_to_free=NULL;
   GC->HEAD_MODEL=HEAD_MODEL; HEAD_MODEL=NULL;
@@ -89,17 +89,17 @@ void SaveContext(GeniusContext *GC)
   GC->GENIUS_HT_LOFIG=GENIUS_HT_LOFIG; GENIUS_HT_LOFIG=NULL;
   GC->ModelTrace=ModelTrace; ModelTrace=NULL;
 
-  //gen_new_king.c
+  /*gen_new_king.c*/
   memcpy(&GC->ea_heap, &ea_heap, sizeof(HeapAlloc));
 
-  //gen_optimization.c
+  /*gen_optimization.c*/
   memcpy(&GC->lcu_heap, &lcu_heap, sizeof(HeapAlloc));
   memcpy(&GC->stat_heap, &stat_heap, sizeof(HeapAlloc));
 
-  //gen_search_global.c
+  /*gen_search_global.c*/
   GC->GENIUS_GLOBAL_LOFIG=GENIUS_GLOBAL_LOFIG;
 
-  // gen_search_utils.c
+  /* gen_search_utils.c*/
   memcpy(GC->tabs, tabs, 200); strcpy(tabs,"");
   GC->current_lofig=current_lofig;
   GC->ALL_ENV=ALL_ENV;
@@ -113,7 +113,7 @@ void SaveContext(GeniusContext *GC)
   memcpy(&GC->all_loins_heap, &all_loins_heap, sizeof(HeapAlloc));
   memcpy(&GC->loconmark_heap, &loconmark_heap, sizeof(HeapAlloc));
 
-  //gen_symmetric.c
+  /*gen_symmetric.c*/
   memcpy(&GC->swap_heap, &swap_heap, sizeof(HeapAlloc));
   GC->radindexht=radindexht;
   GC->radtable=radtable;
@@ -132,10 +132,10 @@ void SaveContext(GeniusContext *GC)
 
 void RestoreContext(GeniusContext *GC)
 {
-    // gen_corresp.c
+    /* gen_corresp.c*/
   GEN_HEAD_LOFIG=GC->GEN_HEAD_LOFIG;
   GEN_HT_LOFIG=GC->GEN_HT_LOFIG;
-//  TRANS_TO_SUPPRESS=GC->TRANS_TO_SUPPRESS;
+/*  TRANS_TO_SUPPRESS=GC->TRANS_TO_SUPPRESS;*/
 
   memcpy(&corresp_heap, &GC->corresp_heap, sizeof(HeapAlloc));
   memcpy(&subinst_heap, &GC->subinst_heap, sizeof(HeapAlloc));
@@ -143,7 +143,7 @@ void RestoreContext(GeniusContext *GC)
   GENIUS_TO_SPY=GC->GENIUS_TO_SPY;
   GENIUS_SPY=GC->GENIUS_SPY;
 
-  // gen_env.c
+  /* gen_env.c*/
   GENIUS_LIB_NAME=GC->GENIUS_LIB_NAME;
   GENIUS_LIB_PATH=GC->GENIUS_LIB_PATH;
   GENIUS_TREE=GC->GENIUS_TREE;
@@ -153,11 +153,11 @@ void RestoreContext(GeniusContext *GC)
   GEN_OPTIONS_PACK=GC->GEN_OPTIONS_PACK;
   genius_ec=GC->genius_ec;
 
-  // gen_execute_VHDL.c
+  /* gen_execute_VHDL.c*/
   VAR_UNKNOWN=GC->VAR_UNKNOWN;
   VAR_UNDEF=GC->VAR_UNDEF;
 
-  // gen_model_utils.c
+  /* gen_model_utils.c*/
   GEN_SEPAR=GC->GEN_SEPAR;
   blocks_to_free=GC->blocks_to_free;
   HEAD_MODEL=GC->HEAD_MODEL;
@@ -167,17 +167,17 @@ void RestoreContext(GeniusContext *GC)
   GENIUS_HT_LOFIG=GC->GENIUS_HT_LOFIG;
   ModelTrace=GC->ModelTrace;
 
-  //gen_new_king.c
+  /*gen_new_king.c*/
   memcpy(&ea_heap, &GC->ea_heap, sizeof(HeapAlloc));
 
-  //gen_optimization.c
+  /*gen_optimization.c*/
   memcpy(&lcu_heap, &GC->lcu_heap, sizeof(HeapAlloc));
   memcpy(&stat_heap, &GC->stat_heap, sizeof(HeapAlloc));
 
-  //gen_search_global.c
+  /*gen_search_global.c*/
   GENIUS_GLOBAL_LOFIG=GC->GENIUS_GLOBAL_LOFIG;
 
-  // gen_search_utils.c
+  /* gen_search_utils.c*/
   memcpy(tabs, GC->tabs, 200);
   current_lofig=GC->current_lofig;
   ALL_ENV=GC->ALL_ENV;
@@ -191,7 +191,7 @@ void RestoreContext(GeniusContext *GC)
   memcpy(&all_loins_heap, &GC->all_loins_heap, sizeof(HeapAlloc));
   memcpy(&loconmark_heap, &GC->loconmark_heap, sizeof(HeapAlloc));
 
-  //gen_symmetric.c
+  /*gen_symmetric.c*/
   memcpy(&swap_heap, &GC->swap_heap, sizeof(HeapAlloc));
   radindexht=GC->radindexht;
   radtable=GC->radtable;
@@ -318,21 +318,21 @@ extern chain_list* genius_main(lofig_list *netlist, char *cellib, char *libname,
    APIInit();
    genius_ec=APINewExecutionContext();
 
-   // initialisation des heaps
+   /* initialisation des heaps*/
    for (err=0; err<(signed)(sizeof(heapfuncs)/sizeof(*heapfuncs)); err++)
      heapfuncs[err](0);
 
    GENIUS_HEAD_LOFIG=GEN_HEAD_LOFIG; GENIUS_HT_LOFIG=GEN_HT_LOFIG;
-   SwitchLOFIGContext(); // => genius
-//   for (lf=HEAD_LOFIG; lf!=NULL; lf=lf->NEXT) unlocklofig(lf) ;
+   SwitchLOFIGContext(); /* => genius*/
+/*   for (lf=HEAD_LOFIG; lf!=NULL; lf=lf->NEXT) unlocklofig(lf) ;*/
    delalllofig();
-   SwitchLOFIGContext(); // => normal
+   SwitchLOFIGContext(); /* => normal*/
 
    GENIUS_HEAD_LOFIG=NULL; GENIUS_HT_LOFIG=NULL; NEW_LOINS_NAMES_HT=addht(10);
    LOINS_LIST_CONTROL=addht(10);
    GEN_HEAD_LOFIG=NULL; GEN_HT_LOFIG=NULL;
 
-   SwitchLOFIGContext(); // => genius
+   SwitchLOFIGContext(); /* => genius*/
 
    SearchInit();
    InitModels();
@@ -343,7 +343,7 @@ extern chain_list* genius_main(lofig_list *netlist, char *cellib, char *libname,
    err = Get_Error();
    if (err) {
         avt_errmsg(GNS_ERRMSG, "039", AVT_ERR, err);
-       //fprintf(stderr,"*** %d error(s) detected,  I can't get farther!! ***\n",err);
+       /*fprintf(stderr,"*** %d error(s) detected,  I can't get farther!! ***\n",err);*/
        EXIT(err);
    }
    if (!GENIUS_PRIORITY) return NULL;
@@ -366,11 +366,11 @@ extern chain_list* genius_main(lofig_list *netlist, char *cellib, char *libname,
    err = Get_Error();
    if (err) {
        avt_errmsg(GNS_ERRMSG, "039", AVT_ERR, err);
-       //fprintf(stderr,"*** %d error(s) detected,  I can't get farther!! ***\n",err);
+       /*fprintf(stderr,"*** %d error(s) detected,  I can't get farther!! ***\n",err);*/
        EXIT(err);
    }
 
-   // call user init function
+   /* call user init function*/
    {
      APICallFunc cf;
      t_arg *ret;
@@ -391,7 +391,7 @@ extern chain_list* genius_main(lofig_list *netlist, char *cellib, char *libname,
    err = Get_Error();   
    if (err) {
        avt_errmsg(GNS_ERRMSG, "039", AVT_ERR, err);
-       //fprintf(stderr,"\n%d error(s) detected,  I can't get farther!!\n",err);
+       /*fprintf(stderr,"\n%d error(s) detected,  I can't get farther!!\n",err);*/
        EXIT(err);
    }
 
@@ -424,7 +424,7 @@ extern chain_list* genius_main(lofig_list *netlist, char *cellib, char *libname,
    /*search*/
    ret=NULL;
 
-   SwitchLOFIGContext(); // => normal
+   SwitchLOFIGContext(); /* => normal*/
 
 
    LATEST_GNS_RUN=(ALL_FOR_GNS *)mbkalloc(sizeof(ALL_FOR_GNS));
@@ -442,7 +442,7 @@ extern chain_list* genius_main(lofig_list *netlist, char *cellib, char *libname,
 
    external_getlofig=tmpfunc;
 
-   SwitchLOFIGContext(); // => genius
+   SwitchLOFIGContext(); /* => genius*/
 
    freechain(genius_ec->BLOCKS);
    genius_ec->BLOCKS=NULL;
@@ -454,7 +454,7 @@ extern chain_list* genius_main(lofig_list *netlist, char *cellib, char *libname,
 
    DelContext();
 
-   SwitchLOFIGContext(); // => normal
+   SwitchLOFIGContext(); /* => normal*/
 
    /*close file report .gen*/
    if (GENIUS_OUTPUT!=stdout && GENIUS_OUTPUT!=stderr) fclose(GENIUS_OUTPUT);
@@ -495,7 +495,7 @@ extern chain_list* genius_main(lofig_list *netlist, char *cellib, char *libname,
          if (j!=0)
            {
              avt_errmsg(GNS_ERRMSG, "042", AVT_FATAL, buf);
-             //fprintf(stderr,"Error: %s\n",buf);
+             /*fprintf(stderr,"Error: %s\n",buf);*/
              EXIT(2);
            }
 
@@ -516,7 +516,7 @@ extern chain_list* genius_main(lofig_list *netlist, char *cellib, char *libname,
        gnsDriveCorrespondanceTables(LATEST_GNS_RUN, mode);
      }
 
-   // destruction des heaps sauf pour les tables de correspondances
+   /* destruction des heaps sauf pour les tables de correspondances*/
    for (err=0; err<(signed)(sizeof(heapfreefuncs)/sizeof(*heapfreefuncs)); err++)
      heapfuncs[err](1);
    clean_gen_env();
@@ -602,7 +602,7 @@ tree_list *Read_All(lib_entry *files_list)
 
   if (!files_list) {
        avt_errmsg(GNS_ERRMSG, "043", AVT_WARNING);
-       //gen_printf(0, "warning: No model file in library\n");
+       /*gen_printf(0, "warning: No model file in library\n");*/
        return NULL;
    }
    /* read all files listed */
@@ -612,7 +612,7 @@ tree_list *Read_All(lib_entry *files_list)
          {
            if (strcasecmp(p->name,"none")!=0)
              {
-               // VHDL
+               /* VHDL*/
                f = APIFindFile(p);
                if (f) 
                  {
@@ -673,7 +673,7 @@ tree_list *Read_All(lib_entry *files_list)
          }
        else
          {
-           // spice FCL, order is not modified
+           /* spice FCL, order is not modified*/
            if (sav) sav=PutBin_Tree(';',"",0,sav,p->tree);
            else sav=p->tree;
          }
@@ -696,7 +696,7 @@ ht *gns_create_template_hierarchy(lib_entry *files_list)
         {
           if (gen_find_template_corresp(NULL, p->paramset, p->model, res)==0)
             {
-              // c'est un template
+              /* c'est un template*/
               if (gen_get_template_corresp(t_h, p->model)==NULL)
                 {
                   gen_printf(1,"Adding template '%s' from model '%s'\n",res,p->model);

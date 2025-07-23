@@ -17,6 +17,7 @@
 /****************************************************************************/
 
 #include VCD_H
+#include <alloca.h>
 #include "ctype.h" 
 #include "vcd_parse.h" 
 #include "vcd_util.h"
@@ -108,7 +109,7 @@ void vcd_init_db ()
 
 void vcd_addvar (char *signal, char *alias)
 {
-//    long index = vcd_getindex (alias);
+/*    long index = vcd_getindex (alias);*/
     long index;
     long tab_sz;
 
@@ -194,7 +195,7 @@ char *vcd_getval (char *line, long *alias)
     char ref;
     int i, j, miss, size;
 
-    if (line[0] == 'b') { // vector
+    if (line[0] == 'b') { /* vector*/
         char *buf, *buf2;
         
         if (toupper(line[1]) == 'X'){
@@ -232,7 +233,7 @@ char *vcd_getval (char *line, long *alias)
     }
     else {
 	    fprintf (stderr, "[WScan] Parse error line %d\n", vcd_line);
-        //exit (EXIT_FAILURE);
+        /*exit (EXIT_FAILURE);*/
         return NULL;
     }
 }
@@ -253,7 +254,7 @@ void vcd_parseline (char *line)
         memset(vcd_db->SIG_ENTRY, 0, (vcd_db->SIG_IDX + 1) * sizeof (trans_list*));
     }
 
-    if ((lt = vcd_gettime (line)) != VCD_NOT_A_TIME_LINE) { // time line
+    if ((lt = vcd_gettime (line)) != VCD_NOT_A_TIME_LINE) { /* time line*/
         time = lt;
         vcd_db->TIME_IDX++;
         if (vcd_db->TIME_IDX >= vcd_db->TIME_TAB_SZ) {
@@ -269,12 +270,12 @@ void vcd_parseline (char *line)
         vcd_db->TIME_TAB[vcd_db->TIME_IDX] = time;
         return;
     }
-    else { // value line
+    else { /* value line*/
         val = vcd_getval (line, &index);
         if(!val) return;
         if (index > vcd_db->SIG_IDX || index < 0) {
 	        fprintf (stderr, "[WScan] Parse error line %d\n", vcd_line);
-            //exit (EXIT_FAILURE);
+            /*exit (EXIT_FAILURE);*/
         }
 
         if(vcd_db->TIME_ENTRY[vcd_db->TIME_IDX] && (((trans_list*)vcd_db->TIME_ENTRY[vcd_db->TIME_IDX]->DATA)->INDEX == index)){
@@ -322,7 +323,7 @@ void vcd_update ()
         }
     }
 
-    vcd_db->CUR_STATE = dupchainlst (vcd_db->TIME_ENTRY[0]); // init state
+    vcd_db->CUR_STATE = dupchainlst (vcd_db->TIME_ENTRY[0]); /* init state*/
 }
 
 /****************************************************************************/
@@ -445,7 +446,7 @@ void vcd_parsefile (char *name, char *modulename)
             vcd_free_db ();
         } else needs_restart = 1;
     	vcd_line = 1;
-        //vcddebug = 1;
+        /*vcddebug = 1;*/
     	vcdparse ();
     	fclose (vcdin); 
         vcd_update ();

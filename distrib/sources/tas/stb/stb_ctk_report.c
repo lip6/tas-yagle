@@ -475,9 +475,9 @@ void stb_ctk_drive_iteration_report_noise(FILE *f, stbfig_list *sb)
   fprintf(f,"\n# --------- Highest SCORES -----------------\n\n");
 
   if(stb_ctk_get_stat(sb)!=NULL) stb_ctk_clean_stat( sb);
-//  ttv_init_stm(stbfig->FIG);
-//  CtkMutexFree( stbfig->FIG );
-//  CtkMutexInit( stbfig->FIG );
+/*  ttv_init_stm(stbfig->FIG);*/
+/*  CtkMutexFree( stbfig->FIG );*/
+/*  CtkMutexInit( stbfig->FIG );*/
   stb_ctk_fill_stat(sb, 0);
 
   if ((stat = stb_ctk_get_stat(sb))!=NULL)

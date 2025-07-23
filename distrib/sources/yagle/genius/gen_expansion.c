@@ -19,7 +19,7 @@
 
 void MarkGensigAsGhost( loins_list *li)
 {
-  // desactivation of gensinchain for instances to expand
+  /* desactivation of gensinchain for instances to expand*/
   locon_list *lc;
   ptype_list *gencon,*gensig;
   genconchain_list *gc;
@@ -33,7 +33,7 @@ void MarkGensigAsGhost( loins_list *li)
       for (gc=(genconchain_list *)gencon->DATA;gc!=NULL;gc=gc->NEXT)
         {
           for (gs=(gensigchain_list *)gensig->DATA;gs!=NULL && gs->LOCON!=lc; gs=gs->NEXT) ;
-          if (gs==NULL) avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 13); //EXIT(10); // internal error
+          if (gs==NULL) avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 13); /*EXIT(10); // internal error*/
           gs->ghost=1;
         }
     }
@@ -65,7 +65,7 @@ loins_list *AddLoinsToModel(loins_list *li, ptype_list *env, char *toappend, int
 
       lc0->ROOT=newloins;
 
-      lc->SIG->FLAGS&=~0x3; // disable quick match
+      lc->SIG->FLAGS&=~0x3; /* disable quick match*/
 
       p=getptype(lc0->SIG->USER,GENSIGCHAIN);
       if (!p) 
@@ -83,7 +83,7 @@ loins_list *AddLoinsToModel(loins_list *li, ptype_list *env, char *toappend, int
 
       gc=(genconchain_list *)getptype(lc->USER, GENCONCHAIN)->DATA;
 
-      // FOR THE LOCON
+      /* FOR THE LOCON*/
 
       if (TOKEN(gc->LOSIG_EXP)==GEN_TOKEN_TO || TOKEN(gc->LOSIG_EXP)==GEN_TOKEN_DOWNTO) 
     {
@@ -121,22 +121,22 @@ loins_list *AddLoinsToModel(loins_list *li, ptype_list *env, char *toappend, int
       gs=(gensigchain_list *)getptype(lc->USER, GENCONCHAIN)->DATA;
 
       p->DATA=addgensigchain((gensigchain_list*)p->DATA, Duplicate_Tree(sig_tree), lc0, Duplicate_Tree(gc->LOCON_EXP));
-      ((gensigchain_list*)p->DATA)->ghost=2; // to hurry cleanup
+      ((gensigchain_list*)p->DATA)->ghost=2; /* to hurry cleanup*/
     }
 
   gen_printf(2,")\n");
 
   q=getptype(li->USER,GENERIC_PTYPE);
-//  sig_tree=(tree_list *)q->DATA;
+/*  sig_tree=(tree_list *)q->DATA;*/
   if (q==NULL) avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 14);
-  // putting a fake tree here, i hope there will not be any problem
+  /* putting a fake tree here, i hope there will not be any problem*/
   sig_tree=(tree_list *)q->DATA;
   con_tree=PutAto_Tree(GEN_TOKEN_LOINS, FILE_NAME(sig_tree), LINE(sig_tree), (tree_list *)newloins);
   newloins->USER=addptype(newloins->USER,GENERIC_PTYPE,con_tree);
   q=getptype(li->USER,GEN_GENERIC_MAP_PTYPE);
   if (q==NULL) avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 15);
   newloins->USER=addptype(newloins->USER,GEN_GENERIC_MAP_PTYPE, q->DATA);
-// loins flags
+/* loins flags*/
   q=getptype(li->USER,GENIUS_LOINS_FLAGS_PTYPE);
   newloins->USER=addptype(newloins->USER,GENIUS_LOINS_FLAGS_PTYPE, q->DATA);
   newloins->USER=addptype(newloins->USER,GEN_LOOP_INDEX_PTYPE, (void *)(long)index);
@@ -150,7 +150,7 @@ void getallloins(tree_list* tree, chain_list **allloins)
   
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 16);
-    //fprintf(stderr,"choose_loins: NULL pointer\n");
+    /*fprintf(stderr,"choose_loins: NULL pointer\n");*/
     EXIT(1);
   }
   
@@ -186,12 +186,12 @@ void getallloins(tree_list* tree, chain_list **allloins)
 
 static struct 
 {
-  char *model; // model of instance assigning a value
-  char *variable; // variable name
-  int value; // value assigned by the instance
+  char *model; /* model of instance assigning a value*/
+  char *variable; /* variable name*/
+  int value; /* value assigned by the instance*/
   chain_list *allvalues;
   chain_list *running;
-  int nbdiff; // number of instances assigning a different value
+  int nbdiff; /* number of instances assigning a different value*/
 } info[1000];
 static int last,current,firsttime;
 
@@ -206,7 +206,7 @@ int CheckGenericValues(chain_list *instances, chain_list *forvars, ptype_list *e
   generic_map_info *gmi, *gmi0;
   int i,find,mustallbe,mustexist,nbunassigned,countFOR=0;
 
-//  if (forvars==NULL) return 0;
+/*  if (forvars==NULL) return 0;*/
 
   last=0;
   for (l=instances;l!=NULL;l=l->NEXT)
@@ -219,34 +219,34 @@ int CheckGenericValues(chain_list *instances, chain_list *forvars, ptype_list *e
       p=getptype(li->USER,GEN_GENERIC_MAP_PTYPE);
       foundins=getfoundins(li->FIGNAME);
       
-      for (cl1=p->DATA;cl1!=NULL;cl1=cl1->NEXT) // for each generic variable
+      for (cl1=p->DATA;cl1!=NULL;cl1=cl1->NEXT) /* for each generic variable*/
     {
       gmi=(generic_map_info *)cl1->DATA;
       if (gmi->type!='n')
         {
           avt_errmsg(GNS_ERRMSG, "030", AVT_FATAL, li->INSNAME);
-          //fprintf(stderr,"A variable name was expected for instance '%s', found a number\n",li->INSNAME);
+          /*fprintf(stderr,"A variable name was expected for instance '%s', found a number\n",li->INSNAME);*/
           EXIT(1);
         }
       find=mustallbe=mustexist=0;
       for (i=0;i<last && info[i].variable!=gmi->right.name/*cl1->DATA*/;i++) ;
-      // variable allready set ?
+      /* variable allready set ?*/
       if (i>=last)
         {
-          // no, no check needed
+          /* no, no check needed*/
           i=last;
           info[last].variable=gmi->right.name/*cl1->DATA*/;
           info[last].nbdiff=0;
           info[last].allvalues=NULL;
           info[last].running=NULL;
           info[last++].model=li->FIGNAME;
-          // setting the variable
-          find=1; // this an instance and set the variable value
+          /* setting the variable*/
+          find=1; /* this an instance and set the variable value*/
         }
       else
         {
           if (info[i].model!=li->FIGNAME)
-        mustexist=1; // at list one instance must match the variable value
+        mustexist=1; /* at list one instance must match the variable value*/
         }
 
       gen_printf(6,"-- %s [%c]\n",gmi->right.name,find?'F':mustexist?'E':mustallbe?'A':'?');
@@ -257,26 +257,26 @@ int CheckGenericValues(chain_list *instances, chain_list *forvars, ptype_list *e
 
           gen_printf(6,"--- %s\n",li2->INSNAME);
 
-          // find the variable
+          /* find the variable*/
           p1=NULL;
           for (cl=p->DATA,p2=fil->VAR;cl!=NULL;cl=cl->NEXT,p2=p2->NEXT)
         {
           gmi0=(generic_map_info *)cl->DATA;
           if (cl==cl1)
             {
-              // looking for explicit assignation
+              /* looking for explicit assignation*/
               if (gmi0->left/*cl->NEXT->DATA*/!=NULL)
             {
-              // searching for this generic in the circuit instance // explicit assignment
+              /* searching for this generic in the circuit instance // explicit assignment*/
               for (p1=fil->VAR;p1!=NULL && p1->DATA!=gmi0->left;p1=p1->NEXT) ;
             }
-              else p1=p2; // implicit assignment
+              else p1=p2; /* implicit assignment*/
 
               if (p1==NULL)
             {
-              // generic not found
+              /* generic not found*/
               avt_errmsg(GNS_ERRMSG, "031", AVT_FATAL, (char *)gmi0->left);
-//              fprintf(stderr,"CheckGenericValues: Generic variable '%s' not define\n",(char *)gmi0->left/*cl->NEXT->DATA*/);
+/*              fprintf(stderr,"CheckGenericValues: Generic variable '%s' not define\n",(char *)gmi0->left|*cl->NEXT->DATA*|);*/
               EXIT(1);
             }
               break;
@@ -307,7 +307,7 @@ int CheckGenericValues(chain_list *instances, chain_list *forvars, ptype_list *e
       if (mustexist==1)
         { 
           avt_errmsg(GNS_ERRMSG, "033", AVT_WARNING, li->FIGNAME,(char *)cl->NEXT->DATA,info[i].value);
-          //fprintf(stderr,"Warning: CheckGenericValues: There should be at least one instance of model '%s' with %s=%d\n",li->FIGNAME,(char *)cl->NEXT->DATA,info[i].value);
+          /*fprintf(stderr,"Warning: CheckGenericValues: There should be at least one instance of model '%s' with %s=%d\n",li->FIGNAME,(char *)cl->NEXT->DATA,info[i].value);*/
         }
     }
     }
@@ -326,28 +326,28 @@ int CheckGenericValues(chain_list *instances, chain_list *forvars, ptype_list *e
           val=(long)bs->DATA; bs->DATA=c0->DATA; c0->DATA=(void *)val;
         }
     }
-      // a little sort
+      /* a little sort*/
 
       info[i].running=info[i].allvalues;
     }
   current=last-1;
   firsttime=1;
 
-  // checking and assigning the know variable used in loops
+  /* checking and assigning the know variable used in loops*/
   for (cl=forvars,nbunassigned=0;cl!=NULL;cl=cl->NEXT)
     {
-      // find the variable
+      /* find the variable*/
       for (i=0;i<last && cl->DATA!=info[i].variable;i++) ;
       if (i>=last)
     nbunassigned++;
       else
     {
-      // found, set the value
+      /* found, set the value*/
       for (p=env;p!=NULL && p->DATA!=cl->DATA;p=p->NEXT) ;
       if (p==NULL)
         {
           avt_errmsg(GNS_ERRMSG, "031", AVT_FATAL, (char *)cl->NEXT->DATA);
-//          fprintf(stderr,"CheckGenericValues: Generic variable '%s' not define\n",(char *)cl->NEXT->DATA);
+/*          fprintf(stderr,"CheckGenericValues: Generic variable '%s' not define\n",(char *)cl->NEXT->DATA);*/
           EXIT(1);
         }
       p->TYPE=info[i].value;
@@ -361,7 +361,7 @@ int CheckGenericValues(chain_list *instances, chain_list *forvars, ptype_list *e
   if (nbunassigned>1)
     {
       avt_errmsg(GNS_ERRMSG, "034", AVT_FATAL);
-      //fprintf(stderr,"CheckGenericValues: More than 1 unknown generic variable\n");
+      /*fprintf(stderr,"CheckGenericValues: More than 1 unknown generic variable\n");*/
       EXIT(1);
     }
   return countFOR;
@@ -373,7 +373,7 @@ int GenerateNextValueConfiguration(ptype_list *env, chain_list *forvars)
   chain_list *cl;
   ptype_list *p;
 
-  if (!firsttime && current<0) return 0; // no more configurations
+  if (!firsttime && current<0) return 0; /* no more configurations*/
 
   for (p=env;p!=NULL;p=p->NEXT) 
     {
@@ -381,7 +381,7 @@ int GenerateNextValueConfiguration(ptype_list *env, chain_list *forvars)
 
       if (i>=last)
     {
-      p->TYPE=UNDEF; // keep it?
+      p->TYPE=UNDEF; /* keep it?*/
     }
       else
     {
@@ -390,7 +390,7 @@ int GenerateNextValueConfiguration(ptype_list *env, chain_list *forvars)
 
       if (cl!=NULL)
         {
-          // found, set the value
+          /* found, set the value*/
           p->TYPE=(long)info[i].running->DATA;
         }
       else
@@ -434,7 +434,7 @@ void search_FOR(tree_list* tree, chain_list **vars, int *launchexpansion)
 
    if (!tree) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 17);
-     //fprintf(stderr,"search_FOR: NULL pointer\n");
+     /*fprintf(stderr,"search_FOR: NULL pointer\n");*/
      EXIT(1);
    }
    
@@ -487,7 +487,7 @@ void ExpandFOR(tree_list* tree, lofig_list *circuit, ptype_list *env, chain_list
    
    if (!tree) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 18);
-//     fprintf(stderr,"ExpandFOR: NULL pointer\n");
+/*     fprintf(stderr,"ExpandFOR: NULL pointer\n");*/
      EXIT(1);
    }
    
@@ -504,13 +504,13 @@ void ExpandFOR(tree_list* tree, lofig_list *circuit, ptype_list *env, chain_list
     {
       ins_model=(loins_list*)tree->DATA;
 
-      // add the loins to the list of original loins to be abble to put the lofig
-      // back to its original form
+      /* add the loins to the list of original loins to be abble to put the lofig*/
+      /* back to its original form*/
       for (cl=*originalloins;cl!=NULL && cl->DATA!=ins_model; cl=cl->NEXT) ;
       if (cl==NULL)
           *originalloins=addchain(*originalloins, ins_model);
 
-      // creating instance
+      /* creating instance*/
       *expansedloins=addchain(*expansedloins, AddLoinsToModel(ins_model, env, nameadd, depart));
     }
       break;
@@ -524,7 +524,7 @@ void ExpandFOR(tree_list* tree, lofig_list *circuit, ptype_list *env, chain_list
       for_end=Eval_Exp_VHDL(tree->NEXT->NEXT->NEXT,env);
       if (for_end!=UNDEF)
     {
-      // a loop to expand
+      /* a loop to expand*/
       /*local environment */
       int range0;
       inloop++;
@@ -534,7 +534,7 @@ void ExpandFOR(tree_list* tree, lofig_list *circuit, ptype_list *env, chain_list
       
           if (index_value>for_end)
             {
-              // handleling the case of downto loop
+              /* handleling the case of downto loop*/
               range0=for_end;
               for_end=index_value;
               index_value=range0;
@@ -546,7 +546,7 @@ void ExpandFOR(tree_list* tree, lofig_list *circuit, ptype_list *env, chain_list
       range0=for_end-index_value+1;
       for (env->TYPE=index_value; env->TYPE<=for_end; env->TYPE++)
         {
-//          sprintf(nameadd0,"%s_%s%ld", nameadd, (char *)env->DATA, env->TYPE);
+/*          sprintf(nameadd0,"%s_%s%ld", nameadd, (char *)env->DATA, env->TYPE);*/
           sprintf(nameadd0,"%s_%ld", nameadd, env->TYPE);
           ExpandFOR(tree->NEXT->NEXT->NEXT->NEXT, circuit, env, expansedloins, originalloins, nameadd0/*env->TYPE*/, depart*oldrange+env->TYPE, range0);
         }
@@ -561,7 +561,7 @@ void ExpandFOR(tree_list* tree, lofig_list *circuit, ptype_list *env, chain_list
     if (inloop)
       {
         avt_errmsg(GNS_ERRMSG, "035", AVT_FATAL, bound_ident);
-//        fprintf(stderr,"ExpandFOR: Variable '%s' is not defined yet\n", bound_ident);
+/*        fprintf(stderr,"ExpandFOR: Variable '%s' is not defined yet\n", bound_ident);*/
         EXIT(6);
       }
       break;
@@ -602,7 +602,7 @@ void CleanUpLofig(chain_list *expansedloins)
     {
       li=(loins_list *)cl->DATA;
 
-      // grad the signals to modify
+      /* grad the signals to modify*/
       for (lc=li->LOCON;lc!=NULL;lc=lc->NEXT)
     {
       ls=lc->SIG;
@@ -611,33 +611,33 @@ void CleanUpLofig(chain_list *expansedloins)
           allsigs=addchain(allsigs,ls);
           ls->USER=addptype(ls->USER,TO_DELETE_MARK_PTYPE,0);
         }
-      // destroy genconchain
+      /* destroy genconchain*/
       if ((pt=getptype(lc->USER,GENCONCHAIN))==NULL) 
-        EXIT(2); // should never append
+        EXIT(2); /* should never append*/
       freegenconchain((genconchain_list *)pt->DATA);
-      freeptype(lc->USER); //=delptype(lc->USER, GENCONCHAIN);
+      freeptype(lc->USER); /*=delptype(lc->USER, GENCONCHAIN);*/
     }
 
-      // destroy locons
+      /* destroy locons*/
       for (lc=li->LOCON;lc!=NULL;lc=lc0)
     {
       lc0=lc->NEXT;
       mbkfree(lc);
     }
-      // destroy loins
+      /* destroy loins*/
       pt=getptype(li->USER,GENERIC_PTYPE);
       Free_Tree((tree_list *)pt->DATA);
-      freeptype(li->USER); //=delptype(li->USER,GENERIC_PTYPE);
+      freeptype(li->USER); /*=delptype(li->USER,GENERIC_PTYPE);*/
       mbkfree(li);
     }
   
-  // the expansed loins are cleaned, still the signal have some losigchain to clean
+  /* the expansed loins are cleaned, still the signal have some losigchain to clean*/
   for (cl=allsigs; cl!=NULL; cl=cl->NEXT)
     {
       ls=(losig_list *)cl->DATA;
       ls->USER=delptype(ls->USER,TO_DELETE_MARK_PTYPE);
-      newgs=NULL; // new gensigchain_list
-      if ((pt=getptype(ls->USER,GENSIGCHAIN))==NULL) EXIT(3); // should never append
+      newgs=NULL; /* new gensigchain_list*/
+      if ((pt=getptype(ls->USER,GENSIGCHAIN))==NULL) EXIT(3); /* should never append*/
       
       for (gs=(gensigchain_list *)pt->DATA; gs!=NULL; gs=gsnext)
     {
@@ -650,7 +650,7 @@ void CleanUpLofig(chain_list *expansedloins)
       else
         {
           if (gs->ghost==1)
-        gs->ghost=0; // re-enable the gensigchain
+        gs->ghost=0; /* re-enable the gensigchain*/
           gs->NEXT=newgs;
           newgs=gs;
         }
@@ -658,7 +658,7 @@ void CleanUpLofig(chain_list *expansedloins)
 
       pt->DATA=newgs;
     }
-  // now the lofig sigs are cleaned
+  /* now the lofig sigs are cleaned*/
   freechain(allsigs);
 }
 
@@ -668,10 +668,10 @@ void CleanUpLofig(chain_list *expansedloins)
 
 void UndoExpansion(chain_list *expansedloins)
 {
-  // the function name isn't good but it does what we want
-  // remove the expansed loins and put back the original loins
-//  FinishExpansion(lf, expansedloins, originalloins);
+  /* the function name isn't good but it does what we want*/
+  /* remove the expansed loins and put back the original loins*/
+/*  FinishExpansion(lf, expansedloins, originalloins);*/
   
-  // now, we clean up the genconchain_list and the gensigchain_list
+  /* now, we clean up the genconchain_list and the gensigchain_list*/
   CleanUpLofig(expansedloins);
 }

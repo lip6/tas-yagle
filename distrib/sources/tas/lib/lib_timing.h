@@ -10,7 +10,7 @@
 
 #include "lib_global.h"
 
-// zinaps: valeur a redifinir car surement fausses par defaut
+/* zinaps: valeur a redifinir car surement fausses par defaut*/
 #define LIB_DEFAULT_SA_SLEW_UP_FALL_UNIT    0.8
 #define LIB_DEFAULT_SA_SLEW_LOW_FALL_UNIT   0.2
 #define LIB_DEFAULT_SA_SLEW_UP_RISE_UNIT    0.8

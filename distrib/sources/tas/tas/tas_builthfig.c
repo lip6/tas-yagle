@@ -552,7 +552,7 @@ lofig_list *lofig ;
 
  if(flag == 'Y')
   {
-//   cbh_sim(lofig) ;
+/*   cbh_sim(lofig) ;*/
 
    for(losig = lofig->LOSIG ; losig != NULL ; losig = losig->NEXT)
     {
@@ -823,7 +823,7 @@ ttvfig_list *ttvfig ;
      else lofigloconht=NULL;
 
      if (ttvins->NBCONSIG>TOO_MUCH_LOCONS) speedloconht=tas_create_con_ht(ttvins);
-     else speedloconht=NULL; // pour etre sur de ne pas faire de betises
+     else speedloconht=NULL; /* pour etre sur de ne pas faire de betises*/
      
      locon = loins->LOCON ;
      while(locon != NULL)
@@ -846,8 +846,8 @@ ttvfig_list *ttvfig ;
           locon->NAME = ttv_revect(locon->NAME) ;
           if (ttvins->NBCONSIG>TOO_MUCH_LOCONS)
           {
-            // pour l'optimisation, on fait en sort de respecter le comportement de
-            // la boucle ci-dessous
+            /* pour l'optimisation, on fait en sort de respecter le comportement de*/
+            /* la boucle ci-dessous*/
             if ((i=gethtitem(speedloconht, locon->NAME))==EMPTYHT) i=ttvins->NBCONSIG;
             if (i==ttvins->NBCONSIG && locon->SIG->TYPE==TAS_ALIM) isalim=1;
           }
@@ -887,7 +887,7 @@ ttvfig_list *ttvfig ;
              sprintf(message,"%s the connector %s",loins->FIGNAME,locon->NAME) ;
            else if(TAS_CONTEXT->TAS_LANG == 'F')
              sprintf(message,"%s le connecteur %s",loins->FIGNAME,locon->NAME) ;
-           avt_errmsg( TAS_ERRMSG, "051", AVT_ERROR, message ); //tas_error(51,message,TAS_ERROR) ;
+           avt_errmsg( TAS_ERRMSG, "051", AVT_ERROR, message ); /*tas_error(51,message,TAS_ERROR) ;*/
            errors++;
            ptsig=NULL;
           }
@@ -925,7 +925,7 @@ ttvfig_list *ttvfig ;
          else if(TAS_CONTEXT->TAS_LANG == 'F')
           sprintf(message,"%s le connecteur %s",
                   ttvins->INFO->FIGNAME,(*(ttvins->CONSIG + i))->NAME) ;
-         avt_errmsg( TAS_ERRMSG, "051", AVT_ERROR, message ); //tas_error(51,message,TAS_ERROR) ;
+         avt_errmsg( TAS_ERRMSG, "051", AVT_ERROR, message ); /*tas_error(51,message,TAS_ERROR) ;*/
          errors++;
        }
 
@@ -2395,7 +2395,7 @@ ttvfig_list *ttvfig ;
       {
        if((lotrs->PD != 0) || (lotrs->XD != 0) || (lotrs->WIDTH != 0))
         {
-         //capadrain = elpLotrsCapaDrain(lotrs,TAS_CASE);
+         /*capadrain = elpLotrsCapaDrain(lotrs,TAS_CASE);*/
          switch( V_INT_TAB[__ELP_CAPA_LEVEL].VALUE ) { 
          case ELP_CAPA_LEVEL0 :
            if ( !mcc_use_multicorner() )
@@ -2453,7 +2453,7 @@ ttvfig_list *ttvfig ;
       {
        if((lotrs->PS >= 0) || (lotrs->XS >= 0) || (lotrs->WIDTH != 0))
         {
-         //capasource = elpLotrsCapaSource(lotrs,TAS_CASE);
+         /*capasource = elpLotrsCapaSource(lotrs,TAS_CASE);*/
          switch( V_INT_TAB[__ELP_CAPA_LEVEL].VALUE ) { 
          case ELP_CAPA_LEVEL0 :
            if ( !mcc_use_multicorner() )
@@ -3820,7 +3820,7 @@ lofig_list *lofig ;
  type=TTV_FIND_MAX;
  type|=(TAS_CONTEXT->TAS_FIND_MIN == 'Y') ? TTV_FIND_MIN:0;
 
- if(V_BOOL_TAB[__TAS_RECOMPUTE_DELAYS].VALUE) // conditionnement pour ne rien changer du comportement precedent
+ if(V_BOOL_TAB[__TAS_RECOMPUTE_DELAYS].VALUE) /* conditionnement pour ne rien changer du comportement precedent*/
  {
    if (V_BOOL_TAB[__TAS_DELAY_PROP].VALUE) type|=TTV_FIND_DELAY;
  }

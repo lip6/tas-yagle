@@ -30,6 +30,3 @@
 * Modified, rewritten and maintained by Frederic Petrot since september 1990   *
 *                                                                              *
 *******************************************************************************/
-static char *decodelayer();
-static void vtigetdate();
-void vtisavephfig();

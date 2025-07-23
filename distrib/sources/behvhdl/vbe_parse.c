@@ -92,6 +92,6 @@ vbeloadbefig (befig_list *ptbefig, char *figname, unsigned int trace_mode)
 
   BVL_HEDFIG->ERRFLG = beh_chkbefig (BVL_HEDFIG, check_mode);
 
-  // fprintf( stdout, "BVL (vbe) : parse completed\n");
+  /* fprintf( stdout, "BVL (vbe) : parse completed\n");*/
   return (BVL_HEDFIG);
 }

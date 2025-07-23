@@ -231,7 +231,7 @@ locon_list  *loconIns;
 
   if (loconIns->TYPE=='E') return toBeTreatedList;
 
-  // on recupere la liste des locons de la loins la lofig et le circuit
+  /* on recupere la liste des locons de la loins la lofig et le circuit*/
   loins = (loins_list*)loconIns->ROOT;
   cbh_getLoconFromLoins(loins,loinsinout,NULL);
   lofig = cbh_getLofigFromLoins(loins);
@@ -255,7 +255,7 @@ locon_list  *loconIns;
     lofigInList = lofiginout[CBH_IN];
 
     if (cbh_propageBdd(bddc,cct,lofigInList)==CBH_CONSTRAINT_1)
-    {// si on a un conflit
+    {/* si on a un conflit*/
       if (cbh_setConstraint(loinsOut->SIG,CBH_CONSTRAINT_X))
       {
         cbh_addSigToTreat(toBeTreatedList,loinsOut->SIG);
@@ -264,7 +264,7 @@ locon_list  *loconIns;
       }
     }
     else if (cbh_propageBdd(bddz,cct,lofigInList)==CBH_CONSTRAINT_1)
-    {// si on a haute  impedance
+    {/* si on a haute  impedance*/
       if (cbh_setConstraint(loinsOut->SIG,CBH_CONSTRAINT_Z))
       {
         cbh_addSigToTreat(toBeTreatedList,loinsOut->SIG);
@@ -273,7 +273,7 @@ locon_list  *loconIns;
       }
     }
     else
-    {// sinon si rien de tout ca...
+    {/* sinon si rien de tout ca...*/
       constraint = cbh_propageBdd(bddf,cct,lofigInList);
       if ((constraint==CBH_CONSTRAINT_1)||(constraint==CBH_CONSTRAINT_0))
       {
@@ -527,7 +527,7 @@ lofig_list  *lofig;
     printf("-----------------------------------\n");
   }
 
-  // test de la detection de propagation
+  /* test de la detection de propagation*/
   if (CBH_TEST)
   {
     lofig_list    *tmp;
@@ -1119,7 +1119,7 @@ ptype_list  *cstList;
   long           res;
 
   if (!CBH_CLASSIFIER) return 0;
-  // set les contraintes sur la lofig
+  /* set les contraintes sur la lofig*/
   if (!(lofig=cbh_getLofigFromLoins(loins)))
     lofig = cbh_doMatchLofig(loins);
   cbh_delCstOnLofig(lofig,NULL,NULL);
@@ -1160,7 +1160,7 @@ ptype_list  *cstList;
 
   if (!CBH_CLASSIFIER)
     return NULL;
-  // set contraints on lofig
+  /* set contraints on lofig*/
   if (!(lofig=cbh_getLofigFromLoins(loins)))
     lofig = cbh_doMatchLofig(loins);
   cbh_delCstOnLofig(lofig,NULL,NULL);
@@ -1179,7 +1179,7 @@ ptype_list  *cstList;
                          type);
   cbh_setLofigCstOnLoins(loins);
   res = cbh_mvResLofigLoins(loins,res);
-  //  cbh_delCstOnLofig(lofig,NULL,NULL);
+  /*  cbh_delCstOnLofig(lofig,NULL,NULL);*/
 
   return res;
 }
@@ -1230,7 +1230,7 @@ int          enable;
   ptype_list    *res;
 
   if (!CBH_CLASSIFIER) return NULL;
-  // set les contraintes sur la lofig
+  /* set les contraintes sur la lofig*/
   if (!(lofig=cbh_getLofigFromLoins(loins)))
     lofig = cbh_doMatchLofig(loins);
   cbh_delCstOnLofig(lofig,NULL,NULL);
@@ -1254,7 +1254,7 @@ int          enable;
   res = cbh_getHzCst(lofig,out,enable);
   cbh_setLofigCstOnLoins(loins);
   res = cbh_mvResLofigLoins(loins,res);
-  //  cbh_delCstOnLofig(lofig,NULL,NULL);
+  /*  cbh_delCstOnLofig(lofig,NULL,NULL);*/
   return res;
 }
 
@@ -1319,303 +1319,303 @@ ptype_list  *cstList;
 /****************************************************************************/
 /****************************************************************************/
 
-///****************************************************************************/
-///*                       cbh_findTrans()                                    */
-///* trouve les transitions de type type, renvoie le types des transitions    */
-///* trouvees                                                                 */
-///****************************************************************************/
-//long cbh_findTrans(lofig,in,out,type,mode)
-//lofig_list  *lofig;
-//locon_list  *in;
-//locon_list  *out;
-//long         type;
-//int          mode;
-//{
-//  int            i;
-//  long           tmp;
-//  pNode          bdd;
-//  pNode          tmpbdd;
-//  pCircuit       cct;
-//  long           target;
-//  chain_list    *loconList;
-//  long           res;
-//  char           bin[33];
-//  long           combi;
-//
-//  if (CBH_DEBUG) printf("###########################\n");
-//  if (CBH_DEBUG) printf("transition de %s a %s of %s\n",
-//                        in->NAME,out->NAME,lofig->NAME);
-//  res = 0;
-//  cct = cbh_getcctfromlofig(lofig);
-//  bdd = searchOutputCct(cct,out->NAME);
-//  loconList = cbh_inWithoutA(lofig,in,NULL);
-//  cbh_delCstOnLofig(lofig,0,0);
-//
-//  for (i=0,tmp=type;i<32;i++,tmp=type>>i)
-//    if ((tmp%2))
-//    {
-//      if (CBH_DEBUG) cbh_printTrans(i);
-//      target = cbh_decodeTrans(in,out,i,CBH_SET_TRANS);
-//      tmpbdd = cbh_constraintBdd(bdd,cct,in);
-//      // tant que l'on a pas use toutes les combinaisons
-//      while ((combi=cbh_lookCombi(tmpbdd,cct,loconList,target))!=CBH_CST_FULL)
-//      {
-//        if (CBH_DEBUG) cbh_printLofigCst(lofig,NULL,in,out);
-//        if (combi==target)
-//        {
-//          if (CBH_DEBUG) printf ("combi satisfaisante\n");
-//
-//          if (cbh_checkTrans(in,out,i,bdd,cct,lofig,loconList))
-//          {
-//            if (mode==CBH_ALLTRANS)
-//            {
-//              if (CBH_DEBUG) printf ("-->vraiment\n");
-//              res |= 1<<i;
-//              cbh_delCstOnLofig(lofig,in,out);
-//              break;
-//            }
-//          }
-//          else if (CBH_DEBUG) printf("-->pour init mais pas pour la suite\n");
-//        }
-//        else if (CBH_DEBUG) printf("echec\n");
-//      }
-//    }
-//  if (res==type)
-//  {
-//    if (CBH_DEBUG) printf("->ok pour tous les types\n");
-//    if (CBH_DEBUG) cbh_printLofigCst(lofig,NULL,in,out);
-//    if (mode==CBH_ONETRANS) res = 0;
-//  }
-//  if (CBH_DEBUG) printf("resultat %#010lx 0b%s\n",res,cbh_ltob(res,bin));
-//
-//  if (CBH_DEBUG) printf("###########################\n");
-//  cbh_delCstOnLofig(lofig,0,0);
-//
-//  return res;
-//}
-//
-///****************************************************************************/
-///*                       cbh_lookCombi()                                    */
-///* cherche une combinaison qui soit fonctionne soit est au bout             */
-///****************************************************************************/
-//long cbh_lookCombi(bdd,cct,loconList,target)
-//pNode        bdd;
-//pCircuit     cct;
-//chain_list  *loconList;
-//long         target;
-//{
-//  chain_list    *next;
-//  long           cst;
-//  locon_list    *locon;
-//  long           res;
-//  pNode          bddCst;
-//
-//  // on regarde si on a atteint la cible ou si la liste est vide
-//  if (!loconList)
-//    if ((res=cbh_bddToCst(bdd,target))!=CBH_CONSTRAINT_U) return res;
-//
-//  next  = loconList->NEXT;
-//  locon = loconList->DATA;
-//
-//  switch ((cst=cbh_getLoconCst(locon)))
-//  {
-//    case CBH_NO_CONSTRAINT :
-//      if (CBH_DEBUG) printf("pas de contrainte pour %s\n",locon->NAME);
-//      // sinon on affecte le locon avec 0
-//      if (CBH_DEBUG) printf("on affecte 0 a %s\n",locon->NAME);
-//      cbh_setLoconCst(locon,CBH_CONSTRAINT_0);
-//      bddCst = cbh_constraintBdd(bdd,cct,locon);
-//      // on regarde si on a atteint une feuille, la cible??
-//      if ((res=cbh_bddToCst(bddCst,target))!=CBH_NOT_LEAF) return res;
-//      else
-//      {
-//        // si c'est le dernier de la liste
-//        if (!next) return CBH_CST_FULL;
-//        // sinon on regarde la suite
-//        else
-//        {
-//          res = cbh_lookCombi(bddCst,cct,next,target);
-//          // si on a rien trouve en positionnant 0 au locon, on passe a la suite
-//          // sinon on renvois le resultat
-//          if ((res!=CBH_CST_FULL)||(res!=CBH_CONSTRAINT_U)) return res;
-//        }
-//      }
-//      if (CBH_DEBUG) printf("->echec de 0 pour %s\n",locon->NAME);
-//    case CBH_CONSTRAINT_0  :
-//      if (CBH_DEBUG) printf("contrainte 0 pour %s\n",locon->NAME);
-//      // on verifie que tout est positionne en faisant un appel en descandant
-//      bddCst = cbh_constraintBdd(bdd,cct,locon);
-//      if (cbh_bddToCst(bddCst,target)==CBH_NOT_LEAF)
-//      {
-//        if (next)
-//          if (CBH_DEBUG) printf("->ca ne donne pas une feuille de bdd\n");
-//          if ((res=cbh_lookCombi(bddCst,cct,next,target))!=CBH_CST_FULL) return res;
-//      }
-//      else if (CBH_DEBUG) printf("->ca donne une feuille de bdd donc\n");
-//      // sinon on affecte 1 au locon
-//      if (CBH_DEBUG) printf("on affecte 1 a %s\n",locon->NAME);
-//      cbh_setLoconCst(locon,CBH_CONSTRAINT_1);
-//      bddCst = cbh_constraintBdd(bdd,cct,locon);
-//      // on regarde si on a atteint la cible
-//      if ((res=cbh_bddToCst(bddCst,target))!=CBH_NOT_LEAF) return res;
-//      else
-//      {
-//        // si c'est le dernier de la liste
-//        if (!next) return CBH_CST_FULL;
-//        else
-//        {
-//          res = cbh_lookCombi(bddCst,cct,next,target);
-//          // si on a rien trouve en positionnant 0 au locon, on passe a la suite
-//          // sinon on renvois le resultat
-//          if ((res!=CBH_CST_FULL)||(res!=CBH_CONSTRAINT_U)) return res;
-//        }
-//      }
-//      if (CBH_DEBUG) printf("->echec de 1 pour %s\n",locon->NAME);
-//    case  CBH_CONSTRAINT_1 :
-//      if (CBH_DEBUG) printf("contrainte 1 pour %s\n",locon->NAME);
-//      // on verifie que tout est positionne en faisant un appel en descandant
-//      bddCst = cbh_constraintBdd(bdd,cct,locon);
-//      if (cbh_bddToCst(bddCst,target)==CBH_NOT_LEAF)
-//      {
-//        if (next)
-//        {
-//          if (CBH_DEBUG) printf("->ca ne donne pas une feuille de bdd\n");
-//          if ((res=cbh_lookCombi(bddCst,cct,next,target))!=CBH_CST_FULL) return res;
-//        }
-//      }
-//      else if (CBH_DEBUG) printf("->ca donne une feuille de bdd donc\n");
-//      //    sinon on delete la contrainte et on retourne plein
-//      if (CBH_DEBUG) printf("->on detruit la contrainte 1 de %s\n",locon->NAME);
-//      cbh_delLoconCst(locon);
-//      return CBH_CST_FULL;
-//    default : return CBH_CONSTRAINT_U;
-//  }
-//}
-//
-///****************************************************************************/
-///*                       cbh_evalBdd()                                      */
-///* evalue un bdd en fonction des contraintes d'entrees                      */
-///****************************************************************************/
-//int cbh_evalBdd(bdd,cct,locon)
-//pNode        bdd;
-//pCircuit     cct;
-//locon_list  *locon;
-//{
-//  char          *name;
-//  locon_list    *chainx;
-//  int            constraint;
-//
-//  if (!bdd) return 0;
-//  if (bdd->index==1) return CBH_CONSTRAINT_1;
-//  if (bdd->index==0) return CBH_CONSTRAINT_0;
-//
-//  name = searchIndexCct(cct,bdd->index);
-//  for (chainx=locon;chainx;chainx=chainx->NEXT)
-//    if (chainx->NAME==name)
-//    {
-//      if ((constraint=cbh_getLoconCst(chainx))==CBH_CONSTRAINT_0)
-//        return cbh_evalBdd(bdd->low,cct,locon);
-//      else if (constraint==CBH_CONSTRAINT_1)
-//        return cbh_evalBdd(bdd->high,cct,locon);
-//      else return /*cbh_evalBdd(bdd->high,cct,locon); */ CBH_CONSTRAINT_U;
-//    }
-//  return CBH_CONSTRAINT_U;
-//}
-//
-///****************************************************************************/
-///*                       cbh_checkAllCstSet()                               */
-///* verifie que tous les locons sont contraint sinon renvoie le fautif       */
-///****************************************************************************/
-//locon_list *cbh_checkAllCstSet(locon)
-//locon_list  *locon;
-//{
-//  for (;locon;locon=locon->NEXT)
-//    if ((cbh_getLoconCst(locon)==CBH_NO_CONSTRAINT)&&cbh_isInput(locon))
-//    {
-//      cbh_setLoconCst(locon,CBH_CONSTRAINT_0);
-//      return locon;
-//    }
-//  return NULL;
-//}
-//
-///****************************************************************************/
-///*                       cbh_checkTrans()                                   */
-///* verifie la validite de la transition: les locons sont initialises avec   */
-///* les valeurs d'init, on change les contraintes des locons de la transition*/
-///* pour verifier que la transition s'effectue                               */
-///****************************************************************************/
-//int cbh_checkTrans(in,out,code,bdd,cct,lofig,loconList)
-//locon_list  *in;
-//locon_list  *out;
-//int          code;
-//pNode        bdd;
-//pCircuit     cct;
-//lofig_list  *lofig;
-//chain_list  *loconList;
-//{
-//  int        resOut;
-//  int        resBdd;
-//  pNode      tmpBdd;
-//
-//  cbh_decodeTrans(in,out,code,CBH_CHK_TRANS);
-//  tmpBdd = cbh_constraintBddWithCst(lofig,bdd,cct);
-//  resOut = cbh_getLoconCst(out);
-//  resBdd = cbh_evalBddUnFull(tmpBdd,cct,lofig->LOCON,resOut);
-//  cbh_decodeTrans(in,out,code,CBH_SET_TRANS);
-//  return (resOut==resBdd);
-//}
-//
-///****************************************************************************/
-///*                       cbh_evalBddUnFull()                                */
-///* evalue un bdd meme si toutes les entrees ne sont pas contraintes         */
-///****************************************************************************/
-//int cbh_evalBddUnFull(bdd,cct,locon,resOut)
-//pNode        bdd;
-//pCircuit     cct;
-//locon_list  *locon;
-//int          resOut;
-//{
-//  int            resBdd;
-//  locon_list    *unCst;
-//
-//  resBdd = cbh_evalBdd(bdd,cct,locon);
-//  if (resBdd==resOut) return resBdd;
-//  else
-//  {
-//    if ((unCst=cbh_checkAllCstSet(locon)))
-//    {
-//      if ((resBdd=cbh_evalBdd(cbh_constraintBdd(bdd,cct,unCst),cct,locon))==resOut)
-//        return resBdd;
-//      else
-//      {
-//        cbh_setLoconCst(unCst,CBH_CONSTRAINT_1);
-//        if ((resBdd=cbh_evalBdd(cbh_constraintBdd(bdd,cct,unCst),cct,locon))!=resOut)
-//          cbh_delLoconCst(unCst);
-//        return resBdd;
-//      }
-//    }
-//    else return resBdd;
-//  }
-//}
-//
-///****************************************************************************/
-///*                       cbh_bddToCst()                                     */
-///* convertit un bdd en contrainte si le bdd n'est pas terminal, renvoie     */
-///* not leaf                                                                 */
-///****************************************************************************/
-//int cbh_bddToCst(bdd,target)
-//pNode        bdd;
-//int          target;
-//{
-//  switch (bdd->index)
-//  {
-//    case 1 :
-//      if ((target==CBH_CONSTRAINT_1)) return target;
-//      else return CBH_CONSTRAINT_U;
-//    case 0 :
-//      if ((target==CBH_CONSTRAINT_0)) return target;
-//      else return CBH_CONSTRAINT_U;
-//    default : return CBH_NOT_LEAF;
-//  }
-//}
-//}}}
+/*/****************************************************************************/
+/*/*                       cbh_findTrans()                                    */
+/*/* trouve les transitions de type type, renvoie le types des transitions    */
+/*/* trouvees                                                                 */
+/*/****************************************************************************/
+/*long cbh_findTrans(lofig,in,out,type,mode)*/
+/*lofig_list  *lofig;*/
+/*locon_list  *in;*/
+/*locon_list  *out;*/
+/*long         type;*/
+/*int          mode;*/
+/*{*/
+/*  int            i;*/
+/*  long           tmp;*/
+/*  pNode          bdd;*/
+/*  pNode          tmpbdd;*/
+/*  pCircuit       cct;*/
+/*  long           target;*/
+/*  chain_list    *loconList;*/
+/*  long           res;*/
+/*  char           bin[33];*/
+/*  long           combi;*/
+/**/
+/*  if (CBH_DEBUG) printf("###########################\n");*/
+/*  if (CBH_DEBUG) printf("transition de %s a %s of %s\n",*/
+/*                        in->NAME,out->NAME,lofig->NAME);*/
+/*  res = 0;*/
+/*  cct = cbh_getcctfromlofig(lofig);*/
+/*  bdd = searchOutputCct(cct,out->NAME);*/
+/*  loconList = cbh_inWithoutA(lofig,in,NULL);*/
+/*  cbh_delCstOnLofig(lofig,0,0);*/
+/**/
+/*  for (i=0,tmp=type;i<32;i++,tmp=type>>i)*/
+/*    if ((tmp%2))*/
+/*    {*/
+/*      if (CBH_DEBUG) cbh_printTrans(i);*/
+/*      target = cbh_decodeTrans(in,out,i,CBH_SET_TRANS);*/
+/*      tmpbdd = cbh_constraintBdd(bdd,cct,in);*/
+/*      // tant que l'on a pas use toutes les combinaisons*/
+/*      while ((combi=cbh_lookCombi(tmpbdd,cct,loconList,target))!=CBH_CST_FULL)*/
+/*      {*/
+/*        if (CBH_DEBUG) cbh_printLofigCst(lofig,NULL,in,out);*/
+/*        if (combi==target)*/
+/*        {*/
+/*          if (CBH_DEBUG) printf ("combi satisfaisante\n");*/
+/**/
+/*          if (cbh_checkTrans(in,out,i,bdd,cct,lofig,loconList))*/
+/*          {*/
+/*            if (mode==CBH_ALLTRANS)*/
+/*            {*/
+/*              if (CBH_DEBUG) printf ("-->vraiment\n");*/
+/*              res |= 1<<i;*/
+/*              cbh_delCstOnLofig(lofig,in,out);*/
+/*              break;*/
+/*            }*/
+/*          }*/
+/*          else if (CBH_DEBUG) printf("-->pour init mais pas pour la suite\n");*/
+/*        }*/
+/*        else if (CBH_DEBUG) printf("echec\n");*/
+/*      }*/
+/*    }*/
+/*  if (res==type)*/
+/*  {*/
+/*    if (CBH_DEBUG) printf("->ok pour tous les types\n");*/
+/*    if (CBH_DEBUG) cbh_printLofigCst(lofig,NULL,in,out);*/
+/*    if (mode==CBH_ONETRANS) res = 0;*/
+/*  }*/
+/*  if (CBH_DEBUG) printf("resultat %#010lx 0b%s\n",res,cbh_ltob(res,bin));*/
+/**/
+/*  if (CBH_DEBUG) printf("###########################\n");*/
+/*  cbh_delCstOnLofig(lofig,0,0);*/
+/**/
+/*  return res;*/
+/*}*/
+/**/
+/*/****************************************************************************/
+/*/*                       cbh_lookCombi()                                    */
+/*/* cherche une combinaison qui soit fonctionne soit est au bout             */
+/*/****************************************************************************/
+/*long cbh_lookCombi(bdd,cct,loconList,target)*/
+/*pNode        bdd;*/
+/*pCircuit     cct;*/
+/*chain_list  *loconList;*/
+/*long         target;*/
+/*{*/
+/*  chain_list    *next;*/
+/*  long           cst;*/
+/*  locon_list    *locon;*/
+/*  long           res;*/
+/*  pNode          bddCst;*/
+/**/
+/*  // on regarde si on a atteint la cible ou si la liste est vide*/
+/*  if (!loconList)*/
+/*    if ((res=cbh_bddToCst(bdd,target))!=CBH_CONSTRAINT_U) return res;*/
+/**/
+/*  next  = loconList->NEXT;*/
+/*  locon = loconList->DATA;*/
+/**/
+/*  switch ((cst=cbh_getLoconCst(locon)))*/
+/*  {*/
+/*    case CBH_NO_CONSTRAINT :*/
+/*      if (CBH_DEBUG) printf("pas de contrainte pour %s\n",locon->NAME);*/
+/*      // sinon on affecte le locon avec 0*/
+/*      if (CBH_DEBUG) printf("on affecte 0 a %s\n",locon->NAME);*/
+/*      cbh_setLoconCst(locon,CBH_CONSTRAINT_0);*/
+/*      bddCst = cbh_constraintBdd(bdd,cct,locon);*/
+/*      // on regarde si on a atteint une feuille, la cible??*/
+/*      if ((res=cbh_bddToCst(bddCst,target))!=CBH_NOT_LEAF) return res;*/
+/*      else*/
+/*      {*/
+/*        // si c'est le dernier de la liste*/
+/*        if (!next) return CBH_CST_FULL;*/
+/*        // sinon on regarde la suite*/
+/*        else*/
+/*        {*/
+/*          res = cbh_lookCombi(bddCst,cct,next,target);*/
+/*          // si on a rien trouve en positionnant 0 au locon, on passe a la suite*/
+/*          // sinon on renvois le resultat*/
+/*          if ((res!=CBH_CST_FULL)||(res!=CBH_CONSTRAINT_U)) return res;*/
+/*        }*/
+/*      }*/
+/*      if (CBH_DEBUG) printf("->echec de 0 pour %s\n",locon->NAME);*/
+/*    case CBH_CONSTRAINT_0  :*/
+/*      if (CBH_DEBUG) printf("contrainte 0 pour %s\n",locon->NAME);*/
+/*      // on verifie que tout est positionne en faisant un appel en descandant*/
+/*      bddCst = cbh_constraintBdd(bdd,cct,locon);*/
+/*      if (cbh_bddToCst(bddCst,target)==CBH_NOT_LEAF)*/
+/*      {*/
+/*        if (next)*/
+/*          if (CBH_DEBUG) printf("->ca ne donne pas une feuille de bdd\n");*/
+/*          if ((res=cbh_lookCombi(bddCst,cct,next,target))!=CBH_CST_FULL) return res;*/
+/*      }*/
+/*      else if (CBH_DEBUG) printf("->ca donne une feuille de bdd donc\n");*/
+/*      // sinon on affecte 1 au locon*/
+/*      if (CBH_DEBUG) printf("on affecte 1 a %s\n",locon->NAME);*/
+/*      cbh_setLoconCst(locon,CBH_CONSTRAINT_1);*/
+/*      bddCst = cbh_constraintBdd(bdd,cct,locon);*/
+/*      // on regarde si on a atteint la cible*/
+/*      if ((res=cbh_bddToCst(bddCst,target))!=CBH_NOT_LEAF) return res;*/
+/*      else*/
+/*      {*/
+/*        // si c'est le dernier de la liste*/
+/*        if (!next) return CBH_CST_FULL;*/
+/*        else*/
+/*        {*/
+/*          res = cbh_lookCombi(bddCst,cct,next,target);*/
+/*          // si on a rien trouve en positionnant 0 au locon, on passe a la suite*/
+/*          // sinon on renvois le resultat*/
+/*          if ((res!=CBH_CST_FULL)||(res!=CBH_CONSTRAINT_U)) return res;*/
+/*        }*/
+/*      }*/
+/*      if (CBH_DEBUG) printf("->echec de 1 pour %s\n",locon->NAME);*/
+/*    case  CBH_CONSTRAINT_1 :*/
+/*      if (CBH_DEBUG) printf("contrainte 1 pour %s\n",locon->NAME);*/
+/*      // on verifie que tout est positionne en faisant un appel en descandant*/
+/*      bddCst = cbh_constraintBdd(bdd,cct,locon);*/
+/*      if (cbh_bddToCst(bddCst,target)==CBH_NOT_LEAF)*/
+/*      {*/
+/*        if (next)*/
+/*        {*/
+/*          if (CBH_DEBUG) printf("->ca ne donne pas une feuille de bdd\n");*/
+/*          if ((res=cbh_lookCombi(bddCst,cct,next,target))!=CBH_CST_FULL) return res;*/
+/*        }*/
+/*      }*/
+/*      else if (CBH_DEBUG) printf("->ca donne une feuille de bdd donc\n");*/
+/*      //    sinon on delete la contrainte et on retourne plein*/
+/*      if (CBH_DEBUG) printf("->on detruit la contrainte 1 de %s\n",locon->NAME);*/
+/*      cbh_delLoconCst(locon);*/
+/*      return CBH_CST_FULL;*/
+/*    default : return CBH_CONSTRAINT_U;*/
+/*  }*/
+/*}*/
+/**/
+/*/****************************************************************************/
+/*/*                       cbh_evalBdd()                                      */
+/*/* evalue un bdd en fonction des contraintes d'entrees                      */
+/*/****************************************************************************/
+/*int cbh_evalBdd(bdd,cct,locon)*/
+/*pNode        bdd;*/
+/*pCircuit     cct;*/
+/*locon_list  *locon;*/
+/*{*/
+/*  char          *name;*/
+/*  locon_list    *chainx;*/
+/*  int            constraint;*/
+/**/
+/*  if (!bdd) return 0;*/
+/*  if (bdd->index==1) return CBH_CONSTRAINT_1;*/
+/*  if (bdd->index==0) return CBH_CONSTRAINT_0;*/
+/**/
+/*  name = searchIndexCct(cct,bdd->index);*/
+/*  for (chainx=locon;chainx;chainx=chainx->NEXT)*/
+/*    if (chainx->NAME==name)*/
+/*    {*/
+/*      if ((constraint=cbh_getLoconCst(chainx))==CBH_CONSTRAINT_0)*/
+/*        return cbh_evalBdd(bdd->low,cct,locon);*/
+/*      else if (constraint==CBH_CONSTRAINT_1)*/
+/*        return cbh_evalBdd(bdd->high,cct,locon);*/
+/*      else return /*cbh_evalBdd(bdd->high,cct,locon); |/ CBH_CONSTRAINT_U;*/
+/*    }*/
+/*  return CBH_CONSTRAINT_U;*/
+/*}*/
+/**/
+/*/****************************************************************************/
+/*/*                       cbh_checkAllCstSet()                               */
+/*/* verifie que tous les locons sont contraint sinon renvoie le fautif       */
+/*/****************************************************************************/
+/*locon_list *cbh_checkAllCstSet(locon)*/
+/*locon_list  *locon;*/
+/*{*/
+/*  for (;locon;locon=locon->NEXT)*/
+/*    if ((cbh_getLoconCst(locon)==CBH_NO_CONSTRAINT)&&cbh_isInput(locon))*/
+/*    {*/
+/*      cbh_setLoconCst(locon,CBH_CONSTRAINT_0);*/
+/*      return locon;*/
+/*    }*/
+/*  return NULL;*/
+/*}*/
+/**/
+/*/****************************************************************************/
+/*/*                       cbh_checkTrans()                                   */
+/*/* verifie la validite de la transition: les locons sont initialises avec   */
+/*/* les valeurs d'init, on change les contraintes des locons de la transition*/
+/*/* pour verifier que la transition s'effectue                               */
+/*/****************************************************************************/
+/*int cbh_checkTrans(in,out,code,bdd,cct,lofig,loconList)*/
+/*locon_list  *in;*/
+/*locon_list  *out;*/
+/*int          code;*/
+/*pNode        bdd;*/
+/*pCircuit     cct;*/
+/*lofig_list  *lofig;*/
+/*chain_list  *loconList;*/
+/*{*/
+/*  int        resOut;*/
+/*  int        resBdd;*/
+/*  pNode      tmpBdd;*/
+/**/
+/*  cbh_decodeTrans(in,out,code,CBH_CHK_TRANS);*/
+/*  tmpBdd = cbh_constraintBddWithCst(lofig,bdd,cct);*/
+/*  resOut = cbh_getLoconCst(out);*/
+/*  resBdd = cbh_evalBddUnFull(tmpBdd,cct,lofig->LOCON,resOut);*/
+/*  cbh_decodeTrans(in,out,code,CBH_SET_TRANS);*/
+/*  return (resOut==resBdd);*/
+/*}*/
+/**/
+/*/****************************************************************************/
+/*/*                       cbh_evalBddUnFull()                                */
+/*/* evalue un bdd meme si toutes les entrees ne sont pas contraintes         */
+/*/****************************************************************************/
+/*int cbh_evalBddUnFull(bdd,cct,locon,resOut)*/
+/*pNode        bdd;*/
+/*pCircuit     cct;*/
+/*locon_list  *locon;*/
+/*int          resOut;*/
+/*{*/
+/*  int            resBdd;*/
+/*  locon_list    *unCst;*/
+/**/
+/*  resBdd = cbh_evalBdd(bdd,cct,locon);*/
+/*  if (resBdd==resOut) return resBdd;*/
+/*  else*/
+/*  {*/
+/*    if ((unCst=cbh_checkAllCstSet(locon)))*/
+/*    {*/
+/*      if ((resBdd=cbh_evalBdd(cbh_constraintBdd(bdd,cct,unCst),cct,locon))==resOut)*/
+/*        return resBdd;*/
+/*      else*/
+/*      {*/
+/*        cbh_setLoconCst(unCst,CBH_CONSTRAINT_1);*/
+/*        if ((resBdd=cbh_evalBdd(cbh_constraintBdd(bdd,cct,unCst),cct,locon))!=resOut)*/
+/*          cbh_delLoconCst(unCst);*/
+/*        return resBdd;*/
+/*      }*/
+/*    }*/
+/*    else return resBdd;*/
+/*  }*/
+/*}*/
+/**/
+/*/****************************************************************************/
+/*/*                       cbh_bddToCst()                                     */
+/*/* convertit un bdd en contrainte si le bdd n'est pas terminal, renvoie     */
+/*/* not leaf                                                                 */
+/*/****************************************************************************/
+/*int cbh_bddToCst(bdd,target)*/
+/*pNode        bdd;*/
+/*int          target;*/
+/*{*/
+/*  switch (bdd->index)*/
+/*  {*/
+/*    case 1 :*/
+/*      if ((target==CBH_CONSTRAINT_1)) return target;*/
+/*      else return CBH_CONSTRAINT_U;*/
+/*    case 0 :*/
+/*      if ((target==CBH_CONSTRAINT_0)) return target;*/
+/*      else return CBH_CONSTRAINT_U;*/
+/*    default : return CBH_NOT_LEAF;*/
+/*  }*/
+/*}*/
+/*}}}*/

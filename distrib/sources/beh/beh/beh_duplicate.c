@@ -22,8 +22,8 @@
 static chain_list       *BEH_EXP_LIST   = NULL;
 static ht               *BEH_EXP_TABLE  = NULL;
 
-//static vectbiabl_list   *beh_explodeVectBiabl   (vectbiabl_list *vbiabl,char *name);
-//static vectbiabl_list   *beh_explodeVect        (vectbiabl_list *vbiabl,char *name);
+/*static vectbiabl_list   *beh_explodeVectBiabl   (vectbiabl_list *vbiabl,char *name);*/
+/*static vectbiabl_list   *beh_explodeVect        (vectbiabl_list *vbiabl,char *name);*/
        biabl_list       *beh_explodeBiabl       (biabl_list *biabl,int index, char *name,int left, int right,void (*func)(char*,int,biabl_list*));
 static void              beh_explodeLoopInt     (eqt_ctx *ctx, loop_list *loop, biabl_list *biabl, char *name,void (*func)(char*,int,biabl_list*));
        void              beh_explodeLoop        (loop_list *loop, biabl_list *biabl,char *name,void (*func)(char*,int,biabl_list*));
@@ -896,43 +896,43 @@ static bemsg_list *beh_dupmsg(bemsg_list *msg)
 /*}}}************************************************************************/
 /*{{{                    Explosion functions                                */
 /****************************************************************************/
-///*{{{                    beh_bitrzbiabl()                                   */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//biabl_list *beh_bitrzbiabl(biabl_list *biabl, int index)
-//{
-//  if (biabl)
-//  {
-//    biabl_list  *res;
-//    loop_list   *loop;
-//
-//    res = beh_explodeBiabl(biabl->NEXT,index,name,func);
-//    if ((loop = beh_getloop(biabl)))
-//    {
-//      if (loop->INDEX)
-//      {
-//        beh_explodeLoop(loop,biabl,name,func);
-//        return NULL;
-//      }
-//    }
-//    else
-//    {
-//      ptype_list    *ptx;
-//
-//      res           = beh_addbiabl(res,biabl->LABEL,biabl->CNDABL,NULL);
-//      res->VALABL   = getAblAtPos(biabl->VALABL,index);
-//      res->TIME     = biabl->TIME;
-//      res->FLAG     = biabl->FLAG;
-//      res->USER     = dupptypelst(biabl->USER);
-//    }
-//    return res;
-//  }
-//  else
-//    return biabl;
-//}
-//
-///*}}}************************************************************************/
+/*/*{{{                    beh_bitrzbiabl()                                   */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*biabl_list *beh_bitrzbiabl(biabl_list *biabl, int index)*/
+/*{*/
+/*  if (biabl)*/
+/*  {*/
+/*    biabl_list  *res;*/
+/*    loop_list   *loop;*/
+/**/
+/*    res = beh_explodeBiabl(biabl->NEXT,index,name,func);*/
+/*    if ((loop = beh_getloop(biabl)))*/
+/*    {*/
+/*      if (loop->INDEX)*/
+/*      {*/
+/*        beh_explodeLoop(loop,biabl,name,func);*/
+/*        return NULL;*/
+/*      }*/
+/*    }*/
+/*    else*/
+/*    {*/
+/*      ptype_list    *ptx;*/
+/**/
+/*      res           = beh_addbiabl(res,biabl->LABEL,biabl->CNDABL,NULL);*/
+/*      res->VALABL   = getAblAtPos(biabl->VALABL,index);*/
+/*      res->TIME     = biabl->TIME;*/
+/*      res->FLAG     = biabl->FLAG;*/
+/*      res->USER     = dupptypelst(biabl->USER);*/
+/*    }*/
+/*    return res;*/
+/*  }*/
+/*  else*/
+/*    return biabl;*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
 /*{{{                    beh_resolvingfunc()                                */
 /*                                                                          */
 /*                                                                          */
@@ -1033,57 +1033,57 @@ static biabl_list *beh_expgetbiabl(chain_list *list)
 }
 
 /*}}}************************************************************************/
-///*{{{                    beh_explodeVect()                                  */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static vectbiabl_list *beh_explodeVect(vectbiabl_list *vbiabl, char *name)
-//{
-//  if (vbiabl)
-//  {
-//    vbiabl->NEXT = beh_explodeVect(vbiabl->NEXT,name);
-//    return beh_explodeVectBiabl(vbiabl,name);
-//  }
-//  else
-//    return vbiabl;
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    beh_explodeVectBiabl()                             */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static vectbiabl_list *beh_explodeVectBiabl(vectbiabl_list *vbiabl, char *name)
-//{
-//  vectbiabl_list    *next   = vbiabl->NEXT;
-//  biabl_list        *biabl  = vbiabl->BIABL;
-//  int                left   = vbiabl->LEFT;
-//  int                right  = vbiabl->RIGHT;
-//  int                i;
-//  vectbiabl_list    *vbiablx;
-//  biabl_list        *new;
-//  int                way;
-//
-//  if (left == right)
-//    return vbiabl;
-//  else
-//  {
-//    way             = (left - right) / abs(left - right);
-//    vbiabl->RIGHT   = left;
-//    for ( i = left - way ; way*(i - right) >= 0; i -= way )
-//    {
-//      if (i == left)
-//        vbiablx     = vbiabl;
-//      else
-//        vbiablx     = beh_addvectbiabl(vbiablx,i,i,NULL);
-//      if (( new = beh_explodeBiabl(biabl,abs(i-left),name,NULL) ))
-//        vbiablx->BIABL    = new;
-//    }
-//    return next;
-//  }
-//}
-//
-///*}}}************************************************************************/
+/*/*{{{                    beh_explodeVect()                                  */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static vectbiabl_list *beh_explodeVect(vectbiabl_list *vbiabl, char *name)*/
+/*{*/
+/*  if (vbiabl)*/
+/*  {*/
+/*    vbiabl->NEXT = beh_explodeVect(vbiabl->NEXT,name);*/
+/*    return beh_explodeVectBiabl(vbiabl,name);*/
+/*  }*/
+/*  else*/
+/*    return vbiabl;*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    beh_explodeVectBiabl()                             */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static vectbiabl_list *beh_explodeVectBiabl(vectbiabl_list *vbiabl, char *name)*/
+/*{*/
+/*  vectbiabl_list    *next   = vbiabl->NEXT;*/
+/*  biabl_list        *biabl  = vbiabl->BIABL;*/
+/*  int                left   = vbiabl->LEFT;*/
+/*  int                right  = vbiabl->RIGHT;*/
+/*  int                i;*/
+/*  vectbiabl_list    *vbiablx;*/
+/*  biabl_list        *new;*/
+/*  int                way;*/
+/**/
+/*  if (left == right)*/
+/*    return vbiabl;*/
+/*  else*/
+/*  {*/
+/*    way             = (left - right) / abs(left - right);*/
+/*    vbiabl->RIGHT   = left;*/
+/*    for ( i = left - way ; way*(i - right) >= 0; i -= way )*/
+/*    {*/
+/*      if (i == left)*/
+/*        vbiablx     = vbiabl;*/
+/*      else*/
+/*        vbiablx     = beh_addvectbiabl(vbiablx,i,i,NULL);*/
+/*      if (( new = beh_explodeBiabl(biabl,abs(i-left),name,NULL) ))*/
+/*        vbiablx->BIABL    = new;*/
+/*    }*/
+/*    return next;*/
+/*  }*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
 /*{{{                    beh_explodeBiabl()                                 */
 /*                                                                          */
 /*                                                                          */

@@ -15,42 +15,42 @@
 
 /* Fonctions externes */
 
-// USER des losig
+/* USER des losig*/
 
 #define RCX_ORIGIN 0x52435801
-// Contient la liste chaînée des nom de signaux ayant servi à construire ce
-// signal.
+/* Contient la liste chaînée des nom de signaux ayant servi à construire ce */
+/* signal.*/
 
-// USER des loins
+/* USER des loins*/
 
 #define RCXPSEUDOVSS 0x52435803
-// Le champ DATA contient un losig correspondant à un signal de masse.
+/* Le champ DATA contient un losig correspondant à un signal de masse. */
 
 #define RCX_VSSNI 0x52435811
-// Défini un signal qu'on ne connait pas mais qu'on considère comme toujours
-// actif.
+/* Défini un signal qu'on ne connait pas mais qu'on considère comme toujours */
+/* actif.*/
 
-// USER des lonodes
+/* USER des lonodes*/
 
 #define RCXNODELEVEL 0x52435819
 #define RCXSHORTCUT  0x5243581B
 
-// Le level d'un noeud
+/* Le level d'un noeud*/
 
-// USER des wire
+/* USER des wire*/
 
 #define RCXTRIANGLE 0x5243581A
-// Le triangle auxquel appartient cette résistance.
+/* Le triangle auxquel appartient cette résistance. */
 
 
-// USER des lofig
+/* USER des lofig*/
 
 #define RCX_SIGVSS 0x52435803
-// Le champ DATA contient un losig correspondant à un signal de masse.
+/* Le champ DATA contient un losig correspondant à un signal de masse. */
 
 #define RCX_MODINS 0x52435807
-// Le champ DATA contient une table de hash qui permet d'obtenir un nom de
-// modèle à partir du nom d'instance.
+/* Le champ DATA contient une table de hash qui permet d'obtenir un nom de*/
+/* modèle à partir du nom d'instance. */
 
 
 #define RCXTABCON ((long)1666)
@@ -60,7 +60,7 @@
 #define RCXNODEBUILD 0x80
 #define RCXNODEINTR  0x01
 
-// user des nodes
+/* user des nodes*/
 #define WIRECONNEXE 0x5243581C
 
 typedef struct wirefromlocon {
@@ -110,7 +110,7 @@ int         rcx_isloconexternal( locon_list* );
 losig_list* rcx_getvssni( lofig_list* );
 char       *rcx_getinsname( loins_list* );
 
-// Récupère le nom du signal utilisé pour le drive
+/* Récupère le nom du signal utilisé pour le drive */
 extern char *rcx_getsigname( losig_list *losig );
 extern void rcx_setsigname( losig_list *losig, char *name );
 

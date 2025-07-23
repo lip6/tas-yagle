@@ -366,7 +366,7 @@ XtPointer call_data;
    if(tmp[i])
     XtFree(tmp[i]) ;
   
-// XalLeaveLimitedLoop();
+/* XalLeaveLimitedLoop();*/
  XtasSetLabelString( XtasDeskMessageField, XTAS_PATINFO );
  XalSetCursor( XtasTopLevel, WAIT ); 
  XalForceUpdate( XtasTopLevel );
@@ -398,7 +398,7 @@ Widget  widget;
 XtPointer client_data;
 XtPointer call_data;
 {
-//  XalLeaveLimitedLoop();
+/*  XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/

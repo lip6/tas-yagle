@@ -365,7 +365,7 @@ hpe_ExtractNetlist(lofig_list *lf, char *name)
     {
       if (isMarkedCell(li))
         {
-          // creation des signaux autour de l'instance
+          /* creation des signaux autour de l'instance*/
           cl=NULL;
           for (lc=li->LOCON; lc!=NULL; lc=lc->NEXT)
             {
@@ -383,25 +383,25 @@ hpe_ExtractNetlist(lofig_list *lf, char *name)
                           addlocon(newlf, getsigname(lc->SIG), ls, UNKNOWN);
                         }
                     }
-                  // ajout des correspondances de signaux
+                  /* ajout des correspondances de signaux*/
                   hpe_add_sig_corresp(lc->SIG, ls);
                   hpe_add_sig_corresp(ls, lc->SIG);
                 }
               cl=addchain(cl,ls);
             }
 
-          // creation de l'instance
+          /* creation de l'instance*/
           cl=reverse(cl);
           newli=addloins(newlf, li->INSNAME, getloadedlofig(li->FIGNAME), cl);
           freechain(cl);
 
-          // ajout des correspondances des connecteurs
+          /* ajout des correspondances des connecteurs*/
           for (lc=li->LOCON, lc0=newli->LOCON; lc!=NULL && lc0!=NULL; lc=lc->NEXT, lc0=lc0->NEXT)
             hpe_add_con_corresp(lc0, lc);
         }
     }  
 
-  // interface de la netlist
+  /* interface de la netlist*/
   for (lc=lf->LOCON; lc!=NULL; lc=lc->NEXT)
     {
       if (isMarkedSig(lc->SIG))
@@ -440,7 +440,7 @@ hpe_AddRC(lofig_list *origlofig, lofig_list* fig)
 
   for (sig = fig->LOSIG; sig; sig = sig->NEXT) 
     {
-      //      if (mbk_LosigIsVSS(sig)) continue;
+      /*      if (mbk_LosigIsVSS(sig)) continue;*/
 
       cir_sig = hpe_get_sig_corresp (sig);
       if (!isMarkedSig(cir_sig)) continue;
@@ -452,9 +452,9 @@ hpe_AddRC(lofig_list *origlofig, lofig_list* fig)
       
       if (!sig->PRCN) addlorcnet (sig);
       
-      // R
+      /* R*/
       rclist = NULL;
-      for (wire = cir_sig->PRCN->PWIRE; wire; wire = wire->NEXT) // to reverse wires
+      for (wire = cir_sig->PRCN->PWIRE; wire; wire = wire->NEXT) /* to reverse wires*/
         rclist = addchain (rclist, wire);
       
       for (ch = rclist; ch; ch = ch->NEXT) 
@@ -465,9 +465,9 @@ hpe_AddRC(lofig_list *origlofig, lofig_list* fig)
         }
       freechain (rclist);
       
-      // C
+      /* C*/
       rclist = NULL;
-      for (ch = cir_sig->PRCN->PCTC; ch; ch = ch->NEXT) // to reverse ctcs
+      for (ch = cir_sig->PRCN->PCTC; ch; ch = ch->NEXT) /* to reverse ctcs*/
         rclist = addchain (rclist, ch->DATA);
 
       for (ch = rclist; ch; ch = ch->NEXT) 
@@ -500,7 +500,7 @@ hpe_AddRC(lofig_list *origlofig, lofig_list* fig)
         }
       freechain (rclist);
       
-      // pnodes des connecteurs
+      /* pnodes des connecteurs*/
       if ((p=getptype(sig->USER, LOFIGCHAIN))!=NULL)
         {
           for (cl=(chain_list *)p->DATA; cl!=NULL; cl=cl->NEXT)
@@ -516,14 +516,14 @@ hpe_AddRC(lofig_list *origlofig, lofig_list* fig)
         }
     }
 
-  // merge des capas si c'est possible
+  /* merge des capas si c'est possible*/
   rcn_mergectclofig(fig);
 
   for (sig = fig->LOSIG; sig; sig = sig->NEXT)
     rcn_add_low_capa_ifneeded(sig, hpe_getground(fig, &gnd));
 }
 
-// ->> Instance variations
+/* ->> Instance variations*/
 
 InstanceVariation *hpe_getvariation(char *name)
 {
@@ -560,7 +560,7 @@ static char *hpe_getcellnamefromtrs(char *trname)
   char buf[1024], *c;
   if (trname==NULL) return "?";
   strcpy(buf, trname);
-  if ((c=strrchr(buf, SEPAR))!=NULL) *c='\0'; // on enleve le nom du transistor
+  if ((c=strrchr(buf, SEPAR))!=NULL) *c='\0'; /* on enleve le nom du transistor*/
   return namealloc(buf);
 }
 
@@ -638,7 +638,7 @@ static void hpe_ApplyVariations(ht *cellvar, lofig_list *destfig)
               unlinkconnectorifneeded(lt->DRAIN, 0, sig);
               unlinkconnectorifneeded(lt->BULK, 0, sig);
             }
-          // temp? process?
+          /* temp? process?*/
         }
     }
 
@@ -672,8 +672,8 @@ hpe_CreateSubNetlist(char *subnetlist, char *topname, chain_list *cells)
       return NULL;
     }
 
-//  viewMarkedInstance(topfig);
-//  viewMarkedSignal(topfig);
+/*  viewMarkedInstance(topfig);*/
+/*  viewMarkedSignal(topfig);*/
   
   subfig = hpe_ExtractNetlist(topfig,subnetlist);
   hpe_AddRC(topfig,subfig);
@@ -682,8 +682,8 @@ hpe_CreateSubNetlist(char *subnetlist, char *topname, chain_list *cells)
   hpe_clean_netlist(topfig);
   hpe_clean_netlist(subfig);
 
-  //viewMarkedInstance(topfig);
-  //viewMarkedSignal(topfig);
+  /*viewMarkedInstance(topfig);*/
+  /*viewMarkedSignal(topfig);*/
   hpe_ApplyVariations(allvariations, subfig);
   allvariations=NULL;
   return subfig;

@@ -20,7 +20,7 @@ typedef struct sortedmutexlist
 typedef struct 
 {
   chain_list      *NOMUTEX ;
-  one_mutex       *MUTEX ;   // eventualy the mutex of victim event.
+  one_mutex       *MUTEX ;   /* eventualy the mutex of victim event.*/
   sortedmutexlist *LIST  ;
 } sortedmutex ;
 

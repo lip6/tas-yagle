@@ -106,7 +106,7 @@ chain_list *yagExpandExpr(ptnode, rootexpr, negate)
         }
     }
     else {
-        //if ((ptcone->TYPE & CNS_CONFLICT) != 0 && (ptcone->TYPE & YAG_HASDUAL) != 0) {
+        /*if ((ptcone->TYPE & CNS_CONFLICT) != 0 && (ptcone->TYPE & YAG_HASDUAL) != 0) {*/
         if ((ptcone->TYPE & YAG_HASDUAL) != 0) {
            ptuser = getptype(ptcone->USER, YAG_DUALEXPR_PTYPE);
         }
@@ -218,24 +218,23 @@ chain_list *yagExpandTerm(ptnode, headarg)
 | Build a biabl_list structure from an abl_pair   |
 +------------------------------------------------*/
 
-biabl_list *yagMakeBiabl(constexpr)
-    abl_pair    *constexpr;
+biabl_list *yagMakeBiabl( abl_pair *exprConst )
 {
     biabl_list  *ptbiabl = NULL;
     chain_list  *condition, *value;
     char        label[16];
 
-    if (constexpr->UP != NULL) {
+    if (exprConst->UP != NULL) {
         sprintf(label, "lb%d", YAG_CONTEXT->YAG_BIABL_INDEX);
         value = createAtom("'1'");
-        condition = copyExpr(constexpr->UP);
+        condition = copyExpr(exprConst->UP);
         ptbiabl = beh_addbiabl(ptbiabl, label, condition, value);
         YAG_CONTEXT->YAG_BIABL_INDEX++;
     }
-    if (constexpr->DN != NULL) {
+    if (exprConst->DN != NULL) {
         sprintf(label, "lb%d", YAG_CONTEXT->YAG_BIABL_INDEX);
         value = createAtom("'0'");
-        condition = copyExpr(constexpr->DN);
+        condition = copyExpr(exprConst->DN);
         ptbiabl = beh_addbiabl(ptbiabl, label, condition, value);
         YAG_CONTEXT->YAG_BIABL_INDEX++;
     }

@@ -141,8 +141,8 @@ typedef struct {
     chain_list        *NM3LST;
     chain_list        *PILE_CONDITION;
   chain_list *CURRENT_EDGE_ABL;
-    chain_list	      *WHERE_ARE_WE; // pour gerer le type des signaux
-//  chain_list        *CUSTOM_GATES;
+    chain_list	      *WHERE_ARE_WE; /* pour gerer le type des signaux*/
+/*  chain_list        *CUSTOM_GATES;*/
   chain_list        *CUSTOM_GATE_INSTANCES;
     char               ERRFLG;
   int CURRENT_DELAY;
@@ -170,7 +170,7 @@ typedef struct {
 
 typedef struct 
 {	
-  char type; // 0 = delay, 1 event sinon not supported
+  char type; /* 0 = delay, 1 event sinon not supported*/
   union 
   {
     bgl_expr    expr;

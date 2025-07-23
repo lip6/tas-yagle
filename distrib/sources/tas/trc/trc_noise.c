@@ -128,8 +128,8 @@ rcx_signal_noise* rcx_noise_scr_detail( lofig_list *lofig,
                           );
   if( tabagr == NULL ) return NULL;
 
-  // Calcule la capacité totale à la masse lorsque tous les agresseurs sont
-  // muets.
+  /* Calcule la capacité totale à la masse lorsque tous les agresseurs sont*/
+  /* muets.*/
   ct=cm;
   for( n=0 ; n < *nbagr ; n++ ) 
     ct = ct + tabagr[n].CLOCALE;
@@ -250,8 +250,8 @@ RCXFLOAT rcx_noise_scr_1 ( lofig_list *lofig,
   tabagr = rcx_buildtabagr( lofig, victime, sizeof( agrnoise ), & nbagr, &cm );
   if( tabagr == NULL ) return 0.0;
 
-  // Calcule la capacité totale à la masse lorsque tous les agresseurs sont
-  // muets.
+  /* Calcule la capacité totale à la masse lorsque tous les agresseurs sont*/
+  /* muets.*/
   ct=cm;
   for( n=0 ; n<nbagr ; n++ ) 
     ct = ct + tabagr[n].CLOCALE;
@@ -424,14 +424,14 @@ RCXFLOAT rcx_noise_scr_2( lofig_list *lofig,
                           char type
                         )
 {
-  agrnoise2     *tabagr ;       // tableau des agresseurs
-  int            nbagr ;        // taille de ce tableau
-  double         cm ;           // capacité de masse
-  double         ct ;           // capacité totale
-  int            idmax ;        // index de l'agresseur ayant le + long front
-  double         tamax ;        // front le plus long
-  agrnoise_data  infos ;        // regroupement des infos pour la résolution
-  int            itmax ;        // le nombre maximum d'itérations
+  agrnoise2     *tabagr ;       /* tableau des agresseurs*/
+  int            nbagr ;        /* taille de ce tableau*/
+  double         cm ;           /* capacité de masse*/
+  double         ct ;           /* capacité totale*/
+  int            idmax ;        /* index de l'agresseur ayant le + long front*/
+  double         tamax ;        /* front le plus long*/
+  agrnoise_data  infos ;        /* regroupement des infos pour la résolution*/
+  int            itmax ;        /* le nombre maximum d'itérations*/
   int            n ;
   double         bt = 0.0 ;
   double         tmin ;
@@ -638,7 +638,7 @@ void rcx_noise_get_tamax( agrnoise2 *tabagr,
   }
 }
 
-// Remplis le TA de agrnoise2
+/* Remplis le TA de agrnoise2*/
 void rcx_noise_calc_ta( agrnoise2 *tabagr, 
                         int nbagr, 
                         rcx_slope *fvmiller,

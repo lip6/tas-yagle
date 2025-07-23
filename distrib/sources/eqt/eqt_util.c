@@ -53,7 +53,7 @@ ht *eqt_ExprToNode=NULL;
 
 
 extern int   eqtparse();
-//extern int   eqtdebug;
+/*extern int   eqtdebug;*/
 eqt_ctx *EQT_CTX = NULL;
 
 extern eqt_node     *eqt_NegNode           (eqt_node *node);
@@ -424,7 +424,7 @@ static void NewValue(eqt_node *node, double value)
            node->UNODE.VALUE = value;
            return;
   avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//  eqt_error(__func__);
+/*  eqt_error(__func__);*/
 }
 
 /*}}}************************************************************************/
@@ -646,7 +646,7 @@ static void SubstN1ByN2(eqt_node *n1,eqt_node *n2, char mode)
     case EQTDOTFUNC_T :
     default :
          avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//         eqt_error(__func__);
+/*         eqt_error(__func__);*/
   }
   n1->TYPE  = n2->TYPE;
   switch (n2->TYPE)
@@ -675,7 +675,7 @@ static void SubstN1ByN2(eqt_node *n1,eqt_node *n2, char mode)
     case EQTDOTFUNC_T :
     default :
          avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//         eqt_error(__func__);
+/*         eqt_error(__func__);*/
   }
   eqt_delnode(n2);
 }
@@ -857,7 +857,7 @@ eqt_node *eqt_dup(eqt_node *n)
          break;
     default :
          avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//         eqt_error(__func__);
+/*         eqt_error(__func__);*/
   }
   
   return res;
@@ -1002,7 +1002,7 @@ double eqt_calcval_rec (eqt_ctx *ctx, eqt_node *node)
       case EQTUSER :
            arg1=eqt_calcval_rec(ctx, Oper(node));
            return eqt_execfunc123(ctx, Operator(node) >> 8, &arg1, NULL, NULL, 1);
-//           return  ctx->FUNCTAB[Operator(node) >> 8] (eqt_calcval_rec(ctx, Oper(node)));
+/*           return  ctx->FUNCTAB[Operator(node) >> 8] (eqt_calcval_rec(ctx, Oper(node)));*/
       case EQTSIN :
            return  sin (eqt_calcval_rec(ctx, Oper(node)));
       case EQTCOS :
@@ -1049,22 +1049,22 @@ double eqt_calcval_rec (eqt_ctx *ctx, eqt_node *node)
                    ^ (int)(eqt_calcval_rec(ctx, Oper2(node)) + 0.5));
       case EQTNOTEQ :
            return mbk_cmpdouble(eqt_calcval_rec(ctx, Oper1(node)), eqt_calcval_rec(ctx, Oper2(node)), EQT_PRECISION)!=0;
-//           return eqt_calcval_rec(ctx, Oper1(node)) != eqt_calcval_rec(ctx, Oper2(node));
+/*           return eqt_calcval_rec(ctx, Oper1(node)) != eqt_calcval_rec(ctx, Oper2(node));*/
       case EQTEQ :
            return mbk_cmpdouble(eqt_calcval_rec(ctx, Oper1(node)), eqt_calcval_rec(ctx, Oper2(node)), EQT_PRECISION)==0;
-//           return eqt_calcval_rec(ctx, Oper1(node)) == eqt_calcval_rec(ctx, Oper2(node));
+/*           return eqt_calcval_rec(ctx, Oper1(node)) == eqt_calcval_rec(ctx, Oper2(node));*/
       case EQTINFEQ :
            return mbk_cmpdouble(eqt_calcval_rec(ctx, Oper1(node)), eqt_calcval_rec(ctx, Oper2(node)), EQT_PRECISION)<=0;
-//           return eqt_calcval_rec(ctx, Oper1(node)) <= eqt_calcval_rec(ctx, Oper2(node));
+/*           return eqt_calcval_rec(ctx, Oper1(node)) <= eqt_calcval_rec(ctx, Oper2(node));*/
       case EQTSUPEQ :
            return mbk_cmpdouble(eqt_calcval_rec(ctx, Oper1(node)), eqt_calcval_rec(ctx, Oper2(node)), EQT_PRECISION)>=0;
-//           return eqt_calcval_rec(ctx, Oper1(node)) >= eqt_calcval_rec(ctx, Oper2(node));
+/*           return eqt_calcval_rec(ctx, Oper1(node)) >= eqt_calcval_rec(ctx, Oper2(node));*/
       case EQTINF :
            return mbk_cmpdouble(eqt_calcval_rec(ctx, Oper1(node)), eqt_calcval_rec(ctx, Oper2(node)), EQT_PRECISION)<0;
-//           return eqt_calcval_rec(ctx, Oper1(node)) < eqt_calcval_rec(ctx, Oper2(node));
+/*           return eqt_calcval_rec(ctx, Oper1(node)) < eqt_calcval_rec(ctx, Oper2(node));*/
       case EQTSUP :
            return mbk_cmpdouble(eqt_calcval_rec(ctx, Oper1(node)), eqt_calcval_rec(ctx, Oper2(node)), EQT_PRECISION)>0;
-//           return eqt_calcval_rec(ctx, Oper1(node)) > eqt_calcval_rec(ctx, Oper2(node));
+/*           return eqt_calcval_rec(ctx, Oper1(node)) > eqt_calcval_rec(ctx, Oper2(node));*/
       case EQTOR :
            return (double)((int)(eqt_calcval_rec(ctx, Oper1(node)) + 0.5)
                    || (int)(eqt_calcval_rec(ctx, Oper2(node)) + 0.5));
@@ -1158,7 +1158,7 @@ void eqt_reduce(eqt_ctx *ctx, eqt_node *node)
                              arg1=Value(n);
                              res=eqt_execfunc123(ctx, Operator(node) >> 8, &arg1, NULL, NULL, 1);
                              break;
-//                              res = ctx->FUNCTAB[Operator(node) >> 8](Value(n));break;
+/*                              res = ctx->FUNCTAB[Operator(node) >> 8](Value(n));break;*/
                case EQTSIN  : res =   sin(Value(n)) ;break;
                case EQTCOS  : res =   cos(Value(n)) ;break;
                case EQTTAN  : res =   tan(Value(n)) ;break;
@@ -1201,7 +1201,7 @@ void eqt_reduce(eqt_ctx *ctx, eqt_node *node)
                              arg2=Value(n2);
                              res=eqt_execfunc123(ctx, Operator(node) >> 8, &arg1, &arg2, NULL, 1);
                              break;
-//                              res = ctx->FUNCTAB2[Operator(node) >> 8](Value(n1),Value(n2));break;
+/*                              res = ctx->FUNCTAB2[Operator(node) >> 8](Value(n1),Value(n2));break;*/
                case EQTATAN2: res = atan2((Value(n1)), (Value(n2)));break;
              }
              NewValue(n1,res);
@@ -1246,7 +1246,7 @@ void eqt_reduce(eqt_ctx *ctx, eqt_node *node)
       case EQTTERNOP_T :
       case EQTDOTFUNC_T :
            avt_errmsg(EQT_ERRMSG, "004", AVT_ERROR, __func__);
-//           eqt_error("%s : can't be done yet on ternary operators",__func__);
+/*           eqt_error("%s : can't be done yet on ternary operators",__func__);*/
     }
 }
 
@@ -1340,7 +1340,7 @@ void eqt_print(eqt_ctx *ctx, eqt_node *node)
 
   if (!node)
     avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//    eqt_error("%s : Noeud vide",__func__);
+/*    eqt_error("%s : Noeud vide",__func__);*/
   else
     switch (node->TYPE)
     {
@@ -1570,8 +1570,8 @@ int eqt_parse (eqt_ctx *ctx)
     int res;
     
     EQT_CTX = ctx;
-//    eqtrestart(NULL);
-//    eqtdebug = 1;
+/*    eqtrestart(NULL);*/
+/*    eqtdebug = 1;*/
     EQT_CTX->EQUA_NODE=NULL;
     res = eqtparse ();
     ctx = EQT_CTX;
@@ -1586,7 +1586,7 @@ eqt_node *eqt_create (eqt_ctx *ctx, char *equa)
 
   if (!equa) {
     avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//    eqt_error(__func__);
+/*    eqt_error(__func__);*/
     return NULL;
   }
 
@@ -1663,7 +1663,7 @@ eqt_ctx *eqt_init (int nbvars)
     
     ctx = (eqt_ctx*) eqt_alloc('c');
     ctx->VAR_HT    = addht (nbvars);
-    ctx->UNIT_HT   = NULL; //addht (25);
+    ctx->UNIT_HT   = NULL; /*addht (25);*/
     ctx->EQUA_NODE = NULL;
     ctx->EQTINDEX = 0;
     ctx->USE_SPICE_UNITS = 0;
@@ -1744,7 +1744,7 @@ extern void eqt_free_param (eqt_param *param)
 {
   if ( param ) {
     mbkfree (param->EBI);
-//    mbkfree (param->VAL);
+/*    mbkfree (param->VAL);*/
     mbkfree (param);
   }
 }
@@ -1884,7 +1884,7 @@ double eqt_getunit (eqt_ctx *ctx, char *unit_name)
     return *(double*)htfactor;
   else {
     avt_errmsg(EQT_ERRMSG, "001", AVT_ERROR, unit_name);
-    //fprintf (stderr, "[EQT WAR] Unknown unit '%s'\n", unit_name);
+    /*fprintf (stderr, "[EQT WAR] Unknown unit '%s'\n", unit_name);*/
     return 1;
   }
 }
@@ -1977,15 +1977,15 @@ double eqt_eval (eqt_ctx *ctx, char *equa, int choix)
 #if 0
   switch (ctx->EQT_MODE_CHOICE) {
     case EQTNORMAL :
-//         n = eqt_create (ctx, equa);
+/*         n = eqt_create (ctx, equa);*/
          n = eqt_loopup_node(equa);
          if (n) {
            d = eqt_calcval (ctx, n);
-//           eqt_freenode (n);
+/*           eqt_freenode (n);*/
          }
          else
           avt_errmsg(EQT_ERRMSG, "002", AVT_ERROR, equa);
-//           eqt_error("%s : can't evaluate '%s'",__func__,equa);
+/*           eqt_error("%s : can't evaluate '%s'",__func__,equa);*/
          break;
     case EQTFAST :
          ctx->EQUA_STR = equa;
@@ -1997,7 +1997,7 @@ double eqt_eval (eqt_ctx *ctx, char *equa, int choix)
          else
           avt_errmsg(EQT_ERRMSG, "002", AVT_ERROR, equa);
          ctx->EQT_GOT_RANDOM=EQT_GOT_RANDOM;
-//           eqt_error("%s : can't evaluate '%s'",__func__,equa);
+/*           eqt_error("%s : can't evaluate '%s'",__func__,equa);*/
          break;
 
   }
@@ -2035,7 +2035,7 @@ void eqt_addfunction (eqt_ctx *ctx, char *name, double (*function) (double))
   if (ctx->EQTINDEX >= EQTMAXNFUNC)
   {
     avt_errmsg(EQT_ERRMSG, "003", AVT_WARNING);
-//    eqt_warning("too much user defined functions");
+/*    eqt_warning("too much user defined functions");*/
     return;
   }
   ctx->NAMETAB[ctx->EQTINDEX] = namealloc (name);
@@ -2066,7 +2066,7 @@ void eqt_addfunction2 (eqt_ctx *ctx, char *name, double (*function) (double, dou
   if (ctx->EQTINDEX >= EQTMAXNFUNC)
   {
     avt_errmsg(EQT_ERRMSG, "003", AVT_WARNING);
-//    eqt_warning("too much user defined functions");
+/*    eqt_warning("too much user defined functions");*/
     return;
   }
   ctx->NAMETAB [ctx->EQTINDEX] = namealloc (name);
@@ -2081,7 +2081,7 @@ void eqt_addfunction3 (eqt_ctx *ctx, char *name, double (*function) (double, dou
   if (ctx->EQTINDEX >= EQTMAXNFUNC)
   {
     avt_errmsg(EQT_ERRMSG, "003", AVT_WARNING);
-//    eqt_warning("too much user defined functions");
+/*    eqt_warning("too much user defined functions");*/
     return;
   }
   ctx->NAMETAB [ctx->EQTINDEX] = namealloc (name);
@@ -2110,7 +2110,7 @@ int eqt_adddotfunc (eqt_ctx *ctx, char *name, chain_list *args, char *expr)
   efe->FUNCNAME=name;
   efe->ARGS=dupchainlst(args);
   for (cl=efe->ARGS; cl!=NULL; cl=cl->NEXT) cl->DATA=namealloc((char *)cl->DATA);
-  efe->EXPR=namealloc(expr); //?
+  efe->EXPR=namealloc(expr); /*?*/
   efe->NODE_EXPR=eqt_create(ctx, efe->EXPR);  
   return 1;
 }
@@ -2124,7 +2124,7 @@ chain_list *eqt_NodeToAbl(eqt_node *node)
   if (!node)
   {
     avt_errmsg(EQT_ERRMSG, "005", AVT_ERROR);
-//    eqt_error("empty node can't make ABL");
+/*    eqt_error("empty node can't make ABL");*/
     return NULL;
   }
 
@@ -2136,7 +2136,7 @@ chain_list *eqt_NodeToAbl(eqt_node *node)
       abl = createAtom ( "'1'" );
     else {
       avt_errmsg(EQT_ERRMSG, "006", AVT_ERROR);
-//      eqt_error("eqt error: integer value in ABL to make");
+/*      eqt_error("eqt error: integer value in ABL to make");*/
       abl = NULL;
     }
     return abl;
@@ -2181,7 +2181,7 @@ chain_list *eqt_NodeToAbl(eqt_node *node)
     }
   if (node->TYPE == EQTTERNOP_T || node->TYPE==EQTDOTFUNC_T)
     avt_errmsg(EQT_ERRMSG, "004", AVT_WARNING, __func__);
-    //  eqt_warning("%s can't be done yet on ternary operators",__func__);
+    /*  eqt_warning("%s can't be done yet on ternary operators",__func__);*/
 
   return NULL;
 }
@@ -2195,7 +2195,7 @@ chain_list *eqt_StrToAbl(eqt_ctx *ctx, char *str)
   node = eqt_create (ctx, str);
   if ( !node ) {
     avt_errmsg(EQT_ERRMSG, "007", AVT_ERROR);
-//    eqt_error("node NULL");
+/*    eqt_error("node NULL");*/
     return NULL;
   }
   else {
@@ -2548,12 +2548,12 @@ eqt_node *eqt_DelNeutral(eqt_node *node)
              eqt_delnode(node);
 
              return eqt_DelNeutral(res);
-             //             NewOper2(node,NULL);
-             //             SubstN1ByN2(node,eqt_DelNeutral(res),'Y');
-             //             
-             //             return node;
+             /*             NewOper2(node,NULL);*/
+             /*             SubstN1ByN2(node,eqt_DelNeutral(res),'Y');*/
+             /*             */
+             /*             return node;*/
            }
-           // negative form of neutral element
+           /* negative form of neutral element*/
            else if ( IsValue(Oper1(node)) && Value(Oper1(node)) == -neutral)
            {
              res            = eqt_NegNode(Oper2(node));
@@ -2562,10 +2562,10 @@ eqt_node *eqt_DelNeutral(eqt_node *node)
              eqt_delnode(node);
 
              return eqt_DelNeutral(res);
-//             NewOper2(node,NULL);
-//             SubstN1ByN2(node,eqt_DelNeutral(res),'Y');
-//
-//             return node;
+/*             NewOper2(node,NULL);*/
+/*             SubstN1ByN2(node,eqt_DelNeutral(res),'Y');*/
+/**/
+/*             return node;*/
            }
            else if ( IsValue(Oper2(node)) && Value(Oper2(node)) == neutral)
            {
@@ -2575,12 +2575,12 @@ eqt_node *eqt_DelNeutral(eqt_node *node)
              eqt_delnode(node);
 
              return eqt_DelNeutral(res);
-//             NewOper1(node,NULL);
-//             SubstN1ByN2(node,eqt_DelNeutral(res),'Y');
-//
-//             return node;
+/*             NewOper1(node,NULL);*/
+/*             SubstN1ByN2(node,eqt_DelNeutral(res),'Y');*/
+/**/
+/*             return node;*/
            }
-           // negative form of neutral element
+           /* negative form of neutral element*/
            else if ( IsValue(Oper2(node)) && Value(Oper2(node)) == -neutral)
            {
              res            = eqt_NegNode(Oper1(node));
@@ -2589,10 +2589,10 @@ eqt_node *eqt_DelNeutral(eqt_node *node)
              eqt_delnode(node);
 
              return eqt_DelNeutral(res);
-//             NewOper1(node,NULL);
-//             SubstN1ByN2(node,eqt_DelNeutral(res),'Y');
-//
-//             return node;
+/*             NewOper1(node,NULL);*/
+/*             SubstN1ByN2(node,eqt_DelNeutral(res),'Y');*/
+/**/
+/*             return node;*/
            }
          }
          NewOper1(node,eqt_DelNeutral(Oper1(node)));
@@ -2708,10 +2708,10 @@ chain_list *eqt_GetVariables(eqt_ctx *ctx, char *equa, int all)
   chain_list *cl=NULL;
 
   ctx->EQT_MODE_CHOICE = EQTNORMAL;
-  //n = eqt_create (ctx, equa);
+  /*n = eqt_create (ctx, equa);*/
   n = eqt_loopup_node(ctx, equa);
   if (n!=NULL) cl=__eqt_GetVariables(ctx, n, NULL, all);
-//  eqt_freenode (n);
+/*  eqt_freenode (n);*/
   return cl;
 }
 
@@ -2941,7 +2941,7 @@ int eqt_linearise(eqt_node *node)
          return 0;
     default :
          avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//         eqt_error(__func__);
+/*         eqt_error(__func__);*/
          return 0;
   }
 }
@@ -3059,7 +3059,7 @@ void eqt_sortBranch(eqt_node *node)
          break;
     default :
          avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//         eqt_error(__func__);
+/*         eqt_error(__func__);*/
          EXIT(0);
   }
 }
@@ -3245,7 +3245,7 @@ eqt_node *eqt_associate(eqt_node *node)
          return node;
     default :
          avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//         eqt_error(__func__);
+/*         eqt_error(__func__);*/
          return NULL;
   }
 }
@@ -3518,7 +3518,7 @@ char *eqt_getEvaluedEquation(eqt_ctx *ctx, char *equation)
   node = eqt_create(ctx, equation);
   if (!node)
     avt_errmsg(EQT_ERRMSG, "008", AVT_ERROR, __func__);
-//    eqt_error(__func__);
+/*    eqt_error(__func__);*/
   else
   {
     node = eqt_DelMinDiv(node);
@@ -3703,7 +3703,7 @@ static double box_muller(double m, double s/*, double sigma_level*/)	/* normal r
         double r ;
 
    if( V_BOOL_TAB[ __AVT_ENABLE_STAT ].VALUE ) {
-//     s/=sigma_level;
+/*     s/=sigma_level;*/
      do 
      {
           if (use_last)		        /* use value from previous call */
@@ -3722,8 +3722,8 @@ static double box_muller(double m, double s/*, double sigma_level*/)	/* normal r
                   w = sqrt( (-2.0 * log( w ) ) / w );
                   y1 = x1 * w;
                   y2 = x2 * w;
-                  // commente pour que le seed fonctionne bien
-                  //use_last = 1;
+                  /* commente pour que le seed fonctionne bien*/
+                  /*use_last = 1;*/
           }
      } while (fabs(y1)>6);
     r = m + y1 * s ;
@@ -3811,7 +3811,7 @@ void eqt_add_spice_extension(eqt_ctx *ctx)
    eqt_addfunction2(ctx, "max",&dmax) ;
    eqt_addfunction2(ctx, "min",&dmin) ;
    eqt_addfunction2(ctx, "sum",&sum) ;
-   eqt_addfunction2(ctx, "v",&v2) ;   ctx->EQTINDEX--; // same name function "v" share the same table position.
+   eqt_addfunction2(ctx, "v",&v2) ;   ctx->EQTINDEX--; /* same name function "v" share the same table position.*/
    eqt_addfunction (ctx, "v",&v1) ;
    eqt_addfunction (ctx, "trunc", &spi_trunc);
    eqt_addfunction (ctx, "int", &spi_trunc);

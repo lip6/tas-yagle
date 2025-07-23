@@ -32,7 +32,7 @@ extern char *beg_gentext;
 /*                                                                          */
 /****************************************************************************/
 
-int                  yyerror();
+int                  yyerror(char*);
 int                  yylex();
 static chain_list   *beg_doAtomAndFreeStr(char *name);
 static int           beg_doIntAndFreeStr(char *number);
@@ -137,11 +137,11 @@ static int           beg_doIntAndFreeStr(char *number);
 %%
 
 all :
-//                          {yydebug=0;}
+/*                          {yydebug=0;}*/
     expression            {BEG_GEN_RES = $1;}
   ;
 
-// le preambule
+/* le preambule*/
 
 bin_operator :
     _OR                   {$$ = OR; }
@@ -318,7 +318,7 @@ expression :
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-int yyerror()
+int yyerror(char* unused)
 {
   beg_initError();
   beg_error(BEG_ERR_PARSER,"%s at %s",BEG_GEN_STR,beg_gentext);

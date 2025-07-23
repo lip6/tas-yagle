@@ -40,7 +40,7 @@ extern char          MVL_CURFIL[];             /* current file's name          *
 struct dct_entry **MVL_HSHTAB;          /* dictionnary's entry points   */
 
 extern void          mvl_error();
-extern struct lofig *mvl_fill();
+extern struct lofig *mvl_fill( struct lofig *lofig_P, struct lofig *lofig_A );
 
 extern struct dct_entry **mvl_initab();
 extern void               mvl_fretab();

@@ -54,24 +54,24 @@ void Scheduler_RunSimulator(Scheduler *S, long Date)
 
   while (S->Date<Date)
     {
-      // check if news patterns are applyed before next simulation step
+      /* check if news patterns are applyed before next simulation step*/
       nextdate=Scheduler_GetNextDate(S);
       Scheduler_CollectPatterns(S, S->Date, nextdate);
 
-      // retreive the 'perhaps' new event date
+      /* retreive the 'perhaps' new event date*/
       nextdate=Scheduler_GetNextDate(S);
       if (nextdate==SCHEDULER_NODATE) break;
 
       Scheduler_GotoDate(S, nextdate, 1);
 
       events=Scheduler_GetTransactions(S, S->Date);
-      // signal value update and event detection
+      /* signal value update and event detection*/
       for (ev=events; ev!=NULL; ev=ev->Next)
         {
           if (S->UpdateFunction(S, ev->ObjectIndex, Scheduler_get_data_from_transaction(ev)))
             ev->TAG|=SCHEDULER_EVENT_DETECTED;
         }
-      // new events propagation
+      /* new events propagation*/
       for (ev=events; ev!=NULL; ev=nev)
         {
           nev=ev->Next;
@@ -80,7 +80,7 @@ void Scheduler_RunSimulator(Scheduler *S, long Date)
 
           Scheduler_FreeTransaction(S, ev);
         }
-      //
+      /**/
     }
   S->Date=Date;
 }

@@ -37,18 +37,18 @@ ssta_delays *CURRENT_STORE=NULL;
 
 static ttvfig_list *sort_ttvfig;
 
-static inline long masked_line_type(long type)
+static  long masked_line_type(long type)
 {
   return type & (TTV_LINE_HZ|TTV_LINE_EV|TTV_LINE_PR|TTV_LINE_RC|TTV_LINE_R|TTV_LINE_S|
                  TTV_LINE_A|TTV_LINE_U|TTV_LINE_O|TTV_LINE_CONT);
 }
 
-static inline long masked_node_type(long type)
+static  long masked_node_type(long type)
 {
   return type & (TTV_NODE_UP|TTV_NODE_DOWN);
 }
 
-static inline long masked_sig_type(long type)
+static  long masked_sig_type(long type)
 {
   return type & TTV_SIG_TYPEALL;
 }
@@ -111,7 +111,7 @@ static chain_list *ttv_getalllines(ttvfig_list *tvf)
   ttvsig_list *tvs;
   int i;
         
-  ttv_disablecache(tvf); // desactivation du cache
+  ttv_disablecache(tvf); /* desactivation du cache*/
   
   if ((ttv_getloadedfigtypes(tvf) & TTV_FILE_DTX)==TTV_FILE_DTX)
     type = TTV_FIND_LINE;
@@ -187,7 +187,7 @@ ttvsig_list **ttv_sortsig(ttvfig_list *tvf, int *nbsig)
   int i, val;
   ttvsig_list **tab;
 
-  ttv_disablecache(tvf); // desactivation du cache
+  ttv_disablecache(tvf); /* desactivation du cache*/
   
   if ((ttv_getloadedfigtypes(tvf) & TTV_FILE_DTX)==TTV_FILE_DTX)
     type = TTV_FIND_LINE;
@@ -207,7 +207,7 @@ ttvsig_list **ttv_sortsig(ttvfig_list *tvf, int *nbsig)
   return tab;
 }
 
-//#define SSTA_DEBUG_SORT
+/*#define SSTA_DEBUG_SORT*/
 ttvline_list **ttv_sortlines(ttvfig_list *tvf, int *nblines, int *key)
 {
   
@@ -307,7 +307,7 @@ void ttv_sendttvdelays(ttvfig_list *tvf, int ctk, int nbpvt)
       {
         strcpy(buf,"ask:writefile32:");
         start=0;
-        desttab=(int *)&buf[16]; // aligne
+        desttab=(int *)&buf[16]; /* aligne*/
         while (ok && total>0)
         {
            if (total>16000) max=16000;
@@ -491,7 +491,7 @@ int ttv_ssta_set_checkloadedstore(ttvfig_list *tvf)
             {
               CURRENT_STORE->ore[CURRENT_STORE->cur_run].error=1;
               avt_errmsg( TTV_ERRMSG, "062", AVT_ERROR, CURRENT_STORE->ore[CURRENT_STORE->cur_run].filename);
-              //printf("error reading ssta stored values in file '%s'\n",CURRENT_STORE->ore[CURRENT_STORE->cur_run].filename);
+              /*printf("error reading ssta stored values in file '%s'\n",CURRENT_STORE->ore[CURRENT_STORE->cur_run].filename);*/
               ret=1;
             }
         }
@@ -695,7 +695,7 @@ int ttv_ssta_buildlinestat(ttvfig_list *tvf)
           
       realnum=0;
       num=start=sd->cur_run;
-      // pass 1 compute mean
+      /* pass 1 compute mean*/
       do 
         {
           ttv_ssta_set_run_number(tvf, num);
@@ -729,7 +729,7 @@ int ttv_ssta_buildlinestat(ttvfig_list *tvf)
           tlsi[i].delaymax.moy/=realnum;
         }
 
-      // pass 2 compute variance
+      /* pass 2 compute variance*/
       do 
         {
           num--;

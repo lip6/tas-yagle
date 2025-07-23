@@ -45,10 +45,9 @@ extern void (* XyagCallbackFileQuitFonction)();
 int XYADEBUG=0;
 
 void 
-XyagExitErrorMessage(Error)
-    int             Error;
+XyagExitErrorMessage( int Error )
 {
-//  return ;
+/*  return ;*/
 
     if (XyagStreamErr != (FILE *) 0) {
         fclose(XyagStreamErr);
@@ -71,9 +70,7 @@ XyagExitErrorMessage(Error)
 |                    XyagInitializeErrorMessage               |
 \------------------------------------------------------------*/
 
-void 
-XyagInitializeErrorMessage(Debug)
-    char            Debug;
+void XyagInitializeErrorMessage( char Debug )
 {
     XyagNormalMode = !Debug;
 
@@ -97,7 +94,7 @@ XyagInitializeErrorMessage(Debug)
     sprintf(XyagErrFileName, "/tmp/%s_err_%ld", XYAG_TOOL_NAME, (long)getpid());
     sprintf(XyagAllFileName, "/tmp/%s_all_%ld", XYAG_TOOL_NAME, (long)getpid());
 
-//    XyagStreamErr = freopen(XyagErrFileName, "w+", stderr);
+/*    XyagStreamErr = freopen(XyagErrFileName, "w+", stderr);*/
     XyagStreamAll = fopen(XyagAllFileName, "w+");
     XyagStreamErr=stderr;
     if (XyagNormalMode) {
@@ -130,7 +127,7 @@ XyagFlushErrorMessage()
 {
     int             Data;
 
-//    return ;
+/*    return ;*/
 
     fflush(XyagStreamErr);
     fseek(XyagStreamErr, 0L, 0);
@@ -139,9 +136,9 @@ XyagFlushErrorMessage()
         fputc(Data, XyagStreamAll);
     }
 
-//    fclose(XyagStreamErr);
+/*    fclose(XyagStreamErr);*/
 
-//    XyagStreamErr = freopen(XyagErrFileName, "w+", stderr);
+/*    XyagStreamErr = freopen(XyagErrFileName, "w+", stderr);*/
 
     if (XyagNormalMode) {
         fflush(XyagStreamOut);
@@ -162,7 +159,7 @@ XyagFlushErrorMessage()
 \------------------------------------------------------------*/
 void XyagCleanErrorMessage()
 {
-//  return ;
+/*  return ;*/
   XyagFlushErrorMessage();
   fflush(XyagStreamAll);
   rewind(XyagStreamAll);
@@ -176,7 +173,7 @@ XyagGetErrorMessage()
     long            Index;
     int             Data;
 
-//    return NULL;
+/*    return NULL;*/
 
     XyagFlushErrorMessage();
 

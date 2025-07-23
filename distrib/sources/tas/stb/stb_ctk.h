@@ -61,11 +61,11 @@
 #define STB_CTK_MAXCHAIN ((int)10)
 
 /* Valeur de retour pour stb_hasslopechanged */
-#define STB_NO  0       // Non
-#define STB_YES 1       // Oui
-#define STB_UNK 2       // L'info n'est pas disponible
+#define STB_NO  0       /* Non*/
+#define STB_YES 1       /* Oui*/
+#define STB_UNK 2       /* L'info n'est pas disponible*/
 
-// Filtres pour les reports.
+/* Filtres pour les reports.*/
 extern long  CTK_REPORT_DELTA_DELAY_MIN;
 extern long  CTK_REPORT_DELTA_SLOPE_MIN;
 extern float CTK_REPORT_CTK_MIN;

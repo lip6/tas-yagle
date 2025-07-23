@@ -55,6 +55,13 @@ void setup_malloc_hook();
 #define  BITS(type)  (8 * (int)sizeof(type))
 #endif
 
+static void loadcatalog( char ***table, int *size, char type );
+static void read_lib();
+static void reallocht( ht *pTable );
+static void banner( char *s, const char *police[][62], int nl );
+static void cartouche(char *tool, char *tv, char *comment, char *date, char *av, char *authors, char *contrib);
+static int indx( char c );
+
 /*******************************************************************************
  * global variables                                                             *
  *******************************************************************************/
@@ -124,7 +131,7 @@ long i_nbchain=0, i_nbptype=0, i_nbnum=0;
 #endif
 
 /* table de hash de namealloc() et namefind() */
-static chain_list **NAME_HASHTABLE=NULL;//[HASHVAL];
+static chain_list **NAME_HASHTABLE=NULL;/*[HASHVAL];*/
 static char buffer[BUFSIZ];                    /* buffer for namealloc strcpy */
 static char str[BUFSIZ];                       /* buffer for concatname       */
 static char tolowertable[1 << BITS(char)];     /* number of chars             */
@@ -657,10 +664,7 @@ void mbkenv()
 /*******************************************************************************
  * fonction readlibfile()                                                       *
  *******************************************************************************/
-void readlibfile(type,fonc,reload)
-     char *type ;
-     void (*fonc)(char *) ;
-     int reload ;
+void readlibfile( char *type, void (*fonc)(char *), int reload )
 {
   FILE *file ;
   char buftype[64] ;
@@ -1252,7 +1256,7 @@ chain_list *append(pt1, pt2)
    } while (0)
 #endif
 
-static inline int SUB_HASH_FUNC(const char *inputname, char *name, int code, char CASE_SENSITIVE)
+static int SUB_HASH_FUNC(const char *inputname, char *name, int code, char CASE_SENSITIVE)
 {
   while (*inputname) {
     if (CASE_SENSITIVE == 'N') *name = tolowertable[(int)*inputname++];
@@ -1266,7 +1270,7 @@ static inline int SUB_HASH_FUNC(const char *inputname, char *name, int code, cha
   return code;
 }
 
-static inline int HASH_FUNC(const char *inputname, char *name, int code, int HASHVAL0)
+static int HASH_FUNC(const char *inputname, char *name, int code, int HASHVAL0)
 {
   code = SUB_HASH_FUNC(inputname, name, code, CASE_SENSITIVE) % HASHVAL0;
   return code;
@@ -1278,13 +1282,13 @@ static inline int HASH_FUNC(const char *inputname, char *name, int code, int HAS
 void CreateNameAllocator(int size, NameAllocator *na, char _case)
 {
   int i;
-  if (size==0) size=5100; // next rehash @10007
+  if (size==0) size=5100; /* next rehash @10007*/
   na->HASHVAL0=size;
   na->NAME_HASHTABLE=mbkalloc(sizeof(chain_list *)*size);
   for (i=0; i<size; i++) na->NAME_HASHTABLE[i]=NULL;
 
   if (tolower(_case)=='y') na->SENSITIVE='Y';
-  else if (tolower(_case)=='p') na->SENSITIVE='P'; // case preserve
+  else if (tolower(_case)=='p') na->SENSITIVE='P'; /* case preserve*/
   else na->SENSITIVE='N';
   
   for (na->namealloc_primes_index=0;
@@ -1301,7 +1305,7 @@ void CreateNameAllocator(int size, NameAllocator *na, char _case)
 void DeleteNameAllocator(NameAllocator *na)
 {
   int i;
-//  chain_list *cl;
+/*  chain_list *cl;*/
   for (i=0; i<na->HASHVAL0; i++) 
     {
       /*      for (cl=na->NAME_HASHTABLE[i]; cl!=NULL; cl=cl->NEXT)
@@ -1318,7 +1322,7 @@ static void NameAlloc_rehash(NameAllocator *na)
   int i, code;
   char *name = buffer;
 
-  //  fprintf(stdout,".rehashing name dico: %d -> %d...",na->HASHVAL0,namealloc_primes[na->namealloc_primes_index+1]); fflush(stdout);
+  /*  fprintf(stdout,".rehashing name dico: %d -> %d...",na->HASHVAL0,namealloc_primes[na->namealloc_primes_index+1]); fflush(stdout);*/
 
   nn=mbkalloc(namealloc_primes[na->namealloc_primes_index+1]*sizeof(chain_list *));
   for (i=0;i<namealloc_primes[na->namealloc_primes_index+1];i++)
@@ -1337,7 +1341,7 @@ static void NameAlloc_rehash(NameAllocator *na)
   na->NAME_HASHTABLE=nn;
   na->HASHVAL0=namealloc_primes[na->namealloc_primes_index+1];
   na->namealloc_primes_index++;
-  //  fprintf(stdout,"done\n");
+  /*  fprintf(stdout,"done\n");*/
 }
 
 char *NameAlloc_sub(NameAllocator *na, char *inputname, int find)
@@ -1371,7 +1375,7 @@ char *NameAlloc_sub(NameAllocator *na, char *inputname, int find)
 
   name=(char *)AdvancedBlockAlloc(na->aba, (unsigned int)(strlen(buffer) + 1));
 
-  //  name = (char *)mbkalloc((unsigned int)(strlen(buffer) + 1));
+  /*  name = (char *)mbkalloc((unsigned int)(strlen(buffer) + 1));*/
   strcpy(name, buffer);
   na->NAME_HASHTABLE[code] = addchain(na->NAME_HASHTABLE[code], name);
 #ifdef ENABLE_STATS
@@ -1450,7 +1454,7 @@ static void namealloc_rehash()
   int i, code;
   char *name = buffer;
 
-  //  fprintf(stdout,".rehashing name dico: %d -> %d...",namealloc_primes[namealloc_primes_index],namealloc_primes[namealloc_primes_index+1]); fflush(stdout);
+  /*  fprintf(stdout,".rehashing name dico: %d -> %d...",namealloc_primes[namealloc_primes_index],namealloc_primes[namealloc_primes_index+1]); fflush(stdout);*/
 
   nn=mbkalloc(namealloc_primes[namealloc_primes_index+1]*sizeof(chain_list *));
   for (i=0;i<namealloc_primes[namealloc_primes_index+1];i++)
@@ -1469,7 +1473,7 @@ static void namealloc_rehash()
   NAME_HASHTABLE=nn;
   namealloc_primes_index++;
 
-  //  fprintf(stdout,"done\n");
+  /*  fprintf(stdout,"done\n");*/
 }
 
 
@@ -1831,7 +1835,7 @@ void leftunconcatname(name, left, right)
 {
   int   i;
 
-  // On recherche le premier séparateur.
+  /* On recherche le premier séparateur. */
 
   for( i=0;
        name[i] != SEPAR && name[i]!= 0 ;
@@ -1840,7 +1844,7 @@ void leftunconcatname(name, left, right)
   str[i]=0;
  
   if( name[i] != SEPAR ) {
-    // Il n'y a plus de séparateur : il ne reste donc que le right.
+    /* Il n'y a plus de séparateur : il ne reste donc que le right. */
     *right = name;
     *left  =NULL;
   } else {
@@ -1861,17 +1865,17 @@ void rightunconcatname(name, left, right)
 {
   int   i, m;
 
-  // Positionne sur le dernier caractère;
+  /* Positionne sur le dernier caractère; */
   for( i=0, m=-1 ; name[i] ; i++)
     if( name[i] == SEPAR )
       m=i;
 
   if( m == -1 ) {
-    // Il n'y a plus de séparateur : il ne reste donc que le left
+    /* Il n'y a plus de séparateur : il ne reste donc que le left */
     *right = NULL;
     *left  = name;
   } else {
-    // strlcpy( str, name, m );   pas disponible sous Solaris 5.6
+    /* strlcpy( str, name, m );   pas disponible sous Solaris 5.6*/
     for( i=0 ; i < m ; i++ ) 
       str[i] = name[i];
     str[i] = '\0';
@@ -2064,10 +2068,7 @@ void setcataloglist(chain_list *cl)
  * read the catalog from disk checking the given type                           *
  *******************************************************************************/
 
-static void loadcatalog(table, size, type)
-     char ***table;
-     int *size;
-     char type;
+static void loadcatalog( char ***table, int *size, char type )
 {
   void *pt;
   char attrib;
@@ -2308,7 +2309,7 @@ ht *addht(len)
 ht *dupht(ht *orig)
 {
   ht *dest;
-  //htitem *hi;
+  /*htitem *hi;*/
   int i;
   
   if( V_BOOL_TAB[__AVT_USEHT_V2].VALUE )
@@ -2319,7 +2320,7 @@ ht *dupht(ht *orig)
   dest->pElem=(htitem *)mbkalloc(sizeof(htitem)*orig->length);
   for (i=0; i<orig->length; i++)
     memcpy(&dest->pElem[i], &orig->pElem[i], sizeof(htitem));
-  //  memcpy(dest->pElem, orig->pElem, sizeof(htitem)*orig->length);
+  /*  memcpy(dest->pElem, orig->pElem, sizeof(htitem)*orig->length);*/
   return dest;
 }
 /*******************************************************************************
@@ -2688,7 +2689,7 @@ void scanhtkey(pTable, first, nextkey, nextitem)
  *******************************************************************************/
 void viewht(pTable, pout)
      ht *pTable;
-     char *(*pout)();
+     char *(*pout)(void*);
 {
   long i;
   htitem *pEl = pTable->pElem;
@@ -2710,8 +2711,7 @@ void viewht(pTable, pout)
 /*******************************************************************************
  * realloc space to adapt hash table size to number of entries                  *
  *******************************************************************************/
-static void reallocht(pTable)
-     ht *pTable;
+static void reallocht( ht *pTable )
 {
   ht *tabBis;
   htitem *pEl;
@@ -3047,8 +3047,7 @@ void deldtitem(table,item)
 #define ASCENT 13
 static char screen[LINES][WINDOW_SIZE];
 
-static int indx(c)
-     char c;
+static int indx( char c )
 {
   return c >= '0' && c <= '9' ? (int)c - '0'
     : isupper((int)c) ? (int)10 + c - 'A'
@@ -3056,13 +3055,10 @@ static int indx(c)
     : -1;
 }
 
-static void banner(s, police, nl)
-     char *s;
-     char *police[][62];
-     int nl;
+static void banner( char *s, const char *police[][62], int nl )
 {
   int i, j, k, l, m;
-  char *line;
+  const char *line;
 
   /* rince off :
      the buffer is filled with nul characteres. */
@@ -3112,8 +3108,7 @@ static void banner(s, police, nl)
   }
 }
 
-static void cartouche(tool, tv, comment, date, av, authors, contrib)
-     char *tool, *tv, *comment, *date, *av, *authors, *contrib;
+static void cartouche(char *tool, char *tv, char *comment, char *date, char *av, char *authors, char *contrib)
 {
   int i, j, k, l;
   static char *msg[6] = {
@@ -3220,7 +3215,7 @@ void alliancebanner(tool, tv, comment, date, av)
 ptype_list *HEAD_MBKDEBUG = NULL;
 char        MBK_DEBUG_ON  = 0;
 
-static void trapdebug()
+static void trapdebug(int unused)
 {
   ptype_list *ScanDebug;
 
@@ -3335,7 +3330,7 @@ void *AddHeapItem(HeapAlloc *myheap)
 	*(void **)pt = pt+myheap->size;
 	pt+=myheap->size;
       }
-    //    printf("<%d>",(pt-(char *)myheap->HEAD)/myheap->size);
+    /*    printf("<%d>",(pt-(char *)myheap->HEAD)/myheap->size);*/
     *(void **)pt = NULL;
 #ifdef ENABLE_STATS
     myheap->__SIZE__+=sizeof(chain_list *)+myheap->granularity*myheap->size;
@@ -3546,7 +3541,7 @@ static void ht_v2_rehash(ht_v2 *h)
       return;
     }
 
-  //  fprintf(stdout,".rehashing ht: %d -> %d...",h->size,namealloc_primes[prm]); fflush(stdout);
+  /*  fprintf(stdout,".rehashing ht: %d -> %d...",h->size,namealloc_primes[prm]); fflush(stdout);*/
 
   nn=(htitem_v2 **)mbkalloc(sizeof(htitem_v2 *)* namealloc_primes[prm]);
   for (i=0;i<namealloc_primes[prm];i++)
@@ -3565,7 +3560,7 @@ static void ht_v2_rehash(ht_v2 *h)
   mbkfree(h->ITEM_HASHTABLE);
   h->ITEM_HASHTABLE=nn;
   h->size=namealloc_primes[prm];
-  //  fprintf(stdout,"done\n");
+  /*  fprintf(stdout,"done\n");*/
 }
 
 
@@ -3811,7 +3806,7 @@ void *my_malloc_hook(char *file, int line, size_t size)
   val++;
   addhtitem_v2(MALLOC_HISTO, (void *)size, val);
 
-  //  printf ("malloc (%ld) returns %p\n", (unsigned long)size, result);
+  /*  printf ("malloc (%ld) returns %p\n", (unsigned long)size, result);*/
   *(long *)result=size;
   *(long *)(result+sizeof(long))=0x12345678;
   MALLOC_HISTO_mutex=1;
@@ -3848,7 +3843,7 @@ void my_free_hook(void *block)
   else addhtitem_v2(MALLOC_HISTO, (void *)size, val-1);
   MALLOC_HISTO_mutex=1;
   free (result);
-  //  printf ("free (%ld)\n", (unsigned long)size, result);
+  /*  printf ("free (%ld)\n", (unsigned long)size, result);*/
 }
 
 void *my_realloc_hook(char *file, int line, void *block, size_t size)
@@ -4243,8 +4238,8 @@ unsigned int mbk_get_a_seed()
 }
 
 
-// algo Random Number generator 'Mersenne Twister'
-// simplifie a mort par zinaps
+/* algo Random Number generator 'Mersenne Twister'*/
+/* simplifie a mort par zinaps*/
 
 #define MERS_N   1
 #define MERS_M   1
@@ -4264,14 +4259,14 @@ unsigned int mbk_rand_r(unsigned int *mt)
 }
 #else
 unsigned int mbk_rand_r(unsigned int *mt) {
-   // Generate 32 random bits
+   /* Generate 32 random bits*/
    unsigned int y;
-//   int mti;
+/*   int mti;*/
 
-//   if (mti >= MERS_N) {
-      // Generate MERS_N words at one time
-      const unsigned int LOWER_MASK = (1LU << MERS_R) - 1;       // Lower MERS_R bits
-      const unsigned int UPPER_MASK = 0xFFFFFFFF << MERS_R;      // Upper (32 - MERS_R) bits
+/*   if (mti >= MERS_N) {*/
+      /* Generate MERS_N words at one time*/
+      const unsigned int LOWER_MASK = (1LU << MERS_R) - 1;       /* Lower MERS_R bits*/
+      const unsigned int UPPER_MASK = 0xFFFFFFFF << MERS_R;      /* Upper (32 - MERS_R) bits*/
       static const unsigned int mag01[2] = {0, MERS_A};
 
       int kk;
@@ -4285,13 +4280,13 @@ unsigned int mbk_rand_r(unsigned int *mt) {
 
       y = (mt[MERS_N-1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
       mt[MERS_N-1] = mt[MERS_M-1] ^ (y >> 1) ^ mag01[y & 1];
-//      mti = 0;
-//   }
+/*      mti = 0;*/
+/*   }*/
 
    y = mt[0];
 
 #if 1
-   // Tempering (May be omitted):
+   /* Tempering (May be omitted):*/
    y ^=  y >> MERS_U;
    y ^= (y << MERS_S) & MERS_B;
    y ^= (y << MERS_T) & MERS_C;

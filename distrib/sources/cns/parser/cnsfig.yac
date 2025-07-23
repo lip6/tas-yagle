@@ -67,7 +67,7 @@ static long            infoval;
 static edge_list      *ptedgeout = NULL;
 static sbrstruc       *ptbrstruc = NULL;
 static ptype_list     *ptuser = NULL;
-//static chain_list     *ptlotrschain = NULL;
+/*static chain_list     *ptlotrschain = NULL;*/
 static chain_list     *ptloconchain = NULL;
 static locon_list     *ptextlocon = NULL;
 static chain_list     *ptextloconlist = NULL;
@@ -101,9 +101,9 @@ static ptype_list     *contextparam =NULL;
 static char           *subcktname;
 static int             annotate;
 
-int yyerror ();
+int yyerror (char*);
 int yylex ();
-static void cns_parserexit();
+static void cns_parserexit(int);
 %}
 
 %union {
@@ -410,7 +410,7 @@ figname  :  cnsSTRING {
                ptbrstruc->BRGND = (branch_list *)NULL;
                ptbrstruc->BRVSS = (branch_list *)NULL;
                ptuser = (ptype_list *)NULL;
-//               ptlotrschain = (chain_list *)NULL;
+/*               ptlotrschain = (chain_list *)NULL;*/
                ptloconchain = (chain_list *)NULL;
                ptheadlocon = (locon_list *)NULL;
                ptextlocon = (locon_list *)NULL;
@@ -978,7 +978,7 @@ cone     :  /* empty */
                ptbrstruc->BRGND = (branch_list *)NULL;
                ptbrstruc->BRVSS = (branch_list *)NULL;
                ptuser = (ptype_list *)NULL;
-//               ptlotrschain = (chain_list *)NULL;
+/*               ptlotrschain = (chain_list *)NULL;*/
                freechain(ptloconchain);
                ptloconchain = (chain_list *)NULL;
                ptextlocon = (locon_list *)NULL;
@@ -1311,7 +1311,7 @@ links    :  /* empty */
                      else {
                         ptlotrs->USER = addptype(ptlotrs->USER, CNS_LINKTYPE, (void *)$3);
                      }
-//                     ptlotrschain = addchain(ptlotrschain, (char *)ptlotrs);
+/*                     ptlotrschain = addchain(ptlotrschain, (char *)ptlotrs);*/
                      ptlink = addlink(ptlink, $3, (void *)ptlotrs, getlosig(ptlofig, sigidx));
                      if (getptype(ptlotrs->USER, (long)CNS_SEEN) == NULL) {
                         ptlotrs->USER = addptype(ptlotrs->USER, CNS_SEEN, (void *)NULL);

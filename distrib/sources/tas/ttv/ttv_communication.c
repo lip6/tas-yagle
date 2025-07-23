@@ -1,6 +1,6 @@
 
 static ttvline_list *TTV_COM_CURRENT_LINE;
-static int TTV_COM_DELAY_COMPUTATION_TYPE; // 0->MIN 1->MAX
+static int TTV_COM_DELAY_COMPUTATION_TYPE; /* 0->MIN 1->MAX*/
 
 static int ttv_communication(int op, void *data)
 {

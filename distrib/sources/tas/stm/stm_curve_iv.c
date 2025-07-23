@@ -59,7 +59,7 @@ stm_curve* stm_curve_iv_pi( timing_model *model,
 
   curve = stm_curve_alloc( model, t0, tmax, 0 );
 
-  // Comportement dynamique
+  /* Comportement dynamique*/
 
   param = stm_simu_param_standard;
   param.CURVE = curve;
@@ -114,17 +114,17 @@ stm_curve* stm_curve_iv_pi( timing_model *model,
       ts=curve->TIME.DATA[n].T;
   }
   
-  // 2) calcule du conflit
+  /* 2) calcule du conflit*/
   q=iv->IV_CONF.PCONF0 + fin * iv->IV_CONF.PCONF1;
   q=q/(ts-te)/1000.0*vdd/2.0;
   
-  // 3) remplissage du tableau
+  /* 3) remplissage du tableau*/
   for( n=0 ; n < curve->TIME.NBPOINTS && curve->TIME.DATA[n].T < ts ; n++ ) {
     if( curve->TIME.DATA[n].T >= te )
       curve->TIME.DATA[n].ICONF = q ;
   }
   
-  // Comportement statique
+  /* Comportement statique*/
 
   nbe = 30;
   nbs = 30;
@@ -141,7 +141,7 @@ stm_curve* stm_curve_iv_pi( timing_model *model,
       vs = stm_mod_vdd(model)*ns/nbs;
       curve->STATIC.VS[ns] = fabs(vs) ;
       
-      // On joue le jeu : on recalcule i
+      /* On joue le jeu : on recalcule i*/
       
       r = stm_modiv_calc_is( iv, ve, vs, &i );
       if( r )

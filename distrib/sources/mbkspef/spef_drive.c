@@ -200,10 +200,10 @@ void spef_printconn(FILE *file, losig_list *ptsig)
                 if(ptcon->TYPE == 'I'){
                     fprintf(file, "*I %s%c%s %c *D %s%s\n", spef_getitem((loins_list*)ptcon->ROOT, 'i', buf), SPEF_INFO->DELIMITER, convertname(ptcon->NAME, buf2), direction, ((loins_list*)ptcon->ROOT)->FIGNAME, getpnode(ptcon, buf1, incompmode));
                 }
-                else // zinaps : 24/4/2003
+                else /* zinaps : 24/4/2003*/
                   if(ptcon->TYPE == 'T'){
                     fprintf(file, "*I %s%c%c %c *D %s%s\n", spef_getitem((lotrs_list*)ptcon->ROOT, 't', buf), SPEF_INFO->DELIMITER, tolower(ptcon->NAME[0]), direction, getlotrsmodel((lotrs_list*)ptcon->ROOT), getpnode(ptcon, buf1, incompmode));
-                  } // end zinaps
+                  } /* end zinaps*/
                   else{
                     fprintf(file, "*P %s %c%s\n", convertname(ptcon->NAME, buf), direction, getpnode(ptcon, buf1, incompmode));
                 }
@@ -237,10 +237,10 @@ void spef_printnameorindex(FILE *file, losig_list *ptsig, long node)
                         else
                             fprintf(file, "%s%c%s ", spef_getitem((loins_list*)ptcon->ROOT, 'i', buf), SPEF_INFO->DELIMITER, ptcon->NAME);
                     }
-                    else  // start zinaps
+                    else  /* start zinaps*/
                       if(ptcon->TYPE == 'T'){
                         fprintf(file, "%s%c%c ", spef_getitem((lotrs_list*)ptcon->ROOT, 't', buf), SPEF_INFO->DELIMITER, tolower(ptcon->NAME[0]));
-                    } // end zinaps
+                    } /* end zinaps*/
                     else{
                         if (strchr(ptcon->NAME, ' '))
                             fprintf(file, "%s%c%d%c ", vectorradical(ptcon->NAME), SPEF_INFO->PREFIX_BUS_DELIMITER, 
@@ -289,7 +289,7 @@ void spef_printnamemap(FILE *file, lofig_list *ptfig)
                     fprintf(file, "*%ld %s\n", index, getsigname(losig));
                 addnameindex(&losig->USER, &index);
             }
-//    }
+/*    }*/
     for(lt=ptfig->LOTRS;lt!=NULL;lt=lt->NEXT)
     {
       if (lt->TRNAME!=NULL && strlen(lt->TRNAME)>7)

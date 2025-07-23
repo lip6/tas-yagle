@@ -37,7 +37,7 @@ char *CURLIBTYPE = NULL ;
 char *FILENAME = NULL ; 
 
 static mcc_modellist *MCC_MODEL = NULL ;
-//static mcc_explist * MCC_EXP = NULL ; 
+/*static mcc_explist * MCC_EXP = NULL ; */
 static char *SUBCKTNAME = NULL ;
 static char *EXPRESSION = NULL ;
 static lofig_list *LOFIG = NULL ;
@@ -88,7 +88,7 @@ int yylex();
 
 %%
 
-spiceobj_list      : // {mcc_moddebug = 1;}
+spiceobj_list      : /* {mcc_moddebug = 1;}*/
                    | spiceobj_list spiceobj
                    {
                     MCC_HEADTECHNO->EXPR = (mcc_explist *)reverse((chain_list *)MCC_HEADTECHNO->EXPR) ;

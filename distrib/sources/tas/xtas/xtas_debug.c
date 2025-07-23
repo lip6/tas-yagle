@@ -306,14 +306,14 @@ XtPointer call_data;
     
             else { 
                 strcpy(cmd_list , "");
-//                chain = ttv_getlrcmd(XtasMainParam->ttvfig, ptSig);
-//                for(ch = chain; ch ; ch = ch->NEXT) {
-//                    ttv_getsigname(XtasMainParam->ttvfig, buf, ((ttvevent_list*)ch->DATA)->ROOT);
-//                    strcat(cmd_list, buf); 
-//                    strcat(cmd_list, " ");
-//                }
-//                if(chain)
-//                    freechain(chain);
+/*                chain = ttv_getlrcmd(XtasMainParam->ttvfig, ptSig);*/
+/*                for(ch = chain; ch ; ch = ch->NEXT) {*/
+/*                    ttv_getsigname(XtasMainParam->ttvfig, buf, ((ttvevent_list*)ch->DATA)->ROOT);*/
+/*                    strcat(cmd_list, buf); */
+/*                    strcat(cmd_list, " ");*/
+/*                }*/
+/*                if(chain)*/
+/*                    freechain(chain);*/
                 
                 chain = ttv_getlrcmd(XtasMainParam->ttvfig, ptOtherSig);
                 for(ch = chain; ch ; ch = ch->NEXT) {
@@ -458,7 +458,7 @@ void XtasStbDebug ()
                                                 XmNwidth,            XtasDebugWindowWidth,
                                                 XmNheight,           XtasDebugWindowHeight,
                                                 XmNallowShellResize, False,
-//		    									XmNtitle,            XTAS_NAME" : Debug...",
+/*		    									XmNtitle,            XTAS_NAME" : Debug...",*/
 		    									XmNtitle,            buf,
                                                 XmNdeleteResponse,   XmDESTROY,
                                                 NULL) ;
@@ -516,7 +516,7 @@ void XtasStbDebug ()
     	form1 = XtVaCreateManagedWidget ("XtasSubForm", xmFormWidgetClass, paned_window, NULL) ;
     	subform = XtVaCreateManagedWidget ("XtasSubForm", xmFormWidgetClass, form1, 
                                                 XmNtopAttachment,   XmATTACH_FORM,
-//                                                XmNbottomAttachment,XmATTACH_FORM,
+/*                                                XmNbottomAttachment,XmATTACH_FORM,*/
                                                 XmNleftAttachment,  XmATTACH_FORM,
                                                 XmNrightAttachment, XmATTACH_FORM,
                                                 NULL) ;
@@ -710,8 +710,8 @@ void XtasStbDebug ()
                                            XmNisAligned,       True,
                                            XmNentryAlignment,  XmALIGNMENT_BEGINNING,
                                            XmNspacing,         40,
-                              //             XmNradioBehavior,   True,
-                              //             XmNradioAlwaysOne,  True,
+                              /*             XmNradioBehavior,   True,*/
+                              /*             XmNradioAlwaysOne,  True,*/
                                            NULL) ;
         /* 1ere ligne */
         n = 0;
@@ -965,12 +965,12 @@ void XtasStbDebug ()
             /* Vertical Separator */
             n = 0;
             XtSetArg ( args[n],  XmNtopAttachment,      XmATTACH_FORM   ); n++;
-    //        XtSetArg ( args[n],  XmNtopOffset,          5               ); n++;
+    /*        XtSetArg ( args[n],  XmNtopOffset,          5               ); n++;*/
             XtSetArg ( args[n],  XmNbottomAttachment,   XmATTACH_FORM   ); n++;
-    //        XtSetArg ( args[n],  XmNbottomOffset,       5               ); n++;
+    /*        XtSetArg ( args[n],  XmNbottomOffset,       5               ); n++;*/
             XtSetArg ( args[n],  XmNleftAttachment,     XmATTACH_WIDGET ); n++;
             XtSetArg ( args[n],  XmNleftWidget,         subform2        ); n++;
-    //        XtSetArg ( args[n],  XmNleftOffset,         5               ); n++;
+    /*        XtSetArg ( args[n],  XmNleftOffset,         5               ); n++;*/
             XtSetArg ( args[n],  XmNorientation,        XmVERTICAL      ); n++;
             separator = XtCreateManagedWidget("XtasSeparator", xmSeparatorWidgetClass, subform1 , args, n);
     
@@ -1184,7 +1184,7 @@ void XtasStbDebug ()
                                             XmNtopWidget,       chronoframe,
                                             XmNbottomAttachment,XmATTACH_FORM,*/
                                             XmNrightAttachment, XmATTACH_FORM,
-//                                            XmNwidth,           130,
+/*                                            XmNwidth,           130,*/
                                             NULL);
         XtasDebugLabelPeriod = XtVaCreateManagedWidget ("XtasDebugLabelPeriod", 
                                                         xmLabelWidgetClass,
@@ -1304,7 +1304,7 @@ XtPointer client_data;
 XtPointer call_data;
 {
     XtUnmanageChild(widget);
-  //XalLeaveLimitedLoop () ;
+  /*XalLeaveLimitedLoop () ;*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1317,7 +1317,7 @@ XtPointer call_data;
 	XtasMargin = atoi (XmTextGetString (XtasSelectMarginField))*TTV_UNIT ;
         XtasSetDebugSignal (XmTextGetString (XtasSelectDebugField)) ;
 	XtasStbDebug () ;
-    //XalLeaveLimitedLoop();
+    /*XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1544,5 +1544,5 @@ XtPointer call_data ;
 	}
 
   	XtManageChild (XtasSelectDebugWidget) ;
-  //	XalLimitedLoop(XtasSelectDebugWidget) ;
+  /*	XalLimitedLoop(XtasSelectDebugWidget) ;*/
 }

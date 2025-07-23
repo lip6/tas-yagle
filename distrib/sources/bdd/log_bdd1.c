@@ -325,8 +325,8 @@ addInputCct_no_NA (pC, name)
       *ptName = name;
       if (pC->countI == SHRT_MAX) {
         avt_errmsg(LOG_ERRMSG,"001",AVT_FATAL);
-//          fprintf(stderr, "[LOG ERR] Maximum number of variables for BDDs reached\n");
-//          EXIT(1);
+/*          fprintf(stderr, "[LOG ERR] Maximum number of variables for BDDs reached\n");*/
+/*          EXIT(1);*/
       }
       pC->countI++;
       createNodeTermBdd (index);
@@ -503,8 +503,8 @@ composeCct (pC, name, pt)
   if (index == EMPTYTH)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"178");
-//      printf ("bdd1-composeCct : la variable a expanser n'est pas une entree\n");
-//      EXIT (-1);
+/*      printf ("bdd1-composeCct : la variable a expanser n'est pas une entree\n");*/
+/*      EXIT (-1);*/
     }
   for (i = 0; i < (pC->pTO)->length; i++)
     {

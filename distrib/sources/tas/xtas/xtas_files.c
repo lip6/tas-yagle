@@ -90,7 +90,7 @@ switch ((int)(long)client_data) {
         XtasStbSaveSelectFileOk ();
         break ;
 }
-//XalLeaveLimitedLoop();
+/*XalLeaveLimitedLoop();*/
 XalSetCursor( XtasDeskMainForm, NORMAL );
 XalForceUpdate( XtasTopLevel );
 if (  XtasDataBaseRequester )
@@ -178,7 +178,7 @@ if(XtasDataFileName != NULL)
 XtasDataFileName = NULL ;
 
 XtManageChild( XtasDataBaseRequester );
-//XalLimitedLoop( XtasDataBaseRequester ); 
+/*XalLimitedLoop( XtasDataBaseRequester ); */
 
 }
 
@@ -251,10 +251,10 @@ XtPointer   call_data;
     mbkfree ((char*)client_data);
     XalSetCursor( XtasTopLevel, NORMAL );
     XalForceUpdate( XtasTopLevel );
-//    if (  XtasInfFileRequester ) {
+/*    if (  XtasInfFileRequester ) {*/
         XtDestroyWidget (XtasInfFileRequester);
         XtasInfFileRequester = NULL;
-//    }
+/*    }*/
 }
    
 

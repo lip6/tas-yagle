@@ -11,7 +11,7 @@ void debug()
 {
 }
 
-//#devicename   {alphanum}({hdiv}|{alphanum}|{vector})*
+/*#devicename   {alphanum}({hdiv}|{alphanum}|{vector})**/
 %}
 %s IDENTIFIER
 %x COMMENT DOT RIPITALL

@@ -2,7 +2,7 @@
 #include "ttv.h"
 
 #define TTV_PROPAGATE_IF_DIFFERENT 1
-//#define TTV_PROPAGATE_IF_DIFFERENT 2
+/*#define TTV_PROPAGATE_IF_DIFFERENT 2*/
 #define SAMESLOPELIMIT 0.01
 
 long TTV_PROPAGATE_FORCED_SLOPE=TTV_NOTIME;
@@ -19,7 +19,7 @@ typedef struct propagate_cache
 
 static HeapAlloc propagate_heap;
 
-static inline int ttv_get_propagate_cache_delay_slope(ttvline_list *tl, long slope, float capa, long *res_slope, long *res_delay)
+static  int ttv_get_propagate_cache_delay_slope(ttvline_list *tl, long slope, float capa, long *res_slope, long *res_delay)
 {
   ptype_list *pt;
   propagate_cache *pc;
@@ -38,7 +38,7 @@ static inline int ttv_get_propagate_cache_delay_slope(ttvline_list *tl, long slo
   return 0;
 }
 
-static inline void ttv_add_propagate_cache_delay_slope(ttvline_list *tl, long slope, float capa, long res_slope, long res_delay)
+static  void ttv_add_propagate_cache_delay_slope(ttvline_list *tl, long slope, float capa, long res_slope, long res_delay)
 {
   propagate_cache *npc;
   if (useheap)
@@ -92,7 +92,7 @@ static void initprop(ttvpropinfo_list *prop, long slope)
 static ttvpropinfo_list *createpropinfo(ttvevent_list *a, int usectk)
 {
   ttvpropinfo_list *prop;
-  prop=(ttvpropinfo_list *)mbkalloc(sizeof(ttvpropinfo_list)); //<= par heap
+  prop=(ttvpropinfo_list *)mbkalloc(sizeof(ttvpropinfo_list)); /*<= par heap*/
   prop->CTK.PWL=NULL;
   prop->CTK.SLEW=TTV_NOSLOPE;
   prop->CTK.DELAY=TTV_NOTIME;
@@ -361,7 +361,7 @@ static int mustpropagate_tmalike(ttvline_list *prevline, chain_list *cur, chain_
   return 0;
 }
 
-static inline int ttvprop_islastgaterc(chain_list *cl)
+static  int ttvprop_islastgaterc(chain_list *cl)
 {
   ttvline_list *curl, *nextl;
   if (cl->NEXT==NULL) return 1;
@@ -406,14 +406,14 @@ long ttv_RecomputeLineChain(ttvfig_list *tvf, ttvfig_list *tvi, chain_list *orde
           initprop(input, inputSLEW);
         }
 
-      if (prevline!=NULL && prevline->FIG==NULL) prevline=NULL; // contact line
+      if (prevline!=NULL && prevline->FIG==NULL) prevline=NULL; /* contact line*/
       input->PREVIOUS_LINE=prevline;
 
-      res=givepropinfo(tl->ROOT, doref); //?
+      res=givepropinfo(tl->ROOT, doref); /*?*/
 
       if (tl->FIG!=NULL)
         {
-          if (cl!=ordered_line_list && prevline==NULL) // pas d'access
+          if (cl!=ordered_line_list && prevline==NULL) /* pas d'access*/
             {
               ttv_getnodeslope(tvf,tvi,tl->ROOT,&oldslope,type);
               initprop(input, oldslope);
@@ -436,7 +436,7 @@ long ttv_RecomputeLineChain(ttvfig_list *tvf, ttvfig_list *tvi, chain_list *orde
           {
             if (doref && sf!=NULL)
              {
-               lastmode=rcx_crosstalkactive(RCX_MILLER); //?
+               lastmode=rcx_crosstalkactive(RCX_MILLER); /*?*/
                if((tl->TYPE & TTV_LINE_RC) == TTV_LINE_RC)
                  stb_set_ctk_information(sf, tl->NODE, type, &ctkinfo);
                else
@@ -460,7 +460,7 @@ long ttv_RecomputeLineChain(ttvfig_list *tvf, ttvfig_list *tvi, chain_list *orde
             if (doref && sf!=NULL)
              {
                stb_release_ctk_information(&ctkinfo);
-               rcx_crosstalkactive(lastmode); // ?
+               rcx_crosstalkactive(lastmode); /* ?*/
              }
           }
           if (doref)
@@ -505,7 +505,7 @@ long ttv_RecomputeLineChain(ttvfig_list *tvf, ttvfig_list *tvi, chain_list *orde
   {
     if (0/*V_BOOL_TAB[__STM_USE_MSC].VALUE*/)
       {
-        // clean pwl 
+        /* clean pwl */
         for (cl=ordered_line_list; cl!=NULL; cl=cl->NEXT)
           {
             tl=(ttvline_list *)cl->DATA;
@@ -564,7 +564,7 @@ long ttv_RecomputeLineChain(ttvfig_list *tvf, ttvfig_list *tvi, chain_list *orde
           }
         if (startnode!=tl->ROOT)
           {
-            res->CTK.FIND_DELAY=totaldelay; // 0 ?
+            res->CTK.FIND_DELAY=totaldelay; /* 0 ?*/
             if (doref) res->REF->FIND_DELAY=totaldelayref;
           }
       }
@@ -675,7 +675,7 @@ chain_list *ttv_DoPropagation_PRECISION_LEVEL1(ttvfig_list *tvf, ttvfig_list *tv
     long oslop;
     char *n1, *n2;
     double rat;
-//    if ((type & TTV_FIND_DUAL)!=TTV_FIND_DUAL)
+/*    if ((type & TTV_FIND_DUAL)!=TTV_FIND_DUAL)*/
     input=givepropinfo(node, doref);
 /*    else
       input=givepropinfo(root, doref);*/

@@ -44,7 +44,7 @@ typedef struct drive_spice{
   FILE          *OUTPUT_SPICE_FILE_POINTER;
 } drive_spice;
 
-//extern char sim_run_simu_spice( sim_model *model, int run );
+/*extern char sim_run_simu_spice( sim_model *model, int run );*/
 char sim_run_simu_spice( sim_model *model, int run, char *outputname, FILE *outputfile);
 char* sim_run_simu_spice_drive_pin( char *loconname, char *pinname, drive_spice *context );
 void sim_run_simu_spice_drive_measure_current( drive_spice *context );

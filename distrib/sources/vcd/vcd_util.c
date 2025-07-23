@@ -148,7 +148,7 @@ void vcd_unVectEvent(chain_list **chain, trans_list *trans)
           if(!trans->PREV || (trans->PREV && (trans->VAL[0] != trans->PREV->VAL[0])))
           *chain  = addchain(*chain,vcd_dupTrans(trans));
         }
-//  }
+/*  }*/
 }
 
 /*}}}************************************************************************/
@@ -181,7 +181,7 @@ void vcd_unVectState(chain_list **chain, trans_list *trans)
       }   
       else
         *chain          = addchain(*chain,vcd_dupTrans(trans));
-//  }
+/*  }*/
 }
 
 /*}}}************************************************************************/

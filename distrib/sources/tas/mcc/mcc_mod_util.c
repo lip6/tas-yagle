@@ -826,7 +826,7 @@ void mcc_InitGlobalMonteCarloDistributions(lofig_list *lf)
         
         for (j=0; j<nb; j++)
                 
-//      for (lt=lf->LOTRS; lt!=NULL; lt=lt->NEXT)
+/*      for (lt=lf->LOTRS; lt!=NULL; lt=lt->NEXT)*/
         {
           lt=tab[j];
           elp_lotrs_param_get(lt,
@@ -1066,7 +1066,7 @@ mcc_modellist *mcc_addmodel(char *technoname, char *transname, char *subcktname,
    for (i=0; i<__MCC_QUICK_LAST_ITEM; i++)
      ptmodel->QUICK[i]=NULL;
 
-   // update TNMOS and TPMOS
+   /* update TNMOS and TPMOS*/
    
    if ( ptmodel->TYPE == MCC_NMOS ) {
      if (!mbk_istransn(ptmodel->NAME))
@@ -1235,7 +1235,7 @@ mcc_modellist *mcc_getmodel(char *technoname, char *modelname, int modeltype,
  long lmax, lmin, wmax, wmin ;
  long l ;
  long w ;
- double error = 1000.0; // to minimise if we want the closest model
+ double error = 1000.0; /* to minimise if we want the closest model*/
  double err,slmin,slmax,swmin,swmax;
  ptype_list *ptype;
  char *subcktname=NULL;
@@ -1314,16 +1314,16 @@ mcc_modellist *mcc_getmodel(char *technoname, char *modelname, int modeltype,
            if(lmax == 0) lmax = MCC_LWMAX ;
            if(wmax == 0) wmax = MCC_LWMAX ;
            if ( ((l >= lmin) && (l < lmax) && (w >= wmin) && (w < wmax)) || diode_flag ) {
-              if ((forceifsubckt & 2)==0) // just get model
+              if ((forceifsubckt & 2)==0) /* just get model*/
               {
-                if (ptmodel->MCSEED==0 || ptmodel->SUBCKTNAME!=NULL) // need reevaluate
+                if (ptmodel->MCSEED==0 || ptmodel->SUBCKTNAME!=NULL) /* need reevaluate*/
                   mcc_evalmodel(ptmodel,L,W,modeltype) ;
                 prevmodel = ptmodel;
               }
 		      return (ptmodel) ;
            }
         }
-        // try to get the closest model...
+        /* try to get the closest model...*/
         if ( name_type ) {
           err = pow(LMAX-L,2.0) + pow (L-LMIN,2.0)+ pow(WMAX-W,2.0) + pow(W-WMIN,2.0);
           if ( err < error ) {
@@ -1368,7 +1368,7 @@ mcc_modellist *mcc_getmodel(char *technoname, char *modelname, int modeltype,
  if( !model_closest )
    return NULL ;
 
- if (model_closest->MCSEED==0 || model_closest->SUBCKTNAME!=NULL) // need reevaluate
+ if (model_closest->MCSEED==0 || model_closest->SUBCKTNAME!=NULL) /* need reevaluate*/
    mcc_evalmodel(model_closest,L,W,modeltype) ;
 
  avt_errmsg(MCC_ERRMSG, "030", AVT_WARNING, model_closest->NAME, mcc_ftol(slmin*1e09),mcc_ftol(slmax*1e09), mcc_ftol(swmin*1e09),mcc_ftol(swmax*1e09) ) ;
@@ -1674,7 +1674,7 @@ void mcc_evalmodel(mcc_modellist *ptmodel, double L, double W, int modtype)
   mcc_technolist *pttechno ;
   mcc_explist *ptexp ;
   lofig_list *lofig ;
-  //lotrs_list *lotrs ;
+  /*lotrs_list *lotrs ;*/
   optparam_list *optparams, *ptopt ;
   ptype_list *ptype ;
   double value;
@@ -1701,7 +1701,7 @@ void mcc_evalmodel(mcc_modellist *ptmodel, double L, double W, int modtype)
 
   fromflatten=(EQT_CONTEXT_HIERARCHY[0]!=NULL);
 
-  // PARAMETRES GLOBAUX
+  /* PARAMETRES GLOBAUX*/
   if (MBK_GLOBALPARAMS && !fromflatten)
     {
       EQT_CONTEXT_HIERARCHY[nbc]=eqt_init(32);
@@ -1718,7 +1718,7 @@ void mcc_evalmodel(mcc_modellist *ptmodel, double L, double W, int modtype)
         {
           if (!fromflatten)
           {
-            // PARAMETRES D'INSTANCE + PARAM PAR DEFAUT
+            /* PARAMETRES D'INSTANCE + PARAM PAR DEFAUT*/
             EQT_CONTEXT_HIERARCHY[nbc]=eqt_init(32);
             ptype = getptype(lofig->USER,PARAM_CONTEXT) ;
             if(ptype != NULL)
@@ -1769,7 +1769,7 @@ void mcc_evalmodel(mcc_modellist *ptmodel, double L, double W, int modtype)
             nbc++;
           }
 
-          // EXPRESSIONS
+          /* EXPRESSIONS*/
           do 
             {
               newdone=0;
@@ -1822,7 +1822,7 @@ void mcc_evalmodel(mcc_modellist *ptmodel, double L, double W, int modtype)
                           if (eqt_isdefined(mccEqtCtx, ptexp->NAME, 0)) continue;
                           if (ptexp->EXPR_TO_TREE==NULL) ptexp->EXPR_TO_TREE=eqt_create (mccEqtCtx, ptexp->EXPR);
                           value = eqt_calcval (mccEqtCtx, ptexp->EXPR_TO_TREE);
-                          //value = eqt_eval(mccEqtCtx,ptexp->EXPR,EQTFAST);
+                          /*value = eqt_eval(mccEqtCtx,ptexp->EXPR,EQTFAST);*/
                           if (eqt_resistrue (mccEqtCtx))
                             {
                               newdone++;
@@ -1840,7 +1840,7 @@ void mcc_evalmodel(mcc_modellist *ptmodel, double L, double W, int modtype)
                 }
             } while (newdone>0);
 
-          // ERROR CHECKING
+          /* ERROR CHECKING*/
           if ((ptype = getptype(lofig->USER, OPT_PARAMS)))
             {
               optparams = (optparam_list*)ptype->DATA;
@@ -1878,7 +1878,7 @@ void mcc_evalmodel(mcc_modellist *ptmodel, double L, double W, int modtype)
         }
     }
   
-  // building final context
+  /* building final context*/
   for (i=nbc-1; i>=0; i--)
     {
       eqt_param *ep;
@@ -1926,7 +1926,7 @@ double mcc_evalparam_sub(mcc_paramlist *param)
        }
      else if (!finite(res))
        avt_errmsg(MCC_ERRMSG, "038", AVT_ERROR, ptexp->NAME, ptexp->EXPR," : returned NaN or Inf");
-//     res = eqt_eval(mccEqtCtx,ptexp->EXPR,EQTFAST) ;
+/*     res = eqt_eval(mccEqtCtx,ptexp->EXPR,EQTFAST) ;*/
      eqt_addvar(mccEqtCtx,ptexp->NAME,res) ;
      /*if (eqt_resisrandom(mccEqtCtx) || eqt_var_involved(mccEqtCtx)) */
      param->CONSTVALUE=0;
@@ -2034,7 +2034,7 @@ double mcc_evalparam(mcc_paramlist *param)
   double val;
   if (param->MODEL->MCSEED!=0)
     {
-//      double oldval;
+/*      double oldval;*/
       val=param->MCVALUE;
 /*      oldval=mcc_evalparam_sub(param);
       if (val!=oldval)
@@ -2087,7 +2087,7 @@ char *mcc_getparamexp(mcc_modellist *ptmodel, char *name)
     {
      if(ptparam->EXPR != NULL)
        return ptparam->EXPR->EXPR;
-//       return(mbkstrdup(ptparam->EXPR->EXPR)) ;
+/*       return(mbkstrdup(ptparam->EXPR->EXPR)) ;*/
     }
 
  return (NULL) ;
@@ -2871,7 +2871,7 @@ char *mcc_getsubckt( char *technoname, char *transname, int transtype,
 {
     mcc_modellist  *ptmodel ;
     
-    ptmodel = mcc_getmodel(technoname,transname,transtype,transcase,L,W,2) ; // just get the model
+    ptmodel = mcc_getmodel(technoname,transname,transtype,transcase,L,W,2) ; /* just get the model*/
     if (ptmodel)
         return (ptmodel->SUBCKTNAME) ;
     else
@@ -2905,9 +2905,9 @@ int mcc_setsubcktsize( mcc_modellist  *ptmodel,int transtype,double L,double W)
            for(lotrs = lofig->LOTRS ; lotrs != NULL ; lotrs = lotrs->NEXT)
              if(lotrs->TYPE == type)
              {
-              //lotrs->WIDTH = (long)(W * (double)SCALE_X * 1e06) ;
+              /*lotrs->WIDTH = (long)(W * (double)SCALE_X * 1e06) ;*/
               lotrs->WIDTH = mbk_long_round ( W * (double)SCALE_X * 1e06 );
-              //lotrs->LENGTH = (long)(L * (double)SCALE_X * 1e06) ;
+              /*lotrs->LENGTH = (long)(L * (double)SCALE_X * 1e06) ;*/
               lotrs->LENGTH = mbk_long_round ( L * (double)SCALE_X * 1e06 );
               res = 1 ;
              }
@@ -3097,7 +3097,7 @@ double mcc_update_u0 ( elp_lotrs_param *lotrsparam, double u0 )
 \****************************************************************************/
 int mcc_check_vbs ( mcc_modellist *ptmodel, double L, double W, double vbs )
 {
-  int res = 1; // result ok
+  int res = 1; /* result ok*/
   char *trsname=NULL;
 
   if (MCC_CURRENT_LOTRS)
@@ -3123,7 +3123,7 @@ int mcc_check_vbs ( mcc_modellist *ptmodel, double L, double W, double vbs )
 \****************************************************************************/
 int mcc_check_param ( int type )
 {
-  int res = 1; // result ok
+  int res = 1; /* result ok*/
 
   if ( type == MCC_TRANS_N || type == MCC_TRANS_B ) {
     if ( MCC_VTN > MCC_VDDmax )

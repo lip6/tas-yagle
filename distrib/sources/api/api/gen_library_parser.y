@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include MUT_H
-//#include MLO_H
+/*#include MLO_H*/
 #define API_HIDE_TOKENS
 #include API_H
   
@@ -45,7 +45,7 @@
  extern int lineno_library;	     /* line number to give user's information */
  extern char *yytext;               /* current parsed string */
  extern FILE *yyin;                 /* flow for LEX */
- static inline int yyerror();              /* display error message */
+ static int yyerror(char*);              /* display error message */
  static void forceexit();
 
  /*for internal use*/
@@ -225,7 +225,7 @@ _IDENT '=' _IDENT
 _IDENT '=' _DIGIT     
 {
   if (strcasecmp($1,"priority")==0) order =INT_MIN+$3;
-  else { yyerror(); YYABORT; }
+  else { yyerror(NULL); YYABORT; }
   mbkfree($1);
 }
 |
@@ -236,13 +236,13 @@ _IDENT '=' _IDENT
       if (strcasecmp($3, "spice")==0) format = 1;
       else if (strcasecmp($3, "vhdl")==0) format = 0;
       else if (strcasecmp($3, "spice_hr")==0) format = 2;
-      else { yyerror(); YYABORT; }
+      else { yyerror(NULL); YYABORT; }
     }
   else if (strcasecmp($1,"keep")==0)
     {
       if (strcasecmp($3, "yes")==0)  keep = 1;
       else if (strcasecmp($3, "no")==0)  keep = 0;
-      else { yyerror(); YYABORT; }
+      else { yyerror(NULL); YYABORT; }
     }
   else if (strcasecmp($1,"subfigure")==0)
     {
@@ -253,7 +253,7 @@ _IDENT '=' _IDENT
       bbox=mbkstrdup($3);
     }
   else
-    { yyerror(); YYABORT; }
+    { yyerror(NULL); YYABORT; }
   mbkfree($1);
   mbkfree($3);
 }
@@ -272,7 +272,7 @@ file_name '/' _IDENT { sprintf($$,"%s/%s",$1,$3); mbkfree($3); }
 _IDENT
 {
   strcpy($$, $1);
-//  sprintf($$,"%s%s",PATH,$1);
+/*  sprintf($$,"%s%s",PATH,$1);*/
   mbkfree($1);
   /*char *name = (char*)mbkalloc(strlen(PATH)+strlen($1)+1);
     name=strcpy(name, PATH);
@@ -284,7 +284,7 @@ _IDENT
 '/' _IDENT
 {
   sprintf($$, "/%s", $2);
-  //  sprintf($$,"%s%s",PATH,$1);
+  /*  sprintf($$,"%s%s",PATH,$1);*/
   mbkfree($2);
 }
 ;
@@ -297,7 +297,7 @@ _IDENT
  /****************************************************************************/
  /*              user's message for syntaxical error                         */
  /****************************************************************************/
-static inline int yyerror()
+static int yyerror(char* unused)
 {
   switch ((int)yychar) {
      case _STOP: 
@@ -401,7 +401,7 @@ static lib_entry *put_inlist_warn(char *elem, lib_entry *liste, int warn)
     EXIT(1);
   }
 
-//   sprintf(temp,"%s%s",path, elem);
+/*   sprintf(temp,"%s%s",path, elem);*/
 
    for (le=liste;le!=NULL;le=le->NEXT) 
      {

@@ -18,7 +18,7 @@ extern int yylex();                /* parse ahead (by step of one char)*/
 extern int lineno;                 /* line number to give user's information */
 extern FILE *yyin;                 /* flow from LEX */
 extern char *yytext;               /* current parsed string */
-static inline int yyerror();              /* display error message */
+static inline int yyerror(char*);              /* display error message */
 char *wrapperfile;
 
  chain_list *proto_list=NULL, *includes=NULL;
@@ -92,7 +92,7 @@ AVTWIG_TOKEN_EXTERN base_type AVTWIG_TOKEN_IDENT '(' .arguments. ')' ';'
 {
   _ApiType *sw;
   sw=mbkalloc(sizeof(struct _ApiType));
-  *sw=$2; //memcpy(sw,&$2,sizeof(struct _ApiType));
+  *sw=$2; /*memcpy(sw,&$2,sizeof(struct _ApiType));*/
   $$=addchain($5, sw);
   $$=addchain($$, $3);
 }
@@ -251,7 +251,7 @@ AVTWIG_TOKEN_VAR_PARAM {  $$.TYPE = T_UNKNOWN; $$.TYPE_NAME="..."; $$.varname=""
  /****************************************************************************/
  /*              user's message for syntaxical error                         */
  /****************************************************************************/
-static inline int yyerror()
+static inline int yyerror(char* unused)
 {
   switch ((int)yychar) 
     {
@@ -315,7 +315,7 @@ functionman *format_man(chain_list *lines)
                }
       if (cur!=NULL && oldcur!=cur)
         {
-          // a new section
+          /* a new section*/
           if (oldcur!=NULL)
             {
               if (*oldcur!=NULL)
@@ -330,14 +330,14 @@ functionman *format_man(chain_list *lines)
     else
     {
       strcat(bigbuf, (char *)cl->DATA);
-      //strcat(bigbuf, "\n.LP\n");
+      /*strcat(bigbuf, "\n.LP\n");*/
      }
      free(cl->DATA);
     }
   freechain(lines);
   if (cur!=NULL)
     {
-      // a new section
+      /* a new section*/
       if (*cur!=NULL) free(*cur);
       *cur=strdup(bigbuf);
     }

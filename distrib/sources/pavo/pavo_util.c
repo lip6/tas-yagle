@@ -19,8 +19,8 @@ void pavo_RemoveSignalSimulationInformations(losig_list *ls)
     exit(1);
 
   ssi=(SignalSimulationInformations *)pt->DATA;
-  // a faire : remove events
-  // free ptypes
+  /* a faire : remove events*/
+  /* free ptypes*/
   mbkfree(ssi);
   
   ls->USER=delptype(ls->USER, PAVO_SIGNAL_SIMULATION_INFORMATIONS);
@@ -145,7 +145,7 @@ float pavo_CalcInternalNodeVoltage (cone_list *cone)
   int i;
   float vs=0.0;
   float vgate=0.0;
-  //double vti
+  /*double vti*/
   double vt,vdd;
   elpmodel_list *elpmodel;
   int pmos_unknown;
@@ -179,7 +179,7 @@ float pavo_CalcInternalNodeVoltage (cone_list *cone)
             vdd = elpGetVddFromCorner ( lotrs, transcase );
             if ( (elpmodel = elpGetModel (lotrs,vdd,transcase))) {
               vt = elpmodel->elpModel[elpVT];
-              //vti = elpmodel->elpModel[elpVTI];
+              /*vti = elpmodel->elpModel[elpVTI];*/
             }
             drain = lotrs->DRAIN->SIG;
             gate = lotrs->GRID->SIG;
@@ -194,23 +194,23 @@ float pavo_CalcInternalNodeVoltage (cone_list *cone)
             printf ("[PAVO]          bulk: %s \n",getsigname(bulk));
             */
 
-            if ( i == 0 ) { //BRVDD
+            if ( i == 0 ) { /*BRVDD*/
               if (vgate == PAVO_UNKNOWN_VOLTAGE) {
                 pmos_unknown = 1;
               }
               else {
-                if ( (vdd-vgate) <= vt ) { // branche non passante -> passe a la suivante
+                if ( (vdd-vgate) <= vt ) { /* branche non passante -> passe a la suivante*/
                   pmos_actif = 0;
                   break;
                 }
               }
             }
-            if ( i == 1 ) { //BRVSS
+            if ( i == 1 ) { /*BRVSS*/
               if ( vgate == PAVO_UNKNOWN_VOLTAGE ) {
                 nmos_unknown = 1;
               }
               else {
-                if (vgate < vt ) { // branche non passante -> passe a la suivante
+                if (vgate < vt ) { /* branche non passante -> passe a la suivante*/
                   nmos_actif = 0;
                   break;
                 }
@@ -222,7 +222,7 @@ float pavo_CalcInternalNodeVoltage (cone_list *cone)
             printf ("[PAVO] Locon : %s\n",getsigname(locon->SIG));
           }
         }
-        if ( i == 0 && pmos_actif ) { // BRVDD
+        if ( i == 0 && pmos_actif ) { /* BRVDD*/
           if ( !pmos_unknown ) {
             br_vdd = 1;
             break;
@@ -230,7 +230,7 @@ float pavo_CalcInternalNodeVoltage (cone_list *cone)
           else
             br_vdd_unknown = 1;
         }
-        else if ( i == 1 && nmos_actif ) { // BRVSS
+        else if ( i == 1 && nmos_actif ) { /* BRVSS*/
           if ( !nmos_unknown ) {
             br_vss = 1;
             break;
@@ -242,7 +242,7 @@ float pavo_CalcInternalNodeVoltage (cone_list *cone)
     }
   }
 
-  if ( br_vss && br_vdd )  // conflit
+  if ( br_vss && br_vdd )  /* conflit*/
     vs = vdd/2.0;
   else if ( br_vss && !br_vdd &&!br_vdd_unknown ) 
     vs = 0.0;

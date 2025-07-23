@@ -585,7 +585,7 @@ header       : TLF4_TOKEN_HEADER '(' helem_list ')'
                fallthmax = 0.9;
                risethmin = 0.1; 
                risethmax = 0.9;
-               //flagbus = 0;
+               /*flagbus = 0;*/
 
                tlf4reset();
                
@@ -1428,7 +1428,7 @@ modelbody    : modeltype axe axe axe data
                             mbkfree ((minmax*)chp->DATA);
                         freechain ((chain_list*)ch->DATA);
                     }
-                    //freechain ($5.CHAIN);
+                    /*freechain ($5.CHAIN);*/
                 }
                 dimension = $5.DIM;
              } 
@@ -1472,7 +1472,7 @@ modelbody    : modeltype axe axe axe data
                             mbkfree ((minmax*)chp->DATA);
                         freechain ((chain_list*)ch->DATA);
                     }
-                    //freechain ($4.CHAIN);
+                    /*freechain ($4.CHAIN);*/
                 }
                 dimension = $4.DIM;
              } 
@@ -1574,7 +1574,7 @@ modelbody    : modeltype axe axe axe data
                                     mbkfree ((minmax*)chp->DATA);
                                 freechain ((chain_list*)ch->DATA);
                             }
-                            //freechain ($2.CHAIN);
+                            /*freechain ($2.CHAIN);*/
                         }
                         break;
                 }
@@ -1817,15 +1817,15 @@ pin          : TLF4_TOKEN_PIN '(' pinname
                         }
                         losig_index = i + 1;
                         ptrlosig = addlosig(ptrlofig, losig_index, addchain(NULL, ttv_devect(pname)), 'E');
-//                        if(!flagbus)
+/*                        if(!flagbus)*/
                             ptrlocon = addlocon(ptrlofig, ttv_devect(pname), ptrlosig, pindir);
-//                        else{
-//                            ptloconbus = (loconbus*)mbkalloc (sizeof (struct loconbus));
-//                            ptloconbus->NAME = ttv_devect(pname);
-//                            ptloconbus->LOSIG = ptrlosig;
-//                            ptloconbus->DIREC = pindir;
-//                            buschain = addchain(buschain, ptloconbus);
-//                        }
+/*                        else{*/
+/*                            ptloconbus = (loconbus*)mbkalloc (sizeof (struct loconbus));*/
+/*                            ptloconbus->NAME = ttv_devect(pname);*/
+/*                            ptloconbus->LOSIG = ptrlosig;*/
+/*                            ptloconbus->DIREC = pindir;*/
+/*                            buschain = addchain(buschain, ptloconbus);*/
+/*                        }*/
                     }
                     else { /* connecteur et signal existants, on redirige le connecteur */
                         ptrlocon = c;
@@ -1835,11 +1835,11 @@ pin          : TLF4_TOKEN_PIN '(' pinname
                     if(/*!flagbus && */ptrcbhcomb)
                         cbh_addcombtolocon(ptrlocon, ptrcbhcomb);
                 }
-//                if(!flagbus){
+/*                if(!flagbus){*/
                     ptrcbhcomb = NULL;
                     ptrlosig = NULL;
                     ptrlocon = NULL;
-//                }
+/*                }*/
                 pincapa = TLF_NO_CAPA;
                 pindir = 'X';
                 clockpin = 0;
@@ -1880,17 +1880,17 @@ pin          : TLF4_TOKEN_PIN '(' pinname
                    }
                   }
                  flagbus = 0;
-//                if(buschain)
-//                    if(l != vectorindex(((loconbus*)buschain->DATA)->NAME))
-//                        reverse(buschain);
-//                for(chain=buschain; chain; chain=chain->NEXT){
-//                    ptloconbus = (loconbus*)chain->DATA;
-//                    ptrlocon = addlocon(ptrlofig, ptloconbus->NAME, ptloconbus->LOSIG, ptloconbus->DIREC);
-//                    cbh_addcombtolocon(ptrlocon, ptrcbhcomb);
-//                    mbkfree(chain->DATA) ;
-//                }
-//                if(buschain)
-//                    freechain(buschain);
+/*                if(buschain)*/
+/*                    if(l != vectorindex(((loconbus*)buschain->DATA)->NAME))*/
+/*                        reverse(buschain);*/
+/*                for(chain=buschain; chain; chain=chain->NEXT){*/
+/*                    ptloconbus = (loconbus*)chain->DATA;*/
+/*                    ptrlocon = addlocon(ptrlofig, ptloconbus->NAME, ptloconbus->LOSIG, ptloconbus->DIREC);*/
+/*                    cbh_addcombtolocon(ptrlocon, ptrcbhcomb);*/
+/*                    mbkfree(chain->DATA) ;*/
+/*                }*/
+/*                if(buschain)*/
+/*                    freechain(buschain);*/
                 for (i = lsb; i <= msb; i++) {
                     pt = stm_vect (bname, i);
                     vectname = namealloc (pt);

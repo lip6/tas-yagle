@@ -66,7 +66,7 @@ int caracmode(cone_list *cone, edge_list *input, double **ccarac, int *nccarac, 
 		}
 		if((input->TYPE & CNS_CONE)==CNS_CONE){
     		if((input->UEDGE.CONE->TYPE & CNS_EXT)==CNS_EXT) {
-				//ptype = getptype (input->UEDGE.CONE->USER, CNS_EXT) ;
+				/*ptype = getptype (input->UEDGE.CONE->USER, CNS_EXT) ;*/
 				locon = cns_get_one_cone_external_connector(input->UEDGE.CONE);
 				ptype = getptype (locon->USER, TAS_CON_CARAC) ;
 				if (locon->DIRECTION == CNS_I) {
@@ -98,7 +98,7 @@ int caracmode(cone_list *cone, edge_list *input, double **ccarac, int *nccarac, 
 	if(cone->OUTCONE) {
         if((cone->TYPE & CNS_EXT)==CNS_EXT){
             if((cone->TYPE & TAS_CONE_CONNECT) != TAS_CONE_CONNECT) {
-//                ptype = getptype (cone->USER, CNS_EXT) ;
+/*                ptype = getptype (cone->USER, CNS_EXT) ;*/
 			    locon = cns_get_one_cone_external_connector(cone);
 			    if(locon->DIRECTION!=CNS_I){
 		    	    ptype = getptype (locon->USER, TAS_CON_CARAC) ;
@@ -912,7 +912,7 @@ void tas_AffectCaracCon (cnsfig_list *cnsfig)
     }
 		
 #if 0	
-       //for (inflist = INF_SIGLIST ; inflist ; inflist = inflist->NEXT) {
+       /*for (inflist = INF_SIGLIST ; inflist ; inflist = inflist->NEXT) {*/
     for (cl=maincl; cl!=NULL; cl=cl->NEXT) {
         inflist=(list_list *)cl->DATA;
 		if (inflist->TYPE == INF_LL_CAPAOUT) {

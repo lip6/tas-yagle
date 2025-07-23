@@ -46,7 +46,7 @@ extern pNode          gsp_SetConstraints    ( pCircuit ,
                                             );
 extern ptype_list    *gsp_spisetinputs_from_cone ( char*, chain_list*, char, chain_list **); 
 extern int            gsp_con_is_constraint (ptype_list *constraints,char *namecon);
-//extern void           gsp_fix_unset_input2zero (lofig_list *figext,ptype_list **constraints,cnsfig_list *cnsfig);
+/*extern void           gsp_fix_unset_input2zero (lofig_list *figext,ptype_list **constraints,cnsfig_list *cnsfig);*/
 extern chain_list    *gsp_calcconetransfer  ( char*,cone_list*,char,int,int, chain_list **, chain_list **, chain_list **);
 extern ptype_list    *gsp_SpiceFindInput    ( 
                                               ptype_list* ,

@@ -5,7 +5,7 @@
 #include SDLR_H
 #include "Scheduler_transactions.h"
 
-//#define TEST1
+/*#define TEST1*/
 #define TEST2
 
 int DUMPVCD=0;
@@ -81,9 +81,9 @@ int updatefunc(Scheduler *S, int index, void *data)
           fprintf(f,"%c%c\n", newval==UNK?'x':'0'+newval, '!'+index);
         }
       allsigs[index].val=newval;
-      return 1; // event detected
+      return 1; /* event detected*/
     }
-  // value is the same, no event detected
+  /* value is the same, no event detected*/
   return 0;
 }
 
@@ -194,7 +194,7 @@ void pattern(Scheduler *S, long min, long next)
           newval=1; Scheduler_AddTransaction(S, _IFN("d"), delta, &newval);
           nextpatterndate=600;
         default:
-          // random
+          /* random*/
           randmode=1;
           var=rand() % 4;
           sprintf(name,"%c",'a'+var);
@@ -203,7 +203,7 @@ void pattern(Scheduler *S, long min, long next)
           Scheduler_AddTransaction(S, _IFN(name), delta, &newval);
           nextpatterndate+=1+(rand() % 10);
 
-//          endofpattern=1;
+/*          endofpattern=1;*/
           break;
         }
     }
@@ -223,13 +223,13 @@ int main(int ac, char *av[])
 #ifdef TEST1
   S=Scheduler_CreateSimulator(sizeof(double), updatefunc, execfunc, pattern);
 
-  // ajout d'object a simuler
+  /* ajout d'object a simuler*/
   Scheduler_RegisterObject(S, 1);
   Scheduler_RegisterObject(S, 3);
   Scheduler_RegisterObject(S, 5);
   Scheduler_RegisterObject(S, 2);
 
-  // transactions
+  /* transactions*/
   printf("next date = %ld\n",Scheduler_GetNextDate(S));
   Scheduler_AddTransaction(S, 1, 100, &data);
   Scheduler_AddTransaction(S, 1, 100, &data);

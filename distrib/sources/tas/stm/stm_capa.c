@@ -324,7 +324,7 @@ double stm_calc_pi_pwl_instant( mbk_laplace *laplace,
   double vmin, vmax, vm ;
   int n;
 
-  // Recherche l'intervalle qui va bien
+  /* Recherche l'intervalle qui va bien*/
   
   tmin = 0.0;
   vmin = stm_calc_pi_pwl( laplace, tmin, r, c1, c2 );
@@ -347,7 +347,7 @@ double stm_calc_pi_pwl_instant( mbk_laplace *laplace,
 
   if( n >= 100 ) return -1.0;
 
-  // Résolution par dichotomie
+  /* Résolution par dichotomie*/
  
   n=0;
   do {
@@ -392,7 +392,7 @@ double stm_capaeq_laplace( mbk_laplace *laplace, double tpi, double vth )
   int i, n;
   double x;
   double c;
-  // Retrouve l'intervalle
+  /* Retrouve l'intervalle*/
 
   for( n=1 ; 
        n < laplace->N && tpi > ((stm_laplace_capaeq*)laplace->DATA)[n].DATA.T ; 
@@ -400,7 +400,7 @@ double stm_capaeq_laplace( mbk_laplace *laplace, double tpi, double vth )
      );
   n-- ;
  
-  // Calcule le C
+  /* Calcule le C*/
 
   x = 0.0;
   for( i=0 ; i<= n ; i++ ) 
@@ -462,15 +462,15 @@ float stm_capaeq_fn( char (*fn)( void*, double, double* ),
   }
   else {
 
-    // Création de l'approximation par segments de droites
-    // du générateur.
+    /* Création de l'approximation par segments de droites*/
+    /* du générateur.*/
     lines = mbk_pwl_create( fn, data, 0.0, tmax, NULL ) ;
     if( !lines ) {
       avt_errmsg (STM_ERRMSG,"003", AVT_ERROR, signame?signame:"?");
       return fabs(c1+c2) ;
     }
    
-    // Calculs des paramètres constants pour les transformées de Laplace
+    /* Calculs des paramètres constants pour les transformées de Laplace*/
 
     laplace = mbk_pwl_to_laplace( lines, sizeof( stm_laplace_capaeq ) );
     ct = c1 + c2 ;
@@ -505,7 +505,7 @@ float stm_capaeq_fn( char (*fn)( void*, double, double* ),
       ((stm_laplace_capaeq*)laplace->DATA)[i].k7 = k7 ;
     }
    
-    // Estimation de la solution recherchée (pour accélérer les convergences).
+    /* Estimation de la solution recherchée (pour accélérer les convergences).*/
     
     if( !fn( data, tmax, &iestim ) ) {
       mbk_free_laplace( laplace );
@@ -541,11 +541,11 @@ float stm_capaeq_fn( char (*fn)( void*, double, double* ),
       tpi = tpi + tplin ;
     }
     
-    // Détermination de la capacité équivalente.
+    /* Détermination de la capacité équivalente.*/
     
     c = stm_capaeq_laplace( laplace, tpi, vth );
 
-    // stm_calc_pi_pwl_plot( *laplace, *lines, *fn, *data, r, c1, c2, c, tmax, *filename );
+    /* stm_calc_pi_pwl_plot( *laplace, *lines, *fn, *data, r, c1, c2, c, tmax, *filename );*/
     mbk_free_laplace( laplace );
     mbk_pwl_free_pwl( lines );
 

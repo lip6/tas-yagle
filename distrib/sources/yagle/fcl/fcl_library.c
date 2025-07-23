@@ -22,9 +22,9 @@
    ####====================================================================####
  */
 
-static long     count_trs();        /* Compte le nombre de TRS d'une lofig */
-static void     orient_lofig();
-static int      behaviour_exists();
+static long count_trs( lofig_list *ptlofig_m ); /* Compte le nombre de TRS d'une lofig */
+static void orient_lofig( lofig_list *ptlofig, befig_list *ptbefig );
+static int  behaviour_exists( char *figname );
 
 /*
    ####====================================================================####
@@ -80,9 +80,7 @@ fclcorresp_list *FCL_REAL_CORRESP_LIST = NULL;
    ####====================================================================####
  */
 
-cell_list     *
-fclFindCells(ptlofig_c)
-    lofig_list     *ptlofig_c;
+cell_list* fclFindCells( lofig_list *ptlofig_c )
 {
     FILE           *ptfile;        /* Ptr sur le fichier biblio     */
     char            filemem[100];
@@ -295,9 +293,7 @@ fclFindCells(ptlofig_c)
    ##                                                                        ## 
    ####====================================================================####
  */
-static long
-count_trs(ptlofig_m)
-    lofig_list     *ptlofig_m;
+static long count_trs( lofig_list *ptlofig_m )
 {
     lotrs_list     *ptlotrs;
     long            i = 0;
@@ -308,10 +304,7 @@ count_trs(ptlofig_m)
     return i;
 }
 
-static void
-orient_lofig(ptlofig, ptbefig)
-    lofig_list     *ptlofig;
-    befig_list     *ptbefig;
+static void orient_lofig( lofig_list *ptlofig, befig_list *ptbefig )
 {
     bepor_list     *ptbepor;
     locon_list     *ptlocon;
@@ -323,9 +316,7 @@ orient_lofig(ptlofig, ptbefig)
     }
 }
 
-static int
-behaviour_exists(figname)
-    char           *figname;
+static int behaviour_exists( char *figname )
 {
     FILE           *fp;
 
@@ -338,9 +329,7 @@ behaviour_exists(figname)
     }
 }
 
-befig_list     *
-fclGetBefig(name)
-    char           *name;
+befig_list *fclGetBefig( char *name )
 {
     befig_list     *ptbefig;
 
@@ -407,10 +396,7 @@ void fclUpdateLofigchain(chain_list *inslist, char *figurename)
     }
 }
 
-chain_list *
-fclFindInstances(ptlofig_c, ptlofig_m)
-    lofig_list     *ptlofig_c;
-    lofig_list     *ptlofig_m;
+chain_list *fclFindInstances( lofig_list *ptlofig_c, lofig_list *ptlofig_m )
 {
     time_t          start = 0;
     time_t          end = 0;
@@ -484,8 +470,7 @@ static chain_list *AddOrLeave(chain_list *cl, char *name)
    ##                                                                        ## 
    ####====================================================================####
  */
-fclcorresp_list *
-fclFindCorrespondance(lofig_list *ptlofig_m)
+fclcorresp_list *fclFindCorrespondance(lofig_list *ptlofig_m)
 {
     fclcorresp_list *rescorresp; 
     locon_list      *ptlocon;

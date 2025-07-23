@@ -33,8 +33,8 @@ static struct XalButtonsItem XtasPathsButtonMenus[] = {
     { XTAS_CMD_MAP   , True, XtasPathsGetPathCmdCallback,   (XtPointer)0 },
     { XTAS_DETA_MAP  , True, XtasPathsDetailCallback,       (XtPointer)0 },
     { XTAS_ALLP_MAP  , True, XtasParaButtonCallback,        (XtPointer)0 },
-//    { XTAS_FPAT_MAP  , True, XtasPathsFalsCallback,         (XtPointer)0 },
-//    { XTAS_AL2S_MAP  , True, XtasNotYetCallback,     (XtPointer)0 },
+/*    { XTAS_FPAT_MAP  , True, XtasPathsFalsCallback,         (XtPointer)0 },*/
+/*    { XTAS_AL2S_MAP  , True, XtasNotYetCallback,     (XtPointer)0 },*/
 
     { -1, False, NULL, NULL }
 };
@@ -49,7 +49,7 @@ static struct XalButtonsItem XtasPathsButtonOptions[] = {
     { XTAS_CMD_MAP   , True, XtasDummyCallback, "Tools/Paths To Command" },
     { XTAS_DETA_MAP  , True, XtasDummyCallback, "Tools/Path Detail"   },
     { XTAS_ALLP_MAP  , True, XtasDummyCallback, "Tools/All Paths"     },
-//    { XTAS_FPAT_MAP  , True, XtasDummyCallback, "Tools/False Paths"   },
+/*    { XTAS_FPAT_MAP  , True, XtasDummyCallback, "Tools/False Paths"   },*/
 /*    { XTAS_AL2S_MAP  , True, XtasDummyCallback, "Tools/Spice Extract" },
 */
     { -1, False, NULL, NULL }

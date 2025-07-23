@@ -557,7 +557,7 @@ char flaght ;
  if(flaght == 'Y') 
    ttv_builthtabins(ttvfig,typeht) ;
 
-// if((ttvfig->STATUS & TTV_STS_C) != (status & TTV_STS_C))
+/* if((ttvfig->STATUS & TTV_STS_C) != (status & TTV_STS_C))*/
  if(((ttvfig->STATUS & TTV_STS_C) != TTV_STS_C) &&
     ((status & TTV_STS_C) == TTV_STS_C))
   {
@@ -3405,7 +3405,7 @@ ttvfig_list *ttv_parsline(ttvfig_list *ttvfig,char *buf,long linecount,long stat
                     {
                      if(chainx->DATA == NULL)
                       {
-                       //chainx = chainx->NEXT ;
+                       /*chainx = chainx->NEXT ;*/
                        break ;
                       }
                      ttvsig1 = ttv_getsigbyname(ttvfig,(char*)chainx->DATA,

@@ -43,7 +43,7 @@
 #endif
 
   extern           void  flattenlofig __P((lofig_list *ptfig, char *insname, char concat));
-//  extern           void mbk_flat_locon_pnodename __P(( locon_list *locon, loins_list *ptins ));
+/*  extern           void mbk_flat_locon_pnodename __P(( locon_list *locon, loins_list *ptins ));*/
   extern    lofig_list * givelofig __P(());
   extern    losig_list * givelosig __P((lofig_list *ptfig, long index));
   extern           void  loadlofig __P((lofig_list *ptfig, char *name, char mode));

@@ -18,21 +18,21 @@
 #define RCXPARSE_CACHE 'C'
 #define RCXPARSE_SKIP 'S'
 
-// USER des lofig
+/* USER des lofig*/
 
 #define RCX_LISTINSNAME 0x52435804
-// Utilisé uniquement pour debugger. Contient la liste chaînée des noms 
-// des instances contenues dans la figure lue par rcxparse().
+/* Utilisé uniquement pour debugger. Contient la liste chaînée des noms */
+/* des instances contenues dans la figure lue par rcxparse().*/
 
-// USER des loins ET des losig
+/* USER des loins ET des losig*/
 
 #define RCX_UNRESOLVEDSIG 0x52435802
-// Lorsque la loins contient des vues RCX non encore mergées avec la lofig, ce
-// ptype contient la liste des losig qui sont référencés par des CTC, mais
-// qui n'appartiennent pas au niveau courant. Ils seront transférés dans la
-// lofig dans la catégorie des RCX_BELLOW.
+/* Lorsque la loins contient des vues RCX non encore mergées avec la lofig, ce*/
+/* ptype contient la liste des losig qui sont référencés par des CTC, mais*/
+/* qui n'appartiennent pas au niveau courant. Ils seront transférés dans la*/
+/* lofig dans la catégorie des RCX_BELLOW.*/
 
-// USER des lofig
+/* USER des lofig*/
 #define RCX_FLAGTAB  0x52435815
 #define RCX_FLAGHEAP 0x52435816
 

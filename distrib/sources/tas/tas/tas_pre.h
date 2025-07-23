@@ -52,7 +52,7 @@ extern void           tas_AddCapaOut        __P(( cnsfig_list* ));
 extern int            tas_NewConeAlim       __P(( cone_list*, long ));
 extern int            tas_StuckAt           __P(( cnsfig_list* ));
 extern list_list      *tas_AddList          __P(( list_list*, long, char*, void* ));
-//extern list_list      *tas_traiteinout      __P(( list_list* ));
+/*extern list_list      *tas_traiteinout      __P(( list_list* ));*/
 extern void           tas_traiteinout       __P((inffig_list *));
 extern list_list      *tas_GetAliasSig      __P(( lofig_list*, list_list* ));
 extern int            tas_DifLatch          __P(( cnsfig_list* ));

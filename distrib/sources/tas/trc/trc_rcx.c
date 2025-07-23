@@ -82,12 +82,12 @@ double RCX_SLOPE_UNSHRINK = 0.6 ;
 * autre=pas de verification                                                    *
 *******************************************************************************/
 
-// where :
+/* where :*/
 #define RCX_STATE_NOCHECK     0
 #define RCX_STATE_LOINS       1
 #define RCX_STATE_LOFIG       2
 
-// code retour :
+/* code retour :*/
 #define RCX_STATE_NORCX      -1
 #define RCX_STATE_EMPTY       0
 #define RCX_STATE_TYPED       1
@@ -101,8 +101,8 @@ int              where;
 
   if( !GETFLAG( ptrcx->FLAG, MODELRCN ) )
   {
-    if( where == RCX_STATE_LOINS )      // Dans une instance, on a forcement une
-      rcx_error( 21, NULL, AVT_ERROR ); // vue RCN.
+    if( where == RCX_STATE_LOINS )      /* Dans une instance, on a forcement une*/
+      rcx_error( 21, NULL, AVT_ERROR ); /* vue RCN.*/
 
     return(RCX_STATE_EMPTY);
   }
@@ -283,8 +283,8 @@ void rcx_copyrcx( lofig_list *lofig,
 
     headnum = NULL ;
     
-    // On commence par calculer les noeuds du locon avant de toucher
-    // à autre chose.
+    /* On commence par calculer les noeuds du locon avant de toucher*/
+    /* à autre chose. */
     rcx_trsfnodelocon( loconint, RCX_LOINS );
 
     while(loconint->PNODE)
@@ -316,13 +316,13 @@ void rcx_copyrcx( lofig_list *lofig,
 
     freenum( headnum );
 
-    // On transfert la capacité associée au locon ( a cause des allocations
-    // par tat ).
+    /* On transfert la capacité associée au locon ( a cause des allocations */
+    /* par tat ).*/
 
     rcx_transfert_capa_from_instance_to_figure( loins, lofig, loconint );
   }
 
-  // On ne touche plus à ces connecteurs.
+  /* On ne touche plus à ces connecteurs. */
   freechain( rcxint->RCXINTERNAL );
   rcxint->RCXINTERNAL = NULL;
 
@@ -401,7 +401,7 @@ void rcx_dump_loins( rcxfile *file,
     if( sigagr != pseudovssins && sigagr != pseudovssinsni ) {
     
       if( getptype( sigagr->USER, RCX_UNRESOLVEDSIG ) ) {
-        // L'agresseur n'a pas été lu, il correspond à un signal interne. 
+        /* L'agresseur n'a pas été lu, il correspond à un signal interne. */
         pt = getptype( sigagr->USER, RCX_COPIED );
         
         if( !pt ) {
@@ -424,7 +424,7 @@ void rcx_dump_loins( rcxfile *file,
                           );
       }
       else {
-        // On teste le cas où il n'y a pas de vue RCX sur le signal externe.
+        /* On teste le cas où il n'y a pas de vue RCX sur le signal externe. */
         /*
         locon_agr = (locon_list*)getptype( sigagr->USER, RCX_LOCONINS )->DATA;
         */
@@ -550,7 +550,7 @@ void rcn_flatnet( lofig_list *lofig )
     } 
   }
 
-  // Nettoyage des ctc
+  /* Nettoyage des ctc*/
 
   for( losig = lofig->LOSIG ; losig ; losig = losig->NEXT ) {
     if( !losig->PRCN )
@@ -713,11 +713,11 @@ void rcx_mergercn( lofig_list *lofig,
     {
     
       if( getptype( sigagr->USER, RCX_UNRESOLVEDSIG ) ) {
-        // L'agresseur n'a pas été lu, il correspond à un signal interne. 
+        /* L'agresseur n'a pas été lu, il correspond à un signal interne. */
         pt = getptype( sigagr->USER, RCX_COPIED );
         
         if( !pt ) {
-          // ce cas n'arrive jamais. Il a été traité dans rcx_dump_loins()
+          /* ce cas n'arrive jamais. Il a été traité dans rcx_dump_loins() */
           rcx_error(27,sigagr, AVT_ERROR );
         }
         else  {
@@ -750,8 +750,8 @@ void rcx_mergercn( lofig_list *lofig,
             }
           }
           else {
-            // Cas où l'agresseur est un signal ordinaire qui est connecté en 
-            // externe à vdd ou vss.
+            /* Cas où l'agresseur est un signal ordinaire qui est connecté en  */
+            /* externe à vdd ou vss. */
             if( tlc_islosigalim( sigagrext ) ) 
               addloctc( sigext, 
                         rcx_get_new_num_node( sigint, node, RCX_LOINS, NO ),
@@ -773,7 +773,7 @@ void rcx_mergercn( lofig_list *lofig,
     }
   }
 
-  lofig=NULL; //unused parameter
+  lofig=NULL; /*unused parameter*/
 }
 
 /******************************************************************************\
@@ -834,7 +834,7 @@ void rcx_buildrcxnowire( lofig_list *lofig, losig_list *losig )
   if( !rcx->RCXEXTERNAL && !rcx->RCXINTERNAL )
     return;
 
-  // On cherche le locon qui va rester.
+  /* On cherche le locon qui va rester.*/
   
   goodlocon = NULL;
   if( rcx->RCXEXTERNAL ) {
@@ -863,7 +863,7 @@ void rcx_buildrcxnowire( lofig_list *lofig, losig_list *losig )
   if( !goodlocon )
     goodlocon = (locon_list*)(rcx->RCXINTERNAL->DATA);
       
-  // On efface les autres.
+  /* On efface les autres.*/
   
   c=0.0;
   for( chain = rcx->RCXINTERNAL ; chain ; chain = chain->NEXT ) {
@@ -873,7 +873,7 @@ void rcx_buildrcxnowire( lofig_list *lofig, losig_list *losig )
     rcx_add_capa_locon( lofig, goodlocon, locon );
     rcx_freeloconcapa( lofig, NULL, locon );
     if( !locon->ROOT ) { 
-      // Libère les locons alloués par RCX
+      /* Libère les locons alloués par RCX */
       freenum( locon->PNODE ); locon->PNODE = NULL;
       locon->SIG = NULL;
       freercxlocon( locon );
@@ -1062,11 +1062,11 @@ lofig_list	*currentfig;
 
   rcx_drive_end( file, currentfig );
 
-  // Vire le contenu des instances
+  /* Vire le contenu des instances*/
   for( scanloins = currentfig->LOINS ; scanloins ; scanloins = scanloins->NEXT )
     rcx_cleanloins( scanloins );
 
-  // Création des tables de hash
+  /* Création des tables de hash */
   for( sigext = currentfig->LOSIG ; sigext ; sigext = sigext->NEXT )
   {
     chain_list *cl;
@@ -1098,7 +1098,7 @@ lofig_list	*currentfig;
                    );
 
   if( iscache ) {
-    // Elimination de l'ancien cache
+    /* Elimination de l'ancien cache*/
     rcn_disable_cache( currentfig );
     if (!origcache)
     {
@@ -1118,7 +1118,7 @@ lofig_list	*currentfig;
           }
        }
     }
-    // Met en route le nouveau cache
+    /* Met en route le nouveau cache*/
     rcx_reload( currentfig, fileacces );
   }
 
@@ -1156,24 +1156,24 @@ chain_list* rcx_getagrlistfast( lofig_list *lofig,
   chain_list    *chain;
   losig_list    *losig;
  
-  // Récupère la table des instances de cette lofig.
-  // Il s'agit des différents noms sous laquelle est instanciée cette lofig. Il
-  // ne s'agit pas d'un table pour accéder rapidement à un LOINS de cette lofig.
+  /* Récupère la table des instances de cette lofig. */
+  /* Il s'agit des différents noms sous laquelle est instanciée cette lofig. Il */
+  /* ne s'agit pas d'un table pour accéder rapidement à un LOINS de cette lofig. */
   ptl = getptype( lofig->USER, RCX_HTAGR );
   if( !ptl ) return (chain_list*)EMPTYHT;
   htins=(ht*)ptl->DATA;
 
-  // Récupère la table des signaux.
+  /* Récupère la table des signaux. */
   htsig = (ht*)gethtitem( htins, insname );
   if( htsig == (ht*)EMPTYHT || htsig == (ht*)DELETEHT )
     return (chain_list*)EMPTYHT;
 
-  // Récupère la liste des agresseurs.
+  /* Récupère la liste des agresseurs. */
   headagr = (chain_list*)gethtitem( htsig, victime );
   if( headagr == (chain_list*)EMPTYHT || headagr == (chain_list*)DELETEHT )
     return (chain_list*)EMPTYHT;
   
-  // Il ne reste plus qu'a placer les REALAGRESSOR.
+  /* Il ne reste plus qu'a placer les REALAGRESSOR.*/
   for( scan = headagr ; scan ; scan = scan->NEXT ) {
     param = (rcxparam*)scan->DATA;
     for( chain = param->SIGLOCAL ; chain ; chain = chain->NEXT ) {
@@ -1203,9 +1203,9 @@ void rcx_setagrlistfast( lofig_list *lofig,
   chain_list    *oldagr;
   #endif
  
-  // Récupère la table des instances de cette lofig.
-  // Il s'agit des différents noms sous laquelle est instanciée cette lofig. Il
-  // ne s'agit pas d'un table pour accéder rapidement à un LOINS de cette lofig.
+  /* Récupère la table des instances de cette lofig. */
+  /* Il s'agit des différents noms sous laquelle est instanciée cette lofig. Il */
+  /* ne s'agit pas d'un table pour accéder rapidement à un LOINS de cette lofig. */
   ptl = getptype( lofig->USER, RCX_HTAGR );
   if( !ptl ) {
     lofig->USER = addptype( lofig->USER, RCX_HTAGR, addht(1) );
@@ -1213,7 +1213,7 @@ void rcx_setagrlistfast( lofig_list *lofig,
   }
   htins=(ht*)ptl->DATA;
 
-  // Récupère la table des signaux.
+  /* Récupère la table des signaux. */
   htsig=(ht*)gethtitem( htins, insname );
   if( htsig == (ht*)EMPTYHT || htsig == (ht*)DELETEHT ) {
     htsig = addht(10);
@@ -1221,7 +1221,7 @@ void rcx_setagrlistfast( lofig_list *lofig,
   }
   
 
-  // Récupère la liste des agresseurs.
+  /* Récupère la liste des agresseurs. */
   #ifdef RCX_CHECK
   oldagr = (chain_list*)gethtitem( htsig, victime );
   if( oldagr != (chain_list*)EMPTYHT && oldagr != (chain_list*)DELETEHT )
@@ -1721,7 +1721,7 @@ int rcx_iscrosstalkcapa( loctc_list *loctc, losig_list *losig )
     return 1;
 
   if( GETFLAG( rcx->FLAG, RCXNOCTC ) )
-    // On considère que toutes les CTC sont des capacités à la masse.
+    /* On considère que toutes les CTC sont des capacités à la masse. */
     return 0;
 
   sigagr = rcn_ctcothersig( loctc, losig );
@@ -1731,7 +1731,7 @@ int rcx_iscrosstalkcapa( loctc_list *loctc, losig_list *losig )
   }
 
   if( rcx_isnotinfluentagressor( losig, sigagr ) ) {
-    // Capa de couplage non significative, mais capa de couplage quand même...
+    /* Capa de couplage non significative, mais capa de couplage quand même... */
     return 1;
   }
 
@@ -1820,7 +1820,7 @@ int setrcxmodel( lofig_list *lofig, losig_list *losig, int request )
     retval = RCX_ALL;
     
   if( retval == RCX_NORCTC && V_INT_TAB[__ELP_CAPA_LEVEL].VALUE == ELP_CAPA_LEVEL0 ) {
-    // On met seulement la capa à jour
+    /* On met seulement la capa à jour */
     ptl = getptype( losig->USER, LOFIGCHAIN );
     if( ptl ) {
       for( chain = (chain_list*)ptl->DATA ; chain ; chain = chain->NEXT ) {
@@ -1831,7 +1831,7 @@ int setrcxmodel( lofig_list *lofig, losig_list *losig, int request )
         rcn_addcapa( losig, cm + ccl );
       }
     }
-    // Force le calcul de la capa de RCN
+    /* Force le calcul de la capa de RCN*/
     rcn_getcapa( lofig, losig );
     delrcx( losig );
   }
@@ -2412,11 +2412,11 @@ void rcx_repair_pnode( losig_list *losig )
 
   rcx = getrcx( losig );
 
-  if( goodnode == -1 ) // aucun locon n'a de PNODE.
+  if( goodnode == -1 ) /* aucun locon n'a de PNODE.*/
     goodnode = losig->PRCN->NBNODE;
 
-  // Idée de bug : ca n'arrivera jamais, mais que ce passe t'il si il y 
-  // a des résistances...
+  /* Idée de bug : ca n'arrivera jamais, mais que ce passe t'il si il y  */
+  /* a des résistances... */
 
   for( chain = (chain_list*)ptl->DATA ; chain ; chain = chain->NEXT ) {
   
@@ -2474,7 +2474,7 @@ int rcx_get_new_num_node( losig_list *losig,
     locon_ext = (locon_list*)getptype( losig->USER, RCX_LOCONINS )->DATA ;
     ptrcx_ext = getrcx( locon_ext->SIG );
 
-    // Cas où le connecteur externe ne contient pas de pnode
+    /* Cas où le connecteur externe ne contient pas de pnode */
     if( !locon_ext->PNODE ) {
       if( withnowire==YES && GETFLAG( ptrcx_ext->FLAG, RCXNOWIRE ) ) {
         base_ext = 1;
@@ -2534,7 +2534,7 @@ int rcx_get_new_num_node( losig_list *losig,
   return newnode;
 }
 
-// Créé les infos pour les signaux qui auront des noeuds renumérotés.
+/* Créé les infos pour les signaux qui auront des noeuds renumérotés. */
 
 void rcx_build_new_num_node( lofig_list *lofig )
 {
@@ -2574,7 +2574,7 @@ void rcx_build_new_num_node( lofig_list *lofig )
   }
 }
 
-// Libère les infos pour les signaux qui auront des noeuds renumérotés.
+/* Libère les infos pour les signaux qui auront des noeuds renumérotés. */
 
 void rcx_clear_new_num_node( lofig_list *lofig )
 {
@@ -2610,8 +2610,8 @@ void rcx_clear_new_num_node( lofig_list *lofig )
   }
 }
 
-// Le losig est interne à une loins. Récupère le nom du signal à l'extérieur de
-// la loins.
+/* Le losig est interne à une loins. Récupère le nom du signal à l'extérieur de */
+/* la loins.*/
 losig_list* rcx_get_out_ins_sig( losig_list *losig )
 {
   locon_list *locon_ext;
@@ -2736,21 +2736,21 @@ lofig_list      *currentfig;
 {
   loins_list	*scanins;
 
-  // Ajoute une vue RCX sur tous les losigs.
+  /* Ajoute une vue RCX sur tous les losigs.*/
   rcx_addsignal( currentfig );
 
-  // Récupère les informations correspondant aux instances.
+  /* Récupère les informations correspondant aux instances. */
   for( scanins = currentfig->LOINS ; scanins ; scanins=scanins->NEXT )
     rcxparse( scanins, NULL, scanins->FIGNAME, NULL );
 
-  // Ajoute des noms de connecteur sur les locons des transistors.
+  /* Ajoute des noms de connecteur sur les locons des transistors.*/
   rcx_name_locon_trs( currentfig );
   
-  // Ajoute les connecteurs externes de la lofig dans le champs EXTERNAL des
-  // vues RCX.
+  /* Ajoute les connecteurs externes de la lofig dans le champs EXTERNAL des*/
+  /* vues RCX.*/
   rcx_addfigcon( currentfig );
 
-  // Sélectionne les signaux à sauvegarder dans le fichier RCX.
+  /* Sélectionne les signaux à sauvegarder dans le fichier RCX. */
   rcx_set_lofig_savesig( currentfig );
 }
 

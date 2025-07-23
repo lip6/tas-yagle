@@ -30,7 +30,7 @@ void collapse_nodes(osdi_trs *ptr) {
   non_collapsed_node = UINT32_MAX;
   for(int i=0; i < ptr->model->num_collapsible; i++) {
       int to,from,tmp;
-      // For calculate collaped GP, we get the node number
+      /* For calculate collaped GP, we get the node number*/
       if (! (bool)((char*) ptr->idata + ptr->model->collapsed_offset)[i] ) {
         if(ptr->model->collapsible[i].node_1 > ptr->model->collapsible[i].node_2) 
             non_collapsed_node = ptr->model->collapsible[i].node_1;
@@ -363,7 +363,7 @@ void *osdi_access_ptr(osdi_trs *ptr, int index, int *aflag, int write) {
     int flag = ptr->model->param_opvar[index].flags;
     int access_flg = 0;
     if(write) access_flg = ACCESS_FLAG_SET;
-    *aflag = flag; //return parameter flag
+    *aflag = flag; /*return parameter flag*/
     if (index < ptr->model->num_instance_params)
       access_flg = access_flg | ACCESS_FLAG_INSTANCE;
 
@@ -678,12 +678,12 @@ void osdi_set_polarization( osdi_trs *ptr, double vgs, double vds, double vbs )
   ptr->simdata.prev_solve[2] = vs;
   ptr->simdata.prev_solve[3] = vb;
   
-  // we assume that the non_collapsed_node is only GP
+  /* we assume that the non_collapsed_node is only GP*/
   uint32_t *node_mapping = 
        (uint32_t *)((char*)ptr->idata + ptr->model->node_mapping_offset);
-  int niter = 10000; // max iteration to find vgp
-  double epsilon = 1.0e-12; // convergence threshold.
-  do { // Gauss iteration to find the voltage of GP
+  int niter = 10000; /* max iteration to find vgp*/
+  double epsilon = 1.0e-12; /* convergence threshold.*/
+  do { /* Gauss iteration to find the voltage of GP*/
     ptr->simdata.flags = CALC_REACT_RESIDUAL | CALC_RESIST_RESIDUAL | CALC_OP |
                        CALC_RESIST_JACOBIAN | CALC_REACT_JACOBIAN;
     uint32_t code = ptr->model->eval( NULL, ptr->idata, ptr->mdata, &ptr->simdata );

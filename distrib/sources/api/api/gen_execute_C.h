@@ -24,7 +24,7 @@ extern chain_list *Eval_Inst_C(tree_list *tree, chain_list *env);
 /****************************************************************************/
 /*           free in mem the effect of execution of program C               */
 /****************************************************************************/
-extern void Free_Exec_C();
+extern void Free_Exec_C(ExecutionContext *ec);
    
 extern void Add_Global_Decl(tree_list *tree, ExecutionContext *ec);
 extern char *gen_info();

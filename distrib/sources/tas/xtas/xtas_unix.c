@@ -343,8 +343,8 @@ buffer[i] = '\0' ;
 
 pt = buffer ;
 
-//while((isspace((int)*pt) != 0) && (*pt != '\0'))
-//  pt++ ;
+/*while((isspace((int)*pt) != 0) && (*pt != '\0'))*/
+/*  pt++ ;*/
 
 if(strlen(pt) == 0)
   return ;

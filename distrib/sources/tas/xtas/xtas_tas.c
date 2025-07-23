@@ -78,7 +78,7 @@ char               *tas_format_type[] = {"Spice", "VHDL", "Verilog"};
 char               *tas_format_sfx[] = {"spi","vhd","vlg"};
 char               *tma_format_type[] = {"Spice","VHDL","Verilog","General Perfmodule (.ttx)", "Detailed Perfmodule (.dtx)"};
 char               *tma_format_sfx[] = {"spi","ttx","dtx"};
-//char                tma_beh_mode = 'A';
+/*char                tma_beh_mode = 'A';*/
 Widget              xtas_winput_netlist_file;
 Widget              xtas_techno_form;
 Widget              xtas_winput_techno_file;
@@ -138,94 +138,94 @@ xtas_tma_param_struct *tma_tmppar = NULL;
 /*---------------------------------------------------------------------------*/
 int XtasTmaInit()
 {
-//    strcpy(tma_tmppar->inpath,""); 
-//    
-//    if(WORK_LIB)
-//        strcpy(tma_tmppar->outpath, WORK_LIB);
-//    else
-//        strcpy(tma_tmppar->outpath,"");
-//
-//    if(TMA_CONTEXT->TMA_NAMEIN)
-//        strcpy(tma_tmppar->namein,TMA_CONTEXT->TMA_NAMEIN);
-//    else
-//        strcpy(tma_tmppar->namein,"");
-//    
-//    if(TMA_CONTEXT->TMA_LIBRARY)
-//        strcpy(tma_tmppar->nameout,TMA_CONTEXT->TMA_LIBRARY); 
-//    else
-//        strcpy(tma_tmppar->nameout,""); 
-//    
-//    if (!strcmp(IN_LO,"ttx")) {
-//        strcpy(tma_tmppar->in,"ttx");
-//        strcpy(tma_tmppar->ext,"ttx");
-//    }
-//    else if(!strcmp(IN_LO,"dtx")) {
-//        strcpy(tma_tmppar->in,"dtx");
-//        strcpy(tma_tmppar->ext,"dtx");
-//    }
-//    else if (!strcmp(IN_LO,"vhd")) {
-//        strcpy(tma_tmppar->in,"vhd");
-//        strcpy(tma_tmppar->ext,vhd_sfx);
-//    }
-//    else if(!strcmp(IN_LO,"vlg") || !strcmp(IN_LO,"v")) {
-//        strcpy(tma_tmppar->in,"vlg");
-//        strcpy(tma_tmppar->ext,vlg_sfx);
-//    }
-//    else {
-//        strcpy(tma_tmppar->in,"spi");
-//        strcpy(tma_tmppar->ext,spi_sfx);
-//    }
-//        
-//
-//    tma_tmppar->ttxin    = TMA_CONTEXT->TMA_TTXIN; 
-//    if(tma_tmppar->ttxin == 'Y') {
-//        strcpy(tma_tmppar->in, "ttx");
-//        strcpy(tma_tmppar->ext,"ttx");
-//    }
-//    tma_tmppar->dtxin    = TMA_CONTEXT->TMA_DTXIN;
-//    if(tma_tmppar->dtxin == 'Y') {
-//        if(tma_tmppar->ttxin == 'Y') {
-//            XalDrawMessage(XtasWarningWidget,XTAS_CONFERR);
-//            return (1);
-//        }
-//        else {
-//            strcpy(tma_tmppar->in, "dtx");
-//            strcpy(tma_tmppar->ext,"dtx");
-//        }
-//    }
-//    
-//
-//    tma_tmppar->out      = TMA_CONTEXT->TMA_OUTPUT;
-//    tma_tmppar->otock    = TMA_CONTEXT->TMA_AUTOCLOCK; 
-//    switch(TMA_CONTEXT->TMA_MODE) {
-//        case 'T' :
-//        case 'R' :
-//        case 'W' : tma_tmppar->mod = TMA_CONTEXT->TMA_MODE;
-//                   break;
-//        default  : tma_tmppar->mod = 'T';
-//                   break;
-//    }
-////    strcpy(tma_tmppar->fin,"");
-//    
-//    if(TMA_CONTEXT->TMA_MARGIN > 0)
-//        sprintf(tma_tmppar->mrg,"%ld",TMA_CONTEXT->TMA_MARGIN);
-//    else
-//        strcpy(tma_tmppar->mrg, "");
-//    
-//    tma_tmppar->v        = TMA_CONTEXT->TMA_VERBOSE;
-//    tma_tmppar->i        = 'N';
-//    
-//    if(TMA_CONTEXT->TMA_TUNIT == namealloc("ns"))
-//        tma_tmppar->tu       = TMA_NS;
-//    else
-//        tma_tmppar->tu       = TMA_PS;
-//        
-//    if(TMA_CONTEXT->TMA_CUNIT == namealloc("pf"))
-//        tma_tmppar->cu       = TMA_PF;
-//    else
-//        tma_tmppar->cu       = TMA_FF;
-////    strcpy(tma_tmppar->ra,"");
-//    return (0);
+/*    strcpy(tma_tmppar->inpath,""); */
+/*    */
+/*    if(WORK_LIB)*/
+/*        strcpy(tma_tmppar->outpath, WORK_LIB);*/
+/*    else*/
+/*        strcpy(tma_tmppar->outpath,"");*/
+/**/
+/*    if(TMA_CONTEXT->TMA_NAMEIN)*/
+/*        strcpy(tma_tmppar->namein,TMA_CONTEXT->TMA_NAMEIN);*/
+/*    else*/
+/*        strcpy(tma_tmppar->namein,"");*/
+/*    */
+/*    if(TMA_CONTEXT->TMA_LIBRARY)*/
+/*        strcpy(tma_tmppar->nameout,TMA_CONTEXT->TMA_LIBRARY); */
+/*    else*/
+/*        strcpy(tma_tmppar->nameout,""); */
+/*    */
+/*    if (!strcmp(IN_LO,"ttx")) {*/
+/*        strcpy(tma_tmppar->in,"ttx");*/
+/*        strcpy(tma_tmppar->ext,"ttx");*/
+/*    }*/
+/*    else if(!strcmp(IN_LO,"dtx")) {*/
+/*        strcpy(tma_tmppar->in,"dtx");*/
+/*        strcpy(tma_tmppar->ext,"dtx");*/
+/*    }*/
+/*    else if (!strcmp(IN_LO,"vhd")) {*/
+/*        strcpy(tma_tmppar->in,"vhd");*/
+/*        strcpy(tma_tmppar->ext,vhd_sfx);*/
+/*    }*/
+/*    else if(!strcmp(IN_LO,"vlg") || !strcmp(IN_LO,"v")) {*/
+/*        strcpy(tma_tmppar->in,"vlg");*/
+/*        strcpy(tma_tmppar->ext,vlg_sfx);*/
+/*    }*/
+/*    else {*/
+/*        strcpy(tma_tmppar->in,"spi");*/
+/*        strcpy(tma_tmppar->ext,spi_sfx);*/
+/*    }*/
+/*        */
+/**/
+/*    tma_tmppar->ttxin    = TMA_CONTEXT->TMA_TTXIN; */
+/*    if(tma_tmppar->ttxin == 'Y') {*/
+/*        strcpy(tma_tmppar->in, "ttx");*/
+/*        strcpy(tma_tmppar->ext,"ttx");*/
+/*    }*/
+/*    tma_tmppar->dtxin    = TMA_CONTEXT->TMA_DTXIN;*/
+/*    if(tma_tmppar->dtxin == 'Y') {*/
+/*        if(tma_tmppar->ttxin == 'Y') {*/
+/*            XalDrawMessage(XtasWarningWidget,XTAS_CONFERR);*/
+/*            return (1);*/
+/*        }*/
+/*        else {*/
+/*            strcpy(tma_tmppar->in, "dtx");*/
+/*            strcpy(tma_tmppar->ext,"dtx");*/
+/*        }*/
+/*    }*/
+/*    */
+/**/
+/*    tma_tmppar->out      = TMA_CONTEXT->TMA_OUTPUT;*/
+/*    tma_tmppar->otock    = TMA_CONTEXT->TMA_AUTOCLOCK; */
+/*    switch(TMA_CONTEXT->TMA_MODE) {*/
+/*        case 'T' :*/
+/*        case 'R' :*/
+/*        case 'W' : tma_tmppar->mod = TMA_CONTEXT->TMA_MODE;*/
+/*                   break;*/
+/*        default  : tma_tmppar->mod = 'T';*/
+/*                   break;*/
+/*    }*/
+/*//    strcpy(tma_tmppar->fin,"");*/
+/*    */
+/*    if(TMA_CONTEXT->TMA_MARGIN > 0)*/
+/*        sprintf(tma_tmppar->mrg,"%ld",TMA_CONTEXT->TMA_MARGIN);*/
+/*    else*/
+/*        strcpy(tma_tmppar->mrg, "");*/
+/*    */
+/*    tma_tmppar->v        = TMA_CONTEXT->TMA_VERBOSE;*/
+/*    tma_tmppar->i        = 'N';*/
+/*    */
+/*    if(TMA_CONTEXT->TMA_TUNIT == namealloc("ns"))*/
+/*        tma_tmppar->tu       = TMA_NS;*/
+/*    else*/
+/*        tma_tmppar->tu       = TMA_PS;*/
+/*        */
+/*    if(TMA_CONTEXT->TMA_CUNIT == namealloc("pf"))*/
+/*        tma_tmppar->cu       = TMA_PF;*/
+/*    else*/
+/*        tma_tmppar->cu       = TMA_FF;*/
+/*//    strcpy(tma_tmppar->ra,"");*/
+/*    return (0);*/
 }
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -302,7 +302,7 @@ void XtasTasInit()
         strcpy(tas_tmppar->swc,"");
     }
     
-//    tas_tmppar->nm       = 'N';
+/*    tas_tmppar->nm       = 'N';*/
     tas_tmppar->y        = TAS_CONTEXT->TAS_IGNBLACKB;
     tas_tmppar->q        = TAS_CONTEXT->TAS_FLATCELLS;
 
@@ -691,7 +691,7 @@ XtPointer cbs;
                                     p = strrchr(filename,'.');
                                     if(p)
                                         *p = '\0';
-                                //    XmTextSetString( xtas_woutput_file_name, filename);
+                                /*    XmTextSetString( xtas_woutput_file_name, filename);*/
                                     if((TOOL == TAS_TOOL) /*|| ((TOOL == TMA_TOOL) && (!strcmp(tma_tmppar->in,"spi")))*/) 
                                         strcpy(tas_tmppar->infile,filename);
                                                                    
@@ -737,24 +737,24 @@ XtPointer cbs;
                                     XmTextSetTopCharacter(xtas_winput_techno_file, (XmTextPosition) 0);
                                     break;
                                     
-//        case XTAS_FILEIN_FILE   :   strcpy(tma_tmppar->fin, filepath);
-//                                    XmTextSetString(xtas_winput_filein_file, filepath);
-//                                    XmTextSetCursorPosition(xtas_winput_filein_file, (XmTextPosition) strlen(filepath));
-//                                    XmTextSetTopCharacter(xtas_winput_filein_file, (XmTextPosition) 0);
-//                                    break;
-//
-//        case XTAS_READAREA_FILE :   strcpy(tma_tmppar->ra, filepath);
-//                                    XmTextSetString(xtas_winput_readarea_file, filepath);
-//                                    XmTextSetCursorPosition(xtas_winput_readarea_file, (XmTextPosition) strlen(filepath));
-//                                    XmTextSetTopCharacter(xtas_winput_readarea_file, (XmTextPosition) 0);
-//                                    break;
+/*        case XTAS_FILEIN_FILE   :   strcpy(tma_tmppar->fin, filepath);*/
+/*                                    XmTextSetString(xtas_winput_filein_file, filepath);*/
+/*                                    XmTextSetCursorPosition(xtas_winput_filein_file, (XmTextPosition) strlen(filepath));*/
+/*                                    XmTextSetTopCharacter(xtas_winput_filein_file, (XmTextPosition) 0);*/
+/*                                    break;*/
+/**/
+/*        case XTAS_READAREA_FILE :   strcpy(tma_tmppar->ra, filepath);*/
+/*                                    XmTextSetString(xtas_winput_readarea_file, filepath);*/
+/*                                    XmTextSetCursorPosition(xtas_winput_readarea_file, (XmTextPosition) strlen(filepath));*/
+/*                                    XmTextSetTopCharacter(xtas_winput_readarea_file, (XmTextPosition) 0);*/
+/*                                    break;*/
 
 
                                     
     }
     XtUnmanageChild( widget );
 
-  //  XalLeaveLimitedLoop();
+  /*  XalLeaveLimitedLoop();*/
 }
 
 void XtasTasCancelCallback(widget, call_data, client_data)
@@ -796,7 +796,7 @@ type = (int)(long)file_type;
 
 strcpy(file_mask, etoile);
 
-//XalLeaveLimitedLoop();
+/*XalLeaveLimitedLoop();*/
 
 switch ((int)(long)file_type) {
     case XTAS_NETLIST_FILE  :   strcpy(title,"Netlist File");
@@ -811,19 +811,19 @@ switch ((int)(long)file_type) {
     case XTAS_TECHNO_FILE   :   strcpy(title,"Techno File"); 
                                 strcat(file_mask, "elp");
                                 break;
-//    case XTAS_CONTEXT->TAS_FILEIN_FILE   :   strcpy(title,"Library File");
-//                                strcpy(file_mask, "*");
-//                                break;
-//    case XTAS_READAREA_FILE :   strcpy(title,"Area File");
-//                                strcpy(file_mask, "*");
-//                                break;
+/*    case XTAS_CONTEXT->TAS_FILEIN_FILE   :   strcpy(title,"Library File");*/
+/*                                strcpy(file_mask, "*");*/
+/*                                break;*/
+/*    case XTAS_READAREA_FILE :   strcpy(title,"Area File");*/
+/*                                strcpy(file_mask, "*");*/
+/*                                break;*/
     case XTAS_TMA_OUTPUT_FILE:  strcpy(title,"TMA Output File");
                                 strcpy(file_mask, "*");
                                 break;
 }
     
-//n = 0;
-//XtSetArg( args[n], XmNtitle, title); n++;
+/*n = 0;*/
+/*XtSetArg( args[n], XmNtitle, title); n++;*/
 
 if (!xtas_tas_file_select) {
     n = 0;
@@ -845,9 +845,9 @@ if (!xtas_tas_file_select) {
 }
 
 /* #NA 30-10-93 */
-//XtVaSetValues( xtas_tas_file_select,
-//               XtVaTypedArg, XmNdirMask, XmRString, file_mask,
-//               strlen(file_mask) + 1, NULL );
+/*XtVaSetValues( xtas_tas_file_select,*/
+/*               XtVaTypedArg, XmNdirMask, XmRString, file_mask,*/
+/*               strlen(file_mask) + 1, NULL );*/
 
 Filter    = XmStringCreateSimple( file_mask );
 
@@ -860,7 +860,7 @@ n = 0;
 XtSetArg (args[n], XmNtitle, title    ); n++;
 XtSetValues( XtParent(xtas_tas_file_select), args, n);
 XtManageChild( xtas_tas_file_select );
-//XalLimitedLoop( xtas_tas_file_select); 
+/*XalLimitedLoop( xtas_tas_file_select); */
 
 }
 /*---------------------------------------------------------------------------*/
@@ -929,8 +929,8 @@ XtPointer cbs;
             case SWC    :   XtSetSensitive(tas_form_w[3], True);
                             tas_tmppar->use_swc   = 'Y'; 
                             break;
-//            case NM     :   tas_tmppar->nm       = 'Y';
-//                            break;
+/*            case NM     :   tas_tmppar->nm       = 'Y';*/
+/*                            break;*/
             case Y      :   tas_tmppar->y        = 'Y';
                             break;
             case Q      :   tas_tmppar->q        = 'Y';
@@ -957,8 +957,8 @@ XtPointer cbs;
             case SWC    :   XtSetSensitive(tas_form_w[3], False);
                             tas_tmppar->use_swc   = 'N'; 
                             break;
-//            case NM     :   tas_tmppar->nm       = 'N';
-//                            break;
+/*            case NM     :   tas_tmppar->nm       = 'N';*/
+/*                            break;*/
             case Y      :   tas_tmppar->y        = 'N';
                             break;
             case Q      :   tas_tmppar->q        = 'N';
@@ -1048,8 +1048,8 @@ Widget widget;
 XtPointer type;
 XtPointer cbs;
 { 
-//    Widget toggleTR, toggleOTR, toggleHR, toggleOHR;
-//    Boolean bTR, bOTR, bHR, bOHR;
+/*    Widget toggleTR, toggleOTR, toggleHR, toggleOHR;*/
+/*    Boolean bTR, bOTR, bHR, bOHR;*/
     
     XmToggleButtonCallbackStruct *state = (XmToggleButtonCallbackStruct *) cbs ;
 
@@ -1057,80 +1057,80 @@ if(state->set) {
     switch ((int)(long)type) {
         case XTAS_TRANS_RECOG       : tas_tmppar->fcl = 'Y'; 
                                       
-                                      //toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog"); 
-                                      //toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");
-                                      //toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");
+                                      /*toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog"); */
+                                      /*toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");*/
+                                      /*toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");*/
                                       
-                                      //XtSetSensitive(toggleOTR,False);
-                                      //XtVaSetValues(toggleOTR, XmNset, False, NULL);
-                                      //tas_tmppar->xfcl = 'N';
+                                      /*XtSetSensitive(toggleOTR,False);*/
+                                      /*XtVaSetValues(toggleOTR, XmNset, False, NULL);*/
+                                      /*tas_tmppar->xfcl = 'N';*/
                                       
-                                      //XtSetSensitive(toggleOHR,False);                   
-                                      //XtVaSetValues(toggleOHR, XmNset, False, NULL);
-                                      //tas_tmppar->xg = 'N';
+                                      /*XtSetSensitive(toggleOHR,False);                   */
+                                      /*XtVaSetValues(toggleOHR, XmNset, False, NULL);*/
+                                      /*tas_tmppar->xg = 'N';*/
                                       
-                                      //XtSetSensitive(toggleHR,True);
+                                      /*XtSetSensitive(toggleHR,True);*/
    
                                       break;
                                       
                                       
         case XTAS_ONLY_TRANS_RECOG  : tas_tmppar->xfcl = 'Y'; 
                                       
-                                      //toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog");
-                                      //toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");
-                                      //toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");
+                                      /*toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog");*/
+                                      /*toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");*/
+                                      /*toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");*/
                                       
-                                      //XtSetSensitive(toggleTR,False); 
-                                      //XtVaSetValues(toggleTR, XmNset, False, NULL);
-                                      //tas_tmppar->fcl = 'N';
+                                      /*XtSetSensitive(toggleTR,False); */
+                                      /*XtVaSetValues(toggleTR, XmNset, False, NULL);*/
+                                      /*tas_tmppar->fcl = 'N';*/
                                       
-                                      //XtSetSensitive(toggleOTR,False);
-                                      //XtVaSetValues(toggleOTR, XmNset, False, NULL);
-                                      //tas_tmppar->xg = 'N';
+                                      /*XtSetSensitive(toggleOTR,False);*/
+                                      /*XtVaSetValues(toggleOTR, XmNset, False, NULL);*/
+                                      /*tas_tmppar->xg = 'N';*/
                                       
-                                      //XtSetSensitive(toggleHR,True); 
+                                      /*XtSetSensitive(toggleHR,True); */
                                       
                                       break;
                                       
                                       
         case XTAS_HIER_RECOG        : tas_tmppar->gns = 'Y'; 
                                       
-                                      //toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog");
-                                      //toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog");
-                                      //toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");
+                                      /*toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog");*/
+                                      /*toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog");*/
+                                      /*toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");*/
                                       
-                                      //XtVaGetValues(toggleOTR, XmNset, &bOTR, NULL);
-                                      //if(!bOTR)
-                                      //  XtSetSensitive(toggleTR,True);                   
+                                      /*XtVaGetValues(toggleOTR, XmNset, &bOTR, NULL);*/
+                                      /*if(!bOTR)*/
+                                      /*  XtSetSensitive(toggleTR,True);                   */
                                       
-                                      //XtVaGetValues(toggleTR, XmNset, &bTR, NULL);
-                                      //if(!bTR)
-                                      //  XtSetSensitive(toggleOTR,True);
+                                      /*XtVaGetValues(toggleTR, XmNset, &bTR, NULL);*/
+                                      /*if(!bTR)*/
+                                      /*  XtSetSensitive(toggleOTR,True);*/
 
-                                      //XtSetSensitive(toggleOHR,False);  
-                                      //XtVaSetValues(toggleOHR, XmNset, False, NULL);
-                                      //tas_tmppar->xg = 'N';
+                                      /*XtSetSensitive(toggleOHR,False);  */
+                                      /*XtVaSetValues(toggleOHR, XmNset, False, NULL);*/
+                                      /*tas_tmppar->xg = 'N';*/
                                       
                                       break;
 
                                       
         case XTAS_ONLY_HIER_RECOG   : tas_tmppar->xg = 'Y'; 
 
-                                      //toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog"); 
-                                      //toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog"); 
-                                      //toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");
+                                      /*toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog"); */
+                                      /*toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog"); */
+                                      /*toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");*/
                                      
-                                      //XtSetSensitive(toggleTR,False);                  
-                                      //XtVaSetValues(toggleTR, XmNset, False, NULL);
-                                      //tas_tmppar->fcl = 'N';
+                                      /*XtSetSensitive(toggleTR,False);                  */
+                                      /*XtVaSetValues(toggleTR, XmNset, False, NULL);*/
+                                      /*tas_tmppar->fcl = 'N';*/
                                       
-                                      //XtSetSensitive(toggleOTR,False);                  
-                                      //XtVaSetValues(toggleOTR, XmNset, False, NULL);
-                                      //tas_tmppar->xfcl = 'N';
+                                      /*XtSetSensitive(toggleOTR,False);                  */
+                                      /*XtVaSetValues(toggleOTR, XmNset, False, NULL);*/
+                                      /*tas_tmppar->xfcl = 'N';*/
                                      
-                                      //XtSetSensitive(toggleHR,False);
-                                      //XtVaSetValues(toggleHR, XmNset, False, NULL);
-                                      //tas_tmppar->gns = 'N';
+                                      /*XtSetSensitive(toggleHR,False);*/
+                                      /*XtVaSetValues(toggleHR, XmNset, False, NULL);*/
+                                      /*tas_tmppar->gns = 'N';*/
                                      
                                       break;
     }
@@ -1139,15 +1139,15 @@ else {
     switch ((int)(long)type) {
         case XTAS_TRANS_RECOG       : tas_tmppar->fcl = 'N'; 
                                       
-                                      //toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog"); 
-                                      //toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");
-                                      //toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");
+                                      /*toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog"); */
+                                      /*toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");*/
+                                      /*toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");*/
                                     
-                                      //XtSetSensitive(toggleOTR,True);
+                                      /*XtSetSensitive(toggleOTR,True);*/
                                      
-                                      //XtVaGetValues( toggleHR, XmNset, &bHR, NULL);
-                                      //if(!bHR)
-                                      //  XtSetSensitive(toggleOHR,True);                   
+                                      /*XtVaGetValues( toggleHR, XmNset, &bHR, NULL);*/
+                                      /*if(!bHR)*/
+                                      /*  XtSetSensitive(toggleOHR,True);                   */
                                       
    
                                       break;
@@ -1155,15 +1155,15 @@ else {
                                       
         case XTAS_ONLY_TRANS_RECOG  : tas_tmppar->xfcl = 'N'; 
                                       
-                                      //toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog");
-                                      //toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");
-                                      //toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");
+                                      /*toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog");*/
+                                      /*toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");*/
+                                      /*toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");*/
                                     
-                                      //XtSetSensitive(toggleTR,True); 
+                                      /*XtSetSensitive(toggleTR,True); */
                                      
-                                      //XtVaGetValues( toggleHR, XmNset, &bHR, NULL);
-                                      //if(!bHR)
-                                      //  XtSetSensitive(toggleOHR,True);
+                                      /*XtVaGetValues( toggleHR, XmNset, &bHR, NULL);*/
+                                      /*if(!bHR)*/
+                                      /*  XtSetSensitive(toggleOHR,True);*/
                                       
                                       
                                       break;
@@ -1172,30 +1172,30 @@ else {
         case XTAS_HIER_RECOG        : tas_tmppar->gns = 'N'; 
                                      
                                       
-                                      //toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");
-                                      //toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog");
-                                      //toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog");
+                                      /*toggleOHR = XtNameToWidget(XtParent(widget), "*XtasOnlyHierRecog");*/
+                                      /*toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog");*/
+                                      /*toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog");*/
                                      
-                                      //XtVaGetValues(toggleTR, XmNset, &bTR, NULL);
-                                      //XtVaGetValues(toggleOTR, XmNset, &bOTR, NULL);
+                                      /*XtVaGetValues(toggleTR, XmNset, &bTR, NULL);*/
+                                      /*XtVaGetValues(toggleOTR, XmNset, &bOTR, NULL);*/
                                      
-                                      //if(!bTR && !bOTR)
-                                      //  XtSetSensitive(toggleOHR,True);  
+                                      /*if(!bTR && !bOTR)*/
+                                      /*  XtSetSensitive(toggleOHR,True);  */
                                       
                                       break;
 
                                       
         case XTAS_ONLY_HIER_RECOG   : tas_tmppar->xg = 'N'; 
 
-                                      //toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog"); 
-                                      //toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog"); 
-                                      //toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");
+                                      /*toggleTR = XtNameToWidget(XtParent(widget), "*XtasTransRecog"); */
+                                      /*toggleOTR = XtNameToWidget(XtParent(widget), "*XtasOnlyTransRecog"); */
+                                      /*toggleHR = XtNameToWidget(XtParent(widget), "*XtasHierRecog");*/
                                       
-                                      //XtSetSensitive(toggleTR,True);                  
+                                      /*XtSetSensitive(toggleTR,True);                  */
                                       
-                                      //XtSetSensitive(toggleOTR,True);                  
+                                      /*XtSetSensitive(toggleOTR,True);                  */
                                      
-                                      //XtSetSensitive(toggleHR,True);
+                                      /*XtSetSensitive(toggleHR,True);*/
                                      
                                       break;
     }
@@ -1311,10 +1311,10 @@ XtPointer call_data;
 tas_params->help_s = tas_tmppar->help_s;
 tas_params->pch    = tas_tmppar->pch;
 */
-//strncpy(tas_tmppar->swc   , XmTextGetString( tas_w_opt_elect[0] ), 32);
-//strncpy(tas_tmppar->opc   , XmTextGetString( tas_w_opt_elect[1] ), 32);
-//strncpy(tas_tmppar->p     , XmTextGetString( tas_w_opt_elect[2] ), 32);
-//strncpy(tas_tmppar->cout  , XmTextGetString( tas_w_opt_elect[3] ), 32);
+/*strncpy(tas_tmppar->swc   , XmTextGetString( tas_w_opt_elect[0] ), 32);*/
+/*strncpy(tas_tmppar->opc   , XmTextGetString( tas_w_opt_elect[1] ), 32);*/
+/*strncpy(tas_tmppar->p     , XmTextGetString( tas_w_opt_elect[2] ), 32);*/
+/*strncpy(tas_tmppar->cout  , XmTextGetString( tas_w_opt_elect[3] ), 32);*/
 if (tas_tmppar->use_cout  == 'Y')
     strncpy(tas_tmppar->cout , XmTextGetString( tas_text_w[0] ), 32);
 else
@@ -1343,7 +1343,7 @@ else
     strcpy(tas_tmppar->p,"");
 
 
-//XalLeaveLimitedLoop();
+/*XalLeaveLimitedLoop();*/
 }
 
 
@@ -1371,7 +1371,7 @@ int      n;
 long     type;
 Widget   frame, frame2, frame3, row_widget, row_widget2, tmp_widget, label_widget;
 Widget   separator, form, dbase_form, ebase_form, fbase_form, sub_form;
-//char     outfiles[20], interc_options[10];
+/*char     outfiles[20], interc_options[10];*/
 XmString text;
 Atom     WM_DELETE_WINDOW;
 
@@ -1396,7 +1396,7 @@ if (!session_options_widget) {
 	HelpFather = session_options_widget ;
     XtAddCallback( session_options_widget, XmNhelpCallback, XtasHelpCallback, (XtPointer)(XTAS_HELP_MAIN|XTAS_SRC_TASADV)) ;
     
-    //XmAddTabGroup( session_options_widget );
+    /*XmAddTabGroup( session_options_widget );*/
 
     n = 0;
     form = XtCreateManagedWidget( "XtasDeskMainForm", xmFormWidgetClass, session_options_widget, args, n );
@@ -1455,7 +1455,7 @@ if (!session_options_widget) {
             XmNisAligned,       True,
             XmNspacing,         5,
             NULL);
-    //XmAddTabGroup( row_widget );
+    /*XmAddTabGroup( row_widget );*/
     /*--------------------------------------------------------------------------------------------*/
     text = XmStringCreateSimple( "precharged signals" );
     toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
@@ -1505,7 +1505,7 @@ if (!session_options_widget) {
 
     n = 0;
     XtSetArg( args[n], XmNtopAttachment,         XmATTACH_FORM     ); n++;
-    // XtSetArg( args[n], XmNrightAttachment,       XmATTACH_FORM     ); n++;
+    /* XtSetArg( args[n], XmNrightAttachment,       XmATTACH_FORM     ); n++;*/
     XtSetArg( args[n], XmNbottomAttachment,      XmATTACH_FORM     ); n++;
     XtSetArg( args[n], XmNleftAttachment,        XmATTACH_FORM     ); n++;
     XtSetArg( args[n], XmNwidth,                 55                ); n++;
@@ -1685,15 +1685,15 @@ if (!session_options_widget) {
 
 
     /*--------------------------------------------------------------------------------------------*/
-//    text = XmStringCreateSimple( "remove look-up tables" );
-//    toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
-//            XmNindicatorType, XmN_OF_MANY,
-//            XmNset,           False,
-//            XmNlabelString,   text,
-//            NULL);
-//    XmStringFree( text );
-//    XtAddCallback( toggle, XmNvalueChangedCallback, XtasCalculationCallback, (XtPointer)NM );
-//
+/*    text = XmStringCreateSimple( "remove look-up tables" );*/
+/*    toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,*/
+/*            XmNindicatorType, XmN_OF_MANY,*/
+/*            XmNset,           False,*/
+/*            XmNlabelString,   text,*/
+/*            NULL);*/
+/*    XmStringFree( text );*/
+/*    XtAddCallback( toggle, XmNvalueChangedCallback, XtasCalculationCallback, (XtPointer)NM );*/
+/**/
     /*--------------------------------------------------------------------------------------------*/
     text = XmStringCreateSimple( "ignore black boxes" );
     toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget2,
@@ -1715,40 +1715,40 @@ if (!session_options_widget) {
     XtAddCallback( toggle, XmNvalueChangedCallback, XtasCalculationCallback, (XtPointer)Q );
 
 
-    //for ( type=0; type < XtNumber(tas_opt_output); type++)
-    //    {
-    //    Widget toggle;
-    //
-    //    text = XmStringCreateSimple( tas_opt_output[type] );
-    //    toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
-    //                                      XmNindicatorType, XmN_OF_MANY,
-    //                                      XmNset,           False,
-    //                                      XmNlabelString,   text,
-    //                                      NULL);
-    //    XmStringFree( text );
-    //
-    //    if ( outfiles[type] == 'Y' )
-    //        {
-    //        n = 0;
-    //        XtSetArg( args[n], XmNset, True ); n++;
-    //        XtSetValues( toggle, args, n );
-    //        }
-    //
-    //    if ( outfiles[type] == 'N' )
-    //        {
-    //        n = 0;
-    //        XtSetArg( args[n], XmNset, False ); n++; 
-    //        XtSetValues( toggle, args, n );
-    //        }
-    // 
-    //    if ( outfiles[type] == 'X' )
-    //        {
-    //        n = 0;
-    //        XtSetArg( args[n], XmNsensitive, False ); n++; 
-    //        XtSetValues( toggle, args, n );
-    //        }
-    //    XtAddCallback( toggle, XmNvalueChangedCallback, XtasOutFilesCallback, (XtPointer)((long)type) );
-    //    }
+    /*for ( type=0; type < XtNumber(tas_opt_output); type++)*/
+    /*    {*/
+    /*    Widget toggle;*/
+    /**/
+    /*    text = XmStringCreateSimple( tas_opt_output[type] );*/
+    /*    toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, row_widget,*/
+    /*                                      XmNindicatorType, XmN_OF_MANY,*/
+    /*                                      XmNset,           False,*/
+    /*                                      XmNlabelString,   text,*/
+    /*                                      NULL);*/
+    /*    XmStringFree( text );*/
+    /**/
+    /*    if ( outfiles[type] == 'Y' )*/
+    /*        {*/
+    /*        n = 0;*/
+    /*        XtSetArg( args[n], XmNset, True ); n++;*/
+    /*        XtSetValues( toggle, args, n );*/
+    /*        }*/
+    /**/
+    /*    if ( outfiles[type] == 'N' )*/
+    /*        {*/
+    /*        n = 0;*/
+    /*        XtSetArg( args[n], XmNset, False ); n++; */
+    /*        XtSetValues( toggle, args, n );*/
+    /*        }*/
+    /* */
+    /*    if ( outfiles[type] == 'X' )*/
+    /*        {*/
+    /*        n = 0;*/
+    /*        XtSetArg( args[n], XmNsensitive, False ); n++; */
+    /*        XtSetValues( toggle, args, n );*/
+    /*        }*/
+    /*    XtAddCallback( toggle, XmNvalueChangedCallback, XtasOutFilesCallback, (XtPointer)((long)type) );*/
+    /*    }*/
 
 
     /*---------------------  end Calculation -------------------------------------*/
@@ -1795,7 +1795,7 @@ if (!session_options_widget) {
             XmNisAligned,       True,
             XmNspacing,         15,
             NULL);
-    //XmAddTabGroup( row_widget );
+    /*XmAddTabGroup( row_widget );*/
 
     for ( type=0; type < (int)(long)XtNumber(tas_opt_inter); type++)
     {
@@ -1826,7 +1826,7 @@ if (!session_options_widget) {
     XtSetArg( args[n], XmNtopWidget,        frame             ); n++;
     XtSetArg( args[n], XmNtopOffset,        5                 ); n++;
     XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-    //XtSetArg( args[n], XmNleftOffset,       5                 ); n++;
+    /*XtSetArg( args[n], XmNleftOffset,       5                 ); n++;*/
     XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ); n++;
     dbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, form, args, n );
     frame3 = dbase_form;
@@ -1862,7 +1862,7 @@ if (!session_options_widget) {
             XmNradioAlwaysOne,  True,
             XmNspacing,         60,
             NULL);
-    //XmAddTabGroup( row_widget );
+    /*XmAddTabGroup( row_widget );*/
 
     for ( type=0; type < (int)(long)XtNumber(tas_opt_carac); type++)
     {
@@ -1931,7 +1931,7 @@ if (!session_options_widget) {
             XmNisAligned,       True,
             XmNspacing,         5,
             NULL);
-    //XmAddTabGroup( row_widget );
+    /*XmAddTabGroup( row_widget );*/
 
     /******* 1st frame: Latch / flipflop ********/
     n = 0;
@@ -2319,7 +2319,7 @@ if (!session_options_widget) {
             XmNleftAttachment,    XmATTACH_FORM,
             XmNleftOffset,        10,
             XmNrightAttachment,   XmATTACH_FORM,
-            //XmNbottomAttachment,  XmATTACH_FORM,
+            /*XmNbottomAttachment,  XmATTACH_FORM,*/
             XmNindicatorType, XmN_OF_MANY,
             XmNset,           tas_tmppar->z == 'Y' ? True:False,
             XmNsensitive,     (strlen(tas_tmppar->p) > 0) ? True:False,
@@ -2333,7 +2333,7 @@ if (!session_options_widget) {
 
 }
 XtManageChild( session_options_widget );
-//XalLimitedLoop( session_options_widget );
+/*XalLimitedLoop( session_options_widget );*/
 
 }
 /*---------------------------------------------------------------------------*/
@@ -2350,13 +2350,13 @@ char *XtasTasOptions( char *elpTechnoFile_save)
 
     if (strlen(tas_tmppar->tec) != 0){
         strcpy(elpTechnoFile, tas_tmppar->tec);
-        //ELP_LOAD_FILE_TYPE = ELP_LOADELP_FILE;
+        /*ELP_LOAD_FILE_TYPE = ELP_LOADELP_FILE;*/
     }else{
         strcpy(elpTechnoFile, elpTechnoFile_save); 
     }
         
     if((TOOL == TAS_TOOL) || ((TOOL == TMA_TOOL) && ((!strcmp(tma_tmppar->in,"spi")) || (!strcmp(tma_tmppar->in,"vhd")) || (!strcmp(tma_tmppar->in,"vlg"))))) {
-       // tas_init();
+       /* tas_init();*/
         tas_version();
         
         
@@ -2493,7 +2493,7 @@ char *XtasTasOptions( char *elpTechnoFile_save)
         }
         else
             TAS_CONTEXT->TAS_CAPASWITCH = 0.0;
-//        if (tas_tmppar->nm   == 'Y') TAS_CONTEXT->TAS_SUPSTMMODEL = 'Y';
+/*        if (tas_tmppar->nm   == 'Y') TAS_CONTEXT->TAS_SUPSTMMODEL = 'Y';*/
 
         if (tas_tmppar->y    == 'Y') TAS_CONTEXT->TAS_IGNBLACKB   = 'Y';
         else                         TAS_CONTEXT->TAS_IGNBLACKB   = 'N';
@@ -2585,74 +2585,74 @@ char *XtasTasOptions( char *elpTechnoFile_save)
 
      }
     
-//    if(TOOL == TMA_TOOL) {
-//        for(i=0 ; ((CATA_LIB[i] != NULL) && (strcmp(CATA_LIB[i],tma_tmppar->inpath) != 0)) ; i++);
-//        if(CATA_LIB[i] == NULL){ 
-//            new_cata_lib = (char **)mbkalloc((unsigned int)(i+2) * sizeof(char *));
-//            for(j=0; j<i ; j++) {
-//                new_cata_lib[j] = (char *)mbkalloc((strlen(CATA_LIB[j])+1) * sizeof(char));
-//                strcpy(new_cata_lib[j],CATA_LIB[j]);
-//            }
-//            str2 = (char *)mbkalloc((strlen(tma_tmppar->inpath)+1) * sizeof(char));
-//            strcpy(str2, tma_tmppar->inpath);
-//            new_cata_lib[i] = str2;
-//            new_cata_lib[i+1] = NULL;
-//            CATA_LIB = new_cata_lib;
-//        }
-//
-//        TMA_CONTEXT->TMA_NAMEIN = namealloc(tma_tmppar->namein);
-//      
-//        if(strlen(tma_tmppar->outpath) != 0) {
-//            new_work_lib = (char *)mbkalloc((unsigned)(strlen(tma_tmppar->outpath)+1)*sizeof(char));
-//            strcpy(new_work_lib,tma_tmppar->outpath);
-//        }
-//        else {
-//            new_work_lib = (char *)mbkalloc((unsigned)2*sizeof(char));
-//            strcpy(new_work_lib,".");
-//        }
-//        WORK_LIB_SAVE = WORK_LIB;
-//        WORK_LIB = new_work_lib;
-//        if(strlen(tma_tmppar->nameout) != 0)
-//            TMA_CONTEXT->TMA_LIBRARY = namealloc(tma_tmppar->nameout);
-//        
-//        TMA_CONTEXT->TMA_OUTPUT = tma_tmppar->out;
-//
-//        TMA_CONTEXT->TMA_MODE = tma_tmppar->mod;
-////        if(strlen(tma_tmppar->fin) != 0)
-////            TMA_CONTEXT->TMA_FILEIN = namealloc(tma_tmppar->fin);
-////
-////        if(strlen(tma_tmppar->ra) != 0)
-////            TMA_CONTEXT->TMA_READFILE = namealloc(tma_tmppar->ra);
-//
-//        if(tma_tmppar->tu == TMA_PS)
-//            TMA_CONTEXT->TMA_TUNIT = namealloc("ps");
-//        else
-//            TMA_CONTEXT->TMA_TUNIT = namealloc("ns");
-//    
-//        if(tma_tmppar->cu == TMA_PF)
-//            TMA_CONTEXT->TMA_CUNIT = namealloc("pf");
-//        else
-//            TMA_CONTEXT->TMA_CUNIT = namealloc("ff");
-//    
-//        if(strlen(tma_tmppar->mrg) != 0)
-//            TMA_CONTEXT->TMA_MARGIN = atoi (tma_tmppar->mrg);
-//        else
-//            TMA_CONTEXT->TMA_MARGIN = 0;
-//
-//        if(tma_tmppar->dtxin == 'Y') TMA_CONTEXT->TMA_DTXIN = 'Y';
-//        else                        TMA_CONTEXT->TMA_DTXIN = 'N';
-//        if(tma_tmppar->ttxin == 'Y') TMA_CONTEXT->TMA_TTXIN = 'Y';
-//        else                        TMA_CONTEXT->TMA_TTXIN = 'N';
-//       
-//        if(tma_tmppar->otock == 'Y') TMA_CONTEXT->TMA_AUTOCLOCK = 'Y';
-//        else                        TMA_CONTEXT->TMA_AUTOCLOCK = 'N';
-//
-//        if(tma_tmppar->i == 'Y')
-//            avt_sethashvar("avtReadInformationFile", inf_GetDefault_AVT_INF_Value());            
-//
-//        if(tma_tmppar->v == 'Y')     TMA_CONTEXT->TMA_VERBOSE = 'Y';
-//        else                        TMA_CONTEXT->TMA_VERBOSE = 'N';
-//    }
+/*    if(TOOL == TMA_TOOL) {*/
+/*        for(i=0 ; ((CATA_LIB[i] != NULL) && (strcmp(CATA_LIB[i],tma_tmppar->inpath) != 0)) ; i++);*/
+/*        if(CATA_LIB[i] == NULL){ */
+/*            new_cata_lib = (char **)mbkalloc((unsigned int)(i+2) * sizeof(char *));*/
+/*            for(j=0; j<i ; j++) {*/
+/*                new_cata_lib[j] = (char *)mbkalloc((strlen(CATA_LIB[j])+1) * sizeof(char));*/
+/*                strcpy(new_cata_lib[j],CATA_LIB[j]);*/
+/*            }*/
+/*            str2 = (char *)mbkalloc((strlen(tma_tmppar->inpath)+1) * sizeof(char));*/
+/*            strcpy(str2, tma_tmppar->inpath);*/
+/*            new_cata_lib[i] = str2;*/
+/*            new_cata_lib[i+1] = NULL;*/
+/*            CATA_LIB = new_cata_lib;*/
+/*        }*/
+/**/
+/*        TMA_CONTEXT->TMA_NAMEIN = namealloc(tma_tmppar->namein);*/
+/*      */
+/*        if(strlen(tma_tmppar->outpath) != 0) {*/
+/*            new_work_lib = (char *)mbkalloc((unsigned)(strlen(tma_tmppar->outpath)+1)*sizeof(char));*/
+/*            strcpy(new_work_lib,tma_tmppar->outpath);*/
+/*        }*/
+/*        else {*/
+/*            new_work_lib = (char *)mbkalloc((unsigned)2*sizeof(char));*/
+/*            strcpy(new_work_lib,".");*/
+/*        }*/
+/*        WORK_LIB_SAVE = WORK_LIB;*/
+/*        WORK_LIB = new_work_lib;*/
+/*        if(strlen(tma_tmppar->nameout) != 0)*/
+/*            TMA_CONTEXT->TMA_LIBRARY = namealloc(tma_tmppar->nameout);*/
+/*        */
+/*        TMA_CONTEXT->TMA_OUTPUT = tma_tmppar->out;*/
+/**/
+/*        TMA_CONTEXT->TMA_MODE = tma_tmppar->mod;*/
+/*//        if(strlen(tma_tmppar->fin) != 0)*/
+/*//            TMA_CONTEXT->TMA_FILEIN = namealloc(tma_tmppar->fin);*/
+/*//*/
+/*//        if(strlen(tma_tmppar->ra) != 0)*/
+/*//            TMA_CONTEXT->TMA_READFILE = namealloc(tma_tmppar->ra);*/
+/**/
+/*        if(tma_tmppar->tu == TMA_PS)*/
+/*            TMA_CONTEXT->TMA_TUNIT = namealloc("ps");*/
+/*        else*/
+/*            TMA_CONTEXT->TMA_TUNIT = namealloc("ns");*/
+/*    */
+/*        if(tma_tmppar->cu == TMA_PF)*/
+/*            TMA_CONTEXT->TMA_CUNIT = namealloc("pf");*/
+/*        else*/
+/*            TMA_CONTEXT->TMA_CUNIT = namealloc("ff");*/
+/*    */
+/*        if(strlen(tma_tmppar->mrg) != 0)*/
+/*            TMA_CONTEXT->TMA_MARGIN = atoi (tma_tmppar->mrg);*/
+/*        else*/
+/*            TMA_CONTEXT->TMA_MARGIN = 0;*/
+/**/
+/*        if(tma_tmppar->dtxin == 'Y') TMA_CONTEXT->TMA_DTXIN = 'Y';*/
+/*        else                        TMA_CONTEXT->TMA_DTXIN = 'N';*/
+/*        if(tma_tmppar->ttxin == 'Y') TMA_CONTEXT->TMA_TTXIN = 'Y';*/
+/*        else                        TMA_CONTEXT->TMA_TTXIN = 'N';*/
+/*       */
+/*        if(tma_tmppar->otock == 'Y') TMA_CONTEXT->TMA_AUTOCLOCK = 'Y';*/
+/*        else                        TMA_CONTEXT->TMA_AUTOCLOCK = 'N';*/
+/**/
+/*        if(tma_tmppar->i == 'Y')*/
+/*            avt_sethashvar("avtReadInformationFile", inf_GetDefault_AVT_INF_Value());            */
+/**/
+/*        if(tma_tmppar->v == 'Y')     TMA_CONTEXT->TMA_VERBOSE = 'Y';*/
+/*        else                        TMA_CONTEXT->TMA_VERBOSE = 'N';*/
+/*    }*/
     
     return NULL;
 
@@ -2718,7 +2718,7 @@ void XtasSessionTreat( )
         XtasPasqua();
         if (sigsetjmp( XtasMyEnv , 1 ) == 0)
         {   
-            inf_Dirty(NULL); // all inffig will be reloaded from disk
+            inf_Dirty(NULL); /* all inffig will be reloaded from disk*/
 
             if (TOOL == TMA_TOOL) {
             /*
@@ -2770,9 +2770,9 @@ void XtasSessionTreat( )
                     ptfig = XtasMainParam->ttvfig;
                     while(ptfig) {
                         ptfignext = ptfig->NEXT;
-//                        if(((ptfig->STATUS & TTV_STS_LOCK) != TTV_STS_LOCK) &&
-//                                (stm_getcell(ptfig->INFO->FIGNAME)))
-//                            stm_freecell(ptfig->INFO->FIGNAME);
+/*                        if(((ptfig->STATUS & TTV_STS_LOCK) != TTV_STS_LOCK) &&*/
+/*                                (stm_getcell(ptfig->INFO->FIGNAME)))*/
+/*                            stm_freecell(ptfig->INFO->FIGNAME);*/
                         XtasFreeAllCells (ptfig);      
                         if (getloadedlofig(ptfig->INFO->FIGNAME))
                             dellofig (ptfig->INFO->FIGNAME);
@@ -2929,10 +2929,10 @@ XtPointer call_data;
             strcpy(tma_tmppar->nameout, XmTextGetString(xtas_woutput_name));
             if(strlen(tma_tmppar->nameout) == 0) 
              strcpy(tma_tmppar->nameout,tma_tmppar->namein);
-//            if(strlen(tma_tmppar->ra) > 0)
-//                strcpy(tma_tmppar->ra, XmTextGetString(xtas_winput_readarea_file));
-//            if(strlen(tma_tmppar->fin) > 0)
-//                strcpy(tma_tmppar->fin, XmTextGetString(xtas_winput_filein_file));
+/*            if(strlen(tma_tmppar->ra) > 0)*/
+/*                strcpy(tma_tmppar->ra, XmTextGetString(xtas_winput_readarea_file));*/
+/*            if(strlen(tma_tmppar->fin) > 0)*/
+/*                strcpy(tma_tmppar->fin, XmTextGetString(xtas_winput_filein_file));*/
         }        
         
 
@@ -2940,18 +2940,18 @@ XtPointer call_data;
         XtUnmanageChild( parent );
         XalForceUpdate( XtasTopLevel );
 
-    //    XtasSigsRemove();
-    //    XalForceUpdate( XtasTopLevel );
+    /*    XtasSigsRemove();*/
+    /*    XalForceUpdate( XtasTopLevel );*/
 
-    //   XalSetCursor( XtasTopLevel, NORMAL ); 
-    //   XalForceUpdate( XtasTopLevel );
+    /*   XalSetCursor( XtasTopLevel, NORMAL ); */
+    /*   XalForceUpdate( XtasTopLevel );*/
     
         XtasSessionTreat();
     }
     if (tmp)
         XtFree (tmp);
         
-//    XalLeaveLimitedLoop();
+/*    XalLeaveLimitedLoop();*/
     
 }
 
@@ -3063,29 +3063,29 @@ XtPointer cbs;
     switch((char)(long)type) {
        case 'F'     : if(state->set ) {
                           tma_tmppar->mod = 'R';
-                          //tma_beh_mode = 'R';
+                          /*tma_beh_mode = 'R';*/
                       }
-//                      else {
-//                          tma_tmppar->mod = 'W';
-//                          //tma_beh_mode = 'W';
-//                      }
+/*                      else {*/
+/*                          tma_tmppar->mod = 'W';*/
+/*                          //tma_beh_mode = 'W';*/
+/*                      }*/
                       break;
-//       case 'f'     : if(state->set ) {
-//                          tma_tmppar->mod = 'R';
-//                          //tma_beh_mode = 'R';
-//                      }
-//                      else {
-//                          tma_tmppar->mod = 'W';
-//                          //tma_beh_mode = 'W';
-//                      }
+/*       case 'f'     : if(state->set ) {*/
+/*                          tma_tmppar->mod = 'R';*/
+/*                          //tma_beh_mode = 'R';*/
+/*                      }*/
+/*                      else {*/
+/*                          tma_tmppar->mod = 'W';*/
+/*                          //tma_beh_mode = 'W';*/
+/*                      }*/
                       break;
        case 'A'     : if(state->set ) {
                           tma_tmppar->mod = 'W';
-                          //tma_beh_mode = 'W';
+                          /*tma_beh_mode = 'W';*/
                       }
                       else {
                           tma_tmppar->mod = 'R';
-                          //tma_beh_mode = 'R';
+                          /*tma_beh_mode = 'R';*/
                       }
                       break;
                      
@@ -3414,7 +3414,7 @@ XtPointer call_data;
         XtAddCallback( session_widget, XmNcancelCallback, XtasSessionOptionsCallback, (XtPointer)session_widget );
         WM_DELETE_WINDOW = XmInternAtom(XtDisplay(XtasDeskMainForm), "WM_DELETE_WINDOW", False);
         XmAddWMProtocolCallback(XtParent(session_widget), WM_DELETE_WINDOW, XtasCancelCallback, (XtPointer )session_widget);
-        //XmAddTabGroup( session_widget );
+        /*XmAddTabGroup( session_widget );*/
         HelpFather = session_widget;
         if (TOOL==TAS_TOOL)
             XtAddCallback( session_widget, XmNhelpCallback, XtasHelpCallback, (XtPointer)(XTAS_HELP_MAIN|XTAS_SRC_TASPARAM)) ;
@@ -3715,652 +3715,652 @@ XtPointer call_data;
                                             XmNlabelString,       text,
                                             XmNheight,            20,
                                             NULL);
-//        if(TOOL == TAS_TOOL)
+/*        if(TOOL == TAS_TOOL)*/
             XtVaSetValues( toggle, XmNbottomAttachment, XmATTACH_FORM, XmNbottomOffset, 5, NULL);
         XtAddCallback( toggle, XmNvalueChangedCallback, XtasReadInfoCallback, (XtPointer)NULL );
         
         
-//        if(TOOL == TMA_TOOL) {
-//            /***********  subpart4 : Filein File  **********/
-//            
-//            n = 0;
-//            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        toggle            ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNleftOffset,       5                 ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//            ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );
-//        
-//            text   = XmStringCreateSimple("Library File" );
-//            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, ebase_form,
-//                                              XmNindicatorType, XmN_OF_MANY,
-//                                              XmNset,           False,
-//                                              XmNspacing,       10,
-//                                              XmNlabelString,   text,
-//                                              NULL);
-//            XmStringFree( text );
-//        
-//            n = 0;
-//            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        ebase_form        ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftWidget,       toggle            ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//            tmp_widget = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, ebase_form, args, n );
-//            
-//            n = 0;
-//            XtSetArg( args[n], XmNtopAttachment,         XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,       XmATTACH_POSITION ); n++;
-//            XtSetArg( args[n], XmNrightPosition,         85                ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,        XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftWidget,            label_widget      ); n++;
-//            XtSetArg( args[n], XmNshadowThickness,       1                 ); n++;
-//            xtas_winput_filein_file = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, tmp_widget, args,n);
-//            
-//            XtVaGetValues(form, XmNforeground, &fg, XmNbackground, &bg, NULL);
-//            pixmap = XalGetPixmap(ebase_form, 
-//                                 XTAS_OPEN_MAP, fg, bg);
-//        
-//            button = XtVaCreateManagedWidget("dbutton", xmDrawnButtonWidgetClass, tmp_widget,
-//                                             XmNlabelType,         XmPIXMAP,
-//                                             XmNlabelPixmap,       pixmap,
-//                                             XmNwidth,             40,
-//                                             XmNheight,            35,
-//                                             XmNpushButtonEnabled, True,
-//          			                         XmNtopAttachment,     XmATTACH_OPPOSITE_WIDGET,
-//          			                         XmNtopWidget,	       xtas_winput_filein_file,
-//          			                         XmNbottomAttachment,  XmATTACH_OPPOSITE_WIDGET,
-//          			                         XmNbottomWidget,      xtas_winput_filein_file,
-//                                             XmNshadowType,        XmSHADOW_ETCHED_OUT,
-//                                             XmNleftAttachment,    XmATTACH_WIDGET,
-//                                             XmNleftWidget,        xtas_winput_filein_file,
-//                                             XmNshadowThickness,   2,
-//                                             NULL);
-//        
-//            XtAddCallback(button, XmNactivateCallback, XtasSessionFileCallback, (XtPointer)XTAS_CONTEXT->TAS_FILEIN_FILE);
-//            
-//            XtSetSensitive(tmp_widget, False);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasFileInCallback, (XtPointer)tmp_widget);
-//        
-//            /***********  subpart5 : ReadArea File  **********/
-//            
-//            n = 0;
-//            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        ebase_form        ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//            ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );
-//        
-//            text   = XmStringCreateSimple("Read Area From File" );
-//            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, ebase_form,
-//                                              XmNindicatorType, XmN_OF_MANY,
-//                                              XmNset,           False,
-//                                              XmNspacing,       10,
-//                                              XmNlabelString,   text,
-//                                              NULL);
-//            XmStringFree( text );
-//        
-//            n = 0;
-//            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        ebase_form        ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftWidget,       toggle            ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//            tmp_widget = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, ebase_form, args, n );
-//            
-//            n = 0;
-//            XtSetArg( args[n], XmNtopAttachment,         XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,       XmATTACH_POSITION ); n++;
-//            XtSetArg( args[n], XmNrightPosition,         85                ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,        XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftWidget,            label_widget      ); n++;
-//            XtSetArg( args[n], XmNshadowThickness,       1                 ); n++;
-//            xtas_winput_readarea_file = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, tmp_widget, args,n);
-//            
-//            XtVaGetValues(form, XmNforeground, &fg, XmNbackground, &bg, NULL);
-//            pixmap = XalGetPixmap(ebase_form, 
-//                                 XTAS_OPEN_MAP, fg, bg);
-//        
-//            button = XtVaCreateManagedWidget("dbutton", xmDrawnButtonWidgetClass, tmp_widget,
-//                                             XmNlabelType,         XmPIXMAP,
-//                                             XmNlabelPixmap,       pixmap,
-//                                             XmNwidth,             40,
-//                                             XmNheight,            35,
-//                                             XmNpushButtonEnabled, True,
-//          			                         XmNtopAttachment,     XmATTACH_OPPOSITE_WIDGET,
-//          			                         XmNtopWidget,	       xtas_winput_readarea_file,
-//          			                         XmNbottomAttachment,  XmATTACH_OPPOSITE_WIDGET,
-//          			                         XmNbottomWidget,      xtas_winput_readarea_file,
-//                                             XmNshadowType,        XmSHADOW_ETCHED_OUT,
-//                                             XmNleftAttachment,    XmATTACH_WIDGET,
-//                                             XmNleftWidget,        xtas_winput_readarea_file,
-//                                             XmNshadowThickness,   2,
-//                                             NULL);
-//        
-//            XtAddCallback(button, XmNactivateCallback, XtasSessionFileCallback, (XtPointer)XTAS_READAREA_FILE);
-//            
-//            XtSetSensitive(tmp_widget, False);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasFileInCallback, (XtPointer)tmp_widget );
-//        
-//        }
+/*        if(TOOL == TMA_TOOL) {*/
+/*            /***********  subpart4 : Filein File  **********/
+/*            */
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        toggle            ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNleftOffset,       5                 ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*            ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );*/
+/*        */
+/*            text   = XmStringCreateSimple("Library File" );*/
+/*            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, ebase_form,*/
+/*                                              XmNindicatorType, XmN_OF_MANY,*/
+/*                                              XmNset,           False,*/
+/*                                              XmNspacing,       10,*/
+/*                                              XmNlabelString,   text,*/
+/*                                              NULL);*/
+/*            XmStringFree( text );*/
+/*        */
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        ebase_form        ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,       toggle            ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*            tmp_widget = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, ebase_form, args, n );*/
+/*            */
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNtopAttachment,         XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,       XmATTACH_POSITION ); n++;*/
+/*            XtSetArg( args[n], XmNrightPosition,         85                ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,        XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,            label_widget      ); n++;*/
+/*            XtSetArg( args[n], XmNshadowThickness,       1                 ); n++;*/
+/*            xtas_winput_filein_file = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, tmp_widget, args,n);*/
+/*            */
+/*            XtVaGetValues(form, XmNforeground, &fg, XmNbackground, &bg, NULL);*/
+/*            pixmap = XalGetPixmap(ebase_form, */
+/*                                 XTAS_OPEN_MAP, fg, bg);*/
+/*        */
+/*            button = XtVaCreateManagedWidget("dbutton", xmDrawnButtonWidgetClass, tmp_widget,*/
+/*                                             XmNlabelType,         XmPIXMAP,*/
+/*                                             XmNlabelPixmap,       pixmap,*/
+/*                                             XmNwidth,             40,*/
+/*                                             XmNheight,            35,*/
+/*                                             XmNpushButtonEnabled, True,*/
+/*          			                         XmNtopAttachment,     XmATTACH_OPPOSITE_WIDGET,*/
+/*          			                         XmNtopWidget,	       xtas_winput_filein_file,*/
+/*          			                         XmNbottomAttachment,  XmATTACH_OPPOSITE_WIDGET,*/
+/*          			                         XmNbottomWidget,      xtas_winput_filein_file,*/
+/*                                             XmNshadowType,        XmSHADOW_ETCHED_OUT,*/
+/*                                             XmNleftAttachment,    XmATTACH_WIDGET,*/
+/*                                             XmNleftWidget,        xtas_winput_filein_file,*/
+/*                                             XmNshadowThickness,   2,*/
+/*                                             NULL);*/
+/*        */
+/*            XtAddCallback(button, XmNactivateCallback, XtasSessionFileCallback, (XtPointer)XTAS_CONTEXT->TAS_FILEIN_FILE);*/
+/*            */
+/*            XtSetSensitive(tmp_widget, False);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasFileInCallback, (XtPointer)tmp_widget);*/
+/*        */
+/*            /***********  subpart5 : ReadArea File  **********/
+/*            */
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        ebase_form        ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*            ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );*/
+/*        */
+/*            text   = XmStringCreateSimple("Read Area From File" );*/
+/*            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, ebase_form,*/
+/*                                              XmNindicatorType, XmN_OF_MANY,*/
+/*                                              XmNset,           False,*/
+/*                                              XmNspacing,       10,*/
+/*                                              XmNlabelString,   text,*/
+/*                                              NULL);*/
+/*            XmStringFree( text );*/
+/*        */
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        ebase_form        ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,       toggle            ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*            tmp_widget = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, ebase_form, args, n );*/
+/*            */
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNtopAttachment,         XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,       XmATTACH_POSITION ); n++;*/
+/*            XtSetArg( args[n], XmNrightPosition,         85                ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,        XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,            label_widget      ); n++;*/
+/*            XtSetArg( args[n], XmNshadowThickness,       1                 ); n++;*/
+/*            xtas_winput_readarea_file = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, tmp_widget, args,n);*/
+/*            */
+/*            XtVaGetValues(form, XmNforeground, &fg, XmNbackground, &bg, NULL);*/
+/*            pixmap = XalGetPixmap(ebase_form, */
+/*                                 XTAS_OPEN_MAP, fg, bg);*/
+/*        */
+/*            button = XtVaCreateManagedWidget("dbutton", xmDrawnButtonWidgetClass, tmp_widget,*/
+/*                                             XmNlabelType,         XmPIXMAP,*/
+/*                                             XmNlabelPixmap,       pixmap,*/
+/*                                             XmNwidth,             40,*/
+/*                                             XmNheight,            35,*/
+/*                                             XmNpushButtonEnabled, True,*/
+/*          			                         XmNtopAttachment,     XmATTACH_OPPOSITE_WIDGET,*/
+/*          			                         XmNtopWidget,	       xtas_winput_readarea_file,*/
+/*          			                         XmNbottomAttachment,  XmATTACH_OPPOSITE_WIDGET,*/
+/*          			                         XmNbottomWidget,      xtas_winput_readarea_file,*/
+/*                                             XmNshadowType,        XmSHADOW_ETCHED_OUT,*/
+/*                                             XmNleftAttachment,    XmATTACH_WIDGET,*/
+/*                                             XmNleftWidget,        xtas_winput_readarea_file,*/
+/*                                             XmNshadowThickness,   2,*/
+/*                                             NULL);*/
+/*        */
+/*            XtAddCallback(button, XmNactivateCallback, XtasSessionFileCallback, (XtPointer)XTAS_READAREA_FILE);*/
+/*            */
+/*            XtSetSensitive(tmp_widget, False);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasFileInCallback, (XtPointer)tmp_widget );*/
+/*        */
+/*        }*/
         
 
         /***********  part3 : Output Files  **********/
 
-//        if(TOOL == TMA_TOOL) {
-//            n = 0;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        frame             ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_POSITION ); n++;
-//            XtSetArg( args[n], XmNbottomPosition,   66                ); n++;
-//            sub_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, dbase_form, args, n );
-//            frame3 = sub_form;
-//
-//            n = 0;
-//            sub_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );
-//
-//            text = XmStringCreateSimple( " TMA Output Files" );
-//            tmp_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, sub_form,
-//                    XmNlabelString,     text,
-//                    XmNtopAttachment,   XmATTACH_FORM,
-//                    XmNleftAttachment,  XmATTACH_FORM,
-//                    XmNrightAttachment, XmATTACH_FORM,
-//                    XmNtopOffset,       2,
-//                    XmNrightOffset,     2,
-//                    XmNleftOffset,      2,
-//                    NULL);
-//            XmStringFree( text );
-//
-//        /***********  subpart3.1 : ttx  **********/
-//            text   = XmStringCreateSimple("ttx" );
-//            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, sub_form,
-//                                              XmNindicatorType, XmN_OF_MANY,
-//                                              XmNleftAttachment,XmATTACH_FORM,
-//                                              XmNleftOffset,    5,
-//                                              XmNtopAttachment, XmATTACH_WIDGET,
-//                                              XmNtopWidget,     tmp_widget,
-//                                              XmNtopOffset,     30,
-//                                              XmNset,           ((tma_tmppar->out & TMA_OUT_TTX) == TMA_OUT_TTX) ? True:False,
-//                                              XmNlabelString,   text,
-//                                              NULL);
-//            XmStringFree( text );
-//        
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasOutputTtxCallback, (XtPointer)tmp_widget);
-//        
-//        /***********  subpart3.2 : lib  **********/
-//            text   = XmStringCreateSimple("lib" );
-//            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, sub_form,
-//                                              XmNtopAttachment,     XmATTACH_WIDGET,
-//                                              XmNtopWidget,         toggle,
-//                                              XmNtopOffset,         29,
-//                                              XmNleftAttachment,    XmATTACH_FORM,
-//                                              XmNleftOffset,        5,
-//                                              XmNindicatorType,     XmN_OF_MANY,
-//                                              XmNset,               ((tma_tmppar->out & TMA_OUT_LIB) == TMA_OUT_LIB) ? True:False,
-//                                              XmNlabelString,       text,
-//                                              NULL);
-//            XmStringFree( text );
-//
-//        /***********  subpart3.3 : tlf3  **********/
-//            n = 0;
-//            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        toggle            ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNleftOffset,       5                 ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//            ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );
-//        
-//            text   = XmStringCreateSimple("tlf3" );
-//            toggle2 = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, ebase_form,
-//                                              XmNtopAttachment, XmATTACH_FORM,
-//                                              XmNtopOffset,     4,
-//                                              XmNindicatorType, XmN_OF_MANY,
-//                                              XmNset,           ((tma_tmppar->out & TMA_OUT_TLF3) == TMA_OUT_TLF3) ? True:False,
-//                                              XmNlabelString,   text,
-//                                              NULL);
-//            XmStringFree( text );
-//        
-//            n = 0;
-//            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftOffset,       10                ); n++;
-//            XtSetArg( args[n], XmNleftWidget,       toggle2           ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//            tmp_widget = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, ebase_form, args, n );
-//            
-//
-//            n = 0;
-//            XtSetArg( args[n], XmNtopAttachment,         XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNbottomAttachment,      XmATTACH_FORM     ); n++;
-////            XtSetArg( args[n], XmNrightAttachment,       XmATTACH_POSITION ); n++;
-////            XtSetArg( args[n], XmNrightPosition,         85                ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,        XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftWidget,            label_widget      ); n++;
-//            XtSetArg( args[n], XmNshadowThickness,       1                 ); n++;
-//            xtas_woutput_name = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, tmp_widget, args,n);
-//            XmTextSetString( xtas_woutput_name, tma_tmppar->nameout);
-//
-//            XtVaGetValues(form, XmNforeground, &fg, XmNbackground, &bg, NULL);
-//            pixmap = XalGetPixmap(ebase_form, 
-//                                 XTAS_OPEN_MAP, fg, bg);
-//        
-//            button = XtVaCreateManagedWidget("dbutton", xmDrawnButtonWidgetClass, tmp_widget,
-//                                             XmNlabelType,         XmPIXMAP,
-//                                             XmNlabelPixmap,       pixmap,
-//                                             XmNwidth,             40,
-//                                             XmNheight,            35,
-//                                             XmNpushButtonEnabled, True,
-//          			                         XmNtopAttachment,     XmATTACH_OPPOSITE_WIDGET,
-//          			                         XmNtopWidget,	       xtas_woutput_name,
-//          			                         XmNbottomAttachment,  XmATTACH_OPPOSITE_WIDGET,
-//          			                         XmNbottomWidget,      xtas_woutput_name,
-//                                             XmNshadowType,        XmSHADOW_ETCHED_OUT,
-//                                             XmNleftAttachment,    XmATTACH_WIDGET,
-//                                             XmNleftWidget,        xtas_woutput_name,
-////                                             XmNrightAttachment,   XmATTACH_FORM,
-////                                             XmNrightOffset,       5,
-//                                             XmNshadowThickness,   2,
-//                                             NULL);
-//        
-//            XtAddCallback(button, XmNactivateCallback, XtasSessionFileCallback, (XtPointer)XTAS_TMA_OUTPUT_FILE );
-//           
-//            if ((tma_tmppar->out == 0) || ((tma_tmppar->out & TMA_OUT_TTX) == TMA_OUT_TTX))
-//                XtSetSensitive(tmp_widget, False);
-//            else
-//                XtSetSensitive(tmp_widget, True);
-//            XtAddCallback( toggle, XmNvalueChangedCallback,  XtasOutputLibCallback, (XtPointer)tmp_widget);
-//            XtAddCallback( toggle2, XmNvalueChangedCallback, XtasOutputTlf3Callback, (XtPointer)tmp_widget);
-//
-//            
-//            /***********  subpart3.4 : tlf4  **********/
-//            text   = XmStringCreateSimple("tlf4" );
-//            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, sub_form,
-//                                              XmNtopAttachment,     XmATTACH_WIDGET,
-//                                              XmNtopWidget,         ebase_form,
-//                                              XmNtopOffset,         5,
-//                                              XmNleftAttachment,    XmATTACH_FORM,
-//                                              XmNleftOffset,        5,
-//                                              XmNindicatorType,     XmN_OF_MANY,
-//                                              XmNset,               ((tma_tmppar->out & TMA_OUT_TLF4) == TMA_OUT_TLF4) ? True:False,
-//                                              XmNlabelString,       text,
-//                                              NULL);
-//            XmStringFree( text );
-//            XtAddCallback( toggle, XmNvalueChangedCallback,  XtasOutputTlf4Callback, (XtPointer)tmp_widget);
-//
-//
-//        /***********  part4 : Tma options  **********/
-//
-//            n = 0;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        frame             ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;
-//            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_POSITION ); n++;
-//            XtSetArg( args[n], XmNbottomPosition,   66                ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_OPPOSITE_WIDGET ); n++;
-//            XtSetArg( args[n], XmNrightWidget,      frame2            ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftWidget,       frame3            ); n++;
-//            XtSetArg( args[n], XmNleftOffset,       5                 ); n++;
-//            sub_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, dbase_form, args, n );
-//
-////            XtVaSetValues(frame3, XmNbottomAttachment, XmATTACH_OPPOSITE_WIDGET, 
-////                                  XmNbottomWidget, sub_form, NULL);
-//            
-//            frame3 = sub_form;
-//
-//            n = 0;
-//            sub_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );
-//
-//            text = XmStringCreateSimple( "TMA Options" );
-//            title = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, sub_form,
-//                    XmNlabelString,     text,
-//                    XmNtopAttachment,   XmATTACH_FORM,
-//                    XmNleftAttachment,  XmATTACH_FORM,
-//                    XmNrightAttachment, XmATTACH_FORM,
-//                    XmNtopOffset,       2,
-//                    XmNrightOffset,     2,
-//                    XmNleftOffset,      2,
-//                    NULL);
-//            XmStringFree( text );
-//
-//            n = 0;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        title             ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        10                ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ); n++;
-//            fbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFormWidgetClass, sub_form, args, n );
-//            
-//            
-//            /***********  subpart4.1 : behavioural description  **********/
-//            text = XmStringCreateSimple ("Generate a behavioral description");
-//            toggle2 = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, fbase_form,
-//                    XmNtopAttachment,      XmATTACH_WIDGET,
-//                    XmNtopWidget,          label_widget,
-//                    XmNleftAttachment,     XmATTACH_FORM,
-//                    XmNleftOffset,         5,
-//                    XmNrightAttachment,    XmATTACH_FORM,
-//                    XmNindicatorType,      XmN_OF_MANY,
-//                    XmNset,                tma_tmppar->mod == 'T' ? False:True,
-//                    XmNlabelString,        text,
-//                    XmNalignment,          XmALIGNMENT_BEGINNING,
-//                    NULL);
-//            XmStringFree(text);
-//
-//
-//            row_widget = XtVaCreateManagedWidget( "XtasRow", xmRowColumnWidgetClass, fbase_form,
-//                    XmNtopAttachment,   XmATTACH_WIDGET,
-//                    XmNtopWidget,       toggle2,
-//                    XmNtopOffset,       0,
-//                    XmNleftOffset,      15,
-//                    XmNleftAttachment,  XmATTACH_FORM,
-//                    XmNrightAttachment, XmATTACH_FORM,
-//                    XmNpacking,         XmPACK_COLUMN,
-//                    XmNnumColumns,      1,
-//                    XmNorientation,     XmVERTICAL,
-//                    XmNisAligned,       True,
-//                    XmNradioBehavior,   True,
-//                    XmNradioAlwaysOne,  True,
-//                    XmNsensitive,       tma_tmppar->mod == 'T' ? False:True,
-//                    NULL);
-//
-//
-//            XtAddCallback( toggle2, XmNvalueChangedCallback, XtasTmaOptGenerateBehCallback, (XtPointer)row_widget) ;
-//            text = XmStringCreateSimple ("Automatically");
-//            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
-//                    XmNindicatorType,  XmONE_OF_MANY,
-//                    XmNset,            ((tma_tmppar->mod == 'W') || (tma_tmppar->mod == 'T')) ? True:False,
-//                    XmNlabelString,    text,
-//                    NULL);
-//            XmStringFree(text);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaModeCallback, (XtPointer)'A') ;
-//
-//
-//            text = XmStringCreateSimple ("From Behavioral File");
-//            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
-//                    XmNindicatorType,  XmONE_OF_MANY,
-//                    XmNset,            tma_tmppar->mod == 'R' ? True:False,
-//                    XmNlabelString,    text,
-//                    NULL);
-//            XmStringFree(text);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaModeCallback, (XtPointer)'F') ;
-//
-////            text = XmStringCreateSimple ("From Verilog File");
-////            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
-////                    XmNindicatorType,  XmONE_OF_MANY,
-////                    XmNset,            False,
-////                    XmNlabelString,    text,
-////                    NULL);
-////            XmStringFree(text);
-////            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaModeCallback, (XtPointer)'f') ;
-////
-//
-//            /***********  subpart4.2 : margin  **********/
-//            n = 0;
-//            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        row_widget        ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNleftOffset,       5                 ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//            ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, fbase_form, args, n );
-//        
-//            text   = XmStringCreateSimple("Margin" );
-//            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, ebase_form,
-//                                              XmNtopAttachment, XmATTACH_FORM,
-//                                              XmNtopOffset,     4,
-//                                              XmNindicatorType, XmN_OF_MANY,
-//                                              XmNset,           strlen(tma_tmppar->mrg) > 0 ? True:False,
-//                                              XmNlabelString,   text,
-//                                              NULL);
-//            XmStringFree( text );
-//        
-//            n = 0;
-//            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftOffset,       10                ); n++;
-//            XtSetArg( args[n], XmNleftWidget,       toggle            ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//            tmp_widget = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, ebase_form, args, n );
-//            
-//            n = 0;
-//            XtSetArg( args[n], XmNtopAttachment,         XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNbottomAttachment,      XmATTACH_FORM     ); n++;
-////            XtSetArg( args[n], XmNrightAttachment,       XmATTACH_POSITION ); n++;
-////            XtSetArg( args[n], XmNrightPosition,         85                ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,        XmATTACH_FORM   ); n++;
-//            XtSetArg( args[n], XmNshadowThickness,       1                 ); n++;
-//            xtas_wopt_mrg = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, tmp_widget, args,n);
-//            XmTextSetString( xtas_wopt_mrg, tma_tmppar->mrg);
-//
-//            text = XmStringCreateSimple("ps");
-//            n = 0;
-//            XtSetArg( args[n], XmNlabelString,      text              ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        4     ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftWidget,       xtas_wopt_mrg     ); n++;
-////            XtSetArg( args[n], XmNtopOffset,        8                 ); n++;
-////            XtSetArg( args[n], XmNheight,           23                ); n++;
-////            XtSetArg( args[n], XmNwidth,            90                ); n++;
-//            label_widget = XtCreateManagedWidget( "XtasSubTitles", xmLabelGadgetClass, tmp_widget, args, n );
-//            XmStringFree( text );
-//        
-//            if(strlen(tma_tmppar->mrg) > 0)
-//                XtSetSensitive(tmp_widget, True);
-//            else 
-//                XtSetSensitive(tmp_widget, False);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaMarginCallback, (XtPointer)tmp_widget);
-//        
-//
-//            /***********  subpart4.3 : no automatic detection of clocks  **********/
-//            
-//            text = XmStringCreateSimple ("Automatic Detection of clocks");
-//            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, fbase_form,
-//                    XmNtopAttachment,      XmATTACH_WIDGET,
-//                    XmNtopOffset,          5,
-//                    XmNtopWidget,          ebase_form,
-//                    XmNleftAttachment,     XmATTACH_FORM,
-//                    XmNleftOffset,         5,
-//                    XmNindicatorType,      XmN_OF_MANY,
-//                    XmNset,                tma_tmppar->otock == 'Y' ? True:False,
-//                    XmNlabelString,        text,
-//                    NULL);
-//            XmStringFree(text);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaNacCallback, (XtPointer)NULL);
-//
-//            /***********  subpart4.4 : verbose  **********/
-//            
-//            text = XmStringCreateSimple ("Verbose");
-//            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, fbase_form,
-//                    XmNtopAttachment,      XmATTACH_WIDGET,
-//                    XmNtopWidget,          toggle,
-//                    XmNtopOffset,          5,
-//                    XmNleftAttachment,     XmATTACH_FORM,
-//                    XmNleftOffset,         5,
-//                    XmNindicatorType,      XmN_OF_MANY,
-//                    XmNset,                tma_tmppar->v == 'Y' ? True:False,
-//                    XmNlabelString,        text,
-//                    NULL);
-//            XmStringFree(text);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaVerbCallback, (XtPointer)NULL);
-//
-//            /***************************** vertical separator *******************************/
-//            n = 0;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET );n++; 
-//            XtSetArg( args[n], XmNtopWidget,        title           );n++; 
-//            XtSetArg( args[n], XmNtopOffset,        15              );n++; 
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET );n++; 
-//            XtSetArg( args[n], XmNleftWidget,       fbase_form      );n++; 
-//            XtSetArg( args[n], XmNleftOffset,       5              );n++; 
-//            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM   );n++; 
-//            XtSetArg( args[n], XmNbottomOffset,     10              );n++; 
-//            XtSetArg( args[n], XmNorientation,      XmVERTICAL      );n++; 
-//            separator = XtCreateManagedWidget("XtasSeparator", xmSeparatorWidgetClass, sub_form, args, n);
-//
-//            n = 0;
-//            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        title             ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;
-//            XtSetArg( args[n], XmNleftWidget,       separator         ); n++;
-//            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;
-//            fbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFormWidgetClass, sub_form, args, n );
-//            
-//
-//            /***********  subpart4.5 : Units  **********/
-//            text = XmStringCreateSimple( "Units" );
-//            label_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, fbase_form,
-//                    XmNlabelString,     text,
-//                    XmNtopAttachment,   XmATTACH_FORM,
-//                    XmNleftAttachment,  XmATTACH_FORM,
-//                    XmNrightAttachment, XmATTACH_FORM,
-//                    XmNtopOffset,       2,
-//                    XmNrightOffset,     2,
-//                    XmNleftOffset,      2,
-//                    NULL);
-//            XmStringFree( text );
-//            title = label_widget;
-//
-//            n = 0;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET ); n++;
-//            XtSetArg( args[n], XmNtopWidget,        label_widget    ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        15              ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM   ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM   ); n++;
-//            ebase_form = XtCreateManagedWidget("XtasForms", xmFormWidgetClass, fbase_form, args, n);
-//
-//            n = 0;
-//            text = XmStringCreateSimple( "Time unit" );
-//            label_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, ebase_form,
-//                    XmNlabelString,     text,
-//                    XmNtopAttachment,   XmATTACH_FORM,
-//                    XmNleftAttachment,  XmATTACH_FORM,
-//                    XmNrightAttachment, XmATTACH_FORM,
-//                    XmNtopOffset,       2,
-//                    XmNrightOffset,     2,
-//                    XmNleftOffset,      2,
-//                    NULL);
-//            XmStringFree( text );
-//
-//            row_widget = XtVaCreateManagedWidget( "XtasRow", xmRowColumnWidgetClass, ebase_form,
-//                    XmNtopAttachment,   XmATTACH_WIDGET,
-//                    XmNtopWidget,       label_widget,
-//                    XmNtopOffset,       15,
-//                    XmNleftOffset,      30,
-//                    XmNleftAttachment,  XmATTACH_FORM,
-//                    XmNrightAttachment, XmATTACH_FORM,
-//                    XmNpacking,         XmPACK_COLUMN,
-//                    XmNnumColumns,      2,
-//                    XmNorientation,     XmVERTICAL,
-//                    XmNspacing,         35,
-//                    XmNisAligned,       True,
-//                    XmNradioBehavior,True,
-//                    XmNradioAlwaysOne,True,
-//                    NULL);
-//
-//            text = XmStringCreateSimple ("ns");
-//            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
-//                    XmNindicatorType,  XmONE_OF_MANY,
-//                    XmNset,            tma_tmppar->tu == TMA_NS ? True:False,
-//                    XmNlabelString,    text,
-//                    NULL);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaUnitCallback, (XtPointer)'S') ;
-//            XmStringFree(text);
-//
-//            text = XmStringCreateSimple ("ps");
-//            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
-//                    XmNindicatorType,  XmONE_OF_MANY,
-//                    XmNset,            tma_tmppar->tu == TMA_PS ? True:False,
-//                    XmNlabelString,    text,
-//                    NULL);
-//            XmStringFree(text);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaUnitCallback, (XtPointer)'s') ;
-//
-//
-//            n = 0;
-//            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET); n++;
-//            XtSetArg( args[n], XmNtopWidget,        ebase_form     ); n++;
-//            XtSetArg( args[n], XmNtopOffset,        25             ); n++;
-//            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM  ); n++;
-//            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM  ); n++;
-//            XtSetArg( args[n], XmNbottomOffset,     10             ); n++;
-//            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM  ); n++;
-//            ebase_form = XtCreateManagedWidget("XtasForms", xmFormWidgetClass, fbase_form, args, n);
-//
-//            n = 0;
-//            text = XmStringCreateSimple( "Capacitance unit" );
-//            label_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, ebase_form,
-//                    XmNlabelString,     text,
-//                    XmNtopAttachment,   XmATTACH_FORM,
-//                    XmNleftAttachment,  XmATTACH_FORM,
-//                    XmNrightAttachment, XmATTACH_FORM,
-//                    XmNtopOffset,       2,
-//                    XmNrightOffset,     2,
-//                    XmNleftOffset,      2,
-//                    NULL);
-//            XmStringFree( text );
-//
-//            row_widget = XtVaCreateManagedWidget( "XtasRow", xmRowColumnWidgetClass, ebase_form,
-//                    XmNtopAttachment,   XmATTACH_WIDGET,
-//                    XmNtopWidget,       label_widget,
-//                    XmNtopOffset,       15,
-//                    XmNleftOffset,      35,
-//                    XmNleftAttachment,  XmATTACH_FORM,
-//                    XmNrightAttachment, XmATTACH_FORM,
-//                    XmNpacking,         XmPACK_COLUMN,
-//                    XmNnumColumns,      2,
-//                    XmNorientation,     XmVERTICAL,
-//                    XmNspacing,         35,
-//                    XmNisAligned,       True,
-//                    XmNradioBehavior,True,
-//                    XmNradioAlwaysOne,True,
-//                    NULL);
-//
-//            text = XmStringCreateSimple ("pF");
-//            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
-//                    XmNindicatorType,  XmONE_OF_MANY,
-//                    XmNset,            tma_tmppar->cu == TMA_PF ? True:False,
-//                    XmNlabelString,    text,
-//                    NULL);
-//            XmStringFree(text);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaUnitCallback, (XtPointer)'f') ;
-//
-//            text = XmStringCreateSimple ("fF");
-//            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,
-//                    XmNindicatorType,  XmONE_OF_MANY,
-//                    XmNset,            tma_tmppar->cu == TMA_FF ? True:False,
-//                    XmNlabelString,    text,
-//                    NULL);
-//            XmStringFree(text);
-//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaUnitCallback, (XtPointer)'F') ;
-//        }
+/*        if(TOOL == TMA_TOOL) {*/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        frame             ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_POSITION ); n++;*/
+/*            XtSetArg( args[n], XmNbottomPosition,   66                ); n++;*/
+/*            sub_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, dbase_form, args, n );*/
+/*            frame3 = sub_form;*/
+/**/
+/*            n = 0;*/
+/*            sub_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );*/
+/**/
+/*            text = XmStringCreateSimple( " TMA Output Files" );*/
+/*            tmp_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, sub_form,*/
+/*                    XmNlabelString,     text,*/
+/*                    XmNtopAttachment,   XmATTACH_FORM,*/
+/*                    XmNleftAttachment,  XmATTACH_FORM,*/
+/*                    XmNrightAttachment, XmATTACH_FORM,*/
+/*                    XmNtopOffset,       2,*/
+/*                    XmNrightOffset,     2,*/
+/*                    XmNleftOffset,      2,*/
+/*                    NULL);*/
+/*            XmStringFree( text );*/
+/**/
+/*        /***********  subpart3.1 : ttx  **********/
+/*            text   = XmStringCreateSimple("ttx" );*/
+/*            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, sub_form,*/
+/*                                              XmNindicatorType, XmN_OF_MANY,*/
+/*                                              XmNleftAttachment,XmATTACH_FORM,*/
+/*                                              XmNleftOffset,    5,*/
+/*                                              XmNtopAttachment, XmATTACH_WIDGET,*/
+/*                                              XmNtopWidget,     tmp_widget,*/
+/*                                              XmNtopOffset,     30,*/
+/*                                              XmNset,           ((tma_tmppar->out & TMA_OUT_TTX) == TMA_OUT_TTX) ? True:False,*/
+/*                                              XmNlabelString,   text,*/
+/*                                              NULL);*/
+/*            XmStringFree( text );*/
+/*        */
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasOutputTtxCallback, (XtPointer)tmp_widget);*/
+/*        */
+/*        /***********  subpart3.2 : lib  **********/
+/*            text   = XmStringCreateSimple("lib" );*/
+/*            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, sub_form,*/
+/*                                              XmNtopAttachment,     XmATTACH_WIDGET,*/
+/*                                              XmNtopWidget,         toggle,*/
+/*                                              XmNtopOffset,         29,*/
+/*                                              XmNleftAttachment,    XmATTACH_FORM,*/
+/*                                              XmNleftOffset,        5,*/
+/*                                              XmNindicatorType,     XmN_OF_MANY,*/
+/*                                              XmNset,               ((tma_tmppar->out & TMA_OUT_LIB) == TMA_OUT_LIB) ? True:False,*/
+/*                                              XmNlabelString,       text,*/
+/*                                              NULL);*/
+/*            XmStringFree( text );*/
+/**/
+/*        /***********  subpart3.3 : tlf3  **********/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        toggle            ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNleftOffset,       5                 ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*            ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );*/
+/*        */
+/*            text   = XmStringCreateSimple("tlf3" );*/
+/*            toggle2 = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, ebase_form,*/
+/*                                              XmNtopAttachment, XmATTACH_FORM,*/
+/*                                              XmNtopOffset,     4,*/
+/*                                              XmNindicatorType, XmN_OF_MANY,*/
+/*                                              XmNset,           ((tma_tmppar->out & TMA_OUT_TLF3) == TMA_OUT_TLF3) ? True:False,*/
+/*                                              XmNlabelString,   text,*/
+/*                                              NULL);*/
+/*            XmStringFree( text );*/
+/*        */
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftOffset,       10                ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,       toggle2           ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*            tmp_widget = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, ebase_form, args, n );*/
+/*            */
+/**/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNtopAttachment,         XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNbottomAttachment,      XmATTACH_FORM     ); n++;*/
+/*//            XtSetArg( args[n], XmNrightAttachment,       XmATTACH_POSITION ); n++;*/
+/*//            XtSetArg( args[n], XmNrightPosition,         85                ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,        XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,            label_widget      ); n++;*/
+/*            XtSetArg( args[n], XmNshadowThickness,       1                 ); n++;*/
+/*            xtas_woutput_name = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, tmp_widget, args,n);*/
+/*            XmTextSetString( xtas_woutput_name, tma_tmppar->nameout);*/
+/**/
+/*            XtVaGetValues(form, XmNforeground, &fg, XmNbackground, &bg, NULL);*/
+/*            pixmap = XalGetPixmap(ebase_form, */
+/*                                 XTAS_OPEN_MAP, fg, bg);*/
+/*        */
+/*            button = XtVaCreateManagedWidget("dbutton", xmDrawnButtonWidgetClass, tmp_widget,*/
+/*                                             XmNlabelType,         XmPIXMAP,*/
+/*                                             XmNlabelPixmap,       pixmap,*/
+/*                                             XmNwidth,             40,*/
+/*                                             XmNheight,            35,*/
+/*                                             XmNpushButtonEnabled, True,*/
+/*          			                         XmNtopAttachment,     XmATTACH_OPPOSITE_WIDGET,*/
+/*          			                         XmNtopWidget,	       xtas_woutput_name,*/
+/*          			                         XmNbottomAttachment,  XmATTACH_OPPOSITE_WIDGET,*/
+/*          			                         XmNbottomWidget,      xtas_woutput_name,*/
+/*                                             XmNshadowType,        XmSHADOW_ETCHED_OUT,*/
+/*                                             XmNleftAttachment,    XmATTACH_WIDGET,*/
+/*                                             XmNleftWidget,        xtas_woutput_name,*/
+/*//                                             XmNrightAttachment,   XmATTACH_FORM,*/
+/*//                                             XmNrightOffset,       5,*/
+/*                                             XmNshadowThickness,   2,*/
+/*                                             NULL);*/
+/*        */
+/*            XtAddCallback(button, XmNactivateCallback, XtasSessionFileCallback, (XtPointer)XTAS_TMA_OUTPUT_FILE );*/
+/*           */
+/*            if ((tma_tmppar->out == 0) || ((tma_tmppar->out & TMA_OUT_TTX) == TMA_OUT_TTX))*/
+/*                XtSetSensitive(tmp_widget, False);*/
+/*            else*/
+/*                XtSetSensitive(tmp_widget, True);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback,  XtasOutputLibCallback, (XtPointer)tmp_widget);*/
+/*            XtAddCallback( toggle2, XmNvalueChangedCallback, XtasOutputTlf3Callback, (XtPointer)tmp_widget);*/
+/**/
+/*            */
+/*            /***********  subpart3.4 : tlf4  **********/
+/*            text   = XmStringCreateSimple("tlf4" );*/
+/*            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, sub_form,*/
+/*                                              XmNtopAttachment,     XmATTACH_WIDGET,*/
+/*                                              XmNtopWidget,         ebase_form,*/
+/*                                              XmNtopOffset,         5,*/
+/*                                              XmNleftAttachment,    XmATTACH_FORM,*/
+/*                                              XmNleftOffset,        5,*/
+/*                                              XmNindicatorType,     XmN_OF_MANY,*/
+/*                                              XmNset,               ((tma_tmppar->out & TMA_OUT_TLF4) == TMA_OUT_TLF4) ? True:False,*/
+/*                                              XmNlabelString,       text,*/
+/*                                              NULL);*/
+/*            XmStringFree( text );*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback,  XtasOutputTlf4Callback, (XtPointer)tmp_widget);*/
+/**/
+/**/
+/*        /***********  part4 : Tma options  **********/
+/**/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        frame             ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;*/
+/*            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_POSITION ); n++;*/
+/*            XtSetArg( args[n], XmNbottomPosition,   66                ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_OPPOSITE_WIDGET ); n++;*/
+/*            XtSetArg( args[n], XmNrightWidget,      frame2            ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,       frame3            ); n++;*/
+/*            XtSetArg( args[n], XmNleftOffset,       5                 ); n++;*/
+/*            sub_form = XtCreateManagedWidget( "XtasTitleFrame", xmFrameWidgetClass, dbase_form, args, n );*/
+/**/
+/*//            XtVaSetValues(frame3, XmNbottomAttachment, XmATTACH_OPPOSITE_WIDGET, */
+/*//                                  XmNbottomWidget, sub_form, NULL);*/
+/*            */
+/*            frame3 = sub_form;*/
+/**/
+/*            n = 0;*/
+/*            sub_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, sub_form, args, n );*/
+/**/
+/*            text = XmStringCreateSimple( "TMA Options" );*/
+/*            title = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, sub_form,*/
+/*                    XmNlabelString,     text,*/
+/*                    XmNtopAttachment,   XmATTACH_FORM,*/
+/*                    XmNleftAttachment,  XmATTACH_FORM,*/
+/*                    XmNrightAttachment, XmATTACH_FORM,*/
+/*                    XmNtopOffset,       2,*/
+/*                    XmNrightOffset,     2,*/
+/*                    XmNleftOffset,      2,*/
+/*                    NULL);*/
+/*            XmStringFree( text );*/
+/**/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        title             ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        10                ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ); n++;*/
+/*            fbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFormWidgetClass, sub_form, args, n );*/
+/*            */
+/*            */
+/*            /***********  subpart4.1 : behavioural description  **********/
+/*            text = XmStringCreateSimple ("Generate a behavioral description");*/
+/*            toggle2 = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, fbase_form,*/
+/*                    XmNtopAttachment,      XmATTACH_WIDGET,*/
+/*                    XmNtopWidget,          label_widget,*/
+/*                    XmNleftAttachment,     XmATTACH_FORM,*/
+/*                    XmNleftOffset,         5,*/
+/*                    XmNrightAttachment,    XmATTACH_FORM,*/
+/*                    XmNindicatorType,      XmN_OF_MANY,*/
+/*                    XmNset,                tma_tmppar->mod == 'T' ? False:True,*/
+/*                    XmNlabelString,        text,*/
+/*                    XmNalignment,          XmALIGNMENT_BEGINNING,*/
+/*                    NULL);*/
+/*            XmStringFree(text);*/
+/**/
+/**/
+/*            row_widget = XtVaCreateManagedWidget( "XtasRow", xmRowColumnWidgetClass, fbase_form,*/
+/*                    XmNtopAttachment,   XmATTACH_WIDGET,*/
+/*                    XmNtopWidget,       toggle2,*/
+/*                    XmNtopOffset,       0,*/
+/*                    XmNleftOffset,      15,*/
+/*                    XmNleftAttachment,  XmATTACH_FORM,*/
+/*                    XmNrightAttachment, XmATTACH_FORM,*/
+/*                    XmNpacking,         XmPACK_COLUMN,*/
+/*                    XmNnumColumns,      1,*/
+/*                    XmNorientation,     XmVERTICAL,*/
+/*                    XmNisAligned,       True,*/
+/*                    XmNradioBehavior,   True,*/
+/*                    XmNradioAlwaysOne,  True,*/
+/*                    XmNsensitive,       tma_tmppar->mod == 'T' ? False:True,*/
+/*                    NULL);*/
+/**/
+/**/
+/*            XtAddCallback( toggle2, XmNvalueChangedCallback, XtasTmaOptGenerateBehCallback, (XtPointer)row_widget) ;*/
+/*            text = XmStringCreateSimple ("Automatically");*/
+/*            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,*/
+/*                    XmNindicatorType,  XmONE_OF_MANY,*/
+/*                    XmNset,            ((tma_tmppar->mod == 'W') || (tma_tmppar->mod == 'T')) ? True:False,*/
+/*                    XmNlabelString,    text,*/
+/*                    NULL);*/
+/*            XmStringFree(text);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaModeCallback, (XtPointer)'A') ;*/
+/**/
+/**/
+/*            text = XmStringCreateSimple ("From Behavioral File");*/
+/*            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,*/
+/*                    XmNindicatorType,  XmONE_OF_MANY,*/
+/*                    XmNset,            tma_tmppar->mod == 'R' ? True:False,*/
+/*                    XmNlabelString,    text,*/
+/*                    NULL);*/
+/*            XmStringFree(text);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaModeCallback, (XtPointer)'F') ;*/
+/**/
+/*//            text = XmStringCreateSimple ("From Verilog File");*/
+/*//            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,*/
+/*//                    XmNindicatorType,  XmONE_OF_MANY,*/
+/*//                    XmNset,            False,*/
+/*//                    XmNlabelString,    text,*/
+/*//                    NULL);*/
+/*//            XmStringFree(text);*/
+/*//            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaModeCallback, (XtPointer)'f') ;*/
+/*//*/
+/**/
+/*            /***********  subpart4.2 : margin  **********/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        row_widget        ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNleftOffset,       5                 ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*            ebase_form = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, fbase_form, args, n );*/
+/*        */
+/*            text   = XmStringCreateSimple("Margin" );*/
+/*            toggle = XtVaCreateManagedWidget( "XtasSubTitles", xmToggleButtonWidgetClass, ebase_form,*/
+/*                                              XmNtopAttachment, XmATTACH_FORM,*/
+/*                                              XmNtopOffset,     4,*/
+/*                                              XmNindicatorType, XmN_OF_MANY,*/
+/*                                              XmNset,           strlen(tma_tmppar->mrg) > 0 ? True:False,*/
+/*                                              XmNlabelString,   text,*/
+/*                                              NULL);*/
+/*            XmStringFree( text );*/
+/*        */
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNshadowThickness,  0                 ); n++;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftOffset,       10                ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,       toggle            ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*            tmp_widget = XtCreateManagedWidget( "XtasTitleForm", xmFormWidgetClass, ebase_form, args, n );*/
+/*            */
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNtopAttachment,         XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNbottomAttachment,      XmATTACH_FORM     ); n++;*/
+/*//            XtSetArg( args[n], XmNrightAttachment,       XmATTACH_POSITION ); n++;*/
+/*//            XtSetArg( args[n], XmNrightPosition,         85                ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,        XmATTACH_FORM   ); n++;*/
+/*            XtSetArg( args[n], XmNshadowThickness,       1                 ); n++;*/
+/*            xtas_wopt_mrg = XtCreateManagedWidget( "XtasUserField", xmTextWidgetClass, tmp_widget, args,n);*/
+/*            XmTextSetString( xtas_wopt_mrg, tma_tmppar->mrg);*/
+/**/
+/*            text = XmStringCreateSimple("ps");*/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNlabelString,      text              ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        4     ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,       xtas_wopt_mrg     ); n++;*/
+/*//            XtSetArg( args[n], XmNtopOffset,        8                 ); n++;*/
+/*//            XtSetArg( args[n], XmNheight,           23                ); n++;*/
+/*//            XtSetArg( args[n], XmNwidth,            90                ); n++;*/
+/*            label_widget = XtCreateManagedWidget( "XtasSubTitles", xmLabelGadgetClass, tmp_widget, args, n );*/
+/*            XmStringFree( text );*/
+/*        */
+/*            if(strlen(tma_tmppar->mrg) > 0)*/
+/*                XtSetSensitive(tmp_widget, True);*/
+/*            else */
+/*                XtSetSensitive(tmp_widget, False);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaMarginCallback, (XtPointer)tmp_widget);*/
+/*        */
+/**/
+/*            /***********  subpart4.3 : no automatic detection of clocks  **********/
+/*            */
+/*            text = XmStringCreateSimple ("Automatic Detection of clocks");*/
+/*            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, fbase_form,*/
+/*                    XmNtopAttachment,      XmATTACH_WIDGET,*/
+/*                    XmNtopOffset,          5,*/
+/*                    XmNtopWidget,          ebase_form,*/
+/*                    XmNleftAttachment,     XmATTACH_FORM,*/
+/*                    XmNleftOffset,         5,*/
+/*                    XmNindicatorType,      XmN_OF_MANY,*/
+/*                    XmNset,                tma_tmppar->otock == 'Y' ? True:False,*/
+/*                    XmNlabelString,        text,*/
+/*                    NULL);*/
+/*            XmStringFree(text);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaNacCallback, (XtPointer)NULL);*/
+/**/
+/*            /***********  subpart4.4 : verbose  **********/
+/*            */
+/*            text = XmStringCreateSimple ("Verbose");*/
+/*            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, fbase_form,*/
+/*                    XmNtopAttachment,      XmATTACH_WIDGET,*/
+/*                    XmNtopWidget,          toggle,*/
+/*                    XmNtopOffset,          5,*/
+/*                    XmNleftAttachment,     XmATTACH_FORM,*/
+/*                    XmNleftOffset,         5,*/
+/*                    XmNindicatorType,      XmN_OF_MANY,*/
+/*                    XmNset,                tma_tmppar->v == 'Y' ? True:False,*/
+/*                    XmNlabelString,        text,*/
+/*                    NULL);*/
+/*            XmStringFree(text);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaVerbCallback, (XtPointer)NULL);*/
+/**/
+/*            /***************************** vertical separator *******************************/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET );n++; */
+/*            XtSetArg( args[n], XmNtopWidget,        title           );n++; */
+/*            XtSetArg( args[n], XmNtopOffset,        15              );n++; */
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET );n++; */
+/*            XtSetArg( args[n], XmNleftWidget,       fbase_form      );n++; */
+/*            XtSetArg( args[n], XmNleftOffset,       5              );n++; */
+/*            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM   );n++; */
+/*            XtSetArg( args[n], XmNbottomOffset,     10              );n++; */
+/*            XtSetArg( args[n], XmNorientation,      XmVERTICAL      );n++; */
+/*            separator = XtCreateManagedWidget("XtasSeparator", xmSeparatorWidgetClass, sub_form, args, n);*/
+/**/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNborderWidth,      0                 ); n++;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        title             ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        5                 ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_WIDGET   ); n++;*/
+/*            XtSetArg( args[n], XmNleftWidget,       separator         ); n++;*/
+/*            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM     ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM     ); n++;*/
+/*            fbase_form = XtCreateManagedWidget( "XtasTitleFrame", xmFormWidgetClass, sub_form, args, n );*/
+/*            */
+/**/
+/*            /***********  subpart4.5 : Units  **********/
+/*            text = XmStringCreateSimple( "Units" );*/
+/*            label_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, fbase_form,*/
+/*                    XmNlabelString,     text,*/
+/*                    XmNtopAttachment,   XmATTACH_FORM,*/
+/*                    XmNleftAttachment,  XmATTACH_FORM,*/
+/*                    XmNrightAttachment, XmATTACH_FORM,*/
+/*                    XmNtopOffset,       2,*/
+/*                    XmNrightOffset,     2,*/
+/*                    XmNleftOffset,      2,*/
+/*                    NULL);*/
+/*            XmStringFree( text );*/
+/*            title = label_widget;*/
+/**/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET ); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        label_widget    ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        15              ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM   ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM   ); n++;*/
+/*            ebase_form = XtCreateManagedWidget("XtasForms", xmFormWidgetClass, fbase_form, args, n);*/
+/**/
+/*            n = 0;*/
+/*            text = XmStringCreateSimple( "Time unit" );*/
+/*            label_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, ebase_form,*/
+/*                    XmNlabelString,     text,*/
+/*                    XmNtopAttachment,   XmATTACH_FORM,*/
+/*                    XmNleftAttachment,  XmATTACH_FORM,*/
+/*                    XmNrightAttachment, XmATTACH_FORM,*/
+/*                    XmNtopOffset,       2,*/
+/*                    XmNrightOffset,     2,*/
+/*                    XmNleftOffset,      2,*/
+/*                    NULL);*/
+/*            XmStringFree( text );*/
+/**/
+/*            row_widget = XtVaCreateManagedWidget( "XtasRow", xmRowColumnWidgetClass, ebase_form,*/
+/*                    XmNtopAttachment,   XmATTACH_WIDGET,*/
+/*                    XmNtopWidget,       label_widget,*/
+/*                    XmNtopOffset,       15,*/
+/*                    XmNleftOffset,      30,*/
+/*                    XmNleftAttachment,  XmATTACH_FORM,*/
+/*                    XmNrightAttachment, XmATTACH_FORM,*/
+/*                    XmNpacking,         XmPACK_COLUMN,*/
+/*                    XmNnumColumns,      2,*/
+/*                    XmNorientation,     XmVERTICAL,*/
+/*                    XmNspacing,         35,*/
+/*                    XmNisAligned,       True,*/
+/*                    XmNradioBehavior,True,*/
+/*                    XmNradioAlwaysOne,True,*/
+/*                    NULL);*/
+/**/
+/*            text = XmStringCreateSimple ("ns");*/
+/*            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,*/
+/*                    XmNindicatorType,  XmONE_OF_MANY,*/
+/*                    XmNset,            tma_tmppar->tu == TMA_NS ? True:False,*/
+/*                    XmNlabelString,    text,*/
+/*                    NULL);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaUnitCallback, (XtPointer)'S') ;*/
+/*            XmStringFree(text);*/
+/**/
+/*            text = XmStringCreateSimple ("ps");*/
+/*            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,*/
+/*                    XmNindicatorType,  XmONE_OF_MANY,*/
+/*                    XmNset,            tma_tmppar->tu == TMA_PS ? True:False,*/
+/*                    XmNlabelString,    text,*/
+/*                    NULL);*/
+/*            XmStringFree(text);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaUnitCallback, (XtPointer)'s') ;*/
+/**/
+/**/
+/*            n = 0;*/
+/*            XtSetArg( args[n], XmNtopAttachment,    XmATTACH_WIDGET); n++;*/
+/*            XtSetArg( args[n], XmNtopWidget,        ebase_form     ); n++;*/
+/*            XtSetArg( args[n], XmNtopOffset,        25             ); n++;*/
+/*            XtSetArg( args[n], XmNleftAttachment,   XmATTACH_FORM  ); n++;*/
+/*            XtSetArg( args[n], XmNbottomAttachment, XmATTACH_FORM  ); n++;*/
+/*            XtSetArg( args[n], XmNbottomOffset,     10             ); n++;*/
+/*            XtSetArg( args[n], XmNrightAttachment,  XmATTACH_FORM  ); n++;*/
+/*            ebase_form = XtCreateManagedWidget("XtasForms", xmFormWidgetClass, fbase_form, args, n);*/
+/**/
+/*            n = 0;*/
+/*            text = XmStringCreateSimple( "Capacitance unit" );*/
+/*            label_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, ebase_form,*/
+/*                    XmNlabelString,     text,*/
+/*                    XmNtopAttachment,   XmATTACH_FORM,*/
+/*                    XmNleftAttachment,  XmATTACH_FORM,*/
+/*                    XmNrightAttachment, XmATTACH_FORM,*/
+/*                    XmNtopOffset,       2,*/
+/*                    XmNrightOffset,     2,*/
+/*                    XmNleftOffset,      2,*/
+/*                    NULL);*/
+/*            XmStringFree( text );*/
+/**/
+/*            row_widget = XtVaCreateManagedWidget( "XtasRow", xmRowColumnWidgetClass, ebase_form,*/
+/*                    XmNtopAttachment,   XmATTACH_WIDGET,*/
+/*                    XmNtopWidget,       label_widget,*/
+/*                    XmNtopOffset,       15,*/
+/*                    XmNleftOffset,      35,*/
+/*                    XmNleftAttachment,  XmATTACH_FORM,*/
+/*                    XmNrightAttachment, XmATTACH_FORM,*/
+/*                    XmNpacking,         XmPACK_COLUMN,*/
+/*                    XmNnumColumns,      2,*/
+/*                    XmNorientation,     XmVERTICAL,*/
+/*                    XmNspacing,         35,*/
+/*                    XmNisAligned,       True,*/
+/*                    XmNradioBehavior,True,*/
+/*                    XmNradioAlwaysOne,True,*/
+/*                    NULL);*/
+/**/
+/*            text = XmStringCreateSimple ("pF");*/
+/*            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,*/
+/*                    XmNindicatorType,  XmONE_OF_MANY,*/
+/*                    XmNset,            tma_tmppar->cu == TMA_PF ? True:False,*/
+/*                    XmNlabelString,    text,*/
+/*                    NULL);*/
+/*            XmStringFree(text);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaUnitCallback, (XtPointer)'f') ;*/
+/**/
+/*            text = XmStringCreateSimple ("fF");*/
+/*            toggle = XtVaCreateManagedWidget("XtasSubTitles", xmToggleButtonWidgetClass, row_widget,*/
+/*                    XmNindicatorType,  XmONE_OF_MANY,*/
+/*                    XmNset,            tma_tmppar->cu == TMA_FF ? True:False,*/
+/*                    XmNlabelString,    text,*/
+/*                    NULL);*/
+/*            XmStringFree(text);*/
+/*            XtAddCallback( toggle, XmNvalueChangedCallback, XtasTmaUnitCallback, (XtPointer)'F') ;*/
+/*        }*/
 
         /***********  part5 : Tas options  **********/
         n = 0;
@@ -4633,6 +4633,6 @@ XtPointer call_data;
         XtAddCallback( toggle, XmNvalueChangedCallback, XtasTasGeneralOptionsCallback, (XtPointer)'S') ;
     }
     XtManageChild( session_widget );
-//    XalLimitedLoop( session_widget );
+/*    XalLimitedLoop( session_widget );*/
 }
 

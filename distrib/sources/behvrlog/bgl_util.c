@@ -758,7 +758,7 @@ bgl_abl2strbool(chain_list * expr, char *chaine, int *size_pnt)
     switch (OPER(expr))
     {
       case NOT  :
-           // added by anto to compute vectabl
+           /* added by anto to compute vectabl*/
            if (isBitStr(operand->DATA)) 
              strcat (chaine, operand->DATA);
            else
@@ -840,8 +840,8 @@ bgl_oper2char(short oper)
          return (namealloc("~^"));
     default :
          avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"200");
-//         printf("\nablError - %s: unknown operator %d\n",__func__,oper);
-//         EXIT(-1);
+/*         printf("\nablError - %s: unknown operator %d\n",__func__,oper);*/
+/*         EXIT(-1);*/
          return NULL;
   }
 }
@@ -864,8 +864,8 @@ bgl_oper2charbool(short oper)
          return (namealloc("||"));
     default:
          avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"201");
-//         printf("\nablError %s: unknown operator %d\n",__func__,oper);
-//         EXIT(-1);
+/*         printf("\nablError %s: unknown operator %d\n",__func__,oper);*/
+/*         EXIT(-1);*/
          return NULL;
   }
 }

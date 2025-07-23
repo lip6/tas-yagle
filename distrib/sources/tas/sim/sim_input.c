@@ -96,7 +96,7 @@ void sim_input_set_slope_pattern( sim_model *model,
   sim_input *input;
   locon = namealloc( locon );
   sim_node_clean (model,locon);
-  input = sim_input_get_newinput( model, locon, SIM_INPUT_LOCON ); // locate to pass in arg
+  input = sim_input_get_newinput( model, locon, SIM_INPUT_LOCON ); /* locate to pass in arg*/
 
   input->TYPE = SIM_SLOPE;
   input->UINPUT.INPUT_SLOPE.TYPE = SIM_SLOPE_PATTERN;
@@ -119,7 +119,7 @@ void sim_input_set_slope_mimic( sim_model *model,
   sim_input *input;
   locon = namealloc( locon );
   sim_node_clean (model,locon);
-  input = sim_input_get_newinput( model, locon, SIM_INPUT_LOCON ); // locate to pass in arg
+  input = sim_input_get_newinput( model, locon, SIM_INPUT_LOCON ); /* locate to pass in arg*/
 
   input->TYPE = SIM_MIMIC;
   input->UINPUT.INPUT_MIMIC.REF_VSSNODE=refvssnode;
@@ -441,10 +441,10 @@ SIM_FLOAT sim_tanh_slope (SIM_FLOAT t, void *data)
 
 SIM_FLOAT sim_tanh_slope_tas (SIM_FLOAT t, void *data)
 {
-    SIM_FLOAT st = ((SIM_FLOAT*)data)[0]; // start time
-    SIM_FLOAT F = ((SIM_FLOAT*)data)[1]; // slope
-    SIM_FLOAT vi = ((SIM_FLOAT*)data)[2]; // Vfinal
-    SIM_FLOAT vf = ((SIM_FLOAT*)data)[3]; // Vinit
+    SIM_FLOAT st = ((SIM_FLOAT*)data)[0]; /* start time*/
+    SIM_FLOAT F = ((SIM_FLOAT*)data)[1]; /* slope*/
+    SIM_FLOAT vi = ((SIM_FLOAT*)data)[2]; /* Vfinal*/
+    SIM_FLOAT vf = ((SIM_FLOAT*)data)[3]; /* Vinit*/
     SIM_FLOAT vt = ((SIM_FLOAT*)data)[4];
     SIM_FLOAT sense  = ((SIM_FLOAT*)data)[5];
     SIM_FLOAT t0, val;
@@ -522,7 +522,7 @@ void sim_input_set_slope_tanh (sim_model *model,
               data[1] = t_time;
               data[2] = 0.0;
               data[3] = sim_parameter_get_alim (model, 'i')-sim_parameter_get_vss (model, 'i');
-              data[4] = SIM_VT_SLOPEIN; //SIM_VT VTN
+              data[4] = SIM_VT_SLOPEIN; /*SIM_VT VTN*/
               data[5] = 1.0;
               data[6] = sim_parameter_get_vss (model, 'i');
               sim_input_set_func    (model, 
@@ -554,7 +554,7 @@ void sim_input_set_slope_tanh (sim_model *model,
               data[1] = t_time;
               data[2] = sim_parameter_get_alim (model, 'i')-sim_parameter_get_vss (model, 'i'); 
               data[3] = 0.0;
-              data[4] = SIM_VT_SLOPEIN; //SIM_VT VTP
+              data[4] = SIM_VT_SLOPEIN; /*SIM_VT VTP*/
               data[5] = -1.0;
               data[6] = sim_parameter_get_vss (model, 'i');
               sim_input_set_func (model, 

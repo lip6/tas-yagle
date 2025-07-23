@@ -141,7 +141,7 @@ main(argc, argv)
 
     stb_exit(0) ;
 	EXIT(0);
-    // just to avoid warning
+    /* just to avoid warning*/
     return 0;
 }
 

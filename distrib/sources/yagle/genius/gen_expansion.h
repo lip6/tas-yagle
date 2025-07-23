@@ -3,12 +3,12 @@
 
 /* Symmetry gestion */
 /* known FOR statement feature */
-//extern loins_list *AddLoinsToModel(loins_list *li, ptype_list *env, char *toappend);
+/*extern loins_list *AddLoinsToModel(loins_list *li, ptype_list *env, char *toappend);*/
 loins_list *AddLoinsToModel(loins_list *li, ptype_list *env, char *toappend, int index);
 
 void ExpandFOR(tree_list* tree, lofig_list *circuit, ptype_list *env, chain_list **expansedloins, chain_list **originalloins, char *nameadd, int depart, int oldrange);
 
-//extern void ExpandFOR(tree_list* tree, lofig_list *circuit, ptype_list *env, chain_list **expansedloins, chain_list **originalloins, char *nameadd);
+/*extern void ExpandFOR(tree_list* tree, lofig_list *circuit, ptype_list *env, chain_list **expansedloins, chain_list **originalloins, char *nameadd);*/
 
 extern void search_FOR(tree_list* tree, chain_list **vars, int *launchexpansion);
 

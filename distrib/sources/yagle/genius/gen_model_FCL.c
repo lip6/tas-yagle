@@ -41,7 +41,7 @@ static inline chain_list *SigTree2chain(tree_list *tree, chain_list *list)
 { 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 233);
-    //fprintf(stderr,"SigTree2chain: NULL pointer\n");
+    /*fprintf(stderr,"SigTree2chain: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -77,7 +77,7 @@ static inline void add_lofigchain(locon_list *locon, chain_list *sigchain)
    
   if ((locon && !sigchain) || (!locon && sigchain)) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 234);
-//      fprintf(stderr,"add_lofigchain: parameters discrepancy\n");
+/*      fprintf(stderr,"add_lofigchain: parameters discrepancy\n");*/
       EXIT(1);
   }    
   
@@ -114,7 +114,7 @@ extern chain_list *Get_Losig_Alliance(locon_list *locon, chain_list *signal,
   
   if ((locon && !signal) || (!locon && signal)) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 235);
-//      fprintf(stderr,"Get_Losig_Alliance: parameters discrepancy\n");
+/*      fprintf(stderr,"Get_Losig_Alliance: parameters discrepancy\n");*/
       EXIT(1);
   }    
   
@@ -124,7 +124,7 @@ extern chain_list *Get_Losig_Alliance(locon_list *locon, chain_list *signal,
   tree=(tree_list*)signal->DATA;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 236);
-//      fprintf(stderr,"Get_Losig_Alliance: NULL pointer\n");
+/*      fprintf(stderr,"Get_Losig_Alliance: NULL pointer\n");*/
       EXIT(1);
   }
 
@@ -319,7 +319,7 @@ extern tree_list *Get_Loins_Alliance(tree_list *tree)
     ins=getlofig(modelname,'P');       /* 'P' (partial) for only interface */
     if (!ins) {
     avt_errmsg(GNS_ERRMSG, "161", AVT_FATAL, modelname);
-//       fprintf(stderr,"Get_Loins: no model %s found\n",modelname);
+/*       fprintf(stderr,"Get_Loins: no model %s found\n",modelname);*/
        EXIT(1);
     }
     signals=SigTree2chain(tree->NEXT->NEXT,NULL);
@@ -352,7 +352,7 @@ extern void Get_Signals_Alliance(tree_list *tree)
   
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 237);
-//    fprintf(stderr,"Get_Signals_Alliance: NULL pointer\n");
+/*    fprintf(stderr,"Get_Signals_Alliance: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -438,7 +438,7 @@ extern void Get_Locon_Alliance(int dir, tree_list *tree)
 
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 238);
- //   fprintf(stderr,"Get_Locon_Alliance: NULL pointer\n");
+ /*   fprintf(stderr,"Get_Locon_Alliance: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -539,7 +539,7 @@ extern void Get_Port_Alliance(tree_list *tree)
 {
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 239);
-//    fprintf(stderr,"Get_Port_Alliance: NULL pointer\n");
+/*    fprintf(stderr,"Get_Port_Alliance: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {

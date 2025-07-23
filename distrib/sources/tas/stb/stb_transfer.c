@@ -131,7 +131,7 @@ void stb_getstblatchaccess(stbfig_list *stbfig, ttvevent_list *latch, ttvevent_l
 /*****************************************************************************
 *                           fonction stb_getstbdelta()                       *
 *****************************************************************************/
-static inline void stb_getstbdelta_sub(stbfig_list *stbfig, ttvevent_list *latch, long *deltamin, long *deltamax, ttvevent_list *cmd, int docorrect) 
+static  void stb_getstbdelta_sub(stbfig_list *stbfig, ttvevent_list *latch, long *deltamin, long *deltamax, ttvevent_list *cmd, int docorrect) 
 {
     stbnode      *node;
     stbpair_list *pair = NULL, *mpair;
@@ -147,7 +147,7 @@ static inline void stb_getstbdelta_sub(stbfig_list *stbfig, ttvevent_list *latch
 
     if ((node = stb_getstbnode (latch))) {
         clock = node->CK;
-//        if (clock && (latch->ROOT->TYPE & TTV_SIG_L)!=0 && (clock->VERIF & STB_VERIF_IS_TRANSPARENT)==0) return;
+/*        if (clock && (latch->ROOT->TYPE & TTV_SIG_L)!=0 && (clock->VERIF & STB_VERIF_IS_TRANSPARENT)==0) return;*/
         if (node->STBTAB!=NULL)
         {
           if (cmd==NULL)
@@ -712,7 +712,7 @@ void stb_setdetail(Setup_Hold_Computation_Detail_INFO *detail, long val, long in
     }
 } 
 
-// what==0 => hz et !hz, what=1 => !hz, wath=2 => hz
+/* what==0 => hz et !hz, what=1 => !hz, wath=2 => hz*/
 int
 stb_calcsetuphold (stbfig_list *stbfig, stbpair_list **tabpair, stbpair_list **tabhz, stbnode *node, long *s, long *h, int flagindex, long EventPeriodHold, Extended_Setup_Hold_Computation_Data *eshcd, Setup_Hold_Computation_Detail *detail, int what, stbck *endnodeck, int specout)
 {
@@ -1220,7 +1220,7 @@ stb_clockmaskstblist (stbfig_list *stbfig, stbpair_list *list, stbck *clock, int
      {
        list=stb_clockmaskstblist_simple(list, slopeopen, slopeclose);
        if (filtermode==2)
-        { // positionnement de la stabilite par rapport a l'event que peut generer la clock
+        { /* positionnement de la stabilite par rapport a l'event que peut generer la clock*/
           if (((clock->ACTIVE==STB_STATE_UP) && (tve->TYPE & TTV_NODE_UP)!=0)
               || ((clock->ACTIVE==STB_STATE_DN) && (tve->TYPE & TTV_NODE_UP)==0))
              ptstbpair = stb_addstbpair (NULL, slopeopen, slopeopenmax);
@@ -1535,7 +1535,7 @@ stb_transferstbline (stbfig_list *stbfig, ttvevent_list *event, stbnode *node , 
 
 #if 1
 #ifdef PRECHTEST
-   // propagation que des vrais data pour les precharges
+   /* propagation que des vrais data pour les precharges*/
    if ((event->ROOT->TYPE & TTV_SIG_R)!=0 && stb_sigisonclockpath(pevent, NULL))
      continue;
 #endif
@@ -1562,13 +1562,13 @@ stb_transferstbline (stbfig_list *stbfig, ttvevent_list *event, stbnode *node , 
       if (!stb_checkvalidcommand(event, ck)) continue;
      }
 
-// correction due to false path/false slack
+/* correction due to false path/false slack*/
    if ((flags & STB_TRANSFERT_CORRECTION)!=0 || getptype(node->EVENT->ROOT->USER, TTV_SIG_MULTICYCLE_OUT)!=NULL)
    {
      stb_compute_falsepath_and_falseslack_effect(stbfig, node, ptline, cmdmax, ck, flags);
    }
 
-//----
+/*----*/
 
    if ((ptline->TYPE & TTV_LINE_HZ) == TTV_LINE_HZ)
     {
@@ -1713,17 +1713,17 @@ stb_transferstbline (stbfig_list *stbfig, ttvevent_list *event, stbnode *node , 
      else
       {
        ptstbpair = stb_dupstbpairlist (*(nodex->STBTAB + i));
-       // aplying valid stability range
+       /* aplying valid stability range*/
        if (ptstbpair!=NULL && (vri=get_valid_range_info(ptline))!=NULL)
        {
-//         if (vri[(int)i].realpair!=NULL)
+/*         if (vri[(int)i].realpair!=NULL)*/
          {
             stb_freestbpair(ptstbpair);
             ptstbpair=stb_dupstbpairlist(vri[(int)i].realpair);
-            delaymax=delaymin=0; // already counted in realpair
+            delaymax=delaymin=0; /* already counted in realpair*/
          }
        }
-       //---
+       /*---*/
        stb_assign_phase_to_stbpair(ptstbpair, i);
        tab[(int) j] =
         stb_transferstbpair (ptstbpair, tab[(int) j], delaymax-periodeSetup, delaymin-periodeSetup,
@@ -1875,7 +1875,7 @@ stb_transferstbline (stbfig_list *stbfig, ttvevent_list *event, stbnode *node , 
                }
            }
              
-           // cas d'un reset
+           /* cas d'un reset*/
            if (ck->CKINDEX != STB_NO_INDEX && tabpair[(int) ck->CKINDEX]==NULL && possible_set_reset)
              tabpair[(int)ck->CKINDEX]=stb_clockmaskstblist (stbfig, tabpair[(int)ck->CKINDEX], ck, 1, (int)ck->CKINDEX, ondirective,event);
            
@@ -1939,7 +1939,7 @@ stb_transferstbline (stbfig_list *stbfig, ttvevent_list *event, stbnode *node , 
 /*****************************************************************************
 *                           fonction stb_transferstbnode()                   *
 *****************************************************************************/
-//#define OLD_MODE_PLUS_VALID_NEW_MODE
+/*#define OLD_MODE_PLUS_VALID_NEW_MODE*/
 static int stb_speed_up=0;
 
 void stb_set_speed_up(int val)
@@ -2038,7 +2038,7 @@ stb_transferstbnode (stbfig, event, flagrc)
    {
      event->TYPE|=TTV_NODE_MARK_1;
 #ifndef OLD_MODE_PLUS_VALID_NEW_MODE
-     return; // stabilite inchange
+     return; /* stabilite inchange*/
 #endif
    }
  else
@@ -2101,7 +2101,7 @@ stb_transferstbnode (stbfig, event, flagrc)
 
      if (node->CK!=NULL && stb_ismemsym(event->ROOT))
      {
-       // transfert des lines non commandees au cas ou il y en aurait
+       /* transfert des lines non commandees au cas ou il y en aurait*/
        int flagcorr=docorrection?STB_TRANSFERT_CORRECTION:0;
        ptstbck=node->CK;
        node->CK=NULL;
@@ -2114,7 +2114,7 @@ stb_transferstbnode (stbfig, event, flagrc)
           }
      }
 
-//     node->CK = ptstbck ;
+/*     node->CK = ptstbck ;*/
      if (V_BOOL_TAB[__STB_STABILITY_CORRECTION].VALUE)
      {
        if (docorrection)
@@ -2124,7 +2124,7 @@ stb_transferstbnode (stbfig, event, flagrc)
        }
        else
        {
-         // datalag avec fauxchemin ou faux slack?
+         /* datalag avec fauxchemin ou faux slack?*/
          if ((node->EVENT->ROOT->TYPE & TTV_SIG_L)!=0 || (node->EVENT->ROOT->TYPE & TTV_SIG_R)!=0)
          {
            long lagmin, lagmax;
@@ -2167,7 +2167,7 @@ stb_transferstbnode (stbfig, event, flagrc)
        }
     }
 #if 0
-//OLD_MODE_PLUS_VALID_NEW_MODE
+/*OLD_MODE_PLUS_VALID_NEW_MODE*/
      if (stb_speed_up && !stb_event_at_input(stbfig, event) && stb_compstbpairlist (tabpair[(int) i], *(node->STBTAB + i)) == 0)
        {
          stb_err();
@@ -2519,7 +2519,7 @@ int stb_get_setup_and_hold_test_events(stbck *clock, int hz, ttvevent_list **set
   *setup_event=*hold_event=NULL;
   *setup_mustbehz=*hold_mustbehz=0;
 
-  if(STB_OPEN_LATCH_PHASE == 'N') return 0; // <- on ne sais pas faire
+  if(STB_OPEN_LATCH_PHASE == 'N') return 0; /* <- on ne sais pas faire*/
 
   if (clock==NULL) return 0;
   if (node!=NULL && node->SPECOUT!=NULL) return 1;

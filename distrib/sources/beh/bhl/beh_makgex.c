@@ -567,7 +567,7 @@ void beh_makgex (befig_list *pt_befig)
   struct berin  *pt_rin   ;
   unsigned int   count    ;
 
-   //if (!(pt_befig->TYPE & BEH_NODE_GEX)) 
+   /*if (!(pt_befig->TYPE & BEH_NODE_GEX)) */
    {
 	/* ###------------------------------------------------------### */
 	/*    initialize hash table					*/

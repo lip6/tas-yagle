@@ -35,7 +35,7 @@ void bgl_NewOperation(bgl_expr *out, short oper, bgl_expr *expr1, bgl_expr *expr
   if (expr1->WIDTH != expr2->WIDTH) 
   {
     avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"100");
-//    printf("Width mismatch %d != %d\n",expr1->WIDTH,expr2->WIDTH);EXIT(9);
+/*    printf("Width mismatch %d != %d\n",expr1->WIDTH,expr2->WIDTH);EXIT(9);*/
   }
   
   for (	i=0,out->LIST_ABL=NULL,cl0=expr1->LIST_ABL,cl1=expr2->LIST_ABL;
@@ -71,8 +71,8 @@ bgldecl_list *bgl_addgen(bgl_bcompcontext *context, char *name)
 
     if (!l_pgen) {
       avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"101");
-//        fprintf(stderr, "not enough memory.\n");
-//        EXIT(1);
+/*        fprintf(stderr, "not enough memory.\n");*/
+/*        EXIT(1);*/
     }
 
     l_pgen->NAME = name;
@@ -109,7 +109,7 @@ int AddaNewSignalorSignals(bgl_bcompcontext *context, char *name, int left, int 
 #ifdef BGL_DEBUG
       printf("- decl '%c' %s\n",dir,name);
 #endif
-      context->ALLSIGNALS=bgl_addgen(context,name); // nouveau signal a driver
+      context->ALLSIGNALS=bgl_addgen(context,name); /* nouveau signal a driver*/
       beh_addtab(context->HSHTAB, name, context->FIGNAME, BGL_PNTDFN,(long) context->ALLSIGNALS);
       context->ALLSIGNALS->DIRECTION=dir;
     }
@@ -118,8 +118,8 @@ int AddaNewSignalorSignals(bgl_bcompcontext *context, char *name, int left, int 
       // signal vectorisé, on devectorise
       int i,inc=1;
       char extname[200];
-      beh_addtab(context->HSHTAB, name, context->FIGNAME, BGL_PNTDFN, 1); // 1 = c'est un vecteur
-      // mais a des bornes
+      beh_addtab(context->HSHTAB, name, context->FIGNAME, BGL_PNTDFN, 1); /* 1 = c'est un vecteur*/
+      /* mais a des bornes*/
       beh_addtab(context->HSHTAB, name, context->FIGNAME, BGL_LFTDFN, left);
       beh_addtab(context->HSHTAB, name, context->FIGNAME, BGL_RGTDFN, right);
 
@@ -133,7 +133,7 @@ int AddaNewSignalorSignals(bgl_bcompcontext *context, char *name, int left, int 
 #ifdef BGL_DEBUG
 	  printf("- decl [] '%c' %s\n",dir,extname);
 #endif
-	  // a driver
+	  /* a driver*/
 	  if ((whoiam=(bgldecl_list *)beh_chktab(context->HSHTAB, namealloc(extname), context->FIGNAME, BGL_PNTDFN)) != (bgldecl_list *)0) 
 	    {
 	      if ((whoiam->DIRECTION!='O' && dir=='R') || (whoiam->DIRECTION==' ' && dir==' '))
@@ -257,7 +257,7 @@ void bgl_generateBEH(bgl_bcompcontext *context)
   bgldecl_list   *head;
 
   context->BEFIG->ERRFLG=context->ERRFLG;
-//  printf("%s %d\n",context->BEFIG->NAME,context->BEFIG->ERRFLG);
+/*  printf("%s %d\n",context->BEFIG->NAME,context->BEFIG->ERRFLG);*/
   for (head=context->ALLSIGNALS;head!=NULL;head=head->NEXT)
     {
 
@@ -266,7 +266,7 @@ void bgl_generateBEH(bgl_bcompcontext *context)
 #endif
       if (head->DIRECTION=='O')
 	{ 
-	  //if (head->OBJTYPE & SIG_IS_BUS) head->OBJTYPE|=SIG_IS_REG;
+	  /*if (head->OBJTYPE & SIG_IS_BUS) head->OBJTYPE|=SIG_IS_REG;*/
 	  if (head->OBJTYPE & SIG_IS_IN) head->DIRECTION='B';
 	}
 
@@ -288,7 +288,7 @@ void bgl_generateBEH(bgl_bcompcontext *context)
 	      else
             context->BEFIG->BEBUS=beh_addbebus(context->BEFIG->BEBUS, head->NAME, reverseAndreflag(head->BIABL), head->BINODE,'M',0);
 	      if (head->BINODE==NULL)
-            //EXIT(88);
+            /*EXIT(88);*/
             avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"102");
 	    }
 	  else
@@ -313,7 +313,7 @@ void bgl_generateBEH(bgl_bcompcontext *context)
 	      else
 		context->BEFIG->BEBUS=beh_addbebus(context->BEFIG->BEBUS, head->NAME, reverseAndreflag(head->BIABL), head->BINODE,'M',0);
 	      if (head->BINODE==NULL)
-            // EXIT(88);
+            /* EXIT(88);*/
             avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"103");
 	    }
 	  else
@@ -334,7 +334,7 @@ void bgl_generateBEH(bgl_bcompcontext *context)
 	      context->BEFIG->BERIN=beh_addberin(context->BEFIG->BERIN, head->NAME);
 	      
 	      context->BEFIG->BEREG=beh_addbereg(context->BEFIG->BEREG, head->NAME,reverseAndreflag(head->BIABL), head->BINODE,0);
-//	  context->BEFIG->BERIN=beh_addberin(context->BEFIG->BERIN, head->NAME);
+/*	  context->BEFIG->BERIN=beh_addberin(context->BEFIG->BERIN, head->NAME);*/
 	    }
 	  else
 	    if (head->OBJTYPE & SIG_IS_BUS)
@@ -357,7 +357,7 @@ void bgl_generateBEH(bgl_bcompcontext *context)
 	  break;
 	default:
       avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"104");
-//	  EXIT(65);
+/*	  EXIT(65);*/
 	}
 /*      if (head->OBJTYPE & SIG_IS_IN)
 	context->BEFIG->BERIN=beh_addberin(context->BEFIG->BERIN, head->NAME);
@@ -416,7 +416,7 @@ void UnaryBitwise(int op, bgl_expr *out, bgl_expr *in)
 
   if (in->LIST_ABL==NULL || in->LIST_ABL->NEXT==NULL)
     avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"105");
-    //EXIT(99);
+    /*EXIT(99);*/
 
   if (op==NAND) {addnot=1;op=AND;}
   else if (op==NOR) {addnot=1;op=OR;}
@@ -477,7 +477,7 @@ int bgl_compare(int op, bgl_expr *out, bgl_expr *a, bgl_expr *b)
 
       if ((atype!=btype && atype!=-1 && btype!=-1 && op==0) || (atype!=btype && atype!=-1 && btype!=-1 && op==1))
 	{
-	  if (op==0) return -2; // condition always false
+	  if (op==0) return -2; /* condition always false*/
 	  else return -3;
 	}
       else
@@ -518,14 +518,14 @@ int bgl_compare(int op, bgl_expr *out, bgl_expr *a, bgl_expr *b)
 			chain_list *ab,*ba;// égalité
 			ab=createBinExpr(OR,notExpr(cla->DATA),copyExpr(clb->DATA)); 
 			ba=createBinExpr(OR,notExpr(clb->DATA),copyExpr(cla->DATA)); 
-			tmp=createBinExpr(AND,ab,ba); // NXOR
+			tmp=createBinExpr(AND,ab,ba); /* NXOR*/
 		      }
 		    else 
 		      {
 			chain_list *ab,*ba;// inégalité
 			ab=createBinExpr(AND,notExpr(cla->DATA),copyExpr(clb->DATA)); 
 			ba=createBinExpr(AND,notExpr(clb->DATA),copyExpr(cla->DATA)); 
-			tmp=createBinExpr(OR,ab,ba); // XOR
+			tmp=createBinExpr(OR,ab,ba); /* XOR*/
 		      }
 		  }
 	      
@@ -542,7 +542,7 @@ int bgl_compare(int op, bgl_expr *out, bgl_expr *a, bgl_expr *b)
 	}
     }
   if (ex==NULL)
-    return -3; // condition always true
+    return -3; /* condition always true*/
   out->LIST_ABL=addchain(NULL,ex);
   out->IDENT=NULL;
   out->WIDTH=1;
@@ -556,7 +556,7 @@ int bgl_compare(int op, bgl_expr *out, bgl_expr *a, bgl_expr *b)
   oper==0 => NOT
   oper!=0 => BUFFER
 */
-void bgl_NewSimpleOperation(bgl_expr *out, short oper, bgl_expr *expr1) // NOT or -1=buff
+void bgl_NewSimpleOperation(bgl_expr *out, short oper, bgl_expr *expr1) /* NOT or -1=buff*/
 {
   
   int i;
@@ -591,7 +591,7 @@ int CheckSize(chain_list *cl, int skeepfirst)
 
   for (; cl != NULL; cl=cl->NEXT) 
     {
-//      printf("%s %d,\n",((bgl_expr *)cl->DATA)->IDENT==NULL?"NULL":((bgl_expr *)cl->DATA)->IDENT->DATA,((bgl_expr *)cl->DATA)->WIDTH);
+/*      printf("%s %d,\n",((bgl_expr *)cl->DATA)->IDENT==NULL?"NULL":((bgl_expr *)cl->DATA)->IDENT->DATA,((bgl_expr *)cl->DATA)->WIDTH);*/
       if (curwidth==-1) curwidth=((bgl_expr *)cl->DATA)->WIDTH;
       else if (curwidth!=((bgl_expr *)cl->DATA)->WIDTH)
 	return 1;
@@ -616,7 +616,7 @@ chain_list *bgl_substPhyExpr (chain_list *expr1, chain_list **nouveau,int max,in
           {
 	    if (!(((char *)VALUE_ATOM(CAR(expr1)))[0]>='0' && ((char *)VALUE_ATOM(CAR(expr1)))[0]<='9'))
           avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"106");
-          //EXIT(99);
+          /*EXIT(99);*/
 	    num=atoi(VALUE_ATOM(CAR(expr1)));
 	    if (num>*most) *most=num;
 
@@ -632,7 +632,7 @@ chain_list *bgl_substPhyExpr (chain_list *expr1, chain_list **nouveau,int max,in
     {
       if (!(((char *)VALUE_ATOM(expr1))[0]>='0' && ((char *)VALUE_ATOM(expr1))[0]<='9'))
         avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"107");
-        //EXIT(99);
+        /*EXIT(99);*/
       num=atoi(VALUE_ATOM(expr1));
       if (num>*most) *most=num;
 
@@ -655,7 +655,7 @@ int bgl_getline(chain_list **tab,int num, chain_list *terms,int max)
   int count,count0;
 
 #ifndef __ALL__WARNING__
-  // prevent warning ..anto..
+  /* prevent warning ..anto..*/
   max = 0;
 #endif
   
@@ -663,7 +663,7 @@ int bgl_getline(chain_list **tab,int num, chain_list *terms,int max)
     {
       for (cl=((bgl_expr *)terms->DATA)->LIST_ABL,count=0;cl!=NULL && count<num;count++,cl=cl->NEXT) ;
       if (cl==NULL) return 1;
-//      tab[max-count0-1]=(chain_list *)cl->DATA;
+/*      tab[max-count0-1]=(chain_list *)cl->DATA;*/
       tab[count0]=(chain_list *)cl->DATA;
     }
   return 0;
@@ -724,7 +724,7 @@ void AddPrimitiveToBEFIG(chain_list *allprims, chain_list *allcont)
 	  
 	  if (prim==NULL)
         avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"107");
-        //EXIT(15);
+        /*EXIT(15);*/
 	  cg=(custom_gate *)prim->DATA;
 	  max=countchain(instance->terminals);
 
@@ -733,7 +733,7 @@ void AddPrimitiveToBEFIG(chain_list *allprims, chain_list *allcont)
 	    {
 	      lvalue=bgl_getlvalue(count, instance->terminals);
 	      if (lvalue==NULL)
-            //  EXIT(25);
+            /*  EXIT(25);*/
             avt_errmsg(BGL_ERRMSG,"000",AVT_FATAL,"108");
 	      
 	      sig=(bgldecl_list *)beh_chktab(context->HSHTAB, lvalue, context->FIGNAME, BGL_PNTDFN);
@@ -744,7 +744,7 @@ void AddPrimitiveToBEFIG(chain_list *allprims, chain_list *allcont)
 	      
 	      if (cg->zui->cond_sig==-1)
 		{
-		  // expression sans condition
+		  /* expression sans condition*/
 		  copy=copyExpr(cg->zui->abl1);
 		  most=0;
 		  if ((copy=bgl_substPhyExpr(copy, nouveau, max, &most))==NULL || most>max)
@@ -753,18 +753,18 @@ void AddPrimitiveToBEFIG(chain_list *allprims, chain_list *allcont)
 		  sig->BINODE=beh_addbinode(sig->BINODE,NULL,NULL); sig->BINODE->TIME=0;
 
 		  sig->BIABL->FLAG |= BEH_CND_NOPRECEDE;
-		  sig->BIABL->TIME=0; // ???
+		  sig->BIABL->TIME=0; /* ???*/
 		}
 	      else
 		{
-		  // expression avec condition
+		  /* expression avec condition*/
 		  int prems=1;
 		  char intermname[500];
 		  chain_list *block_cmd=NULL;
 		  
 		  blockdone=0;
 		  sprintf(intermname,"next_%s",sig->NAME);
-//		  nouveau[max-1]=createAtom(namealloc(intermname));
+/*		  nouveau[max-1]=createAtom(namealloc(intermname));*/
 		  AddaNewSignalorSignals(context, namealloc(intermname), -1, -1, ' ');
 
 		  sig1=(bgldecl_list *)beh_chktab(context->HSHTAB, namealloc(intermname) , context->FIGNAME, BGL_PNTDFN);

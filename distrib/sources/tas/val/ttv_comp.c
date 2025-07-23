@@ -880,13 +880,13 @@ static void diff_lookmodelaccess(FILE *file, int modkf, int modc,
       capa2    = (modc)  ?  modct[k] : fig2->INFO->CAPAOUT;
       slope2   = (modkf) ? modkft[j] : fig2->INFO->SLOPE;
 
-	  // delay difference
+	  /* delay difference*/
       daccess1 = stm_mod_delay(md1,capa1,slope1, NULL, "unknown");
       daccess2 = stm_mod_delay(md2,capa2,slope2, NULL, "unknown");
       if (daccess1 != daccess2 && (mode < 2 || tmodel != STM_MOD_MODTBL))
         diff_printdiffmodeltime(file,daccess1,daccess2,0,0,0,0,type);
 	  
-	  // slew difference
+	  /* slew difference*/
       saccess1 = stm_mod_slew (md1,capa1,slope1, NULL, NULL, "unknown");
       saccess2 = stm_mod_slew (md2,capa2,slope2, NULL, NULL, "unknown");
       if (saccess1 != saccess2 && (mode > 2 || tmodel != STM_MOD_MODTBL))
@@ -1137,7 +1137,7 @@ char        type;
                  || (gethtitem(htsig12,line1->NODE->ROOT) == EMPTYHT))
               continue ;
           /* mode hierarchique et dtx */
-          //if (mask&(DIFF_OPT_HIER|DIFF_OPT_DTX)) == (DIFF_OPT_HIER|DIFF_OPT_DTX))
+          /*if (mask&(DIFF_OPT_HIER|DIFF_OPT_DTX)) == (DIFF_OPT_HIER|DIFF_OPT_DTX))*/
 
           if ((line2 = diff_getline2(htsig12,ttvfig1,ttvfig2,ttvins2,line1,i,type))!=NULL)
           {
@@ -1301,7 +1301,7 @@ long            type;
   char          teout2;
   ttvpath_list *path;
 
-  type = 0; // added to prevent warning, unused
+  type = 0; /* added to prevent warning, unused*/
 
   tein1     = diff_geteventtype(path1->NODE);
   teout1    = diff_geteventtype(path1->ROOT);

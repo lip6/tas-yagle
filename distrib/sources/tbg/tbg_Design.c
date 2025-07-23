@@ -16,7 +16,7 @@ void Design (char *file_name, char *design_name)
     if (!already_done) {
         if ((vhdlin = fopen (file_name, "r"))) {
             DESIGN_NAME = strdup (design_name);
-            //vhdldebug = 1;
+            /*vhdldebug = 1;*/
             vhdlparse ();
             fclose (vhdlin); 
         } else {

@@ -178,7 +178,7 @@ char *bsc_vectorize(char *name)
     {
       if (name [i] == ' ')
       {
-        //// added by anto
+        /*// added by anto*/
         j       = i;
         while ((name[j]!='\0')&&(name[j]!=':'))
           j++;
@@ -189,7 +189,7 @@ char *bsc_vectorize(char *name)
           sprintf (tmp1,"%s(%d %s %d)",new_name,
                    left,(left<right)?"TO":"DOWNTO",right);
         }
-        ////
+        /*//*/
         else
           sprintf (tmp1, "%s(%s)", new_name, &name[i+1]); 
       }
@@ -496,7 +496,7 @@ char *bsc_abl2str (chain_list *expr, char *chaine, int *size_pnt)
       case STABLE :
            bsc_mystrcat(chaine,"%s'STABLE",bsc_vectorize (operand->DATA));
            break;
-           // added by anto to compute vectabl
+           /* added by anto to compute vectabl*/
       case REPLICATE:
            strcat (chaine,"(");
            for (i = 0; i < REP_NB(expr); i ++)
@@ -649,7 +649,7 @@ char *bsc_abl2strbool (chain_list *expr, char *chaine, int *size_pnt)
 
   if (ATOM(expr)) 
   {
-    // added by anto to compute vectabl
+    /* added by anto to compute vectabl*/
     if (isBitStr(expr->DATA)) 
       strcat (chaine, expr->DATA);
     else 
@@ -686,7 +686,7 @@ char *bsc_abl2strbool (chain_list *expr, char *chaine, int *size_pnt)
                      bsc_vectorize (((chain_list * )operand->NEXT->DATA)->DATA));
              strcat (chaine, "'EVENT");
            } 
-           // added by anto to compute vectabl
+           /* added by anto to compute vectabl*/
            else if (isBitStr(operand->DATA)) 
              strcat (chaine, operand->DATA);
            else
@@ -705,7 +705,7 @@ char *bsc_abl2strbool (chain_list *expr, char *chaine, int *size_pnt)
              strcat (chaine, buffer);
            }
            break;
-           // added by anto to compute vectabl
+           /* added by anto to compute vectabl*/
       case CAT :
            {
              char          *bitstr;

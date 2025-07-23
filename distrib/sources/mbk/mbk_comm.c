@@ -66,7 +66,7 @@ void mbk_comsend( int fd, void *data, int l )
     t = send( fd, data+n, l-n, 0 ) ;
     if( t == -1 ) {
       if( errno != EINTR ) {
-//        perror( "send() " );
+/*        perror( "send() " );*/
         fprintf(stdout,"%d/%d\n",l,n);
         fprintf(stdout,"%s\n",(char *)data);
         avt_errmsg( MBK_ERRMSG, "054", AVT_FATAL, 18, strerror(errno) );
@@ -191,18 +191,18 @@ int mbk_activatecomslave( char *connexion )
     return 0 ;
   }
  
-//  printf( "Running avt_shell in slave mode.\n" );
+/*  printf( "Running avt_shell in slave mode.\n" );*/
 
   sock = socket( PF_INET, SOCK_STREAM, 0 );
   if( sock == -1 ) {
-//    perror( "socket() " );
+/*    perror( "socket() " );*/
     avt_errmsg( MBK_ERRMSG, "054", AVT_ERROR, 2, strerror(errno) );
     return 0 ;
   }
   
   t = connect( sock, (struct sockaddr*)&name, sizeof(name) );
   if( t == -1 ) {
-//    perror( "connect() " );
+/*    perror( "connect() " );*/
     avt_errmsg( MBK_ERRMSG, "054", AVT_ERROR, 3, strerror(errno) );
     close( sock );
     return 0 ;
@@ -228,7 +228,7 @@ int opensocket( int *port )
  
   sock = socket( PF_INET, SOCK_STREAM, 0 );
   if( sock == -1 ) {
-//    perror( "socket() " );
+/*    perror( "socket() " );*/
     avt_errmsg( MBK_ERRMSG, "054", AVT_FATAL, 4, strerror(errno) );
     return -1 ;
   }
@@ -244,7 +244,7 @@ int opensocket( int *port )
         sleep( 10 );
       }
       else {
-//        perror( "bind() " );
+/*        perror( "bind() " );*/
         avt_errmsg( MBK_ERRMSG, "054", AVT_FATAL, 5, strerror(errno) );
         close( sock );
         return -1 ;
@@ -259,7 +259,7 @@ int opensocket( int *port )
   
   t = listen( sock, 5 );
   if( t == -1 ) {
-//    perror( "listen() " );
+/*    perror( "listen() " );*/
     avt_errmsg( MBK_ERRMSG, "054", AVT_FATAL, 6, strerror(errno) );
     return -1 ;
   }
@@ -320,7 +320,7 @@ void handleincomingconnection( mbk_comdata *comdata )
     comdata->tabslot[i].fd = accept( comdata->sock, (struct sockaddr*)&origin, &x );
     if( comdata->tabslot[i].fd == -1 ) {
       if( errno != EINTR ) {
-//        perror( "accept " );
+/*        perror( "accept " );*/
         avt_errmsg( MBK_ERRMSG, "054", AVT_FATAL, 7, strerror(errno) );
       }
     }
@@ -355,8 +355,8 @@ int handleincomingdataslot( mbk_comdata *comdata, int n )
  
   if( r==-1 ) {
     if( errno != EINTR ) {
-//      perror( "recv() " );
-//      printf("%d %d/%d\n",n,comdata->tabslot[n].current,max);
+/*      perror( "recv() " );*/
+/*      printf("%d %d/%d\n",n,comdata->tabslot[n].current,max);*/
       avt_errmsg( MBK_ERRMSG, "054", AVT_FATAL, 8, strerror(errno) );
     }
     return event ;
@@ -510,7 +510,7 @@ int mbk_comwaiteventfromnet( mbk_comdata *comdata )
       if( comdata->tabslot[i].event == MBK_COM_NONE ) {
       
         FD_SET( comdata->tabslot[i].fd, &set );
-//              fprintf(stdout,"=> %d: %d / %d\n", i, comdata->tabslot[i].fd, comdata->n);
+/*              fprintf(stdout,"=> %d: %d / %d\n", i, comdata->tabslot[i].fd, comdata->n);*/
         if( comdata->tabslot[i].fd > max )
           max = comdata->tabslot[i].fd ;
       }
@@ -521,7 +521,7 @@ int mbk_comwaiteventfromnet( mbk_comdata *comdata )
     i = select( max+1, &set, NULL, NULL, NULL ) ;
     if( i==-1 ) {
       if( errno != EINTR ) {
-//        perror( "select() " );
+/*        perror( "select() " );*/
         avt_errmsg( MBK_ERRMSG, "054", AVT_FATAL, 13, strerror(errno) );
       }
     }
@@ -632,7 +632,7 @@ void mbk_comrecvslavemessage( void *buffer, int l )
     t = recv( MBK_SOCK, buffer + r, max, 0 );
     if( t<0 ) {
       if( errno != EINTR ) {
-//        perror( "recv() " );
+/*        perror( "recv() " );*/
         avt_errmsg( MBK_ERRMSG, "054", AVT_FATAL, 16, strerror(errno) );
       }
     }
@@ -883,7 +883,7 @@ int mbk_comm_send_text_file(char *name)
       if (ok)
       {
         strcpy(buf,"ask:writefile:");
-//        while (ok && nb=fgets(&buf[14], 16000, f)!=NULL)
+/*        while (ok && nb=fgets(&buf[14], 16000, f)!=NULL)*/
         while (ok && (nb=fread(&buf[14], sizeof(char), 16000, f))>0)
         {
           buf[14+nb]='\0';

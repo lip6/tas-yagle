@@ -25,7 +25,7 @@ void XtasCancelVisualPathCallback( widget, client_data , call_data )
 {
     XtUnmanageChild (XyagTopLevel);
     XtUnmanageChild ((Widget) client_data);
-//    XalLeaveLimitedLoop ();
+/*    XalLeaveLimitedLoop ();*/
 }
 
 
@@ -104,7 +104,7 @@ XtPointer call_data ;
     }
     XtManageChild (XyagTopLevel);
     XtManageChild( XtasVisualPathWidget );
-//    XalLimitedLoop(XtasVisualPathWidget);
+/*    XalLimitedLoop(XtasVisualPathWidget);*/
 
 }
 
@@ -138,7 +138,7 @@ XtPointer call_data ;
                 XtasFirePasqua ();
                 XtUnmanageChild (XyagTopLevel);
                 XalDrawMessage (((XtasWindowStruct *)tas_winfos)->errwidget, mess);
-//                XalLeaveLimitedLoop ();
+/*                XalLeaveLimitedLoop ();*/
                 return;
             }
         head = (chain_list *)detail_set->CUR_DETAIL->DATA;
@@ -149,8 +149,8 @@ XtPointer call_data ;
             cgvhead = cgv_NetObject(cgvhead, c->NETNAME);
 
 
-//    cgvhead = cgv_NetObject(cgvhead, "a");
-//    cgvhead = cgv_NetObject(cgvhead, "y");
+/*    cgvhead = cgv_NetObject(cgvhead, "a");*/
+/*    cgvhead = cgv_NetObject(cgvhead, "y");*/
         if (TYPE == XTAS_EXTRACT)
             XyagExtract(cgvhead, 1);
         else
@@ -161,7 +161,7 @@ XtPointer call_data ;
 
     
     XtPopup (XyagTopLevel, XtGrabNone);
-//    XalLeaveLimitedLoop();
+/*    XalLeaveLimitedLoop();*/
 
 }
 

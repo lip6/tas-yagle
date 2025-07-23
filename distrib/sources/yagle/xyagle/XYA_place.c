@@ -48,7 +48,7 @@ trace_con(con_list, X, Y, LayerCon, scale)
     cgvcon_list    *CgvCon;
     locon_list     *LoCon;
     cgvbox_list    *Box;
-//    cone_list      *CnsCone;
+/*    cone_list      *CnsCone;*/
     int             ObjectType;
     long            X_trace;
     long            Y_trace;
@@ -130,7 +130,7 @@ trace_con(con_list, X, Y, LayerCon, scale)
         SetXyagCgvCon(Object2);
 
 	Box=(cgvbox_list *)CgvCon->ROOT;
-//	printf("%s\n",Box->NAME);
+/*	printf("%s\n",Box->NAME);*/
 /*	if (!IsCgvConExternal(CgvCon))
 	  Box->USER=Object1;*/
 	CgvCon->USER=Object1;
@@ -151,9 +151,7 @@ trace_con(con_list, X, Y, LayerCon, scale)
 |                          XyagTrace                          |
 \------------------------------------------------------------*/
 
-void 
-XyagTraceFigure(CgvFig)
-    cgvfig_list    *CgvFig;
+void XyagTraceFigure( cgvfig_list *CgvFig )
 {
     cgvbox_list    *CgvBox;
     cgvnet_list    *CgvNet;
@@ -233,14 +231,14 @@ XyagTraceFigure(CgvFig)
 	CgvBox->USER=Object;
 
         if (CgvBox->SOURCE_TYPE == CGV_SOURCE_CNSCONE) {
-//	  CgvBox->USER=Object;
+/*	  CgvBox->USER=Object;*/
 /*
             CnsCone = (cone_list *) CgvBox->SOURCE;
             CnsCone->USER = addptype(CnsCone->USER, XYAG_USER_OBJECT_CGV, (void *) Object);
 */
         }
         else if (CgvBox->SOURCE_TYPE == CGV_SOURCE_CNSCELL) {
-//	   CgvBox->USER=Object;
+/*	   CgvBox->USER=Object;*/
 /*            CnsCell = (cell_list *) CgvBox->SOURCE;
             CnsCell->USER = addptype(CnsCell->USER, XYAG_USER_OBJECT_CGV, (void *) Object);*/
         }

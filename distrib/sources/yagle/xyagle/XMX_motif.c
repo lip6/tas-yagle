@@ -99,9 +99,7 @@ void DisplayMessage(char *content)
 |                     XyagChangeTopLevelTitle                 |
 \------------------------------------------------------------*/
 
-void 
-XyagChangeTopLevelTitle(Title)
-    char           *Title;
+void XyagChangeTopLevelTitle( char *Title )
 {
     int n = 7; /* Xyagle = 6 characters + 1 blank */
     
@@ -124,11 +122,7 @@ XyagChangeTopLevelTitle(Title)
 |                    XyagInitializeRessources                 |
 \------------------------------------------------------------*/
 
-void 
-XyagInitializeRessources(argc, argv, ptcolormap)
-    int            *argc;
-    char           *argv[];
-    Colormap       *ptcolormap;
+void XyagInitializeRessources( int *argc, char *argv[], Colormap *ptcolormap )
 {
     Arg             Args[2];
     

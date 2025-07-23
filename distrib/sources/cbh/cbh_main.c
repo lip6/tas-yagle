@@ -21,14 +21,14 @@
 #include CBH_H
 #include AVT_H
 
-// this file is not to date
+/* this file is not to date*/
 
 static void
 usage(char *progname)
 {
   avt_errmsg(CBH_ERRMSG,"002",AVT_FATAL,progname);
-//  fprintf(stderr, "%s needs a file as argument\n", progname);
-//  EXIT(1);
+/*  fprintf(stderr, "%s needs a file as argument\n", progname);*/
+/*  EXIT(1);*/
 }
 
 int

@@ -58,7 +58,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
         {
         if ((ptbebus->BIABL != NULL) || (ptbebus->BINODE != NULL))
           beh_warning(301,ptbebus->NAME,NULL);
-        //(stderr,"BEH_warning : bebus `%s` not empty\n", ptbebus->NAME);
+        /*(stderr,"BEH_warning : bebus `%s` not empty\n", ptbebus->NAME);*/
         }
       else
         {

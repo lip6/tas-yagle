@@ -18,10 +18,10 @@
 #include "ttv.h"
 #include "ttv_ssta.h"
 
-// for the APIs
+/* for the APIs*/
 #include "api_communication.h"
 #include "ttv_communication.c"
-// ------------
+/* ------------*/
 
 ttvsbloc_list *TTV_HEAD_REFSIG = NULL ;
 chain_list *TTV_FREE_REFSIG = NULL ;
@@ -4619,8 +4619,8 @@ float cmin ;
 
  ptdelay = ttv_getlinedelay(line) ;
 
- // On vérifie si les informations à mémoriser seront différentes de celles
- // contenues sur le line
+ /* On vérifie si les informations à mémoriser seront différentes de celles*/
+ /* contenues sur le line*/
  if( ( ( dmax != TTV_NOTIME && dmax == line->VALMAX            ) ||
        ( ptdelay            && ptdelay->VALMAX == line->VALMAX )    ) &&
      ( ( fmax != TTV_NOSLOPE && fmax == line->FMAX          ) ||
@@ -5102,8 +5102,8 @@ float  *nrjmax ;
  char typemin ;
  char *figname, *input, *output ;
  long delta=0 ;
- float noisedeltadelaymin; // Influence du bruit sur les délais de type porte
- float noisedeltadelaymax; // due à la diaphonie.
+ float noisedeltadelaymin; /* Influence du bruit sur les délais de type porte*/
+ float noisedeltadelaymax; /* due à la diaphonie.*/
  ttvdelay_list *delay ;
  float f;
  timing_model *modmax;
@@ -5292,9 +5292,9 @@ float  *nrjmax ;
        }
      }
 
-    TTV_COM_CURRENT_LINE=line; // <- pour les apis
+    TTV_COM_CURRENT_LINE=line; /* <- pour les apis*/
     TTV_COM=ttv_communication;
-    TTV_COM_DELAY_COMPUTATION_TYPE=1; // delay max
+    TTV_COM_DELAY_COMPUTATION_TYPE=1; /* delay max*/
     
     /* names for warning messages */
 /*    input = mbkalloc(strlen(line->NODE->ROOT->NETNAME)+4);
@@ -5345,7 +5345,7 @@ float  *nrjmax ;
      }
     */
 
-    TTV_COM_DELAY_COMPUTATION_TYPE=0; // delay min
+    TTV_COM_DELAY_COMPUTATION_TYPE=0; /* delay min*/
 
     if( dmin || fmin ) {
       ptfl_d = NULL ;
@@ -5386,8 +5386,8 @@ float  *nrjmax ;
      }
      */
 
-     // Correction due au bruit
-    TTV_COM_DELAY_COMPUTATION_TYPE=1; // delay max
+     /* Correction due au bruit*/
+    TTV_COM_DELAY_COMPUTATION_TYPE=1; /* delay max*/
 
      if( dmax != NULL && locon != NULL && rcx_crosstalkactive( RCX_QUERY ) != RCX_NOCROSSTALK ) {
      
@@ -5444,8 +5444,8 @@ float  *nrjmax ;
        *dmax = *dmax + (long)noisedeltadelaymax;
      }
 
-     // Correction due au bruit
-     TTV_COM_DELAY_COMPUTATION_TYPE=0; // delay min
+     /* Correction due au bruit*/
+     TTV_COM_DELAY_COMPUTATION_TYPE=0; /* delay min*/
      if(dmin != NULL && locon != NULL && rcx_crosstalkactive( RCX_QUERY ) != RCX_NOCROSSTALK ) {
 
        if( fmin == NULL ) {
@@ -6255,7 +6255,7 @@ char mode ;
  vf_max   = def_vf ;
 
  if((node->ROOT->TYPE & (TTV_SIG_N|TTV_SIG_C)) != 0)
-    capa = ttv_get_signal_output_capacitance(ttvfig, node->ROOT); //ttvfig->INFO->CAPAOUT ;
+    capa = ttv_get_signal_output_capacitance(ttvfig, node->ROOT); /*ttvfig->INFO->CAPAOUT ;*/
 
  if((type & TTV_FIND_MAX) == TTV_FIND_MAX)
   {
@@ -6947,7 +6947,7 @@ static chain_list *ttv_depthfirst(ttvfig_list *fig,long level,ttvevent_list *nod
    head=ttv_depthfirst(fig,level,nodex,status,file,type,depth,&thislast);
    if (chainres==NULL) *last=thislast;
    chainres=thisappend(head, thislast, chainres);
-//   chainres = append(ttv_depthfirst(fig,level,nodex,status,file,type,depth,&thislast),chainres);
+/*   chainres = append(ttv_depthfirst(fig,level,nodex,status,file,type,depth,&thislast),chainres);*/
    
    nodex->FIND->OUTLINE = NULL;
 
@@ -8312,7 +8312,7 @@ void ttv_addttvsigfast( ttvfig_list *topfig,
   ht            *hashins;
   ptype_list    *ptl;
   
-  // Récupère ou crée la table des instances.
+  /* Récupère ou crée la table des instances.*/
   ptl = getptype( topfig->USER, TTV_FIG_HTAB_SIG );
   if( !ptl ) {
     topfig->USER = addptype( topfig->USER, TTV_FIG_HTAB_SIG, addht( 10 ) );
@@ -8320,7 +8320,7 @@ void ttv_addttvsigfast( ttvfig_list *topfig,
   }
   hashins = (ht*)ptl->DATA;
 
-  // Récupère ou crée la tables des losig pour cette instance.
+  /* Récupère ou crée la tables des losig pour cette instance.*/
   hashsig = (ht*)gethtitem( hashins, insname );
   if( hashsig == (ht*)EMPTYHT ) {
     hashsig = addht(10);
@@ -8341,18 +8341,18 @@ ttvsig_list* ttv_getttvsigfast( ttvfig_list *topfig,
   ptype_list *ptl;
   ttvsig_list *ttvsig;
   
-  // Récupère la table de hash des noms d'instance hiérarchiques.
+  /* Récupère la table de hash des noms d'instance hiérarchiques.*/
   ptl = getptype( topfig->USER, TTV_FIG_HTAB_SIG );
   if( !ptl ) return (ttvsig_list*)EMPTYHT;
   hashins = (ht*)ptl->DATA;
 
-  // Cette table contient une table de hash des signaux.
+  /* Cette table contient une table de hash des signaux.*/
   hashsig = (ht*)gethtitem( hashins, insname );
   if( !hashsig || hashsig==(ht*)EMPTYHT || hashsig==(ht*)DELETEHT )
     return (ttvsig_list*)EMPTYHT;
 
-  // La valeur NULL est autorisée : aux itérations précédente il n'y avait
-  // pas de ttvsig correspondant à ce losig.
+  /* La valeur NULL est autorisée : aux itérations précédente il n'y avait*/
+  /* pas de ttvsig correspondant à ce losig.*/
   ttvsig = (ttvsig_list*)gethtitem( hashsig, losig );
   if( ttvsig==(ttvsig_list*)EMPTYHT || ttvsig==(ttvsig_list*)DELETEHT )
     return (ttvsig_list*)EMPTYHT;
@@ -8401,7 +8401,7 @@ ttvsig_list* ttv_getttvsig_sub(ttvfig_list   *figdest, losig_list *losig, long l
        scaninternal = scaninternal->NEXT ) {
       internal = (locon_list*)scaninternal->DATA;
       ttvsig = ttv_getsigbyhash( figdest, internal->NAME );
-     //ttvsig = ttv_getsigbyhash( figdest, rcxsig->RCXEXTERNAL->NAME );
+     /*ttvsig = ttv_getsigbyhash( figdest, rcxsig->RCXEXTERNAL->NAME );*/
       if( ttvsig && ttv_isttvsigdriver( figdest, level, type, ttvsig ) )
       {
         driver = ttvsig;
@@ -8440,7 +8440,7 @@ ttvsig_list* ttv_getttvsig( ttvfig_list *topttvfig,
 
   driver=ttv_getttvsig_sub(figdest, losig, level, type);
           
-  level=0; // Not used, avoid a warning.
+  level=0; /* Not used, avoid a warning.*/
   type=0;
 
   if( fastmode ) {

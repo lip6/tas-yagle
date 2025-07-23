@@ -31,7 +31,7 @@ void stm_modfct_print (FILE *f, timing_function *fct)
   t_arg *ta;
   chain_list *cl;
   fprintf (f, "\t\tfct (\n");
-//    if (fct->FIL) fprintf (f, "\t\t\tfile (%s)\n", fct->FIL);
+/*    if (fct->FIL) fprintf (f, "\t\t\tfile (%s)\n", fct->FIL);*/
     if (fct->FCT)
       {
         fprintf (f, "\t\t\tfunction (%s", fct->FCT->NAME);

@@ -554,9 +554,9 @@ cnsfig_list *yagDisassemble(char *figname, lofig_list *ptmbkfig, long mode)
     ptcnsfig->LOINS = ptmbkfig->LOINS;
 
     for (ptcon=ptcnsfig->LOCON;ptcon != NULL;ptcon=ptcon->NEXT) {
-//        delloconuser( ptcon );
+/*        delloconuser( ptcon );*/
         ptcon->ROOT = (void *)ptcnsfig;
-//        ptcon->USER = NULL;
+/*        ptcon->USER = NULL;*/
     }
     if (ptcnsfig->INTCON != NULL) {
         locon_list *ptprevcon = NULL;
@@ -905,7 +905,7 @@ cnsfig_list *yagDisassemble(char *figname, lofig_list *ptmbkfig, long mode)
     }
 
 #ifdef DELAY_DEBUG_STAT
-    mbk_debugstat ("detect // branches:", 0);
+    mbk_debugstat ("detect /* branches:", 0);*/
 #endif
     
 /*---------------------------------------------------------------------------*

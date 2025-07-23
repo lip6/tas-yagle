@@ -1160,9 +1160,9 @@ void XtasDrawStateRep(x0, x1, y0, y1, setup, hold)
                      XtasTmax, 
                      XtasGraphicZoneWidth) ;
     
-//    XFillRectangle(XtasGraphicDisplay, XtasGraphicPixmap, XtasColor[VERIFY][STIPPLE], 
-//                   MIN(sx0, sx1),  y0,
-//                   sx1 - sx0, abs(y1 - y0)) ;
+/*    XFillRectangle(XtasGraphicDisplay, XtasGraphicPixmap, XtasColor[VERIFY][STIPPLE], */
+/*                   MIN(sx0, sx1),  y0,*/
+/*                   sx1 - sx0, abs(y1 - y0)) ;*/
     XFillRectangle(XtasGraphicDisplay, XtasGraphicPixmap, XtasColor[VERIFY][STIPPLE], 
                    sx0,  y0,
                    sx1 - sx0, abs(y1 - y0)) ;
@@ -1397,7 +1397,7 @@ void XtasDrawGrid()
         while (rsteppos < XtasTmin) {
             rsteppos += rstep ;
         }
-//        rsteppos -= rstep ;
+/*        rsteppos -= rstep ;*/
     }
         
     while (rsteppos < XtasTmax) {
@@ -2478,10 +2478,10 @@ void draw_cbk(w, event, args, num_args)
             
             motion = False ;
             sprintf (mode, "ZOOM:") ;
-//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 180, mode, strlen (mode));
+/*            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 180, mode, strlen (mode));*/
             XtasSetLabelString (XtasDebugLabelMode, mode);
             sprintf (x1str, "t1 = %ld ps", XtasRound(x1)) ;
-//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 200, x1str, strlen (x1str));
+/*            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 200, x1str, strlen (x1str));*/
             XtasSetLabelString (XtasDebugLabelT1, x1str);
             XDrawLine (XtasGraphicDisplay, XtasGraphicPixmap, XtasColor[ERROR_ZOOM][SOLID],
                     xorg - XtasTextZoneWidth, 0,
@@ -2579,20 +2579,20 @@ void draw_cbk(w, event, args, num_args)
             
             
             motion = True ;
-//            sprintf (mode, "ZOOM :") ;
-////            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 180, mode, strlen (mode));
-//            XtasSetLabelString (XtasDebugLabelMode, mode);
-//            sprintf (x1str, "t1 = %.1f ps", XtasRound(x1)/TTV_UNIT) ;
-////            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 200, x1str, strlen (x1str));
-//            XtasSetLabelString (XtasDebugLabelT1, x1str);
+/*            sprintf (mode, "ZOOM :") ;*/
+/*//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 180, mode, strlen (mode));*/
+/*            XtasSetLabelString (XtasDebugLabelMode, mode);*/
+/*            sprintf (x1str, "t1 = %.1f ps", XtasRound(x1)/TTV_UNIT) ;*/
+/*//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 200, x1str, strlen (x1str));*/
+/*            XtasSetLabelString (XtasDebugLabelT1, x1str);*/
             sprintf (x2str, "t2 = %.1f ps", XtasRound(x2)/TTV_UNIT) ;
-//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 220, x2str, strlen (x2str));
+/*            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 220, x2str, strlen (x2str));*/
             text = XmStringCreateSimple (x2str);
             XtVaSetValues (XtasDebugLabelT2, XmNlabelString, text,NULL);
             XmStringFree (text);
             XmUpdateDisplay (XtasDebugLabelT2);
             sprintf (delta, "dt = %.1f ps", XtasRound(fabs (x1 - x2))/TTV_UNIT) ;
-//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 240, delta, strlen (delta));
+/*            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[ZOOM][SOLID], 10, 240, delta, strlen (delta));*/
             text = XmStringCreateSimple (delta);
             XtVaSetValues (XtasDebugLabelDelta, XmNlabelString, text,NULL);
             XmStringFree (text);
@@ -2670,7 +2670,7 @@ void draw_cbk(w, event, args, num_args)
                    0) ;  
             
             sprintf (x1str, "t1 = %.1f ps", XtasRound(x1)/TTV_UNIT) ;
-//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[MSETUP][SOLID], 10, 200, x1str, strlen (x1str));
+/*            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[MSETUP][SOLID], 10, 200, x1str, strlen (x1str));*/
             XtasSetLabelString (XtasDebugLabelT1, x1str);
             XDrawLine (XtasGraphicDisplay, XtasGraphicPixmap, XtasColor[MSETUP][SOLID],
                     xorg - XtasTextZoneWidth, 0,
@@ -2750,21 +2750,21 @@ void draw_cbk(w, event, args, num_args)
             }
             
             
-//            sprintf (x1str, "t1 = %.1f ps", XtasRound(x1)/TTV_UNIT) ;
-////            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[MSETUP][SOLID], 10, 200, x1str, strlen (x1str));
-//            XtasSetLabelString (XtasDebugLabelT1, x1str);
+/*            sprintf (x1str, "t1 = %.1f ps", XtasRound(x1)/TTV_UNIT) ;*/
+/*//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[MSETUP][SOLID], 10, 200, x1str, strlen (x1str));*/
+/*            XtasSetLabelString (XtasDebugLabelT1, x1str);*/
             sprintf (x2str, "t2 = %.1f ps", XtasRound(x2)/TTV_UNIT) ;
             text = XmStringCreateSimple (x2str);
             XtVaSetValues (XtasDebugLabelT2, XmNlabelString, text,NULL);
             XmStringFree (text);
             XmUpdateDisplay (XtasDebugLabelT2);
-//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[MSETUP][SOLID], 10, 220, x2str, strlen (x2str));
+/*            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[MSETUP][SOLID], 10, 220, x2str, strlen (x2str));*/
             sprintf (delta, "dt = %.1f ps", XtasRound(fabs (x1 - x2))/TTV_UNIT) ;
             text = XmStringCreateSimple (delta);
             XtVaSetValues (XtasDebugLabelDelta, XmNlabelString, text,NULL);
             XmStringFree (text);
             XmUpdateDisplay (XtasDebugLabelDelta);
-//            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[MSETUP][SOLID], 10, 240, delta, strlen (delta));
+/*            XDrawString(XtasGraphicDisplay, XtasSHPixmap, XtasColor[MSETUP][SOLID], 10, 240, delta, strlen (delta));*/
     
             XDrawLine (XtasGraphicDisplay, XtasGraphicPixmap, XtasColor[MSETUP][SOLID],
                    xorg - XtasTextZoneWidth, 0,

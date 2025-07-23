@@ -36,7 +36,7 @@ extern int Verif_HighBound_FOR(tree,env)
   int var1,var2;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 208);
-    //fprintf(stderr,"Verif_HighBound_FOR: NULL pointer\n");
+    /*fprintf(stderr,"Verif_HighBound_FOR: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -45,7 +45,7 @@ extern int Verif_HighBound_FOR(tree,env)
       var2=Verif_HighBound_FOR(tree->NEXT->NEXT,env);
       if (var1 && var2) {
     avt_errmsg(GNS_ERRMSG, "134", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-   //      fprintf(stderr,"%s:%d: Only one variable authorized in a 'for' expression. Use Hierarchy!\n",FILE_NAME(tree),LINE(tree));
+   /*      fprintf(stderr,"%s:%d: Only one variable authorized in a 'for' expression. Use Hierarchy!\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
          return 0;
       }
@@ -56,13 +56,13 @@ extern int Verif_HighBound_FOR(tree,env)
       var2=Verif_HighBound_FOR(tree->NEXT->NEXT,env);
       if (var1 && var2) {
     avt_errmsg(GNS_ERRMSG, "134", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-  //       fprintf(stderr,"%s:%d: Only one variable authorized in a 'for' expression. Use Hierarchy!\n",FILE_NAME(tree),LINE(tree));
+  /*       fprintf(stderr,"%s:%d: Only one variable authorized in a 'for' expression. Use Hierarchy!\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
          return 0;
       }
       if (var1||var2) {
     avt_errmsg(GNS_ERRMSG, "135", AVT_ERROR, FILE_NAME(tree),LINE(tree),"rem");
-//         fprintf(stderr,"%s:%d: forbidden operator 'rem' on variable\n",FILE_NAME(tree),LINE(tree));
+/*         fprintf(stderr,"%s:%d: forbidden operator 'rem' on variable\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
       }
       return var1||var2;
@@ -72,13 +72,13 @@ extern int Verif_HighBound_FOR(tree,env)
       var2=Verif_HighBound_FOR(tree->NEXT->NEXT,env);
       if (var1 && var2) {
     avt_errmsg(GNS_ERRMSG, "134", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-    //     fprintf(stderr,"%s:%d: Only one variable authorized in a 'for' expression. Use Hierarchy!\n",FILE_NAME(tree),LINE(tree));
+    /*     fprintf(stderr,"%s:%d: Only one variable authorized in a 'for' expression. Use Hierarchy!\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
          return 0;
       }
       if (var1||var2) {
     avt_errmsg(GNS_ERRMSG, "135", AVT_ERROR, FILE_NAME(tree),LINE(tree),"mod");
-  //       fprintf(stderr,"%s:%d: forbidden operator 'mod' on variable\n",FILE_NAME(tree),LINE(tree));
+  /*       fprintf(stderr,"%s:%d: forbidden operator 'mod' on variable\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
       }
       return var1||var2;
@@ -88,13 +88,13 @@ extern int Verif_HighBound_FOR(tree,env)
       var2=Verif_HighBound_FOR(tree->NEXT->NEXT,env);
       if (var1 && var2) {
     avt_errmsg(GNS_ERRMSG, "134", AVT_ERROR, FILE_NAME(tree),LINE(tree));
-    //     fprintf(stderr,"%s:%d: Only one variable authorized in a 'for' expression. Use Hierarchy!\n",FILE_NAME(tree),LINE(tree));
+    /*     fprintf(stderr,"%s:%d: Only one variable authorized in a 'for' expression. Use Hierarchy!\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
          return 0;
       }
       if (var1||var2) {
     avt_errmsg(GNS_ERRMSG, "135", AVT_ERROR, FILE_NAME(tree),LINE(tree),"**");
-    //     fprintf(stderr,"%s:%d: forbidden operator '**' on variable\n",FILE_NAME(tree),LINE(tree));
+    /*     fprintf(stderr,"%s:%d: forbidden operator '**' on variable\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
       }
       return var1||var2;
@@ -128,7 +128,7 @@ extern int Verif_Exp_VHDL(tree_list *tree, ptype_list *env)
   int i,ope,ope2;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 209);
-//    fprintf(stderr,"Verif_Exp_VHDL: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Exp_VHDL: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -150,7 +150,7 @@ extern int Verif_Exp_VHDL(tree_list *tree, ptype_list *env)
       if (ope==0) {
          /*here LINE represents where the 2nd operand ends*/
     avt_errmsg(GNS_ERRMSG, "136", AVT_FATAL, FILE_NAME(tree),LINE(tree));
-    //     fprintf(stderr,"%s:%d: division by zero could appear\n",FILE_NAME(tree),LINE(tree));
+    /*     fprintf(stderr,"%s:%d: division by zero could appear\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
          return Verif_Exp_VHDL(tree->NEXT,env);         
       }
@@ -161,7 +161,7 @@ extern int Verif_Exp_VHDL(tree_list *tree, ptype_list *env)
       if (ope==0) {
          /*here LINE represents where the 2nd operand ends*/
     avt_errmsg(GNS_ERRMSG, "136", AVT_FATAL, FILE_NAME(tree),LINE(tree));
-    //     fprintf(stderr,"%s:%d: division by zero could appear\n",FILE_NAME(tree),LINE(tree));
+    /*     fprintf(stderr,"%s:%d: division by zero could appear\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
          return Verif_Exp_VHDL(tree->NEXT,env);
       }
@@ -172,7 +172,7 @@ extern int Verif_Exp_VHDL(tree_list *tree, ptype_list *env)
       if (ope==0) {
          /*here LINE represents where the 2nd operand ends*/
     avt_errmsg(GNS_ERRMSG, "136", AVT_FATAL, FILE_NAME(tree),LINE(tree));
-    //     fprintf(stderr,"%s:%d: division by zero could appear\n",FILE_NAME(tree),LINE(tree));
+    /*     fprintf(stderr,"%s:%d: division by zero could appear\n",FILE_NAME(tree),LINE(tree));*/
          Inc_Error();
          return Verif_Exp_VHDL(tree->NEXT,env);
       }
@@ -212,7 +212,7 @@ extern int Verif_Bool_VHDL(tree, env)
 {  
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 210);
-//    fprintf(stderr,"Verif_Bool_VHDL: NULL pointer\n");
+/*    fprintf(stderr,"Verif_Bool_VHDL: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {

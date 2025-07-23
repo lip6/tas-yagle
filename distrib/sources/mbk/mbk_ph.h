@@ -46,7 +46,7 @@
   extern    phref_list * addphref __P((phfig_list *ptfig, char *type, char *name, long x, long y));
   extern    phseg_list * addphseg __P((phfig_list *ptfig, char layer, long width, long x1, long y1, long x2, long y2, char *nodename));
   extern    phvia_list * addphvia __P((phfig_list *ptfig, char viatype, long x, long y, long dx, long dy, char *name));
-static chain_list *addsorted();
+  static    chain_list *addsorted __P((chain_list *pa, phcon_list *pco));
   extern           void  defab __P((phfig_list *ptfig, long x1, long y1, long x2, long y2));
   extern            int  delphcon __P((phfig_list *ptfig, phcon_list *ptdelcon));
   extern            int  delphfig __P((char *name));

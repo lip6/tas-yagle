@@ -4,7 +4,7 @@
 #include "api_communication.h"
 #include GEN_H
 #include STB_H
-//#include "gen_API.h"
+/*#include "gen_API.h"*/
 #include "api_common_structures.h"
 #include "ctk_api_local.h"
 #include "ctk_API.h"
@@ -39,9 +39,9 @@ void ctk_default_action_miller()
   for (ch=cl; ch!=NULL; ch=ch->NEXT)
     {
       lsv=(losig_list *)ch->DATA;
-      // recup ags actifs
-      // calc capa miller selon type de delai
-      // ajout de l'info dans la ctk struct
+      /* recup ags actifs*/
+      /* calc capa miller selon type de delai*/
+      /* ajout de l'info dans la ctk struct*/
     }
   freechain(cl);
 }

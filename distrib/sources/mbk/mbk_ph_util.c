@@ -716,8 +716,8 @@ struct typoin				/* structure used by dast_dbg	*/
 
 #define VHD_MAXDFN 42
 
-static int vhd_getcmd();
-static int vhd_hash();
+static int vhd_getcmd( char prvcmd[3][20] );
+static int vhd_hash(char*);
 
 void mphdebug(head_pnt,stru_name)
 
@@ -1178,10 +1178,7 @@ char  *stru_name;
   }
 
 
-static int vhd_getcmd (prvcmd)
-
-char prvcmd[3][20];
-
+static int vhd_getcmd ( char prvcmd[3][20] )
   {
   char readstr[60];
   char comd0[20];
@@ -1210,10 +1207,7 @@ char prvcmd[3][20];
 
 
 
-static int vhd_hash (str)
-
-char *str;
-
+static int vhd_hash (char* str)
   {
   int code = 0;
 

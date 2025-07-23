@@ -118,7 +118,7 @@ void stm_modscm_path_change_params (pathparams *params)
     }
     /* links 1 to n - 1 */
     if(params->LI){
-//        params->LI[STM_NB_I_LINKS] = STM_NB_I_LINKSmbk_rounddouble(params->LI[STM_NB_I_LINKS], STM_NEWSIGN_ROUND_PRECISION);
+/*        params->LI[STM_NB_I_LINKS] = STM_NB_I_LINKSmbk_rounddouble(params->LI[STM_NB_I_LINKS], STM_NEWSIGN_ROUND_PRECISION);*/
         for (i = 0; i < params->LI[STM_NB_I_LINKS]; i++) {
             index = 1 + STM_NB_LINK_I_PARAMS * i;
             for (j=0; j<STM_NB_LINK_I_PARAMS; j++)

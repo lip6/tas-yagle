@@ -25,7 +25,7 @@
 
 /**************************************************/
 /* define to get the old version of stm_mod_merge */
-//#define OLD_VERS
+/*#define OLD_VERS*/
 /**************************************************/
 
 #ifndef OLD_VERS
@@ -288,203 +288,203 @@ timing_model *stm_mod_mergec (char *name, timing_model *dtmod, timing_model *ckm
 }
 #endif
 /*}}}************************************************************************/
-///*{{{                  stm_mod_mergecd()                                    */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//timing_model *stm_mod_mergecd (char *name, timing_model *dtmod, timing_model *dsmod, timing_model *cstrmod, float constr, float load)
-//{
-//  timing_model *mrgmod = NULL,
-//               *dtmod_tbl,
-//               *cstrmod_tbl;
-//  long          a_type;
-//  long          b_type;
-//
-//
-//  if (dtmod)
-//    switch (dtmod->UTYPE) {
-//      case STM_MOD_MODTBL:
-//           a_type = STM_MOD_MODTBL;
-//           break;
-//      case STM_MOD_MODSCM:
-//           a_type = STM_MOD_MODSCM;
-//           break;
-//      case STM_MOD_MODPLN:
-//           a_type = STM_MOD_MODPLN;
-//           break;
-//      case STM_MOD_MODNULL:
-//      case STM_MOD_MODFCT:
-//           a_type = STM_MOD_MODNULL;
-//           break;
-//    }
-//  else
-//    a_type = STM_MOD_MODNULL;
-//
-//  if (cstrmod)
-//    switch (cstrmod->UTYPE) {
-//      case STM_MOD_MODTBL:
-//           b_type = STM_MOD_MODTBL;
-//           break;
-//      case STM_MOD_MODSCM:
-//           b_type = STM_MOD_MODSCM;
-//           break;
-//      case STM_MOD_MODPLN:
-//           b_type = STM_MOD_MODPLN;
-//           break;
-//      case STM_MOD_MODNULL:
-//      case STM_MOD_MODFCT:
-//           b_type = STM_MOD_MODNULL;
-//           break;
-//    }
-//  else
-//    b_type = STM_MOD_MODNULL;
-//
-//  switch (a_type) {
-//    case STM_MOD_MODTBL:
-//         switch (b_type) {
-//           case STM_MOD_MODTBL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);
-//                break;
-//           case STM_MOD_MODSCM:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODPLN:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODNULL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);
-//                break;
-//         }
-//         break;
-//    case STM_MOD_MODSCM:
-//         switch (b_type) {
-//           case STM_MOD_MODTBL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                stm_mod_defaultscm2tbl_delay (dtmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                break;
-//           case STM_MOD_MODSCM:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultscm2tbl_delay (dtmod_tbl);
-//                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODPLN:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultscm2tbl_delay (dtmod_tbl);
-//                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODNULL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                stm_mod_defaultscm2tbl_delay (dtmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                break;
-//         }
-//         break;
-//    case STM_MOD_MODPLN:
-//         switch (b_type) {
-//           case STM_MOD_MODTBL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                stm_mod_defaultpln2tbl_delay (dtmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                break;
-//           case STM_MOD_MODSCM:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultpln2tbl_delay (dtmod_tbl);
-//                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODPLN:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultpln2tbl_delay (dtmod_tbl);
-//                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODNULL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                stm_mod_defaultpln2tbl_delay (dtmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                break;
-//         }
-//         break;
-//    case STM_MOD_MODNULL:
-//         switch (b_type) {
-//           case STM_MOD_MODTBL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (NULL, NULL, cstrmod->UMODEL.TABLE, constr, load);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                break;
-//           case STM_MOD_MODSCM:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (NULL, NULL, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODPLN:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (NULL, NULL, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODNULL:
-//                mrgmod = NULL;
-//                break;
-//         }
-//  }
-//
-//  return mrgmod;
-//}
+/*/*{{{                  stm_mod_mergecd()                                    */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*timing_model *stm_mod_mergecd (char *name, timing_model *dtmod, timing_model *dsmod, timing_model *cstrmod, float constr, float load)*/
+/*{*/
+/*  timing_model *mrgmod = NULL,*/
+/*               *dtmod_tbl,*/
+/*               *cstrmod_tbl;*/
+/*  long          a_type;*/
+/*  long          b_type;*/
+/**/
+/**/
+/*  if (dtmod)*/
+/*    switch (dtmod->UTYPE) {*/
+/*      case STM_MOD_MODTBL:*/
+/*           a_type = STM_MOD_MODTBL;*/
+/*           break;*/
+/*      case STM_MOD_MODSCM:*/
+/*           a_type = STM_MOD_MODSCM;*/
+/*           break;*/
+/*      case STM_MOD_MODPLN:*/
+/*           a_type = STM_MOD_MODPLN;*/
+/*           break;*/
+/*      case STM_MOD_MODNULL:*/
+/*      case STM_MOD_MODFCT:*/
+/*           a_type = STM_MOD_MODNULL;*/
+/*           break;*/
+/*    }*/
+/*  else*/
+/*    a_type = STM_MOD_MODNULL;*/
+/**/
+/*  if (cstrmod)*/
+/*    switch (cstrmod->UTYPE) {*/
+/*      case STM_MOD_MODTBL:*/
+/*           b_type = STM_MOD_MODTBL;*/
+/*           break;*/
+/*      case STM_MOD_MODSCM:*/
+/*           b_type = STM_MOD_MODSCM;*/
+/*           break;*/
+/*      case STM_MOD_MODPLN:*/
+/*           b_type = STM_MOD_MODPLN;*/
+/*           break;*/
+/*      case STM_MOD_MODNULL:*/
+/*      case STM_MOD_MODFCT:*/
+/*           b_type = STM_MOD_MODNULL;*/
+/*           break;*/
+/*    }*/
+/*  else*/
+/*    b_type = STM_MOD_MODNULL;*/
+/**/
+/*  switch (a_type) {*/
+/*    case STM_MOD_MODTBL:*/
+/*         switch (b_type) {*/
+/*           case STM_MOD_MODTBL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);*/
+/*                break;*/
+/*           case STM_MOD_MODSCM:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODPLN:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODNULL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);*/
+/*                break;*/
+/*         }*/
+/*         break;*/
+/*    case STM_MOD_MODSCM:*/
+/*         switch (b_type) {*/
+/*           case STM_MOD_MODTBL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                stm_mod_defaultscm2tbl_delay (dtmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODSCM:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultscm2tbl_delay (dtmod_tbl);*/
+/*                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODPLN:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultscm2tbl_delay (dtmod_tbl);*/
+/*                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODNULL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                stm_mod_defaultscm2tbl_delay (dtmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                break;*/
+/*         }*/
+/*         break;*/
+/*    case STM_MOD_MODPLN:*/
+/*         switch (b_type) {*/
+/*           case STM_MOD_MODTBL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                stm_mod_defaultpln2tbl_delay (dtmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODSCM:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultpln2tbl_delay (dtmod_tbl);*/
+/*                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODPLN:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultpln2tbl_delay (dtmod_tbl);*/
+/*                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODNULL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                stm_mod_defaultpln2tbl_delay (dtmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                break;*/
+/*         }*/
+/*         break;*/
+/*    case STM_MOD_MODNULL:*/
+/*         switch (b_type) {*/
+/*           case STM_MOD_MODTBL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (NULL, NULL, cstrmod->UMODEL.TABLE, constr, load);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                break;*/
+/*           case STM_MOD_MODSCM:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (NULL, NULL, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODPLN:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecd (NULL, NULL, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODNULL:*/
+/*                mrgmod = NULL;*/
+/*                break;*/
+/*         }*/
+/*  }*/
+/**/
+/*  return mrgmod;*/
+/*}*/
 
 /*}}}************************************************************************/
 /*{{{                    old                                                */
@@ -686,205 +686,205 @@ timing_model *stm_mod_mergecd (char *name, timing_model *dtmod, timing_model *ds
 }
 
 /*}}}************************************************************************/
-///*{{{                  stm_mod_mergecc()                                    */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//timing_model *stm_mod_mergecc (char *name, timing_model *dtmod, timing_model *dsmod, timing_model *cstrmod, float constr, float load)
-//{
-//  timing_model *mrgmod = NULL,
-//               *dtmod_tbl,
-//               *cstrmod_tbl;
-//  long          a_type;
-//  long          b_type;
-//
-//
-//  if (dtmod)
-//    switch (dtmod->UTYPE) {
-//      case STM_MOD_MODTBL:
-//           a_type = STM_MOD_MODTBL;
-//           break;
-//      case STM_MOD_MODSCM:
-//           a_type = STM_MOD_MODSCM;
-//           break;
-//      case STM_MOD_MODPLN:
-//           a_type = STM_MOD_MODPLN;
-//           break;
-//      case STM_MOD_MODNULL:
-//      case STM_MOD_MODFCT:
-//           a_type = STM_MOD_MODNULL;
-//           break;
-//    }
-//  else
-//    a_type = STM_MOD_MODNULL;
-//
-//  if (cstrmod)
-//    switch (cstrmod->UTYPE) {
-//      case STM_MOD_MODTBL:
-//           b_type = STM_MOD_MODTBL;
-//           break;
-//      case STM_MOD_MODSCM:
-//           b_type = STM_MOD_MODSCM;
-//           break;
-//      case STM_MOD_MODPLN:
-//           b_type = STM_MOD_MODPLN;
-//           break;
-//      case STM_MOD_MODNULL:
-//      case STM_MOD_MODFCT:
-//           b_type = STM_MOD_MODNULL;
-//           break;
-//    }
-//  else
-//    b_type = STM_MOD_MODNULL;
-//
-//  switch (a_type) {
-//    case STM_MOD_MODTBL:
-//         switch (b_type) {
-//           case STM_MOD_MODTBL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);
-//                break;
-//           case STM_MOD_MODSCM:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODPLN:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODNULL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);
-//                break;
-//         }
-//         break;
-//    case STM_MOD_MODSCM:
-//         switch (b_type) {
-//           case STM_MOD_MODTBL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                stm_mod_defaultscm2tbl_delay (dtmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                break;
-//           case STM_MOD_MODSCM:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultscm2tbl_delay (dtmod_tbl);
-//                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODPLN:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultscm2tbl_delay (dtmod_tbl);
-//                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODNULL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                stm_mod_defaultscm2tbl_delay (dtmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                break;
-//         }
-//         break;
-//    case STM_MOD_MODPLN:
-//         switch (b_type) {
-//           case STM_MOD_MODTBL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                stm_mod_defaultpln2tbl_delay (dtmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                break;
-//           case STM_MOD_MODSCM:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultpln2tbl_delay (dtmod_tbl);
-//                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODPLN:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultpln2tbl_delay (dtmod_tbl);
-//                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODNULL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);
-//                stm_mod_defaultpln2tbl_delay (dtmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);
-//                stm_mod_destroy (dtmod_tbl);
-//                break;
-//         }
-//         break;
-//    case STM_MOD_MODNULL:
-//         switch (b_type) {
-//           case STM_MOD_MODTBL:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (NULL, NULL, cstrmod->UMODEL.TABLE, constr, load);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                break;
-//           case STM_MOD_MODSCM:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (NULL, NULL, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODPLN:
-//                mrgmod = stm_mod_create (name);
-//                mrgmod->UTYPE = STM_MOD_MODTBL;
-//                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);
-//                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);
-//                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (NULL, NULL, cstrmod_tbl->UMODEL.TABLE, constr, load);
-//                stm_mod_destroy (cstrmod_tbl);
-//                break;
-//           case STM_MOD_MODNULL:
-//                mrgmod = NULL;
-//                break;
-//         }
-//  }
-//
-//  return mrgmod;
-//}
-//
-///*}}}************************************************************************/
+/*/*{{{                  stm_mod_mergecc()                                    */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*timing_model *stm_mod_mergecc (char *name, timing_model *dtmod, timing_model *dsmod, timing_model *cstrmod, float constr, float load)*/
+/*{*/
+/*  timing_model *mrgmod = NULL,*/
+/*               *dtmod_tbl,*/
+/*               *cstrmod_tbl;*/
+/*  long          a_type;*/
+/*  long          b_type;*/
+/**/
+/**/
+/*  if (dtmod)*/
+/*    switch (dtmod->UTYPE) {*/
+/*      case STM_MOD_MODTBL:*/
+/*           a_type = STM_MOD_MODTBL;*/
+/*           break;*/
+/*      case STM_MOD_MODSCM:*/
+/*           a_type = STM_MOD_MODSCM;*/
+/*           break;*/
+/*      case STM_MOD_MODPLN:*/
+/*           a_type = STM_MOD_MODPLN;*/
+/*           break;*/
+/*      case STM_MOD_MODNULL:*/
+/*      case STM_MOD_MODFCT:*/
+/*           a_type = STM_MOD_MODNULL;*/
+/*           break;*/
+/*    }*/
+/*  else*/
+/*    a_type = STM_MOD_MODNULL;*/
+/**/
+/*  if (cstrmod)*/
+/*    switch (cstrmod->UTYPE) {*/
+/*      case STM_MOD_MODTBL:*/
+/*           b_type = STM_MOD_MODTBL;*/
+/*           break;*/
+/*      case STM_MOD_MODSCM:*/
+/*           b_type = STM_MOD_MODSCM;*/
+/*           break;*/
+/*      case STM_MOD_MODPLN:*/
+/*           b_type = STM_MOD_MODPLN;*/
+/*           break;*/
+/*      case STM_MOD_MODNULL:*/
+/*      case STM_MOD_MODFCT:*/
+/*           b_type = STM_MOD_MODNULL;*/
+/*           break;*/
+/*    }*/
+/*  else*/
+/*    b_type = STM_MOD_MODNULL;*/
+/**/
+/*  switch (a_type) {*/
+/*    case STM_MOD_MODTBL:*/
+/*         switch (b_type) {*/
+/*           case STM_MOD_MODTBL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);*/
+/*                break;*/
+/*           case STM_MOD_MODSCM:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODPLN:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODNULL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);*/
+/*                break;*/
+/*         }*/
+/*         break;*/
+/*    case STM_MOD_MODSCM:*/
+/*         switch (b_type) {*/
+/*           case STM_MOD_MODTBL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                stm_mod_defaultscm2tbl_delay (dtmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODSCM:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultscm2tbl_delay (dtmod_tbl);*/
+/*                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODPLN:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultscm2tbl_delay (dtmod_tbl);*/
+/*                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODNULL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                stm_mod_defaultscm2tbl_delay (dtmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                break;*/
+/*         }*/
+/*         break;*/
+/*    case STM_MOD_MODPLN:*/
+/*         switch (b_type) {*/
+/*           case STM_MOD_MODTBL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                stm_mod_defaultpln2tbl_delay (dtmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODSCM:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultpln2tbl_delay (dtmod_tbl);*/
+/*                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODPLN:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultpln2tbl_delay (dtmod_tbl);*/
+/*                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODNULL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                dtmod_tbl = stm_mod_duplicate (NULL, dtmod);*/
+/*                stm_mod_defaultpln2tbl_delay (dtmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (dtmod_tbl->UMODEL.TABLE, dsmod->UMODEL.TABLE, NULL, constr, load);*/
+/*                stm_mod_destroy (dtmod_tbl);*/
+/*                break;*/
+/*         }*/
+/*         break;*/
+/*    case STM_MOD_MODNULL:*/
+/*         switch (b_type) {*/
+/*           case STM_MOD_MODTBL:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (NULL, NULL, cstrmod->UMODEL.TABLE, constr, load);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                break;*/
+/*           case STM_MOD_MODSCM:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultscm2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (NULL, NULL, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODPLN:*/
+/*                mrgmod = stm_mod_create (name);*/
+/*                mrgmod->UTYPE = STM_MOD_MODTBL;*/
+/*                cstrmod_tbl = stm_mod_duplicate (NULL, cstrmod);*/
+/*                stm_mod_defaultpln2tbl_delay (cstrmod_tbl);*/
+/*                mrgmod->UMODEL.TABLE = stm_modtbl_mergecc (NULL, NULL, cstrmod_tbl->UMODEL.TABLE, constr, load);*/
+/*                stm_mod_destroy (cstrmod_tbl);*/
+/*                break;*/
+/*           case STM_MOD_MODNULL:*/
+/*                mrgmod = NULL;*/
+/*                break;*/
+/*         }*/
+/*  }*/
+/**/
+/*  return mrgmod;*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
 /*{{{                    old                                                */
 /*                                                                          */
 /*                                                                          */

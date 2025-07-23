@@ -6,11 +6,11 @@ static char *NNAME = NULL ;
 static char *PNAME = NULL ;
 static int  newformat = 0 ;
 static int  oldformat = 0 ;
-int yyerror();
+int yyerror(char*);
 int yylex();
 int elpEsimLevel = 0 ;
 
-void getelptrans() ;
+void getelptrans(int type) ;
 
 
 %}
@@ -401,7 +401,7 @@ setmodels     : T_BEGIN trans_name trans_index trans_techno trans_type
                 else
                   LIST_ELPMODEL->elpCapa[elpCGSIC] =  LIST_ELPMODEL_S.elpCapa[elpCGSIC] ;
 
-                // CDS
+                /* CDS*/
                 LIST_ELPMODEL->elpCapa[elpCDS] =  LIST_ELPMODEL_S.elpCapa[elpCDS] ;
                 if (elpDouble2Long (ELPPRECISION*LIST_ELPMODEL_S.elpCapa[elpCDSU]) == 0) 
                   LIST_ELPMODEL->elpCapa[elpCDSU] =  LIST_ELPMODEL_S.elpCapa[elpCDS] ;
@@ -412,7 +412,7 @@ setmodels     : T_BEGIN trans_name trans_index trans_techno trans_type
                 else
                   LIST_ELPMODEL->elpCapa[elpCDSD] =  LIST_ELPMODEL_S.elpCapa[elpCDSD] ;
 
-                // CDP
+                /* CDP*/
                 LIST_ELPMODEL->elpCapa[elpCDP] =  LIST_ELPMODEL_S.elpCapa[elpCDP] ;
                 if (elpDouble2Long (ELPPRECISION*LIST_ELPMODEL_S.elpCapa[elpCDPU]) == 0) 
                   LIST_ELPMODEL->elpCapa[elpCDPU] =  LIST_ELPMODEL_S.elpCapa[elpCDP] ;
@@ -423,7 +423,7 @@ setmodels     : T_BEGIN trans_name trans_index trans_techno trans_type
                 else
                   LIST_ELPMODEL->elpCapa[elpCDPD] =  LIST_ELPMODEL_S.elpCapa[elpCDPD] ;
 
-                // CDW
+                /* CDW*/
                 LIST_ELPMODEL->elpCapa[elpCDW] =  LIST_ELPMODEL_S.elpCapa[elpCDW] ;
                 if (elpDouble2Long (ELPPRECISION*LIST_ELPMODEL_S.elpCapa[elpCDWU]) == 0) 
                   LIST_ELPMODEL->elpCapa[elpCDWU] =  LIST_ELPMODEL_S.elpCapa[elpCDW] ;
@@ -434,7 +434,7 @@ setmodels     : T_BEGIN trans_name trans_index trans_techno trans_type
                 else
                   LIST_ELPMODEL->elpCapa[elpCDWD] =  LIST_ELPMODEL_S.elpCapa[elpCDWD] ;
 
-                // CSS
+                /* CSS*/
                 LIST_ELPMODEL->elpCapa[elpCSS] =  LIST_ELPMODEL_S.elpCapa[elpCSS] ;
                 if (elpDouble2Long (ELPPRECISION*LIST_ELPMODEL_S.elpCapa[elpCSSU]) == 0) 
                   LIST_ELPMODEL->elpCapa[elpCSSU] =  LIST_ELPMODEL_S.elpCapa[elpCSS] ;
@@ -445,7 +445,7 @@ setmodels     : T_BEGIN trans_name trans_index trans_techno trans_type
                 else
                   LIST_ELPMODEL->elpCapa[elpCSSD] =  LIST_ELPMODEL_S.elpCapa[elpCSSD] ;
 
-                // CSP
+                /* CSP*/
                 LIST_ELPMODEL->elpCapa[elpCSP] =  LIST_ELPMODEL_S.elpCapa[elpCSP] ;
                 if (elpDouble2Long (ELPPRECISION*LIST_ELPMODEL_S.elpCapa[elpCSPU]) == 0) 
                   LIST_ELPMODEL->elpCapa[elpCSPU] =  LIST_ELPMODEL_S.elpCapa[elpCSP] ;
@@ -456,7 +456,7 @@ setmodels     : T_BEGIN trans_name trans_index trans_techno trans_type
                 else
                   LIST_ELPMODEL->elpCapa[elpCSPD] =  LIST_ELPMODEL_S.elpCapa[elpCSPD] ;
 
-                // CSW
+                /* CSW*/
                 LIST_ELPMODEL->elpCapa[elpCSW] =  LIST_ELPMODEL_S.elpCapa[elpCSW] ;
                 if (elpDouble2Long (ELPPRECISION*LIST_ELPMODEL_S.elpCapa[elpCSWU]) == 0) 
                   LIST_ELPMODEL->elpCapa[elpCSWU] =  LIST_ELPMODEL_S.elpCapa[elpCSW] ;
@@ -688,14 +688,14 @@ oldparam      : /* shrink parameters */
               | T_NNAME '=' T_STRING
               { 
                 if(NNAME != NULL)
-                   yyerror() ;
+                   yyerror(NULL) ;
                 NNAME = namealloc($3) ;
                 getelptrans(elpNMOS) ;
               }
               | T_PNAME '=' T_STRING
               { 
                 if(PNAME != NULL)
-                   yyerror() ;
+                   yyerror(NULL) ;
                 PNAME = namealloc($3) ;
                 getelptrans(elpPMOS) ;
               }
@@ -920,7 +920,7 @@ int type ;
    }
 }
 
-int yyerror()
+int yyerror(char* unused)
 
 {
 elpError(1001,elptext,ELPLINE) ; /* si erreur de syntaxe => erreur 1001 */

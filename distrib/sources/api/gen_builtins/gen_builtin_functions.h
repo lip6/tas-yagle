@@ -1,4 +1,4 @@
-// standard C functions
+/* standard C functions*/
 #undef strcpy
 
 
@@ -6,7 +6,7 @@ extern char *namealloc(char *name);
 
 
 
-// genius functions
+/* genius functions*/
 
 extern FILE *avtfopen(char *name, char *ext, char *mode);
 

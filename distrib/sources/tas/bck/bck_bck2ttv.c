@@ -212,13 +212,13 @@ lofig_list *lofig ;
 
  htab = addht(100) ;
 
- //maincl=infGetInfo(ifl, INF_SIGLIST_INFO);
- //for(ptlist = INF_SIGLIST ; ptlist != NULL ; ptlist = ptlist->NEXT)
+ /*maincl=infGetInfo(ifl, INF_SIGLIST_INFO);*/
+ /*for(ptlist = INF_SIGLIST ; ptlist != NULL ; ptlist = ptlist->NEXT)*/
  maincl=inf_GetEntriesByType(ifl, INF_BREAK, INF_ANY_VALUES);
  for(cl = maincl; cl!=NULL; cl=cl->NEXT)
    {
-//    ptlist=(list_list *)cl->DATA;
-//    if(ptlist->TYPE == INF_BREAK)
+/*    ptlist=(list_list *)cl->DATA;*/
+/*    if(ptlist->TYPE == INF_BREAK)*/
      addhtitem(htab,namealloc((char *)cl->DATA),(long)0) ;
     if(strchr((char *)cl->DATA,'*') != NULL)
      hchain = addchain(hchain,(char *)cl->DATA) ;
@@ -256,7 +256,7 @@ lofig_list *lofig ;
       if((losig->TYPE == BCK_ALIM) || (losig->TYPE == EXTERNAL) ||
          (getptype(losig->USER,PTYPE_BCK_RC) != NULL))
           continue ;
-      //if(ttv_jokersubst(getsigname(losig),chain->DATA,'*') == 1)
+      /*if(ttv_jokersubst(getsigname(losig),chain->DATA,'*') == 1)*/
       if(mbk_TestREGEX(getsigname(losig),chain->DATA))
          bck_addlosigtype(losig,BCK_LOSIG_BREAK) ;
      }
@@ -271,7 +271,7 @@ lofig_list *lofig ;
           continue ;
          }
         sprintf(buf,"%s%c%s",loins->INSNAME,SEPAR,locon->NAME) ;
-        // if(ttv_jokersubst(buf,chain->DATA,'*') == 1)
+        /* if(ttv_jokersubst(buf,chain->DATA,'*') == 1)*/
         if(mbk_TestREGEX(buf,chain->DATA))
           bck_addlocontype(locon,BCK_LOCON_BREAK) ;
        }
@@ -504,7 +504,7 @@ ttvfig_list *ttvfig ;
       ptsig->TYPE |= TTV_SIG_B ;
       chainb = addchain(chainb,ptsig) ;
      }
-//   ttvfig->NBCONSIG ++ ;
+/*   ttvfig->NBCONSIG ++ ;*/
    if(getptype(locon->SIG->USER,PTYPE_BCK_RC) != NULL)
      locon->USER = addptype(locon->USER,BCK_LOCON_SIG,(void *)ptsig) ;
    else
@@ -535,7 +535,7 @@ ttvfig_list *ttvfig ;
      chain = ttv_addrefsig(ttvfig,name,name,rcn_getcapa(lofig,losig)*1000.0,TTV_SIG_S,chain) ;
      ptsig = (ttvsig_list *)chain->DATA ;
      losig->USER = addptype(losig->USER,BCK_LOSIG_SIG,(void *)ptsig) ;
-//     ttvfig->NBESIG++ ;
+/*     ttvfig->NBESIG++ ;*/
     }
    else
     {
@@ -576,7 +576,7 @@ ttvfig_list *ttvfig ;
                                 rcn_getcapa(lofig,locon->SIG)*1000.0,TTV_SIG_S,chain) ;
          ptsig = (ttvsig_list *)chain->DATA ;
          locon->USER = addptype(locon->USER,BCK_LOCON_SIG,(void *)ptsig) ;
-//         ttvfig->NBESIG++ ;
+/*         ttvfig->NBESIG++ ;*/
         }
        else
         {
@@ -603,7 +603,7 @@ ttvfig_list *ttvfig ;
          ptsig = (ttvsig_list *)chainn->DATA ;
          locon->USER = addptype(locon->USER,BCK_LOCON_SIG,(void *)ptsig) ;
         }
-//       ttvfig->NBNCSIG++ ;
+/*       ttvfig->NBNCSIG++ ;*/
       }
     }
   }
@@ -1073,9 +1073,9 @@ ttvfig_list *ttvfig ;
            end = bck_geteventlocon(delay->END,trans->EVENT2) ;
            type = bck_getlinetype(delay->START,trans->EVENT1,
                                   delay->END,trans->EVENT2,delay->TYPE,'D') ;
-           //if(bck_ifexistetrans(loins,start,delay->START->NAME,
-           //                           end,delay->END->NAME) == 0)
-           //  continue ;
+           /*if(bck_ifexistetrans(loins,start,delay->START->NAME,*/
+           /*                           end,delay->END->NAME) == 0)*/
+           /*  continue ;*/
            ptline = ttv_addline(ttvfig,end,start,trans->VALUE,(long)0,
                                 trans->VALUE,(long)0,type) ;
           }
@@ -1091,9 +1091,9 @@ ttvfig_list *ttvfig ;
            end = bck_geteventlocon(check->COMMAND,trans->EVENT2) ;
            type = bck_getlinetype(check->DATA,trans->EVENT1,
                                  check->COMMAND,trans->EVENT2,check->TYPE,'C') ;
-           //if(bck_ifexistetrans(loins,start,check->DATA->NAME,
-           //                           end,check->COMMAND->NAME) == 0)
-           //  continue ;
+           /*if(bck_ifexistetrans(loins,start,check->DATA->NAME,*/
+           /*                           end,check->COMMAND->NAME) == 0)*/
+           /*  continue ;*/
            ptline = ttv_addline(ttvfig,end,start,trans->VALUE,(long)0,
                                 trans->VALUE,(long)0,type) ;
           }

@@ -65,22 +65,22 @@ int XyagFileOpenByType(char *Name, int type)
 {
     int             Index;
     int bad;
-    mbkSwitchContext(XYAG_ctx); // dans XYAGLE
-    cnsSwitchContext(CNS_ctx); // dans XYAGLE
+    mbkSwitchContext(XYAG_ctx); /* dans XYAGLE*/
+    cnsSwitchContext(CNS_ctx); /* dans XYAGLE*/
 
     XyagSetMouseCursor(XyagGraphicWindow, XYAG_WATCH_CURSOR);
 
 
     xyagSaveState();
-//    XyagDelConnect();
-//    XyagDelFigure();
+/*    XyagDelConnect();*/
+/*    XyagDelFigure();*/
 
     XyagRecomputeBound = XYAG_TRUE;
 
-    // removing existing figure of that name in the list
-//    removecgvfiles(Name);
+    /* removing existing figure of that name in the list*/
+/*    removecgvfiles(Name);*/
 
-    bad=XyagLoadFigureByType(Name, type, 1); // in quiet mode
+    bad=XyagLoadFigureByType(Name, type, 1); /* in quiet mode*/
 
     xyagRetreiveState();
 
@@ -100,8 +100,8 @@ int XyagFileOpenByType(char *Name, int type)
 
     XyagSetMouseCursor(XyagGraphicWindow, XYAG_NORMAL_CURSOR);
 
-    cnsSwitchContext(CNS_ctx); // hors XYAGLE
-    mbkSwitchContext(XYAG_ctx); // hors XYAGLE
+    cnsSwitchContext(CNS_ctx); /* hors XYAGLE*/
+    mbkSwitchContext(XYAG_ctx); /* hors XYAGLE*/
     return bad;
 }
 
@@ -111,16 +111,16 @@ XyagFileOpen(FileName)
 {
     int             Index;
 
-    mbkSwitchContext(XYAG_ctx); // dans XYAGLE
-    cnsSwitchContext(CNS_ctx); // dans XYAGLE
+    mbkSwitchContext(XYAG_ctx); /* dans XYAGLE*/
+    cnsSwitchContext(CNS_ctx); /* dans XYAGLE*/
 
 
     XyagSetMouseCursor(XyagGraphicWindow, XYAG_WATCH_CURSOR);
 
 
     xyagSaveState();
-//    XyagDelConnect();
-//    XyagDelFigure();
+/*    XyagDelConnect();*/
+/*    XyagDelFigure();*/
 
     XyagRecomputeBound = XYAG_TRUE;
 
@@ -165,7 +165,7 @@ XyagFileOpen(FileName)
         XyagChangeTopLevelTitle((char *) NULL);
     }
 
-//    XyagDisplayMessage();
+/*    XyagDisplayMessage();*/
 
     XyagInitializeZoom();
     XyagDisplayFigure(0, 0, XyagGraphicDx, XyagGraphicDy);
@@ -174,6 +174,6 @@ XyagFileOpen(FileName)
 
     XyagSetMouseCursor(XyagGraphicWindow, XYAG_NORMAL_CURSOR);
 
-    cnsSwitchContext(CNS_ctx); // hors XYAGLE
-    mbkSwitchContext(XYAG_ctx); // hors XYAGLE
+    cnsSwitchContext(CNS_ctx); /* hors XYAGLE*/
+    mbkSwitchContext(XYAG_ctx); /* hors XYAGLE*/
 }

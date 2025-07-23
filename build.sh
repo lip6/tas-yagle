@@ -7,13 +7,29 @@ getString ()
   echo $string
 }
 
+cwd="`pwd`"
+echo "build.sh - CWD=\"${cwd}\"."
+if [ "`basename ${cwd}`" != "tas-yagle" ]; then
+  echo "[ERROR] build.sh not running from tas-yagle source root directory, aborting."
+  exit 1
+fi
+
+doClean="False"
 installDir="`pwd`/install"
 while [ $# -gt 0 ]; do
   case $1 in
     --install-dir=*) installDir=`getString $1`;;
+    --LIP6)          installDir="${HOME}/coriolis-2.x/release/install";;
+    --clean)         doClean="True";;
   esac
   shift
 done
+
+if [ "${doClean}" = "True" ]; then
+  echo "Fully clean previous run, *.[oa] distrib/include/*.h."
+  find . -name '*.o' -o -name '*.a' | xargs rm 
+  rm -f distrib/include/*.h
+fi
 
 
 # Build patched flex, if needed
@@ -52,7 +68,8 @@ make WITH_FLEXLM=NOFLEX            \
   PACKAGING_TOP=${localInstall}    \
   LEX=${localInstall}/bin/flex     \
   JAVA_HOME=/usr/lib/jvm/default   \
-  CFLAGS="-g -O3" CXXFLAGS=-"-g -O3 -Wno-register" STRIP=true \
+  CFLAGS="-g -O3 -std=gnu99 -Wno-incompatible-pointer-types" \
+  CXXFLAGS=-"-g -O3 -Wno-register" STRIP=true \
   SAXON="java -jar ${buildDir}/../distrib_extras/saxon9.jar"
 popd
 popd

@@ -172,24 +172,24 @@ extern ht      *FCL_REAL_CORRESP_HT;
 
 extern fclcorresp_list *FCL_REAL_CORRESP_LIST;
 
-cell_list       *fclFindCells();
-chain_list      *fclFindInstances();
-fclcorresp_list *fclFindCorrespondance();
-void             fclMarkInstances();
-void             fclFind();
-befig_list      *fclGetBefig();
+cell_list       *fclFindCells( lofig_list *ptlofig_c );
+chain_list      *fclFindInstances( lofig_list *ptlofig_c, lofig_list *ptlofig_m );
+fclcorresp_list *fclFindCorrespondance(lofig_list *ptlofig_m);
+void             fclMarkInstances( lofig_list *ptlofig, chain_list *instances, int delete, int fromcnsfig );
+cell_list*       fclFindCells( lofig_list *ptlofig_c );
+befig_list      *fclGetBefig( char* );
 void             fclenv();
-void             fclMarkTrans();
-void             fclUnmarkTrans();
-void             fclCleanShareMarks();
-void             fclCleanTransferMarks();
-void             fclCleanCouplingMarks();
-void             fclCleanTransList();
-void             fclDeleteInstance();
-void             fclFreeCorrespList();
+void             fclMarkTrans( chain_list *transchain );
+void             fclUnmarkTrans( chain_list *transchain );
+void             fclCleanShareMarks( lofig_list *ptlofig );
+void             fclCleanTransferMarks( lofig_list *ptlofig );
+void             fclCleanCouplingMarks( lofig_list *ptlofig );
+void             fclCleanTransList( loins_list *ptloins );
+void             fclDeleteInstance( loins_list *ptloins );
+void             fclFreeCorrespList( fclcorresp_list *ptlist );
 void             fclExtendSpice();
 void             fclRmvSpiceExtensions();
-void fclUpdateLofigchain(chain_list *inslist, char *figurename);
+void             fclUpdateLofigchain(chain_list *inslist, char *figurename);
 
 #define isFclMarked(trans) (getptype(trans->USER, FCL_MARK_PTYPE) != NULL ? TRUE : FALSE)
 

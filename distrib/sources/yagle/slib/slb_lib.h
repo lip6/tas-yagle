@@ -21,7 +21,7 @@
 #define MOTIF_T_ARC  3
 
 
-// structure de calcul pour les transformations sur les symbols
+/* structure de calcul pour les transformations sur les symbols*/
 
 typedef struct vecteur {
     double  ANGLE;
@@ -31,7 +31,7 @@ typedef struct vecteur {
     long    Y;
     } vecteur ;
 
-// structures propres a MOTIF
+/* structures propres a MOTIF*/
 
 typedef struct motif_arc{
     long   CORNER_X;
@@ -71,7 +71,7 @@ typedef struct motif_lib {
     motif_symlist *SYMB;
     } motif_lib ;
 
-// structures propres a SLIB
+/* structures propres a SLIB*/
 
 typedef struct slib_box {
     long    X_MIN;
@@ -148,16 +148,16 @@ typedef struct library {
     int           REFHEIGHT;
     } library ;    
 
-// fonction assurant le parse du fichier slib
+/* fonction assurant le parse du fichier slib*/
 library     *slib_get_library();
-// 
-// fonctions 'outils' notaement pour EQT et la 'route_grid' de SLIB
+/* */
+/* fonctions 'outils' notaement pour EQT et la 'route_grid' de SLIB*/
 void         slib_set_function(eqt_ctx *ctx);
 int          slib_sign(float value);
 void         slib_set_lib_grid(library *ptlib, int grid_value);
 long         slib_apply_grid(double value, int grid_value);
 
-// fonctions d'allocations des differents champs de la structure
+/* fonctions d'allocations des differents champs de la structure*/
 library     *slib_create_lib(char *name);
 void         slib_put_symbol(library *ptlib, symbol_list *ptsym);
 symbol_list *slib_add_symbol(library *ptlib, char *name);
@@ -167,7 +167,7 @@ void         slib_add_draw_arc(symbol_list *ptsym, double arg_0, double arg_1, d
 void         slib_add_draw_circle(symbol_list *ptsym, double arg_0, double arg_1, float arg_2, int grid_value);
 void         slib_add_draw_pin(symbol_list *ptsym, char *name, double x, double y, int direction, int grid_value);
 
-// liberation des allocations memoires
+/* liberation des allocations memoires*/
 void         slib_free_box(symbol_list *ptsym);            
 void         slib_free_motif(motif_symlist *ptm_sym);
 void         slib_free_subsymbols(symbol_list *ptsym);
@@ -175,11 +175,11 @@ void         slib_free_draw(symbol_list *ptsym);
 void         slib_free_symbols(library *ptlib);
 void         slib_free_library(library *ptlib);
 
-// fonctions permettant de gerer les coordonnees de points apres les subsymbols
+/* fonctions permettant de gerer les coordonnees de points apres les subsymbols*/
 void         slib_vecteur(vecteur *v, double dalpha, double xdebut, double ydebut, double xfinal, double yfinal);
 void         slib_coordonnee(vecteur *v, int grid, double dx, double dy);
 
-//fonction d'appel d'un symbol et de mise a plat
+/*fonction d'appel d'un symbol et de mise a plat*/
 pin         *slib_getpin(symbol_list *ptsym, char *name);   
 symbol_list *slib_getsymbol(library *ptlib, char *name);
 symbol_list *slib_get_flat_symbol(library *ptlib, char *name);
@@ -191,27 +191,27 @@ void         slib_arc_box(symbol_list *ptresult,long x1,long y1,long x2,long y2,
 void         slib_line_box(symbol_list *ptresult,long x1,long y1,long x2,long y2);
 void         slib_circle_box(symbol_list *ptresult,long x,long y,long R);
 
-// fonctions de conversion d'une structure SLIB en une structure MOTIF
+/* fonctions de conversion d'une structure SLIB en une structure MOTIF*/
 
 motif_symlist *slib_motifconvert(symbol_list *ptsym);
 void           slib_add_motif_line(motif_draw *ptm_draw, long startx,long starty,long endx,long endy);
 void           slib_add_motif_arc(motif_draw *ptm_draw, long startx,long starty,long endx,long endy,long centerx,long centery);
 void           slib_add_motif_circle(motif_draw *ptm_draw, long cx, long cy, long rayon);
-//void           slib_add_motif_pin();
+/*void           slib_add_motif_pin();*/
 
-// fonctions d'affichages et de test graphique
+/* fonctions d'affichages et de test graphique*/
 void         slib_make_motif_file(library *ptlib);
 void         slib_display_motif(FILE *file, library *ptlib, symbol_list *ptsym);
 void         slib_write_motif(FILE *file,motif_symlist *ptm_sym);
 
-// fonctions d'affichages et de test thread
+/* fonctions d'affichages et de test thread*/
 void         slib_view_structslib(library *ptlib);
 void         slib_view_structmotif(library *ptlib);
 void         slib_view_all(library *ptlib);
 void         slib_return_box(symbol_list *pts);
 
 
-// library cree par le parser
+/* library cree par le parser*/
 library     *slib_load_library(char *buff);
 
 extern library *SLIB_LIBRARY;

@@ -94,7 +94,7 @@ timing_model *stm_mod_create (char *modelname)
     model->VF = model->VDD;
     model->TTYPE = STM_LH;
     model->POS_IN_LIST = NULL;
-//    model->VF = STM_UNKNOWN;
+/*    model->VF = STM_UNKNOWN;*/
 
     stm_noise_init( model );
     stm_energy_init( model );

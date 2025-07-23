@@ -193,7 +193,7 @@ static void vcd_goto_state (long time)
 
     if (!vcd_db_check ()) return;
 
-    if (!vcd_db->CUR_STATE) { // search from time 0
+    if (!vcd_db->CUR_STATE) { /* search from time 0*/
         for (i = 0; i < vcd_db->SIG_IDX; i++)
             for (trans = vcd_db->SIG_ENTRY[i]; trans; trans = trans->NEXT)
                 if (!trans->NEXT || (trans->NEXT->TIME > time) || (trans->TIME == time)) {
@@ -201,7 +201,7 @@ static void vcd_goto_state (long time)
                     break;
                 }
     }
-    else if (time > vcd_db->TIME_TAB[vcd_db->CUR_TIME_IDX]) { // update current state forward
+    else if (time > vcd_db->TIME_TAB[vcd_db->CUR_TIME_IDX]) { /* update current state forward*/
         for (ch = vcd_db->CUR_STATE; ch; ch = ch->NEXT)
             for (trans = (trans_list*)ch->DATA; trans; trans = trans->NEXT)
                 if (!trans->NEXT || (trans->NEXT->TIME > time) || (trans->TIME == time)) {
@@ -209,7 +209,7 @@ static void vcd_goto_state (long time)
                     break;
                 }
     }
-    else if (time < vcd_db->TIME_TAB[vcd_db->CUR_TIME_IDX]) // update current state backward
+    else if (time < vcd_db->TIME_TAB[vcd_db->CUR_TIME_IDX]) /* update current state backward*/
         for (ch = vcd_db->CUR_STATE; ch; ch = ch->NEXT)
             for (trans = (trans_list*)ch->DATA; trans; trans = trans->PREV)
                 if (!trans->PREV || (trans->TIME <= time)) {

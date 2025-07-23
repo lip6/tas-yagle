@@ -58,7 +58,7 @@ typedef struct noeud
   int flag;
   cgvbox_list *box;
   int pos;
-  cgvnet_list *net; // net le + proche de la sortie
+  cgvnet_list *net; /* net le + proche de la sortie*/
 } noeud;
 
 
@@ -95,17 +95,17 @@ static void run_branch(cgvfig_list *CgvFigure, link_list *lk, losig_list *src, c
   struct noeud *no;
 
   if (lk==NULL || (lk->TYPE & CNS_EXT)!=0) return;
-//  printf("+> %s\n",lk->ULINK.LOTRS->TRNAME);
+/*  printf("+> %s\n",lk->ULINK.LOTRS->TRNAME);*/
 
   if (getptype(lk->ULINK.LOTRS->USER, CGV_BOX_TYPE)==NULL)
     {
       for (no=*arbre; no!=NULL && no->LINK->ULINK.LOTRS!=lk->ULINK.LOTRS; no=no->PARAL) ; 
-//      printf("(t0)");
+/*      printf("(t0)");*/
     }
   else
     {
       no=(struct noeud *)getptype(lk->ULINK.LOTRS->USER, CGV_MARK_TYPE)->DATA;
-//      printf("(t1)");
+/*      printf("(t1)");*/
     }
 
   /*
@@ -113,7 +113,7 @@ static void run_branch(cgvfig_list *CgvFigure, link_list *lk, losig_list *src, c
   else printf("add %s (%p)\n",lk->ULINK.LOTRS->TRNAME,lk->ULINK.LOTRS);
 */
   next=getnext(tr=lk->ULINK.LOTRS, src);
-//  printf("-> %s\n",tr->TRNAME);
+/*  printf("-> %s\n",tr->TRNAME);*/
   if (no==NULL)
     {
       if (tr->TRNAME!=NULL)
@@ -126,14 +126,14 @@ static void run_branch(cgvfig_list *CgvFigure, link_list *lk, losig_list *src, c
 
       CgvBox->SOURCE = (void *) tr;
       CgvBox->SOURCE_TYPE = CGV_SOURCE_LOTRS;
-      // grille
+      /* grille*/
       CgvCon = addcgvboxcon(CgvFigure, CgvBox, tr->GRID->NAME, CGV_CON_IN);
       CgvCon->SOURCE = tr->GRID;
       CgvCon->SOURCE_TYPE = CGV_SOURCE_LOCON;
       CgvNet=getnet(CgvFigure, tr->GRID->SIG, (char *)tr->GRID->SIG->NAMECHAIN->DATA);
       addcgvnetcon(CgvNet, CgvCon);
 
-      // les autres
+      /* les autres*/
       if (tr->DRAIN->SIG==src) { s0=tr->DRAIN; s1=tr->SOURCE; }
       else { s1=tr->DRAIN; s0=tr->SOURCE; }
       d=tr->DRAIN; s=tr->SOURCE;
@@ -149,7 +149,7 @@ static void run_branch(cgvfig_list *CgvFigure, link_list *lk, losig_list *src, c
               CgvCon->SOURCE_TYPE = CGV_SOURCE_LOCON;
               CgvNet=getnet(CgvFigure, src, (char *)src->NAMECHAIN->DATA);
               addcgvnetcon(CgvNet, CgvCon);
-              // ---
+              /* ---*/
               CgvCon = addcgvboxcon(CgvFigure, CgvBox, tr->DRAIN->NAME, CGV_CON_OUT);
               CgvCon->SOURCE = d;
               CgvCon->SOURCE_TYPE = CGV_SOURCE_LOCON;
@@ -163,7 +163,7 @@ static void run_branch(cgvfig_list *CgvFigure, link_list *lk, losig_list *src, c
               CgvCon->SOURCE_TYPE = CGV_SOURCE_LOCON;
               CgvNet=getnet(CgvFigure, next, (char *)next->NAMECHAIN->DATA);
               addcgvnetcon(CgvNet, CgvCon);
-              // ---
+              /* ---*/
               CgvCon = addcgvboxcon(CgvFigure, CgvBox, tr->DRAIN->NAME, CGV_CON_OUT);
               CgvCon->SOURCE = d;
               CgvCon->SOURCE_TYPE = CGV_SOURCE_LOCON;
@@ -211,7 +211,7 @@ static void run_branch(cgvfig_list *CgvFigure, link_list *lk, losig_list *src, c
     {
     case 'd': no->flag=1; break;
     case 'e': no->flag=4; break;
-    default: no->flag=2; break; //vss
+    default: no->flag=2; break; /*vss*/
     }
   run_branch(CgvFigure, lk->NEXT, next, dir, &no->NEXT);
 }
@@ -299,12 +299,12 @@ cgvfig_list *cgv_build_cone_fig(cone_list *cn, cgvfig_list *CgvFigure, noeud **a
 
   for (br=cn->BRVDD; br!=NULL; br=br->NEXT)
     {
-//      printf(" : ");
+/*      printf(" : ");*/
       run_branch(CgvFigure, br->LINK, conesig, 'd', arbre);
     }
   for (br=cn->BRVSS; br!=NULL; br=br->NEXT)
     {
-//      printf(" : ");
+/*      printf(" : ");*/
       run_branch(CgvFigure, br->LINK, conesig, 's', arbre);
     }
   for (br=cn->BREXT; br!=NULL; br=br->NEXT)
@@ -348,8 +348,8 @@ cgvfig_list *cgv_build_cone_fig(cone_list *cn, cgvfig_list *CgvFigure, noeud **a
       if (ls!=NULL) ls->USER=testanddelptype(ls->USER, CGV_NET_TYPE);
     }
   
-  //    buildcgvfig(CgvFigure);
-  //  strcpy(getcgvfileext(CgvFigure), IN_LO);
+  /*    buildcgvfig(CgvFigure);*/
+  /*  strcpy(getcgvfileext(CgvFigure), IN_LO);*/
   return (CgvFigure);
 }
 
@@ -371,10 +371,10 @@ static void run_arbre(cgvfig_list *CgvFigure, noeud *no, cgvcol_list **start_d, 
   noeud *nno;
 
   last=old=startd;
-//  printf(" * ");
+/*  printf(" * ");*/
   for (run=no; run!=NULL; run=run->PARAL)
     {
-      if ((run->flag & 0x0f0)==0 && (run->flag & 5)!=0) // vdd ou externe
+      if ((run->flag & 0x0f0)==0 && (run->flag & 5)!=0) /* vdd ou externe*/
         {
           run->flag|=0x0f0;
           
@@ -383,7 +383,7 @@ static void run_arbre(cgvfig_list *CgvFigure, noeud *no, cgvcol_list **start_d, 
           run->box->Y=yd;
           run->box->misc.count=posd; startd->tab[50+posd]|=0x0800000;
           nno=run;
-//          printf("pos+: %p c=%d %s\n",run->box,run->box->misc.count,run->box->NAME);
+/*          printf("pos+: %p c=%d %s\n",run->box,run->box->misc.count,run->box->NAME);*/
           last=startd;
           run_arbre(CgvFigure, run->NEXT, &startd, &starts, run->box->Y+run->box->DY+mmarge, ys, posd+1, poss, mmarge);
           if (moretogo(run->PARAL, 5) || posd==1)
@@ -421,7 +421,7 @@ static void run_arbre(cgvfig_list *CgvFigure, noeud *no, cgvcol_list **start_d, 
   old=starts;
   for (run=no; run!=NULL; run=run->PARAL)
     {
-      if ((run->flag & 0x0f0)==0 && (run->flag & 2)!=0) // vss
+      if ((run->flag & 0x0f0)==0 && (run->flag & 2)!=0) /* vss*/
         {
           run->flag|=0x0f0;
           
@@ -431,7 +431,7 @@ static void run_arbre(cgvfig_list *CgvFigure, noeud *no, cgvcol_list **start_d, 
           run->box->misc.count=poss; starts->tab[50+poss]|=0x0800000;
           nno=run;
 
-//          printf("pos-: %p c=%d %s\n",run->box,run->box->misc.count,run->box->NAME);
+/*          printf("pos-: %p c=%d %s\n",run->box,run->box->misc.count,run->box->NAME);*/
           last=starts;
           run_arbre(CgvFigure, run->NEXT, &startd, &starts, yd, run->box->Y, posd, poss-1, mmarge);
           if (moretogo(run->PARAL, 2) || poss==-1)
@@ -467,7 +467,7 @@ static void run_arbre(cgvfig_list *CgvFigure, noeud *no, cgvcol_list **start_d, 
     }
   *start_d=startd;
   *start_s=starts;
-//  *start=NULL;
+/*  *start=NULL;*/
 }
 
 cgvfig_list *cgv_place_cone_fig(noeud *arbre, cgvfig_list *CgvFigure, long mmarge)
@@ -599,7 +599,7 @@ int cgv_add_transp(cgvfig_list *CgvFigure, long mmarge)
 	    {
 	      box=(cgvbox_list *)Cell->ROOT;
               if (IsCgvBoxTransparence(box)) continue;
-//              printf("%s %p %p %d c=%d\n",box->NAME,box,Column,box->Y,box->misc.count);
+/*              printf("%s %p %p %d c=%d\n",box->NAME,box,Column,box->Y,box->misc.count);*/
               for (con=box->CON_IN; con!=NULL; con=con->NEXT)
                 {
                   y=-10000;
@@ -636,7 +636,7 @@ int cgv_add_transp(cgvfig_list *CgvFigure, long mmarge)
                                   if ((col->tab[50+box->misc.count] & 0x0fffff)>mmarge) return 1;
                                 }
                               b->Y=y-b->CON_IN->Y_REL;
-//                              printf("\ttrans at %d\n",b->Y);
+/*                              printf("\ttrans at %d\n",b->Y);*/
                             }                          
                         } while (col!=Column2);
                     }
@@ -743,7 +743,7 @@ cgvfig_list *getcgvfig_from_cone(cone_list *cn)
         else
           {
             CgvFigure->LIBRARY = slib_create_lib(name);
-            //	 CgvFigure->LIBRARY->GRID = CGV_LIB->GRID;
+            /*	 CgvFigure->LIBRARY->GRID = CGV_LIB->GRID;*/
             CgvFigure->LIBRARY->REFHEIGHT = CGV_LIB->REFHEIGHT; 
           }
         CgvFigure->LIBRARY->GRID = scale;
@@ -756,7 +756,7 @@ cgvfig_list *getcgvfig_from_cone(cone_list *cn)
       if (fail)
         {
           mmarge*=2;
-//          printf("failed, adding more space : %ld, and retrying...\n",mmarge);
+/*          printf("failed, adding more space : %ld, and retrying...\n",mmarge);*/
           loc_clean_all(CgvFigure);
           clean_cone(cn);
           distroy_arbre(arbre);
@@ -768,7 +768,7 @@ cgvfig_list *getcgvfig_from_cone(cone_list *cn)
           freecgvfigure(CgvFigure);
         }
     } while (fail);
-//  HEAD_CGVCOL = (cgvcol_list *) reverse((chain_list *) HEAD_CGVCOL);
+/*  HEAD_CGVCOL = (cgvcol_list *) reverse((chain_list *) HEAD_CGVCOL);*/
   loc_route(CgvFigure);
   loc_clean_all(CgvFigure);
   addcgvfile(name, CGV_FROM_CONE, 0, NULL, CgvFigure, NULL, NULL, 1);

@@ -51,7 +51,7 @@
 #define BEG_TYPE_SINGPOR       (long) 0x00000062
 #define BEG_TYPE_CONFLIT       (long) 0x00000071
 
-// mode de recherche pour beg_get_vectname
+/* mode de recherche pour beg_get_vectname*/
 #define BEG_SEARCH_NAME        '('
 #define BEG_SEARCH_ABL         ' '
 #define BEG_SEARCH_LOOP        'L'
@@ -59,7 +59,7 @@
 
 #define BEG_SAVE               1
 #define BEG_NOVERIF            (int)  0xFF00
-// verify coherence with bvl
+/* verify coherence with bvl*/
 
 #define BEG_OBJ                ptype_list*
 #define BEG_CORRESP_PTYPE      (long) 0xc1c01263
@@ -120,7 +120,7 @@ void             beg_eat_figure      ( befig_list    *eaten     );
 befig_list      *beg_get_befigByName ( char          *name      );
 
 void             beg_sort            ( void);
-// !!! WARNING beg_compact need beg_sort to be performed before use
+/* !!! WARNING beg_compact need beg_sort to be performed before use*/
 void             beg_compact         ( void);
 
 int              beg_isVect          ( BEG_OBJ        obj       );

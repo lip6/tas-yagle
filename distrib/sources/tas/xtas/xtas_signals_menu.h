@@ -25,8 +25,8 @@
 /*-------------------------*/
 
 static struct XalMenuItem XtasSignalsMenuFile[] = {
-    //{ "Save Screen",  &xmPushButtonGadgetClass, 'S', False, False, "Ctrl<Key>S", "Ctrl+S",
-    //                  XtasSignalsSaveCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
+    /*{ "Save Screen",  &xmPushButtonGadgetClass, 'S', False, False, "Ctrl<Key>S", "Ctrl+S",*/
+    /*                  XtasSignalsSaveCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },*/
     { "To Main",      &xmPushButtonGadgetClass, 'M', False, False, "Ctrl<Key>M", "Ctrl+M",
                       XtasMainPopupCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
     { "Close",        &xmPushButtonGadgetClass, 'C', False,  False, "Ctrl<Key>E", "Ctrl+E", 

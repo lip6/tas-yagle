@@ -1,4 +1,4 @@
-//#define RELAX_CORRECT_DEBUG
+/*#define RELAX_CORRECT_DEBUG*/
 typedef struct node_path_info_per_phase
 {
   struct node_path_info_per_phase *next;  

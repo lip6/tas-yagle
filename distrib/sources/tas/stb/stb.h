@@ -71,7 +71,7 @@
 #define STB_NO_VERIF             (char)(0x01)   /* pas de verif setup/hold          */
 #define STB_VERIF_EDGE           (char)(0x02)   /* verif par rapport au front       */
 #define STB_VERIF_STATE          (char)(0x04)   /* verif par rapport a l'etat       */
-//#define STB_VERIF_IS_TRANSPARENT (char)(0x08)   /* marquage de latch transparent    */
+/*#define STB_VERIF_IS_TRANSPARENT (char)(0x08)   /* marquage de latch transparent    */
 
 #define STB_TYPE_CLOCK     'C'         /* clock                            */
 #define STB_TYPE_CLOCKPATH 'K'         /* on clock path                    */
@@ -99,7 +99,7 @@
 #define STB_RC_DELAY       1           /* delay RC                         */
 #define STB_NO_RC_DELAY    0           /* pas de delay RC                  */
 
-// flag stbfig
+/* flag stbfig*/
 #define STB_CLOCK_INFO_READY 1
 #define STB_HAS_FALSE_ACCESS 2
 
@@ -193,10 +193,10 @@
 #define STB_MARK_DEBUG       ((long) 0x60000019 )
 #define STB_CLOCK_LOCAL_LATENCY ((long) 0x60000020 )
 #define STB_VIRTUAL_CLOCK      ((long) 0x60000021 )
-//#define STB_DIRECTIVES    ((long) 0x60000022 )
+/*#define STB_DIRECTIVES    ((long) 0x60000022 )*/
 #define STB_CTK_FAST_SLOPE  ((long) 0x60000023 )
 #define STB_TRANSITION_PROBABILITY 0x60000028
-//#define STB_DIRECTIVES_TEMP  ((long) 0x60000029 )
+/*#define STB_DIRECTIVES_TEMP  ((long) 0x60000029 )*/
 
 /* mot clef du champ USER des ttvfig                                */
 #define STB_FIGURE           ((long) 0x60000002 )
@@ -253,7 +253,7 @@
 #define STBCK_MIN_EDGE_HZ      0x40
 #define STBCK_MAX_EDGE_HZ      0x80
 
-// flags pour stbtransferstbline
+/* flags pour stbtransferstbline*/
 #define STB_TRANSFERT_NOFILTERING    1 
 #define STB_TRANSFERT_NOPHASECHANGE  2
 #define STB_TRANSFERT_CORRECTION     4
@@ -465,7 +465,7 @@ typedef struct stbfig             /* informations concernant l'analyse
      HeapAlloc           CLOCK_TREE_HEAP;
      long       PHASE_DATE[128];
 
-//     HeapAlloc           DIRECTIVE_HEAP;
+/*     HeapAlloc           DIRECTIVE_HEAP;*/
     }
 stbfig_list ;
 
@@ -591,7 +591,7 @@ typedef struct stb_directive
 */
 typedef struct
 {
-//  long validmin, validmax;
+/*  long validmin, validmax;*/
   stbpair_list *realpair;
 } valid_range_info;
 
@@ -737,7 +737,7 @@ extern void stb_release_ctk_information(ctk_exchange *res);
 
 stbck *stb_gooddir(stbck *clock);
 stbck *stb_getgoodclock_and_status(stbfig_list *sb, stbck *clock, ttvevent_list *tve, ttvevent_list *latch, int *inverted);
-//void stb_getclockandtestslopes(ttvsig_list *tvs, stbck *clock, ttvsig_list **tvs_setup, long *dir_setup, ttvsig_list **tvs_hold, long *dir_hold);
+/*void stb_getclockandtestslopes(ttvsig_list *tvs, stbck *clock, ttvsig_list **tvs_setup, long *dir_setup, ttvsig_list **tvs_hold, long *dir_hold);*/
 extern stbfile* stb_info_open          __P(( stbfig_list *stbfig ));
 extern void stb_info_close             __P(( stbfile *file ));
 extern void stb_ctk_drive_stat( stbfile *report, stbfig_list *stbfig, stb_ctk_stat *stat );
@@ -753,13 +753,13 @@ stbpair_list   *stb_nodeglobalpair __P((stbpair_list **tabpair, long periode, ch
 stbck          *stb_getclocknode __P((stbfig_list *ptstbfig, char phase, char *namebuf, ttvevent_list **ptevent, stbck *ck));
 
 chain_list *get_clock_latency_tree(ttvevent_list *tve, long type, chain_list *cl);
-//long stb_getfilterlag(long abs_time, ttvevent_list *tve, long type);
+/*long stb_getfilterlag(long abs_time, ttvevent_list *tve, long type);*/
 int stb_get_filter_directive_info(stbfig_list *sf, ttvevent_list *tve, char phase, long *start, long *startmax, long *end, long *endmin, char *state, long *move, ttvevent_list **clockedsig, stbck *origedge);
 int stb_has_filter_directive(ttvevent_list *tve);
 
 long stb_getsetupslope(stbfig_list *stbfig, stbnode *node, stbck *ck, int hz, char *phase);
 long stb_get_directive_setup_slope(stbfig_list *stbfig, stbnode *node, char *phase, long *period, int filter);
-//int stb_isgateoutput(ttvsig_list *tvs);
+/*int stb_isgateoutput(ttvsig_list *tvs);*/
 
 extern stbpair_list* stb_getpairnode    __P(( stbfig_list *stbfig, ttvevent_list *event, long margin ));
 stbpair_list* stb_getlimitpairnode( stbfig_list   *stbfig, ttvevent_list *event, long margin);
@@ -771,9 +771,9 @@ void stb_setdetail(Setup_Hold_Computation_Detail_INFO *detail, long val, long in
 int stb_isfalseslack(stbfig_list *stbfig, ttvevent_list *startck, ttvevent_list *eventin, ttvevent_list *eventout, ttvevent_list *endck, int type);
 long stb_getperiod (stbfig_list *ptstbfig, char phase);
 void stb_getmulticycleperiod(ttvevent_list *inpute, ttvevent_list *outpute, long inputperiod, long outputperiod, long *setupP, long *holdP, int *nb_setup_cycle, int *nb_hold_cycle);
-//int stb_temp_setdirectives (ttvfig_list *tvf, inffig_list *ifl, HeapAlloc *myheap);
-//void stb_temp_freedirectives(ttvfig_list *tvf, HeapAlloc *myheap);
-//ptype_list *stb_get_temp_directive_slopes(ttvevent_list *tve, int setup);
+/*int stb_temp_setdirectives (ttvfig_list *tvf, inffig_list *ifl, HeapAlloc *myheap);*/
+/*void stb_temp_freedirectives(ttvfig_list *tvf, HeapAlloc *myheap);*/
+/*ptype_list *stb_get_temp_directive_slopes(ttvevent_list *tve, int setup);*/
 
 #define STB_DECIFEQUALPHASE 1
 #define STB_SPECOUTMODE     2
@@ -785,5 +785,5 @@ int path_false_slack_check(ttvpath_list *tp, ttvevent_list *opencmd, ttvevent_li
 #define PRECHTEST
 #define PHASEFORALL
 
-//#define RELAX_CORRECT_DEBUG
+/*#define RELAX_CORRECT_DEBUG*/
 #endif

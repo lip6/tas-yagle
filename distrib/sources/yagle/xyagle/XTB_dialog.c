@@ -20,12 +20,12 @@
 #include MLO_H
 #include XTB_H
 #include XSB_H
-#include XMX_H
 #include XMV_H
 #include XME_H
 #include XMT_H
 #include CGV_H
 #include XYA_H
+#include XMX_H
 
 #include "XTB_dialog.h"
 #include "XME_search.h"
@@ -37,7 +37,7 @@ Widget          XyagFileSelectDialog = NULL;
 
 static int      XyagLockLoop = 0;
 
-static void     CallbackConfirmQuitOk();
+static void     CallbackConfirmQuitOk( Widget MyWidget, caddr_t ClientData, caddr_t CallData );
 static void     CallbackZoomSetOk();
 static void     CallbackFindOk();
 static void     CallbackDepthSetOk();
@@ -56,11 +56,7 @@ simple_callback(dialog, client_data, cbs)
 |                 XyagDestroyDialogCallback                  |
 \------------------------------------------------------------*/
 
-void
-XyagDestroyDialogCallback(MyWidget, ClientData, CallData)
-    Widget          MyWidget;
-    caddr_t         ClientData;
-    caddr_t         CallData;
+void XyagDestroyDialogCallback( Widget MyWidget, caddr_t ClientData, caddr_t CallData )
 {
     XyagLockLoop = 0;
     XyagExitErrorMessage(1);
@@ -81,9 +77,7 @@ XyagExitDialogCallback()
 |                       XyagLimitedLoop                       |
 \------------------------------------------------------------*/
 
-void
-XyagLimitedLoop(MyWidget)
-    Widget          MyWidget;
+void XyagLimitedLoop( Widget MyWidget )
 {
     Widget          DialogShell, WShell;
     XEvent          Event;
@@ -94,7 +88,7 @@ XyagLimitedLoop(MyWidget)
 
     XyagLockLoop = 1;
 
-//    XyagSetMouseCursor(XtParent(MyWidget),XYAG_PIRATE_CURSOR);
+/*    XyagSetMouseCursor(XtParent(MyWidget),XYAG_PIRATE_CURSOR);*/
 
     for (WShell = MyWidget; !XtIsShell(WShell); WShell = XtParent(WShell));
 
@@ -118,7 +112,7 @@ XyagLimitedLoop(MyWidget)
         case KeyPress:
         case ButtonPress:
             if (WShell != DialogShell) {
-                //AnyEvent->window = XtWindow(WShell);
+                /*AnyEvent->window = XtWindow(WShell);*/
                 XtPopup( WShell, XtGrabNone ); 
             }
             else
@@ -150,10 +144,7 @@ void XyagLeaveLimitedLoop()
 |                      XyagWarningMessage                    |
 \------------------------------------------------------------*/
 
-void
-XyagWarningMessage(Father, Subject)
-    Widget          Father;
-    char           *Subject;
+void XyagWarningMessage( Widget Father, char *Subject )
 {
     static Widget   dialog;
     XmString        label, title;
@@ -172,7 +163,7 @@ XyagWarningMessage(Father, Subject)
         n++;
         dialog = XmCreateWarningDialog(Father, "warningDialog", args, n);
         XtVaSetValues(dialog, XmNdialogTitle, title, NULL);
-        XtAddCallback(dialog, XmNokCallback, simple_callback, NULL);
+        XtAddCallback(dialog, XmNokCallback, (XtCallbackProc)simple_callback, NULL);
         XtUnmanageChild(XmMessageBoxGetChild(dialog, XmDIALOG_CANCEL_BUTTON));
         XtUnmanageChild(XmMessageBoxGetChild(dialog, XmDIALOG_HELP_BUTTON));
     }
@@ -188,10 +179,7 @@ XyagWarningMessage(Father, Subject)
 |                      XyagErrorMessage                      |
 \------------------------------------------------------------*/
 
-void
-XyagErrorMessage(Father, Subject)
-    Widget          Father;
-    char           *Subject;
+void XyagErrorMessage( Widget Father, char *Subject )
 {
     static Widget   errorDialog;
     XmString        label, title;
@@ -210,7 +198,7 @@ XyagErrorMessage(Father, Subject)
         n++;
         errorDialog = XmCreateErrorDialog(Father, "errorDialog", args, n);
         XtVaSetValues(errorDialog, XmNdialogTitle, title, NULL);
-        XtAddCallback(errorDialog, XmNokCallback, simple_callback, NULL);
+        XtAddCallback(errorDialog, XmNokCallback, (XtCallbackProc)simple_callback, NULL);
         XtUnmanageChild(XmMessageBoxGetChild(errorDialog, XmDIALOG_CANCEL_BUTTON));
         XtUnmanageChild(XmMessageBoxGetChild(errorDialog, XmDIALOG_HELP_BUTTON));
     }
@@ -226,10 +214,7 @@ XyagErrorMessage(Father, Subject)
 |                      XyagWorkingDialog                      |
 \------------------------------------------------------------*/
 
-Widget
-XyagWorkingDialog(Father, Subject)
-    Widget          Father;
-    char           *Subject;
+Widget XyagWorkingDialog( Widget Father, char *Subject )
 {
     static Widget   workingDialog;
     XmString        label, title;
@@ -248,7 +233,7 @@ XyagWorkingDialog(Father, Subject)
         n++;
         workingDialog = XmCreateWorkingDialog(Father, "workingDialog", args, n);
         XtVaSetValues(workingDialog, XmNdialogTitle, title, NULL);
-        XtAddCallback(workingDialog, XmNcancelCallback, simple_callback, NULL);
+        XtAddCallback(workingDialog, XmNcancelCallback, (XtCallbackProc)simple_callback, NULL);
         XtUnmanageChild(XmMessageBoxGetChild(workingDialog, XmDIALOG_OK_BUTTON));
         XtUnmanageChild(XmMessageBoxGetChild(workingDialog, XmDIALOG_HELP_BUTTON));
     }
@@ -266,8 +251,7 @@ XyagWorkingDialog(Father, Subject)
 |                      XyagConfirmQuit                       |
 \------------------------------------------------------------*/
 
-void
-XyagConfirmQuit()
+void XyagConfirmQuit()
 {
     static Widget   quitDialog;
     XmString        label, title, yes, no;
@@ -289,8 +273,8 @@ XyagConfirmQuit()
         XtSetArg(args[n], XmNcancelLabelString, no); n++;
         quitDialog = XmCreateQuestionDialog(XyagMainWindow, "confirmQuitDialog", args, n);
         XtVaSetValues(quitDialog, XmNdialogTitle, title, NULL);
-        XtAddCallback(quitDialog, XmNokCallback, CallbackConfirmQuitOk, NULL);
-        XtAddCallback(quitDialog, XmNcancelCallback, simple_callback, NULL);
+        XtAddCallback(quitDialog, XmNokCallback, (XtCallbackProc)CallbackConfirmQuitOk, NULL);
+        XtAddCallback(quitDialog, XmNcancelCallback, (XtCallbackProc)simple_callback, NULL);
         XtUnmanageChild(XmMessageBoxGetChild(quitDialog, XmDIALOG_HELP_BUTTON));
     }
 
@@ -302,11 +286,7 @@ XyagConfirmQuit()
 |                  CallbackConfirmQuitOk                     |
 \------------------------------------------------------------*/
 
-static void
-CallbackConfirmQuitOk(MyWidget, ClientData, CallData)
-    Widget          MyWidget;
-    caddr_t         ClientData;
-    caddr_t         CallData;
+static void CallbackConfirmQuitOk( Widget MyWidget, caddr_t ClientData, caddr_t CallData )
 {
     XtUnmanageChild(MyWidget);
     XtCloseDisplay(XtDisplay(XtParent(MyWidget)));
@@ -318,8 +298,7 @@ CallbackConfirmQuitOk(MyWidget, ClientData, CallData)
 |                      XyagZoomSet                            |
 \------------------------------------------------------------*/
 
-void
-XyagZoomSet()
+void XyagZoomSet()
 {
     static Widget   zoomSetDialog;
     XmString        label, title;
@@ -337,8 +316,8 @@ XyagZoomSet()
         XtSetArg(args[n], XmNautoUnmanage, False); n++;
         zoomSetDialog = XmCreatePromptDialog(XyagMainWindow, "zoomSetDialog", args, n);
         XtVaSetValues(zoomSetDialog, XmNdialogTitle, title, NULL);
-        XtAddCallback(zoomSetDialog, XmNokCallback, CallbackZoomSetOk, NULL);
-        XtAddCallback(zoomSetDialog, XmNcancelCallback, simple_callback, NULL);
+        XtAddCallback(zoomSetDialog, XmNokCallback, (XtCallbackProc)CallbackZoomSetOk, NULL);
+        XtAddCallback(zoomSetDialog, XmNcancelCallback, (XtCallbackProc)simple_callback, NULL);
         XtUnmanageChild(XmSelectionBoxGetChild(zoomSetDialog, XmDIALOG_HELP_BUTTON));
     }
 
@@ -377,8 +356,7 @@ CallbackZoomSetOk(MyWidget, ClientData, CallData)
 |                      XyagDepthSet                           |
 \------------------------------------------------------------*/
 
-void
-XyagDepthSet()
+void XyagDepthSet()
 {
     static Widget   depthSetDialog;
     static Widget   depthSetToggle;
@@ -397,14 +375,14 @@ XyagDepthSet()
         XtSetArg(args[n], XmNautoUnmanage, False); n++;
         depthSetDialog = XmCreatePromptDialog(XyagMainWindow, "depthSetDialog", args, n);
         XtVaSetValues(depthSetDialog, XmNdialogTitle, title, NULL);
-        XtAddCallback(depthSetDialog, XmNokCallback, CallbackDepthSetOk, NULL);
-        XtAddCallback(depthSetDialog, XmNcancelCallback, simple_callback, NULL);
+        XtAddCallback(depthSetDialog, XmNokCallback, (XtCallbackProc)CallbackDepthSetOk, NULL);
+        XtAddCallback(depthSetDialog, XmNcancelCallback, (XtCallbackProc)simple_callback, NULL);
         XtUnmanageChild(XmSelectionBoxGetChild(depthSetDialog, XmDIALOG_HELP_BUTTON));
 
         btn1 = XmStringCreateSimple("Backwards");
         btn2 = XmStringCreateSimple("Forwards");
         btn3 = XmStringCreateSimple("Both Ways");
-        depthSetToggle = XmVaCreateSimpleRadioBox(depthSetDialog, "depthSetToggle", 0, CallbackDepthSetToggle,
+        depthSetToggle = XmVaCreateSimpleRadioBox(depthSetDialog, "depthSetToggle", 0, (XtCallbackProc)CallbackDepthSetToggle,
                                                   XmVaRADIOBUTTON, btn1, 0, (XtPointer)0, NULL,
                                                   XmVaRADIOBUTTON, btn2, 0, (XtPointer)1, NULL,
                                                   XmVaRADIOBUTTON, btn3, 0, (XtPointer)2, NULL,
@@ -480,8 +458,7 @@ CallbackDepthSetOk(MyWidget, ClientData, CallData)
 |                      XyagFind                               |
 \------------------------------------------------------------*/
 
-void
-XyagFind()
+void XyagFind()
 {
     static Widget   findDialog;
     XmString        label, title;
@@ -499,8 +476,8 @@ XyagFind()
         XtSetArg(args[n], XmNautoUnmanage, False); n++;
         findDialog = XmCreatePromptDialog(XyagMainWindow, "findDialog", args, n);
         XtVaSetValues(findDialog, XmNdialogTitle, title, NULL);
-        XtAddCallback(findDialog, XmNokCallback, CallbackFindOk, NULL);
-        XtAddCallback(findDialog, XmNcancelCallback, simple_callback, NULL);
+        XtAddCallback(findDialog, XmNokCallback, (XtCallbackProc)CallbackFindOk, NULL);
+        XtAddCallback(findDialog, XmNcancelCallback, (XtCallbackProc)simple_callback, NULL);
         XtUnmanageChild(XmSelectionBoxGetChild(findDialog, XmDIALOG_HELP_BUTTON));
     }
 
@@ -534,13 +511,7 @@ CallbackFindOk(MyWidget, ClientData, CallData)
 |                      XyagFileSelect                         |
 \------------------------------------------------------------*/
 
-void
-XyagFileSelect(Filter, labelstr, callbackOk, labelExtraStr, callbackExtra)
-    XmString        Filter;
-    char           *labelstr;
-    void            callbackOk();
-    char           *labelExtraStr;
-    void            callbackExtra();
+void XyagFileSelect( XmString Filter, char *labelstr, void callbackOk(), char *labelExtraStr, void callbackExtra() )
 {
     static Widget   fileSelectDialog;
     XmString        label, title, labelExtra;
@@ -558,12 +529,12 @@ XyagFileSelect(Filter, labelstr, callbackOk, labelExtraStr, callbackExtra)
         XtSetArg(args[n], XmNautoUnmanage, False); n++;
         fileSelectDialog = XmCreateFileSelectionDialog(XyagMainWindow, "fileSelectDialog", args, n);
         XtVaSetValues(fileSelectDialog, XmNdialogTitle, title, NULL);
-        XtAddCallback(fileSelectDialog, XmNokCallback, callbackOk, NULL);
-        XtAddCallback(fileSelectDialog, XmNcancelCallback, simple_callback, NULL);
+        XtAddCallback(fileSelectDialog, XmNokCallback, (XtCallbackProc)callbackOk, NULL);
+        XtAddCallback(fileSelectDialog, XmNcancelCallback, (XtCallbackProc)simple_callback, NULL);
         XtUnmanageChild(XmFileSelectionBoxGetChild(fileSelectDialog, XmDIALOG_FILTER_LABEL));
         XtUnmanageChild(XmFileSelectionBoxGetChild(fileSelectDialog, XmDIALOG_FILTER_TEXT));
         if (callbackExtra != NULL) {
-            XtAddCallback(fileSelectDialog, XmNhelpCallback, callbackExtra, NULL);
+            XtAddCallback(fileSelectDialog, XmNhelpCallback, (XtCallbackProc)callbackExtra, NULL);
         }
         else {
             XtUnmanageChild(XmSelectionBoxGetChild(fileSelectDialog, XmDIALOG_HELP_BUTTON));
@@ -576,11 +547,11 @@ XyagFileSelect(Filter, labelstr, callbackOk, labelExtraStr, callbackExtra)
     }
     else {
         XtRemoveAllCallbacks(fileSelectDialog, XmNokCallback);
-        XtAddCallback(fileSelectDialog, XmNokCallback, callbackOk, NULL);
+        XtAddCallback(fileSelectDialog, XmNokCallback, (XtCallbackProc)callbackOk, NULL);
         XtRemoveAllCallbacks(fileSelectDialog, XmNhelpCallback);
         if (callbackExtra != NULL) {
             XtManageChild(XmSelectionBoxGetChild(fileSelectDialog, XmDIALOG_HELP_BUTTON));
-            XtAddCallback(fileSelectDialog, XmNhelpCallback, callbackExtra, NULL);
+            XtAddCallback(fileSelectDialog, XmNhelpCallback, (XtCallbackProc)callbackExtra, NULL);
         }
         else {
             XtUnmanageChild(XmSelectionBoxGetChild(fileSelectDialog, XmDIALOG_HELP_BUTTON));

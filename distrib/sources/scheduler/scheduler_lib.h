@@ -45,7 +45,7 @@ void Scheduler_RegisterObject(Scheduler *S, int objectindex, void *object);
 void *Scheduler_GetRegisterObject(Scheduler *S, int objectindex);
 void Scheduler_AddTransaction(Scheduler *S, int ObjectIndex, long Date, void *data);
 
-// debug
+/* debug*/
 void debugtrans(Scheduler *S, int objindex);
 
 #endif

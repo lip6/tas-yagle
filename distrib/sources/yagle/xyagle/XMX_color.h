@@ -52,7 +52,7 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern void XyagSetColorMap();
+extern void XyagSetColorMap( Colormap map );
   extern void XyagInitializeColorMap();
   extern void XyagInitializeGraphicContext();
   extern void XyagInitializeColors();

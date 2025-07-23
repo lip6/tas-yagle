@@ -24,7 +24,7 @@ void avt_Config (char *var, char *val);
 */
 char *avt_GetConfig (char *var);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_SetBlackBoxes
     CATEG tcl+files
@@ -39,7 +39,7 @@ char *avt_GetConfig (char *var);
 */
 void avt_SetBlackBoxes(List *list);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_LoadBehavior
     CATEG tcl+files
@@ -52,7 +52,7 @@ void avt_SetBlackBoxes(List *list);
 */
 BehavioralFigure *avt_LoadBehavior(char *filename, char *format);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_DriveBehavior
     CATEG tcl+files
@@ -65,7 +65,7 @@ BehavioralFigure *avt_LoadBehavior(char *filename, char *format);
 */
 void avt_DriveBehavior(BehavioralFigure *befig, char *format);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_LoadFile
     CATEG tcl+files
@@ -78,7 +78,7 @@ void avt_DriveBehavior(BehavioralFigure *befig, char *format);
 */
 void avt_LoadFile(char *filename, char *format);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_EncryptSpice
     CATEG tcl+files
@@ -91,7 +91,7 @@ void avt_LoadFile(char *filename, char *format);
 */
 void avt_EncryptSpice(char *inputname, char *outputname);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_GetNetlist
     CATEG tcl+lofig
@@ -103,7 +103,7 @@ void avt_EncryptSpice(char *inputname, char *outputname);
 */
 Netlist *avt_GetNetlist(char *name);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_FlattenNetlist
     CATEG tcl+lofig
@@ -116,7 +116,7 @@ Netlist *avt_GetNetlist(char *name);
 */
 void avt_FlattenNetlist(Netlist *lf, char *level);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_DriveNetlist
     CATEG tcl+lofig
@@ -130,7 +130,7 @@ void avt_FlattenNetlist(Netlist *lf, char *level);
 */
 void avt_DriveNetlist(Netlist *lf, char *filename, char *format);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_DisplayNetlistHierarchy
     CATEG tcl+lofig
@@ -144,7 +144,7 @@ void avt_DriveNetlist(Netlist *lf, char *filename, char *format);
 */
 void avt_DisplayNetlistHierarchy(FILE *f, char *netlistname, int maxdepth);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_DisplayResistivePath
     CATEG tcl+lofig
@@ -159,7 +159,7 @@ void avt_DisplayNetlistHierarchy(FILE *f, char *netlistname, int maxdepth);
 */
 void avt_DisplayResistivePath(FILE *f, Netlist *lf, char *connector1, char *connector2);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_RemoveResistances
     CATEG tcl+lofig
@@ -173,7 +173,7 @@ void avt_DisplayResistivePath(FILE *f, Netlist *lf, char *connector1, char *conn
 */
 void avt_RemoveResistances(Netlist *lf, char *nameregex);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_RemoveCapacitances
     CATEG tcl+lofig
@@ -186,7 +186,7 @@ void avt_RemoveResistances(Netlist *lf, char *nameregex);
 */
 void avt_RemoveCapacitances(Netlist *lf, char *nameregex);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_StartWatch
     CATEG tcl+system
@@ -201,7 +201,7 @@ void avt_RemoveCapacitances(Netlist *lf, char *nameregex);
 
 void avt_StartWatch(char *name);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_StopWatch
     CATEG tcl+system
@@ -213,7 +213,7 @@ void avt_StartWatch(char *name);
 */
 void avt_StopWatch(char *name);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_PrintWatch
     CATEG tcl+system
@@ -225,7 +225,7 @@ void avt_StopWatch(char *name);
 */
 char *avt_PrintWatch(char *name);
 
-// --------------
+/* --------------*/
 /*
     MAN avt_GetMemoryUsage
     CATEG tcl+system

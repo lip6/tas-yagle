@@ -595,7 +595,7 @@ yagBuildGeniusBehHierarchy(lofig_list *pttoplofig, lofig_list *ptcorelofig, chai
     losig_list *ptlosig;
     chain_list *loconchain;
     int         direction;
-//    char        buf[YAGBUFSIZE];
+/*    char        buf[YAGBUFSIZE];*/
 
     /* duplicate logical hierarchical figure */
 

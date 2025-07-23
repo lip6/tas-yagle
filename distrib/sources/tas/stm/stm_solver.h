@@ -1,16 +1,16 @@
 typedef struct {
-  float I_EPSILON;      // Ecart maximum autours de i (A)
-  float V_EPSILON;      // Ecart maximum autours de v (V)
-  int   MAXITER;        // Nombre maximum d'itérations
-  int   DICHOTOMIE;     // Normalement, on calcul le i proportionnellement à la
-                        // tension max et à la tension min trouvée. Cette 
-                        // convergence étant lente vers la fin, il est plus
-                        // rapide de prendre le millieu dès que le nb d'itér
-                        // est inférieur à cette valeur
-  float MINDELTAVOLTAGE;// Valeur de tension de branche en dessous de laquelle
-                        // on ne simule rien (V)
-  float MINCURRENT;     // Courant estimé dans la branche en dessous du quel
-                        // on ne simule rien.
+  float I_EPSILON;      /* Ecart maximum autours de i (A)*/
+  float V_EPSILON;      /* Ecart maximum autours de v (V)*/
+  int   MAXITER;        /* Nombre maximum d'itérations*/
+  int   DICHOTOMIE;     /* Normalement, on calcul le i proportionnellement à la*/
+                        /* tension max et à la tension min trouvée. Cette */
+                        /* convergence étant lente vers la fin, il est plus*/
+                        /* rapide de prendre le millieu dès que le nb d'itér*/
+                        /* est inférieur à cette valeur*/
+  float MINDELTAVOLTAGE;/* Valeur de tension de branche en dessous de laquelle*/
+                        /* on ne simule rien (V)*/
+  float MINCURRENT;     /* Courant estimé dans la branche en dessous du quel*/
+                        /* on ne simule rien.*/
 } stm_solver_i_param;
 
 #define STM_SOLVER_INEG '-'

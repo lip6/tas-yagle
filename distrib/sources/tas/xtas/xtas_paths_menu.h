@@ -45,8 +45,8 @@ static struct XalMenuItem XtasPathsMenuTools[] = {
                             XtasPathsDetailCallback,     (XtPointer)'M', (XalMenuItemStruct *)NULL },
     { "All Paths",       &xmPushButtonGadgetClass, 'A', False, False, NULL, NULL,
                             XtasParaButtonCallback,  (XtPointer)'P', (XalMenuItemStruct *)NULL },
-//    { "False Path Test", &xmPushButtonGadgetClass, 'F', True, False, NULL, NULL,
-//                            XtasPathsFalsCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },
+/*    { "False Path Test", &xmPushButtonGadgetClass, 'F', True, False, NULL, NULL,*/
+/*                            XtasPathsFalsCallback, (XtPointer)0, (XalMenuItemStruct *)NULL },*/
     { NULL, NULL, (char)'\0', False, False, NULL, NULL, NULL, NULL, NULL }
 };
 

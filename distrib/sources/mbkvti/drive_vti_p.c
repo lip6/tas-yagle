@@ -42,11 +42,14 @@
 #include MPU_H
 #include "drive_vti_p.h"
 
+static char *decodelayer( char index );
+static void vtigetdate( char *date );
+static char *busname( char *name );
+
 /*******************************************************************************
 * function getdate()                                                           *
 *******************************************************************************/
-static void vtigetdate(date)
-char *date;
+static void vtigetdate( char *date )
 {
 time_t timer;
 char day[4], month[4];
@@ -63,8 +66,7 @@ int year, nday, hour, minute, second;
 /*******************************************************************************
 * function busname                                                             *
 *******************************************************************************/
-static char *busname(name)
-char *name;
+static char *busname( char *name )
 {
 static char buffer[255];
 char *s, *t;
@@ -102,8 +104,7 @@ char one = 1;
 /*******************************************************************************
 * function vtisavephfig()                                                      *
 *******************************************************************************/
-void vtisavephfig(ptfig)
-phfig_list *ptfig;
+void vtisavephfig( phfig_list *ptfig )
 {
 chain_list *ptchain;
 phcon_list *ptcon;
@@ -406,8 +407,7 @@ char date[30];
 /*******************************************************************************
 * function decodelayer()                                                       *
 *******************************************************************************/
-static char *decodelayer(index)
-char index;
+static char *decodelayer( char index )
 {
 	switch (index) {
 		case NWELL :

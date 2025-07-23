@@ -60,11 +60,11 @@ fill_line(char *buf, void (*prn)(void *,...), void *file,
 
   j             = 0;
   
-  // comment on
+  /* comment on*/
   for (i = 0; flagon[i] != '\0'; i++)
     buf[j++]    = flagon[i];
   
-  // get the text
+  /* get the text*/
   if (txt)
   {
     for (i = 0; i < 2; i ++)
@@ -76,7 +76,7 @@ fill_line(char *buf, void (*prn)(void *,...), void *file,
     va_end(arg);
   }
   
-  // comment off if it exists
+  /* comment off if it exists*/
   if (flagoff[0] != '\0')
   {
     for (i = j; i < _H_LINE_SIZE_; i ++)
@@ -139,7 +139,7 @@ printExecInfoCustom(void *file, char *fon, char *txt, char *foff,
     fill_line(tmp,prn,file,fon,"argv: %s",foff,' ',space+1);
   fill_line(tmp,prn,file,fon,"",foff,' ');
   
-  // user
+  /* user*/
   avt_getusername(buf);
   fill_line(tmp,prn,file,fon,"User: %s",foff,' ',buf);
 
@@ -155,7 +155,7 @@ printExecInfoCustom(void *file, char *fon, char *txt, char *foff,
   
   if (txt && txt[0] != '\0')
   {
-    // skip '\n'
+    /* skip '\n'*/
     done            = 0;
     for (i = 0, j = 0; !done; i ++)
       /*                                  this is not an error */

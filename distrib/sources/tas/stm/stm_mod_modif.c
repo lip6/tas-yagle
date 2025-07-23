@@ -138,7 +138,7 @@ timing_model *stm_mod_reduce (char *name, timing_model *tmodel, float slew, floa
             rdelaymod->UTYPE = STM_MOD_MODTBL;
             stm_mod_destroy (tmodel_tbl);
 
-//            fprintf (stderr, " - warning - stm_mod_reduce: STM_MOD_MODFCT not implemented\n");
+/*            fprintf (stderr, " - warning - stm_mod_reduce: STM_MOD_MODFCT not implemented\n");*/
             break;
     }
     return rdelaymod;

@@ -5,7 +5,7 @@
 #include"inf.tab.h"
 #undef ECHO
 #define ECHO {}
-//#define ECHO fprintf(stdout,"{%s %d} ",yytext,*yytext);
+/*#define ECHO fprintf(stdout,"{%s %d} ",yytext,*yytext);*/
 #define YY_NO_UNPUT
 
 extern int infParseLine  ;
@@ -28,12 +28,12 @@ static long search (char *key)
         addhtitem (pt_hash, NameAlloc(&na, "disable"), T_DISABLE);
         addhtitem (pt_hash, NameAlloc(&na, "stable"), T_STABLE);
         addhtitem (pt_hash, NameAlloc(&na, "down"), T_DOWN);
-//        addhtitem (pt_hash, NameAlloc(&na, "default"), T_DEFAULT);
+/*        addhtitem (pt_hash, NameAlloc(&na, "default"), T_DEFAULT);*/
         addhtitem (pt_hash, NameAlloc(&na, "end"), T_END);
         addhtitem (pt_hash, NameAlloc(&na, "start"), T_START);
         addhtitem (pt_hash, NameAlloc(&na, "holdtime"), T_HOLDTIME);
         addhtitem (pt_hash, NameAlloc(&na, "input"), T_INPUT);
-//        addhtitem (pt_hash, NameAlloc(&na, "name"), T_NAME);
+/*        addhtitem (pt_hash, NameAlloc(&na, "name"), T_NAME);*/
         addhtitem (pt_hash, NameAlloc(&na, "stability"), T_STABILITY);
         addhtitem (pt_hash, NameAlloc(&na, "output"), T_OUTPUT);
         addhtitem (pt_hash, NameAlloc(&na, "period"), T_PERIOD);
@@ -88,8 +88,8 @@ static long search (char *key)
 
         addhtitem (pt_hash, NameAlloc(&na, "rc"), T_RC);
         addhtitem (pt_hash, NameAlloc(&na, "norc"), T_NORC);
-//        addhtitem (pt_hash, NameAlloc(&na, "elm"), T_ELM);
-//        addhtitem (pt_hash, NameAlloc(&na, "rcn"), T_RCN);
+/*        addhtitem (pt_hash, NameAlloc(&na, "elm"), T_ELM);*/
+/*        addhtitem (pt_hash, NameAlloc(&na, "rcn"), T_RCN);*/
         addhtitem (pt_hash, NameAlloc(&na, "inout"), T_INOUT);
         addhtitem (pt_hash, NameAlloc(&na, "in"), T_IN);
         addhtitem (pt_hash, NameAlloc(&na, "mutex"), T_MUTEX);
@@ -185,21 +185,21 @@ value -?{num}*(\.{num}+)?({exp}-?{num}+)?
                                            ECHO; 
                                            token=search(yytext);
                                            if (token!=EMPTYHT) return token;
-                                           //inflval.str = stripquotes(yytext);
+                                           /*inflval.str = stripquotes(yytext);*/
                                            stripquotes(yytext, inflval.tab);
                                            return(T_NAME);
                                           }
 .                                      {ECHO; return(*yytext) ; } 
 %%
-//[:]                                      {ECHO; return(*yytext) ; } 
-//[{]                                      {ECHO; return(*yytext) ; } 
-//[}]                                      {ECHO; return(*yytext) ; } 
-//[,]                                      {ECHO; return(*yytext) ; } 
-//[~]                                      {ECHO; return(*yytext) ; } 
-//[<]                                      {ECHO; return(*yytext) ; } 
-//[>]                                      {ECHO; return(*yytext) ; } 
-//[!]                                      {ECHO; return(*yytext) ; } 
-//[=]                                      {ECHO; return(*yytext) ; } 
+/*[:]                                      {ECHO; return(*yytext) ; } */
+/*[{]                                      {ECHO; return(*yytext) ; } */
+/*[}]                                      {ECHO; return(*yytext) ; } */
+/*[,]                                      {ECHO; return(*yytext) ; } */
+/*[~]                                      {ECHO; return(*yytext) ; } */
+/*[<]                                      {ECHO; return(*yytext) ; } */
+/*[>]                                      {ECHO; return(*yytext) ; } */
+/*[!]                                      {ECHO; return(*yytext) ; } */
+/*[=]                                      {ECHO; return(*yytext) ; } */
 
 void stripquotes (char *source, char *dest)
 {

@@ -50,7 +50,7 @@ stbdebug_list **debug2 ;
  if (max1>max2) return 1;
  if (max1<max2) return -1;
  return 0;
-// return((int)(max1-max2)) ;
+/* return((int)(max1-max2)) ;*/
 }
 
 /*****************************************************************************
@@ -496,7 +496,7 @@ stbdebug_list *stb_addstbdebug(stbdebug_list *head,
         )
 {
  stbdebug_list *pt ;
-// int i;
+/* int i;*/
 
  pt = (stbdebug_list *)mbkalloc(sizeof(stbdebug_list)) ;
 
@@ -832,7 +832,7 @@ static int getslopedate(stbck *ck, int max, long *clockslope, long *cmdslope, tt
       if (ev->TYPE & TTV_NODE_UP) ud=1; else ud=0;
     }
 
-//  if ((ev->TYPE & TTV_NODE_UP)!=(ck->ORIGINAL_CLOCK->TYPE & TTV_NODE_UP)) ud=(ud+1) & 1;
+/*  if ((ev->TYPE & TTV_NODE_UP)!=(ck->ORIGINAL_CLOCK->TYPE & TTV_NODE_UP)) ud=(ud+1) & 1;*/
   *cmdslope=tab[max*2+ud];
   return 1;
 }
@@ -929,7 +929,7 @@ static void stb_compute_margins(inffig_list *ifl, stbck *inputck, stbpair_list *
   path_end_time-=datamoved[outputindex][inputck?inputck->CKINDEX:0];
   
 
-//  printf("%s > %s / %s : %ld -> %ld  | %ld -> %ld | (mM %ld %ld)\n",setup?"setup":"hold", tve_data->ROOT->NAME, tve_clock->ROOT->NAME, path_start_time, path_end_time, clock_path_start_time, cmdslope, min, max);
+/*  printf("%s > %s / %s : %ld -> %ld  | %ld -> %ld | (mM %ld %ld)\n",setup?"setup":"hold", tve_data->ROOT->NAME, tve_clock->ROOT->NAME, path_start_time, path_end_time, clock_path_start_time, cmdslope, min, max);*/
 
 /*
   if (setup || (factor_data==-1 || factor_clock==-1)) overlapc=overlapd=min=max=0;
@@ -954,7 +954,7 @@ static void stb_compute_margins(inffig_list *ifl, stbck *inputck, stbpair_list *
       eshcdi->data_margin=mbk_long_round(overlapd+((float)path_end_time-overlapd)*factor_data+delta_data)-path_end_time;
     }
   else  eshcdi->data_margin=0;
-//  printf("  >> path change: margedata:%ld / margeclock:%ld , od=%ld oc=%ld\n", eshcdi->data_margin, eshcdi->clock_margin, overlapd, overlapc);
+/*  printf("  >> path change: margedata:%ld / margeclock:%ld , od=%ld oc=%ld\n", eshcdi->data_margin, eshcdi->clock_margin, overlapd, overlapc);*/
 }
 
 static void mymin(Extended_Setup_Hold_Computation_Data_Item *lastval, int val, ttvevent_list *common)
@@ -1132,7 +1132,7 @@ void stb_compute_common_clock_gap(inffig_list *ifl, stbfig_list *sf, ttvsig_list
                }
               else
                {
-                 // on ne peut pas savoir, on reste dans le pire cas
+                 /* on ne peut pas savoir, on reste dans le pire cas*/
                  if (!abort) for (i=0; i<2; i++) eshcd->setup_clock_gap[i].value=eshcd->hold_clock_gap[i].value=0;
                  abort=1;
                }
@@ -1223,7 +1223,7 @@ void stb_compute_common_clock_gap(inffig_list *ifl, stbfig_list *sf, ttvsig_list
                {
                  if (clock!=NULL) phase=(int)clock->CKINDEX;
                  else if (ck!=NULL) phase=ck->CKINDEX;
-                 else phase=0; // combinatoire
+                 else phase=0; /* combinatoire*/
                }
               if (phase==STB_NO_INDEX) selected_end_stab=NULL;
               else if (nothz) selected_end_stab=end_stab[phase];
@@ -1232,7 +1232,7 @@ void stb_compute_common_clock_gap(inffig_list *ifl, stbfig_list *sf, ttvsig_list
                 {
                   /*              checkstbfig=sf;
                                   checkout=inputnode->EVENT;*/
-                  if (inputck==NULL) phase=0; // combinatoire
+                  if (inputck==NULL) phase=0; /* combinatoire*/
                   else phase=inputck->CKINDEX;
                   if (phase!=STB_NO_INDEX)
                     {
@@ -1329,7 +1329,7 @@ void stb_add_infos(stbfig_list *stbfig, ttvevent_list *output, int i, Setup_Hold
 
 chain_list *stb_debug_retreive_delays(stbfig_list *stbfig, ttvsig_list *sig, int dir, int forceclockordata, int falseaccessmode, long compflags)
 {
-  // forceclockordata: 1=>clock, 2=>data
+  /* forceclockordata: 1=>clock, 2=>data*/
   long find;
   int oldprecisionlevel;
   ttvpath_list *path, *scanpath;
@@ -1595,9 +1595,9 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
  ifl=getloadedinffig(stbfig->FIG->INFO->FIGNAME);
  geneclockinfo=stb_build_generated_clock_info(stbfig->CLOCK);
 
- //----
+ /*----*/
  computeflags|=STB_DIFFERENTIATE_INPUT_EVENTS|STB_DIFFERENTIATE_INPUT_COMMANDS;
- //----
+ /*----*/
 
  if (!(computeflags & STB_DIFFERENTIATE_INPUT_EVENTS))
    computeflags&=~STB_DIFFERENTIATE_INPUT_COMMANDS;
@@ -1700,7 +1700,7 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                    {
                      inputck=run_inputck;
                      if (!stb_checkvalidcommand(sig1event, inputck)) continue;
-//                    if (getptype(ptsig->USER, TTV_SIG_CLOCK)!=NULL && run_inputck!=NULL && run_inputck->CMD!=NULL) continue;
+/*                    if (getptype(ptsig->USER, TTV_SIG_CLOCK)!=NULL && run_inputck!=NULL && run_inputck->CMD!=NULL) continue;*/
                  
                      if((inputck != NULL) && (inputck->SUPMAX != STB_NO_TIME) && (inputck->SDNMAX != STB_NO_TIME))
                        {
@@ -1735,7 +1735,7 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                              ockperiod = STB_NO_TIME ;
                            }
                        }
-                     // IIII
+                     /* IIII*/
                      if (computeflags & STB_DIFFERENTIATE_INPUT_COMMANDS)
                        {
                          for( j=0; j<2; j++)
@@ -1766,10 +1766,10 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                                }
                            }
                        }
-                     // OOOO
+                     /* OOOO*/
                      ptsig->TYPE &= ~(TTV_SIG_MARQUE) ;
 
-                     // ---------------------------------------------------------------------------------------                     
+                     /* ---------------------------------------------------------------------------------------                     */
                      if (stb_getstbnode(sig->NODE)->SPECOUT!=NULL || stb_getstbnode(sig->NODE+1)->SPECOUT!=NULL)
                         specoutend=stb_getstbnode(sig->NODE)->NBINDEX;
                      else 
@@ -1829,7 +1829,7 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                                 continue;
 
                              node = stb_getstbnode(event) ;
-                             // -----------------------------
+                             /* -----------------------------*/
                              endnodeck=node->CK;
                              accesscmd=accessclock=NULL;
                              if (specout>=0 && (node->SPECOUT==NULL || node->SPECOUT[specout]==NULL)) continue;
@@ -1884,9 +1884,9 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                                  if(delay != NULL)
                                    if(delay->CMD != NULL)
                                    {
-//                                     stb_getstbck(node,delay->CMD) ;
+/*                                     stb_getstbck(node,delay->CMD) ;*/
                                      endnodeck=stb_findstbck(node,delay->CMD) ;
-//                                     endnodeck=node->CK;
+/*                                     endnodeck=node->CK;*/
                                      if (endnodeck==NULL/*->CMD!=NULL && endnodeck->CMD!=delay->CMD*/) continue;
                                    }
                                }
@@ -1897,7 +1897,7 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                                 endnodeck=stb_getclock(stbfig, specout, NULL, &edge, NULL);
                                 if (endnodeck==NULL && stbfig->CLOCK!=NULL) continue;
                              }
-                             // falseslack check
+                             /* falseslack check*/
                              if (delay!=NULL && stb_hasfalseslack(stbfig, event))
                              {
                                ttvevent_list *startclock, *endclocksetup, *endclockhold;
@@ -1940,13 +1940,13 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                                                {                   
                                                  if((stbfig->STABILITYMODE & STB_STABILITY_FF) != 0)
                                                    {
-                                                     //periode = endnodeck->PERIOD ;
+                                                     /*periode = endnodeck->PERIOD ;*/
                                                      periode = stb_synchronize_slopes(stbfig, u, endnodeck->CKINDEX, endnodeck->PERIOD, STB_DECIFEQUALPHASE);
                                                    }
                                                  else if((stbfig->STABILITYMODE & STB_STABILITY_LT) != 0)
                                                  {
                                                
-                                                   //periode=0;
+                                                   /*periode=0;*/
                                                    periode = stb_synchronize_slopes(stbfig, u, endnodeck->CKINDEX, endnodeck->PERIOD, 0);
                                                    transparence=1 ;
                                                  }
@@ -1956,13 +1956,13 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                                                    }
                                                  else
                                                  {
-                                                   //periode = endnodeck->PERIOD ;
+                                                   /*periode = endnodeck->PERIOD ;*/
                                                    periode = stb_synchronize_slopes(stbfig, u, endnodeck->CKINDEX, endnodeck->PERIOD, STB_DECIFEQUALPHASE);
                                                  }
                                                }
                                              else
                                                {
-                                                 //periode = endnodeck->PERIOD ;
+                                                 /*periode = endnodeck->PERIOD ;*/
                                                  periode = stb_synchronize_slopes(stbfig, u, endnodeck->CKINDEX, endnodeck->PERIOD, specout==-1?STB_DECIFEQUALPHASE:STB_SPECOUTMODE);
                                                }
                                            }
@@ -2124,7 +2124,7 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                                  {
                                    stb_get_setup_and_hold_slopes_delta(endnodecksave[1], &updelta, &downdelta);
                                    bestperiodindex=getbestperiod(phaseused, periodemax, (int)stbfig->PHASENUMBER);
-                                   //                         if (bestperiodindex!=STB_NO_INDEX) updelta+=periodemax[bestperiodindex], downdelta+=periodemax[bestperiodindex];
+                                   /*                         if (bestperiodindex!=STB_NO_INDEX) updelta+=periodemax[bestperiodindex], downdelta+=periodemax[bestperiodindex];*/
 
                                    ckup_min = endnodecksave[1]->SUPMIN + updelta;
                                    ckup_max = endnodecksave[1]->SUPMAX + updelta;
@@ -2135,7 +2135,7 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                                  {
                                    stb_get_setup_and_hold_slopes_delta(endnodecksave[0], &updelta, &downdelta);
                                    bestperiodindex=getbestperiod(phaseused, periodemax, (int)stbfig->PHASENUMBER);
-                                   //                         if (bestperiodindex!=STB_NO_INDEX) updelta+=periodemax[bestperiodindex], downdelta+=periodemax[bestperiodindex];
+                                   /*                         if (bestperiodindex!=STB_NO_INDEX) updelta+=periodemax[bestperiodindex], downdelta+=periodemax[bestperiodindex];*/
 
                                    ckup_min = endnodecksave[0]->SUPMIN + updelta;
                                    ckup_max = endnodecksave[0]->SUPMAX + updelta;
@@ -2401,7 +2401,7 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                              stb_freestbtabpair(tabhz[i],node->NBINDEX) ;
                            }
                        }
-                     // ---------------------------------------------------------------------------------------
+                     /* ---------------------------------------------------------------------------------------*/
                    }
                      if (computeflags & STB_DIFFERENTIATE_INPUT_COMMANDS)
                        {
@@ -2413,9 +2413,9 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
                        }
 
                      if (doonce) break;
-                   } // start cmd
+                   } /* start cmd*/
                  if ((computeflags & STB_DIFFERENTIATE_INPUT_EVENTS)==0) break;
-               } // diff
+               } /* diff*/
            }
        }
      freechain(chaincmd) ;
@@ -2428,7 +2428,7 @@ stbdebug_list *stb_debugstberror(stbfig_list *stbfig, ttvsig_list *sig, long mar
      stb_delstbdelay(sig->NODE+1) ;
    }
 
- // ----------- Directives check ---------
+ /* ----------- Directives check ---------*/
 
  for(i = 0 ; i < 2 ; i++)
    {

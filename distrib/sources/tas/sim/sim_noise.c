@@ -16,7 +16,7 @@
 #include SIM_H
 #include "sim.h"
 
-chain_list *SIM_HEAD_NOISE = NULL; // init for each action !!!!
+chain_list *SIM_HEAD_NOISE = NULL; /* init for each action !!!!*/
 
 
 /*---------------------------------------------------------------------------*/
@@ -25,7 +25,7 @@ sim_noise *sim_noise_extract (sim_model *model,char type, char *name,
                               SIM_FLOAT vthnoise,SIM_FLOAT tinit, SIM_FLOAT tfinal)
 {
     SIM_FLOAT  step,vthl,vthh;
-    SIM_FLOAT  tc = 1.0;         // temps de commutation
+    SIM_FLOAT  tc = 1.0;         /* temps de commutation*/
     SIM_FLOAT  peak;
     SIM_FLOAT *tab,slope,vdd;
     char      *md_name;

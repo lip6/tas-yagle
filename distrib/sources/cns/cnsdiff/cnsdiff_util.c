@@ -29,7 +29,7 @@ void printlocondiffheader(file,maskopt)
     (void)fprintf(file,"#                                                          #\n") ; 
     (void)fprintf(file,"############################################################\n") ; 
     (void)fprintf(file,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_NOOUT)
+  }  /* if (maskopt&DIFF_OPT_NOOUT)*/
   if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
     (void)fprintf(stdout,"\n") ; 
     (void)fprintf(stdout,"############################################################\n") ; 
@@ -38,7 +38,7 @@ void printlocondiffheader(file,maskopt)
     (void)fprintf(stdout,"#                                                          #\n") ; 
     (void)fprintf(stdout,"############################################################\n") ;
     (void)fprintf(stdout,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_VERBOSE)
+  }  /* if (maskopt&DIFF_OPT_VERBOSE)*/
  }
 
 /****************************************************************************/
@@ -81,30 +81,30 @@ int cnsdiff_cnsfiglocon_diff(file,cnsfig1,cnsfig2,maskopt)
   if (index2 == index1) {
     minsize= cnsfig1;
     maxsize = cnsfig2;
-  } // if (index2 == index1)
+  } /* if (index2 == index1)*/
   else {
     if ( index1 > index2) {
       minsize= cnsfig2;
       maxsize = cnsfig1;
       deltaindex = index1 - index2;
-    } // if ( index1 > index2)
+    } /* if ( index1 > index2)*/
     else {
       minsize= cnsfig1;
       maxsize = cnsfig2;
       deltaindex = index2 - index1;
-    } // else 
+    } /* else */
     
     if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
        (void)fprintf(file,"*** ERROR: nombre de connecteurs differents (%d). entre %s(%d) et %s(%d) \n",
                      deltaindex,cnsfig1->NAME,index1,cnsfig2->NAME,index2) ; 
        (void)fprintf(file,"\n") ; 
-    }  // if (maskopt&DIFF_OPT_NOOUT)
+    }  /* if (maskopt&DIFF_OPT_NOOUT)*/
     if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
        (void)fprintf(stdout,"*** ERROR: nombre de connecteurs differents (%d). entre %s(%d) et %s(%d) \n",
                      deltaindex,cnsfig1->NAME,index1,cnsfig2->NAME,index2) ; 
        (void)fprintf(stdout,"\n") ; 
-    } // if (maskopt&DIFF_OPT_VERBOSE)
-  } // else (index2 != index1)
+    } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+  } /* else (index2 != index1)*/
   
   for (chain=minsize->LOCON;chain;chain=chain->NEXT) {
     if (gethtitem(htmin,chain->NAME)==EMPTYHT)
@@ -120,11 +120,11 @@ int cnsdiff_cnsfiglocon_diff(file,cnsfig1,cnsfig2,maskopt)
       if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
         (void)fprintf(file,"*** ERROR: Connecteur %s de %s manquant dans %s \n",
                      chain->NAME,maxsize->NAME,minsize->NAME) ; 
-      }  // if (maskopt&DIFF_OPT_NOOUT)
+      }  /* if (maskopt&DIFF_OPT_NOOUT)*/
       if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
         (void)fprintf(stdout,"*** ERROR: Connecteur %s de %s manquant dans %s \n",
                      chain->NAME,maxsize->NAME,minsize->NAME) ;  
-       } // if (maskopt&DIFF_OPT_VERBOSE)
+       } /* if (maskopt&DIFF_OPT_VERBOSE)*/
     }
     else {
       if (chain->SIG != NULL && ptlocon->SIG != NULL) { 
@@ -134,7 +134,7 @@ int cnsdiff_cnsfiglocon_diff(file,cnsfig1,cnsfig2,maskopt)
             (void)fprintf(file,"*** ERROR: Connecteur %s - champs SIG different\n",chain->NAME) ; 
           if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
             (void)fprintf(stdout,"*** ERROR: Connecteur %s - champs SIG different\n",chain->NAME) ;  
-        } // test de LOCON->SIG
+        } /* test de LOCON->SIG*/
       }
 
 /*      
@@ -144,7 +144,7 @@ int cnsdiff_cnsfiglocon_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Connecteur %s - champs ROOT different\n",chain->NAME) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: Connecteur %s - champs ROOT different\n",chain->NAME) ;  
-      } // test de LOCON->ROOT
+      } /* test de LOCON->ROOT*/
 */
 
       if (chain->DIRECTION != ptlocon->DIRECTION) {
@@ -153,7 +153,7 @@ int cnsdiff_cnsfiglocon_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Connecteur %s - champs DIRECTION different\n",chain->NAME) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: Connecteur %s - champs DIRECTION different\n",chain->NAME) ;  
-      } // test de LOCON->DIRECTION
+      } /* test de LOCON->DIRECTION*/
       
       if (chain->TYPE != ptlocon->TYPE) {
         count++;
@@ -161,7 +161,7 @@ int cnsdiff_cnsfiglocon_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Connecteur %s - champs TYPE different\n",chain->NAME) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: Connecteur %s - champs TYPE different\n",chain->NAME) ;  
-      } // test de LOCON->TYPE
+      } /* test de LOCON->TYPE*/
       
 /*
       if (chain->USER != ptlocon->USER) {
@@ -170,10 +170,10 @@ int cnsdiff_cnsfiglocon_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Connecteur %s - champs USER different\n",chain->NAME) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: Connecteur %s - champs USER different\n",chain->NAME) ;  
-      } // test de LOCON->USER
+      } /* test de LOCON->USER*/
 */
 
-    } // fin des tests
+    } /* fin des tests*/
   }
   
   for (chain=minsize->LOCON;chain;chain=chain->NEXT) {
@@ -182,12 +182,12 @@ int cnsdiff_cnsfiglocon_diff(file,cnsfig1,cnsfig2,maskopt)
       if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
         (void)fprintf(file,"*** ERROR: Connecteur %s de %s manquant dans %s \n",
                      chain->NAME,minsize->NAME,maxsize->NAME) ; 
-      }  // if (maskopt&DIFF_OPT_NOOUT)
+      }  /* if (maskopt&DIFF_OPT_NOOUT)*/
       if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
         (void)fprintf(stdout,"*** ERROR: Connecteur %s de %s manquant dans %s \n",
                      chain->NAME,minsize->NAME,maxsize->NAME) ;  
-       } // if (maskopt&DIFF_OPT_VERBOSE)
-    } // pas de else car les comparaisons ont deja ete faites
+       } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+    } /* pas de else car les comparaisons ont deja ete faites*/
   }
 
   delht(htmin);
@@ -215,7 +215,7 @@ void printlotrsdiffheader(file,maskopt)
     (void)fprintf(file,"#                                                          #\n") ; 
     (void)fprintf(file,"############################################################\n") ; 
     (void)fprintf(file,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_NOOUT)
+  }  /* if (maskopt&DIFF_OPT_NOOUT)*/
   if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
     (void)fprintf(stdout,"\n") ; 
     (void)fprintf(stdout,"############################################################\n") ; 
@@ -224,7 +224,7 @@ void printlotrsdiffheader(file,maskopt)
     (void)fprintf(stdout,"#                                                          #\n") ; 
     (void)fprintf(stdout,"############################################################\n") ;
     (void)fprintf(stdout,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_VERBOSE)
+  }  /* if (maskopt&DIFF_OPT_VERBOSE)*/
  }
 
 /****************************************************************************/
@@ -269,30 +269,30 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
   if (index2 == index1) {
     minsize= cnsfig1;
     maxsize = cnsfig2;
-  } // if (index2 == index1)
+  } /* if (index2 == index1)*/
   else {
     if ( index1 > index2) {
       minsize= cnsfig2;
       maxsize = cnsfig1;
       deltaindex = index1 - index2;
-    } // if ( index1 > index2)
+    } /* if ( index1 > index2)*/
     else {
       minsize= cnsfig1;
       maxsize = cnsfig2;
       deltaindex = index2 - index1;
-    } // else 
+    } /* else */
     
     if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
        (void)fprintf(file,"*** ERROR: nombre de transistors differents (%d) entre %s(%d) et %s(%d) \n",
                      deltaindex,cnsfig1->NAME,index1,cnsfig2->NAME,index2) ; 
        (void)fprintf(file,"\n") ; 
-    }  // if (maskopt&DIFF_OPT_NOOUT)
+    }  /* if (maskopt&DIFF_OPT_NOOUT)*/
     if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
        (void)fprintf(stdout,"*** ERROR: nombre de transistors differents (%d) entre %s(%d) et %s(%d) \n",
                      deltaindex,cnsfig1->NAME,index1,cnsfig2->NAME,index2) ; 
        (void)fprintf(stdout,"\n") ; 
-    } // if (maskopt&DIFF_OPT_VERBOSE)
-  } // else (index2 != index1)
+    } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+  } /* else (index2 != index1)*/
   
   for (chain=minsize->LOTRS;chain;chain=chain->NEXT) {
     ptype =  getptype(chain->USER,CNS_INDEX);
@@ -312,11 +312,11 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
       if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
         (void)fprintf(file,"*** ERROR: transistors %d non trouvé\n",
                      lotrsindex) ; 
-      }  // if (maskopt&DIFF_OPT_NOOUT)
+      }  /* if (maskopt&DIFF_OPT_NOOUT)*/
       if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
         (void)fprintf(stdout,"*** ERROR:transistors %d non trouvé\n",
                      lotrsindex) ; 
-      } // if (maskopt&DIFF_OPT_VERBOSE)
+      } /* if (maskopt&DIFF_OPT_VERBOSE)*/
     }
     else { 
     
@@ -326,7 +326,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs DRAIN different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs DRAIN different\n",(long)chain) ;  
-      } // test de LOTRS->DRAIN
+      } /* test de LOTRS->DRAIN*/
       
       if (chain->GRID != ptlotrs->GRID) {
         count++;
@@ -334,7 +334,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs GRID different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs GRID different\n",(long)chain) ;  
-      } // test de LOTRS->GRID
+      } /* test de LOTRS->GRID*/
             
       if (chain->SOURCE != ptlotrs->SOURCE) {
         count++;
@@ -342,7 +342,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs SOURCE different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs SOURCE different\n",(long)chain) ;  
-      } // test de LOTRS->SOURCE
+      } /* test de LOTRS->SOURCE*/
       
       if (chain->X != ptlotrs->X) {
         count++;
@@ -350,7 +350,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs X different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs X different\n",(long)chain) ;  
-      } // test de LOTRS->X
+      } /* test de LOTRS->X*/
             
       if (chain->Y != ptlotrs->Y) {
         count++;
@@ -358,7 +358,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs Y different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs Y different\n",(long)chain) ;  
-      } // test de LOTRS->Y
+      } /* test de LOTRS->Y*/
     
       if (chain->WIDTH != ptlotrs->WIDTH) {
         count++;
@@ -366,7 +366,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs WIDTH different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs WIDTH different\n",(long)chain) ;  
-      } // test de LOTRS->WIDTH
+      } /* test de LOTRS->WIDTH*/
             
       if (chain->LENGTH != ptlotrs->LENGTH) {
         count++;
@@ -374,7 +374,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs LENGTH different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs LENGTH different\n",(long)chain) ;  
-      } // test de LOTRS->LENGTH
+      } /* test de LOTRS->LENGTH*/
      
       if (chain->PS != ptlotrs->PS) {
         count++;
@@ -382,7 +382,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs PS different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs PS different\n",(long)chain) ;  
-      } // test de LOTRS->PS
+      } /* test de LOTRS->PS*/
             
       if (chain->PD != ptlotrs->PD) {
         count++;
@@ -390,7 +390,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs PD different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs PD different\n",(long)chain) ;  
-      } // test de LOTRS->PD
+      } /* test de LOTRS->PD*/
      
       if (chain->XS != ptlotrs->XS) {
         count++;
@@ -398,7 +398,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs XS different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs XS different\n",(long)chain) ;  
-      } // test de LOTRS->XS
+      } /* test de LOTRS->XS*/
             
       if (chain->XD != ptlotrs->XD) {
         count++;
@@ -406,7 +406,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs XD different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs XD different\n",(long)chain) ;  
-      } // test de LOTRS->XD
+      } /* test de LOTRS->XD*/
             
       if (chain->TYPE != ptlotrs->TYPE) {
         count++;
@@ -414,7 +414,7 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs TYPE different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs TYPE different\n",(long)chain) ;  
-      } // test de LOTRS->TYPE
+      } /* test de LOTRS->TYPE*/
             
 /*
       if (chain->USER != ptlotrs->USER) {
@@ -423,10 +423,10 @@ int cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt)
           (void)fprintf(file,"*** ERROR: Transistor (pt:%ld) - champs USER different\n",(long)chain) ; 
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE)
           (void)fprintf(stdout,"*** ERROR: transistor (pt:%ld) - champs USER different\n",(long)chain) ;  
-      } // test de LOTRS->USER
+      } /* test de LOTRS->USER*/
 */
 
-    }// fin des tests
+    }/* fin des tests*/
   }
 
   for (chain=minsize->LOTRS;chain;chain=chain->NEXT) {
@@ -459,7 +459,7 @@ void printconediffheader(file,maskopt)
     (void)fprintf(file,"#                                                          #\n") ; 
     (void)fprintf(file,"############################################################\n") ; 
     (void)fprintf(file,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_NOOUT)
+  }  /* if (maskopt&DIFF_OPT_NOOUT)*/
   if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
     (void)fprintf(stdout,"\n") ; 
     (void)fprintf(stdout,"############################################################\n") ; 
@@ -468,7 +468,7 @@ void printconediffheader(file,maskopt)
     (void)fprintf(stdout,"#                                                          #\n") ; 
     (void)fprintf(stdout,"############################################################\n") ;
     (void)fprintf(stdout,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_VERBOSE)
+  }  /* if (maskopt&DIFF_OPT_VERBOSE)*/
  }
 
 /****************************************************************************/
@@ -513,11 +513,11 @@ int loc_coneloop_incone(file,maskopt,chain,ptcone)
       if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
         (void)fprintf(file,"*** ERROR: Cone %s - INCONE %ld manquant. \n",
                       chain->NAME,(long)incone->UEDGE.CONE->NAME) ; 
-      }  // if (maskopt&DIFF_OPT_NOOUT)
+      }  /* if (maskopt&DIFF_OPT_NOOUT)*/
       if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
         (void)fprintf(stdout,"*** ERROR: Cone %s - INCONE %ld manquant. \n",
                       chain->NAME,(long)incone->UEDGE.CONE->NAME) ; 
-       } // if (maskopt&DIFF_OPT_VERBOSE)
+       } /* if (maskopt&DIFF_OPT_VERBOSE)*/
     }
     else {
       if (incone->TYPE != ptincone->TYPE) {
@@ -525,12 +525,12 @@ int loc_coneloop_incone(file,maskopt,chain,ptcone)
         if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
           (void)fprintf(file,"*** ERROR: Cone %s - INCONE (%ld) de TYPE different. \n",
                         chain->NAME,(long)incone->UEDGE.PTR) ; 
-        }  // if (maskopt&DIFF_OPT_NOOUT)
+        }  /* if (maskopt&DIFF_OPT_NOOUT)*/
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - INCONE (%ld) TYPE different. \n",
                         chain->NAME,(long)incone->UEDGE.PTR) ; 
-         } // if (maskopt&DIFF_OPT_VERBOSE)
-      } // test du UEDGE->TYPE
+         } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+      } /* test du UEDGE->TYPE*/
     
     }
     
@@ -544,11 +544,11 @@ int loc_coneloop_incone(file,maskopt,chain,ptcone)
         if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
           (void)fprintf(file,"*** ERROR: Cone %s - INCONE %ld manquant. \n",
                         chain->NAME,(long)incone->UEDGE.CONE->NAME) ; 
-        }  // if (maskopt&DIFF_OPT_NOOUT)
+        }  /* if (maskopt&DIFF_OPT_NOOUT)*/
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - INCONE %ld manquant. \n",
                         chain->NAME,(long)incone->UEDGE.CONE->NAME) ; 
-         } // if (maskopt&DIFF_OPT_VERBOSE)
+         } /* if (maskopt&DIFF_OPT_VERBOSE)*/
       }
       else {
         if (incone->TYPE != ptincone->TYPE) {
@@ -556,16 +556,16 @@ int loc_coneloop_incone(file,maskopt,chain,ptcone)
           if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
             (void)fprintf(file,"*** ERROR: Cone %s - INCONE (%ld) de TYPE different. \n",
                           chain->NAME,(long)incone->UEDGE.CONE->NAME) ; 
-          }  // if (maskopt&DIFF_OPT_NOOUT)
+          }  /* if (maskopt&DIFF_OPT_NOOUT)*/
           if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
             (void)fprintf(stdout,"*** ERROR: Cone %s - INCONE (%ld) TYPE different. \n",
                           chain->NAME,(long)incone->UEDGE.CONE->NAME) ; 
-           } // if (maskopt&DIFF_OPT_VERBOSE)
-        } // test du UEDGE->TYPE
+           } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+        } /* test du UEDGE->TYPE*/
       
       }
     }
-  } // (htchainindex > htptconeindex)
+  } /* (htchainindex > htptconeindex)*/
 
   delht(htchain);
   delht(htptcone);
@@ -615,11 +615,11 @@ int loc_coneloop_outcone(file,maskopt,chain,ptcone)
       if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
         (void)fprintf(file,"*** ERROR: Cone %s - OUTCONE %ld manquant. \n",
                       chain->NAME,(long)outcone->UEDGE.CONE->NAME) ; 
-      }  // if (maskopt&DIFF_OPT_NOOUT)
+      }  /* if (maskopt&DIFF_OPT_NOOUT)*/
       if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
         (void)fprintf(stdout,"*** ERROR: Cone %s - OUTCONE %ld manquant. \n",
                       chain->NAME,(long)outcone->UEDGE.CONE->NAME) ; 
-       } // if (maskopt&DIFF_OPT_VERBOSE)
+       } /* if (maskopt&DIFF_OPT_VERBOSE)*/
     }
     else {
       if (outcone->TYPE != ptoutcone->TYPE) {
@@ -627,12 +627,12 @@ int loc_coneloop_outcone(file,maskopt,chain,ptcone)
         if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
           (void)fprintf(file,"*** ERROR: Cone %s - OUTCONE (%ld) de TYPE different. \n",
                         chain->NAME,(long)outcone->UEDGE.CONE->NAME) ; 
-        }  // if (maskopt&DIFF_OPT_NOOUT)
+        }  /* if (maskopt&DIFF_OPT_NOOUT)*/
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - OUTCONE (%ld) TYPE different. \n",
                         chain->NAME,(long)outcone->UEDGE.CONE->NAME) ; 
-         } // if (maskopt&DIFF_OPT_VERBOSE)
-      } // test du UEDGE->TYPE
+         } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+      } /* test du UEDGE->TYPE*/
     
     }
     
@@ -646,11 +646,11 @@ int loc_coneloop_outcone(file,maskopt,chain,ptcone)
         if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
           (void)fprintf(file,"*** ERROR: Cone %s - OUTCONE %ld manquant. \n",
                         chain->NAME,(long)outcone->UEDGE.CONE->NAME) ; 
-        }  // if (maskopt&DIFF_OPT_NOOUT)
+        }  /* if (maskopt&DIFF_OPT_NOOUT)*/
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - OUTCONE %ld manquant. \n",
                         chain->NAME,(long)outcone->UEDGE.CONE->NAME) ; 
-         } // if (maskopt&DIFF_OPT_VERBOSE)
+         } /* if (maskopt&DIFF_OPT_VERBOSE)*/
       }
       else {
         if (outcone->TYPE != ptoutcone->TYPE) {
@@ -658,16 +658,16 @@ int loc_coneloop_outcone(file,maskopt,chain,ptcone)
           if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
             (void)fprintf(file,"*** ERROR: Cone %s - OUTCONE (%ld) de TYPE different. \n",
                           chain->NAME,(long)outcone->UEDGE.CONE->NAME) ; 
-          }  // if (maskopt&DIFF_OPT_NOOUT)
+          }  /* if (maskopt&DIFF_OPT_NOOUT)*/
           if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
             (void)fprintf(stdout,"*** ERROR: Cone %s - OUTCONE (%ld) TYPE different. \n",
                           chain->NAME,(long)outcone->UEDGE.CONE->NAME) ; 
-           } // if (maskopt&DIFF_OPT_VERBOSE)
-        } // test du UEDGE->TYPE
+           } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+        } /* test du UEDGE->TYPE*/
       
       }
     }
-  } // (htchainindex > htptconeindex)
+  } /* (htchainindex > htptconeindex)*/
 
   delht(htchain);
   delht(htptcone);
@@ -732,7 +732,7 @@ int loc_link_diff(loop_chain,loop_ptcone)
     indexptcone++;
 
   if (indexchain != indexptcone)
-    return 1;  // nombre de noeuds differents
+    return 1;  /* nombre de noeuds differents*/
   
   link_ptcone=loop_ptcone->LINK;
   for (link_chain=loop_chain->LINK;link_chain;link_chain=link_chain->NEXT) {
@@ -742,7 +742,7 @@ int loc_link_diff(loop_chain,loop_ptcone)
     if( (link_ptcone->TYPE == CNS_IN) || (link_ptcone->TYPE == CNS_INOUT) ) {
       if ( (link_chain->ULINK.LOCON->NAME) == (link_ptcone->ULINK.LOCON->NAME) ) {
         match++;
-      } // if ( (link_chain->ULINK.LOCON->NAME) == ... )
+      } /* if ( (link_chain->ULINK.LOCON->NAME) == ... )*/
     }
     else {
       ptype_chain = getptype(link_chain->ULINK.LOTRS->USER,CNS_DRIVINGCONE);
@@ -751,11 +751,11 @@ int loc_link_diff(loop_chain,loop_ptcone)
       cone_ptcone = (cone_list *)ptype_ptcone->DATA;
       if (cone_chain->NAME == cone_ptcone->NAME) {
         match++;
-      } // if (cone_chain->NAME == cone_ptcone->NAME)
+      } /* if (cone_chain->NAME == cone_ptcone->NAME)*/
     }
       
     if (match == 0) {
-      count++; // rien n'a matcher 
+      count++; /* rien n'a matcher */
     }
     else {
       match=0;
@@ -806,12 +806,12 @@ int loc_coneloop_branch(file,maskopt,cone_name,branch_chain,branch_ptcone)
        (void)fprintf(file,"*** ERROR: nombre de branches de %s différents.\n",
                      cone_name) ;
        (void)fprintf(file,"\n") ; 
-    }  // if (maskopt&DIFF_OPT_NOOUT)
+    }  /* if (maskopt&DIFF_OPT_NOOUT)*/
     if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
        (void)fprintf(stdout,"*** ERROR: nombre de branches de %s différents.\n",
                      cone_name) ;
        (void)fprintf(stdout,"\n") ; 
-    } // if (maskopt&DIFF_OPT_VERBOSE)
+    } /* if (maskopt&DIFF_OPT_VERBOSE)*/
   
     return count;
   }
@@ -828,23 +828,23 @@ int loc_coneloop_branch(file,maskopt,cone_name,branch_chain,branch_ptcone)
               match++;
             }
           }
-        } //if(match ==0) sinon on a deja matcher le loop_chain
-      } // for (loop_ptcone)
+        } /*if(match ==0) sinon on a deja matcher le loop_chain*/
+      } /* for (loop_ptcone)*/
       
       if (match==0) {
         count++;
         if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
           (void)fprintf(file,"*** ERROR: branche de %s differente entre les deux fichiers.\n",cone_name) ;
-        }  // if (maskopt&DIFF_OPT_NOOUT)
+        }  /* if (maskopt&DIFF_OPT_NOOUT)*/
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
          (void)fprintf(stdout,"*** ERROR: branche de %s differente entre les deux fichiers.\n",cone_name) ;
-        } // if (maskopt&DIFF_OPT_VERBOSE)
-      } //if (match==0)
+        } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+      } /*if (match==0)*/
       else
         match=0;
       
-    } //  for (loop_chain)
-  }  // else
+    } /*  for (loop_chain)*/
+  }  /* else*/
 
   delht(htmatch);
   return count;
@@ -869,7 +869,7 @@ int loc_coneloop_cells(file,maskopt,cone_name,chaincells,ptconecells)
   int          ptconeindex=0;
   cell_list    *loop;
   
-  //on verifie simplement le nombre de cells, chaque cell sont verifiee ailleurs.
+  /*on verifie simplement le nombre de cells, chaque cell sont verifiee ailleurs.*/
 
   for (loop=chaincells; loop; loop=loop->NEXT) {
       chainindex++;
@@ -885,12 +885,12 @@ int loc_coneloop_cells(file,maskopt,cone_name,chaincells,ptconecells)
        (void)fprintf(file,"*** ERROR: nombre de CELLS de %s différents.\n",
                      cone_name) ;
        (void)fprintf(file,"\n") ; 
-    }  // if (maskopt&DIFF_OPT_NOOUT)
+    }  /* if (maskopt&DIFF_OPT_NOOUT)*/
     if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
        (void)fprintf(stdout,"*** ERROR: nombre de CELLS de %s différents.\n",
                      cone_name) ;
        (void)fprintf(stdout,"\n") ; 
-    } // if (maskopt&DIFF_OPT_VERBOSE)
+    } /* if (maskopt&DIFF_OPT_VERBOSE)*/
 
   }
 
@@ -938,30 +938,30 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
   if (index2 == index1) {
     minsize= cnsfig1;
     maxsize = cnsfig2;
-  } // if (index2 == index1)
+  } /* if (index2 == index1)*/
   else {
     if ( index1 > index2) {
       minsize= cnsfig2;
       maxsize = cnsfig1;
       deltaindex = index1 - index2;
-    } // if ( index1 > index2)
+    } /* if ( index1 > index2)*/
     else {
       minsize= cnsfig1;
       maxsize = cnsfig2;
       deltaindex = index2 - index1;
-    } // else 
+    } /* else */
     
     if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
        (void)fprintf(file,"*** ERROR: nombre de cones differents (%d) entre %s(%d) et %s(%d) \n",
                      deltaindex,cnsfig1->NAME,index1,cnsfig2->NAME,index2) ; 
        (void)fprintf(file,"\n") ; 
-    }  // if (maskopt&DIFF_OPT_NOOUT)
+    }  /* if (maskopt&DIFF_OPT_NOOUT)*/
     if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
        (void)fprintf(stdout,"*** ERROR: nombre de cones differents (%d) entre %s(%d) et %s(%d) \n",
                      deltaindex,cnsfig1->NAME,index1,cnsfig2->NAME,index2) ; 
        (void)fprintf(stdout,"\n") ; 
-    } // if (maskopt&DIFF_OPT_VERBOSE)
-  } // else (index2 != index1)
+    } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+  } /* else (index2 != index1)*/
   
   for (chain=minsize->CONE;chain;chain=chain->NEXT) {
     if (gethtitem(htmin,chain->NAME)==EMPTYHT)
@@ -985,7 +985,7 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - champs INDEX different entre %s (%ld) et %s (%ld)\n",
                         chain->NAME,maxsize->NAME,chain->INDEX,minsize->NAME,ptcone->INDEX) ; } 
-      } // test de CONE->INDEX
+      } /* test de CONE->INDEX*/
               
       if (chain->TYPE != ptcone->TYPE) {
         count++;
@@ -995,7 +995,7 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - champs TYPE different entre %s (%ld) et %s (%ld)\n\n",
                         chain->NAME,maxsize->NAME,chain->TYPE,minsize->NAME,ptcone->TYPE) ; }
-      } // test de CONE->TYPE
+      } /* test de CONE->TYPE*/
       
       if (chain->TECTYPE != ptcone->TECTYPE) {
         count++;
@@ -1005,7 +1005,7 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - champs TECTYPE different entre %s (%ld) et %s (%ld)\n\n",
                         chain->NAME,maxsize->NAME,chain->TECTYPE,minsize->NAME,ptcone->TECTYPE) ; }
-      } // test de CONE->TECTYPE
+      } /* test de CONE->TECTYPE*/
       
       if (chain->XM != ptcone->XM) {
         count++;
@@ -1015,7 +1015,7 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - champs XM different entre %s (%ld) et %s (%ld)\n\n",
                         chain->NAME,maxsize->NAME,chain->XM,minsize->NAME,ptcone->XM) ; }
-      } // test de CONE->XM
+      } /* test de CONE->XM*/
             
       if (chain->Xm != ptcone->Xm) {
         count++;
@@ -1025,7 +1025,7 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - champs Xm different entre %s (%ld) et %s (%ld)\n\n",
                         chain->NAME,maxsize->NAME,chain->Xm,minsize->NAME,ptcone->Xm) ; }
-      } // test de CONE->Xm
+      } /* test de CONE->Xm*/
          
       if (chain->YM != ptcone->YM) {
         count++;
@@ -1035,7 +1035,7 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - champs YM different entre %s (%ld) et %s (%ld)\n\n",
                         chain->NAME,maxsize->NAME,chain->YM,minsize->NAME,ptcone->YM) ; }
-      } // test de CONE->YM
+      } /* test de CONE->YM*/
             
       if (chain->Ym != ptcone->Ym) {
         count++;
@@ -1045,7 +1045,7 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - champs Ym different entre %s (%ld) et %s (%ld)\n\n",
                         chain->NAME,maxsize->NAME,chain->Ym,minsize->NAME,ptcone->Ym) ; }
-      } // test de CONE->Ym
+      } /* test de CONE->Ym*/
     
 /*      
       if (chain->USER != ptcone->USER) {
@@ -1056,7 +1056,7 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - champs USER different entre %s (%ld) et %s (%ld)\n\n",
                         chain->NAME,maxsize->NAME,(long)chain->USER,minsize->NAME,(long)ptcone->USER) ; }
-      } // test de CONE->USER
+      } /* test de CONE->USER*/
 */
       
      count += loc_coneloop_incone(file,maskopt,chain,ptcone) ;
@@ -1067,7 +1067,7 @@ int cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt)
      count += loc_coneloop_branch(file,maskopt,chain->NAME,chain->BRGND,ptcone->BRGND) ;
      count += loc_coneloop_cells(file,maskopt,chain->NAME,chain->CELLS,ptcone->CELLS) ;
       
-    }// fin des tests
+    }/* fin des tests*/
   }
 
   for (chain=minsize->CONE;chain;chain=chain->NEXT) {
@@ -1100,7 +1100,7 @@ void printcelldiffheader(file,maskopt)
     (void)fprintf(file,"#                                                          #\n") ; 
     (void)fprintf(file,"############################################################\n") ; 
     (void)fprintf(file,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_NOOUT)
+  }  /* if (maskopt&DIFF_OPT_NOOUT)*/
   if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
     (void)fprintf(stdout,"\n") ; 
     (void)fprintf(stdout,"############################################################\n") ; 
@@ -1109,7 +1109,7 @@ void printcelldiffheader(file,maskopt)
     (void)fprintf(stdout,"#                                                          #\n") ; 
     (void)fprintf(stdout,"############################################################\n") ;
     (void)fprintf(stdout,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_VERBOSE)
+  }  /* if (maskopt&DIFF_OPT_VERBOSE)*/
  }
 
 /****************************************************************************/
@@ -1139,23 +1139,23 @@ int loc_match_conescell(coneref,conediff,file,maskopt)
               }
             }
             
-          } // for (loop_max=maxcell)
+          } /* for (loop_max=maxcell)*/
           if (match == 0) {
             if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
               (void)fprintf(file,"*** ERROR: Cone %s manquant dans une cellule\n",
                      ((cone_list *)coneref->DATA)->NAME) ; 
               (void)fprintf(file,"\n") ; 
-            }  // if (maskopt&DIFF_OPT_NOOUT)
+            }  /* if (maskopt&DIFF_OPT_NOOUT)*/
             if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
               (void)fprintf(stdout,"*** ERROR: Cone %s manquant dans une cellule\n",
                      ((cone_list *)coneref->DATA)->NAME) ; 
               (void)fprintf(stdout,"\n") ; 
-            } // if (maskopt&DIFF_OPT_VERBOSE)
-            return 0; // un cone est manquant
+            } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+            return 0; /* un cone est manquant*/
           }
-        } // for (loop_min=mincell)
+        } /* for (loop_min=mincell)*/
 
-        delht(htmatchcone); // on libere pour la liste de cone de la prochaine cellule        
+        delht(htmatchcone); /* on libere pour la liste de cone de la prochaine cellule        */
 
   return 1;
 }
@@ -1202,31 +1202,31 @@ int cnsdiff_cnsfigcell_diff(file,cnsfig1,cnsfig2,maskopt)
   if (index2 == index1) {
     minsize= cnsfig1;
     maxsize = cnsfig2;
-  } // if (index2 == index1)
+  } /* if (index2 == index1)*/
   else {
     count++;
     if ( index1 > index2) {
       minsize= cnsfig2;
       maxsize = cnsfig1;
       deltaindex = index1 - index2;
-    } // if ( index1 > index2)
+    } /* if ( index1 > index2)*/
     else {
       minsize= cnsfig1;
       maxsize = cnsfig2;
       deltaindex = index2 - index1;
-    } // else 
+    } /* else */
     
     if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
        (void)fprintf(file,"*** ERROR: nombre de cells differents (%d) entre %s(%d) et %s(%d) \n",
                      deltaindex,cnsfig1->NAME,index1,cnsfig2->NAME,index2) ; 
        (void)fprintf(file,"\n") ; 
-    }  // if (maskopt&DIFF_OPT_NOOUT)
+    }  /* if (maskopt&DIFF_OPT_NOOUT)*/
     if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
        (void)fprintf(stdout,"*** ERROR: nombre de cells differents (%d) entre %s(%d) et %s(%d) \n",
                      deltaindex,cnsfig1->NAME,index1,cnsfig2->NAME,index2) ; 
        (void)fprintf(stdout,"\n") ; 
-    } // if (maskopt&DIFF_OPT_VERBOSE)
-  } // else (index2 != index1)
+    } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+  } /* else (index2 != index1)*/
  
   
   if (index2 == index1) {
@@ -1255,12 +1255,12 @@ int cnsdiff_cnsfigcell_diff(file,cnsfig1,cnsfig2,maskopt)
             continue;
         
           addhtitem(htmatchcell,maxcell,(long)maxcell); 
-        } // if (gethtitem(htmatchcell,maxcell)==EMPTYHT)
+        } /* if (gethtitem(htmatchcell,maxcell)==EMPTYHT)*/
         indexconemax=0;
-      } // for minsize
+      } /* for minsize*/
       indexconemin=0;
-    } // for maxsize
-  }//  if (index2 == index1)
+    } /* for maxsize*/
+  }/*  if (index2 == index1)*/
 
   delht(htmatchcell);
   
@@ -1286,7 +1286,7 @@ void printlofigdiffheader(file,maskopt)
     (void)fprintf(file,"#                                                          #\n") ; 
     (void)fprintf(file,"############################################################\n") ; 
     (void)fprintf(file,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_NOOUT)
+  }  /* if (maskopt&DIFF_OPT_NOOUT)*/
   if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
     (void)fprintf(stdout,"\n") ; 
     (void)fprintf(stdout,"############################################################\n") ; 
@@ -1295,7 +1295,7 @@ void printlofigdiffheader(file,maskopt)
     (void)fprintf(stdout,"#                                                          #\n") ; 
     (void)fprintf(stdout,"############################################################\n") ;
     (void)fprintf(stdout,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_VERBOSE)
+  }  /* if (maskopt&DIFF_OPT_VERBOSE)*/
  }
 
 /****************************************************************************/
@@ -1337,31 +1337,31 @@ int cnsdiff_cnsfiglofig_diff(file,cnsfig1,cnsfig2,maskopt)
   if (index2 == index1) {
     minsize= cnsfig1;
     maxsize = cnsfig2;
-  } // if (index2 == index1)
+  } /* if (index2 == index1)*/
   else {
     count++;
     if ( index1 > index2) {
       minsize= cnsfig2;
       maxsize = cnsfig1;
       deltaindex = index1 - index2;
-    } // if ( index1 > index2)
+    } /* if ( index1 > index2)*/
     else {
       minsize= cnsfig1;
       maxsize = cnsfig2;
       deltaindex = index2 - index1;
-    } // else 
+    } /* else */
     
     if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
        (void)fprintf(file,"*** ERROR: nombre de lofigs differents (%d) entre %s et %s \n",
                      deltaindex,cnsfig1->NAME,cnsfig2->NAME) ; 
        (void)fprintf(file,"\n") ; 
-    }  // if (maskopt&DIFF_OPT_NOOUT)
+    }  /* if (maskopt&DIFF_OPT_NOOUT)*/
     if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
        (void)fprintf(stdout,"*** ERROR: nombre de lofigs differents (%d) entre %s et %s \n",
                      deltaindex,cnsfig1->NAME,cnsfig2->NAME) ; 
        (void)fprintf(stdout,"\n") ; 
-    } // if (maskopt&DIFF_OPT_VERBOSE)
-  } // else (index2 != index1)
+    } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+  } /* else (index2 != index1)*/
   
   
   for (chain=minsize->LOFIG;chain;chain=chain->NEXT) {
@@ -1385,7 +1385,7 @@ int cnsdiff_cnsfiglofig_diff(file,cnsfig1,cnsfig2,maskopt)
         if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
           (void)fprintf(stdout,"*** ERROR: Cone %s - champs MODE different entre %s (%c) et %s (%c)\n\n",
                         chain->NAME,maxsize->NAME,chain->MODE,minsize->NAME,ptlofig->MODE) ; }
-      } // test de CONE->MODE
+      } /* test de CONE->MODE*/
  
     }
   }
@@ -1416,7 +1416,7 @@ void printbefigdiffheader(file,maskopt)
     (void)fprintf(file,"#                                                          #\n") ; 
     (void)fprintf(file,"############################################################\n") ; 
     (void)fprintf(file,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_NOOUT)
+  }  /* if (maskopt&DIFF_OPT_NOOUT)*/
   if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
     (void)fprintf(stdout,"\n") ; 
     (void)fprintf(stdout,"############################################################\n") ; 
@@ -1425,7 +1425,7 @@ void printbefigdiffheader(file,maskopt)
     (void)fprintf(stdout,"#                                                          #\n") ; 
     (void)fprintf(stdout,"############################################################\n") ;
     (void)fprintf(stdout,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_VERBOSE)
+  }  /* if (maskopt&DIFF_OPT_VERBOSE)*/
  }
 
 /****************************************************************************/
@@ -1467,31 +1467,31 @@ int cnsdiff_cnsfigbefig_diff(file,cnsfig1,cnsfig2,maskopt)
   if (index2 == index1) {
     minsize= cnsfig1;
     maxsize = cnsfig2;
-  } // if (index2 == index1)
+  } /* if (index2 == index1)*/
   else {
     count++;
     if ( index1 > index2) {
       minsize= cnsfig2;
       maxsize = cnsfig1;
       deltaindex = index1 - index2;
-    } // if ( index1 > index2)
+    } /* if ( index1 > index2)*/
     else {
       minsize= cnsfig1;
       maxsize = cnsfig2;
       deltaindex = index2 - index1;
-    } // else 
+    } /* else */
     
     if ((maskopt&DIFF_OPT_NOOUT)!=DIFF_OPT_NOOUT) {
        (void)fprintf(file,"*** ERROR: nombre de befigs differents (%d) entre %s et %s \n",
                      deltaindex,cnsfig1->NAME,cnsfig2->NAME) ; 
        (void)fprintf(file,"\n") ; 
-    }  // if (maskopt&DIFF_OPT_NOOUT)
+    }  /* if (maskopt&DIFF_OPT_NOOUT)*/
     if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
        (void)fprintf(stdout,"*** ERROR: nombre de befigs differents (%d) entre %s et %s \n",
                      deltaindex,cnsfig1->NAME,cnsfig2->NAME) ; 
        (void)fprintf(stdout,"\n") ; 
-    } // if (maskopt&DIFF_OPT_VERBOSE)
-  } // else (index2 != index1)
+    } /* if (maskopt&DIFF_OPT_VERBOSE)*/
+  } /* else (index2 != index1)*/
   
   
   for (chain=minsize->BEFIG;chain;chain=chain->NEXT) {
@@ -1535,7 +1535,7 @@ void printuserdiffheader(file,maskopt)
     (void)fprintf(file,"#                                                          #\n") ; 
     (void)fprintf(file,"############################################################\n") ; 
     (void)fprintf(file,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_NOOUT)
+  }  /* if (maskopt&DIFF_OPT_NOOUT)*/
   if ((maskopt&DIFF_OPT_VERBOSE)==DIFF_OPT_VERBOSE) {
     (void)fprintf(stdout,"\n") ; 
     (void)fprintf(stdout,"############################################################\n") ; 
@@ -1544,7 +1544,7 @@ void printuserdiffheader(file,maskopt)
     (void)fprintf(stdout,"#                                                          #\n") ; 
     (void)fprintf(stdout,"############################################################\n") ;
     (void)fprintf(stdout,"\n") ; 
-  }  // if (maskopt&DIFF_OPT_VERBOSE)
+  }  /* if (maskopt&DIFF_OPT_VERBOSE)*/
  }
 
 /****************************************************************************/
@@ -1587,20 +1587,20 @@ int cnsdiff_makefigdiff(file,cnsfig1,cnsfig2,maskopt)
 {
   int          countingerror=0;
   
-  // CNSFIGURE->LOCON
+  /* CNSFIGURE->LOCON*/
   countingerror += cnsdiff_cnsfiglocon_diff(file,cnsfig1,cnsfig2,maskopt);
-  // CNSFIGURE->LOTRS
-  //countingerror += cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt);
-  // CNSFIGURE->CONE
-  //voir pour le parcours des champs des branches.
+  /* CNSFIGURE->LOTRS*/
+  /*countingerror += cnsdiff_cnsfiglotrs_diff(file,cnsfig1,cnsfig2,maskopt);*/
+  /* CNSFIGURE->CONE*/
+  /*voir pour le parcours des champs des branches.*/
   countingerror += cnsdiff_cnsfigcone_diff(file,cnsfig1,cnsfig2,maskopt);
-  // CNSFIGURE->CELL
+  /* CNSFIGURE->CELL*/
   countingerror += cnsdiff_cnsfigcell_diff(file,cnsfig1,cnsfig2,maskopt);
-  // CNSFIGURE->LOFIG
-  //countingerror += cnsdiff_cnsfiglofig_diff(file,cnsfig1,cnsfig2,maskopt);
-  // CNSFIGURE->BEFIG
-  //countingerror += cnsdiff_cnsfigbefig_diff(file,cnsfig1,cnsfig2,maskopt);
-  // CNSFIGURE->USER
+  /* CNSFIGURE->LOFIG*/
+  /*countingerror += cnsdiff_cnsfiglofig_diff(file,cnsfig1,cnsfig2,maskopt);*/
+  /* CNSFIGURE->BEFIG*/
+  /*countingerror += cnsdiff_cnsfigbefig_diff(file,cnsfig1,cnsfig2,maskopt);*/
+  /* CNSFIGURE->USER*/
   countingerror += cnsdiff_cnsfiguser_diff(file,cnsfig1,cnsfig2,maskopt);
 
   return countingerror;

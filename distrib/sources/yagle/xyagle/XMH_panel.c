@@ -28,6 +28,8 @@
 # include MLO_H
 # include XSB_H
 # include XTB_H
+# include CGV_H
+# include XYA_H
 # include XMX_H
 # include XMH_H
 
@@ -119,23 +121,23 @@ if ( tool_title   == NULL ) tool_title   = def_tool_title;
 /*----------------------------------------*/
 /* Create frame widget to add a 3D effect */
 /*----------------------------------------*/
-//n = 0;
-//XtSetArg( args[n], XmNtopAttachment,    XmATTACH_POSITION  ); n++;
-//XtSetArg( args[n], XmNtopPosition,      8                  ); n++;
-//XtSetArg( args[n], XmNbottomAttachment, XmATTACH_POSITION  ); n++;
-//XtSetArg( args[n], XmNbottomPosition,   92                 ); n++;
-//XtSetArg( args[n], XmNleftAttachment,   XmATTACH_POSITION  ); n++;
-//XtSetArg( args[n], XmNleftPosition,     4                 ); n++;
-//XtSetArg( args[n], XmNrightAttachment,  XmATTACH_POSITION  ); n++;
-//XtSetArg( args[n], XmNrightPosition,    96                 ); n++;
-//frame_widget = XmCreateFrame( parent, "XalFrontFrame", args, n );
-//XtManageChild( frame_widget );
+/*n = 0;*/
+/*XtSetArg( args[n], XmNtopAttachment,    XmATTACH_POSITION  ); n++;*/
+/*XtSetArg( args[n], XmNtopPosition,      8                  ); n++;*/
+/*XtSetArg( args[n], XmNbottomAttachment, XmATTACH_POSITION  ); n++;*/
+/*XtSetArg( args[n], XmNbottomPosition,   92                 ); n++;*/
+/*XtSetArg( args[n], XmNleftAttachment,   XmATTACH_POSITION  ); n++;*/
+/*XtSetArg( args[n], XmNleftPosition,     4                 ); n++;*/
+/*XtSetArg( args[n], XmNrightAttachment,  XmATTACH_POSITION  ); n++;*/
+/*XtSetArg( args[n], XmNrightPosition,    96                 ); n++;*/
+/*frame_widget = XmCreateFrame( parent, "XalFrontFrame", args, n );*/
+/*XtManageChild( frame_widget );*/
 
 /*----------------------------------------------*/
 /* Create a Form widget to manage child widgets */
 /*----------------------------------------------*/
-//n = 0;
-//form_t = XtCreateManagedWidget( "XalFrontForm", xmFormWidgetClass, frame_widget, args, n );
+/*n = 0;*/
+/*form_t = XtCreateManagedWidget( "XalFrontForm", xmFormWidgetClass, frame_widget, args, n );*/
 form_t = parent;
 
 /*--------------------------------------*/
@@ -208,8 +210,8 @@ label_widget = XtVaCreateManagedWidget( "XalToolRights", xmLabelWidgetClass, for
                                          XmNtopOffset,        5,
                                          XmNrightAttachment,  XmATTACH_FORM,
                                          XmNleftAttachment,   XmATTACH_FORM,
-//                                         XmNbottomAttachment,  XmATTACH_POSITION,
-//                                         XmNbottomPosition,    90,
+/*                                         XmNbottomAttachment,  XmATTACH_POSITION,*/
+/*                                         XmNbottomPosition,    90,*/
                                          NULL);
 XmStringFree( text_bis ); XmStringFree( text_ter ); XmStringFree( text );
 
@@ -254,13 +256,13 @@ void XyagBuildPresentPanel()
   int          n;
   Widget       form;
 
-//  PanelDisplay  = XtDisplay( XyagMainWindow );
-//  PanelFont     = XLoadQueryFont( PanelDisplay, "-*-helvetica-bold-o-*--24-*" );
-//  PanelFontList = XmFontListCreate( PanelFont, "Panel_charset1" );
-//  PanelFont     = XLoadQueryFont( PanelDisplay, "-*-helvetica-bold-r-*--18-*" );
-//  PanelFontList = XmFontListAdd( PanelFontList, PanelFont, "Panel_charset2" );
-//  PanelFont     = XLoadQueryFont( PanelDisplay, "-*-helvetica-bold-r-*--12-*" );
-//  PanelFontList = XmFontListAdd( PanelFontList, PanelFont, "Panel_charset4" );
+/*  PanelDisplay  = XtDisplay( XyagMainWindow );*/
+/*  PanelFont     = XLoadQueryFont( PanelDisplay, "-*-helvetica-bold-o-*--24-*" );*/
+/*  PanelFontList = XmFontListCreate( PanelFont, "Panel_charset1" );*/
+/*  PanelFont     = XLoadQueryFont( PanelDisplay, "-*-helvetica-bold-r-*--18-*" );*/
+/*  PanelFontList = XmFontListAdd( PanelFontList, PanelFont, "Panel_charset2" );*/
+/*  PanelFont     = XLoadQueryFont( PanelDisplay, "-*-helvetica-bold-r-*--12-*" );*/
+/*  PanelFontList = XmFontListAdd( PanelFontList, PanelFont, "Panel_charset4" );*/
 
   XtSetArg( Args[0], XmNshadowType    , XmSHADOW_ETCHED_IN );
   XtSetArg( Args[1], XmNdeleteResponse, XmDO_NOTHING       );

@@ -49,7 +49,7 @@
 
 char tabs[200]="";
 
-#define MAX_COUNT_PENDING 0 // deactivated
+#define MAX_COUNT_PENDING 0 /* deactivated*/
 
 /*  internal type */
 typedef struct foundmodel {
@@ -81,7 +81,7 @@ static chain_list *STACK_SHIFT_LOTRS;
 /*to accelerate memory allocation*/
 static foundins_list *HEAD_FOUNDINS=NULL;           /*list of allocated foundins*/
 
-// Zinaps: for myself, i initialize the variables
+/* Zinaps: for myself, i initialize the variables*/
 static chain_list *MEMO_FIXED=NULL;       /*list of last fixed connectors*/
 static chain_list *STACK_FIXED=NULL;      /* stack of last searchings */
 /*
@@ -119,7 +119,7 @@ static chain_list *STACK_MARK_COUNT=NULL;
 static ptype_list *MEMO_WITHOUT_COUNT=NULL;
 static chain_list *STACK_WITHOUT_COUNT=NULL;
 
-// Displays all found instances/models
+/* Displays all found instances/models*/
 void displaymodels()
 {
   foundmodel_list *fm;
@@ -213,7 +213,7 @@ static inline void freeallmarks(model_list* model)
    
    if (STACK_MARK) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 111);
-//      fprintf(stderr,"freeallmarks: Stack not empty\n");
+/*      fprintf(stderr,"freeallmarks: Stack not empty\n");*/
       EXIT(1);
    }
    
@@ -233,7 +233,7 @@ static inline void freeallmarks(model_list* model)
                load->LOSIG->USER=delptype(load->LOSIG->USER,GEN_VISITED_PTYPE);
                if (!load->LOSIG->USER) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 112);
-//                  fprintf(stderr,"freeallmarks: no LOFIGCHAIN\n");
+/*                  fprintf(stderr,"freeallmarks: no LOFIGCHAIN\n");*/
                   EXIT(3);
                }
             }
@@ -250,7 +250,7 @@ static inline void freeallmarkcounts()
    
    if (STACK_MARK_COUNT) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 113);
-//      fprintf(stderr,"freeallmarkcounts: Stack not empty\n");
+/*      fprintf(stderr,"freeallmarkcounts: Stack not empty\n");*/
       EXIT(1);
    }
    
@@ -263,7 +263,7 @@ static inline void freeallwithoutcounts()
    
    if (STACK_WITHOUT_COUNT) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 114);
-//      fprintf(stderr,"freeallmarkcounts: Stack not empty\n");
+/*      fprintf(stderr,"freeallmarkcounts: Stack not empty\n");*/
       EXIT(1);
    }
    
@@ -329,13 +329,13 @@ static inline void freeallswaps()
    
    if (STACK_SWAP) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 115);
-//      fprintf(stderr,"freeallswaps: Stack not empty\n");
+/*      fprintf(stderr,"freeallswaps: Stack not empty\n");*/
       EXIT(1);
    }
    
    for (cl=MEMO_SWAP;cl!=NULL;cl=cl->NEXT)
      JustFreeSwap(cl->DATA);
-   //mbkfree(cl->DATA);
+   /*mbkfree(cl->DATA);*/
 
    freechain(MEMO_SWAP);
    MEMO_SWAP=NULL;
@@ -360,12 +360,12 @@ static inline void freeallfixedandallloconmarks()
 
    if (STACK_FIXED) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 116);
-//      fprintf(stderr,"freeallfixed: Stack not empty\n");
+/*      fprintf(stderr,"freeallfixed: Stack not empty\n");*/
       EXIT(1);
    }
    if (STACK_LOCON_MARK) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 117);
-//      fprintf(stderr,"freeallloconmarks: Stack not empty\n");
+/*      fprintf(stderr,"freeallloconmarks: Stack not empty\n");*/
       EXIT(1);
    }
    
@@ -375,7 +375,7 @@ static inline void freeallfixedandallloconmarks()
        lc=(locon_list *)cl->DATA;
        p=getptype(lc->USER,GEN_FIXED_PTYPE); 
        if (p==NULL) { avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 118);
-//               fprintf(stderr,"freeallfixedandallloconmarks: ptype NULL\n");
+/*               fprintf(stderr,"freeallfixedandallloconmarks: ptype NULL\n");*/
                EXIT(5);}
        lc->USER=delptype(lc->USER, GEN_FIXED_PTYPE);
      }
@@ -385,11 +385,11 @@ static inline void freeallfixedandallloconmarks()
        lcm=(locon_mark *)cl->DATA;
        p=getptype(lcm->lc->USER,GEN_LOCON_MARK_PTYPE); 
        if (p==NULL) { avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 119);
-               //fprintf(stderr,"freeallfixedandallloconmarks: ptype NULL\n");
+               /*fprintf(stderr,"freeallfixedandallloconmarks: ptype NULL\n");*/
                EXIT(6);}
        lcm->lc->USER=delptype(lcm->lc->USER, GEN_LOCON_MARK_PTYPE);
        DelHeapItem(&loconmark_heap, lcm);
-       //mbkfree(lcm);
+       /*mbkfree(lcm);*/
      }   
    freechain(MEMO_FIXED);
    MEMO_FIXED=NULL;
@@ -409,20 +409,20 @@ static inline void freelastmarks()
    
    if (!STACK_MARK) {
        avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 120);
-//      fprintf(stderr,"freelastmarks: No Stack\n");
+/*      fprintf(stderr,"freelastmarks: No Stack\n");*/
       EXIT(1);
    }
 
-//   gen_printf(5,"want to go  back to %p\n",STACK_MARK->DATA);
+/*   gen_printf(5,"want to go  back to %p\n",STACK_MARK->DATA);*/
    
    for (l=MEMO_MARK;l;l=l->NEXT) {
       load=(mark_list*)l->DATA;
-//      gen_printf(5,"- %s  next=%p current=%p\n",load->LOSIG->NAMECHAIN->DATA,l->NEXT,l);fflush(GENIUS_OUTPUT);
+/*      gen_printf(5,"- %s  next=%p current=%p\n",load->LOSIG->NAMECHAIN->DATA,l->NEXT,l);fflush(GENIUS_OUTPUT);*/
       /*erase mark in circuit*/
       p=getptype(load->LOSIG->USER,GEN_VISITED_PTYPE);
       if (!p) {
        avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 121);
-//         fprintf(stderr,"freelastmarks: PTYPE not found\n");
+/*         fprintf(stderr,"freelastmarks: PTYPE not found\n");*/
          EXIT(1);
       }   
       pred=NULL;
@@ -432,7 +432,7 @@ static inline void freelastmarks()
       }   
       if (!del) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 122);
-//         fprintf(stderr,"freelastmarks: mark not found in circuit\n");
+/*         fprintf(stderr,"freelastmarks: mark not found in circuit\n");*/
          EXIT(3);
       }   
       if (pred) pred->NEXT=del->NEXT;
@@ -450,7 +450,7 @@ static inline void freelastmarks()
             if (mark->NEXT==load) break;
          if (!mark) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 123);
-//            fprintf(stderr,"freelastmarks: mark not found in model\n");
+/*            fprintf(stderr,"freelastmarks: mark not found in model\n");*/
             EXIT(1);
          }
          mark->NEXT=load->NEXT;
@@ -467,7 +467,7 @@ static inline void freelastmarks()
    STACK_MARK=STACK_MARK->NEXT;
    l->NEXT=NULL;
    freechain(l);
-//   gen_printf(5,"BAD back to %p\n",MEMO_MARK);
+/*   gen_printf(5,"BAD back to %p\n",MEMO_MARK);*/
 }
 
 static inline void freelastmarkcounts()
@@ -477,7 +477,7 @@ static inline void freelastmarkcounts()
 
    if (!STACK_MARK_COUNT) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 124);
-//      fprintf(stderr,"freelastmarks: No Stack\n");
+/*      fprintf(stderr,"freelastmarks: No Stack\n");*/
       EXIT(1);
    }
    
@@ -502,7 +502,7 @@ static inline void freelastwithoutcounts()
 
    if (!STACK_WITHOUT_COUNT) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 125);
-//      fprintf(stderr,"freelastwithoutcounts: No Stack\n");
+/*      fprintf(stderr,"freelastwithoutcounts: No Stack\n");*/
       EXIT(1);
    }
    
@@ -510,7 +510,7 @@ static inline void freelastwithoutcounts()
      {
        if ((p=getptype(((loins_list *)l->DATA)->USER, GENIUS_LOINS_COUNT_PTYPE))==NULL) EXIT(122);
        p->DATA=(void *)l->TYPE;
-//       printf("<count back to %d>",(int)p->DATA);
+/*       printf("<count back to %d>",(int)p->DATA);*/
      }
    
    /* global var. */
@@ -528,7 +528,7 @@ static inline void freelastswaps()
    
    if (!STACK_SWAP) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 126);
-//      fprintf(stderr,"freelastswaps: No Stack\n");
+/*      fprintf(stderr,"freelastswaps: No Stack\n");*/
       EXIT(1);
    }
    
@@ -549,28 +549,28 @@ static inline void freelastswaps()
 /*             free last fixed contained in Stack                   */
 static inline void freelastfixed()
 {
-//   mark_list *mark,*load;
+/*   mark_list *mark,*load;*/
    chain_list *l;
    ptype_list *p;
    locon_list *lc;
 
    if (!STACK_FIXED) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 127);
-      //fprintf(stderr,"freelastfixed: No Stack\n");
+      /*fprintf(stderr,"freelastfixed: No Stack\n");*/
       EXIT(1);
    }
    
    for (l=MEMO_FIXED;l;l=l->NEXT) {
       lc=(locon_list *)l->DATA;
       /*erase mark in circuit*/
-      // a supprimer 
+      /* a supprimer */
       p=getptype(lc->USER,GEN_FIXED_PTYPE); 
       if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 128);
-//       fprintf(stderr,"freelastfixed: PTYPE not found\n");
+/*       fprintf(stderr,"freelastfixed: PTYPE not found\n");*/
          EXIT(1);
       }
-      // jusqu'ici
+      /* jusqu'ici*/
       lc->USER=delptype(lc->USER, GEN_FIXED_PTYPE);
     }
    
@@ -591,25 +591,25 @@ static inline void freelastloconmark()
 
    if (!STACK_LOCON_MARK) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 129);
-//      fprintf(stderr,"freelastloconmark: No Stack\n");
+/*      fprintf(stderr,"freelastloconmark: No Stack\n");*/
       EXIT(1);
    }
 
    for (l=MEMO_LOCON_MARK;l;l=l->NEXT) {
       lcm=(locon_mark *)l->DATA;
       /*erase mark in circuit*/
-      // a supprimer 
+      /* a supprimer */
       p=getptype(lcm->lc->USER,GEN_LOCON_MARK_PTYPE); 
       if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 130);
-//         fprintf(stderr,"freelastloconmark: PTYPE not found\n");
+/*         fprintf(stderr,"freelastloconmark: PTYPE not found\n");*/
          EXIT(1);
       }
       ((mark_list *)p->DATA)->VISITED=lcm->oldvisited;
-      // jusqu'ici
+      /* jusqu'ici*/
       lcm->lc->USER=delptype(lcm->lc->USER, GEN_LOCON_MARK_PTYPE);
       DelHeapItem(&loconmark_heap, lcm);
-      //mbkfree(lcm);
+      /*mbkfree(lcm);*/
    }
    
    /* global var. */
@@ -630,7 +630,7 @@ static inline void certifylastmarks()
 {
   tm++;
   STACK_MARK=addchain(STACK_MARK,MEMO_MARK);
-// gen_printf(5,"%d: SAVE %p (%p)\n",tm,STACK_MARK->DATA,&(STACK_MARK->DATA));
+/* gen_printf(5,"%d: SAVE %p (%p)\n",tm,STACK_MARK->DATA,&(STACK_MARK->DATA));*/
 /*  {
     chain_list *cl;
     gen_printf(0,"STACK: ");
@@ -681,12 +681,12 @@ static inline void flattenlastmarks()
    
    if (!STACK_MARK) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 131);
-//      fprintf(stderr,"flattenlastmarks: No Stack\n");
+/*      fprintf(stderr,"flattenlastmarks: No Stack\n");*/
       EXIT(1);
    }
    
    for (l=MEMO_MARK; l; l=l->NEXT) if (!l->NEXT) break;
-//   gen_printf(5,"FLAT %p with %p\n",MEMO_MARK,STACK_MARK->DATA);
+/*   gen_printf(5,"FLAT %p with %p\n",MEMO_MARK,STACK_MARK->DATA);*/
    if (l) l->NEXT=STACK_MARK->DATA;
    else MEMO_MARK=STACK_MARK->DATA;
    del=STACK_MARK;
@@ -700,7 +700,7 @@ static inline void flattenlastmarkcounts()
    
    if (!STACK_MARK_COUNT) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 132);
-//      fprintf(stderr,"flattenlastmarkcounts: No Stack\n");
+/*      fprintf(stderr,"flattenlastmarkcounts: No Stack\n");*/
       EXIT(1);
    }
    
@@ -719,7 +719,7 @@ static inline void flattenlastwithoutcounts()
    
    if (!STACK_WITHOUT_COUNT) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 133);
-//      fprintf(stderr,"flattenlastmarkcounts: No Stack\n");
+/*      fprintf(stderr,"flattenlastmarkcounts: No Stack\n");*/
       EXIT(1);
    }
    
@@ -738,7 +738,7 @@ static inline void flattenlastfixed()
    
    if (!STACK_FIXED) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 134);
-//      fprintf(stderr,"flattenlastfixed: No Stack\n");
+/*      fprintf(stderr,"flattenlastfixed: No Stack\n");*/
       EXIT(1);
    }
    
@@ -757,7 +757,7 @@ static inline void flattenlastswap()
    
    if (!STACK_SWAP) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 135);
-//      fprintf(stderr,"flattenlastswap: No Stack\n");
+/*      fprintf(stderr,"flattenlastswap: No Stack\n");*/
       EXIT(1);
    }
    
@@ -776,7 +776,7 @@ static inline void flattenlastloconmark()
    
    if (!STACK_LOCON_MARK) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 136);
-//      fprintf(stderr,"flattenlastloconmark: No Stack\n");
+/*      fprintf(stderr,"flattenlastloconmark: No Stack\n");*/
       EXIT(1);
    }
 
@@ -805,7 +805,7 @@ void addloconmark(locon_list *lc, mark_list *mark)
   ptype_list *p;
   if ((p=getptype(lc->USER,GEN_LOCON_MARK_PTYPE))==NULL)
     {
-//      lcm=(locon_mark *)mbkalloc(sizeof(locon_mark));
+/*      lcm=(locon_mark *)mbkalloc(sizeof(locon_mark));*/
       lcm=(locon_mark *)AddHeapItem(&loconmark_heap);
       lcm->lc=lc;
       lcm->oldvisited=mark->VISITED;
@@ -856,7 +856,7 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
    
    if (STACK_SHIFT_LOINS || STACK_SHIFT_LOTRS) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 137);
-//      fprintf(stderr,"Extract_Transistor: Stack not empty\n");
+/*      fprintf(stderr,"Extract_Transistor: Stack not empty\n");*/
       EXIT(1);
    }
    
@@ -866,7 +866,7 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
       p=delptype(foundins->VISITED->USER,GEN_VISITED_PTYPE);
       if (p==NULL) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 138);
-//        fprintf(stderr,"Extract_Transistor: NULL pointer in model visited ptype(v2)\n");
+/*        fprintf(stderr,"Extract_Transistor: NULL pointer in model visited ptype(v2)\n");*/
         EXIT(1);
       }
       foundins->VISITED->USER=p;
@@ -875,7 +875,7 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
       p=getptype(foundins->VISITED->USER,GENIUS_LOINS_FLAGS_PTYPE);
       if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 139);
-//         fprintf(stderr,"Extract_Transistor: PTYPE error 0\n");
+/*         fprintf(stderr,"Extract_Transistor: PTYPE error 0\n");*/
          EXIT(1);
       }
       /*if loins exclude in model skip it in build*/
@@ -893,7 +893,7 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
       p=getptype(foundins->LOINS->USER,FCL_TRANSLIST_PTYPE);
       if (!p/* || !p->DATA*/) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 140);
-//         fprintf(stderr,"Extract_Transistor: PTYPE error 1\n");
+/*         fprintf(stderr,"Extract_Transistor: PTYPE error 1\n");*/
          EXIT(1);
       }
 
@@ -923,7 +923,7 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
       lotrs=l->DATA;
       if (!lotrs->USER || lotrs->USER->TYPE!=GEN_VISITED_PTYPE) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 141);
-         //fprintf(stderr,"Extract_Transistor: PTYPE error 2\n");
+         /*fprintf(stderr,"Extract_Transistor: PTYPE error 2\n");*/
          EXIT(1);
       }
       loins=lotrs->USER->DATA;
@@ -931,14 +931,14 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
       p=getptype(loins->USER,GENIUS_LOINS_FLAGS_PTYPE);
       if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 142);
-//         fprintf(stderr,"Extract_Transistor: PTYPE error 3\n");
+/*         fprintf(stderr,"Extract_Transistor: PTYPE error 3\n");*/
          EXIT(1);
       }
       /*if erase mark, it can be used in another model. fortunately we modify 
       also the lofigchain, so GENIUS and YAGLE can't use it again*/
       lotrs->USER=delptype(lotrs->USER,GEN_VISITED_PTYPE);
-//      freeptype(lotrs->USER); /*there is only ptype GEN_VISITED_PTYPE here*/
-//      lotrs->USER=NULL;   
+/*      freeptype(lotrs->USER); /*there is only ptype GEN_VISITED_PTYPE here*/
+/*      lotrs->USER=NULL;   */
 
       /*if loins exclude in model skip it in build: do not modify lofigchain*/
       if (((long)p->DATA) & LOINS_IS_EXCLUDE) continue;
@@ -958,7 +958,7 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
               p=getptype(lotrs->GRID->SIG->USER,LOFIGCHAIN);
               if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 143);
-//                fprintf(stderr,"Extract_Transistor: no LOFIGCHAIN\n");
+/*                fprintf(stderr,"Extract_Transistor: no LOFIGCHAIN\n");*/
                 EXIT(1);
               }
               p->DATA=RemoveLofigChainLocon((chain_list *)p->DATA, lotrs->GRID);
@@ -981,10 +981,10 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
               p=getptype(lotrs->SOURCE->SIG->USER,LOFIGCHAIN);
               if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 144);
-//                fprintf(stderr,"Extract_Transistor: no LOFIGCHAIN\n");
+/*                fprintf(stderr,"Extract_Transistor: no LOFIGCHAIN\n");*/
                 EXIT(1);
               }
-//              new=NULL;
+/*              new=NULL;*/
                p->DATA=RemoveLofigChainLocon((chain_list *)p->DATA, lotrs->SOURCE);
 /*              for (lofigchain=p->DATA; lofigchain; lofigchain=lofigchain->NEXT) 
                 if (lofigchain->DATA!=lotrs->SOURCE) new=addchain(new,lofigchain->DATA);
@@ -1001,7 +1001,7 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
               p=getptype(lotrs->DRAIN->SIG->USER,LOFIGCHAIN);
               if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 145);
-//                fprintf(stderr,"Extract_Transistor: no LOFIGCHAIN\n");
+/*                fprintf(stderr,"Extract_Transistor: no LOFIGCHAIN\n");*/
                 EXIT(1);
               }
               p->DATA=RemoveLofigChainLocon((chain_list *)p->DATA, lotrs->DRAIN);
@@ -1024,7 +1024,7 @@ static void Extract_Transistor(model_list *ml, chain_list **tranin, chain_list *
                   p=getptype(lotrs->BULK->SIG->USER,LOFIGCHAIN);
                   if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 146);
-//                    fprintf(stderr,"Extract_Transistor: no LOFIGCHAIN\n");
+/*                    fprintf(stderr,"Extract_Transistor: no LOFIGCHAIN\n");*/
                     EXIT(1);
                   }
                   p->DATA=RemoveLofigChainLocon((chain_list *)p->DATA, lotrs->BULK);
@@ -1052,7 +1052,7 @@ static void Extract_Only_Transistor(chain_list **tranin, chain_list **insin)
    
    if (STACK_SHIFT_LOINS || STACK_SHIFT_LOTRS) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 147);
-//      fprintf(stderr,"Extract_Transistor: Stack not empty\n");
+/*      fprintf(stderr,"Extract_Transistor: Stack not empty\n");*/
       EXIT(1);
    }
    
@@ -1064,7 +1064,7 @@ static void Extract_Only_Transistor(chain_list **tranin, chain_list **insin)
       if (!p) 
         {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 148);
-//          fprintf(stderr,"Extract_Transistor: PTYPE error 4\n");
+/*          fprintf(stderr,"Extract_Transistor: PTYPE error 4\n");*/
           EXIT(1);
         }
 
@@ -1083,7 +1083,7 @@ static void Extract_Only_Transistor(chain_list **tranin, chain_list **insin)
       lotrs=l->DATA;
       if (!lotrs->USER || lotrs->USER->TYPE!=GEN_VISITED_PTYPE) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 149);
-//         fprintf(stderr,"Extract_Transistor: PTYPE error 5\n");
+/*         fprintf(stderr,"Extract_Transistor: PTYPE error 5\n");*/
          EXIT(1);
       }
 
@@ -1109,14 +1109,14 @@ int CountFakeInstanceLocon(locon_list *ptcon, ptype_list *env)
       p=getptype(ptcon->USER,GENCONCHAIN); 
       if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 150);
-//        fprintf(stderr,"Build_loins: NULL pointer\n");
+/*        fprintf(stderr,"Build_loins: NULL pointer\n");*/
         EXIT(1);
       }   
       gencon=p->DATA;
       if (!gencon) 
         {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 151);
-//          fprintf(stderr,"Build_loins: NULL pointer\n");
+/*          fprintf(stderr,"Build_loins: NULL pointer\n");*/
           EXIT(1);
         }   
       if (gencon->NEXT) {
@@ -1146,7 +1146,7 @@ int CountFakeInstanceLocon(locon_list *ptcon, ptype_list *env)
       if (begin_con==UNDEF || end_con==UNDEF)
         {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 189);
-//          fprintf(stderr,"CountLocon: can not determine the number of connectors\n");
+/*          fprintf(stderr,"CountLocon: can not determine the number of connectors\n");*/
           EXIT(1);
         }
       begin_con-=end_con;
@@ -1180,7 +1180,7 @@ long ComputeModelInstanceKey(locon_list *ptcon, ptype_list *env)
   mark_list* mark;
   tree_list *array_sig;
   ptype_list *head;
-//  ptype_list *gensigchain_ptype;
+/*  ptype_list *gensigchain_ptype;*/
   long begin_sig,end_sig;
   long key=0;
   int isfake;
@@ -1192,13 +1192,13 @@ long ComputeModelInstanceKey(locon_list *ptcon, ptype_list *env)
       p=getptype(ptcon->USER,GENCONCHAIN); 
       if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 152);
-//        fprintf(stderr,"ComputeModelInstanceKey: NULL pointer\n");
+/*        fprintf(stderr,"ComputeModelInstanceKey: NULL pointer\n");*/
         EXIT(1);
       }   
       gencon=p->DATA;
       if (!gencon) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 153);
-//        fprintf(stderr,"ComputeModelInstanceKey: NULL pointer\n");
+/*        fprintf(stderr,"ComputeModelInstanceKey: NULL pointer\n");*/
         EXIT(1);
       }   
       if (gencon->NEXT) {
@@ -1242,7 +1242,7 @@ long ComputeModelInstanceKey(locon_list *ptcon, ptype_list *env)
       }
       else {
         begin_sig=end_sig=Eval_Exp_VHDL(array_sig, env);
-//        end_sig=-1;
+/*        end_sig=-1;*/
       }   
       for ( ;/*test on begin_con==end_con at the end of loop*/ ; ) {
         if (!isfake)
@@ -1257,7 +1257,7 @@ long ComputeModelInstanceKey(locon_list *ptcon, ptype_list *env)
               EXIT(3);
             }
           
-        //        printf("<%s>",mark->LOSIG->NAMECHAIN->DATA);
+        /*        printf("<%s>",mark->LOSIG->NAMECHAIN->DATA);*/
             if (!(SPI_IGNORE_BULK=='Y' && ptcon->NAME==MBK_BULK_NAME))
               key+=KeyContribValueFor(mark->LOSIG);
           }
@@ -1282,7 +1282,7 @@ void ComputeModelTransistorKeyV2(locon_list *ptcon, ptype_list *env, long long *
   mark_list* mark;
   tree_list *array_sig;
   ptype_list *head;
-//  ptype_list *gensigchain_ptype;
+/*  ptype_list *gensigchain_ptype;*/
   long begin_sig;
   long long _key=0, _mask=0;
 
@@ -1293,7 +1293,7 @@ void ComputeModelTransistorKeyV2(locon_list *ptcon, ptype_list *env, long long *
       p=getptype(ptcon->USER,GENCONCHAIN); 
       if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 154);
-//        fprintf(stderr,"ComputeModelInstanceKeyv2: NULL pointer\n");
+/*        fprintf(stderr,"ComputeModelInstanceKeyv2: NULL pointer\n");*/
         EXIT(1);
       }   
       gencon=p->DATA;
@@ -1335,10 +1335,10 @@ void ComputeModelTransistorKeyV2(locon_list *ptcon, ptype_list *env, long long *
         gen_printf(2,"/%d)",mark->COUNT);*/
       if (mark && mark->COUNT>1)
         {
-          //        printf("<%s>",mark->LOSIG->NAMECHAIN->DATA);
+          /*        printf("<%s>",mark->LOSIG->NAMECHAIN->DATA);*/
           if (!(SPI_IGNORE_BULK=='Y' && ptcon->NAME==MBK_BULK_NAME))
             {
-//              printf("%s %s %c\n",ptcon->NAME,mark->LOSIG->NAMECHAIN->DATA,mark->LOSIG->TYPE);
+/*              printf("%s %s %c\n",ptcon->NAME,mark->LOSIG->NAMECHAIN->DATA,mark->LOSIG->TYPE);*/
               _mask|=0x0ffff;
               _key|=KeyContrib2ValueFor(mark->LOSIG);
             }
@@ -1352,14 +1352,14 @@ void ComputeModelTransistorKeyV2(locon_list *ptcon, ptype_list *env, long long *
 chain_list *GetMarkFromCON(locon_list *ptcon, int *first, int *last, model_list *model, ptype_list *env, ptype_list *livar)
 {
   losig_list *losig;
-//  lofig_list *ptnewfig;
+/*  lofig_list *ptnewfig;*/
   char *insname;
   ptype_list *p;
   genconchain_list *gencon;
   mark_list* mark;
   tree_list *array_sig,*array_con;
   ptype_list *head;
-//  ptype_list *gensigchain_ptype;
+/*  ptype_list *gensigchain_ptype;*/
   long begin_con,end_con,begin_sig,end_sig;
   chain_list *cl;
   int isfake=0, val;
@@ -1367,13 +1367,13 @@ chain_list *GetMarkFromCON(locon_list *ptcon, int *first, int *last, model_list 
   p=getptype(ptcon->USER,GENCONCHAIN); 
   if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 155);
-//    fprintf(stderr,"GetMarkFromCON: NULL pointer\n");
+/*    fprintf(stderr,"GetMarkFromCON: NULL pointer\n");*/
     EXIT(1);
   }   
   gencon=p->DATA;
   if (!gencon) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 156);
-//    fprintf(stderr,"GetMarkFromCON: NULL pointer\n");
+/*    fprintf(stderr,"GetMarkFromCON: NULL pointer\n");*/
     EXIT(1);
   }   
   if (gencon->NEXT) {
@@ -1424,7 +1424,7 @@ chain_list *GetMarkFromCON(locon_list *ptcon, int *first, int *last, model_list 
   if (*first==UNDEF || *last==UNDEF)
     {
         avt_errmsg(GNS_ERRMSG, "109", AVT_FATAL, ptcon->NAME);
-//      fprintf(stderr,"GetMarkFromCON: can't compute connector bound for connector '%s'\nCertainly while building a fake instance or transistor\n", ptcon->NAME);
+/*      fprintf(stderr,"GetMarkFromCON: can't compute connector bound for connector '%s'\nCertainly while building a fake instance or transistor\n", ptcon->NAME);*/
       EXIT(1);
     }
   array_sig=gencon->LOSIG_EXP;      /*TOKEN(array_sig)=GEN_TOKEN_TO or GEN_TOKEN_DOWNTO*/
@@ -1442,7 +1442,7 @@ chain_list *GetMarkFromCON(locon_list *ptcon, int *first, int *last, model_list 
     end_sig=Eval_Exp_VHDL(array_sig->NEXT->NEXT->DATA/*low bound*/,env); 
   }
   else {
-    begin_sig=end_sig=-1; //Eval_Exp_VHDL(array_sig, env);
+    begin_sig=end_sig=-1; /*Eval_Exp_VHDL(array_sig, env);*/
   }
   if ((begin_sig==-1 && end_sig==-1 && (val=Eval_Exp_VHDL(array_sig,env))==UNDEF)
       || begin_sig==UNDEF || end_sig==UNDEF)
@@ -1473,7 +1473,7 @@ chain_list *GetMarkFromCON(locon_list *ptcon, int *first, int *last, model_list 
     if (begin_con==end_con && begin_sig==end_sig) break;
     /*now error*/
     if (begin_con==end_con || begin_sig==end_sig) {
-     // fprintf(stderr,"locon=%s %ld %ld / %ld %ld\n",ptcon->NAME, begin_con, end_con, begin_sig, end_sig);
+     /* fprintf(stderr,"locon=%s %ld %ld / %ld %ld\n",ptcon->NAME, begin_con, end_con, begin_sig, end_sig);*/
       avt_error("gns", -1, AVT_ERR, "width mismatch on connector '%s(%d..%d)' and signal '%s(%d..%d)'\n",ptcon->NAME, begin_con, end_con, gen_losigname(ptcon->SIG), begin_sig, end_sig);
       EXIT(3);
     }
@@ -1490,14 +1490,14 @@ chain_list *GetMarkFromCON(locon_list *ptcon, int *first, int *last, model_list 
 chain_list *GetModelSignalFromCON(locon_list *ptcon, int *first, int *last, model_list *model, ptype_list *env, ptype_list *livar)
 {
   losig_list *losig;
-//  lofig_list *ptnewfig;
+/*  lofig_list *ptnewfig;*/
   char *insname;
   ptype_list *p;
   genconchain_list *gencon;
-//  mark_list* mark;
+/*  mark_list* mark;*/
   tree_list *array_sig,*array_con;
-//  ptype_list *head;
-//  ptype_list *gensigchain_ptype;
+/*  ptype_list *head;*/
+/*  ptype_list *gensigchain_ptype;*/
   int begin_con,end_con,begin_sig,end_sig;
   chain_list *cl;
   char temp[1000];
@@ -1505,13 +1505,13 @@ chain_list *GetModelSignalFromCON(locon_list *ptcon, int *first, int *last, mode
   p=getptype(ptcon->USER,GENCONCHAIN); 
   if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 157);
-//    fprintf(stderr,"GetMarkFromCON: NULL pointer\n");
+/*    fprintf(stderr,"GetMarkFromCON: NULL pointer\n");*/
     EXIT(1);
   }   
   gencon=p->DATA;
   if (!gencon) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 158);
-//    fprintf(stderr,"GetMarkFromCON: NULL pointer\n");
+/*    fprintf(stderr,"GetMarkFromCON: NULL pointer\n");*/
     EXIT(1);
   }   
   if (gencon->NEXT) {
@@ -1560,7 +1560,7 @@ chain_list *GetModelSignalFromCON(locon_list *ptcon, int *first, int *last, mode
   if (*first==UNDEF || *last==UNDEF)
     {
         avt_errmsg(GNS_ERRMSG, "109", AVT_FATAL, ptcon->NAME);
-//      fprintf(stderr,"GetMarkFromCON: can't compute connector bound for connector '%s'\nCertainly while building a fake instance or transistor\n", ptcon->NAME);
+/*      fprintf(stderr,"GetMarkFromCON: can't compute connector bound for connector '%s'\nCertainly while building a fake instance or transistor\n", ptcon->NAME);*/
       EXIT(1);
     }
   array_sig=gencon->LOSIG_EXP;      /*TOKEN(array_sig)=GEN_TOKEN_TO or GEN_TOKEN_DOWNTO*/
@@ -1590,7 +1590,7 @@ chain_list *GetModelSignalFromCON(locon_list *ptcon, int *first, int *last, mode
   cl=NULL;
   for ( ;/*test on begin_con==end_con at the end of loop*/ ; ) {
 
-//    mark=GetMarkEA(gencon->LOSIG, begin_sig, (mark_list*)head->DATA);
+/*    mark=GetMarkEA(gencon->LOSIG, begin_sig, (mark_list*)head->DATA);*/
 
 /*
     if (!mark) {
@@ -1609,7 +1609,7 @@ chain_list *GetModelSignalFromCON(locon_list *ptcon, int *first, int *last, mode
 /*      fprintf(stderr,"locon=%s %d %d / %d %d\n",ptcon->NAME, begin_con, end_con, begin_sig, end_sig);
       fprintf(stderr,"GetMarkFromCON: computing error\n");*/
         avt_errmsg(GNS_ERRMSG, "110", AVT_FATAL, ptcon->NAME, begin_con, end_con, gen_losigname(ptcon->SIG), begin_sig, end_sig);
-//      avt_error("gns", -1, AVT_ERR, "width mismatch on connector '%s(%d..%d)' and signal '%s(%d..%d)'\n",ptcon->NAME, begin_con, end_con, gen_losigname(ptcon->SIG), begin_sig, end_sig);
+/*      avt_error("gns", -1, AVT_ERR, "width mismatch on connector '%s(%d..%d)' and signal '%s(%d..%d)'\n",ptcon->NAME, begin_con, end_con, gen_losigname(ptcon->SIG), begin_sig, end_sig);*/
       EXIT(3);
     }
     /*move counter*/
@@ -1625,7 +1625,7 @@ chain_list *GetModelSignalFromCON(locon_list *ptcon, int *first, int *last, mode
 ptype_list *GetFORdependantSingleSignalExpressions(locon_list *ptcon, ptype_list *env, ptype_list *lastlist)
 {
   losig_list *losig;
-//  lofig_list *ptnewfig;
+/*  lofig_list *ptnewfig;*/
   char *insname;
   ptype_list *p;
   genconchain_list *gencon;
@@ -1634,13 +1634,13 @@ ptype_list *GetFORdependantSingleSignalExpressions(locon_list *ptcon, ptype_list
   p=getptype(ptcon->USER,GENCONCHAIN); 
   if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 159);
-//    fprintf(stderr,"Build_loins: NULL pointer\n");
+/*    fprintf(stderr,"Build_loins: NULL pointer\n");*/
     EXIT(1);
   }   
   gencon=p->DATA;
   if (!gencon) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 160);
-//    fprintf(stderr,"Build_loins: NULL pointer\n");
+/*    fprintf(stderr,"Build_loins: NULL pointer\n");*/
     EXIT(1);
   }   
   if (gencon->NEXT) {
@@ -1658,7 +1658,7 @@ ptype_list *GetFORdependantSingleSignalExpressions(locon_list *ptcon, ptype_list
   if (Eval_Exp_VHDL(array_sig,env)==UNDEF)
     {
       ptype_list *p;
-//      printf("add %s\n",losig->NAMECHAIN->DATA);
+/*      printf("add %s\n",losig->NAMECHAIN->DATA);*/
       for (p=lastlist; p!=NULL && p->TYPE!=(long)losig; p=p->NEXT) ;
       if (p!=NULL)
         p->DATA=addchain((chain_list *)p->DATA, array_sig);
@@ -1687,7 +1687,7 @@ static void CreateFake(model_list *model, ptype_list *env)
        p=getptype(li->USER,GENIUS_LOINS_FLAGS_PTYPE);
        if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 161);
-//         fprintf(stderr,"CreateFake: PTYPE error 6\n");
+/*         fprintf(stderr,"CreateFake: PTYPE error 6\n");*/
          EXIT(1);
        }
        if (!(((long)p->DATA) & LOINS_IS_WITHOUT)) continue;
@@ -1695,16 +1695,16 @@ static void CreateFake(model_list *model, ptype_list *env)
        if (mbk_istransn(li->FIGNAME) || mbk_istransp(li->FIGNAME))
          {
            chain_list *cl[4];
-           cl[0]=GetMarkFromCON(li->LOCON, &f, &l, model, env, NULL); // grille
+           cl[0]=GetMarkFromCON(li->LOCON, &f, &l, model, env, NULL); /* grille*/
            if (cl[0]->NEXT!=NULL) EXIT(5);
-           cl[1]=GetMarkFromCON(li->LOCON->NEXT, &f, &l,model, env, NULL); //drain
+           cl[1]=GetMarkFromCON(li->LOCON->NEXT, &f, &l,model, env, NULL); /*drain*/
            if (cl[1]->NEXT!=NULL) EXIT(6);
-           cl[2]=GetMarkFromCON(li->LOCON->NEXT->NEXT, &f, &l, model, env, NULL); // source
+           cl[2]=GetMarkFromCON(li->LOCON->NEXT->NEXT, &f, &l, model, env, NULL); /* source*/
            if (cl[2]->NEXT!=NULL) EXIT(7);
            if (SPI_IGNORE_BULK=='Y')
              cl[3]=NULL;
            else
-             cl[3]=GetMarkFromCON(li->LOCON->NEXT->NEXT->NEXT, &f, &l, model, env, NULL); // source
+             cl[3]=GetMarkFromCON(li->LOCON->NEXT->NEXT->NEXT, &f, &l, model, env, NULL); /* source*/
            
            tr=BuildFakeTransistor(mbk_istransn(li->FIGNAME)?TRANSN:TRANSP,
                                   (losig_list *)cl[0]->DATA,
@@ -1758,7 +1758,7 @@ static void CreateFake(model_list *model, ptype_list *env)
                    ptnewcon->DIRECTION = lc->DIRECTION;
                    ptnewcon->TYPE = 'I';
                    ptnewcon->ROOT = newli;      
-//                   ptnewcon->PNODE= NULL;
+/*                   ptnewcon->PNODE= NULL;*/
                    AddRadicalInfoInLOCON(ptnewcon, ri, f);
                    ptnewcon->NEXT = newli->LOCON;
                    ptnewcon->USER=NULL;
@@ -1809,11 +1809,11 @@ extern void Reduce()
    chain_list *l,*del;
    
    
-//   gen_printf(2,"(r)LEVEL=%d",--level);
+/*   gen_printf(2,"(r)LEVEL=%d",--level);*/
 
    if (!STACK_SHIFT_LOINS || !STACK_SHIFT_LOTRS || !STACK_MARK || !STACK_MARK_COUNT) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 162);
-//      fprintf(stderr,"Reduce: NULL pointer\n");
+/*      fprintf(stderr,"Reduce: NULL pointer\n");*/
       EXIT(1);
    }
 
@@ -1852,10 +1852,10 @@ extern void Backward()
    ptype_list *p;
    loins_list *model_ins;
 
-//   gen_printf(2,"(-)LEVEL=%d",--level);
+/*   gen_printf(2,"(-)LEVEL=%d",--level);*/
    if (!STACK_SHIFT_LOINS || !STACK_SHIFT_LOTRS || !STACK_MARK || !STACK_MARK_COUNT) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 163);
-//      fprintf(stderr,"Backward: NULL pointer\n");
+/*      fprintf(stderr,"Backward: NULL pointer\n");*/
       EXIT(1);
    }
    
@@ -1863,7 +1863,7 @@ extern void Backward()
    freelastfixed();
    freelastmarkcounts();
    freelastwithoutcounts();
-   freelastswaps(); // <- before freelastmarks();
+   freelastswaps(); /* <- before freelastmarks();*/
    freelastmarks();
 
    /*unshift*/
@@ -1873,7 +1873,7 @@ extern void Backward()
       p=delptype(model_ins->USER,GEN_VISITED_PTYPE);
       if (p==NULL) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 164);
-//        fprintf(stderr,"Backward: NULL pointer in model visited ptype(v2)\n");
+/*        fprintf(stderr,"Backward: NULL pointer in model visited ptype(v2)\n");*/
         EXIT(1);
       }
       model_ins->USER=p;
@@ -1892,12 +1892,12 @@ extern void Backward()
       lotrs=(lotrs_list*)l->DATA;
       if (!lotrs->USER) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 165);
-//         fprintf(stderr,"Backward: ptype not found\n");
+/*         fprintf(stderr,"Backward: ptype not found\n");*/
          EXIT(1);
       }
       lotrs->USER=delptype(lotrs->USER, GEN_VISITED_PTYPE);
-//      freeptype(lotrs->USER);       /*erase only ptype GEN_VISITED_PTYPE*/
-//      lotrs->USER=NULL;
+/*      freeptype(lotrs->USER);       /*erase only ptype GEN_VISITED_PTYPE*/
+/*      lotrs->USER=NULL;*/
    }
    freechain(SHIFT_LOTRS);
    
@@ -1913,7 +1913,7 @@ extern void Backward()
 /****************************************************************************/
 extern void Protect()
 {
-//   gen_printf(2,"(+)LEVEL=%d",level++);
+/*   gen_printf(2,"(+)LEVEL=%d",level++);*/
   certifylastmarkcounts();
   certifylastwithoutcounts();
   certifylastmarks();
@@ -1977,7 +1977,7 @@ extern void Remove(model_list* model)
 
    if (STACK_SHIFT_LOINS || STACK_SHIFT_LOTRS || STACK_MARK) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 166);
-//      fprintf(stderr,"Remove: Stack not empty\n");
+/*      fprintf(stderr,"Remove: Stack not empty\n");*/
       EXIT(1);
    }
 
@@ -1993,7 +1993,7 @@ extern void Remove(model_list* model)
       p=delptype(model_ins->USER,GEN_VISITED_PTYPE);
       if (p==NULL) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 167);
-//        fprintf(stderr,"Remove: NULL pointer in model visited ptype(v2)\n");
+/*        fprintf(stderr,"Remove: NULL pointer in model visited ptype(v2)\n");*/
         EXIT(1);
       }
       model_ins->USER=p;
@@ -2007,12 +2007,12 @@ extern void Remove(model_list* model)
       lotrs=(lotrs_list*)l->DATA;
       if (!lotrs->USER) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 168);
-//         fprintf(stderr,"Remove: ptype not found\n");
+/*         fprintf(stderr,"Remove: ptype not found\n");*/
          EXIT(1);
       }
       lotrs->USER=delptype(lotrs->USER, GEN_VISITED_PTYPE);
-      //freeptype(lotrs->USER);
-      //      lotrs->USER=NULL;
+      /*freeptype(lotrs->USER);*/
+      /*      lotrs->USER=NULL;*/
    }
    freechain(SHIFT_LOTRS);
    SHIFT_LOTRS=NULL;
@@ -2039,7 +2039,7 @@ void testranges(lofig_list *lf, ptype_list *env)
     {
       if (ls->TYPE=='I')
         {
-//          printf("%s \n",(char *)ls->NAMECHAIN->DATA);
+/*          printf("%s \n",(char *)ls->NAMECHAIN->DATA);*/
           range=getptype(ls->USER, GEN_REAL_RANGE_PTYPE);
           head=getptype(ls->USER, GEN_MARK_PTYPE);
           if (!head) continue;
@@ -2067,10 +2067,10 @@ void testranges(lofig_list *lf, ptype_list *env)
                 {
                   if (left!=-1) 
         avt_errmsg(GNS_ERRMSG, "111", AVT_FATAL, mark->BIT, (char *)ls->NAMECHAIN->DATA, left,right);
-//                  fprintf(stderr,"Index %d is out of range for signal %s (%d..%d)\n",mark->BIT, (char *)ls->NAMECHAIN->DATA, left,right);
+/*                  fprintf(stderr,"Index %d is out of range for signal %s (%d..%d)\n",mark->BIT, (char *)ls->NAMECHAIN->DATA, left,right);*/
                   else
         avt_errmsg(GNS_ERRMSG, "112", AVT_FATAL, mark->BIT, (char *)ls->NAMECHAIN->DATA);
-        //             fprintf(stderr,"Index %d is out of range for signal %s\n",mark->BIT, (char *)ls->NAMECHAIN->DATA);
+        /*             fprintf(stderr,"Index %d is out of range for signal %s\n",mark->BIT, (char *)ls->NAMECHAIN->DATA);*/
                   EXIT(1);
                 }
             }   
@@ -2154,7 +2154,7 @@ extern int controlmark(int visited, losig_list *model_sig, int numbit, losig_lis
            if (cmark->BIT!=numbit || cmark->LOSIG!=circuit_sig) 
            {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 169);
-//                   fprintf(stderr,"Internal severe warning: Bit mismatch %d!=%d or %s!=%s\n",cmark->BIT,numbit,(char *)cmark->LOSIG->NAMECHAIN->DATA,(char *)circuit_sig->NAMECHAIN->DATA);
+/*                   fprintf(stderr,"Internal severe warning: Bit mismatch %d!=%d or %s!=%s\n",cmark->BIT,numbit,(char *)cmark->LOSIG->NAMECHAIN->DATA,(char *)circuit_sig->NAMECHAIN->DATA);*/
                    EXIT(45);
            }
            mark=cmark;
@@ -2195,7 +2195,7 @@ extern int controlmark(int visited, losig_list *model_sig, int numbit, losig_lis
     {
       if ((mark && !model_sig_last) || (!mark && model_sig_last)) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 170);
-//        fprintf(stderr,"controlmark: computing error\n");
+/*        fprintf(stderr,"controlmark: computing error\n");*/
         EXIT(3);
       }
     }
@@ -2207,9 +2207,9 @@ extern int controlmark(int visited, losig_list *model_sig, int numbit, losig_lis
     mark=addmark(head,numbit,circuit_sig,visited,me);
     if (mark_in_ea!=NULL) *mark_in_ea=mark;
     mark->mark_in_ea=mark_in_ea;
-//    gen_printf(5,"+ %s next=%p",mark->LOSIG->NAMECHAIN->DATA,MEMO_MARK);
+/*    gen_printf(5,"+ %s next=%p",mark->LOSIG->NAMECHAIN->DATA,MEMO_MARK);*/
     MEMO_MARK=addchain(MEMO_MARK, mark);
-//    gen_printf(5,"cur=%p\n",MEMO_MARK);
+/*    gen_printf(5,"cur=%p\n",MEMO_MARK);*/
     top->DATA=addptype(top->DATA,model_sig->TYPE,mark);
     if (me!=NULL) addloconmark(me, mark);
     failedmark=mark;
@@ -2243,7 +2243,7 @@ extern foundins_list* new_foundins(foundins_list *top, loins_list *loins, ptype_
    
    if (!loins) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 171);
-//      fprintf(stderr,"new_foundins: NULL pointer\n");
+/*      fprintf(stderr,"new_foundins: NULL pointer\n");*/
       EXIT(1);
    }
 
@@ -2292,7 +2292,7 @@ extern void add_foundins(model_list *ml, loins_list *loins, ptype_list *var)
 
    if (!loins) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 172);
-//      fprintf(stderr,"add_foundins: NULL pointer\n");
+/*      fprintf(stderr,"add_foundins: NULL pointer\n");*/
       EXIT(1);
    }
 
@@ -2302,7 +2302,7 @@ extern void add_foundins(model_list *ml, loins_list *loins, ptype_list *var)
       if (p->MODEL->NAME==mlname/*loins->FIGNAME*/) break;
    if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 173);
-//      fprintf(stderr,"add_foundins: model '%s' not found\n",loins->FIGNAME);
+/*      fprintf(stderr,"add_foundins: model '%s' not found\n",loins->FIGNAME);*/
       EXIT(1);
    }   
 
@@ -2323,7 +2323,7 @@ extern void add_foundmodel(foundins_list *liste_Ins,
    
    if (!model) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 174);
-//      fprintf(stderr,"add_foundmodel: NULL pointer\n");
+/*      fprintf(stderr,"add_foundmodel: NULL pointer\n");*/
       EXIT(1);
    }
 
@@ -2342,7 +2342,7 @@ extern void add_foundmodel(foundins_list *liste_Ins,
 /*  free recursively from top a list of foundins, all non zero if you want  */
 /*  to erase also loins attached                                            */
 /****************************************************************************/
-//#define LLEV -1
+/*#define LLEV -1*/
 #define LLEV 5
 
 chain_list *GrabExistingLoins(lofig_list *lf, char *modelname, char *regexp)
@@ -2440,7 +2440,7 @@ static void put_back_locked_loins()
     gr->LOWER=NULL;
     gr->HIGHER=NULL;
     gr->NOT_MATCH=0;
-    gr->LOINS->NEXT=(loins_list*)(~1 & (long)gr->LOINS->NEXT); // [!] very dangerous
+    gr->LOINS->NEXT=(loins_list*)(~1 & (long)gr->LOINS->NEXT); /* [!] very dangerous*/
   }
   GNS_RESTORE=NULL;
 }
@@ -2470,14 +2470,14 @@ extern void free_foundins(foundins_list *top, int all)
           nbins2++;
           for (ptcon = fl->LOINS->LOCON; ptcon!=NULL; ptcon = ptcon->NEXT) 
             {
-              // I am to be deleted later
+              /* I am to be deleted later*/
               if (ptcon->SIG==NULL) continue;
               ptcon->USER=addptype(ptcon->USER,TO_DELETE_MARK_PTYPE,0);
               nbcon++;
-              // signal already added?
+              /* signal already added?*/
               if (getptype(ptcon->SIG->USER,TO_DELETE_MARK_PTYPE)==NULL)
                 {
-                  // no. Add it to the list
+                  /* no. Add it to the list*/
                   nbsig++;
                   signals_to_check=addchain(signals_to_check, ptcon->SIG);
                   ptcon->SIG->USER=addptype(ptcon->SIG->USER,TO_DELETE_MARK_PTYPE,0);
@@ -2500,10 +2500,10 @@ extern void free_foundins(foundins_list *top, int all)
         {
           lc[i]->USER=addptype(lc[i]->USER,TO_DELETE_MARK_PTYPE,0);
           nbcon++;
-          // signal already added?
+          /* signal already added?*/
           if (getptype(lc[i]->SIG->USER,TO_DELETE_MARK_PTYPE)==NULL)
             {
-              // no. Add it to the list
+              /* no. Add it to the list*/
               nbsig++;
               signals_to_check=addchain(signals_to_check, lc[i]->SIG);
               lc[i]->SIG->USER=addptype(lc[i]->SIG->USER,TO_DELETE_MARK_PTYPE,0);
@@ -2516,14 +2516,14 @@ extern void free_foundins(foundins_list *top, int all)
       li=(loins_list *)cl->DATA;
       for (ptcon = li->LOCON; ptcon!=NULL; ptcon = ptcon->NEXT) 
         {
-          // I am to be deleted later
+          /* I am to be deleted later*/
           if (ptcon->SIG==NULL) continue;
           ptcon->USER=addptype(ptcon->USER,TO_DELETE_MARK_PTYPE,0);
           nbcon++;
-          // signal already added?
+          /* signal already added?*/
           if (getptype(ptcon->SIG->USER,TO_DELETE_MARK_PTYPE)==NULL)
             {
-              // no. Add it to the list
+              /* no. Add it to the list*/
               nbsig++;
               signals_to_check=addchain(signals_to_check, ptcon->SIG);
               ptcon->SIG->USER=addptype(ptcon->SIG->USER,TO_DELETE_MARK_PTYPE,0);
@@ -2549,7 +2549,7 @@ extern void free_foundins(foundins_list *top, int all)
       if (!lofigchain) 
         {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 174);
-//          fprintf(stderr,"free_foundins: no LOFIGCHAIN\n");
+/*          fprintf(stderr,"free_foundins: no LOFIGCHAIN\n");*/
           EXIT(1);
         }
 
@@ -2604,10 +2604,10 @@ extern void free_foundins(foundins_list *top, int all)
                   */              
                   mbkfree(ptcon);
                 }
-              p=getptype(fl->LOINS->USER,FCL_TRANSLIST_PTYPE); // 2 delete?
+              p=getptype(fl->LOINS->USER,FCL_TRANSLIST_PTYPE); /* 2 delete?*/
               if (p) freechain(p->DATA);
 
-              p=getptype(fl->LOINS->USER,FCL_INSLIST_PTYPE); // 2 delete?
+              p=getptype(fl->LOINS->USER,FCL_INSLIST_PTYPE); /* 2 delete?*/
               if (p) freechain(p->DATA);
 
               freeptype(fl->LOINS->USER);
@@ -2624,7 +2624,7 @@ extern void free_foundins(foundins_list *top, int all)
         }
     }
 
-  // destruction des faux transistors
+  /* destruction des faux transistors*/
   for (cl=FakeLOTRS;cl!=NULL;cl=cl->NEXT)
     {
       tr=(lotrs_list *)cl->DATA;
@@ -2645,7 +2645,7 @@ extern void free_foundins(foundins_list *top, int all)
   freechain(FakeLOTRS);
   FakeLOTRS=NULL;
 
-  // destruction des fausses instances
+  /* destruction des fausses instances*/
   for (cl=FakeLOINS;cl!=NULL;cl=cl->NEXT)
     {
       li=(loins_list *)cl->DATA;
@@ -2662,12 +2662,12 @@ extern void free_foundins(foundins_list *top, int all)
   freechain(FakeLOINS);
   FakeLOINS=NULL;
 
-  freefoundins(top); // [!] fait un append
+  freefoundins(top); /* [!] fait un append*/
   EraseSignalStatistics();
 }
 
 
-//* test Zinaps
+/** test Zinaps*/
 static foundins_list *PENDING_DELETION=NULL;
 static long count_pending=0;
 
@@ -2735,20 +2735,20 @@ extern void erase_foundins(model_list *ml, loins_list *elem)
   
   if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 190);
-//    fprintf(stderr,"erase_foundins: model %s not found\n",name);
+/*    fprintf(stderr,"erase_foundins: model %s not found\n",name);*/
     EXIT(2);
   }
 
   if (p->INS->LOINS==elem) {
     fil=p->INS;
     p->INS=fil->NEXT;
-    //found->NEXT=NULL;
+    /*found->NEXT=NULL;*/
     fil->NEXT=PENDING_DELETION;
     PENDING_DELETION=fil;
     fil->ghost=1;
     p->COUNT--;
     count_pending++;
-    fil->LOINS->NEXT=(loins_list*)(1|(long)fil->LOINS->NEXT); // [!] very dangerous
+    fil->LOINS->NEXT=(loins_list*)(1|(long)fil->LOINS->NEXT); /* [!] very dangerous*/
     return;
   }   
 
@@ -2756,7 +2756,7 @@ extern void erase_foundins(model_list *ml, loins_list *elem)
   if (!pl)
     {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 175);
-//      fprintf(stderr,"erase_foundins: PTYPE not found\n");
+/*      fprintf(stderr,"erase_foundins: PTYPE not found\n");*/
       EXIT(1);
     }
 
@@ -2764,7 +2764,7 @@ extern void erase_foundins(model_list *ml, loins_list *elem)
   if (((long)fil->LOINS->NEXT) & 1)
     {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 176);
-//      fprintf(stderr,"erase_foundins: loins %s already erased\n",elem->INSNAME);
+/*      fprintf(stderr,"erase_foundins: loins %s already erased\n",elem->INSNAME);*/
       EXIT(1);
     }
   
@@ -2781,7 +2781,7 @@ extern void erase_foundins(model_list *ml, loins_list *elem)
   fil->ghost=1;
   p->COUNT--;
   count_pending++;
-  fil->LOINS->NEXT=(loins_list*)(1|(long)fil->LOINS->NEXT); // [!] very dangerous
+  fil->LOINS->NEXT=(loins_list*)(1|(long)fil->LOINS->NEXT); /* [!] very dangerous*/
 }
 
 
@@ -2796,7 +2796,7 @@ extern foundins_list* getfoundins(char *name)
       if (p->MODEL->NAME==modelradical(name)) return p->INS;
    
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 177);
-//   fprintf(stderr,"getfoundins: model %s not found\n",name);
+/*   fprintf(stderr,"getfoundins: model %s not found\n",name);*/
    p=NULL;
    p->NEXT=p->NEXT;
    EXIT(2);
@@ -2835,7 +2835,7 @@ static inline foundmodel_list* Found_Model(char *model)
       if (found->MODEL->NAME==model) break;
    if (!found) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 178);
-//      fprintf(stderr,"Found_Model: %s not found\n",model);
+/*      fprintf(stderr,"Found_Model: %s not found\n",model);*/
       EXIT(1);
    }
    return found;
@@ -2851,7 +2851,7 @@ extern int Check_Model(char *model)
    foundmodel=Found_Model(model);
    if (!foundmodel) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 179);
-//      fprintf(stderr,"Check_Model: %s not found\n",model);
+/*      fprintf(stderr,"Check_Model: %s not found\n",model);*/
       EXIT(2);   
    }
    return foundmodel->CHECK;
@@ -2866,7 +2866,7 @@ extern int Count_Model(char *model)
    foundmodel_list *foundmodel=Found_Model(model);
    if (!foundmodel) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 180);
-//      fprintf(stderr,"Count_Model: %s not found\n",model);
+/*      fprintf(stderr,"Count_Model: %s not found\n",model);*/
       EXIT(2);   
    }
    return foundmodel->COUNT;
@@ -2882,7 +2882,7 @@ extern void  AddCount_Model(char *model, int count)
    found=Found_Model(model);
    if (!found) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 181);
-//      fprintf(stderr,"PutCount_Model: %s not found\n",model);
+/*      fprintf(stderr,"PutCount_Model: %s not found\n",model);*/
       EXIT(2);   
    }
    found->COUNT+=count;
@@ -2950,7 +2950,7 @@ void UpdateNewInstanceLofigChain()
   chain_list *cl;
   loins_list *li;
   locon_list *lc;
-//  ptype_list *p;
+/*  ptype_list *p;*/
   for (cl=ALL_NEW_INSTANCES; cl!=NULL; cl=cl->NEXT)
     {
       li=(loins_list *)cl->DATA;
@@ -2970,9 +2970,9 @@ static void checkrange(int a, int b, tree_list *t)
     {
       avt_errmsg(GNS_ERRMSG, "113", AVT_ERROR, FILE_NAME(t), LINE(t), a, b);
       
-      //fprintf(stderr,"%S:%d: negative vector bound computed for expression: \"");
+      /*fprintf(stderr,"%S:%d: negative vector bound computed for expression: \"");*/
       Dump_Tree(t);
-      //fprintf(stderr,"\", values are %d and %d at %s:%d\n", a, b, FILE_NAME(t), LINE(t));
+      /*fprintf(stderr,"\", values are %d and %d at %s:%d\n", a, b, FILE_NAME(t), LINE(t));*/
       EXIT(1);
     }
 }
@@ -2991,7 +2991,7 @@ extern void Build_loins(model_list *model, ptype_list *env)
    mark_list* mark;
    tree_list *array_sig,*array_con;
    ptype_list *var,*head;
-//   ptype_list *gensigchain_ptype;
+/*   ptype_list *gensigchain_ptype;*/
    static int count_ins=1;
    static char* last_model=NULL;
    long begin_con,end_con,begin_sig,end_sig;
@@ -3003,7 +3003,7 @@ extern void Build_loins(model_list *model, ptype_list *env)
 
    if (!model) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 182);
-//      fprintf(stderr,"Build_loins: NULL pointer\n");
+/*      fprintf(stderr,"Build_loins: NULL pointer\n");*/
       EXIT(1);
    }
 
@@ -3015,7 +3015,7 @@ extern void Build_loins(model_list *model, ptype_list *env)
       count_ins=1;
    }
 
-   // creation des instances non existantes
+   /* creation des instances non existantes*/
    CreateFake(model, env);
 
    ptnewfig=model->LOFIG;
@@ -3085,7 +3085,7 @@ extern void Build_loins(model_list *model, ptype_list *env)
          ALL_KIND_OF_MODELS=addchain(ALL_KIND_OF_MODELS, table->GENIUS_FIGNAME);
        }
      
-     //           Exec_C(model->C, var);
+     /*           Exec_C(model->C, var);*/
      var->NEXT->NEXT->NEXT=NULL;
      freeptype(var);
      
@@ -3113,13 +3113,13 @@ extern void Build_loins(model_list *model, ptype_list *env)
      p=getptype(ptcon->USER,GENCONCHAIN); 
      if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 183);
-//       fprintf(stderr,"Build_loins: NULL pointer\n");
+/*       fprintf(stderr,"Build_loins: NULL pointer\n");*/
        EXIT(1);
      }   
      gencon=p->DATA;
      if (!gencon) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 184);
-//       fprintf(stderr,"Build_loins: NULL pointer\n");
+/*       fprintf(stderr,"Build_loins: NULL pointer\n");*/
        EXIT(1);
      }   
      if (gencon->NEXT) { 
@@ -3221,7 +3221,7 @@ extern void Build_loins(model_list *model, ptype_list *env)
        ptnewcon->DIRECTION = ptcon->DIRECTION;
        ptnewcon->TYPE = 'I';
        ptnewcon->ROOT = (void *)ptins;      
-//       ptnewcon->PNODE= NULL;
+/*       ptnewcon->PNODE= NULL;*/
        AddRadicalInfoInLOCON(ptnewcon, ri, begin_con);
        ptnewcon->NEXT = ptins->LOCON;
        ptnewcon->USER=NULL;
@@ -3232,7 +3232,7 @@ extern void Build_loins(model_list *model, ptype_list *env)
        /*now error*/
        if (begin_con==end_con || begin_sig==end_sig) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 185);
-//         fprintf(stderr,"Build_loins: computing error\n");
+/*         fprintf(stderr,"Build_loins: computing error\n");*/
          EXIT(3);
        }
        /*move counter*/
@@ -3248,7 +3248,7 @@ extern void Build_loins(model_list *model, ptype_list *env)
    ptins->USER  = addptype(ptins->USER,FCL_TRANSLIST_PTYPE,translist);
    ptins->USER  = addptype(ptins->USER,FCL_INSLIST_PTYPE,inslist);
    ptins->USER = (ptype_list *)append((chain_list *)ptins->USER, (chain_list *)GEN_USER);
-//   GenPostOp(ptins);
+/*   GenPostOp(ptins);*/
 
    if (TRACE_MODE == 'Y')
      (void)fprintf(stdout, "--- mbk --- addloins  : %s of figure %s\n", 
@@ -3257,13 +3257,13 @@ extern void Build_loins(model_list *model, ptype_list *env)
    /*build foundloins for next use*/
    var=NULL;
    for (p=env; p; p=p->NEXT) var=addptype(var,p->TYPE,p->DATA);
-   // zinaps
+   /* zinaps*/
    AddSymsFlagInLoinsLocon(ptins);
 
-//   TrytoArrangeSymmetricConnectors(ptins);
+/*   TrytoArrangeSymmetricConnectors(ptins);*/
 
 
-//   AddRadicalInfoInPNODE(ptins);
+/*   AddRadicalInfoInPNODE(ptins);*/
 /*   AddSymsToInstanceConnectors(ptins);
    AddCoupledToInstanceConnectors(ptins);*/
    add_foundins(model, ptins, var);
@@ -3299,7 +3299,7 @@ extern chain_list* Build_loins_list()
       for (le=GENIUS_PRIORITY;le!=NULL && le->entity!=modelradical(model->NAME);le=le->NEXT) ;
       if (le==NULL) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 186);
-//              fprintf(stderr,"model %s not found\n",modelradical(model->NAME));
+/*              fprintf(stderr,"model %s not found\n",modelradical(model->NAME));*/
               EXIT(64);
       }
 
@@ -3320,13 +3320,13 @@ extern chain_list* Build_loins_list()
 
           if ((k=gethtitem(LOINS_LIST_CONTROL, finalmodel))!=EMPTYHT)
             {
-              // CONTROLED BY THE API
+              /* CONTROLED BY THE API*/
               if (k & 1) keep=1;
               else keep=0;
             }
           if ((k=gethtitem(LOINS_LIST_CONTROL, foundins->LOINS->INSNAME))!=EMPTYHT)
             {
-              // CONTROLED BY THE API
+              /* CONTROLED BY THE API*/
               if (k & 1) keep=1;
               else keep=0;
             }
@@ -3335,7 +3335,7 @@ extern chain_list* Build_loins_list()
             {
               if (foundins->SAVEDFLAG!=0)
                 {
-                  //                 PutBackRealLoins(foundins->LOINS);
+                  /*                 PutBackRealLoins(foundins->LOINS);*/
                   erase_foundins(model, foundins->LOINS);
                   continue;
                 }
@@ -3396,7 +3396,7 @@ chain_list *GetFixedSignalList(loins_list *li, ptype_list *env, ptype_list *liva
   locon_list *lc;
   losig_list *ls;
 
-//  printf("changing '%s' from %d to UNDEF\n", env->DATA, env->TYPE);
+/*  printf("changing '%s' from %d to UNDEF\n", env->DATA, env->TYPE);*/
   old_env_value=env->TYPE;
 /*  {
     ptype_list *p;
@@ -3408,11 +3408,11 @@ chain_list *GetFixedSignalList(loins_list *li, ptype_list *env, ptype_list *liva
   env->TYPE=UNDEF;
   for (lc=li->LOCON;lc!=NULL;lc=lc->NEXT)
     {
-      // depends on loop variable?
-     // printf("here\n");
-      cl=GetMarkFromCON(lc, &f, &l, NULL, env, livar); // model=NULL, no error should happen
-     // printf("hereend\n");
-//      printf("(%d %d)",f,l);
+      /* depends on loop variable?*/
+     /* printf("here\n");*/
+      cl=GetMarkFromCON(lc, &f, &l, NULL, env, livar); /* model=NULL, no error should happen*/
+     /* printf("hereend\n");*/
+/*      printf("(%d %d)",f,l);*/
       if (l!=UNDEF && f!=UNDEF)
         {
           taken++;
@@ -3424,13 +3424,13 @@ chain_list *GetFixedSignalList(loins_list *li, ptype_list *env, ptype_list *liva
       total++;
     }
   
-  // looking for dependant, who are non dependant symmetric
-//  printf("total=%d taken=%d | ", total, taken);
+  /* looking for dependant, who are non dependant symmetric*/
+/*  printf("total=%d taken=%d | ", total, taken);*/
 
   for (lc=li->LOCON;lc!=NULL;lc=lc->NEXT)
     {
-      // depends on loop variable?
-      cl=GetMarkFromCON(lc, &f, &l, NULL, env, livar); // model=NULL, no error should happen
+      /* depends on loop variable?*/
+      cl=GetMarkFromCON(lc, &f, &l, NULL, env, livar); /* model=NULL, no error should happen*/
       freechain(cl);
       if (l==UNDEF || f==UNDEF)
         {
@@ -3455,7 +3455,7 @@ chain_list *GetFixedSignalList(loins_list *li, ptype_list *env, ptype_list *liva
 
   env->TYPE=old_env_value;
   freechain(radics);
-//  printf("total=%d taken=%d\n", total, taken);
+/*  printf("total=%d taken=%d\n", total, taken);*/
   if (total==taken)
     {
       freechain(ch);
@@ -3467,7 +3467,7 @@ chain_list *GetFixedSignalList(loins_list *li, ptype_list *env, ptype_list *liva
       losig_list *bestsig=NULL;
       int bestcount=1000000, cnt;
       loins_list *li0;
-//      ptype_list *p;
+/*      ptype_list *p;*/
       for (cl=ch; cl!=NULL; cl=cl->NEXT)
         {
           ls=(losig_list *)cl->DATA;
@@ -3493,11 +3493,11 @@ chain_list *GetFixedSignalList(loins_list *li, ptype_list *env, ptype_list *liva
       
       if (bestsig==NULL) 
         {
-        //  fprintf(stderr,"Could not find a way to handle loop on instance with figure '%s', using default behaviour\n",  li->FIGNAME);
+        /*  fprintf(stderr,"Could not find a way to handle loop on instance with figure '%s', using default behaviour\n",  li->FIGNAME);*/
         }
       else
         {
-      //    printf("bestsig='%s', count=%d\n",bestsig->NAMECHAIN->DATA, bestcount);
+      /*    printf("bestsig='%s', count=%d\n",bestsig->NAMECHAIN->DATA, bestcount);*/
           freechain(ch);
           ch=addchain(NULL , bestsig);
         }
@@ -3530,7 +3530,7 @@ int IsFORparallal(loins_list *li, ptype_list *env, lofig_list *model_lofig, int 
       allsigs=GetFORdependantSingleSignalExpressions(lc, env, allsigs);
     }
   
-  // les autres instances sont elles reliees par des signaux dependant de la boucle
+  /* les autres instances sont elles reliees par des signaux dependant de la boucle*/
   for (loins=model_lofig->LOINS; notparal==0 && loins!=NULL; loins=loins->NEXT)
     {
       if (loins==li) continue;
@@ -3539,13 +3539,13 @@ int IsFORparallal(loins_list *li, ptype_list *env, lofig_list *model_lofig, int 
           p=getptype(lc->USER,GENCONCHAIN); 
           if (!p) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 187);
-//            fprintf(stderr,"Build_loins: NULL pointer\n");
+/*            fprintf(stderr,"Build_loins: NULL pointer\n");*/
             EXIT(1);
           }   
           gencon=p->DATA;
           if (!gencon) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 188);
-//            fprintf(stderr,"Build_loins: NULL pointer\n");
+/*            fprintf(stderr,"Build_loins: NULL pointer\n");*/
             EXIT(1);
           }   
           if (gencon->NEXT) {
@@ -3573,7 +3573,7 @@ int IsFORparallal(loins_list *li, ptype_list *env, lofig_list *model_lofig, int 
     {
       if (notparal==0)
         {
-//          printf("testing : %s ",((losig_list *)p->TYPE)->NAMECHAIN->DATA);
+/*          printf("testing : %s ",((losig_list *)p->TYPE)->NAMECHAIN->DATA);*/
           oldval=UNDEF;      
           for (cl=(chain_list *)p->DATA; cl!=NULL; cl=cl->NEXT)
             {
@@ -3581,7 +3581,7 @@ int IsFORparallal(loins_list *li, ptype_list *env, lofig_list *model_lofig, int 
               if (oldval!=UNDEF && val!=oldval) { notparal=1; break; }
               oldval=val;
             }
-//          printf("%s\n",notparal==0?"PARAL":"NOT PARAL");
+/*          printf("%s\n",notparal==0?"PARAL":"NOT PARAL");*/
         }
       freechain((chain_list *)p->DATA);
     }
@@ -3647,11 +3647,11 @@ void UpdateTOPInstancesCorrespondanceTable()
                  ArrangeInstanceConnectors(foundins->LOINS);
 
                gilles_lofig=gen_getlofig(crt->GENIUS_FIGNAME);
-//               printf("update %s\n",crt->GENIUS_FIGNAME);
+/*               printf("update %s\n",crt->GENIUS_FIGNAME);*/
                gen_update_alims (gilles_lofig, crt, NULL);
                gen_update_corresp_table(gilles_lofig, crt, foundins->LOINS);
              }
-//               flags = (long)getptype (foundins->VISITED->USER, GENIUS_LOINS_FLAGS_PTYPE)->DATA;
+/*               flags = (long)getptype (foundins->VISITED->USER, GENIUS_LOINS_FLAGS_PTYPE)->DATA;*/
            sins=Add_subinst(sins, foundins->LOINS->INSNAME, crt, crt->FLAGS);
          }
      }  

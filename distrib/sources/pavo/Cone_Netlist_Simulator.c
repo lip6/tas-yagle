@@ -36,13 +36,13 @@ int pavo_get_cone_index(cone_list *cl)
 {
   ptype_list *pt;
   if ((pt=getptype(cl->USER, PAVO_CONE_INDEX))!=NULL) return (int)(long)pt->DATA;
-  exit(6); // err msg
+  exit(6); /* err msg*/
 }
 
 int pavo_get_input_cone(char *name)
 {
   long l;
-  if ((l=gethtitem(CSI.ExternalCones, namealloc(name)))==EMPTYHT) {exit(10); return -1;} // msg
+  if ((l=gethtitem(CSI.ExternalCones, namealloc(name)))==EMPTYHT) {exit(10); return -1;} /* msg*/
   return l;
 }
 
@@ -59,9 +59,9 @@ int pavo_UpdateFunction(Scheduler *S, int index, void *data)
     {
       ci->CurrentVoltage=newval;
       ci->ModificationDate=S->Date;
-      return 1; // event detected
+      return 1; /* event detected*/
     }
-  // value is the same, no event detected
+  /* value is the same, no event detected*/
   return 0;
 }
 
@@ -70,7 +70,7 @@ void pavo_GetConeDelay_and_Voltage(Scheduler *S, cone_list *cl, long *delay, flo
   ConeInformations *ci;
   edge_list *el;
 
-  // positionning voltage on the cone inputs
+  /* positionning voltage on the cone inputs*/
   for (el=cl->INCONE; el!=NULL; el=el->NEXT)
     {
      if ((el->TYPE & CNS_EXT)!=CNS_EXT)
@@ -80,14 +80,14 @@ void pavo_GetConeDelay_and_Voltage(Scheduler *S, cone_list *cl, long *delay, flo
         }
     }
 
-  // calling appropriate function
+  /* calling appropriate function*/
     *value=pavo_CalcInternalNodeVoltage(cl);
     *delay=1+(rand() % 10);
 
 #if 0
-  // --- fake value and timing-- a remplacer par la fonction adequate
+  /* --- fake value and timing-- a remplacer par la fonction adequate*/
   {
-    // evaluation de la sortie
+    /* evaluation de la sortie*/
     int ra=rand() % 6;
 
 
@@ -97,11 +97,11 @@ void pavo_GetConeDelay_and_Voltage(Scheduler *S, cone_list *cl, long *delay, flo
     else *value=PAVO_UNKNOWN_VOLTAGE;
 
     
-    // recuperation du temps de propagation
+    /* recuperation du temps de propagation*/
   }
-  // ---------------------------
+  /* ---------------------------*/
 #endif
-  // cleaning
+  /* cleaning*/
   for (el=cl->INCONE; el!=NULL; el=el->NEXT)
     {
       if ((el->TYPE & CNS_EXT)!=CNS_EXT)
@@ -183,7 +183,7 @@ void pavo_RandomPatterns(Scheduler *S, long lastdate, long nextdate)
           newval=1.6; Scheduler_AddTransaction(S, pavo_get_input_cone("d"), delta, &newval);
           nextpatterndate=6000;
         default:
-          // random
+          /* random*/
           randmode=1;
           var=rand() % 4;
           sprintf(name,"%c",'a'+var);
@@ -195,7 +195,7 @@ void pavo_RandomPatterns(Scheduler *S, long lastdate, long nextdate)
           Scheduler_AddTransaction(S, pavo_get_input_cone(name), delta, &newval);
           nextpatterndate+=1+(rand() % 10);
 
-//          endofpattern=1;
+/*          endofpattern=1;*/
           break;
         }
     }
@@ -296,9 +296,9 @@ int ymain(int ac, char *av[])
 
   srand(time(NULL));
 
-  // desassembler netlist
+  /* desassembler netlist*/
 
-  // lancer simulation
+  /* lancer simulation*/
   pavo_SimulateNetlist(cf, 4000);
 
 

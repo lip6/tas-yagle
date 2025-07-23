@@ -36,11 +36,11 @@ void gen_update_transistors (lofig_list *fig, corresp_t *table)
         }
         else 
             avt_errmsg(GNS_ERRMSG, "038", AVT_WARNING, tr->TRNAME);
-            //avt_error ("GNS", 0, AVT_WAR, "no corresponding transistor for %s\n", tr->TRNAME);
+            /*avt_error ("GNS", 0, AVT_WAR, "no corresponding transistor for %s\n", tr->TRNAME);*/
     }
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void gen_update_loins (lofig_list *fig, corresp_t *table)
 {

@@ -46,7 +46,7 @@ void gen_set_pnode_in_loins(chain_list *list);
 /****************************************************************************/
 /*               sort by dependancies the models and dump results           */
 /****************************************************************************/
-// zinaps
+/* zinaps*/
 
 static int reject_model(lofig_list *lf, char *model)
 {
@@ -85,7 +85,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
 
   if (!circuit || !model) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 40);
-//    fprintf(stderr,"genFindInstances: NULL pointer\n");
+/*    fprintf(stderr,"genFindInstances: NULL pointer\n");*/
     EXIT(1);
   }
 
@@ -100,7 +100,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
     if (mbk_istransn(name_ins) || mbk_istransp(name_ins)) continue;
     else {
       /* search at first time dependancies*/
-      //           printf("=> %s\n",name_ins);
+      /*           printf("=> %s\n",name_ins);*/
       if (!Check_Model(name_ins)) 
         Sort_Search(circuit,getmodel(name_ins),namechain);
       count=Count_Model(name_ins);
@@ -108,7 +108,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
     /* if no instance found EXIT */
     if (count==0)
       {
-//        PutCheck_Model(model->NAME);
+/*        PutCheck_Model(model->NAME);*/
         if (model->NAME!=modelradical(model->NAME)) 
           {
             gen_printf(0,"\n--- %s (%s) ---\n", modelradical(model->NAME),strchr(model->NAME,' ')+1);
@@ -126,7 +126,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
         gen_printf(0,"not found\n");
              
         nosearch=1;
-//        return;
+/*        return;*/
       }
     else
       {
@@ -137,7 +137,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
           hassyms=1;
         else 
           hassyms=0;
-        // if (hassyms) printf("%s has syms\n",foundins->LOINS->FIGNAME);
+        /* if (hassyms) printf("%s has syms\n",foundins->LOINS->FIGNAME);*/
         if (foundins->NOT_MATCH || foundins->FLAG) 
           { 
             for ( ; foundins; foundins=foundins->NEXT) 
@@ -154,7 +154,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
                     if (!p) 
                       {
                         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 41);
-                        //fprintf(stderr,"genFindInstances: NULL pointer\n");
+                        /*fprintf(stderr,"genFindInstances: NULL pointer\n");*/
                         EXIT(1);
                       }
                     p->DATA=foundins;
@@ -169,7 +169,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
           {
             if (selecthassyms && !hassyms)
               {
-                // loins with not syms have more priority
+                /* loins with not syms have more priority*/
                 select=count;
                 select_model=name_ins;
                 selecthassyms=hassyms;
@@ -214,7 +214,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
         avt_fprintf(GENIUS_OUTPUT,"¤+%s¤.:  ",model->NAME);
       fflush(GENIUS_OUTPUT);
       
-      count=genFindInstances(circuit, model, select_model); // zinaps
+      count=genFindInstances(circuit, model, select_model); /* zinaps*/
       
     }
 
@@ -228,7 +228,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
       for (q=Ins_list; q; q=q->NEXT) 
         {
           li=(loins_list *)q->DATA;
-//          if (q==Ins_list)
+/*          if (q==Ins_list)*/
             {
               CheckLoinsLofigInconsistancy(li, model->LOFIG);
             }
@@ -237,7 +237,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
           CleanLoconFlags(li);
           AddRadicalInfoInPNODE(li);
           add_foundins(model, q->DATA,NULL);
-          GetLastAddedFoundins()->SAVEDFLAG=1; // instance from circuit
+          GetLastAddedFoundins()->SAVEDFLAG=1; /* instance from circuit*/
           add_loins_in_all_loins_found(li->INSNAME, model, onetable=create_blackbox_corresp_table(li));
           if (gethtitem(unique, onetable->GENIUS_FIGNAME)==EMPTYHT)
             {
@@ -281,7 +281,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
         }
 
       if (count0==0)
-        avt_fprintf(GENIUS_OUTPUT,"¤+¤3%d¤. found",count); //gen_printf(-1,"%d found\n",count);
+        avt_fprintf(GENIUS_OUTPUT,"¤+¤3%d¤. found",count); /*gen_printf(-1,"%d found\n",count);*/
       else
         avt_fprintf(GENIUS_OUTPUT,"¤+¤3%d¤. (¤3%d¤.¤4+%d¤.) found",count,count-count0,count0);
       if (current_variable_values==NULL) avt_fprintf(GENIUS_OUTPUT,"  (¤3%s¤.)\n",genius_getutime(&lSTART,&lEND));
@@ -298,14 +298,14 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
         }
     }
   else 
-    if (!nosearch) avt_fprintf(GENIUS_OUTPUT,"¤6not found\n",count); //gen_printf(-1,"not found\n");
+    if (!nosearch) avt_fprintf(GENIUS_OUTPUT,"¤6not found\n",count); /*gen_printf(-1,"not found\n");*/
 
   freechain(current_variable_values);
    
   AddCount_Model(model->NAME,count);
 
 #ifdef ZINAPS_DUMP
-  // zinaps
+  /* zinaps*/
   if (GEN_DEBUG_LEVEL>1)
     if (count) displaymodels();
 #endif
@@ -313,7 +313,7 @@ static void Sort_Search(lofig_list *circuit, model_list *model, chain_list* name
 
   if (modelradical(model->NAME)==model->NAME) {
     for ( ; namechain; namechain=namechain->NEXT) {
-      //        printf("-> %s\n",namechain->DATA);
+      /*        printf("-> %s\n",namechain->DATA);*/
       if (namechain->DATA!=model->NAME && modelradical(namechain->DATA)==model->NAME) 
         {
           model_bis=getmodel(namechain->DATA);
@@ -344,7 +344,7 @@ void geniusExecuteAction(loins_list *loins)
  
   var=addptype(NULL, (long)modelradical(_model_->NAME), namealloc("model"));
   var=addptype(var, (long)loins->INSNAME, namealloc("instance"));
-//  var=addptype(var, (long)_model_->NAME, namealloc("long_model"));
+/*  var=addptype(var, (long)_model_->NAME, namealloc("long_model"));*/
   if (modelradical(_model_->NAME)!=_model_->NAME)
     var=addptype(var, (long)(strchr(_model_->NAME,' ')+1), namealloc("archi"));
   else
@@ -378,7 +378,7 @@ void geniusExecuteAction(loins_list *loins)
   loins->USER = (ptype_list *)append((chain_list *)loins->USER, (chain_list *)GEN_USER);
   setglobalvariables(NULL, NULL, NULL, NULL, NULL, NULL);
 
-  //  GenPostOp(loins);
+  /*  GenPostOp(loins);*/
 }
 
 
@@ -394,7 +394,7 @@ void MakeGeniusModelGlobal()
           if (dup!=NULL) dellofig(dup->NAME);
           dup=rduplofig(gen_getlofig((char *)cl->DATA));
           lofigchain(dup);
-          //          dup->LOCON=(locon_list *)reverse((chain_list *)dup->LOCON);
+          /*          dup->LOCON=(locon_list *)reverse((chain_list *)dup->LOCON);*/
           dup->NEXT=HEAD_LOFIG;
           dup->USER=addptype(dup->USER, GENIUS_GHOST_PTYPE, (void *)0);
           HEAD_LOFIG=dup;
@@ -563,7 +563,7 @@ extern chain_list *FindInstances(netlist,genius_models,fcl_models)
   
   if (!netlist) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 42);
-    //fprintf(stderr,"FindInstances: NULL pointer\n");
+    /*fprintf(stderr,"FindInstances: NULL pointer\n");*/
     EXIT(1);
   }   
 
@@ -600,18 +600,18 @@ extern chain_list *FindInstances(netlist,genius_models,fcl_models)
 
     if (lofig!=NULL && (lofig->LOTRS!=NULL || lofig->LOINS!=NULL))
       {
-        SwitchLOFIGContext(); // => genius
+        SwitchLOFIGContext(); /* => genius*/
           
         if (lofig->LOINS!=NULL)
           flattenlofig(lofig,NULL,'Y');
           
-        SwitchLOFIGContext(); // => normal
+        SwitchLOFIGContext(); /* => normal*/
           
-        // remove the .transitor at the end of the transistor name
+        /* remove the .transitor at the end of the transistor name*/
         for (lt=lofig->LOTRS;lt!=NULL;lt=lt->NEXT)
           lt->TRNAME=gen_canonize_trname (lt->TRNAME);
           
-        // Modif Gilles 08/10/02: flatten before FCL call
+        /* Modif Gilles 08/10/02: flatten before FCL call*/
         for (sig = lofig->LOSIG; sig; sig = sig->NEXT)
           for (ch = sig->NAMECHAIN; ch; ch = ch->NEXT)
             if (!strchr ((char*)ch->DATA, '.')) {
@@ -620,13 +620,13 @@ extern chain_list *FindInstances(netlist,genius_models,fcl_models)
               sig->NAMECHAIN->NEXT = NULL;
               break;
             }
-        // End modif Gilles
+        /* End modif Gilles*/
         
-        // ---- unused blackbox
+        /* ---- unused blackbox*/
         ch=GrabBlackboxAsUnused(name, lofig, netlist);
         count1=countchain(ch);
 
-        // ---- normal fcl
+        /* ---- normal fcl*/
         if (IsModelFullyConnected(lofig))
           Ins_list=fclFindInstances(netlist, lofig);
         else
@@ -651,7 +651,7 @@ extern chain_list *FindInstances(netlist,genius_models,fcl_models)
     for (q=Ins_list, count0=0; q; q=q->NEXT) 
       {
         li=(loins_list *)q->DATA;
-//        if (q==Ins_list)
+/*        if (q==Ins_list)*/
           {
             CheckLoinsLofigInconsistancy(li, model->LOFIG);
           }
@@ -660,7 +660,7 @@ extern chain_list *FindInstances(netlist,genius_models,fcl_models)
         CleanLoconFlags(li);
         AddRadicalInfoInPNODE(li);
         add_foundins(model, q->DATA,NULL);
-        GetLastAddedFoundins()->SAVEDFLAG=1; // instance from circuit
+        GetLastAddedFoundins()->SAVEDFLAG=1; /* instance from circuit*/
         add_loins_in_all_loins_found(li->INSNAME, model, onetable=create_blackbox_corresp_table(li));
         if (gethtitem(unique, onetable->GENIUS_FIGNAME)==EMPTYHT)
           {
@@ -746,12 +746,12 @@ extern chain_list *FindInstances(netlist,genius_models,fcl_models)
   }
   mbk_debug_losig("after", netlist);
 
-  //   avt_fprintf(GENIUS_OUTPUT,"Executing C actions...\n");
+  /*   avt_fprintf(GENIUS_OUTPUT,"Executing C actions...\n");*/
   /*result is a list of instances found*/
   genius_chrono(&lSTART,&lstart);
   avt_fprintf(GENIUS_OUTPUT,"Updating correspondance tables... "); fflush(GENIUS_OUTPUT);
   UpdateTOPInstancesCorrespondanceTable();
-//  dispst0();
+/*  dispst0();*/
   genius_chrono(&lEND,&lend);
   avt_fprintf(GENIUS_OUTPUT,"(¤3%s¤.)\n",genius_getutime(&lSTART,&lEND));
   avt_fprintf(GENIUS_OUTPUT,"Executing actions :\n"); fflush(GENIUS_OUTPUT);
@@ -816,7 +816,7 @@ void gen_set_pnode_in_loins(chain_list *list)
       if ((l=gethtitem(tempht, li->INSNAME))==EMPTYHT)
         {
           avt_errmsg(GNS_ERRMSG, "080", AVT_FATAL, li->INSNAME);
-          //avt_error("gns", 5, AVT_ERR, "could not find instance '%s' in GNS toplevel instance\n", li->INSNAME);
+          /*avt_error("gns", 5, AVT_ERR, "could not find instance '%s' in GNS toplevel instance\n", li->INSNAME);*/
           EXIT(1);
         }
       sins=(subinst_t *)l;
@@ -832,7 +832,7 @@ void gen_set_pnode_in_loins(chain_list *list)
                   
                   if (dir==0) 
                     {
-                      // RC are external
+                      /* RC are external*/
                       ch0=ch=GrabAllConnectorsThruCorresp(lc->NAME, lc->SIG, sins->CRT, NULL);
                       while (ch!=NULL)
                         {
@@ -848,7 +848,7 @@ void gen_set_pnode_in_loins(chain_list *list)
                     }
                   else
                     {
-                      // RC are internal
+                      /* RC are internal*/
                       ch=(chain_list *)getptype(lc->SIG->USER, LOFIGCHAIN)->DATA;
                       while (ch!=NULL)
                         {

@@ -170,7 +170,7 @@ rcxparsesignalparasitics( FILE *datafile,       /* Le fichier.                */
 
         if( thisctc > 0 ) {
            
-          // ligne de la forme K n1 s2 n2 capa
+          /* ligne de la forme K n1 s2 n2 capa*/
 
           n1 = getint( (char*)pos->DATA, &status );
           pos = pos->NEXT;
@@ -252,7 +252,7 @@ rcxparsesignalparasitics( FILE *datafile,       /* Le fichier.                */
         }
        
         if( thisgnd > 0 ) {
-          // ligne de la forme K n1 G|N capa
+          /* ligne de la forme K n1 G|N capa*/
           
           n1 = getint( (char*)pos->DATA, &status );
           pos = pos->NEXT;
@@ -513,8 +513,8 @@ ht         *loadspecified;
 
           else if( strcasecmp( mot, "ENDEXTERNAL" ) == 0 ) {
             if( ptins )
-            // Si on est en train de lire une instance pour la construction
-            // hiérarchique, on s'arrête à la fin des signaux externes.
+            /* Si on est en train de lire une instance pour la construction*/
+            /* hiérarchique, on s'arrête à la fin des signaux externes. */
               break;
           }
 
@@ -562,13 +562,13 @@ ht         *loadspecified;
                 }
                 pt->TYPE=(long)scancon;
 
-                // Si on lit une instance, il faut impérativement qu'on ai un
-                // locon externe.
+                /* Si on lit une instance, il faut impérativement qu'on ai un */
+                /* locon externe.*/
                 if(ptins && !scancon)
                   fatalerror( filename, nbligne );
 
-                // Si on lit une figure, il n'y a pas de raisons pour qu'on ai
-                // déjà un connecteur externe.
+                /* Si on lit une figure, il n'y a pas de raisons pour qu'on ai*/
+                /* déjà un connecteur externe. */
                 if(lofig && scancon)
                   fatalerror( filename, nbligne );
               }
@@ -584,8 +584,8 @@ ht         *loadspecified;
               if( !loadspecified || 
                   gethtitem( loadspecified, namecon ) != EMPTYHT ) {
 
-                // Ce signal est peut être déjà apparu lors de la lecture d'une
-                // CTC. Dans ce cas, on enleve le ptype RCX_UNRESOLVED.
+                /* Ce signal est peut être déjà apparu lors de la lecture d'une */
+                /* CTC. Dans ce cas, on enleve le ptype RCX_UNRESOLVED.*/
                 
                 if (pt==allcon)
                 {
@@ -654,7 +654,7 @@ ht         *loadspecified;
                   if( scancon )
                     newrcx->RCXEXTERNAL=append(newrcx->RCXEXTERNAL, addchain(NULL, scancon));
                 }
-                // ----------
+                /* ----------*/
 
                 modele=RCX_PARSE_NOTHING;
 

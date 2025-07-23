@@ -262,7 +262,7 @@ struct systemBdd
 
 extern struct systemBdd sysBdd;
 
-//extern pNode one, zero;
+/*extern pNode one, zero;*/
 extern pNode BDD_one, BDD_zero;
 
 /**************** DECLARATION DES FONCTIONS *******/
@@ -380,10 +380,10 @@ extern pNode BDD_one, BDD_zero;
   extern          char * identExpr __P((chain_list *expr));
   extern             int profExpr __P((chain_list *expr));
   extern             int profAOExpr __P((chain_list *expr));
-  extern    chain_list * mapCarExpr __P((chain_list *(*func)(), short oper, chain_list *expr));
-  extern            void mapExpr __P((void (*func)(), chain_list *expr));
-  extern             int anyExpr __P((int (*func)(), chain_list *expr));
-  extern             int everyExpr __P((int (*func)(), chain_list *expr));
+  extern    chain_list * mapCarExpr __P((chain_list *(*func)(chain_list*), short oper, chain_list *expr));
+  extern            void mapExpr __P((void (*func)(chain_list*), chain_list *expr));
+  extern             int anyExpr __P((int (*func)(chain_list*), chain_list *expr));
+  extern             int everyExpr __P((int (*func)(chain_list*), chain_list *expr));
   extern             int searchOperExpr __P((chain_list *expr, short oper));
   extern           short searchExprLow __P((chain_list *expr, char *name));
   extern             int searchExpr __P((chain_list *expr, char *name));
@@ -405,9 +405,9 @@ extern pNode BDD_one, BDD_zero;
   extern    chain_list * fullSupportChain_listExpr __P((chain_list *expr));
   extern            void supportPtype_listExprInt __P((chain_list *expr, ptype_list **ppCL));
   extern    ptype_list * supportPtype_listExpr __P((chain_list *expr));
-  extern    chain_list * maxExpr __P((chain_list *expr, int (*func)()));
-  extern    chain_list * minExpr __P((chain_list *expr, int (*func)()));
-  extern            void sortExpr __P((chain_list *expr, long (*func)(), int direction));
+  extern    chain_list * maxExpr __P((chain_list *expr, int (*func)(chain_list*)));
+  extern    chain_list * minExpr __P((chain_list *expr, int (*func)(chain_list*)));
+  extern            void sortExpr __P((chain_list *expr, long (*func)(chain_list*), int direction));
   extern            long funcNormExpr __P((chain_list *expr));
   extern            void normExpr __P((chain_list *expr));
   extern            void deleteNumExpr __P((chain_list *expr, int i));

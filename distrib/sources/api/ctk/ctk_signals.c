@@ -32,14 +32,14 @@ double ctk_GetTotalGroundCapa(losig_list *ls)
   if (CTK_NETLIST==NULL)
     {
       avt_errmsg(CTK_API_ERRMSG, "004", AVT_WARNING, gen_info());
-//      fprintf(stderr,"%s: The CTK_NETLIST is not set, function ignored", gen_info());
+/*      fprintf(stderr,"%s: The CTK_NETLIST is not set, function ignored", gen_info());*/
       return 0.0;
     }
   code=rcxi_getcapa(GENIUS_GLOBAL_LOFIG, ls, RCXI_UP, 0.0, RCXI_GND, &capa);
   if (code==0)
     {
       avt_errmsg(CTK_API_ERRMSG, "005", AVT_ERROR, gen_info());
-//      fprintf(stderr,"%s: Error occured when calling function", gen_info());
+/*      fprintf(stderr,"%s: Error occured when calling function", gen_info());*/
     }
   return capa;
 }
@@ -51,13 +51,13 @@ double ctk_GetTotalResi(losig_list *ls)
   if (CTK_NETLIST==NULL)
     {
       avt_errmsg(CTK_API_ERRMSG, "004", AVT_WARNING, gen_info());
-      //fprintf(stderr,"%s: The CTK_NETLIST is not set, function ignored", gen_info());
+      /*fprintf(stderr,"%s: The CTK_NETLIST is not set, function ignored", gen_info());*/
       return 0.0;
     }
   code=rcxi_getresi(GENIUS_GLOBAL_LOFIG, ls, RCXI_ALLWIRE, &resi);
   if (code==0)
     {
-      //fprintf(stderr,"%s: Error occured when calling function", gen_info());
+      /*fprintf(stderr,"%s: Error occured when calling function", gen_info());*/
       avt_errmsg(CTK_API_ERRMSG, "005", AVT_ERROR, gen_info());
     }
   return resi;
@@ -72,27 +72,27 @@ double ctk_GetTotalCrosstalkCapa(losig_list *ls, char type, char dir, double slo
   if (CTK_NETLIST==NULL)
     {
       avt_errmsg(CTK_API_ERRMSG, "004", AVT_WARNING, gen_info());
-      //fprintf(stderr,"%s: The CTK_NETLIST is not set, function ignored\n", gen_info());
+      /*fprintf(stderr,"%s: The CTK_NETLIST is not set, function ignored\n", gen_info());*/
       return 0.0;
     }
   switch(tolower(dir))
     {
     case 'u' : dir0 = RCXI_UP; break; 
     case 'd' : dir0 = RCXI_DW; break;
-    default : //fprintf(stderr,"%s: Unknown direction '%c' using 'u'\n", gen_info(), dir);
+    default : /*fprintf(stderr,"%s: Unknown direction '%c' using 'u'\n", gen_info(), dir);*/
       avt_errmsg(CTK_API_ERRMSG, "006", AVT_ERROR, gen_info(), dir);
     }
   switch(tolower(type))
     {
     case 'w' : tp = RCXI_MAX; break; 
     case 'b' : tp = RCXI_MIN; break;
-    default : //fprintf(stderr,"%s: Unknown delay type '%c' using 'w'\n", gen_info(), type);
+    default : /*fprintf(stderr,"%s: Unknown delay type '%c' using 'w'\n", gen_info(), type);*/
       avt_errmsg(CTK_API_ERRMSG, "007", AVT_ERROR, gen_info(), type);
     }
   code=rcxi_getcapa(GENIUS_GLOBAL_LOFIG, ls, dir0, slope, RCXI_CTK | tp, &capa);
   if (code==0)
     {
-      //fprintf(stderr,"%s: Error occured when calling function", gen_info());
+      /*fprintf(stderr,"%s: Error occured when calling function", gen_info());*/
       avt_errmsg(CTK_API_ERRMSG, "005", AVT_ERROR, gen_info());
     }
   return capa;
@@ -116,7 +116,7 @@ double ctk_GetMillerCapa(losig_list *lsv, losig_list *lsa, char type, char dir, 
   if (CTK_NETLIST==NULL)
     {
       avt_errmsg(CTK_API_ERRMSG, "004", AVT_WARNING, gen_info());
-      //fprintf(stderr,"%s: The CTK_NETLIST is not set, function ignored\n", gen_info());
+      /*fprintf(stderr,"%s: The CTK_NETLIST is not set, function ignored\n", gen_info());*/
       return 0.0;
     }
 /*
@@ -127,21 +127,21 @@ double ctk_GetMillerCapa(losig_list *lsv, losig_list *lsa, char type, char dir, 
     {
     case 'u' : dir0 = RCXI_UP; break; 
     case 'd' : dir0 = RCXI_DW; break;
-    default : // fprintf(stderr,"%s: Unknown direction '%c' using 'u'\n", gen_info(), dir);
+    default : /* fprintf(stderr,"%s: Unknown direction '%c' using 'u'\n", gen_info(), dir);*/
       avt_errmsg(CTK_API_ERRMSG, "006", AVT_ERROR, gen_info(), dir);
     }
   switch(tolower(type))
     {
     case 'w' : tp = RCXI_MAX; break; 
     case 'b' : tp = RCXI_MIN; break;
-    default : // fprintf(stderr,"%s: Unknown delay type '%c' using 'w'\n", gen_info(), type);
+    default : /* fprintf(stderr,"%s: Unknown delay type '%c' using 'w'\n", gen_info(), type);*/
       avt_errmsg(CTK_API_ERRMSG, "007", AVT_ERROR, gen_info(), type);
     }
   code=rcxi_getmiller(GENIUS_GLOBAL_LOFIG, lsv, lsa, dir0, slope, tp0 | tp, &capa);
   if (code==0)
     {
       avt_errmsg(CTK_API_ERRMSG, "005", AVT_ERROR, gen_info());
-      //fprintf(stderr,"%s: Error occured when calling function", gen_info());
+      /*fprintf(stderr,"%s: Error occured when calling function", gen_info());*/
     }
   return capa;
 }

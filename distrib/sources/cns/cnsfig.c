@@ -154,7 +154,7 @@ freecnsfig(ptcnsfig)
         result = dellofig(ptcnsfig->NAME);
     if ((ptbefig = ptcnsfig->BEFIG) != NULL)
         beg_delBefig(ptbefig);
-//        ptbefig = beh_delbefig(ptbefig, ptbefig, 'Y');
+/*        ptbefig = beh_delbefig(ptbefig, ptbefig, 'Y');*/
     freeptype(ptcnsfig->USER);
     ptcnsfig->NEXT = FREEDCNSFIGLIST;
     FREEDCNSFIGLIST = ptcnsfig;

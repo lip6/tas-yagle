@@ -124,7 +124,7 @@ void efg_report_extcon ( lofig_list *fig_ext, spisig_list *spisig)
   spisig_list *scanspisig;
   long nodenum, rcxnode;
 
-  // report any possible flotting gate in the interface...
+  /* report any possible flotting gate in the interface...*/
   for (locon = fig_ext->LOCON ; locon ; locon=locon->NEXT) 
     if (locon->SIG->TYPE != 'E')
       locon->SIG->TYPE = 'E';
@@ -186,7 +186,7 @@ void efg_report_extcon ( lofig_list *fig_ext, spisig_list *spisig)
         }
 */
       } else {
-        // correct locon pnode
+        /* correct locon pnode*/
         if (scanspisig->END) rcxnode=scanspisig->OUTCONRC_NODE;
         else rcxnode=scanspisig->INCONRC_NODE;
 
@@ -343,13 +343,13 @@ void efg_extract_fig (lofig_list  *lofig,
                       spisig_list *spisig,
                       chain_list **chaincone,
                       chain_list **chaininstance,
-                      chain_list  *loins2drv,       // usr instance to drv
-                      chain_list  *lotrs2drv ,     // usr lotrs to drv
-                      chain_list  *locon2drv,     // usr external locon 2 drv
-                      chain_list  *losig2drv,    // usr losig to drv
-                      chain_list  *cone_onpath, // accelerate search of cone
-                      chain_list *usrlist,     // pathsig list from user
-                      int         markfig     // allow to obtain patterns
+                      chain_list  *loins2drv,       /* usr instance to drv*/
+                      chain_list  *lotrs2drv ,     /* usr lotrs to drv*/
+                      chain_list  *locon2drv,     /* usr external locon 2 drv*/
+                      chain_list  *losig2drv,    /* usr losig to drv*/
+                      chain_list  *cone_onpath, /* accelerate search of cone*/
+                      chain_list *usrlist,     /* pathsig list from user*/
+                      int         markfig     /* allow to obtain patterns*/
                       )
 {
  loins_list *loins ;
@@ -395,7 +395,7 @@ void efg_extract_fig (lofig_list  *lofig,
   efg_threat_alim ( lofig, *fig_ext, cnsfig );
   if ( !efg_get_vdd_on_destfig () ) {
     avt_errmsg(EFG_ERRMSG, "002", AVT_ERROR);
-    //fprintf (stderr,"[EFG ERR] can't get vdd\n");
+    /*fprintf (stderr,"[EFG ERR] can't get vdd\n");*/
     efg_FreeMarksOnExtFig (*fig_ext);
     efg_FreeMarksOnFig (lofig);
     efg_freecontext ();
@@ -405,7 +405,7 @@ void efg_extract_fig (lofig_list  *lofig,
   }
   if ( !efg_get_vss_on_destfig () ) {
     avt_errmsg(EFG_ERRMSG, "003", AVT_ERROR);
-    //fprintf (stderr,"[EFG ERR] can't get vss\n");
+    /*fprintf (stderr,"[EFG ERR] can't get vss\n");*/
     efg_FreeMarksOnExtFig (*fig_ext);
     efg_FreeMarksOnFig (lofig);
     efg_freecontext ();
@@ -860,7 +860,7 @@ void efg_report_rc_lotrs ( lofig_list *fig_ext,locon_list *con )
           !efg_is_conname_ext (fig_ext,lotrs->GRID->SIG,lotrs->GRID->PNODE->DATA) ) {
           efg_SetSpiSigLoconRc (spisig, concatname(corresplotrs->TRNAME,lotrs->GRID->NAME), 'O',lotrs);
       }
-      // to avoid shift result if incorrect rc network is detected
+      /* to avoid shift result if incorrect rc network is detected*/
       if (lotrs->GRID->PNODE && !efg_GetSpiSigLoconRc(spisig,'O') ) 
         efg_SetSpiSigLoconRc (spisig, concatname(corresplotrs->TRNAME,lotrs->GRID->NAME),'O',lotrs);
     }
@@ -876,7 +876,7 @@ void efg_report_rc_lotrs ( lofig_list *fig_ext,locon_list *con )
           if ( !efg_GetSpiSigLoconRc(spisig,'I') ) 
             efg_SetSpiSigLoconRc (spisig, concatname(corresplotrs->TRNAME,lotrs->DRAIN->NAME),'I',lotrs);
       }
-      // to avoid shift result if incorrect rc network is detected
+      /* to avoid shift result if incorrect rc network is detected*/
       if (lotrs->DRAIN->PNODE && !efg_GetSpiSigLoconRc(spisig,'I') ) 
         efg_SetSpiSigLoconRc (spisig, concatname(corresplotrs->TRNAME,lotrs->DRAIN->NAME),'I',lotrs);
     }
@@ -889,7 +889,7 @@ void efg_report_rc_lotrs ( lofig_list *fig_ext,locon_list *con )
           !efg_is_conname_ext (fig_ext,lotrs->SOURCE->SIG,lotrs->SOURCE->PNODE->DATA) ) {
           efg_SetSpiSigLoconRc (spisig,  concatname(corresplotrs->TRNAME,lotrs->SOURCE->NAME),'I',lotrs);
       }
-      // to avoid shift result if incorrect rc network is detected
+      /* to avoid shift result if incorrect rc network is detected*/
       if ( lotrs->SOURCE->PNODE && !efg_GetSpiSigLoconRc(spisig,'I') ) 
         efg_SetSpiSigLoconRc (spisig, concatname(corresplotrs->TRNAME,lotrs->SOURCE->NAME),'I',lotrs);
     }
@@ -994,7 +994,7 @@ void efg_MarkCnsfig (lofig_list *lofig,lofig_list *fig_ext,cnsfig_list *cnsfig,
 
    efg_mark_parallel_path(cone_onpath);
    
-   // 1ere passe pour rajoute EFG_SIG_DRV pour tous les signaux des cones sur chemin
+   /* 1ere passe pour rajoute EFG_SIG_DRV pour tous les signaux des cones sur chemin*/
    for(cone = cnsfig->CONE ; cone != NULL ; cone = cone->NEXT)  
     {
      losig = efg_getlosigcone(cone) ;
@@ -1058,7 +1058,7 @@ void efg_MarkCnsfig (lofig_list *lofig,lofig_list *fig_ext,cnsfig_list *cnsfig,
      }
     }
    stop=cone_onpath;
-     // rajoute les transistors dans la figure extraite
+     /* rajoute les transistors dans la figure extraite*/
    for(cone = cnsfig->CONE ; cone != NULL ; cone = cone->NEXT)  
     {
      losig = efg_getlosigcone(cone) ;
@@ -1112,19 +1112,19 @@ void efg_MarkCnsfig (lofig_list *lofig,lofig_list *fig_ext,cnsfig_list *cnsfig,
                if((getptype(lotrs->DRAIN->SIG->USER,EFG_SIG_DRV) != NULL) &&
                   (getptype(lotrs->DRAIN->SIG->USER,EFG_SIG_ALIM) == NULL)) {
                  flag = 'Y' ;
-                 //efg_addlotrs_conefct (fig_ext, lotrs, lotrs->DRAIN, 1, cone_is_fct);
+                 /*efg_addlotrs_conefct (fig_ext, lotrs, lotrs->DRAIN, 1, cone_is_fct);*/
                  efg_add_lotrs_capa (fig_ext,lotrs->DRAIN,1);
                }
                if((getptype(lotrs->SOURCE->SIG->USER,EFG_SIG_DRV) != NULL) &&
                   (getptype(lotrs->SOURCE->SIG->USER,EFG_SIG_ALIM) == NULL)) {
-                 //efg_addlotrs_conefct (fig_ext, lotrs, lotrs->SOURCE, 1, cone_is_fct);
+                 /*efg_addlotrs_conefct (fig_ext, lotrs, lotrs->SOURCE, 1, cone_is_fct);*/
                  efg_add_lotrs_capa (fig_ext,lotrs->SOURCE,1);
                  flag = 'Y' ;
                }
                if((getptype(lotrs->GRID->SIG->USER,EFG_SIG_DRV) != NULL) &&
                   (getptype(lotrs->GRID->SIG->USER,EFG_SIG_ALIM) == NULL)) {
                  flag = 'Y' ;
-                 //efg_addlotrs_conefct (fig_ext, lotrs, lotrs->GRID, 1, cone_is_fct);
+                 /*efg_addlotrs_conefct (fig_ext, lotrs, lotrs->GRID, 1, cone_is_fct);*/
                  efg_add_lotrs_capa (fig_ext,lotrs->GRID,1);
                }
              }
@@ -1173,7 +1173,7 @@ void efg_MarkCnsfig (lofig_list *lofig,lofig_list *fig_ext,cnsfig_list *cnsfig,
        cone->USER = delptype ( cone->USER, EFG_CONE_FCT );
     }
 
-   // report RC in (Drain/Source) and RC out (Gate) on Spisig
+   /* report RC in (Drain/Source) and RC out (Gate) on Spisig*/
    for ( chain = cone_onpath ; chain ; chain=chain->NEXT )
     {
      cone = (cone_list *)chain->DATA;
@@ -1211,14 +1211,14 @@ void efg_MarkCnsfig (lofig_list *lofig,lofig_list *fig_ext,cnsfig_list *cnsfig,
 
    while (cone_onpath!=stop) cone_onpath=delchain(cone_onpath, cone_onpath);
 
-    // zinaps: ptype non liberes correctement a cause de la recursivite
-    // dans la fonction qui les positionnent o_O
+    /* zinaps: ptype non liberes correctement a cause de la recursivite*/
+    /* dans la fonction qui les positionnent o_O*/
     for(cone = cnsfig->CONE ; cone != NULL ; cone = cone->NEXT)  
     {
       if ( getptype (cone->USER, EFG_CONE_FCT) )
        cone->USER = delptype ( cone->USER, EFG_CONE_FCT );
     }
-    // 
+    /* */
    if (chaincone != NULL && *chaincone != NULL && lofig->LOINS!=NULL)
     {
      efg_set_ins_ctxt (lofig,lofig->NAME);

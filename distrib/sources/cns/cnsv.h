@@ -4,9 +4,9 @@
 /* CNS environment variables */
 
 extern char    *CNS_VERSION;
-//extern int      CNS_DRIVE_NORMAL;
-//extern int      CNS_DRIVE_VERBOSE;
-//extern int      CNS_DRIVE_FULL;
+/*extern int      CNS_DRIVE_NORMAL;*/
+/*extern int      CNS_DRIVE_VERBOSE;*/
+/*extern int      CNS_DRIVE_FULL;*/
 extern int      CNS_TRACE_MODE;
 extern int      CNS_DEBUG_MODE;
 extern int      CNS_VIEW_LEVEL;

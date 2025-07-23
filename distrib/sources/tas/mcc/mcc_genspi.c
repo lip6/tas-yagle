@@ -14,6 +14,7 @@
 /****************************************************************************/
 
 #include <unistd.h>
+#include <alloca.h>
 #include "mcc_optim.h"
 #include "mcc_util.h"
 #include "mcc_genspi.h"
@@ -1337,7 +1338,7 @@ void mcc_calcul_sat_parameter( int type, elp_lotrs_param *lotrsparam, mcc_corner
   
   for( i=3 ; i<n  ; i++ ) {
       
-    //ids = (imax-ids1)*((double)(i-2))/((double)(n-2))+ids1;
+    /*ids = (imax-ids1)*((double)(i-2))/((double)(n-2))+ids1;*/
     ids = (imax-tabids[1])*((double)(i-2))/((double)(n-2))+tabids[1];
 
     mbk_pwl_get_inv_value( spipwl, sgn*ids, &vgs );
@@ -2310,7 +2311,7 @@ elp_lotrs_param *lotrsparam_p;
       MCC_BN = mcc_calcul_b(v1,v2,i1,i2,MCC_VTN,MCC_LN+MCC_DLN,MCC_WN+MCC_DWN) ;
     }
     else {
-    // loop to satisfy B > 0.0
+    /* loop to satisfy B > 0.0*/
       while ( !valid_param_n && v1 < MCC_VDDmax ) 
         {
          i1 = mcc_spicecurrent(v1,MCC_VDDmax,vbs,MCC_TRANS_N,lotrsparam_n) ;
@@ -2348,7 +2349,7 @@ elp_lotrs_param *lotrsparam_p;
       MCC_BP = mcc_calcul_b(v1,v2,i1,i2,MCC_VTP,MCC_LP+MCC_DLP,MCC_WP+MCC_DWP) ;
     }
     else {
-    // loop to satisfy B > 0.0
+    /* loop to satisfy B > 0.0*/
       while ( !valid_param_p && v1 < MCC_VDDmax ) 
         {
          i1 = mcc_spicecurrent(v1,MCC_VDDmax,vbs,MCC_TRANS_P,lotrsparam_p) ;
@@ -2706,11 +2707,11 @@ elp_lotrs_param *lotrsparam_p;
  i = 0 ;
  ptparam[i++] = MCC_IDNSAT ;
  ptparam[i++] = MCC_IDNRES ;
-// if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))
+/* if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))*/
    ptparam[i++] = MCC_IDNVGS ;
  ptparam[i++] = MCC_IDPSAT ;
  ptparam[i++] = MCC_IDPRES ;
-// if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))
+/* if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))*/
    ptparam[i++] = MCC_IDPVGS ;
  ptparam[i++] = MCC_VDDDEG ;
  ptparam[i++] = MCC_VSSDEG ;
@@ -3070,7 +3071,7 @@ elp_lotrs_param *lotrsparam_p;
  int bs4 = 0 ;
  float t;
 
- // unused
+ /* unused*/
  lotrsparam_n = NULL ;
  lotrsparam_p = NULL ;
 
@@ -3334,7 +3335,7 @@ elp_lotrs_param *lotrsparam_p;
    fprintf(file,"%sn2 22 vdd 0 vbn %s l=%gu w=%gu %s\n",
                  mn,modeln,MCC_LN,MCC_WN,surf_string_n);
    mcc_printf_instance_specific(file, &mcc_user_lotrsparam_n);
-//   if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0)) 
+/*   if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0)) */
     {
      fprintf(file,"%sn3 222 vgsn 0 vbn %s l=%gu w=%gu %s\n",
                    mn,modeln,MCC_LN,MCC_WN,surf_string_n);
@@ -3346,7 +3347,7 @@ elp_lotrs_param *lotrsparam_p;
    fprintf(file,"%sp2 33 0 vdd vbp %s l=%gu w=%gu %s\n",
                  mp,modelp,MCC_LP,MCC_WP,surf_string_p);
    mcc_printf_instance_specific(file, &mcc_user_lotrsparam_p);
-//   if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))
+/*   if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))*/
     {
      fprintf(file,"%sp3 333 vgsp vdd vbp %s l=%gu w=%gu %s\n",
                    mp,modelp,MCC_LP,MCC_WP,surf_string_p);
@@ -3368,7 +3369,7 @@ elp_lotrs_param *lotrsparam_p;
    fprintf(file,"vddmax vdd 0 dc %gv\n",MCC_VDDmax);
    fprintf(file,"vbulkn vbn 0 %gv\n",(MCC_VBULKN > ELPMINVBULK) ? MCC_VBULKN : 0.0);
    fprintf(file,"vbulkp vbp 0 %gv\n",(MCC_VBULKP > ELPMINVBULK) ? MCC_VBULKP : MCC_VDDmax);
-//   if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))
+/*   if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))*/
      {
       fprintf(file,"vgsnmax vgsn 0 dc %gv\n",vgsn);
       fprintf(file,"vgspmax vdd vgsp dc %gv\n",vgsp);
@@ -3379,7 +3380,7 @@ elp_lotrs_param *lotrsparam_p;
    fprintf(file,"vdnres 2 22 dc 0\n");
    fprintf(file,"vdpsat 0 10 dc 0\n");
    fprintf(file,"vdpres 3 33 dc 0\n");
-//   if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))
+/*   if(mcc_ftol(MCC_VGS * 1000.0) != mcc_ftol(MCC_VDDmax * 1000.0))*/
     {
      fprintf(file,"vdnvgs 2 222 dc 0\n");
      fprintf(file,"vdpvgs 3 333 dc 0\n");
@@ -3479,11 +3480,11 @@ double **tabres ;
    avt_printExecInfo(resfile, "#", "", "");
    for(i = 0 , j = 0 ; i < nbx ; i++ , j+=2)
     {
-     *tabres[j] = 0.0;   //initialisation du delay
-     *tabres[j+1] = 0.0; //initialisation du front
+     *tabres[j] = 0.0;   /*initialisation du delay*/
+     *tabres[j+1] = 0.0; /*initialisation du front*/
      start = sim_calcdelayslope(tab[i],nby,2,vthr,vsthrl,vsthrh,start,
                                 tabres[j],tabres[j+1],&type,V_FLOAT_TAB[ __SIM_TRAN_STEP ].VALUE*1e9,NULL,NULL) ;
-     //printf("==> tp( %s ) = %g pS\n",argv[i],start*1000.0);
+     /*printf("==> tp( %s ) = %g pS\n",argv[i],start*1000.0);*/
     }
 
    fprintf(resfile,"# Data extracted from %s\n\n",fileout);
@@ -3547,7 +3548,7 @@ elp_lotrs_param *lotrsparam;
  double vbs=0.0;
  double lscale = 0.0, wscale = 0.0 ;
  elp_lotrs_param *lotrsparam_n = NULL, *lotrsparam_p = NULL;
- //int lotrs_unused = 0;
+ /*int lotrs_unused = 0;*/
  mcc_modellist *model = NULL;
  static int driveall = 1;
  alim_list *power;
@@ -3656,7 +3657,7 @@ elp_lotrs_param *lotrsparam;
       }
       /*
       if ( (getptype (lotrs->USER,CNS_UNUSED)) )  {
-        vbs = 0.0; // to avoid error while cheking vbs for an unused lotrs
+        vbs = 0.0; |* to avoid error while cheking vbs for an unused lotrs*|
         lotrs_unused = 1;
       }
       */
@@ -3676,7 +3677,7 @@ elp_lotrs_param *lotrsparam;
         
         mcc_calcspiparam(type,lotrsparam_n,lotrsparam_p) ;
         
-        //if ( !lotrs_unused ) {
+        /*if ( !lotrs_unused ) {*/
           if ( mcc_check_param (type) ) {
             if ((mcc_modeltype_known ( model->MODELTYPE ))) {
                 mcc_allocspidata(type) ;
@@ -3725,7 +3726,7 @@ elp_lotrs_param *lotrsparam;
                 mcc_freespidata(0,type) ;
             }
           }
-        //}
+        /*}*/
         
         mcc_cleanmodel( model );
 
@@ -3741,7 +3742,7 @@ elp_lotrs_param *lotrsparam;
       mcc_drvelp(MCC_PARAM, type,lotrsparam_n,lotrsparam_p,driveall) ;
       
       if ( avt_islog (2,LOGMCC )) {
-        // update area and perimeters 
+        /* update area and perimeters */
         elpLotrsGetShrinkDim(MCC_CURRENT_LOTRS,NULL,NULL,&xs_s,
                              &xd_s,&ps_s,&pd_s,NULL,NULL, lotrscase);
         if ( type == MCC_TRANS_N ) {
@@ -3989,10 +3990,10 @@ void mcc_update_technoparams (char *modelname,int type, double l, double w,lotrs
   mcc_modellist *model=NULL;
   ptype_list *ptype;
 
- // Si le fichier techno (spice) est le nom par defaut cad que l utilisateur
- // ne veut pas utiliser de fichier techno, et qu'il n existe pas de modele
- // mcc associe a un eventuel fichier techno inclus par une netlist spice
- // alors on ne genere aucun parametre.
+ /* Si le fichier techno (spice) est le nom par defaut cad que l utilisateur*/
+ /* ne veut pas utiliser de fichier techno, et qu'il n existe pas de modele*/
+ /* mcc associe a un eventuel fichier techno inclus par une netlist spice*/
+ /* alors on ne genere aucun parametre.*/
  if ( !mcc_gettechno(MCC_MODELFILE)  &&
       (avt_is_default_technoname(MCC_MODELFILE)) )
    return;
@@ -4289,7 +4290,7 @@ void mcc_genspi_for_inverter_simulator(elp_lotrs_param *lotrsparam_n,elp_lotrs_p
       if (i==0) sprintf(bufp," t0r=%g", t_vdd_sur_2*1e-9);
       else sprintf(bufp," t0f=%g", t_vdd_sur_2*1e-9);
       strcat(bufn, bufp);
-//      printf("vdd/2: %g\n", t_vdd_sur_2);
+/*      printf("vdd/2: %g\n", t_vdd_sur_2);*/
 
       sprintf(bufp,"%s.spice.dat", buf);
       file = mcc_fopen(bufp,"w") ;
@@ -4368,7 +4369,7 @@ void mcc_genspi_for_inverter_simulator(elp_lotrs_param *lotrsparam_n,elp_lotrs_p
   avt_sethashvar("tasSimulateInverterConfig", NULL);
 
 
-//  mcc_runtas_tcl(gate,slope,capa,buf1,NULL) ;
+/*  mcc_runtas_tcl(gate,slope,capa,buf1,NULL) ;*/
   mbkfree(name);
 }
 

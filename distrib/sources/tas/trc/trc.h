@@ -45,35 +45,35 @@
 #include STM_H
 
 #define RCX_VSSNI 0x52435811
-// Défini un signal qu'on ne connait pas mais qu'on considère comme toujours
-// actif.
+/* Défini un signal qu'on ne connait pas mais qu'on considère comme toujours*/
+/* actif.*/
 
 #define RCX_LOCONINS 0x52435817
-// Champs user des losig dans les instances. Pointe vers un connecteur externe.
+/* Champs user des losig dans les instances. Pointe vers un connecteur externe.*/
 
 #define RCX_LOCONONEPNODE 0x52435818
-// Indique qu'il ne faut considérer que le premier pnode sur ce locon
+/* Indique qu'il ne faut considérer que le premier pnode sur ce locon*/
 
 /*************************************** FLAG *********************************/
 
-#define MODELRCN     ((long) 0) // Le champ view contient une vue RCN.
-#define RCXCTCDONE   ((long) 1) // Le test d'existance des CTC est fait.
-#define SAVESIG      ((long) 2) // Ce signal doit etre sauvegardé.
-#define RCXERROR     ((long) 3) // On ne sait pas calculer des TP sur le signal
-#define RCXNODELAY   ((long) 5) // On a pas de délai.
-#define RCXHASLOOP   ((long) 6) // Le réseau RC contient des boucles.
-#define RCXHASNOLOOP ((long) 7) // Le réseau RC ne contient pas de boucles.
-#define RCXCTKBASIC  ((long) 8) // Utilise un model simple et robuste.
-#define RCXHASNOGCTC ((long) 9) // Il n'y a pas de ctc globales sur la vue RCN.
-#define RCXLOADCAPA  ((long)10) // La charge doit être une simple capa.
-#define RCXLOADPI    ((long)11) // La charge doit être une cellule en pi.
-#define RCXBREAKLOOP ((long)12) // Il faut casser les boucles sur le réseau RC.
-#define RCXNOCTC     ((long)13) // Il faut forcer les ctc à la masse.
-#define RCXNOWIRE    ((long)14) // Il ne faut pas prendre en compte les RC.
-#define RCXTREATEDNI ((long)15) // On a passé le checkcrosstalk sur ce siganl.
-#define RCXIGNORE    ((long)16) // Le signal a été évalué par Genius. On y touche pas
-#define RCXMLTDRIVER ((long)17) // Il y a plusieurs cones driver.
-#define RCXFORCERC   ((long)18) // Il y a plusieurs cones driver.
+#define MODELRCN     ((long) 0) /* Le champ view contient une vue RCN.*/
+#define RCXCTCDONE   ((long) 1) /* Le test d'existance des CTC est fait.*/
+#define SAVESIG      ((long) 2) /* Ce signal doit etre sauvegardé.*/
+#define RCXERROR     ((long) 3) /* On ne sait pas calculer des TP sur le signal*/
+#define RCXNODELAY   ((long) 5) /* On a pas de délai.*/
+#define RCXHASLOOP   ((long) 6) /* Le réseau RC contient des boucles.*/
+#define RCXHASNOLOOP ((long) 7) /* Le réseau RC ne contient pas de boucles.*/
+#define RCXCTKBASIC  ((long) 8) /* Utilise un model simple et robuste.*/
+#define RCXHASNOGCTC ((long) 9) /* Il n'y a pas de ctc globales sur la vue RCN.*/
+#define RCXLOADCAPA  ((long)10) /* La charge doit être une simple capa.*/
+#define RCXLOADPI    ((long)11) /* La charge doit être une cellule en pi.*/
+#define RCXBREAKLOOP ((long)12) /* Il faut casser les boucles sur le réseau RC.*/
+#define RCXNOCTC     ((long)13) /* Il faut forcer les ctc à la masse.*/
+#define RCXNOWIRE    ((long)14) /* Il ne faut pas prendre en compte les RC.*/
+#define RCXTREATEDNI ((long)15) /* On a passé le checkcrosstalk sur ce siganl.*/
+#define RCXIGNORE    ((long)16) /* Le signal a été évalué par Genius. On y touche pas*/
+#define RCXMLTDRIVER ((long)17) /* Il y a plusieurs cones driver.*/
+#define RCXFORCERC   ((long)18) /* Il y a plusieurs cones driver.*/
 
 #define SETFLAG(m,b) (m = m | (1<<b))
 #define CLEARFLAG(m,b) (m = m &(~(1<<b)))
@@ -89,8 +89,8 @@
 #define RCXFILECAR_XTALK ((char)'X')
 
 
-// Si cette variable existe, effectue des tests de conformité des structures
-// de données.
+/* Si cette variable existe, effectue des tests de conformité des structures*/
+/* de données.*/
 
 #define RCX_CHECK
 

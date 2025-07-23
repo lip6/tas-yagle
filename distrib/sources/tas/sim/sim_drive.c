@@ -90,7 +90,7 @@ void sim_drive_plot_file (sim_model *model, chain_list *sig2plot, chain_list *na
     vddmax = sim_parameter_get_alim (model, 'i');
     nbval = (int)((time / step)+0.5);
 
-    // Recupere tous les tableaux de valeurs des nodes
+    /* Recupere tous les tableaux de valeurs des nodes*/
     fprintf (file,"#time");
     for (chain = name2plot ; chain ; chain = chain->NEXT)
         nbnode++;
@@ -158,7 +158,7 @@ void sim_drive_plot_file (sim_model *model, chain_list *sig2plot, chain_list *na
         fclose (file);
         return;
     }
-    // Drive the file.dat
+    /* Drive the file.dat*/
     fprintf (file,"\n");
     printstep = 0.0;
     for (j = 0 ; j <= nbval ; j++) {
@@ -175,7 +175,7 @@ void sim_drive_plot_file (sim_model *model, chain_list *sig2plot, chain_list *na
         return;
     }
     
-    // Drive the file.plt
+    /* Drive the file.plt*/
     sprintf (pltfilename,"%s.plt",model->FIGNAME);
     if (!(file = fopen (pltfilename,"w"))) {
         fprintf (stderr, "sim_drive_plot_file : can't open file %s!!!\n", pltfilename);

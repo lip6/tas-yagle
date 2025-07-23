@@ -41,15 +41,15 @@ extern struct lofig *MVL_TOPPNT;        /* top LOFIG pointer        */
 extern struct dct_entry **MVL_HSHTAB;	/* dictionnary's entry points	*/
 
 extern struct dct_entry **mvl_initab();
-extern void          mvl_addtab();
-extern char*         mvl_chktab();
-extern void          mvl_fretab();
-extern void          mvl_error();
-extern void          mvl_warning();
+extern void  mvl_addtab ( struct dct_entry **head, char *key_str, char *ctx_str, int field, long valu );
+extern long  mvl_chktab ( struct dct_entry **head, char *key_str, char *ctx_str, int field );
+extern void  mvl_fretab ( struct dct_entry **pt_hash );
+extern void  mvl_error ( int code, char *str1 );
+extern void  mvl_warning ( int code, char *str1 );
 
 /* ###--------------------------------------------------------------### */
 
-extern losig_list *mvl_addlosig ();
-extern locon_list *mvl_addlocon ();
+extern losig_list *mvl_addlosig ( lofig_list*, int, char, char, char*, short, short );
+extern locon_list *mvl_addlocon ( lofig_list*, losig_list*, char, char*, short, short );
 
 /* ###--------------------------------------------------------------### */

@@ -49,7 +49,7 @@ static void grab_func(char *inname, float intime, float inslope, char *outname, 
 {
   double delay;
   outname=namealloc(outname);
-//  fprintf(stdout, "%s(%p) %g %g=>%g\n", outname, outname, outtime-intime, outslope*1e12, sim_tas_thr2scm(outslope*1e12, __dir));
+/*  fprintf(stdout, "%s(%p) %g %g=>%g\n", outname, outname, outtime-intime, outslope*1e12, sim_tas_thr2scm(outslope*1e12, __dir));*/
   outslope=sim_tas_thr2scm(outslope*1e12, __dir);
   if ((delay=outtime)<fastest) fastest=delay;
   
@@ -70,7 +70,7 @@ void grab_split_pnodes(lofig_list *lf, char *name, num_list **internal, num_list
   if (ls==NULL) 
     {
       avt_errmsg(SIM_API_ERRMSG, "001", AVT_FATAL, name);
-//      avt_error("sim", -1, AVT_ERR, "could not find signal '%s' in netlist\n", name);
+/*      avt_error("sim", -1, AVT_ERR, "could not find signal '%s' in netlist\n", name);*/
       EXIT(1);
     }
 
@@ -107,7 +107,7 @@ static inline void create_groups_if_needed(losig_list *ls)
           char buf[255];
           rcx_set_connector_origin_group(lc, 0);
           mbk_set_rc_external(lc);
-//          printf("add orig %s, sig=%s\n",mbk_putconname(lc, buf), getsigname(lc->SIG));
+/*          printf("add orig %s, sig=%s\n",mbk_putconname(lc, buf), getsigname(lc->SIG));*/
         }
       else
         {
@@ -119,12 +119,12 @@ static inline void create_groups_if_needed(losig_list *ls)
               for (ch=internallocons; ch!=NULL; ch=ch->NEXT)
                 {
                   rcx_set_connector_destination_group((locon_list *)ch->DATA, countgrp);
-//                  printf("add internal dest %s, sig=%s, grp=%d\n",mbk_putconname((locon_list *)ch->DATA, buf), getsigname(lc->SIG), countgrp);
+/*                  printf("add internal dest %s, sig=%s, grp=%d\n",mbk_putconname((locon_list *)ch->DATA, buf), getsigname(lc->SIG), countgrp);*/
                 }
               freechain(internallocons);
             }
           rcx_set_connector_destination_group(lc, countgrp);
-//          printf("add dest %s, sig=%s, grp=%d\n",mbk_putconname(lc, buf), getsigname(lc->SIG), countgrp);
+/*          printf("add dest %s, sig=%s, grp=%d\n",mbk_putconname(lc, buf), getsigname(lc->SIG), countgrp);*/
           countgrp++;
         }
     }
@@ -171,13 +171,13 @@ static inline void spread(losig_list *circuitsig, losig_list *modelsig, ht *dela
           for (extnode=((locon_list *)ch->DATA)->PNODE; extnode!=NULL; extnode=extnode->NEXT)
             {
               name=namealloc(spinamenode( modelsig, extnode->DATA ));
-              //         printf("try %s(%p) (#%d)", name,name, extnode->DATA);
+              /*         printf("try %s(%p) (#%d)", name,name, extnode->DATA);*/
               if ((l=gethtitem(delays, name))!=EMPTYHT)
                 delay=((float)l)*1e-3;
               else
                 {
                   avt_errmsg(SIM_API_ERRMSG, "002", AVT_ERROR, name);
-//                  avt_error("sim", -1, AVT_ERR, "could not find delay of node '%s'\n", name);
+/*                  avt_error("sim", -1, AVT_ERR, "could not find delay of node '%s'\n", name);*/
                   delay=0;
                 }
               if ((l=gethtitem(slopes, name))!=EMPTYHT)
@@ -185,7 +185,7 @@ static inline void spread(losig_list *circuitsig, losig_list *modelsig, ht *dela
               else
                 {
                   avt_errmsg(SIM_API_ERRMSG, "003", AVT_ERROR, name);
-//                  avt_error("sim", -1, AVT_ERR, "could not find delay of node '%s'\n", name);
+/*                  avt_error("sim", -1, AVT_ERR, "could not find delay of node '%s'\n", name);*/
                   slope=0;
                 }
               
@@ -194,7 +194,7 @@ static inline void spread(losig_list *circuitsig, losig_list *modelsig, ht *dela
                 char buf[256], buf1[256];
                 printf("spread %s -> %s, sig=%s, slope=%g\n",mbk_putconname(myorig, buf), mbk_putconname(lc, buf1), getsigname(lc->SIG), input_slope);
               }*/
-              //          printf(" delay=%g slope=%g\n", delay-delta, slope);
+              /*          printf(" delay=%g slope=%g\n", delay-delta, slope);*/
             }
         } 
       freechain(allmylocons);
@@ -212,11 +212,11 @@ double sim_SpreadRC(sim_model *sc, char *input, char *output, char *dir, double 
   lf=sc->FIG;
   signal_in_circuit=gns_GetCorrespondingSignal(output);
 
-//  printf("delta=%g, corresp %p %s\n",delta_delay,signal_in_circuit,signal_in_circuit?gen_losigname(signal_in_circuit):"?");
+/*  printf("delta=%g, corresp %p %s\n",delta_delay,signal_in_circuit,signal_in_circuit?gen_losigname(signal_in_circuit):"?");*/
   if (signal_in_circuit==NULL)
     {
       avt_errmsg(SIM_API_ERRMSG, "001", AVT_ERROR, output);
-//      avt_error("sim", -1, AVT_ERR, "sim_SpreadRC: could not find corresponding signal of '%s' in circuit\n", output);
+/*      avt_error("sim", -1, AVT_ERR, "sim_SpreadRC: could not find corresponding signal of '%s' in circuit\n", output);*/
       return delta_delay;
     }
 
@@ -228,7 +228,7 @@ double sim_SpreadRC(sim_model *sc, char *input, char *output, char *dir, double 
 
   noutput=namealloc(gen_makesignalname(output));
 
-//  printf("add inputslope=%g %c\n",input_slope, __dir);
+/*  printf("add inputslope=%g %c\n",input_slope, __dir);*/
   fastest=1000000;
   sim_dump_delay (sc, input, output, dir, grab_func, NULL);
   if (fastest<delta_delay) { delta_delay=fastest;/* printf("new delta=%g\n", delta_delay);*/ }

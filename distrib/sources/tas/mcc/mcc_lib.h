@@ -1400,7 +1400,7 @@ char mcc_mcc_vds_list( chain_list *headtrs, float vs, float ids, float *vds );
 char mcc_mcc_ids_list( chain_list *headtrs, float vs, float vd, float *ids );
 
 extern char  *mcc_MakeScript          __P((lofig_list *fig, double m, char *options));
-// mcc_mod_util
+/* mcc_mod_util*/
 extern mcc_modellist   *mcc_addmodel(char *technoname, 
                                      char *transname, 
                                      char *subcktname,

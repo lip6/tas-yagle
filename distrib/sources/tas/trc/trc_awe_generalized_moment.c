@@ -971,8 +971,8 @@ void awebuildinfomatrix( losig_list   *losig,
 
         ptnode = awe_get_equiv_lonode( getlonode( losig, scannode->DATA ) );
         
-        // lorsqu'on a plusieurs composantes connexes, il est possible
-        // de ne pas avoir de ptype construits
+        /* lorsqu'on a plusieurs composantes connexes, il est possible*/
+        /* de ne pas avoir de ptype construits*/
         mnode = get_matrix_node( ptnode );
        
         if( mnode ) {

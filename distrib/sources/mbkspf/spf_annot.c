@@ -100,8 +100,8 @@ void spf_Annotate(lofig_list *ptlofig)
         sprintf(buf,"%s.%s",ptlofig->NAME, IN_PARASITICS);
         spf_ParsedFile=buf;
 
-//        spf_destroyexistingRC(spf_Lofig);
-        spf_initBUSDelimiters("", ""); // no delimiter
+/*        spf_destroyexistingRC(spf_Lofig);*/
+        spf_initBUSDelimiters("", ""); /* no delimiter*/
         spf_setDelimiter('.');
         spf_setDivider('|');
         spf_missing_signals=0;
@@ -140,8 +140,8 @@ void parsespf(char *filename)
           strcpy(buf,filename);
         spf_ParsedFile=buf;
 
-//        spf_destroyexistingRC(spf_Lofig);
-        spf_initBUSDelimiters("", ""); // no delimiter
+/*        spf_destroyexistingRC(spf_Lofig);*/
+        spf_initBUSDelimiters("", ""); /* no delimiter*/
         spf_setDelimiter('.');
         spf_setDivider('|');
         spf_missing_signals=0;

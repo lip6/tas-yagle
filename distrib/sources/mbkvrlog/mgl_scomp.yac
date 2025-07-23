@@ -38,6 +38,7 @@
 #include "mgl_parse.h"
 #include "mgl_util.h"
 #include "mgl_error.h"
+#include "mgl_scomp.tab.h"
 
 #undef __GNUC__ /* to get round a bug in bison.simple */
 
@@ -45,9 +46,9 @@
 * function declarations                                                      *
 *****************************************************************************/
 
-void mgl_scompclean();
-int mgl_scomperror();
-int mgl_scomplex();
+void mgl_scompclean(mgl_scompcontext *context);
+int mgl_scomperror(char *str, mgl_scompcontext *context);
+int mgl_scomplex(YYSTYPE *lvalp, void *parm);
 
 %}
 

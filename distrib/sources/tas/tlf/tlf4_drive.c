@@ -809,9 +809,9 @@ void tlf4_driveheader (FILE *f, char *libname)
     
     fprintf (f, "header (\n") ;
     fprintf (f, "\tlibrary (\"%s\")\n", libname) ;
-    //fprintf (f, "\tdate (\"%s\")\n", date) ;
+    /*fprintf (f, "\tdate (\"%s\")\n", date) ;*/
     fprintf (f, "\ttlf_version (\"4.3\")\n") ;
-    //fprintf (f, "\tgenerated_by (\"TMA\")\n") ;
+    /*fprintf (f, "\tgenerated_by (\"TMA\")\n") ;*/
     fprintf (f, ")\n\n") ;
 
 }

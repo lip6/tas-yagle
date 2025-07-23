@@ -12,5 +12,5 @@
 /*                                                                          */
 /****************************************************************************/
 
-void fclPhase2();
+void fclPhase2( lofig_list *ptlofig_c, lofig_list *ptlofig_m, befig_list *ptbefig_m, partition_list *ptsolution, void *ptcle, int findall );
 

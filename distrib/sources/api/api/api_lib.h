@@ -27,13 +27,13 @@
 #include MUT_H
 /* ----- Types ------------------------------------------------------------- */
 
-// ATTENTION: GARDER CES COMMENTAIRES
-//GRAB_IT #define T_POINTER    0x1   /* pointer  */
-//GRAB_IT #define T_INT        0x2   /* int      */
-//GRAB_IT #define T_LONG       0x3   /* long     */
-//GRAB_IT #define T_CHAR       0x4   /* char     */
-//GRAB_IT #define T_DOUBLE     0x5   /* double   */
-//GRAB_IT #define T_VOID       0x6   /* no type  */
+/* ATTENTION: GARDER CES COMMENTAIRES*/
+/*GRAB_IT #define T_POINTER    0x1   /* pointer  */
+/*GRAB_IT #define T_INT        0x2   /* int      */
+/*GRAB_IT #define T_LONG       0x3   /* long     */
+/*GRAB_IT #define T_CHAR       0x4   /* char     */
+/*GRAB_IT #define T_DOUBLE     0x5   /* double   */
+/*GRAB_IT #define T_VOID       0x6   /* no type  */
 
 #ifndef T_POINTER
 # define T_POINTER    0x1   /* pointer  */
@@ -61,7 +61,7 @@ GRAB_IT extern int GetPointer (t_arg *arg);
 GRAB_IT extern void SetPointer (t_arg *arg, int p);
 GRAB_IT extern void SetType (t_arg *arg, char *t);
 
-void LoadDynamicLibraries(FILE *debug); // debug==NULL => pas de trace
+void LoadDynamicLibraries(FILE *debug); /* debug==NULL => pas de trace*/
 void *GetDynamicFunction(char *function_name);
 
 extern chain_list *API_DEFINES;
@@ -252,7 +252,7 @@ tree_list *APIParseFile(FILE *f, char *filename, ExecutionContext *ec, chain_lis
 tree_list *APIVerify_C(tree_list *tree, ptype_list *Var);
 int APICheckCFunctions(ExecutionContext *ec);
 int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, ExecutionContext *ec, int disablecore);
-//int APIExecute_C(tree_list *tree, chain_list *vars/*ptype_list *env*/, ExecutionContext *ec, int disablecore);
+/*int APIExecute_C(tree_list *tree, chain_list *vars |*ptype_list *env*|, ExecutionContext *ec, int disablecore);*/
 
 int APIBlockIsC(tree_list *tree);
 tree_list *APIGetCTree(tree_list *tree);
@@ -359,47 +359,48 @@ int api_has_tcl_func(char *name);
 #define TMA_API    64
 
 #ifdef BASIC_TOKEN
-#define TOKEN_MASK BASIC_API
-#define TOKEN_NAME "basic_api"
+#  define TOKEN_MASK BASIC_API
+#  define TOKEN_NAME "basic_api"
 #else
-#if SPI_TOKEN
-#define TOKEN_MASK SPI_API
-#define TOKEN_NAME "spi_api"
-#else
-#if TIMING_TOKEN
-#define TOKEN_MASK TIMING_API
-#define TOKEN_NAME "timing_api"
-#else
-#if FUNC_TOKEN
-#define TOKEN_MASK FUNC_API
-#define TOKEN_NAME "func_api"
-#else
-#if CTK_TOKEN
-#define TOKEN_MASK CTK_API
-#define TOKEN_NAME "ctk_api"
-#else
-#if YAGLE_TOKEN
-#define TOKEN_MASK YAGLE_API
-#define TOKEN_NAME "yagle_api"
-#endif // yagle_token
-#endif // ctk_token
-#endif // func_token
-#endif // timing_token
-#endif // spi_token
-#endif // basic_token
+#  if SPI_TOKEN
+#    define TOKEN_MASK SPI_API
+#    define TOKEN_NAME "spi_api"
+#  else
+#    if TIMING_TOKEN
+#      define TOKEN_MASK TIMING_API
+#      define TOKEN_NAME "timing_api"
+#    else
+#      if FUNC_TOKEN
+#        define TOKEN_MASK FUNC_API
+#        define TOKEN_NAME "func_api"
+#      else
+#        if CTK_TOKEN
+#          define TOKEN_MASK CTK_API
+#          define TOKEN_NAME "ctk_api"
+#        else
+#          if YAGLE_TOKEN
+#            define TOKEN_MASK YAGLE_API
+#            define TOKEN_NAME "yagle_api"
+#          endif /* yagle_token*/
+#        endif /* ctk_token*/
+#      endif /* func_token*/
+#    endif /* timing_token*/
+#  endif /* spi_token*/
+#endif /* basic_token*/
+
 extern int token_already_taken;
 
 #ifdef AVERTEC_LICENSE
-#define API_TEST_TOKEN_SUB(x,y) if ((token_already_taken & x)==0) \
-                                { \
-                                  token_already_taken|=x; \
-                                  if(avt_givetoken("AVT_LICENSE_SERVER", y)!=AVT_VALID_TOKEN) EXIT(1); \
-                                }
-#define API_TEST_TOKEN API_TEST_TOKEN_SUB(TOKEN_MASK, TOKEN_NAME)
+#  define API_TEST_TOKEN_SUB(x,y) if ((token_already_taken & x)==0) \
+                                  { \
+                                    token_already_taken|=x; \
+                                    if(avt_givetoken("AVT_LICENSE_SERVER", y)!=AVT_VALID_TOKEN) EXIT(1); \
+                                  }
+#  define API_TEST_TOKEN API_TEST_TOKEN_SUB(TOKEN_MASK, TOKEN_NAME)
 #else
-#define API_TEST_TOKEN
-#define API_TEST_TOKEN_SUB(x,y)
+#  define API_TEST_TOKEN
+#  define API_TEST_TOKEN_SUB(x,y)
 #endif
 
 
-#endif //TOBECUT
+#endif /*TOBECUT*/

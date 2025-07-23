@@ -105,7 +105,7 @@ static void __CtkMutexInit(ttvfig_list *tvf, int num, long level)
     STB_CTK_TAB_MTX[i].MTX  = NULL ;
   }
 
-  // recursive call for the sons
+  /* recursive call for the sons*/
   for(chain = tvf->INS ; chain != NULL ; chain = chain->NEXT)
     {
       __CtkMutexInit((ttvfig_list *)chain->DATA, num, level) ;
@@ -128,7 +128,7 @@ void CtkMutexFree(ttvfig_list *tvf)
       for (ch=om->allttvevents; ch!=NULL; ch=ch->NEXT)
         {
           tev=(ttvevent_list *)ch->DATA;
-          if (getptype(tev->USER, CTK_MUTEX_PTYPE)==NULL) exit(8); // temporaire
+          if (getptype(tev->USER, CTK_MUTEX_PTYPE)==NULL) exit(8); /* temporaire*/
           tev->USER=delptype(tev->USER, CTK_MUTEX_PTYPE);
         }
       freechain(om->allttvevents);

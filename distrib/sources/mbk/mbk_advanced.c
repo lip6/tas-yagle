@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-//#include <sys/stat.h>
+/*#include <sys/stat.h> */
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/resource.h>
@@ -11,7 +11,7 @@
 #include "mut_lib.h"
 #include "mbk_int.h"
 
-// ----------- ADVANCED NAME ALLOCATOR --------------
+/* ----------- ADVANCED NAME ALLOCATOR -------------- */
 
 #define MAXNAMELENGTH 4096
 #define HASHMODELIMIT 64
@@ -30,14 +30,14 @@ AdvancedNameAllocator *CreateAdvancedNameAllocator(int _case)
   for (i=0;i<256;i++) ana->tab[i].start=NULL;
 
   if (tolower(_case)=='y') ana->sensitive=1;
-  else if (tolower(_case)=='p') ana->sensitive=2; // case preserve
+  else if (tolower(_case)=='p') ana->sensitive=2; /* case preserve */
   else ana->sensitive=0;
   return ana;
 }
 
-static inline void __split_name(char *name0, char *tempbuf, char **tab)
+static void __split_name(char *name0, char *tempbuf, char **tab)
 {
-//  chain_list *cl=NULL;
+/*  chain_list *cl=NULL; */
   int i=0, bi=0, j=0;
   char *start;
   unsigned char *name=(unsigned char *)name0;
@@ -53,10 +53,10 @@ static inline void __split_name(char *name0, char *tempbuf, char **tab)
         tempbuf[bi++]=name[i++];
       tempbuf[bi++]='\0';
       tab[j++]=start;
-//      cl=addchain(cl, start);
+    /*      cl=addchain(cl, start); */
     } while (name[i]!='\0');
   tab[j]=NULL;
-//  return reverse(cl);
+/*  return reverse(cl); */
 }
 
 static int __AdvancedNameAllocNumber(AdvancedNameAllocator *ana, char *name, int test, int *exists)
@@ -79,7 +79,7 @@ static int __AdvancedNameAllocNumber(AdvancedNameAllocator *ana, char *name, int
 
   cnt=gethtitem(ana->numbers, (void *)(long)val);
 #endif
-//  printf("try #%s -> %d\n",name,cnt);
+/*  printf("try #%s -> %d\n",name,cnt); */
 
   if (test) { return cnt; }
 
@@ -93,7 +93,7 @@ static int __AdvancedNameAllocNumber(AdvancedNameAllocator *ana, char *name, int
 #else
   addhtitem(ana->numbers, (void *)(long)val, ana->curindex++);
 #endif
-//  printf("#%s -> %d\n",name,ana->curindex-1);
+/*  printf("#%s -> %d\n",name,ana->curindex-1); */
   *exists=0;
   return ana->curindex-1;
 }
@@ -135,9 +135,9 @@ static int __AdvancedNameAlloc(AdvancedNameAllocator *ana, char *name, int test,
   if (tab[0]==NULL) return -1;
 
   if (ana->sensitive==1)
-    starti=(int)(unsigned char)tab[j][0]; // case sensitive
+    starti=(int)(unsigned char)tab[j][0]; /* case sensitive */
   else
-    starti=(int)(unsigned char)tolower(tab[j][0]); // non sens ou preserve
+    starti=(int)(unsigned char)tolower(tab[j][0]); /* non sens ou preserve */
 
   lastanp=NULL;
   anp=ana->tab[starti].start;
@@ -151,7 +151,7 @@ static int __AdvancedNameAlloc(AdvancedNameAllocator *ana, char *name, int test,
           for (a=anp; a!=NULL && a->piece!=c; a=a->brother) cnt++;
           if (cnt>=HASHMODELIMIT)
             {
-//              printf("hmod: %s/%d sur '%s'\n",name,cnt,c);
+            /*              printf("hmod: %s/%d sur '%s'\n",name,cnt,c); */
               h=addht(HASHMODELIMIT*2);
               for (a=anp; a!=NULL; a=a->brother) addhtitem(h, a->piece, (long)a);
               *prev= (_advanced_namealloc_piece *)((long)h | 1);
@@ -203,9 +203,9 @@ static int __AdvancedNameAlloc(AdvancedNameAllocator *ana, char *name, int test,
     }
   else
     *exists=1;
-//  freechain(ch);
+/*  freechain(ch); */
 
-//  printf("'%s' -> %d\n",name,lastanp->index);
+/*  printf("'%s' -> %d\n",name,lastanp->index); */
 
   return lastanp->index;
 }
@@ -257,7 +257,7 @@ int AdvancedNameAllocName(AdvancedNameAllocator *ana, int index, char *buf)
 void AdvancedNameAllocStat(AdvancedNameAllocator *ana)
 {
 #ifdef ENABLE_STATS
-  //char temp[1024];
+  /*char temp[1024];*/
   long /*mem_aba = 0, mem_ata = 0, mem_ana = 0,*/ mem_tot=0;
   long mem_ana_na = 0, mem_ana_na_names = 0, mem_ana_aba = 0, mem_ana_ata = 0;
 
@@ -292,7 +292,7 @@ void FreeAdvancedNameAllocator(AdvancedNameAllocator *ana)
   mbkfree(ana);
 }
 
-// ----------- ADVANCED BLOCK ALLOCATOR --------------
+/* ----------- ADVANCED BLOCK ALLOCATOR --------------*/
 
 AdvancedBlockAllocator *CreateAdvancedBlockAllocator(int minsize, int align)
 {
@@ -354,7 +354,7 @@ void FreeAdvancedBlockAllocator(AdvancedBlockAllocator *aba)
    mbkfree(aba);
 }
 
-// ----------- ADVANCED TABLE ALLOCATOR --------------
+/* ----------- ADVANCED TABLE ALLOCATOR --------------*/
 
 AdvancedTableAllocator *CreateAdvancedTableAllocator(int basesize, int elemsize)
 {
@@ -370,7 +370,7 @@ AdvancedTableAllocator *CreateAdvancedTableAllocator(int basesize, int elemsize)
   if (ata->nbblockelempow>16) ata->nbblockelempow=16;
   ata->nbblockelemmask=(1<<ata->nbblockelempow)-1;
   ata->elemsize=elemsize;
-//  printf("c: %d %x %d\n",ata->nbblockelempow, ata->nbblockelemmask, ata->elemsize);
+/*  printf("c: %d %x %d\n",ata->nbblockelempow, ata->nbblockelemmask, ata->elemsize);*/
   return ata;
 }
 
@@ -404,7 +404,7 @@ void *GetAdvancedTableElem(AdvancedTableAllocator *ata, int index)
 #endif
     }
 
-//  printf("%d: %d %d %p\n",index, row, idx,&ata->blocs[row][idx*ata->elemsize]);
+/*  printf("%d: %d %d %p\n",index, row, idx,&ata->blocs[row][idx*ata->elemsize]);*/
   return &ata->blocs[row][idx*ata->elemsize];
 }
 

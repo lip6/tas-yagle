@@ -65,7 +65,7 @@ losig_list* rcx_gethierlosig( losig_list *signal,
   losig_list *downsignal;
   chain_list *localchainfig;
 
-  // Dans la plupart des cas, le signal est local
+  /* Dans la plupart des cas, le signal est local*/
   if( !rcx_isbellow( signal ) &&
       ( signal->TYPE == INTERNAL || chainfig->NEXT == NULL )
     ) {
@@ -74,7 +74,7 @@ losig_list* rcx_gethierlosig( losig_list *signal,
     return( signal );
   }
 
-  // On cherche d'abord en dessous
+  /* On cherche d'abord en dessous*/
   downsignal = rcx_getdownlosig( signal,
                                  (lofig_list*)(chainfig->DATA),
                                  &downinsname,
@@ -89,7 +89,7 @@ losig_list* rcx_gethierlosig( losig_list *signal,
   else
     localchainfig = chainfig ;
   
-  // Puis on remonte
+  /* Puis on remonte*/
   signal = rcx_getuplosig( downsignal, 
                            insname, 
                            localchainfig, 
@@ -181,12 +181,12 @@ losig_list* rcx_getuplosig( losig_list *signal,
 
   while( rcx_islosigexternal( signal ) && chainfig->NEXT ) {
  
-    // Récupère la figure au dessus.
+    /* Récupère la figure au dessus.*/
     rightunconcatname( nominstance, &nominstance, &nominstancecourante );
     chainfig = chainfig->NEXT ;
     figurecourante = (lofig_list*)chainfig->DATA;
     
-    // Le nom du signal est maintenant hiérarchique.
+    /* Le nom du signal est maintenant hiérarchique.*/
     nomsignal = rcx_getsigname( signal );
     nomsignal = concatname( nominstancecourante, nomsignal );
     
@@ -216,7 +216,7 @@ chain_list* rcx_getchainfig( char *nomhier )
   {
     leftunconcatname( nomhier, &insname, &nomhier );
     
-    if( !head ) { // C'est le nom de la figure racine
+    if( !head ) { /* C'est le nom de la figure racine*/
       if( insname ) 
         ptfig = rcx_getlofig( insname, NULL );
       else

@@ -129,7 +129,7 @@ float stm_modtbl_interpol1Dlinear (timing_table *table, float x)
       d = y1;
     else
       d = stm_modtbl_interpol1DCalc(x1,x2,y1,y2,x);
-      //d = (((y1 - y2) / (x1 - x2)) * (x - x1)) + y1;
+      /*d = (((y1 - y2) / (x1 - x2)) * (x - x1)) + y1;*/
     
     return d;
 }

@@ -56,49 +56,49 @@ extern void geniusExecuteAction(loins_list *loins);
 #define GEN_GENERIC_MAP_PTYPE 0x100534
 /*USER ptype for loins to keep coupled port information */
 #define GEN_COUPLED_INFO_PTYPE 0x100535
-// for a connector, indicate that it can't be swapped (or already visited)
+/* for a connector, indicate that it can't be swapped (or already visited)*/
 #define GEN_FIXED_PTYPE 0x100536 
-// for a connector, gives the marked signal in the model
+/* for a connector, gives the marked signal in the model*/
 #define GEN_LOCON_MARK_PTYPE 0x100537
-// for an instance, gives index in a loop
+/* for an instance, gives index in a loop*/
 #define GEN_LOOP_INDEX_PTYPE 0x100538
-// for a signal in model, gives the range of the signal, x to y, x downto y or NULL otherwise
+/* for a signal in model, gives the range of the signal, x to y, x downto y or NULL otherwise*/
 #define GEN_REAL_RANGE_PTYPE 0x100539
-// for a signal, point to a hash table containing information on the lofigchain (ls->previous)
+/* for a signal, point to a hash table containing information on the lofigchain (ls->previous)*/
 #define FAST_LOFIGCHAIN_PTYPE 0x100540
-// for a transistor mark it has ghost
+/* for a transistor mark it has ghost*/
 #define GENIUS_GHOST_PTYPE 0x100542
-// for a connector, indicate the lofigchain it is in
+/* for a connector, indicate the lofigchain it is in*/
 #define GENIUS_CON_LOFIG_PTYPE 0x100543
-// for a transistor or a signal, modelname
+/* for a transistor or a signal, modelname*/
 #define GENIUS_MODNAME_PTYPE 0x100544
-// for a transistor or a signal, modelname
+/* for a transistor or a signal, modelname*/
 #define GENIUS_VISITED_LOCON_PTYPE 0x100545
-// for a loins, indicate the flags EXCLUDE or WITHOUT
+/* for a loins, indicate the flags EXCLUDE or WITHOUT*/
 #define GENIUS_LOINS_FLAGS_PTYPE 0x100546
-// here are the flags
+/* here are the flags*/
 #define             LOINS_IS_EXCLUDE  0x1
 #define             LOINS_IS_WITHOUT  0x2
 #define             LOINS_IS_EXCLUDE_AT_END  0x40
-  // + those one in the corresp_t
+  /* + those one in the corresp_t*/
 #define             LOINS_IS_BLACKBOX  0x4
 #define             LOINS_IS_UPDATED   0x8
 #define             LOINS_ALIM_UPDATED 0x10
 #define             LOINS_IS_TOPLEVEL  0x20
-// for a loins, keeps a count of the number of time it has been hit by a search
+/* for a loins, keeps a count of the number of time it has been hit by a search*/
 #define GENIUS_LOINS_COUNT_PTYPE 0x100547
-// for a losig, keeps a hash table with keys for all loins and lotrs attached thru lofigchain
+/* for a losig, keeps a hash table with keys for all loins and lotrs attached thru lofigchain*/
 #define GENIUS_LOFIGCHAIN_KEYS_PTYPE 0x100548
 #define GEN_LOINS_UNDER_CONST 0x100549
-// for a losig, points to a mark_list array for faster accessindicate the flags EXCLUDE or WITHOUT
+/* for a losig, points to a mark_list array for faster accessindicate the flags EXCLUDE or WITHOUT*/
 #define GENIUS_EXP_ARRAY_PTYPE 0x100550
-// for a losig, indicate if a lofigchain must be pushed to enable update
+/* for a losig, indicate if a lofigchain must be pushed to enable update*/
 #define LAST_TOBE_PENDING_LOFIGCHAIN 0x100551
 #define GEN_USER_PTYPE 0x100552
 #define GENIUS_SAVED_PNODE 0x10053
 #define GEN_ORIG_LOINS_PTYPE 0x10054
 
-// for action netlist
+/* for action netlist*/
 #define GEN_ORIG_CORRESP_PTYPE 0x10055
 #define GEN_ORIG_INS_CORRESP_PTYPE 0x10056
 #define GEN_TRANS_TO_SUPPRESS_PTYPE 0x10057
@@ -106,11 +106,11 @@ extern void geniusExecuteAction(loins_list *loins);
 
 #define GEN_PARENT_LOFIG 0x10059
 
-// in case of multiple vdd linked to one
+/* in case of multiple vdd linked to one*/
 #define GEN_MARK_LOINS_GROUP 0x10060
 #define GEN_AUTO_UPDATE_ALIMS 0x10061
 
-//some losig flags
+/*some losig flags*/
 #define GRAB_HAVE_BEEN_DONE 1
 #define LOFIGCHAIN_HAS_SYMS 2
 #define SIGNAL_HAVE_MORE_INSTANCES_IN_LOFIGCHAIN 4
@@ -125,10 +125,10 @@ extern void geniusExecuteAction(loins_list *loins);
 #define GEN_HIERLOFIG_LOSIG_HT 0x100557
 #define GEN_BBOX_LOINS_MODEL 0x100558
 
-// loins list control flags
+/* loins list control flags*/
 #define KEEP_INSTANCE 1
 
-// general ptype
+/* general ptype*/
 #define GNS_FORCE_MATCH 0xfab90407
 
 /*elem wich refers a loins found in global netlist. This loins isn't 
@@ -152,7 +152,7 @@ typedef struct foundins
   int              SIZE;            /*if FLAG = HEAD  number of foundins */
   /*behind + himself*/
   loins_list      *VISITED;    /*if already visited have the model it matches*/
-  char ghost; // tells : don't care this instance, it's from another instance 
+  char ghost; /* tells : don't care this instance, it's from another instance */
   char             NOT_MATCH;        /*non-zero if already tried and failed*/
   char             FLAG;            /*mark passage of search algorithm*/
   char             SAVEDFLAG;            /*mark passage of search algorithm*/
@@ -170,7 +170,7 @@ typedef struct model
   chain_list   *VAR;      /*list of generic variables contained in GENERIC*/
   tree_list   *GENERIC;  /*condition tree on instances in LOFIG*/
   char *C;
-//tree_list   *C;        /*action to do if model is recognized*/
+/*tree_list   *C;        /*action to do if model is recognized*/
   char *REGEXP;
 } model_list;
 
@@ -188,7 +188,7 @@ typedef struct gensigchain {
    tree_list *LOSIG_EXP;        /*source bit number */
    locon_list *LOCON;            /*destination*/
    tree_list *LOCON_EXP;        /*destination bit number*/
-  int ghost;                    // don't care this gensigchain
+  int ghost;                    /* don't care this gensigchain*/
 } gensigchain_list;
 
 /*in MARK_LIST in USER field of losig*/
@@ -201,7 +201,7 @@ typedef struct mark
   int               VISITED;            /*non zero if already visited*/
   int COUNT;  /* number of connectors who have marked this signal */
   locon_list *one_locon; /* locon who have marked this signal first */
-  void **mark_in_ea; // pointer on position in expandable array
+  void **mark_in_ea; /* pointer on position in expandable array*/
 } mark_list;
 
 struct corresp_t;
@@ -217,11 +217,11 @@ typedef struct subinst_t
 typedef struct corresp_t {
   char       *GENIUS_INSNAME;
   char       *GENIUS_FIGNAME;
-//  char       *INSNAME;
+/*  char       *INSNAME;*/
   char       *FIGNAME;
   ht         *SIGNALS;
   ht         *TRANSISTORS;
-  subinst_t  *SUBINSTS; // type of DATA is corresp_t*
+  subinst_t  *SUBINSTS; /* type of DATA is corresp_t**/
   ptype_list *VAR;
   short FLAGS;
   char ARCHISTART, ARCHILENGTH;
@@ -239,7 +239,7 @@ extern lofig_list *current_lofig;
 extern chain_list *ALL_HIERARCHY_LOTRS;
 extern lofig_list *GEN_HEAD_LOFIG;
 extern ht         *GEN_HT_LOFIG;
-//extern chain_list *TRANS_TO_SUPPRESS;
+/*extern chain_list *TRANS_TO_SUPPRESS;*/
 extern ptype_list *GEN_USER;
 extern char        GEN_SEPAR;
 extern chain_list *expansedloins, *originalloins;
@@ -260,33 +260,32 @@ extern int         Eval_Exp_VHDL                    (tree_list *tree, ptype_list
 extern char       *gen_canonize_trname              (char* trname);
 extern void        ComputeWeightsForLoinsConnectors (lofig_list *lf);
 extern chain_list *gen_hierarchical_split           (char *name);
-char *gen_makesignalname (char *s);
-char *gen_makeinstancename (char *s);
-//extern char       *gen_makename                     (char *s);
+extern char       *gen_makesignalname               (char *s);
+extern char       *gen_makeinstancename             (char *s);
+/*extern char       *gen_makename                     (char *s);*/
 extern lotrs_list *gen_corresp_trs                  (char *name, corresp_t *corresp);
 extern losig_list *gen_corresp_sig                  (char *name, corresp_t *corresp);
 extern void        gen_update_sigcon                (lofig_list *fig);
 extern char       *gen_losigname                    (losig_list *sig);
 extern corresp_t  *gen_build_corresp_table          (lofig_list *lf, chain_list *loins, chain_list *lotrs);
 extern void        gen_update_corresp_table         (lofig_list *lf, corresp_t *crp_table, loins_list *li);
-extern lofig_list *gen_build_netlist                ();
-void gen_drive_corresp_htable (FILE *f, char *name, char *path, int top, corresp_t *dico);
-extern void        gen_drive_corresp_table             (FILE *f, char *path, int top, subinst_t *dico);
+extern lofig_list *gen_build_netlist                (char *modelname, corresp_t *crt);
+extern void        gen_drive_corresp_htable         (FILE *f, char *name, char *path, int top, corresp_t *dico);
+extern void        gen_drive_corresp_table          (FILE *f, char *path, int top, subinst_t *dico);
 extern void        gen_clean_RC                     (lofig_list *fig);
-chain_list *gen_goto(chain_list *arbo, corresp_t **crt, int tag);
-subinst_t *gen_GetCorrespondingInstance(char *name, corresp_t *level);
-lotrs_list *gen_GetCorrespondingTransistor(char *name, corresp_t * level);
-chain_list *gen_GetInstanceWithSameRadical(lofig_list *lf, char *radical);
+extern chain_list *gen_goto                         (chain_list *arbo, corresp_t **crt, int tag);
+extern subinst_t  *gen_GetCorrespondingInstance     (char *name, corresp_t *level);
+extern lotrs_list *gen_GetCorrespondingTransistor   (char *name, corresp_t * level);
+extern chain_list *gen_GetInstanceWithSameRadical   (lofig_list *lf, char *radical);
 
-// trouve une instance dans la lofig hierarchique
-loins_list *gen_findinstance(lofig_list *lf, char *name);
-void gen_update_alims (lofig_list *lf, corresp_t *root_tbl, chain_list *distrib_sigs);
-chain_list *GetModelSignalFromCON(locon_list *ptcon, int *first, int *last, model_list *model, ptype_list *env, ptype_list *livar);
+/* trouve une instance dans la lofig hierarchique*/
+extern loins_list *gen_findinstance     (lofig_list *lf, char *name);
+extern void        gen_update_alims     (lofig_list *lf, corresp_t *root_tbl, chain_list *distrib_sigs);
+extern chain_list *GetModelSignalFromCON(locon_list *ptcon, int *first, int *last, model_list *model, ptype_list *env, ptype_list *livar);
 
-int gen_wasunused();
-
-chain_list *GrabAllConnectorsThruCorresp(char *con_name, losig_list *realconls, corresp_t *CRT, chain_list *Last);
-subinst_t *Add_subinst(subinst_t *head, char *name, corresp_t *crt, long flags);
+extern int         gen_wasunused        ();
+extern chain_list *GrabAllConnectorsThruCorresp(char *con_name, losig_list *realconls, corresp_t *CRT, chain_list *Last);
+extern subinst_t  *Add_subinst          (subinst_t *head, char *name, corresp_t *crt, long flags);
 
 typedef struct
 {
@@ -323,7 +322,7 @@ void out_genius_context_of();
 int is_genius_instance(lofig_list *lf, char *name);
 mbkContext *genius_external_getcontext();
 
-// 126-33
+/* 126-33*/
 /*
 #define D_BASE 10
 #define D_BASE_START '0'
@@ -331,7 +330,7 @@ mbkContext *genius_external_getcontext();
 #define D_BASE 220
 #define D_BASE_START 33
 
-//void DriveCorresp(FILE *f, ALL_FOR_GNS *all);
+/*void DriveCorresp(FILE *f, ALL_FOR_GNS *all);*/
 void gnsDriveCorrespondanceTables(ALL_FOR_GNS *all, int mode);
 ALL_FOR_GNS *gnsParseCorrespondanceTables(char *name);
 void gnsApplyConnectorOrientation(ALL_FOR_GNS *all);

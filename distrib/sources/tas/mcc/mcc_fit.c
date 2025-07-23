@@ -123,7 +123,7 @@ int mcc_getdelay(char *filename,char *in,char *out,int mode,char sin,char sout,F
       nbdu ++ ;
      }
    }
- else // that case if for mcc debug 
+ else /* that case if for mcc debug */
    {
     sprintf(trans,"%c%c",sin,sout);
     for(critic = headcritic->NEXT ; critic->NEXT != NULL ; critic = critic->NEXT) ;
@@ -311,10 +311,10 @@ void mcc_fit(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p,int com
  char buf[1024], buf0[1024];
  FILE *f;
 
- strcpy(buf0,MCC_ELPFILE); // modifier a l'appel de tas
+ strcpy(buf0,MCC_ELPFILE); /* modifier a l'appel de tas*/
 
  if (!componly) mcc_drvelp(MCC_PARAM,MCC_TRANS_B,lotrsparam_n,lotrsparam_p,MCC_DRV_ALL_MODEL) ;
-// mcc_gencurv(MCC_PARAM,lotrsparam_n,lotrsparam_p) ;
+/* mcc_gencurv(MCC_PARAM,lotrsparam_n,lotrsparam_p) ;*/
 
  f=fopen(mcc_debug_prefix("fit_output.log"),"w");
  for(i = 0 ; i < MCC_TASNB ; i++)
@@ -333,7 +333,7 @@ void mcc_fit(elp_lotrs_param *lotrsparam_n,elp_lotrs_param *lotrsparam_p,int com
    while(error > MCC_ERROR) 
     {
      if (!componly) mcc_drvelp(i,MCC_TRANS_B,lotrsparam_n,lotrsparam_p,MCC_DRV_ALL_MODEL) ;
-//     mcc_runtas_tcl(mcc_debug_prefix(mcc_getfilename(MCC_TASFILE[i])),V_FLOAT_TAB[__FRONT_CON].VALUE,V_FLOAT_TAB[__TAS_CAPAOUT].VALUE,NULL) ;
+/*     mcc_runtas_tcl(mcc_debug_prefix(mcc_getfilename(MCC_TASFILE[i])),V_FLOAT_TAB[__FRONT_CON].VALUE,V_FLOAT_TAB[__TAS_CAPAOUT].VALUE,NULL) ;*/
      strcpy(buf,mcc_debug_prefix(MCC_SPICEFILE[i]));
      mcc_runtas_tcl(buf,V_FLOAT_TAB[__FRONT_CON].VALUE,0,NULL,mcc_debug_prefix(mcc_getfilename(MCC_TASFILE[i]))) ;
      mbkfree(MCC_ELPFILE);

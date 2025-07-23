@@ -40,7 +40,7 @@
 /*****************************************************************************/
 /*     defines                                                               */
 /*****************************************************************************/
-// stucks for the inputs
+/* stucks for the inputs*/
 
 #define GSP_STUCK_ZERO    ((long) 0x00000000 )
 #define GSP_STUCK_ONE     ((long) 0x00000001 )
@@ -88,7 +88,7 @@ extern ptype_list    *gsp_get_patterns      ( lofig_list  *lofig,
                                               spisig_list *,
                                               chain_list **
                                             );
-// temp
+/* temp*/
 ptype_list *gsp_spisetinputs_from_cone(char *figname, chain_list *ptconelist, char corner, chain_list **allcorrel);
 void gsp_new_numbercones (char *figname, chain_list *ptconelist);
 void gsp_FreeMarksOnCnsfig (cnsfig_list *cnsfig);

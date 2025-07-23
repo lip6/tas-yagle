@@ -48,7 +48,7 @@ int         STM_AXIS_NSLOPE     = 0 ;
 int         STM_AXIS_NCAPA      = 0 ;
 int         STM_BUFSIZE         = 1024;
 int         STM_DEBUG           = 0;
-//int         STM_SHARE_MODEL     = 0;
+/*int         STM_SHARE_MODEL     = 0;*/
 int         STM_SOLVER_PILOAD   = 0;
 int         STM_IMAX_FOR_PILOAD = 0;
 float       STM_OVERSHOOT       = 0.01;
@@ -57,7 +57,7 @@ char       *STM_TECHNONAME      = "unknown";
 
 unsigned long int STM_CACHE_SIZE=0; /* default  = 0 */
 
-//int         STM_USE_MSC       = NO;
+/*int         STM_USE_MSC       = NO;*/
 
 
 /****************************************************************************/

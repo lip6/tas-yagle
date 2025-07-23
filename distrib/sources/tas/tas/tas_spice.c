@@ -236,7 +236,7 @@ ttvline_list *tas_get_line_from_critic (ttvcritic_list *critic)
   else
     destevent = &destsig->NODE[0];
   for (line = destevent->IN_LINE ; line ; line=line->NEXT) {
-    // attention a la convention des noms
+    /* attention a la convention des noms*/
     if (line->ROOT == destevent && line->NODE == rootevent)
       break;
   }
@@ -320,7 +320,7 @@ sim_model *tas_get_sim_mod (lofig_list *lofig,
   ptype_list *shift;
   int         nbinput=0;
   
-  // mise a jour des fronts et capa out
+  /* mise a jour des fronts et capa out*/
   stm_set_output_load (0.0);
   if ((input_slope = TAS_CONTEXT->FRONT_CON) < 0.0)
       input_slope = SIM_SLOP;
@@ -332,16 +332,16 @@ sim_model *tas_get_sim_mod (lofig_list *lofig,
   if ((gns_sim_model = tas_get_sim_model (critic,&insname,gen_loins,gen_lotrs,gen_losig))) {
     loins = efg_get_hier_loins (lofig,insname);
     if ((loins)) {
-      // => mark instance 
+      /* => mark instance */
       efg_dont_copy_ins (loins);
       if (origloins)
         *origloins = loins;
       figins = gns_sim_model->FIG;
 
-      // on rattache cette figure utilisateur a l'instance
+      /* on rattache cette figure utilisateur a l'instance*/
       efg_set_fig2ins (loins,figins);
 
-      // tas_update_sim_model
+      /* tas_update_sim_model*/
       for (loconins = loins->LOCON ; loconins ; loconins=loconins->NEXT) {
         char *conname,*ctxt,*signame;
 
@@ -351,12 +351,12 @@ sim_model *tas_get_sim_mod (lofig_list *lofig,
 
         loconfig = efg_get_locon (figins,conname);
         if ( loconfig ) {
-          // si le signal est sur le chemin, on en supprime eventuellement
-          // le front de la simulation car il provient du yagcore
+          /* si le signal est sur le chemin, on en supprime eventuellement*/
+          /* le front de la simulation car il provient du yagcore*/
           signame = getsigname (loconins->SIG);
           if ((signame  == mbk_devect (critic->NETNAME,"[","]")) ||
              (signame  == namealloc (critic->NETNAME))) {
-            // recupere la valeur du start time on this locon
+            /* recupere la valeur du start time on this locon*/
             if ( (tstart = sim_input_get_tstart (gns_sim_model,loconfig->NAME)) > 0.0 ) {
               if (!getptype (gns_sim_model->USER,TAS_OLD_INPUT_START)) {
                 oldinput = tas_set_old_sim_input (concatname (loins->INSNAME,loconfig->NAME),
@@ -377,8 +377,8 @@ sim_model *tas_get_sim_mod (lofig_list *lofig,
                                       );
         }
       }
-      if ( nbinput == 1 ) { // if there is only one PWL for the simulation, don t need
-                            // to update start time in the future : this input is only deleted
+      if ( nbinput == 1 ) { /* if there is only one PWL for the simulation, don t need*/
+                            /* to update start time in the future : this input is only deleted*/
         shift = getptype (gns_sim_model->USER,TAS_OLD_INPUT_START);
         if ( shift ) {
           oldinput = (tas_old_input*)shift->DATA;
@@ -390,7 +390,7 @@ sim_model *tas_get_sim_mod (lofig_list *lofig,
 
       sim_update_model_signal_name (gns_sim_model,loins->INSNAME);
     }
-    //sim_shift_input (gns_sim_model, 100e-12);
+    /*sim_shift_input (gns_sim_model, 100e-12);*/
   }
 
   return gns_sim_model;
@@ -559,7 +559,7 @@ void tas_get_delay_slope ( char *filename,
   char event1,event2,type1,type2;
   spisig_list *spisig,*firstspisig,*lastspisig;
   char *nodercin,*nodercout;
-  int valid; // valid = 1 <=> calcul valid dans reso RC
+  int valid; /* valid = 1 <=> calcul valid dans reso RC*/
   int write_file = 0;
   int read_meas = 0;
   double simvthh = SIM_VTH_HIGH;
@@ -568,9 +568,9 @@ void tas_get_delay_slope ( char *filename,
   if (!filename || !model || !path)
     return;
 
-  // Put the right SFHL and SFHH
+  /* Put the right SFHL and SFHH*/
   
-//  if ( SIM_USE_MEAS == SIM_YES )
+/*  if ( SIM_USE_MEAS == SIM_YES )*/
     read_meas = 1;
   if ( !critic ) {
     write_file = 1;
@@ -584,8 +584,8 @@ void tas_get_delay_slope ( char *filename,
       lastspisig = efg_GetLastSpiSig (path);
       if (critic != NULL) {
           (*critic)->SIMSLOPE = mbk_long_round(input_slope*1e12*TTV_UNIT);
-//          (*critic)->SIMSLOPE = (*critic)->SLOPE;
-          (*critic)->SIMDELAY = (*critic)->DELAY; // starttime //(long)0;
+/*          (*critic)->SIMSLOPE = (*critic)->SLOPE;*/
+          (*critic)->SIMDELAY = (*critic)->DELAY; /* starttime //(long)0;*/
           c = *critic;
           tas_flag_rc_delay2spisig ( path,*critic);
       }
@@ -597,7 +597,7 @@ void tas_get_delay_slope ( char *filename,
         nextdelayrc = 0.0;
         nodercin = nodercout = NULL;
 
-        // node name
+        /* node name*/
         node1 = efg_GetSpiSigName (spisig);
         spisigname1 = sim_devect (node1);
         if (spisig->NEXT != NULL) {
@@ -605,7 +605,7 @@ void tas_get_delay_slope ( char *filename,
           spisigname2 = sim_devect (node2);
           type2 = sim_get_type_node (model,node2);
         }
-        // node type
+        /* node type*/
         if (efg_IsWireOnSpiSig (spisig) == 1 &&
             spisig != firstspisig && 
             spisig != lastspisig ) {
@@ -628,7 +628,7 @@ void tas_get_delay_slope ( char *filename,
           else
             type2 = sim_get_type_node (model,node2);
         }
-        // node event
+        /* node event*/
         if (efg_GetSpiSigEvent (spisig) == (long)EFG_SIG_SET_RISE)
             event1 = 'U';
         else
@@ -643,7 +643,7 @@ void tas_get_delay_slope ( char *filename,
 
         if (efg_IsWireOnSpiSig (spisig) == 1 &&
             (!critic || (tas_get_rc_delay (spisig) == 1))) {
-          // le signal a des reso rc
+          /* le signal a des reso rc*/
           delay = 0.0;
           slope = 0.0;
 
@@ -655,7 +655,7 @@ void tas_get_delay_slope ( char *filename,
             delayrc = 0.0;
             slope = 0.0;
           }
-          //delayrc = fabs(delayrc);
+          /*delayrc = fabs(delayrc);*/
           if (!nodercin) nodercin = "X";
           if (!nodercout) nodercout = "X";
           delaytotal += delayrc;
@@ -681,7 +681,7 @@ void tas_get_delay_slope ( char *filename,
               c = c->NEXT;
           }
         }
-        // GATE DELAY
+        /* GATE DELAY*/
         if (efg_IsWireOnSpiSig (spisig) == 1 ) {
           if ( spisig == firstspisig )
             node1 = efg_GetSpiSigLoconRc(spisig,'O');
@@ -713,7 +713,7 @@ void tas_get_delay_slope ( char *filename,
                               sim_create_label (node2,NULL),
                               &slope
                              );
-//        }
+/*        }*/
         if (spisig == firstspisig && nodercin == NULL) {
           if ( write_file ) {
             fprintf (file,"    %6ld pS ",(long)0);
@@ -912,7 +912,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
                        cnsfig_list *cnsfig,
                        spisig_list *spisig,
                        chain_list  *criticlist,
-                       char dstype, // SIM_MIN or SIM_MAX
+                       char dstype, /* SIM_MIN or SIM_MAX*/
                        int run,
                        char *outputfilename,
                        FILE *outputfile,
@@ -941,7 +941,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
   double input_slope;
   char *env, *lastsig;
   int res = 0, err;
-  ht *htsigname = NULL; // correspondance des noms des sig : orig => hierarchiq
+  ht *htsigname = NULL; /* correspondance des noms des sig : orig => hierarchiq*/
   float vth = -1.0;
   int use_tas_shiftdelay = 1;
   int ko = 0;
@@ -1009,7 +1009,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
 
   if (!spisig && !criticlist) return res;
 
-  // delete prev figext...
+  /* delete prev figext...*/
   
   efg_get_fig_name(lofig, figextname);
   if ( (figext = getloadedlofig (figextname)) ) {
@@ -1029,7 +1029,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
     }
   }
   
-  if ( ELP_LOAD_FILE_TYPE == ELP_DONTLOAD_FILE ) // <=> LoadSpecifiedElpFile = no
+  if ( ELP_LOAD_FILE_TYPE == ELP_DONTLOAD_FILE ) /* <=> LoadSpecifiedElpFile = no*/
     EFG_CALC_EQUI_CAPA = EFG_OUT_TRANSISTOR;
    
   if( !spisig && criticlist ) {
@@ -1074,7 +1074,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
                                     prevcritic==NULL?NULL:prevcritic->NETNAME
                                     );
 
-        // get sim_model from genius
+        /* get sim_model from genius*/
         if ((gns_sim_model = tas_get_sim_mod(lofig,
                                              ptcritic,
                                              &origloins,
@@ -1100,7 +1100,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
     firstspisig = efg_GetFirstSpiSig (spisig);
     spisig = efg_AddLatchLoopFeebackCone(lofig, cnsfig, spisig);
 
-    // update output capacitance
+    /* update output capacitance*/
     for( chcritic = criticlist ; chcritic ; chcritic = chcritic->NEXT ) 
      {
        for ( ptcritic = ((ttvpath_list*)chcritic->DATA)->CRITIC ; ptcritic ; ptcritic = ptcritic->NEXT) 
@@ -1152,9 +1152,9 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
       }
     }
   }
-  // 1st stage : preparing simulation
+  /* 1st stage : preparing simulation*/
 
-  // => extract the figure
+  /* => extract the figure*/
   if ( TAS_SIMU_PROGRESS )
     TAS_SIMU_PROGRESS ( NULL, "Extracting critical path", 1 );
   efg_extract_fig ( lofig,
@@ -1174,14 +1174,14 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
 
   if ( !figext ) {
     avt_errmsg( TAS_ERRMSG, "074", AVT_WARNING );
-    //fprintf (stderr,"[TAS ERR] can't extract path to simulate\n");
+    /*fprintf (stderr,"[TAS ERR] can't extract path to simulate\n");*/
     ko = 1;
   }
 
   if ( !ko ) {
     if (tscs==NULL)
       {
-        // if an out load capacitance is specified 
+        /* if an out load capacitance is specified */
         if (SIM_OUT_CAPA_VAL > 0.0) {
           efg_AddExtraCapa(efg_GetLastSpiSig (spisig), SIM_OUT_CAPA_VAL);
         }
@@ -1197,7 +1197,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
           }
       }
     
-    // user update signal & locon name a faire pour tous les signaux
+    /* user update signal & locon name a faire pour tous les signaux*/
     for (chain = gen_losig ; chain ; chain=chain->NEXT) {
       char *origname;
       long newname;
@@ -1217,14 +1217,14 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
     }
   }
   
-  // liberations
+  /* liberations*/
   if (gen_loins) freechain (gen_loins);
   if (gen_lotrs) freechain (gen_lotrs);
   if (gen_losig) freechain (gen_losig);
   if (siglist)   freeptype (siglist);
   if (htsigname) delht     (htsigname);
 
-  // => get spice patterns
+  /* => get spice patterns*/
   if ( !ko ) {
     if ( TAS_SIMU_PROGRESS )
       TAS_SIMU_PROGRESS ( NULL, "Getting patterns for simulation",1 );
@@ -1240,7 +1240,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
     
     if ( !spipatterns && !efg_GetFirstSpiSig (spisig)->END) {
       avt_errmsg( TAS_ERRMSG, "075", AVT_WARNING );
-      //fprintf (stderr,"[TAS ERR] can't get patterns to simulate the path\n");
+      /*fprintf (stderr,"[TAS ERR] can't get patterns to simulate the path\n");*/
       ko = 1;
     }
   }
@@ -1270,7 +1270,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
     freeptype(spipatterns);
 
     for (ptype = list_simmodel ; ptype ; ptype = ptype->NEXT) {
-      // ptype->TYPE = nom d instance correspondant au model sim
+      /* ptype->TYPE = nom d instance correspondant au model sim*/
       ptype_list *shift;
       tas_old_input *oldinput;
       double         tc;
@@ -1280,7 +1280,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
       if ( shift ) {
         oldinput = (tas_old_input*)shift->DATA;
         if ( use_tas_shiftdelay )
-          // to get shift delay for other input from gns rules, we use tas delay*1.1
+          /* to get shift delay for other input from gns rules, we use tas delay*1.1*/
           tc = oldinput->CRITICDELAY*1.1 + input_slope;
         else
           tc = tas_get_commut_time (model,oldinput->NAME, run);
@@ -1297,7 +1297,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
 
   if ( model ) {  
     if (figext!=NULL) rcn_mergectclofig(figext);
-    // launch simu
+    /* launch simu*/
     if ( TAS_SIMU_PROGRESS )
       TAS_SIMU_PROGRESS ( NULL, "Running simulation",1 );
 
@@ -1349,7 +1349,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
       {
         sim_parm *sp;
         pthread_t *threads;
-//        pthread_attr_t pthread_custom_attr;
+/*        pthread_attr_t pthread_custom_attr;*/
         mbk_sem_t simDispo;
         int i, nb, bufidx;
         char buf[2048];
@@ -1358,7 +1358,7 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
         nb=countchain(tscs->slopes)*countchain(tscs->capas);
         sp=mbkalloc(nb*sizeof(sim_parm));
         threads=(pthread_t *)malloc(nb*sizeof(*threads));
-//        pthread_attr_init(&pthread_custom_attr);
+/*        pthread_attr_init(&pthread_custom_attr);*/
 
         mbk_sem_init(&simDispo,tscs->maxthreads);
 
@@ -1459,12 +1459,12 @@ int  tas_simu_netlist (ttvfig_list *ttvfig,
 
     if (tscs==NULL && run && !criticlist->NEXT)
       {
-        // get simu results
+        /* get simu results*/
         if ( TAS_SIMU_PROGRESS )
           TAS_SIMU_PROGRESS ( NULL, "Parsing spice results",1 );
         sim_parse_spiceout (model);
   
-        // drive file to plot
+        /* drive file to plot*/
         if ( plot ) {
           critic = ((ttvpath_list*)criticlist->DATA)->CRITIC;
           for (; critic; critic = critic->NEXT) name2plot = addchain(name2plot, critic->NAME);
@@ -1550,7 +1550,7 @@ int ttv_path_is_activable(ttvfig_list *tvf, cnsfig_list *cf, ttvpath_list *check
   char *cmdsig;
   chain_list *allcorrel;
 
-//  ana=CreateAdvancedNameAllocator(CASE_SENSITIVE);
+/*  ana=CreateAdvancedNameAllocator(CASE_SENSITIVE);*/
 
   lf=getloadedlofig(cf->NAME);
 
@@ -1593,7 +1593,7 @@ int ttv_path_is_activable(ttvfig_list *tvf, cnsfig_list *cf, ttvpath_list *check
               tc->USER=addptype(tc->USER, TEMP_CRITIC_PTYPE, (void *)(long)i);
             }
 
-//          for (i=0; i<nb && strcmp(tc->NETNAME, tab[i].tc->NETNAME)!=0; i++) ;
+/*          for (i=0; i<nb && strcmp(tc->NETNAME, tab[i].tc->NETNAME)!=0; i++) ;*/
           for (err=nb; err<=i; err++) tab[err].tc=NULL, tab[err].delay=INT_MAX;
           if (i>=nb || tab[i].tc==NULL) 
             {
@@ -1612,9 +1612,9 @@ int ttv_path_is_activable(ttvfig_list *tvf, cnsfig_list *cf, ttvpath_list *check
               if (tab[i].onpath)
                 {
                   if (tab[i].tc->SNODE!=tc->SNODE)
-                    setnumberonly=1; //break; // wrong event to propagate
+                    setnumberonly=1; /*break; // wrong event to propagate*/
                   else
-                    val=tab[i].delay; // sinon, resynchronisation du chemin sur celui que l'on veut tester
+                    val=tab[i].delay; /* sinon, resynchronisation du chemin sur celui que l'on veut tester*/
                 }
               else
                 {                  
@@ -1622,7 +1622,7 @@ int ttv_path_is_activable(ttvfig_list *tvf, cnsfig_list *cf, ttvpath_list *check
                   if (val>tab[i].delay) tab[i].delay=val;
                 }
             }
-//          printf("add. %s %c\n",tab[i].tc->NETNAME, tab[i].tc->SNODE==TTV_UP?'u':'d');
+/*          printf("add. %s %c\n",tab[i].tc->NETNAME, tab[i].tc->SNODE==TTV_UP?'u':'d');*/
           if (convname!=NULL && strcmp(tc->NETNAME, convname)==0) break;
           tc=tc->NEXT;
         }
@@ -1649,7 +1649,7 @@ int ttv_path_is_activable(ttvfig_list *tvf, cnsfig_list *cf, ttvpath_list *check
       if ((tab[i].tc->TYPE & TTV_FIND_HZ)==TTV_FIND_HZ && tab[i].tc->NEXT==NULL)
         cmddir|=EFG_SPISIG_HZ_MASK;
       path=efg_AddPathEvent(path, tab[i].tc->NETNAME, tab[i].tc->SNODE==TTV_UP?EFG_RISE:EFG_FALL,!tab[i].onpath?1:0,tab[i].delaymin, tab[i].delay, -1, -1, cmdsig, cmddir, NULL);
-//      printf("%d. %s %c %c [%d %d]\n",i, tab[i].tc->NETNAME, tab[i].tc->SNODE==TTV_UP?'u':'d', tab[i].onpath?'x':'o', tab[i].delaymin, tab[i].delay);
+/*      printf("%d. %s %c %c [%d %d]\n",i, tab[i].tc->NETNAME, tab[i].tc->SNODE==TTV_UP?'u':'d', tab[i].onpath?'x':'o', tab[i].delaymin, tab[i].delay);*/
     }
 
   mbkfree(tab);
@@ -1681,10 +1681,10 @@ int ttv_path_is_activable(ttvfig_list *tvf, cnsfig_list *cf, ttvpath_list *check
     GSP_QUIET_MODE=0;
 
     gsp_FreeMarksOnCnsfigFromChainCone((cone_onpath && cone_onpath->DATA==NULL)?cone_onpath->NEXT:cone_onpath);
-//    gsp_FreeMarksOnCnsfig (cf);
+/*    gsp_FreeMarksOnCnsfig (cf);*/
     tas_free_spisig_marks (spisig);
     efg_DelHierSigPtypeFromSpisig(spisig);
-//    efg_FreeMarksOnFig (lf);
+/*    efg_FreeMarksOnFig (lf);*/
     efg_FreeSpiSigList (spisig);
     efg_freecontext ();
 
@@ -1696,7 +1696,7 @@ int ttv_path_is_activable(ttvfig_list *tvf, cnsfig_list *cf, ttvpath_list *check
      tas_free_spisig_marks (spisig);
      efg_DelHierSigPtypeFromSpisig(spisig);
      efg_FreeSpiSigList (spisig);
-     return 2; // dans le doute, mais on signal l'erreur
+     return 2; /* dans le doute, mais on signal l'erreur*/
    }
 
   if (patterns==NULL) return 0;

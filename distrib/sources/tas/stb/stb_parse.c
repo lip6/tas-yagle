@@ -24,18 +24,18 @@
 #include "stb_fromx.h"
 #include <sys/wait.h>
 
-#define STB_P_MEM 5     // node memory
-#define STB_P_NOD 6     // node
-#define STB_P_ONOD 7    // output node
-#define STB_P_INOD 8    // input node
-#define STB_P_LOC 9     // locon
-#define STB_P_ILOCD 10  // input default locon
-#define STB_P_OLOCD 11  // output define locon
+#define STB_P_MEM 5     /* node memory*/
+#define STB_P_NOD 6     /* node*/
+#define STB_P_ONOD 7    /* output node*/
+#define STB_P_INOD 8    /* input node*/
+#define STB_P_LOC 9     /* locon*/
+#define STB_P_ILOCD 10  /* input default locon*/
+#define STB_P_OLOCD 11  /* output define locon*/
 
 #define STB_P_DUPPAIR 1
 #define STB_P_ADDPAIR 2
 
-#define BEGIN //printf("%s\n",__func__);
+#define BEGIN /*printf("%s\n",__func__);*/
 
 extern int      stbparse();
 extern void     stbrestart();
@@ -83,19 +83,19 @@ stb_convert_inf_to_stb_1(stbfig_list *ptstbfig)
 {
   stb_fromX_t       fxt;
   static stb_parse  stab = { 
-    NULL, // parsedfig
-    NULL, // ptinschain
-    NULL, // ptstablelist
-    NULL, // ptunstablelist
-    NULL, // ckdomains
-    NULL, // ckeqvt
-    0,    // defaultphase
-    0,    // domainindex
-    0,    // eqvtindex
-    0,    // inverted
-    0,    // ideal
-    0,    // virtual
-    NULL  // cleanfunc
+    NULL, /* parsedfig*/
+    NULL, /* ptinschain*/
+    NULL, /* ptstablelist*/
+    NULL, /* ptunstablelist*/
+    NULL, /* ckdomains*/
+    NULL, /* ckeqvt*/
+    0,    /* defaultphase*/
+    0,    /* domainindex*/
+    0,    /* eqvtindex*/
+    0,    /* inverted*/
+    0,    /* ideal*/
+    0,    /* virtual*/
+    NULL  /* cleanfunc*/
   };
   fxt.STBFIG      = ptstbfig;
   fxt.UNIT        = 1e-12;
@@ -132,19 +132,19 @@ stb_loadstbfig(stbfig_list *ptstbfig)
   int               j;
   stb_fromX_t       fxt;
   static stb_parse  stab = { 
-    NULL, // parsedfig
-    NULL, // ptinschain
-    NULL, // ptstablelist
-    NULL, // ptunstablelist
-    NULL, // ckdomains
-    NULL, // ckeqvt
-    0,    // defaultphase
-    0,    // domainindex
-    0,    // eqvtindex
-    0,    // inverted
-    0,    // ideal
-    0,    // virtual
-    NULL  // cleanfunc
+    NULL, /* parsedfig*/
+    NULL, /* ptinschain*/
+    NULL, /* ptstablelist*/
+    NULL, /* ptunstablelist*/
+    NULL, /* ckdomains*/
+    NULL, /* ckeqvt*/
+    0,    /* defaultphase*/
+    0,    /* domainindex*/
+    0,    /* eqvtindex*/
+    0,    /* inverted*/
+    0,    /* ideal*/
+    0,    /* virtual*/
+    NULL  /* cleanfunc*/
   };
 
 
@@ -201,7 +201,7 @@ stb_loadstbfig(stbfig_list *ptstbfig)
 
   stb_parse_init_stab(&stab);
   stb_fromX(&fxt,&stab);
- // stbparse();
+ /* stbparse();*/
 
   /*
   if (fclose(stbin)) {
@@ -246,7 +246,7 @@ stb_parse_init(stb_parse *stab, void (*cleanfunc)(void))
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void
+static  void
 addstbck(stbnode *ptstbnode, stb_parse_pulse *pulse, stbfig_list *parsedfig)
 {
   stb_addstbck(ptstbnode,
@@ -292,7 +292,7 @@ static long stb_findlatency(inffig_list *ifl, stb_parse *stab, ttvsig_list *pttt
   chain_list *list, *chainx, *cl;
   double val=0;
   int res=0;
-  // clock
+  /* clock*/
   list          = inf_GetEntriesByType(ifl,type,INF_ANY_VALUES);
   for (chainx = list; chainx && res==0; chainx = delchain(chainx,chainx))
   {
@@ -454,7 +454,7 @@ stb_parse_cklocon(stb_parse *stab, char *ident, stb_parse_pulse *pulse, inffig_l
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline char edge(char org)
+static  char edge(char org)
 {
   switch (org)
   {
@@ -568,12 +568,12 @@ stb_parse_ckdeclar(void *fxt0, stb_parse *stab)
     }
   }
   
-  // marquage pour les phases des inputs
+  /* marquage pour les phases des inputs*/
   list              = inf_GetEntriesByType(fxt->INFFIG,INF_SPECIN,INF_ANY_VALUES);
   for (ptchain = list; ptchain; ptchain = delchain(ptchain,ptchain))
     treatpin_mark(fxt,ptchain->DATA,INF_SPECIN);
 
-  // marquage pour les phases des outputs
+  /* marquage pour les phases des outputs*/
  list              = inf_GetEntriesByType(fxt->INFFIG,INF_SPECOUT,INF_ANY_VALUES);
   for (ptchain = list; ptchain; ptchain = delchain(ptchain,ptchain))
     treatpin_mark(fxt,ptchain->DATA,INF_SPECOUT);
@@ -668,12 +668,12 @@ stb_parse_ckname_list(stb_parse *stab, chain_list *cklist, char *ident)
     stab->CLEANFUNC();
     stb_error(ERR_NO_CLOCK_CONNECTOR, ck, yylineno, STB_FATAL);
   }
-  //res       = addchain(cklist,sig);
+  /*res       = addchain(cklist,sig);*/
   while (cl!=NULL)
   {
     if (getchain(cklist, cl->DATA)==NULL)
       cklist=addchain(cklist, cl->DATA);
-//    res       = append(cklist,cl);
+/*    res       = append(cklist,cl);*/
     cl=delchain(cl,cl);
   }
 
@@ -883,7 +883,7 @@ stb_parse_eqvt_clocks(stb_parse *stab)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void
+static  void
 command_state(ttvsig_list *ptttvsig, char state, int isdefault)
 {
   stbnode       *ptstbnode_up;
@@ -973,7 +973,7 @@ stb_parse_comdefault(stb_parse *stab, char state)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline ttvsig_list *
+static  ttvsig_list *
 getSigForNode(chain_list *ptchain, int type)
 {
   ttvsig_list   *res = NULL;
@@ -1040,7 +1040,7 @@ void cleanStartForNode_HT()
   }
 }
 
-static inline chain_list *
+static  chain_list *
 getStartForNode(stbfig_list *parsedfig, int type)
 {
   chain_list    *res = NULL;
@@ -1061,7 +1061,7 @@ getStartForNode(stbfig_list *parsedfig, int type)
   return res;
 }
 
-static inline int
+static  int
 contForNode(ttvsig_list *ptttvsig, int type)
 {
   int            res = 0;
@@ -1089,7 +1089,7 @@ contForNode(ttvsig_list *ptttvsig, int type)
   return res;
 }
 
-static inline int
+static  int
 chkCkForDefaultNode(stbnode *ptstbnode, int type)
 {
   int            res = 0;
@@ -1103,7 +1103,7 @@ chkCkForDefaultNode(stbnode *ptstbnode, int type)
   return res;
 }                       
 
-static inline stbpair_list ***
+static  stbpair_list ***
 getPairForDefaultNode(stbnode *ptstbnode, int type)
 {
   stbpair_list ***pair = NULL;
@@ -1126,7 +1126,7 @@ getPairForDefaultNode(stbnode *ptstbnode, int type)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void
+static  void
 copyIntervallsForDefaultNode(stbnode *ptstbnode,
                              stbpair_list *ptstbpair,
                              int edge_option,
@@ -1158,7 +1158,7 @@ copyIntervallsForDefaultNode(stbnode *ptstbnode,
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline char
+static  char
 parse_checkPhase(stb_parse *stab, char *ident, int source_phase)
 {
   char       phase;
@@ -1182,7 +1182,7 @@ parse_checkPhase(stb_parse *stab, char *ident, int source_phase)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void
+static  void
 node(stb_parse *stab, char *ident, char edge_option, int source_phase,
      char hz_option, int type)
 {
@@ -1193,7 +1193,7 @@ node(stb_parse *stab, char *ident, char edge_option, int source_phase,
   char           phase;
 
 #if 1
-  // + rapide mais consomme localement +
+  /* + rapide mais consomme localement +*/
   ptchain       = getStartForNode_HT(stab->PARSEDFIG, ident, type);
 
   for ( ; ptchain; ptchain = delchain(ptchain, ptchain))
@@ -1226,7 +1226,7 @@ node(stb_parse *stab, char *ident, char edge_option, int source_phase,
   }
 #else
   char           namebuf[1024];
-  // consomme moins (?) et N2/2 pour les noeuds internes
+  /* consomme moins (?) et N2/2 pour les noeuds internes*/
   ptchain       = getStartForNode(stab->PARSEDFIG,type);
   for ( ; ptchain; ptchain = ptchain->NEXT)
   {
@@ -1234,7 +1234,7 @@ node(stb_parse *stab, char *ident, char edge_option, int source_phase,
     if (contForNode(ptttvsig,type))
       continue;
     ttv_getsigname(stab->PARSEDFIG->FIG, namebuf, ptttvsig);
-//    if (namealloc(namebuf) == name)
+/*    if (namealloc(namebuf) == name)*/
     if (mbk_casestrcmp(namebuf,ident)==0)
     {
       phase         = parse_checkPhase(stab,ident,source_phase);
@@ -1252,7 +1252,7 @@ node(stb_parse *stab, char *ident, char edge_option, int source_phase,
         stab->CLEANFUNC();
         stb_error(errcode, ident, yylineno, STB_FATAL);
       }
-      if (type==STB_P_NOD) break; // pas de regex et ttvsig en double dans la liste
+      if (type==STB_P_NOD) break; /* pas de regex et ttvsig en double dans la liste*/
     }
   }
   stb_parse_freeStab(stab);
@@ -1327,7 +1327,7 @@ stb_parse_freeStab(stb_parse *stab)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void
+static  void
 locon(stb_parse *stab, char *ident, char edge_option, int source_phase,
       int table)
 {
@@ -1355,7 +1355,7 @@ locon(stb_parse *stab, char *ident, char edge_option, int source_phase,
 
     if (mbk_TestREGEX(namebuf, name))
     {
-      // on evite les clocks
+      /* on evite les clocks*/
       if (getptype(ptttvsig->USER, STB_IS_CLOCK)==NULL)
       {
         phase         = parse_checkPhase(stab,ident,source_phase);
@@ -1414,7 +1414,7 @@ stb_parse_outlocon(stb_parse *stab, char *ident, char edge_option,
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline void
+static  void
 default_locon(stb_parse *stab, char edge_option, int source_phase, int type)
 {
   ttvsig_list   *pttarget;
@@ -1550,8 +1550,8 @@ stb_parse_name(stb_parse *stab, char *ident, int doit)
   int            found = FALSE;
 
   doit=0;
-//  if (doit || !done)
-//  {
+/*  if (doit || !done)*/
+/*  {*/
     name                = namealloc(ident);
 
     /* check that the STB figure exists */   
@@ -1565,7 +1565,7 @@ stb_parse_name(stb_parse *stab, char *ident, int doit)
       if (!found)
         stb_error(ERR_NO_FIGURE, NULL, 0, STB_FATAL);
     }
-//  }
+/*  }*/
 }
 
 /*}}}************************************************************************/

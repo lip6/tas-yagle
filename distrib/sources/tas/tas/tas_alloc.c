@@ -438,16 +438,18 @@ lofig_list *lofig ;
    {
     if ((pt=getptype(lotrs->USER, TAS_TRANS_LINK))!=NULL)
       freechain((chain_list *)pt->DATA);
-/*    freelotrsparams(lotrs);
-    dellotrsuser(lotrs); //freeptype(lotrs->USER) ;
-    //lotrs->USER = NULL ;
+#ifdef THIS_IS_DISABLED
+    freelotrsparams(lotrs);
+    dellotrsuser(lotrs); /*freeptype(lotrs->USER) ;*/
+    /*lotrs->USER = NULL ;*/
     delloconuser( lotrs->DRAIN );
     delloconuser( lotrs->SOURCE );
     delloconuser( lotrs->GRID );
     if (lotrs->BULK!=NULL)
      {
       delloconuser( lotrs->BULK );
-     } */
+     }
+#endif
     }
 
 /*

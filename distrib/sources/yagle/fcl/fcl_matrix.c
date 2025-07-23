@@ -563,11 +563,7 @@ identique_ins(loins_list *ptloins, loins_list *ptmodelloins)
   ####====================================================================####
 */
 
-void
-tab_ajoute(ptmatrice, niveau, ptdata)
-    matrice_list   *ptmatrice;
-    int             niveau;
-    void           *ptdata;
+void tab_ajoute( matrice_list *ptmatrice, int niveau, void *ptdata )
 {
     if (niveau % BUFFER == 0) {
         /* On est en fin de tableau on realloue de la place */
@@ -586,10 +582,7 @@ tab_ajoute(ptmatrice, niveau, ptdata)
   ## Supprime une ligne de la matrice                                       ##
   ####====================================================================####
 */
-matrice_list   *
-tab_del(ptmatrice_begin, ptmatrice)
-    matrice_list   *ptmatrice_begin;
-    matrice_list   *ptmatrice;
+matrice_list * tab_del( matrice_list *ptmatrice_begin, matrice_list *ptmatrice )
 {
     matrice_list   *ptm;
 #ifndef __ALL__WARNING__
@@ -614,8 +607,7 @@ tab_del(ptmatrice_begin, ptmatrice)
   ## Initialise la matrice                                                  ##
   ####====================================================================####
 */
-matrice_list   *
-tab_init()
+matrice_list   * tab_init()
 {
     matrice_list   *ptmatrice;
 
@@ -643,11 +635,7 @@ tab_init()
   ## Recopie une ligne de la matrice sur une nouvelle ligne                 ##
   ####====================================================================####
 */
-matrice_list *
-tab_copy(ptmatrice_begin, ptmatrice, niveau)
-    matrice_list   *ptmatrice_begin;
-    matrice_list   *ptmatrice;
-    int             niveau;
+matrice_list * tab_copy( matrice_list *ptmatrice_begin, matrice_list *ptmatrice, int niveau )
 {
     matrice_list   *ptmatrice_new;
 
@@ -675,9 +663,7 @@ tab_copy(ptmatrice_begin, ptmatrice, niveau)
   ## Libere la matrice                                                      ##
   ####====================================================================####
 */
-void
-tab_free(ptmatrice)
-    matrice_list   *ptmatrice;
+void tab_free( matrice_list *ptmatrice )
 {
     matrice_list   *ptm;
 
@@ -700,10 +686,7 @@ tab_free(ptmatrice)
   ## Cherche les transistors et instances d'un signal                       ##
   ####====================================================================####
 */
-chain_list *
-fils_sig(ptlosig, ptlocon)
-    losig_list     *ptlosig;
-    locon_list     *ptlocon;
+chain_list * fils_sig( losig_list *ptlosig, locon_list *ptlocon )
 {
     chain_list     *ptchain;
     chain_list     *ptchain_debut = NULL;
@@ -767,10 +750,7 @@ fils_sig(ptlosig, ptlocon)
   ##                                                                        ##
   ####====================================================================####
 */
-void
-printmatrice(ptmatrice, niveau)
-    matrice_list   *ptmatrice;
-    int             niveau;
+void printmatrice( matrice_list *ptmatrice, int niveau )
 {
     int             i;
     matrice_list   *ptm;
@@ -791,11 +771,7 @@ printmatrice(ptmatrice, niveau)
   ##                                                                        ##
   ####====================================================================####
 */
-void
-displaymatrice(ptmatrice, niveau, full)
-    matrice_list   *ptmatrice;
-    int             niveau;
-    int             full;
+void displaymatrice( matrice_list *ptmatrice, int niveau, int full )
 {
     int             i, num = 0;
     losig_list     *ptlosig;

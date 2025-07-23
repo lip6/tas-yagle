@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <alloca.h>
 #include "avt_lib.h"
 
 
@@ -37,7 +38,7 @@ int avtAnnotationDeviceConnectorSetting_init(char *var, char *val, char *result)
   return 1;
 }
 
-// -----------------------------------------
+/* -----------------------------------------*/
 char env_SIMUINV=' ';
 char *SIMUINVCONENAME=NULL, *SIMUINV_PREFIX=NULL;
 int tpiv_inverter_config_reverse=1;
@@ -173,9 +174,9 @@ int yagDetectClockGating_init(char *var, char *val, char *result)
 }
 
 
-// -----------------------------------------
+/* -----------------------------------------*/
 int TTV_MaxPathPeriodPrecharge=0;
-// mask: 1=latch, 2=precharge, 4=filter
+/* mask: 1=latch, 2=precharge, 4=filter*/
 int TTV_IgnoreMaxFilter=0;
 
 int avtTransparentPrecharge_init(char *var, char *val, int *result)
@@ -191,7 +192,7 @@ int avtTransparentPrecharge_init(char *var, char *val, int *result)
   return 1;
 }
 
-// -----------------------------------------
+/* -----------------------------------------*/
 
 int ttvIgnoreMaxFilter_init(char *var, char *val, char *result)
 {

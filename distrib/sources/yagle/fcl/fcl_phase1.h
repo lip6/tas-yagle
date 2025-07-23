@@ -12,6 +12,6 @@
 /*                                                                          */
 /****************************************************************************/
 
-extern partition_list *phase1();
-extern void clean_phase1();
+extern partition_list * phase1( lofig_list *ptlofig_c, lofig_list *ptlofig_m, void **ptcle );
+extern void clean_phase1( lofig_list *ptlofig );
 

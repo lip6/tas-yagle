@@ -328,7 +328,7 @@ fprintf(file,"\n\n") ;
          chain_list *cl;
          type1="CONNECTOR" ;
          cl=cns_get_cone_external_connectors(incone->UEDGE.CONE);
-//         ptype = getptype(incone->UEDGE.CONE->USER,CNS_EXT) ;
+/*         ptype = getptype(incone->UEDGE.CONE->USER,CNS_EXT) ;*/
          if(cl!=NULL/*ptype != NULL*/)
            if(((locon_list *)cl->DATA)->DIRECTION != CNS_I)
             type1 = "GATE" ;

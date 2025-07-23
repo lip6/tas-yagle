@@ -77,7 +77,7 @@ void stb_clock_tree_mark_divergence(stbfig_list *stbfig)
     }
 }
 
-static inline stb_clock_tree *stb_get_clock_tree(ttvevent_list *node)
+static  stb_clock_tree *stb_get_clock_tree(ttvevent_list *node)
 {
   ptype_list *pt;
 
@@ -214,7 +214,7 @@ int stb_get_common_node_info(ttvevent_list *a, ttvevent_list *b, int maxdepth, l
     }
   *min=sct->delaymin;
   *max=sct->delaymax;
-//  printf("common: for %s %s at node %s : %d %d\n", a->ROOT->NAME, b->ROOT->NAME, (*common_node)->ROOT->NAME, *min, *max);
+/*  printf("common: for %s %s at node %s : %d %d\n", a->ROOT->NAME, b->ROOT->NAME, (*common_node)->ROOT->NAME, *min, *max);*/
   return 1;
 }
 

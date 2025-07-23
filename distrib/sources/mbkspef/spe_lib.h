@@ -12,7 +12,7 @@
 /*                                                                          */
 /****************************************************************************/
 
-//#define SPEF_DEBUG
+/*#define SPEF_DEBUG*/
 
 #ifndef SPE
 #define SPE
@@ -39,7 +39,7 @@
 #define SPEF_FILE      0x00079351
 #define SPEF_HEAP      0x00079352
 
-// zinaps:
+/* zinaps:*/
 #define SPEF_CACHE_PTYPE 0x13311331
 
 /****************************************************************************/

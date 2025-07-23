@@ -110,7 +110,7 @@ void avt_Handler (int sig)
     else
         int_mes = GetMessage (INT_MESSAGE);
 
-    // Reset colors
+    /* Reset colors*/
     if (AVT_COL)
         fprintf (stdout, "\x1B[0m");
 

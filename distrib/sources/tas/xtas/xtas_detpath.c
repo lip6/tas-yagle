@@ -38,7 +38,7 @@ extern      char XTAS_SIMU_RES;
 static char                    *tas_current_signal = NULL ;
 static XtasDetailPathSetStruct *xtas_current_detail = NULL ;
 chain_list                     *XTAS_DETPATH_SESSION = NULL ;
-//static char                     DisableInfo ;
+/*static char                     DisableInfo ;*/
 XtasWindowStruct *XtasDetailwidtab = NULL;
 Widget      XTAS_DETPATHSELECTEDWIDGET = NULL;
 
@@ -310,15 +310,15 @@ void XtasDetailCloseCallback( widget, client_data , call_data )
 /* OBJECT   :                                                                */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-//void XtasDetailSimuResCloseCallback( widget, client_data , call_data )
-//    Widget widget;
-//    XtPointer client_data ;
-//    XtPointer call_data;
-//{
-//    XtasWindowStruct *top = (XtasWindowStruct *)client_data ;
-////    XtDestroyWidget (top->topwidget);
-//    XtUnmanageChild (top->topwidget);
-//}
+/*void XtasDetailSimuResCloseCallback( widget, client_data , call_data )*/
+/*    Widget widget;*/
+/*    XtPointer client_data ;*/
+/*    XtPointer call_data;*/
+/*{*/
+/*    XtasWindowStruct *top = (XtasWindowStruct *)client_data ;*/
+/*//    XtDestroyWidget (top->topwidget);*/
+/*    XtUnmanageChild (top->topwidget);*/
+/*}*/
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -976,7 +976,7 @@ void XtasFillDetailPathList(detail_set)
                 XtAddCallback( tmp_widget, XmNfocusCallback, XtasDetailFocusNameCallback, (XtPointer)detail_set );
                 XtAddCallback( tmp_widget, XmNfocusCallback, XtasSelectDelayCallback, (XtPointer)head );
                 XtAddCallback( tmp_widget, XmNlosingFocusCallback, XtasLosingDetailFocusCallback, (XtPointer)0 );
-                //XmAddTabGroup( tmp_widget );
+                /*XmAddTabGroup( tmp_widget );*/
 
                 if ( (r_pixmap == XmUNSPECIFIED_PIXMAP) || (f_pixmap == XmUNSPECIFIED_PIXMAP) )
                 {
@@ -1037,9 +1037,9 @@ void XtasFillDetailPathList(detail_set)
                     else
                         v_pixmap = rc_pixmap ;
                     label_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmLabelWidgetClass, sub_form,
-                            //        label_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmDrawnButtonWidgetClass, sub_form,
+                            /*        label_widget = XtVaCreateManagedWidget( "XtasMainTitles",xmDrawnButtonWidgetClass, sub_form,*/
                     XmNtopAttachment,   XmATTACH_FORM,
-                    // XmNpushButtonEnabled, True,
+                    /* XmNpushButtonEnabled, True,*/
                     XmNtopOffset,       2,
                     XmNlabelType,       XmPIXMAP,
                     XmNlabelPixmap,     v_pixmap,
@@ -1049,7 +1049,7 @@ void XtasFillDetailPathList(detail_set)
                     XmNwidth,           40,
                     XmNheight,          25,
                     NULL);
-  //        XtAddCallback(label_widget, XmNactivateCallback, XtasTestCallBack, (XtPointer)NULL);
+  /*        XtAddCallback(label_widget, XmNactivateCallback, XtasTestCallBack, (XtPointer)NULL);*/
                   }
 
 
@@ -1110,7 +1110,7 @@ void XtasFillDetailPathList(detail_set)
                   XtAddCallback( tmp_widget, XmNfocusCallback, XtasDetailFocusNameCallback, (XtPointer)detail_set );
                   XtAddCallback( tmp_widget, XmNfocusCallback, XtasSelectDelayCallback, (XtPointer)head );
                   XtAddCallback( tmp_widget, XmNlosingFocusCallback, XtasLosingDetailFocusCallback, (XtPointer)0 );
-                  //XmAddTabGroup( tmp_widget );
+                  /*XmAddTabGroup( tmp_widget );*/
 
                   n = 0;
                   XtSetArg( args[n], XmNleftAttachment,        XmATTACH_WIDGET   ); n++;
@@ -1438,7 +1438,7 @@ Widget XtasCreateDetailList( parent, tas_winfos, detail_set, item_count )
         tas_winfos->butwidget = XalButtonMenus( buttons_form, XtasDetailButtonMenus, args, n, 40, 40 );
     XtasAddDummyButton( tas_winfos->butwidget );
     XtManageChild( tas_winfos->butwidget );
-    //XmAddTabGroup( tas_winfos->butwidget );
+    /*XmAddTabGroup( tas_winfos->butwidget );*/
 
     /*---------------------------------------------------------------------------*/
     /* creation d'un separateur                                                  */
@@ -2373,7 +2373,7 @@ Widget XtasPathDetailList( parent, path_set )
     XtasDetailPathSetStruct *detail_set,*detail_set2;
     static XtasWindowStruct *tas_winfos;
     char    text_title[128];
-//    XtasChainJmpList *cur_detail_save, *detail_list_save;
+/*    XtasChainJmpList *cur_detail_save, *detail_list_save;*/
     
     
    if (XTAS_DETPATHSELECTEDWIDGET != NULL) {
@@ -2385,12 +2385,12 @@ Widget XtasPathDetailList( parent, path_set )
         return(NULL) ;
     
     if(XTAS_SIMU_RES == 'Y') {
-//        cur_detail_save = detail_set->CUR_DETAIL;
-//        detail_list_save = detail_set->DETAIL_LIST;
+/*        cur_detail_save = detail_set->CUR_DETAIL;*/
+/*        detail_list_save = detail_set->DETAIL_LIST;*/
         tas_winfos = (XtasWindowStruct *)path_set->DETAIL_SESSION->DATA;   
         detail_set2 = (XtasDetailPathSetStruct *) tas_winfos->userdata;
-//        detail_set->CUR_DETAIL = detail_set2->CUR_DETAIL;
-//        detail_set->DETAIL_LIST = detail_set2->DETAIL_LIST;
+/*        detail_set->CUR_DETAIL = detail_set2->CUR_DETAIL;*/
+/*        detail_set->DETAIL_LIST = detail_set2->DETAIL_LIST;*/
 
         head = (chain_list *) detail_set2->CUR_DETAIL->DATA;
         critic_sim = (ttvcritic_list *)head->DATA;
@@ -2503,8 +2503,8 @@ Widget XtasPathDetailList( parent, path_set )
     XtManageChild( tas_winfos->wrkwidget );
     if((path_set->PARAM->CRITIC != 'D')&&(XTAS_SIMU_RES == 'Y')) {
         tas_winfos->userinfos = XTAS_SIMU;
-//        detail_set->CUR_DETAIL = cur_detail_save;
-//        detail_set->DETAIL_LIST = detail_list_save;
+/*        detail_set->CUR_DETAIL = cur_detail_save;*/
+/*        detail_set->DETAIL_LIST = detail_list_save;*/
         XTAS_SIMU_RES = 'N';
     }
     else if ((path_set->PARAM->CRITIC != 'D')&&((XTAS_CTX_LOADED & XTAS_LOADED) == XTAS_LOADED)) {

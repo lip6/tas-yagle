@@ -7,9 +7,9 @@
 
 int setnewcurrentmodel( char *var, char *val, int *result );
 
-//======================================================================
-//  GLOBALS 
-//======================================================================
+/*======================================================================*/
+/*  GLOBALS */
+/*======================================================================*/
 
 int                AVT_VALID_TOKEN;
 int                AVT_COL       = 0;
@@ -18,9 +18,9 @@ char              *AVT_FULLVERSION = NULL;
 static ptype_list *AVT_VARENV_LIST = NULL;
 static char        AVT_VARENV_FILE = 'Y';
 void *TCL_INTERPRETER=NULL;
-//======================================================================
-//  TOKEN LIST
-//======================================================================
+/*======================================================================*/
+/*  TOKEN LIST*/
+/*======================================================================*/
 
 char *AVT_PRODUCT_TOKEN_MATCH[] =
 {
@@ -69,15 +69,15 @@ char *AVT_SUPER_TOKEN_MATCH[] =
     NULL
 };
 
-//======================================================================
-//
-// Tables Init
-//
-//======================================================================
+/*======================================================================*/
+/**/
+/* Tables Init*/
+/**/
+/*======================================================================*/
 
-//----------------------------------------------------------------------
-// BOOLEAN
-//----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
+/* BOOLEAN*/
+/*----------------------------------------------------------------------*/
 
 int bool_init_check (char *var, char *val, int *result) 
 { 
@@ -91,12 +91,12 @@ int bool_init_check (char *var, char *val, int *result)
 }
 
 V_BOOL V_BOOL_TAB[] = {
-//   Env_Variable                      Index                            Val Doc Set Variable
+/*   Env_Variable                      Index                            Val Doc Set Variable*/
     {"ANNOT_KEEP_M"                   , __ANNOT_KEEP_M                  , 1, 1, 0, "avtAnnotationKeepM"                      , NULL, bool_init_check},
     {"ANNOT_KEEP_X"                   , __ANNOT_KEEP_X                  , 1, 1, 0, "avtAnnotationKeepX"                      , NULL, bool_init_check}, 
     {"API_DRIVE_CORRESP"              , __API_DRIVE_CORRESP             , 0, 1, 0, "apiDriveCorrespondenceTable"             , NULL, bool_init_check}, 
     {"API_USE_CORRESP"                , __API_USE_CORRESP               , 0, 1, 0, "apiUseCorrespondenceTable"               , NULL, bool_init_check}, 
-    {"TUT_CALC_DERATE"                , __TUT_CALC_DERATE               , 0, 1, 0, "avtCalcDerating"                         , NULL, bool_init_check}, //ok
+    {"TUT_CALC_DERATE"                , __TUT_CALC_DERATE               , 0, 1, 0, "avtCalcDerating"                         , NULL, bool_init_check}, /*ok*/
     {"MCC_RESIZE_RANGE"               , __MCC_RESIZE_RANGE              , 0, 0, 0, "avtCharacAllowRangeMargin"               , NULL, bool_init_check}, 
     {"MCC_CALC_VT"                    , __MCC_CALC_VT                   , 1, 0, 0, "avtCharacCalcVth"                        , NULL, bool_init_check}, 
     {"MCC_OPTIM_MODE"                 , __MCC_OPTIM_MODE                , 1, 0, 0, "avtCharacFastMode"                       , NULL, bool_init_check}, 
@@ -107,7 +107,7 @@ V_BOOL V_BOOL_TAB[] = {
     {"ELP_DEDUCE_DIFFSIZE"            , __ELP_DEDUCE_DIFFSIZE           , 0, 0, 0, "avtDeduceDiffusionSize"                  , NULL, bool_init_check}, 
     {"DSPF_PRESERVE_RC"               , __DSPF_PRESERVE_RC              , 0, 1, 0, "avtDspfPreserveExistingParasitics"       , "avtAnnotationPreserveExistingParasitics", bool_init_check},  
     {"MBK_DUP_PNAME_FOR_FLAT"         , __MBK_DUP_PNAME_FOR_FLAT        , 1, 0, 0, "avtDuppNameForFlat"                      , NULL, bool_init_check}, 
-    {"ELP_DRV_FILE"                   , __ELP_DRV_FILE                  , 0, 1, 0, "avtElpDriveFile"                         , NULL, bool_init_check}, //ok
+    {"ELP_DRV_FILE"                   , __ELP_DRV_FILE                  , 0, 1, 0, "avtElpDriveFile"                         , NULL, bool_init_check}, /*ok*/
     {"MBK_FAST_MODE"                  , __MBK_FAST_MODE                 , 0, 0, 0, "avtFastMode"                             , NULL, bool_init_check}, 
     {"MBK_FLATTEN_FOR_PARA"           , __MBK_FLATTEN_FOR_PARA          , 0, 1, 0, "avtFlattenForParasitic"                  , NULL, bool_init_check}, 
     {"MBK_KEEP_ALL_SIGNAL_NAMES"      , __MBK_KEEP_ALL_SIGNAL_NAMES     , 0, 1, 0, "avtFlattenKeepsAllSignalNames"           , NULL, bool_init_check}, 
@@ -142,9 +142,9 @@ V_BOOL V_BOOL_TAB[] = {
     {"MVL_CONFIGURE"                  , __MVL_CONFIGURE                 , 0, 1, 0, "avtStructuralVhdlConfigure"              , NULL, bool_init_check}, 
     {"ELP_GEN_PARAM"                  , __ELP_GEN_PARAM                 , 1, 0, 0, "avtUseOnlySpecifiedElpFile"              , NULL, bool_init_check}, 
     {"MGL_USE_LIBRARY"                , __MGL_USE_LIBRARY               , 0, 1, 0, "avtUseVerilogLibrary"                    , NULL, bool_init_check}, 
-    {"CNS_DRIVE_VERBOSE"              , __CNS_DRIVE_VERBOSE             , 0, 1, 0, "avtVerboseConeFile"                      , NULL, bool_init_check}, //ok
+    {"CNS_DRIVE_VERBOSE"              , __CNS_DRIVE_VERBOSE             , 0, 1, 0, "avtVerboseConeFile"                      , NULL, bool_init_check}, /*ok*/
     {"INF_CONF_CHECK"                 , __INF_CONF_CHECK                , 1, 0, 0, "avtVerifyInformationFile"                , NULL, bool_init_check}, 
-    {"CNS_DRIVE_NORMAL"               , __CNS_DRIVE_NORMAL              , 1, 1, 0, "avtNormalConeFile"                       , NULL, bool_init_check}, //ok
+    {"CNS_DRIVE_NORMAL"               , __CNS_DRIVE_NORMAL              , 1, 1, 0, "avtNormalConeFile"                       , NULL, bool_init_check}, /*ok*/
     {"FCL_USECUT"                     , __FCL_USECUT                    , 0, 1, 0, "fclCutMatchedTransistors"                , NULL, bool_init_check}, 
     {"FCL_FILE"                       , __FCL_FILE                      , 0, 1, 0, "fclWriteReport"                          , NULL, bool_init_check}, 
     {"GEN_KEEP_ALL"                   , __GEN_KEEP_ALL                  , 0, 1, 0, "gnsKeepAllCells"                         , NULL, bool_init_check}, 
@@ -174,7 +174,7 @@ V_BOOL V_BOOL_TAB[] = {
     {"STB_STABILITY_LAST"             , __STB_STABILITY_LAST            , 0, 1, 0, "stbTopLevelPath"                         , NULL, bool_init_check}, 
     {"STB_TRACE_MODE"                 , __STB_TRACE_MODE                , 0, 1, 0, "stbTraceMode"                            , NULL, bool_init_check}, 
     {"STB_STABILITY_WORST"            , __STB_STABILITY_WORST           , 0, 1, 0, "stbWorstCaseAnalysis"                    , NULL, bool_init_check}, 
-    {"STM_SHARE_MODEL"                , __STM_SHARE_MODEL               , 0, 1, 0, "stmShareModel"                           , NULL, bool_init_check}, //ok
+    {"STM_SHARE_MODEL"                , __STM_SHARE_MODEL               , 0, 1, 0, "stmShareModel"                           , NULL, bool_init_check}, /*ok*/
     {"TAS_BREAKLOOP"                  , __TAS_BREAKLOOP                 , 0, 0, 0, "tasBreakLoops"                           , NULL, bool_init_check}, 
     {"TAS_CALCRCN"                    , __TAS_CALCRCN                   , 1, 1, 0, "tasCalcRCDelays"                         , NULL, bool_init_check}, 
     {"TAS_DELAY_PROP"                 , __TAS_DELAY_PROP                , 1, 1, 0, "tasDelayPropagation"                     , NULL, bool_init_check}, 
@@ -200,7 +200,7 @@ V_BOOL V_BOOL_TAB[] = {
     {"TAS_SUPBLACKB"                  , __TAS_SUPBLACKB                 , 0, 1, 0, "tasTreatBlackboxHierarchically"          , NULL, bool_init_check}, 
     {"TAS_DIF_LATCH"                  , __TAS_DIF_LATCH                 , 0, 0, 0, "tasTreatDifferentialLatches"             , NULL, bool_init_check}, 
     {"TAS_TREATPRECH"                 , __TAS_TREATPRECH                , 0, 1, 0, "tasTreatPrecharge"                       , NULL, bool_init_check}, 
-    {"STM_USE_MSC"                    , __STM_USE_MSC                   , 0, 0, 0, "tasUseMultipleSlopeConstant"             , NULL, bool_init_check}, //ok
+    {"STM_USE_MSC"                    , __STM_USE_MSC                   , 0, 0, 0, "tasUseMultipleSlopeConstant"             , NULL, bool_init_check}, /*ok*/
     {"TAS_STABILITY"                  , __TAS_STABILITY                 , 0, 0, 0, "tasWithStability"                        , NULL, bool_init_check}, 
     {"TMA_CTXIN"                      , __TMA_CTXIN                     , 0, 0, 0, "tmaCtxInput"                             , NULL, bool_init_check}, 
     {"TMA_DRIVECAPAOUT"               , __TMA_DRIVECAPAOUT              , 0, 1, 0, "tmaDriveCapaout"                         , NULL, bool_init_check}, 
@@ -361,9 +361,9 @@ V_BOOL V_BOOL_TAB[] = {
 
 #define V_BOOL_TAB_SIZE (sizeof(V_BOOL_TAB)/(sizeof(V_BOOL))) 
 
-//----------------------------------------------------------------------
-// STR
-//----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
+/* STR*/
+/*----------------------------------------------------------------------*/
 extern int mbk_decodvectorconfig( char *env );
 
 int vectorize_init_check (char *var, char *val, char *result) 
@@ -406,7 +406,7 @@ int tma_Leakage_Power_Unit_init_check (char *var, char *val, char *result)
 }
 
 V_STR V_STR_TAB[] = {
-// Index Value Doc Set Variable
+/* Index Value Doc Set Variable*/
     {"AVT_ERROR_POLICY"           , __AVT_ERROR_POLICY           , "strict"                        , 1, 0, "avtErrorPolicy"                  , NULL, NULL},
     {"API_LIBS"                   , __API_LIBS                   , "*.so"                          , 0, 0, "apiDynamicLibraries"             , NULL, NULL},
     {"API_LIB_PATH"               , __API_LIB_PATH               , "nodefaultvalue"                , 0, 0, "apiDynamicLibrariesPath"         , NULL, NULL},
@@ -542,9 +542,9 @@ V_STR V_STR_TAB[] = {
 
 #define V_STR_TAB_SIZE (sizeof(V_STR_TAB)/(sizeof(V_STR))) 
 
-//----------------------------------------------------------------------
-// FLOAT
-//----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
+/* FLOAT*/
+/*----------------------------------------------------------------------*/
 
 int margin_check (char *var, char *val, float *result) 
 {
@@ -574,25 +574,25 @@ int yagpullupratio_check (char *var, char *val, float *result)
 }
 
 V_FLOAT V_FLOAT_TAB[] = {
-// Index Value Doc Set Variable
+/* Index Value Doc Set Variable*/
     {"MCC_TEMP_BEST"              , __MCC_TEMP_BEST              , 70.0        ,             0, 0, "avtCharacBestTemp"                         , NULL, NULL, ""},
     {"MCC_VDD_BEST"               , __MCC_VDD_BEST               , 5.0         ,             0, 0, "avtCharacBestVdd"                          , NULL, NULL, ""},  
     {"MCC_RANGE_MARGIN"           , __MCC_RANGE_MARGIN           , 0.0         ,             0, 0, "avtCharacRangeMargin"                      , NULL, NULL, ""},  
     {"MCC_TEMP_WORST"             , __MCC_TEMP_WORST             , 70.0        ,             0, 0, "avtCharacWorstTemp"                        , NULL, NULL, ""},  
     {"MCC_VDD_WORST"              , __MCC_VDD_WORST              , 5.0         ,             0, 0, "avtCharacWorstVdd"                         , NULL, NULL, ""},  
-    {"TUT_MAX_TEMP"               , __TUT_MAX_TEMP               , -1000.0     ,             1, 0, "avtDeratingMaxTemperature"                 , NULL, NULL, ""},  //ok 
-    {"TUT_MAX_VOLT"               , __TUT_MAX_VOLT               , -1000.0     ,             1, 0, "avtDeratingMaxVoltage"                     , NULL, NULL, ""},  //ok
-    {"TUT_MIN_TEMP"               , __TUT_MIN_TEMP               , -1000.0     ,             1, 0, "avtDeratingMinTemperature"                 , NULL, NULL, ""},  //ok
-    {"TUT_MIN_VOLT"               , __TUT_MIN_VOLT               , -1000.0     ,             1, 0, "avtDeratingMinVoltage"                     , NULL, NULL, ""},  //ok
-    {"ELP_DELVT0_MARGIN"          , __ELP_DELVT0_MARGIN          , -1.0        ,             0, 0, "avtElpDelVtMargin"                         , NULL, margin_check, ""},  //ok
-    {"ELP_MULU0_MARGIN"           , __ELP_MULU0_MARGIN           , -1.0        ,             0, 0, "avtElpMuluMargin"                          , NULL, margin_check, ""},  //ok
-    {"ELP_SA_MARGIN"              , __ELP_SA_MARGIN              , -1.0        ,             0, 0, "avtElpSaMargin"                            , NULL, margin_check, ""},  //ok 
-    {"ELP_SB_MARGIN"              , __ELP_SB_MARGIN              , -1.0        ,             0, 0, "avtElpSbMargin"                            , NULL, margin_check, ""},  //ok
-    {"ELP_SD_MARGIN"              , __ELP_SD_MARGIN              , -1.0        ,             0, 0, "avtElpSdMargin"                            , NULL, margin_check, ""},  //ok
-    {"ELP_SC_MARGIN"              , __ELP_SC_MARGIN              , -1.0        ,             0, 0, "avtElpScMargin"                            , NULL, margin_check, ""},  //ok
-    {"ELP_SCA_MARGIN"             , __ELP_SCA_MARGIN             , -1.0        ,             0, 0, "avtElpScaMargin"                           , NULL, margin_check, ""},  //ok
-    {"ELP_SCB_MARGIN"             , __ELP_SCB_MARGIN             , -1.0        ,             0, 0, "avtElpScbMargin"                           , NULL, margin_check, ""},  //ok
-    {"ELP_SCC_MARGIN"             , __ELP_SCC_MARGIN             , -1.0        ,             0, 0, "avtElpSccMargin"                           , NULL, margin_check, ""},  //ok
+    {"TUT_MAX_TEMP"               , __TUT_MAX_TEMP               , -1000.0     ,             1, 0, "avtDeratingMaxTemperature"                 , NULL, NULL, ""},  /*ok */
+    {"TUT_MAX_VOLT"               , __TUT_MAX_VOLT               , -1000.0     ,             1, 0, "avtDeratingMaxVoltage"                     , NULL, NULL, ""},  /*ok*/
+    {"TUT_MIN_TEMP"               , __TUT_MIN_TEMP               , -1000.0     ,             1, 0, "avtDeratingMinTemperature"                 , NULL, NULL, ""},  /*ok*/
+    {"TUT_MIN_VOLT"               , __TUT_MIN_VOLT               , -1000.0     ,             1, 0, "avtDeratingMinVoltage"                     , NULL, NULL, ""},  /*ok*/
+    {"ELP_DELVT0_MARGIN"          , __ELP_DELVT0_MARGIN          , -1.0        ,             0, 0, "avtElpDelVtMargin"                         , NULL, margin_check, ""},  /*ok*/
+    {"ELP_MULU0_MARGIN"           , __ELP_MULU0_MARGIN           , -1.0        ,             0, 0, "avtElpMuluMargin"                          , NULL, margin_check, ""},  /*ok*/
+    {"ELP_SA_MARGIN"              , __ELP_SA_MARGIN              , -1.0        ,             0, 0, "avtElpSaMargin"                            , NULL, margin_check, ""},  /*ok */
+    {"ELP_SB_MARGIN"              , __ELP_SB_MARGIN              , -1.0        ,             0, 0, "avtElpSbMargin"                            , NULL, margin_check, ""},  /*ok*/
+    {"ELP_SD_MARGIN"              , __ELP_SD_MARGIN              , -1.0        ,             0, 0, "avtElpSdMargin"                            , NULL, margin_check, ""},  /*ok*/
+    {"ELP_SC_MARGIN"              , __ELP_SC_MARGIN              , -1.0        ,             0, 0, "avtElpScMargin"                            , NULL, margin_check, ""},  /*ok*/
+    {"ELP_SCA_MARGIN"             , __ELP_SCA_MARGIN             , -1.0        ,             0, 0, "avtElpScaMargin"                           , NULL, margin_check, ""},  /*ok*/
+    {"ELP_SCB_MARGIN"             , __ELP_SCB_MARGIN             , -1.0        ,             0, 0, "avtElpScbMargin"                           , NULL, margin_check, ""},  /*ok*/
+    {"ELP_SCC_MARGIN"             , __ELP_SCC_MARGIN             , -1.0        ,             0, 0, "avtElpSccMargin"                           , NULL, margin_check, ""},  /*ok*/
     {"TAS_MAXSCALE_CAPAFACTOR"    , __TAS_MAXSCALE_CAPAFACTOR    , 1.0         ,             0, 0, "avtMaxScaleCapaFactor"                     , NULL, NULL, ""},  
     {"TAS_MAXSCALE_RESIFACTOR"    , __TAS_MAXSCALE_RESIFACTOR    , 1.0         ,             0, 0, "avtMaxScaleResiFactor"                     , NULL, NULL, ""},  
     {"TAS_MINSCALE_CAPAFACTOR"    , __TAS_MINSCALE_CAPAFACTOR    , 1.0         ,             0, 0, "avtMinScaleCapaFactor"                     , NULL, NULL, ""},  
@@ -655,9 +655,9 @@ V_FLOAT V_FLOAT_TAB[] = {
 
 #define V_FLOAT_TAB_SIZE (sizeof(V_FLOAT_TAB)/(sizeof(V_FLOAT))) 
 
-//----------------------------------------------------------------------
-// INT
-//----------------------------------------------------------------------
+/*----------------------------------------------------------------------*/
+/* INT*/
+/*----------------------------------------------------------------------*/
 
 int level_check (char *var, char *val, int *result)
 {
@@ -827,10 +827,10 @@ char *simTool_EnumStr (int val)
 }
 
 V_INT V_INT_TAB[] = {
-// Index Value Doc Set Variable
+/* Index Value Doc Set Variable*/
     {"VERILOG_MAXERR"                 , __VERILOG_MAXERR                 , 30         ,        0, 0, "avtVerilogMaxError"                     , NULL, NULL, NULL, ""},      
     {"VHDL_MAXERR"                    , __VHDL_MAXERR                    , 30         ,        0, 0, "avtVhdlMaxError"                        , NULL, NULL, NULL, ""},  
-    {"ELP_CAPA_LEVEL"                 , __ELP_CAPA_LEVEL                 , 1          ,        1, 0, "avtElpCapaLevel"                        , NULL, level_check, NULL, ""},  //ok
+    {"ELP_CAPA_LEVEL"                 , __ELP_CAPA_LEVEL                 , 1          ,        1, 0, "avtElpCapaLevel"                        , NULL, level_check, NULL, ""},  /*ok*/
     {"AVT_LICENSE_RESERVE"            , __AVT_LICENSE_RESERVE            , 0          ,        0, 0, "avtLicenseReserve"                      , NULL, NULL, NULL, ""},  
     {"MBK_MAX_CACHE_FILE"             , __MBK_MAX_CACHE_FILE             , 128        ,        1, 0, "avtMaxCacheFile"                        , NULL, NULL, NULL, ""},  
     {"TTV_MAX_PATH_PERIOD"            , __TTV_MAX_PATH_PERIOD            , 0          ,        1, 0, "avtMaxPathPeriodDepth"                  , NULL, NULL, NULL, ""},  
@@ -897,11 +897,11 @@ V_INT V_INT_TAB[] = {
 
 #define V_INT_TAB_SIZE (sizeof(V_INT_TAB)/(sizeof(V_INT))) 
 
-//======================================================================
-//
-// Functions
-//
-//======================================================================
+/*======================================================================*/
+/**/
+/* Functions*/
+/**/
+/*======================================================================*/
 
 static int bool_comp  (const void *el1, const void *el2) { return ((V_BOOL*)el1)->INDEX  - ((V_BOOL*)el2)->INDEX; }
 static int str_comp   (const void *el1, const void *el2) { return ((V_STR*)el1)->INDEX   - ((V_STR*)el2)->INDEX; }
@@ -947,7 +947,7 @@ int setnewcurrentmodel( char *var, char *val, int *result )
   }
   return res;
 }
-//======================================================================
+/*======================================================================*/
 static char *checknull(char *str)
 {
   if (str==NULL) return "(null)";
@@ -1152,7 +1152,7 @@ void avt_init_v ()
     if ((env=getenv(V_BOOL_TAB[i].VARENV))!=NULL)
       avt_sethashvar_sub_bool(NULL, env, 0, AVT_VAR_SET_BY_ENV, i);
 
-  for (i=0;i<V_STR_TAB_SIZE;i++) // const => malloc
+  for (i=0;i<V_STR_TAB_SIZE;i++) /* const => malloc*/
     {
       if (V_STR_TAB[i].VALUE!=NULL) V_STR_TAB[i].VALUE=strdup(V_STR_TAB[i].VALUE);
       if ((env=getenv(V_STR_TAB[i].VARENV))!=NULL)
@@ -1217,7 +1217,7 @@ char *avt_gethashvar_sub (char *var, int intable)
         else
           return "no";
       }
-      return getenv (var); // Environment variable if not set
+      return getenv (var); /* Environment variable if not set*/
     }
 
   for (i = 0; i < V_STR_TAB_SIZE; i++) 
@@ -1225,7 +1225,7 @@ char *avt_gethashvar_sub (char *var, int intable)
       if (V_STR_TAB[i].SET || intable) {
         return V_STR_TAB[i].VALUE;
       }
-      return getenv (var);// Environment variable if not set
+      return getenv (var);/* Environment variable if not set*/
     }
 
   for (i = 0; i < V_INT_TAB_SIZE; i++) 
@@ -1234,7 +1234,7 @@ char *avt_gethashvar_sub (char *var, int intable)
         sprintf (V_INT_TAB[i].STRBUF, "%d", V_INT_TAB[i].VALUE);
         return V_INT_TAB[i].STRBUF;
       }
-      return getenv (var);// Environment variable if not set
+      return getenv (var);/* Environment variable if not set*/
     }
 
   for (i = 0; i < V_FLOAT_TAB_SIZE; i++) 
@@ -1243,19 +1243,19 @@ char *avt_gethashvar_sub (char *var, int intable)
         sprintf (V_FLOAT_TAB[i].STRBUF, "%g", V_FLOAT_TAB[i].VALUE);
         return V_FLOAT_TAB[i].STRBUF;
       }
-      return getenv (var);// Environment variable if not set
+      return getenv (var);/* Environment variable if not set*/
     }
 
-  return getenv (var);// Environment variable if not defined
+  return getenv (var);/* Environment variable if not defined*/
 }
 
 char *avt_gethashvar (char *var)
 {
    return avt_gethashvar_sub(var, 0);
 }
-//======================================================================
+/*======================================================================*/
 
-//======================================================================
+/*======================================================================*/
 
 void avt_parsavtfile ()
 {
@@ -1359,7 +1359,7 @@ void avt_parsavtfile ()
   fclose (file);
 }
 
-//======================================================================
+/*======================================================================*/
 
 void avtenv ()
 {
@@ -1392,14 +1392,14 @@ void avtenv ()
     AVT_COL = V_BOOL_TAB[__AVT_COLOR].VALUE;
 }
 
-//======================================================================
+/*======================================================================*/
 
 int avt_is_default_technoname ( char *name )
 {
     return !strcasecmp (name, "avtdefault.tec");
 }
 
-//======================================================================
+/*======================================================================*/
 static void avt_dumpconfig()
 {
     unsigned int i;
@@ -1450,7 +1450,7 @@ void avt_LogConfig ()
     avt_alreadylogged = 1;
 }
 
-//======================================================================
+/*======================================================================*/
 
 void avt_man (int all)
 {

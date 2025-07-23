@@ -149,7 +149,7 @@ extern void mcc_readspidata         __P((int,elp_lotrs_param*,elp_lotrs_param*))
 extern void mcc_allocspidata        __P((int)) ;
 extern void mcc_freespidata         __P((int,int)) ;
 extern void mcc_runspice            __P((int)) ;
-//extern void mcc_execspice           __P((char *,int)) ;
+/*extern void mcc_execspice           __P((char *,int)) ;*/
 extern void mcc_genspicom           __P((FILE *,
                                          char *,
                                          elp_lotrs_param *,

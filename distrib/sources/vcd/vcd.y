@@ -21,7 +21,7 @@
 /* function declarations                                                      */
 /******************************************************************************/
 
-int yyerror ();
+int yyerror (char*);
 int yylex ();
 
 
@@ -148,7 +148,7 @@ changes     : line_list
 
 extern char stbtext[] ;
 
-int yyerror ()
+int yyerror (char* unused)
 {
 	fprintf (stderr, "[WScan] Parse error line %d\n", vcd_line);
     exit (EXIT_FAILURE);

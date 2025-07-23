@@ -21,16 +21,16 @@ long  nettype_values[NUMNETTYPES];
 char *transtype_names[NUMTRANSTYPES];
 long  transtype_values[NUMTRANSTYPES];
 
-int mslFclExtension();
-int mslFclCompletion();
+static int mslFclExtension( char *refline, int process );
+static int mslFclCompletion();
 
-static int typetrans();
-static int typelosig();
+static int typetrans( char *name, char *typeexpr );
+static int typelosig( char *name, char *typeexpr );
 
-static fcltype_list *addfcltype();
-static void freefcltype();
+static fcltype_list * addfcltype( fcltype_list *pthead, char *subckt, char *name, int marktype, long type );
+static void freefcltype( fcltype_list   *pthead );
 
-static char *fclVectName();
+static char * fclVectName( char *name );
 
 void
 fclExtendSpice()
@@ -93,17 +93,13 @@ fclExtendSpice()
     mslAddCompletion(mslFclCompletion);
 }
 
-void
-fclRmvSpiceExtensions()
+void fclRmvSpiceExtensions()
 {
     mslRmvExtension(mslFclExtension);
     mslRmvCompletion(mslFclCompletion);
 }
 
-int
-mslFclExtension(refline, process)
-    char *refline;
-    int   process;
+int mslFclExtension( char *refline, int process )
 {
     char *token;
     char *typeexpr;
@@ -197,10 +193,7 @@ mslFclExtension(refline, process)
     return 0;
 }
 
-static int
-typetrans(name, typeexpr)
-    char   *name;
-    char   *typeexpr;
+static int typetrans( char *name, char *typeexpr )
 {
     char       *typeconst;
     char       *pttok;
@@ -226,10 +219,7 @@ typetrans(name, typeexpr)
     return 1;
 }
 
-static int
-typelosig(name, typeexpr)
-    char   *name;
-    char   *typeexpr;
+static int typelosig( char *name, char *typeexpr )
 {
     char       *typeconst;
     char       *pttok;
@@ -255,8 +245,7 @@ typelosig(name, typeexpr)
     return 1;
 }
 
-int
-mslFclCompletion()
+int mslFclCompletion()
 {
     lofig_list     *ptlofig = NULL;
     char           *curfigname = NULL;
@@ -339,13 +328,7 @@ mslFclCompletion()
     return 1;
 }
 
-static fcltype_list *
-addfcltype(pthead, subckt, name, marktype, type)
-    fcltype_list   *pthead;
-    char           *subckt;
-    char           *name;
-    int             marktype;
-    long            type;
+static fcltype_list * addfcltype( fcltype_list *pthead, char *subckt, char *name, int marktype, long type )
 {
     fcltype_list   *ptnew;
 
@@ -359,9 +342,7 @@ addfcltype(pthead, subckt, name, marktype, type)
     return ptnew;
 }
 
-static void
-freefcltype(pthead)
-    fcltype_list   *pthead;
+static void freefcltype( fcltype_list   *pthead )
 {
     fcltype_list   *ptfcldata;
     fcltype_list   *ptnextdata;
@@ -379,9 +360,7 @@ freefcltype(pthead)
  | Remplace un nom contenant des crochet par son equivalent valide MBK |
  | ex 'toto[0]' => 'toto 0'                                            |
  +--------------------------------------------------------------------*/
-static char *
-fclVectName(name)
-    char *name;
+static char * fclVectName( char *name )
 {
     char buff[1024];
     char *res ;

@@ -45,6 +45,11 @@
 #include MLU_H
 #include RCN_H
 
+static void vtigetdate( char *date );
+static char *busname( char *name );
+static void env( char *tn, char *tp );
+static void	wire_point( losig_list *ptsig, int node, FILE *ptfile );
+
 /*******************************************************************************
 * needed to allow edition with vi on big interfaces instances                  *
 *******************************************************************************/
@@ -56,8 +61,7 @@
 /*******************************************************************************
 * function getdate()                                                           *
 *******************************************************************************/
-static void vtigetdate(date)
-char *date;
+static void vtigetdate( char *date )
 {
 time_t timer;
 char day[4], month[4];
@@ -74,8 +78,7 @@ int year, nday, hour, minute, second;
 /*******************************************************************************
 * function busname                                                             *
 *******************************************************************************/
-static char *busname(name)
-char *name;
+static char *busname( char *name )
 {
 static char buffer[255];
 static int sigindex=0;
@@ -116,8 +119,7 @@ char one = 1;
 /*******************************************************************************
 * function env()                                                               *
 *******************************************************************************/
-static void env(tn, tp)
-char *tn, *tp;
+static void env( char *tn, char *tp )
 {
 char *s, *avt_gethashvar(); /* what include is needed? stdlib.h but no on pc */
 
@@ -131,10 +133,7 @@ char *s, *avt_gethashvar(); /* what include is needed? stdlib.h but no on pc */
 		*tp = toupper(*tp);
 }
 
-void	wire_point(ptsig,node,ptfile)
-losig_list	*ptsig;
-int		 node;
-FILE		*ptfile;
+void	wire_point( losig_list *ptsig, int node, FILE *ptfile )
 {
 lonode_list *ptnode;
 ptype_list *ptl;
@@ -161,8 +160,7 @@ struct rcnhns *org;
 /*******************************************************************************
 * function savelofig()                                                         *
 *******************************************************************************/
-void vtisavelofig(ptfig)
-lofig_list *ptfig;
+void vtisavelofig( lofig_list *ptfig )
 {
 loins_list *ptins;
 lotrs_list *pttrs;

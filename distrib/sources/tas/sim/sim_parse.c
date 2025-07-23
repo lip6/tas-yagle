@@ -15,8 +15,8 @@
 #include SIM_H
 #include "sim.h"
 
-// Fonction de parse du fichier .chi ou .out
-//
+/* Fonction de parse du fichier .chi ou .out*/
+/**/
 
 void sim_parse_spiceout (sim_model *model)
 {
@@ -73,7 +73,7 @@ void sim_parse_spiceout (sim_model *model)
       for (i = 0, pt = simpoints; pt; i++, pt = pt->NEXT)
         argv[i] = (char*)pt->DATA;
       
-      sprintf (filename,"%s/%s",WORK_LIB,fileout); // car on drive le fichier de cmd en fonction du work lib
+      sprintf (filename,"%s/%s",WORK_LIB,fileout); /* car on drive le fichier de cmd en fonction du work lib*/
       switch( sim_parameter_get_tool( model ) ) {
       case SIM_TOOL_TITAN :
       case SIM_TOOL_TITAN7 :

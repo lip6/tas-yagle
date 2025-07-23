@@ -70,7 +70,7 @@ XtPointer call_data;
     Widget  messw = (Widget) root_widget;
     XtUnmanageChild(messw);
     XalSetCursor (XtParent (messw), NORMAL);
-//    XalLeaveLimitedLoop();
+/*    XalLeaveLimitedLoop();*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -350,7 +350,7 @@ if(( mess_struct->short_mess_widget == NULL) || ((XalTextLineCount(message) > XA
   XmTextSetString(text_scrolled, message); 
   XtManageChild(text_scrolled);
   XtManageChild(mess_struct->long_mess_widget);
-//  XalLimitedLoop(mess_struct->long_mess_widget);
+/*  XalLimitedLoop(mess_struct->long_mess_widget);*/
 
 }
 else {
@@ -360,7 +360,7 @@ else {
   XtSetValues( mess_struct->short_mess_widget, args, n );
   XmStringFree( motif_string );
   XtManageChild(mess_struct->short_mess_widget);
-//  XalLimitedLoop(mess_struct->short_mess_widget);
+/*  XalLimitedLoop(mess_struct->short_mess_widget);*/
   
 }
 

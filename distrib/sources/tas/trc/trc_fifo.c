@@ -22,7 +22,7 @@ Date     : $Date: 2002/07/02 13:22:22 $
 
 #include "trc.h"
 
-// Création d'une fifo de taille initiale 'taille'
+/* Création d'une fifo de taille initiale 'taille'*/
 
 trc_fifo* trc_fifocreate( void )
 {
@@ -35,7 +35,7 @@ trc_fifo* trc_fifocreate( void )
   return( fifo );
 }
 
-// Effacement de la fifo
+/* Effacement de la fifo*/
 
 void trc_fifodelete( trc_fifo *fifo )
 {
@@ -44,7 +44,7 @@ void trc_fifodelete( trc_fifo *fifo )
   mbkfree( fifo );
 }
 
-// Effacement d'un élément à l'intérieur de la fifo
+/* Effacement d'un élément à l'intérieur de la fifo*/
 
 int trc_fiforemove( trc_fifo *fifo, void *elem )
 {
@@ -72,7 +72,7 @@ int trc_fiforemove( trc_fifo *fifo, void *elem )
   return(1);
 }
 
-// Push
+/* Push*/
 
 void trc_fifopush( trc_fifo *fifo, void *elem )
 {
@@ -93,7 +93,7 @@ void trc_fifopush( trc_fifo *fifo, void *elem )
     fifo->MAXSIZE = fifo->CURSIZE;
 }
 
-// Pop
+/* Pop*/
 
 void* trc_fifopop( trc_fifo *fifo )
 {

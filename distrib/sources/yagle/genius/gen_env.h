@@ -28,7 +28,7 @@ extern FILE* GENIUS_OUTPUT;
 extern int GEN_DEBUG_LEVEL;
 extern char *FAKE_TRAN_NAME, *FAKE_INS_NAME;
 extern char GENIUS_BUILD_NETLIST;
-#define ZINAPS_DUMP // enables GEN_DEBUG_LEVEL
+#define ZINAPS_DUMP /* enables GEN_DEBUG_LEVEL*/
 
 extern int GEN_OPTIONS_PACK;
 #define GEN_NODEFAULT_ACTIONS 1

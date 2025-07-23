@@ -24,7 +24,7 @@
 #include <string.h>
 #include <errno.h>
 #include MUT_H
-//#include MLO_H
+/*#include MLO_H*/
 #include "api_lib.h"
 #include "gen_tree_utils.h"
 #include "gen_tree_errors.h"
@@ -37,8 +37,8 @@
   static ExecutionContext *GLOBAL_EC;
 
 /*functions to build the TREE*/
-static inline tree_list *to_interface_connectors(int,chain_list*,int,tree_list*);
-static inline tree_list *to_internal_connectors(int,chain_list*,int,tree_list*);
+static  tree_list *to_interface_connectors(int,chain_list*,int,tree_list*);
+static  tree_list *to_internal_connectors(int,chain_list*,int,tree_list*);
 void processfunctionheader(char *str, char **type, int *pointer, char **name);
 
 /* syntax error schedule */
@@ -47,7 +47,7 @@ void processfunctionheader(char *str, char **type, int *pointer, char **name);
  extern FILE *yyin;                 /* flow from LEX */
  extern char *genius_yyin;
  extern char *yytext;               /* current parsed string */
- static inline int yyerror();              /* display error message */
+ static  int yyerror(char*);              /* display error message */
  static char* file;                  /*name of file currently parsed*/
  static char *this_entity;
  static tree_list *main_tree;
@@ -289,7 +289,7 @@ entity_rule:
       cl=addchain(cl, GEN_TOKEN_COUPL);
       cl=addchain(cl, GEN_TOKEN_SYM);
       GEN_TOKEN_SYM=NULL; GEN_TOKEN_COUPL=NULL; GEN_TOKEN_UNUSED=NULL;
-      this_entity=(char *)$1->DATA; // entity name
+      this_entity=(char *)$1->DATA; /* entity name*/
       $$=PUT_QUA(GEN_TOKEN_ENTITY,$1,$2,$3,PUT_ATO(GEN_TOKEN_PRAGMA_SYM, cl));
 /*  entity_coupled_info */
     }
@@ -300,7 +300,7 @@ entity_sym_info:
     {
       
       chain_list *cl=$1, *ch;
-//      cl=PRAGMA_SPLIT($1);
+/*      cl=PRAGMA_SPLIT($1);*/
       if (cl!=NULL)
         {
           if (strcasecmp(cl->DATA,"symmetric")==0)
@@ -316,7 +316,7 @@ entity_sym_info:
             }
 
           GEN_TOKEN_SYM=addchain(GEN_TOKEN_SYM, t);
-//          cl->NEXT=NULL;
+/*          cl->NEXT=NULL;*/
         }
           else
         if (strcasecmp(cl->DATA,"coupled")==0)
@@ -331,7 +331,7 @@ entity_sym_info:
             t->FLAGS=0;
               }
             GEN_TOKEN_COUPL=addchain(GEN_TOKEN_COUPL, t);
-//            cl->NEXT=NULL;
+/*            cl->NEXT=NULL;*/
           }
                 else
                   if (strcasecmp(cl->DATA,"unused")==0)
@@ -346,13 +346,13 @@ entity_sym_info:
                           t->FLAGS=0;
                         }
                       GEN_TOKEN_UNUSED=addchain(GEN_TOKEN_UNUSED, t);
-                      //            cl->NEXT=NULL;
+                      /*            cl->NEXT=NULL;*/
                     }
         else
           fprintf(stderr,"%s:%d: pragma '%s' with no effect\n",file,lineno,(char *)cl->DATA); 
           freechain(cl);
         }
-//      free($1);
+/*      free($1);*/
     }
     | {}
     ;
@@ -363,7 +363,7 @@ entity_header:
        char *name;
        MODELMODE=1;
        name=(char *)GET_ATO($2);
-//       API_MODEL_DEFINESADTS=getadts(name);       
+/*       API_MODEL_DEFINESADTS=getadts(name);       */
        CHANGE_ATO($2, model_corresp(name));
        $$=$2;
      }
@@ -584,7 +584,7 @@ architecture_header:
   char *name;
   MODELMODE=1;
   name=(char *)GET_ATO($4);
-//  API_MODEL_ADTS=getadts(name);       
+/*  API_MODEL_ADTS=getadts(name);       */
   CHANGE_ATO($4, model_corresp(name));
 
   $$=PUT_QUA(GEN_TOKEN_OF,$2,$4, PUT_ATO(GEN_TOKEN_VOIDTOKEN,NULL), PUT_ATO(GEN_TOKEN_NULL, NULL));
@@ -754,7 +754,7 @@ instance_grp:
 {
   chain_list *cl=$1, *ch;
   ptype_list *pt;
-//  cl=PRAGMA_SPLIT($1);
+/*  cl=PRAGMA_SPLIT($1);*/
   if (cl!=NULL)
     {
       if (strcasecmp(cl->DATA,"without")==0)
@@ -796,7 +796,7 @@ instance_grp:
       fprintf(stderr,"%s:%d: pragma '%s' with no effect\n",file,lineno,(char *)cl->DATA); 
       freechain(cl);
     }
-//  free($1);
+/*  free($1);*/
   $$=NULL;
 }
 | generate_if                               {$$=$1;}
@@ -938,7 +938,7 @@ GEN_TOKEN_IDENT
   f->FILE=file;
   f->LINE=lineno;
   $$=f;
-  //$$=addchain(addchain(NULL,NULL),$1); 
+  /*$$=addchain(addchain(NULL,NULL),$1); */
 }
 |
 digit_number unit
@@ -1045,14 +1045,14 @@ action_rule:
   global_declaration
   c_function_header
   block 
-  { // was C_list
+  { /* was C_list*/
     Add_Global_Decl($1, GLOBAL_EC);
     $$=PUT_BIN(GEN_TOKEN_ACTION,$2,$3);
   }
 |
   c_function_header
   block 
-  { // was C_list
+  { /* was C_list*/
     $$=PUT_BIN(GEN_TOKEN_ACTION,$1,$2);
   }
 ;
@@ -1572,7 +1572,7 @@ c_function_header:
   if (err==0)
     {
       ta=APINewTARG(type, pointer+1, name);
-      ta->POINTER--; // pour pouvoir allouer un 'void'
+      ta->POINTER--; /* pour pouvoir allouer un 'void'*/
     }
   else ta=NULL;
   $$=PUT_QUA(GEN_TOKEN_OF,PUT_ATO(GEN_TOKEN_IDENT,name),
@@ -1613,7 +1613,7 @@ GEN_TOKEN_IDENT pointer_depth GEN_TOKEN_IDENT { $$=APIAddTARG(NULL, $1, $2, $3);
  /****************************************************************************/
  /*              user's message for syntaxical error                         */
  /****************************************************************************/
-static inline int yyerror()
+static  int yyerror(char* unused)
 {
   switch ((int)yychar) {
      case GEN_TOKEN_STOP: 
@@ -1681,7 +1681,7 @@ static char *instance_reverse_corresp(char *name)
 
 tree_list *APIParseFile(FILE *f, char *filename, ExecutionContext *ec, chain_list *defines)
 {
-//  char *src, *dest;
+/*  char *src, *dest;*/
   unit_M=namealloc("m");
   unit_MM=namealloc("mm");
   unit_UM=namealloc("um");
@@ -1729,7 +1729,7 @@ tree_list *APIParseFile(FILE *f, char *filename, ExecutionContext *ec, chain_lis
  /*              take a list of typed 'type' connectors name                 */
  /*               and build a REVERSE interface                              */
  /****************************************************************************/
-static inline tree_list *to_interface_connectors(kind,connectors_list,type,dimension)
+static  tree_list *to_interface_connectors(kind,connectors_list,type,dimension)
   tree_list *dimension;
   chain_list *connectors_list;
   int kind,type;
@@ -1763,7 +1763,7 @@ static inline tree_list *to_interface_connectors(kind,connectors_list,type,dimen
  /*              take a list of typed 'type' connectors name                 */
  /*               and build a REVERSE interface                              */
  /****************************************************************************/
-static inline tree_list *to_internal_connectors(kind,connectors_list,type,dimension)
+static  tree_list *to_internal_connectors(kind,connectors_list,type,dimension)
   tree_list *dimension;
   chain_list *connectors_list;
   int kind,type;
@@ -1816,7 +1816,7 @@ void processfunctionheader(char *str, char **type, int *pointer, char **name)
   while (str[i]!=' ' && str[i]!='\n' && str[i]!='\t' && str[i]!='(') i++;
   str[i]='\0';
   *name=sensitive_namealloc(&str[last]);
-//  printf(">> %s %d %s\n",*type, *pointer, *name);
+/*  printf(">> %s %d %s\n",*type, *pointer, *name);*/
 }
  /****************************************************************************/
  /*************************** END of LEX&YACC ********************************/

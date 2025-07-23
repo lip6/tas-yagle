@@ -184,7 +184,7 @@ lofig_list  *newlofig;
   cbhcomb       *ptcomb;
   cbhseq        *ptseq;
 
-  // on recupere les fonctionnalites
+  /* on recupere les fonctionnalites*/
   cbh_getLoconFromLofig(newlofig,newinout,nbinout);
   ptseq  = cbh_getseqfromlofig(newlofig);
   ptcomb = cbh_getcombfromlocon(newlofig->LOCON);
@@ -233,19 +233,19 @@ int          nbinout[2];
   for (i=0;i<CBH_MAXNBFUNC;i++)
     CBH_MAINREF_BDDLIST[i] = NULL;
 
-  // creation des listes d'abl
+  /* creation des listes d'abl*/
   cbh_createabllist(reflofig,func,CBH_MAINREF_ABLLIST,refinout[CBH_OUT]);
   cbh_createabllist(newlofig,func,CBH_MAINNEW_ABLLIST,newinout[CBH_OUT]);
 
-  // comparaison de boucle au niveau des latchs
+  /* comparaison de boucle au niveau des latchs*/
   if ( cbh_existloop(newlofig,loop,newnamein) !=
        cbh_existloop(reflofig,loop,refnamein))
     return cbh_freeMainAblList(0,refinout);
 
-  // comparaison des abls
+  /* comparaison des abls*/
   if (cbh_cmpabl())
     return cbh_freeMainAblList(1,refinout);
-  // comparaison des bdds
+  /* comparaison des bdds*/
   else if (CBH_BDD)
   {
     if (cbh_cmpbdd_abl(newlofig,reflofig,refinout,loop,refnamein,newnamein,
@@ -490,7 +490,7 @@ int          nbinout[2];
     {
       for (chainx = refabllist; chainx; chainx = chainx->NEXT)
       {
-        // ici les bdd doivent etre calcule pour chaque sorties de reflofig
+        /* ici les bdd doivent etre calcule pour chaque sorties de reflofig*/
         if (CAR(chainx))
         {
           refname = VALUE_ATOM((CAR(chainx)));

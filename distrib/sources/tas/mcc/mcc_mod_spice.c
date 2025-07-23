@@ -1301,7 +1301,7 @@ double mcc_calcCGP_com(mcc_modellist *ptmodel)
     double cgp ;
     double CGDO ;
     
-    //CGDO = mcc_getprm(ptmodel, "CGDO")     ;
+    /*CGDO = mcc_getprm(ptmodel, "CGDO")     ;*/
     CGDO = mcc_getprm_quick(ptmodel, __MCC_GETPRM_CGDO)     ;
     cgp  = CGDO ;
 
@@ -1376,13 +1376,13 @@ double  mcc_calcCDS_com(mcc_modellist *ptmodel, double temp, double vbx1, double
                 CJ_T = CJ*(1.0+MJ*(1.0+4.0e-4*dT-PB_T/PB)) ;
             }
             else if(mcc_getparam_quick(ptmodel, __MCC_QUICK_TLEVC) == 1.0) {
-                //PB_T = PB - mcc_getprm(ptmodel, "PTA")*dT ;
-                //CJ_T = CJ*(1.0+mcc_getprm(ptmodel, "CTA")*dT) ;
+                /*PB_T = PB - mcc_getprm(ptmodel, "PTA")*dT ;*/
+                /*CJ_T = CJ*(1.0+mcc_getprm(ptmodel, "CTA")*dT) ;*/
                 PB_T = PB - mcc_getprm_quick(ptmodel, __MCC_GETPRM_PTA)*dT ;
                 CJ_T = CJ*(1.0+mcc_getprm_quick(ptmodel, __MCC_GETPRM_CTA)*dT) ;
             }
             else if(mcc_getparam_quick(ptmodel, __MCC_QUICK_TLEVC) == 2.0) {
-                //PB_T = PB - mcc_getprm(ptmodel, "PTA")*dT ;
+                /*PB_T = PB - mcc_getprm(ptmodel, "PTA")*dT ;*/
                 PB_T = PB - mcc_getprm_quick(ptmodel, __MCC_GETPRM_PTA)*dT ;
                 CJ_T = CJ*pow((PB/PB_T), MJ) ;
             }
@@ -1397,7 +1397,7 @@ double  mcc_calcCDS_com(mcc_modellist *ptmodel, double temp, double vbx1, double
               CJ_T = 0.0;
         }
     /* influence de vbx */
-        // seulement valable pour les vbx < 0 
+        /* seulement valable pour les vbx < 0 */
         cds = mcc_integfordw ( CJ_T, vbx1, vbx2, PB_T, MJ);
 
     }
@@ -1494,7 +1494,7 @@ double  mcc_calcCDP_com(mcc_modellist *ptmodel, double temp, double vbx1, double
         PBSW = mcc_getparam_quick(ptmodel, __MCC_QUICK_PBSW)    ;
         if(ptmodel->MODELTYPE == MCC_BSIM3V3) {
           if ( V_INT_TAB[__SIM_TOOLMODEL].VALUE == SIM_TOOLMODEL_HSPICE ) {
-            //ACM = mcc_check_hsp_acm_bsim3v3 (ptmodel);
+            /*ACM = mcc_check_hsp_acm_bsim3v3 (ptmodel);*/
             ACM = MCC_ROUND (mcc_getparam_quick(ptmodel,__MCC_QUICK_ACM));
             if ( ACM >= 0 && ACM <= 3 ) 
               PBSW = mcc_getparam_quick(ptmodel, __MCC_QUICK_PHP)    ;
@@ -1512,13 +1512,13 @@ double  mcc_calcCDP_com(mcc_modellist *ptmodel, double temp, double vbx1, double
                 CJSW_T = CJSW*(1.0+MJSW*(1.0+4.0e-4*dT-PBSW_T/PBSW)) ;
             }
             else if(mcc_getparam_quick(ptmodel, __MCC_QUICK_TLEVC) == 1.0) {
-                //PBSW_T = PBSW - mcc_getprm(ptmodel, "PTP")*dT ;
-                //CJSW_T = CJSW*(1.0+mcc_getprm(ptmodel, "CTP")*dT) ;
+                /*PBSW_T = PBSW - mcc_getprm(ptmodel, "PTP")*dT ;*/
+                /*CJSW_T = CJSW*(1.0+mcc_getprm(ptmodel, "CTP")*dT) ;*/
                 PBSW_T = PBSW - mcc_getprm_quick(ptmodel, __MCC_GETPRM_PTP)*dT ;
                 CJSW_T = CJSW*(1.0+mcc_getprm_quick(ptmodel, __MCC_GETPRM_CTP)*dT) ;
             }
             else if(mcc_getparam_quick(ptmodel, __MCC_QUICK_TLEVC) == 2.0) {
-                //PBSW_T = PBSW-mcc_getprm(ptmodel, "PTP")*dT ;
+                /*PBSW_T = PBSW-mcc_getprm(ptmodel, "PTP")*dT ;*/
                 PBSW_T = PBSW-mcc_getprm_quick(ptmodel, __MCC_GETPRM_PTP)*dT ;
                 CJSW_T = CJSW*pow((PBSW/PBSW_T), MJSW) ;
             }
@@ -1601,13 +1601,13 @@ double mcc_calcCDW_com(mcc_modellist *ptmodel, double temp, double vbx1, double 
     CJGATE= mcc_getparam_quick(ptmodel, __MCC_QUICK_CJGATE)   ;
     if(ptmodel->MODELTYPE == MCC_BSIM3V3) {
       if ( V_INT_TAB[__SIM_TOOLMODEL].VALUE == SIM_TOOLMODEL_HSPICE ) 
-        //ACM = mcc_check_hsp_acm_bsim3v3 (ptmodel);
+        /*ACM = mcc_check_hsp_acm_bsim3v3 (ptmodel);*/
         ACM = MCC_ROUND (mcc_getparam_quick(ptmodel,__MCC_QUICK_ACM));
     }
 
     /* Contribution de la capacite Cgp (overlap capacitance) */
     if( ptmodel->MODELTYPE == MCC_BSIM3V3) {
-        // Before taking CJSWG, test if it is HSPICE models and take CJGATE instead
+        /* Before taking CJSWG, test if it is HSPICE models and take CJGATE instead*/
         if ( V_INT_TAB[__SIM_TOOLMODEL].VALUE == SIM_TOOLMODEL_HSPICE ) {
           if ( ACM >= 0 && ACM <= 3 ) 
             CJSWG = mcc_getparam_quick(ptmodel, __MCC_QUICK_CJGATE)    ;
@@ -1676,15 +1676,15 @@ double mcc_calcCDW_com(mcc_modellist *ptmodel, double temp, double vbx1, double 
             CjgateT    = CJGATE*(1.0+MJSW*(1.0+4.0e-4*dT-PbswT/PBSW)) ;
         }
         else if(TLEVC == 1.0) {
-            //CTP = mcc_getprm(ptmodel, "CTP")          ;
-            //PTP = mcc_getprm(ptmodel, "PTP")          ;
+            /*CTP = mcc_getprm(ptmodel, "CTP")          ;*/
+            /*PTP = mcc_getprm(ptmodel, "PTP")          ;*/
             CTP = mcc_getprm_quick(ptmodel, __MCC_GETPRM_CTP)          ;
             PTP = mcc_getprm_quick(ptmodel, __MCC_GETPRM_PTP)          ;
             PbswT      = PBSW - PTP*dT                  ;
             CjgateT    = CJGATE*(1.0+CTP*dT)            ;
         }
         else if(TLEVC == 2.0) {
-            //PTP = mcc_getprm(ptmodel, "PTP")          ;
+            /*PTP = mcc_getprm(ptmodel, "PTP")          ;*/
             PTP = mcc_getprm_quick(ptmodel, __MCC_GETPRM_PTP)          ;
             PbswT      = PBSW - PTP*dT                  ;
             CjgateT    = CJGATE*pow((PBSW/PbswT), MJSW) ;
@@ -1719,8 +1719,8 @@ double  mcc_calcDL_com (mcc_modellist *ptmodel)
 {
     double XL, LD, DELL, DL ;
     
-    //XL = mcc_getprm(ptmodel, "XL")    ;
-    //LD = mcc_getprm(ptmodel, "LD")  ;
+    /*XL = mcc_getprm(ptmodel, "XL")    ;*/
+    /*LD = mcc_getprm(ptmodel, "LD")  ;*/
     XL = mcc_getprm_quick(ptmodel, __MCC_GETPRM_XL)    ;
     LD = mcc_getprm_quick(ptmodel, __MCC_GETPRM_LD)  ;
 
@@ -1738,8 +1738,8 @@ double  mcc_calcDW_com (mcc_modellist *ptmodel)
 {
     double XW, WD, DELW, DW ;
     
-    //XW = mcc_getprm(ptmodel, "XW")    ; 
-    //WD = mcc_getprm(ptmodel, "WD")      ;
+    /*XW = mcc_getprm(ptmodel, "XW")    ; */
+    /*WD = mcc_getprm(ptmodel, "WD")      ;*/
     XW = mcc_getprm_quick(ptmodel, __MCC_GETPRM_XW)    ; 
     WD = mcc_getprm_quick(ptmodel, __MCC_GETPRM_WD)      ;
 
@@ -1924,16 +1924,16 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
     mcc_initparam_quick(ptmodel, __MCC_QUICK_TLEVC, 0.0, NULL, MCC_INITVALUE);
     switch ( level ) {
       case 1:
-             //---------------
-             // LEVEL 1
-             //---------------
-             // Scaling factor
+             /*---------------*/
+             /* LEVEL 1*/
+             /*---------------*/
+             /* Scaling factor*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_SCALEV, 2.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_AREA, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PERIM, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_SCALM, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_SHRINK, 1.0, NULL, MCC_INITVALUE);
-             // DC Related model param
+             /* DC Related model param*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_IS, 1.0e-14, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_JS, 1.0e-14, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_ISA, 1.0e-14, NULL, MCC_INITVALUE);
@@ -1945,7 +1945,7 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_IBV, 1.0e-3, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_IK, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_IKR, 0.0, NULL, MCC_INITVALUE);
-             // Capacitance Related Model Parameters
+             /* Capacitance Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_DCAP, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CJO, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CJ0, 0.0, NULL, MCC_INITVALUE);
@@ -1966,7 +1966,7 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PB, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PHI, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PHP, mcc_getparam_quick(ptmodel, __MCC_QUICK_PB), mcc_getparamexp_quick(ptmodel, __MCC_QUICK_PB), MCC_INITVALUE) ;
-             // Metal and Polisillicon Capacitor Parameter
+             /* Metal and Polisillicon Capacitor Parameter*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_LM, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_LP, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_WM, 0.0, NULL, MCC_INITVALUE);
@@ -1975,13 +1975,13 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_XOI, 1.0e3, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_XOM, 1.0e3, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_XP, 0.0, NULL, MCC_INITVALUE);
-             // Parasistic Resistance Related Model Parameters
+             /* Parasistic Resistance Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_RS, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_RB, 0.0, NULL, MCC_INITVALUE);
-             // Noise Related Model Parameters
+             /* Noise Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_AF, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_KF, 1.0, NULL, MCC_INITVALUE);
-             // Temperature Related Model Parameters
+             /* Temperature Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_EG, 1.11, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CTA, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CTP, 0.0, NULL, MCC_INITVALUE);
@@ -2000,10 +2000,10 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PT, 3.0, NULL, MCC_INITVALUE);
              break;
       case 2:
-             //---------------
-             // LEVEL 2
-             //---------------
-             // DC Related Model Parameters
+             /*---------------*/
+             /* LEVEL 2*/
+             /*---------------*/
+             /* DC Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_IS, 1.0e-14, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_ISR, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_NR, 2.0, NULL, MCC_INITVALUE);
@@ -2013,7 +2013,7 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_IBVL, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_NBV, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_NBVL, 1.0, NULL, MCC_INITVALUE);
-             // Capacitance Related Model Parameters
+             /* Capacitance Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CJO, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CJ0, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_M, 0.5, NULL, MCC_INITVALUE);
@@ -2024,7 +2024,7 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_RS, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_AF, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_KF, 0.0, NULL, MCC_INITVALUE);
-             // Temperature Related Model Parameters
+             /* Temperature Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_TRS1, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_TRS2, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_TBV1, 0.0, NULL, MCC_INITVALUE);
@@ -2032,10 +2032,10 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_TIKF, 0.0, NULL, MCC_INITVALUE);
              break;
       case 3:
-             //---------------
-             // LEVEL 3
-             //---------------
-             // DC Related Model Parameters
+             /*---------------*/
+             /* LEVEL 3*/
+             /*---------------*/
+             /* DC Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_EF, 1.0e-8, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_ER, mcc_getparam_quick(ptmodel, __MCC_QUICK_EF), mcc_getparamexp_quick(ptmodel, __MCC_QUICK_EF), MCC_INITVALUE) ;
              mcc_initparam_quick(ptmodel, __MCC_QUICK_JF, 1.0e-10, NULL, MCC_INITVALUE);
@@ -2045,11 +2045,12 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_W, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_XW, 0.0, NULL, MCC_INITVALUE);
              break;
-/*      case 4:
-             //---------------
-             // LEVEL 4
-             //---------------
-             // DC Related Model Parameters
+#ifdef THIS_IS_DISABLED
+        case 4:
+             /*---------------*/
+             /* LEVEL 4*/
+             /*---------------*/
+             /* DC Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_AB, 1.0e-12, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_LS, 1.0e-6, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_LG, 0.0, NULL, MCC_INITVALUE);
@@ -2076,12 +2077,12 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PS, 0.4, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PG, 0.4, NULL, MCC_INITVALUE);
              break;
-*/
+#endif
       case 8:
-             //---------------
-             // LEVEL 8
-             //---------------
-             // DC Related Model Parameters
+             /*---------------*/
+             /* LEVEL 8*/
+             /*---------------*/
+             /* DC Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_DIOLEV, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_JS, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_JSW, 0.0, NULL, MCC_INITVALUE);
@@ -2090,7 +2091,7 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_NDS, 1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_VNDS, -1.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_SBTH, 0.0, NULL, MCC_INITVALUE);
-             // Bulk Diode Capacitance Related Parameters
+             /* Bulk Diode Capacitance Related Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CBD, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CBS, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CJ, 0.0, NULL, MCC_INITVALUE);
@@ -2102,7 +2103,7 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PB, 0.8, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PBSW, mcc_getparam_quick(ptmodel, __MCC_QUICK_PB), mcc_getparamexp_quick(ptmodel, __MCC_QUICK_PB), MCC_INITVALUE) ;
              mcc_initparam_quick(ptmodel, __MCC_QUICK_TT, 0.0, NULL, MCC_INITVALUE);
-             // Juncap Related Parameters (DIOLEV = 9)
+             /* Juncap Related Parameters (DIOLEV = 9)*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_VR, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_JSGBR, 1.0e-3, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_JSDBR, 1.0e-3, NULL, MCC_INITVALUE);
@@ -2122,7 +2123,7 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PB, 0.4, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PS, 0.4, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PG, 0.4, NULL, MCC_INITVALUE);
-             // Temperature Effect Related Model Parameters
+             /* Temperature Effect Related Model Parameters*/
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CTA, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_CTP, 0.0, NULL, MCC_INITVALUE);
              mcc_initparam_quick(ptmodel, __MCC_QUICK_PTA, 0.0, NULL, MCC_INITVALUE);
@@ -2146,7 +2147,7 @@ void mcc_initparam_diode (mcc_modellist *ptmodel)
   }
 }
 #ifdef MCC_RESI_CODE
-// zinaps
+/* zinaps*/
 void mcc_initparam_resi (mcc_modellist *ptmodel) 
 {
   int level,tlev;
@@ -2432,7 +2433,7 @@ void mcc_PrintQint (char *technoname, char *transname,
 {
   mcc_modellist *ptmodel ;
   double var,vbs=0;
-  //double max=-1.0e50,min=+1.0e50;
+  /*double max=-1.0e50,min=+1.0e50;*/
 
   double La_Wa = 1.0 ;
   double Qg = 0.0 ;
@@ -2477,7 +2478,7 @@ void mcc_PrintQint (char *technoname, char *transname,
       case MCC_MPSPB    :
       case MCC_MPSP     :
       case MCC_EXTMOD   :
-      case MCC_BSIM3V3  : //=======> Influence de VGS
+      case MCC_BSIM3V3  : /*=======> Influence de VGS*/
                           switch( ptmodel->MODELTYPE ) {
                           case MCC_BSIM4 :
                             La_Wa = (L + mcc_calcDLC_bsim4 (ptmodel, lotrsparam, L, W))
@@ -2638,7 +2639,7 @@ void mcc_PrintQint (char *technoname, char *transname,
                               }
                             }
                           }
-                          //=======> Influence de VGS a VDS=0
+                          /*=======> Influence de VGS a VDS=0*/
                           
                           break ;
       case MCC_MM9      :
@@ -2677,7 +2678,7 @@ void  mcc_DisplayInfos (char *technoname, char *transname,
   
   mcc_get_area_perim();
 
-  //===> Dimensions
+  /*===> Dimensions*/
   aire = W*MCC_DIF*1.0e-6 ;
   perim = 2.0*(MCC_DIF*1.0e-6+W) ;
   xl = mcc_getXL (technoname, transname, transtype, transcase, L,W);
@@ -2692,7 +2693,7 @@ void  mcc_DisplayInfos (char *technoname, char *transname,
 
 
   vbx = vbs - vds;
-  //===> Capacitances
+  /*===> Capacitances*/
   if ( transtype == MCC_NMOS ) {
     aire  = MCC_ADN*1.0e-6;
     perim = MCC_PDN*1.0e-6;
@@ -2738,7 +2739,7 @@ void  mcc_DisplayInfos (char *technoname, char *transname,
   cbxgu = MCC_CBXGU;
   cbxgd = MCC_CBXGD;
 
-  //==> display Infos :
+  /*==> display Infos :*/
   avt_log(LOGMCC,2,"Dimensions : L      = %8.3g  W      = %8.3g  Aire          = %8.3g  Perim = %8.3g\n",L,W,aire,perim);
   avt_log(LOGMCC,2,"           : Leff   = %8.3g  Weff   = %8.3g  Aire (eff)    = %8.3g\n",Leff,Weff,Leff*Weff);
   avt_log(LOGMCC,2,"           : Lactif = %8.3g  Wactif = %8.3g  Aire (active) = %8.3g\n",La,Wa,La*Wa);
@@ -2803,7 +2804,7 @@ void  mcc_DisplayInfos (char *technoname, char *transname,
                                                     cdsucal+cdpucal+cbxgucal);
   avt_log(LOGMCC,2,"                  ==> Total Source/Drain without CGP (DN) capa : %g\n",
                                                     cdsdcal+cdpdcal+cbxgdcal);
-  // Min and Max Input Capacitances
+  /* Min and Max Input Capacitances*/
   if ( transtype == MCC_NMOS ) {
       avt_log(LOGMCC,2,"== Model %s NMOS (L = %gU W = %gU)  ==\n",MCC_TNMODEL,MCC_LN,MCC_WN);
       avt_log(LOGMCC,2,"*************************\n");
@@ -2907,7 +2908,7 @@ double mcc_calcCGS( char *technoname,
             case MCC_MPSP     :
             case MCC_MPSPB    :
             case MCC_EXTMOD   :
-                                // DOWN transition
+                                /* DOWN transition*/
                                 if ( mcc_getparam_quick(ptmodel,__MCC_QUICK_XPART) < 0.0)
                                   return 1.0e-30;
                                 mcc_calcQint (technoname, transname,
@@ -2950,7 +2951,7 @@ double mcc_calcCGSD (char *technoname, char *transname,
         vbs = lotrsparam->VBS ;
       else
         vbs = ( transtype == MCC_NMOS ) ? lotrsparam->VBULK : lotrsparam->VBULK-MCC_VDDmax ; 
-        // DOWN transition
+        /* DOWN transition*/
       if ( mcc_getparam_quick(ptmodel,__MCC_QUICK_XPART) < 0.0)
          return 1.0e-30;
       if (ptmodel->TYPE == MCC_NMOS) {
@@ -2960,7 +2961,7 @@ double mcc_calcCGSD (char *technoname, char *transname,
            }
            else {
               vdsi = 0.0;
-              //vdsf = vdd/2.0 - MCC_VTN;
+              /*vdsf = vdd/2.0 - MCC_VTN;*/
               vdsf=vdsi;
            }
            vddrv = vdd;
@@ -2972,7 +2973,7 @@ double mcc_calcCGSD (char *technoname, char *transname,
              }
           else {
              vdsi = vdd;
-             //vdsf = vdd/2.0 + MCC_VTP;
+             /*vdsf = vdd/2.0 + MCC_VTP;*/
              vdsf=vdsi;
           }
           vddrv = 0.0;
@@ -3036,7 +3037,7 @@ double mcc_calcCGSU (char *technoname, char *transname,
         }
         else {
           vdsi = vdd;
-          //vdsf = MCC_VTN + vdd/2.0;
+          /*vdsf = MCC_VTN + vdd/2.0;*/
           vdsf=vdsi;
         }
         vddrv = 0.0;
@@ -3048,7 +3049,7 @@ double mcc_calcCGSU (char *technoname, char *transname,
         }
         else {
           vdsi = 0.0;
-          //vdsf = -MCC_VTP + vdd/2.0;
+          /*vdsf = -MCC_VTP + vdd/2.0;*/
           vdsf=vdsi;
         }
         vddrv = vdd;
@@ -3061,7 +3062,7 @@ double mcc_calcCGSU (char *technoname, char *transname,
             case MCC_MPSP     :
             case MCC_MPSPB    :
             case MCC_EXTMOD   :
-            case MCC_BSIM4    : // UP transition
+            case MCC_BSIM4    : /* UP transition*/
                                    mcc_calcQint (technoname, transname,
                                                  transtype,transcase,L, W,
                                                  temp, vddrv, vbs, vdsi,
@@ -3152,13 +3153,13 @@ void mcc_GetInputCapa ( char *technoname, char *transname,
         cgd = mcc_calcCGD_osdi( ptmodel, L, W, temp, vgs2, vgs1, vbs, vds2, vds1, lotrsparam); 
         break;
       defalut:
-    // ===> initial charges
+    /* ===> initial charges*/
         mcc_calcQint (technoname, transname,
                  transtype, transcase, L, W, 
                  temp, vgs1,vbs,vds1,
                  &ptQg1,NULL, &ptQd1, NULL,
                  lotrsparam);
-    // ===> final charges
+    /* ===> final charges*/
         mcc_calcQint (technoname, transname,
                  transtype, transcase, L, W, 
                  temp, vgs2,vbs,vds2,
@@ -3171,22 +3172,22 @@ void mcc_GetInputCapa ( char *technoname, char *transname,
   }
   
   if ( ptcgp ) {
-    //===> overlap capa
-    // drain side
+    /*===> overlap capa*/
+    /* drain side*/
     cgp1 = mcc_calcCGP (technoname, transname, 
                         transtype, transcase, L, W, vgd1,&ptQov1,lotrsparam,temp);
     cgp2 = mcc_calcCGP (technoname, transname, 
                         transtype, transcase, L, W, vgd2,&ptQov2,lotrsparam,temp);
     cgp = (ptQov2-ptQov1) / delta_vg;
-    // source side
+    /* source side*/
     cgp1 = mcc_calcCGP (technoname, transname, 
                         transtype, transcase, L, W, vgs1,&ptQov1,lotrsparam,temp);
     cgp2 = mcc_calcCGP (technoname, transname, 
                         transtype, transcase, L, W, vgs2,&ptQov2,lotrsparam,temp);
     cgp += (ptQov2-ptQov1) / delta_vg;
-    cgp *= 0.5; // mult by 0.5 because we give the source and drain olverlap capa
-                  // cgp will be mult by 2.0 in the future to have the total overlap capa of 
-                  // a transistor
+    cgp *= 0.5; /* mult by 0.5 because we give the source and drain olverlap capa*/
+                  /* cgp will be mult by 2.0 in the future to have the total overlap capa of */
+                  /* a transistor*/
   }
 
 
@@ -3241,7 +3242,7 @@ void mcc_compute_RD_RS ( mcc_modellist *ptmodel, double Weff,
   double RSH, RSC, RDC;
   double RS, RD, LDscal, LDIFscal, HDIFscal;
   double DW,DWscal, Wj;
-  //double LDIFeff;
+  /*double LDIFeff;*/
   double scalm, LD, LDIF, HDIF, WMLT;
   double nrs, nrd, M;
 
@@ -3251,7 +3252,7 @@ void mcc_compute_RD_RS ( mcc_modellist *ptmodel, double Weff,
   nrd = lotrsparam->PARAM[elpNRD];
   M = lotrsparam->PARAM[elpM];
 
-  scalm = 1; //TODO: check how it can take other value...
+  scalm = 1; /*TODO: check how it can take other value...*/
 
   RLEV = MCC_ROUND (mcc_getparam_quick(ptmodel,__MCC_QUICK_RLEV));
   RSH = mcc_getparam_quick(ptmodel,__MCC_QUICK_RSH);
@@ -3482,7 +3483,7 @@ double mcc_dio_calcCapa_l1 ( mcc_modellist *ptmodel,
   if (DCAP == 2)
     FC = FCS = 0.0;
 
-  // Geometry
+  /* Geometry*/
   LMeff = LM*SCALE*SHRINK;
   WMeff = WM*SCALE*SHRINK;
   LPeff = LP*SCALE*SHRINK;
@@ -3490,7 +3491,7 @@ double mcc_dio_calcCapa_l1 ( mcc_modellist *ptmodel,
   XPeff = XP*SCALM;
   XMeff = XM*SCALM;
   
-  // Temperature effect
+  /* Temperature effect*/
   T = temp + MCC_KELVIN;
   TNOM = mcc_getparam_quick(ptmodel, __MCC_QUICK_TNOM);
   Tnom = TNOM + MCC_KELVIN;
@@ -3541,9 +3542,9 @@ double mcc_dio_calcCapa_l1 ( mcc_modellist *ptmodel,
             break;
   }
 
-  // CJOeff computation...
+  /* CJOeff computation...*/
   if ( !ptmodel->SUBCKTNAME ) { 
-    // it means that CJO & CJSW haven't been updated by area & perim
+    /* it means that CJO & CJSW haven't been updated by area & perim*/
     CJOeff = CJO_T*area;
     CJSWeff = CJSW_T*perim;
   }
@@ -3560,12 +3561,12 @@ double mcc_dio_calcCapa_l1 ( mcc_modellist *ptmodel,
     CDEPa = (CJOeff/pow((1.0-FC),1+MJ))*(1.0-FC*(1.0+MJ)+MJ*(vd+KMS)/VJ_T);
     CDEPp = (CJSWeff/pow((1.0-FC),1+MJSW))*(1.0-FC*(1.0+MJSW)+MJSW*(vd+KMS)/VJ_T);
   }
-  // Metal & Polysilicon capacitance
+  /* Metal & Polysilicon capacitance*/
   CMETAL = (MCC_EPSOX/XOI)*(WPeff+XPeff)*(LPeff+XPeff)*M;
 
   CPOLY = (MCC_EPSOX/XOM)*(WMeff+XMeff)*(LMeff+XMeff)*M;
 
-  // CDIFF = TT*dId/dVd = TT*gd;
+  /* CDIFF = TT*dId/dVd = TT*gd;*/
   
   Capa = CDEPa+CDEPp+CMETAL+CPOLY;
 
@@ -3602,7 +3603,7 @@ double mcc_dio_calcCapa_l2 ( mcc_modellist *ptmodel,
   MJ = mcc_getparam_quick(ptmodel, __MCC_QUICK_MJ);
   FC = mcc_getparam_quick(ptmodel, __MCC_QUICK_FC);
 
-  // Temperature effect
+  /* Temperature effect*/
   T = temp + MCC_KELVIN;
   TNOM = mcc_getparam_quick(ptmodel, __MCC_QUICK_TNOM);
   Tnom = TNOM + MCC_KELVIN;
@@ -3618,8 +3619,8 @@ double mcc_dio_calcCapa_l2 ( mcc_modellist *ptmodel,
   CJO_T = CJO*(1.0+MJ*(1.0+4.0e-4*dT-VJ_T/VJ));
   
 
-  // CJOeff computation...
-  if ( !ptmodel->SUBCKTNAME ) // it means that CJO haven't been updated by area
+  /* CJOeff computation...*/
+  if ( !ptmodel->SUBCKTNAME ) /* it means that CJO haven't been updated by area*/
     CJOeff = CJO_T*area;
   else 
     CJOeff = CJO_T;
@@ -3681,7 +3682,7 @@ double mcc_dio_calcCapa_l8 ( mcc_modellist *ptmodel,
   double PB,PBSW,TNOM,T,Tnom,dT,qT,FC;
   double CJ_T,CJSW_T,PB_T,PBSW_T,Vt_T,Vt_Tnom,Eg_T,Eg_Tnom;
   double vd;
-  int M=1; //number of parallel transistor
+  int M=1; /*number of parallel transistor*/
   double CTA,PTA,CTP,GAP2,Dpb,Dpbsw,MJ,MJSW,PTP;
   int TLEVC;
   int DIOLEV;
@@ -3719,7 +3720,7 @@ double mcc_dio_calcCapa_l8 ( mcc_modellist *ptmodel,
   vd = Va-Vc;
 
   if ( DIOLEV != 9 ) {
-    // Temperature update
+    /* Temperature update*/
     switch ( TLEVC ) {
       case 0: c0 = (Eg_Tnom/Vt_Tnom-Eg_T/Vt_T+3.0*log(qT));
               PB_T = PB*qT-Vt_T*c0;
@@ -3762,11 +3763,11 @@ double mcc_dio_calcCapa_l8 ( mcc_modellist *ptmodel,
       Cbxsid = Cjpx*pow((1.0-vd/PBSW_T),-MJSW);
     else
       Cbxsid = (Cjpx/pow(1.0-FC,1.0+MJSW))*(1.0-FC*(1.0+MJSW)+MJSW*vd/PBSW_T);
-    // if TT>0.0 Cbxdiff = TT*dIbx/dVbx else Cbxdiff=0
+    /* if TT>0.0 Cbxdiff = TT*dIbx/dVbx else Cbxdiff=0*/
     Cbx = Cbxbot+Cbxsid;
   }
   else {
-    // unsupported because no info on pgate...
+    /* unsupported because no info on pgate...*/
     fprintf (stderr,"[MCC ERR] Diode capacitance for level 8 and diolev = 9 is not supported yet!\n");
     Cbx = 0.0;
   }
@@ -3982,7 +3983,7 @@ double mcc_calcILeakage (char *technoname, char *transname,
                 &Igcd, &Igcs,
                 lotrsparam);
 
-  //----> Subthreshold current
+  /*----> Subthreshold current*/
 
   vth = mcc_calcVTH (technoname, transname, 
                      transtype, transcase, L, W, 
@@ -4088,7 +4089,7 @@ double  mcc_calcVTI_nmos_com (mcc_modellist *ptmodel, char *transname,
                         );
                         
     if( ret != MBK_DICHO_OK ) {
-      //avt_errmsg(MCC_ERRMSG, "024", AVT_WARNING) ;
+      /*avt_errmsg(MCC_ERRMSG, "024", AVT_WARNING) ;*/
     }
     return vti;
 }
@@ -4131,9 +4132,9 @@ int mcc_calcVTI_pmos_com_fn ( struct mcc_vdeg_fn *data, double vti, double *res 
                      data->transname, 
                      data->ptmodel->TYPE,
                      data->ptmodel->CASE,
-                     data->lotrsparam->VBULK-vti, //vbs
-                     -vti, //vgs
-                     -vti, //vds
+                     data->lotrsparam->VBULK-vti, /*vbs*/
+                     -vti, /*vgs*/
+                     -vti, /*vds*/
                      data->L,
                      data->W,
                      data->temp,
@@ -4197,7 +4198,7 @@ double  mcc_calcVTI_pmos_com (mcc_modellist *ptmodel, char *transname,
                         );
                         
     if( ret != MBK_DICHO_OK ) {
-   //   avt_errmsg(MCC_ERRMSG, "025", AVT_WARNING) ;
+   /*   avt_errmsg(MCC_ERRMSG, "025", AVT_WARNING) ;*/
     }
     return vti;
 }
@@ -4718,7 +4719,7 @@ double mcc_calcResiCapa ( char *technoname, char *resiname,
            Ceff=CAP*SCALE*M;
          }
          else
-           Ceff=0; //error
+           Ceff=0; /*error*/
        }
       else if (!COX && THICK!=0)
       {

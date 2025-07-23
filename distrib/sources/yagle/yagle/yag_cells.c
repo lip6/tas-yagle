@@ -1365,7 +1365,7 @@ yagBuildBefigSimpleLatch(figname, datasiglist, conditionlist, latchcone, reg, Q,
 {
     befig_list     *ptbefig;
     cone_list      *ptdrivecone;
-    //cone_list      *ptlinkcone;
+    /*cone_list      *ptlinkcone;*/
     edge_list      *ptin;
     losig_list     *ptdatasig;
     chain_list     *ptcndabl, *ptvalabl;
@@ -1373,7 +1373,7 @@ yagBuildBefigSimpleLatch(figname, datasiglist, conditionlist, latchcone, reg, Q,
     chain_list     *ptsigchain, *ptcndchain;
     ptype_list     *ptuser;
     char           *name;
-    //char           *oldname;
+    /*char           *oldname;*/
     char            buf[16];
     char            label[16];
     int             deleteDriveCone;

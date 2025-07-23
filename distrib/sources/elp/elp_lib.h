@@ -27,21 +27,21 @@
 #include CNS_H
 
 /* les definitions */
-//extern int ELP_CAPA_LEVEL;
-//extern int ELP_DRV_FILE;
+/*extern int ELP_CAPA_LEVEL;*/
+/*extern int ELP_DRV_FILE;*/
 extern int ELP_LOAD_FILE_TYPE;
 extern int ELP_GENPARAM ;
-//extern double ELP_MULU0_MARGIN;
-//extern double ELP_DELVT0_MARGIN;
-//extern double ELP_SA_MARGIN;
-//extern double ELP_SB_MARGIN;
-//EXTErn double ELP_SD_MARGIN;
+/*extern double ELP_MULU0_MARGIN;*/
+/*extern double ELP_DELVT0_MARGIN;*/
+/*extern double ELP_SA_MARGIN;*/
+/*extern double ELP_SB_MARGIN;*/
+/*EXTErn double ELP_SD_MARGIN;*/
 extern double ELP_NF_MARGIN;
 extern double ELP_M_MARGIN;
 extern double ELP_NRS_MARGIN;
 extern double ELP_NRD_MARGIN;
 
-#define ELP_LOTRS_MODEL ((long) 0x70000000 ) // the lotrs will contain its elpmodel
+#define ELP_LOTRS_MODEL ((long) 0x70000000 ) /* the lotrs will contain its elpmodel*/
 
 #define elpBADLW   -1.0 
 
@@ -285,11 +285,11 @@ elpmodel_list;
 #define elpSCCLevel        (long)17
 
 #if 1
-// activation du paramcontext pour le share des modeles
+/* activation du paramcontext pour le share des modeles*/
 #define elpParamContextLevel        (long)18
 #define elpCaseLevel       (long)19
 #else
-// desactivation du paramcontext pour le share des modeles
+/* desactivation du paramcontext pour le share des modeles*/
 #define elpParamContextLevel        (long)19
 #define elpCaseLevel       (long)18
 #endif
@@ -298,28 +298,28 @@ elpmodel_list;
 
 
 /* defines of different kind of input capacitances */ 
-#define ELP_CAPA_LEVEL0  (int)0  // 1 capa  : - CGS 
-#define ELP_CAPA_LEVEL1  (int)1  // 2 capas : - CGSU & CGSD => CGS = (CGSU+CGSD)/2
-#define ELP_CAPA_LEVEL2  (int)2  // 6 capas : - CGSU & CGSD => CGS = (CGSU+CGSD)/2
-                                 //           - CGSUMIN & CGSUMAX
-                                 //           - CGSDMIN & CGSDMAX
+#define ELP_CAPA_LEVEL0  (int)0  /* 1 capa  : - CGS */
+#define ELP_CAPA_LEVEL1  (int)1  /* 2 capas : - CGSU & CGSD => CGS = (CGSU+CGSD)/2*/
+#define ELP_CAPA_LEVEL2  (int)2  /* 6 capas : - CGSU & CGSD => CGS = (CGSU+CGSD)/2*/
+                                 /*           - CGSUMIN & CGSUMAX*/
+                                 /*           - CGSDMIN & CGSDMAX*/
 
-#define ELP_CAPA_TYPICAL (int)0  // (cgu + cgd) / 2.0
-#define ELP_CAPA_UP      (int)1  // cgu computed for input transition [0:vdd/2]
-#define ELP_CAPA_UP_MIN  (int)2  // cgu computed for input transition [10%:90%]
-#define ELP_CAPA_UP_MAX  (int)3  // cgu computed for input transition [10%:90%]
-#define ELP_CAPA_DN      (int)4  // cgd computed for input transition [0:vdd/2]
-#define ELP_CAPA_DN_MIN  (int)5  // cgd computed for input transition [10%:90%]
-#define ELP_CAPA_DN_MAX  (int)6  // cgd computed for input transition [10%:90%]
-#define ELP_CAPA_UPF     (int)7  // cgu computed for input transition [0:vdd/2]
-#define ELP_CAPA_DNF     (int)8  // cgu computed for input transition [0:vdd/2]
+#define ELP_CAPA_TYPICAL (int)0  /* (cgu + cgd) / 2.0*/
+#define ELP_CAPA_UP      (int)1  /* cgu computed for input transition [0:vdd/2]*/
+#define ELP_CAPA_UP_MIN  (int)2  /* cgu computed for input transition [10%:90%]*/
+#define ELP_CAPA_UP_MAX  (int)3  /* cgu computed for input transition [10%:90%]*/
+#define ELP_CAPA_DN      (int)4  /* cgd computed for input transition [0:vdd/2]*/
+#define ELP_CAPA_DN_MIN  (int)5  /* cgd computed for input transition [10%:90%]*/
+#define ELP_CAPA_DN_MAX  (int)6  /* cgd computed for input transition [10%:90%]*/
+#define ELP_CAPA_UPF     (int)7  /* cgu computed for input transition [0:vdd/2]*/
+#define ELP_CAPA_DNF     (int)8  /* cgu computed for input transition [0:vdd/2]*/
 
 #define ELP_NOCAPA        ((float)-3.14159e11)
 #define ELP_LOFIG_TABCAPA 20021108
 #define ELP_CAPASWITCH    20040924
 
-#define ELP_LOFIG_CAPAS_ID (long)(0x77700007) // to know if the lofig was already annoted
-                                              // with the elpCapaGrid and elpCapaDiff
+#define ELP_LOFIG_CAPAS_ID (long)(0x77700007) /* to know if the lofig was already annoted*/
+                                              /* with the elpCapaGrid and elpCapaDiff*/
 
 #define ELP_LOADELP_FILE      (int)0
 #define ELP_DONTLOAD_FILE     (int)1
@@ -414,7 +414,7 @@ extern elptree_list *ELP_HEAD_TREE ;
 extern FILE *elpin ;
 extern int ELP_CALC_ONLY_CAPA;
 
-// Modification de la netlist
+/* Modification de la netlist*/
 #define ELP_HACK_NONE            0
 #define ELP_HACK_FIX_CAPA_TO_GND 1
 #define ELP_HACK_FIX_CAPA        2

@@ -105,7 +105,7 @@ chain_list **chain2  ;
 
  if (max1==max2)
   {
-   // pour garantir un ordre quand les setup/hold sont egaux
+   /* pour garantir un ordre quand les setup/hold sont egaux*/
    return strcmp(ptsig1->NAME, ptsig2->NAME);
   }
 
@@ -980,9 +980,9 @@ char ctkmode ;
  
  ttv_freefigdelay(stbfig->NODE) ;
 
- // pour les delay sur les connecteurs d'entree
+ /* pour les delay sur les connecteurs d'entree*/
  ttv_getinffile(ttvfig);
- //--
+ /*--*/
  stm_pwl_finish();
  return(stbfig) ;
 }

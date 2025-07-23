@@ -84,14 +84,14 @@ int slib_sign(float value)
      sign = 1; 
 
   return sign ;  
-}       // end of  slib_sign
+}       /* end of  slib_sign*/
 
 
 
 void slib_set_lib_grid(library *ptlib, int grid_value)
 {
    ptlib->GRID = grid_value;
-}       // end of  slib_set_lib_grid
+}       /* end of  slib_set_lib_grid*/
 
 long slib_apply_grid(double value, int grid_value)
 {
@@ -103,7 +103,7 @@ long slib_apply_grid(double value, int grid_value)
           return (long) ( value * grid_value + 0.5 ) ;
 
   return 0;
-}       // end of  apply_slib_grid
+}       /* end of  apply_slib_grid*/
 
 /******************************************************************************/
 /* FOnction allouant la memoire pour SLIB                                     */
@@ -114,7 +114,7 @@ void  slib_put_symbol(library *ptlib, symbol_list *ptsym)
     ptsym->NEXT  = ptlib->SYMB;
     ptlib->SYMB  = ptsym;
     
-}       // end of  slib_put_symbol
+}       /* end of  slib_put_symbol*/
 
 symbol_list *slib_add_symbol(library *ptlib, char *name)
 {
@@ -129,7 +129,7 @@ symbol_list *slib_add_symbol(library *ptlib, char *name)
     ptsym->BOX   = NULL;
     ptlib->SYMB = ptsym;
     return (ptsym);
-}       // end of  slib_add_symbol
+}       /* end of  slib_add_symbol*/
 
 library *slib_create_lib(char *name)
 {
@@ -141,7 +141,7 @@ library *slib_create_lib(char *name)
     ptlib->GRID = 0;
     ptlib->REFHEIGHT=0;
     return (ptlib);
-}       // end of  slib_create_lib
+}       /* end of  slib_create_lib*/
 
 void slib_add_subsymbol(library *ptlib, symbol_list *ptsym, char *name, double center_x, double center_y, double angle)
 {
@@ -157,8 +157,8 @@ void slib_add_subsymbol(library *ptlib, symbol_list *ptsym, char *name, double c
       {
         ptroot=symbols;
         break;
-      } // end of if(ptroot->NAME == name)
-    }   // end for(symbols=LIBRARY->SYMB;symbols; ...
+      } /* end of if(ptroot->NAME == name)*/
+    }   /* end for(symbols=LIBRARY->SYMB;symbols; ...*/
     ptsub = (sub_list *)mbkalloc(sizeof(sub_list));
     ptsub->NEXT   = ptsym->SUB;
     ptsub->ROOT   = ptroot;
@@ -166,7 +166,7 @@ void slib_add_subsymbol(library *ptlib, symbol_list *ptsym, char *name, double c
     ptsub->Y      = slib_apply_grid(center_y, ptlib->GRID);
     ptsub->ANGLE  = angle;
     ptsym->SUB    = ptsub;
-}       // end of  slib_add_subsymbol
+}       /* end of  slib_add_subsymbol*/
 
 void slib_add_draw_line(symbol_list *ptsym, double arg_0, double arg_1, double arg_2, double arg_3, int grid_value)
 {
@@ -185,7 +185,7 @@ void slib_add_draw_line(symbol_list *ptsym, double arg_0, double arg_1, double a
     ptdraw->DATA.SLINE = ptdata;
     ptsym->DRAW  = ptdraw;
     
-}   // end of slib_add_draw_line
+}   /* end of slib_add_draw_line*/
 
 void slib_add_draw_arc(symbol_list *ptsym, double arg_0, double arg_1, double arg_2, double arg_3, double arg_4, double arg_5, int grid_value)
 {
@@ -206,7 +206,7 @@ void slib_add_draw_arc(symbol_list *ptsym, double arg_0, double arg_1, double ar
     ptdraw->DATA.SARC = ptdata;
     ptsym->DRAW  = ptdraw;
     
-}   // end of  void slib_add_draw_arc
+}   /* end of  void slib_add_draw_arc*/
 
 void slib_add_draw_circle(symbol_list *ptsym, double arg_0, double arg_1, float arg_2, int grid_value)
 {
@@ -224,7 +224,7 @@ void slib_add_draw_circle(symbol_list *ptsym, double arg_0, double arg_1, float 
     ptdraw->DATA.SCIRCLE = ptdata;
     ptsym->DRAW  = ptdraw;
     
-}   // end of  void slib_add_draw_circle
+}   /* end of  void slib_add_draw_circle*/
 
 void slib_add_draw_pin(symbol_list *ptsym, char *name, double x, double y, int dir, int grid_value)
 {
@@ -244,7 +244,7 @@ void slib_add_draw_pin(symbol_list *ptsym, char *name, double x, double y, int d
     ptdraw->DATA.SPIN = ptdata;
     ptsym->DRAW  = ptdraw;
 
-}   // end of  void slib_add_draw_pin
+}   /* end of  void slib_add_draw_pin*/
 
 /******************************************************************************/
 /* FOnction de liberation de memoire pour SLIB                                */
@@ -259,8 +259,8 @@ void        slib_free_motif_draw(motif_symlist *ptsym)
                ptnextdraw = ptdraw->NEXT;
                mbkfree(ptdraw->DATA.MOBJ);
                mbkfree(ptdraw);
-          } // end for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)
-}           // end of  slib_free_draw(symbol_list *ptsym)
+          } /* end for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)*/
+}           /* end of  slib_free_draw(symbol_list *ptsym)*/
 
 void        slib_free_motif(motif_symlist *ptm_sym)
 {
@@ -271,8 +271,8 @@ void        slib_free_motif(motif_symlist *ptm_sym)
        slib_free_motif_draw(ptm_sym);
        nextptm_sym = ptm_sym->NEXT;
        mbkfree(ptm_sym);
-      } // end for(ptm_sym=ptsym->MOTIF;ptm_sym;ptm_sym=nextptm_sym)
-}       // end slib_free_motif(symbol_list *ptsym)
+      } /* end for(ptm_sym=ptsym->MOTIF;ptm_sym;ptm_sym=nextptm_sym)*/
+}       /* end slib_free_motif(symbol_list *ptsym)*/
        
 void        slib_free_box(symbol_list *ptsym)            
 {    
@@ -288,8 +288,8 @@ void        slib_free_subsymbols(symbol_list *ptsym)
       {
         nextptsub = ptsub->NEXT;
         mbkfree(ptsub);
-      }     // end for(ptsub=ptsym->SUB;ptsub;ptsub=ptsub->NEXT)
-}           // end of  slib_free_subsymbols(symbol_list *ptsym)
+      }     /* end for(ptsub=ptsym->SUB;ptsub;ptsub=ptsub->NEXT)*/
+}           /* end of  slib_free_subsymbols(symbol_list *ptsym)*/
 
 void        slib_free_draw(symbol_list *ptsym)
 {
@@ -301,8 +301,8 @@ void        slib_free_draw(symbol_list *ptsym)
                ptnextdraw = ptdraw->NEXT;
                mbkfree(ptdraw->DATA.SOBJ);
                mbkfree(ptdraw);
-          } // end for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)
-}           // end of  slib_free_draw(symbol_list *ptsym)
+          } /* end for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)*/
+}           /* end of  slib_free_draw(symbol_list *ptsym)*/
 
 void        slib_free_symbols(library *ptlib)
 {
@@ -317,14 +317,14 @@ void        slib_free_symbols(library *ptlib)
               slib_free_motif(ptsym->MOTIF);
               slib_free_box(ptsym);
               mbkfree(ptsym);
-      }         // end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
-}               // end of  slib_free_symbols(library *ptlib)
+      }         /* end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)*/
+}               /* end of  slib_free_symbols(library *ptlib)*/
 
 void        slib_free_library(library *ptlib)
 {
     slib_free_symbols(ptlib);
     mbkfree(ptlib);
-}               // end of  slib_free_library(library *ptlib)
+}               /* end of  slib_free_library(library *ptlib)*/
 
 /******************************************************************************/
 /* FOnction gerant les calcul pour les sub-symbols et la trigo                */
@@ -332,7 +332,7 @@ void        slib_free_library(library *ptlib)
 
 void slib_vecteur(vecteur *v, double dalpha, double xdebut, double ydebut, double xfinal, double yfinal)
 {
-    // donne l'angle et la norme pour deux points donnes
+    /* donne l'angle et la norme pour deux points donnes*/
     double x, y;
 
     x = xfinal - xdebut;
@@ -347,7 +347,7 @@ void slib_vecteur(vecteur *v, double dalpha, double xdebut, double ydebut, doubl
        { v->NORME = 0 ; v->ANGLE = 0 ; }
     else
        {
-         v->NORME = sqrt( pow(x,2) + pow(y,2) )  ; //correction de sigX en (PI -ANGLE) sinon erreur en cas de dalpha changeant le signe.
+         v->NORME = sqrt( pow(x,2) + pow(y,2) )  ; /*correction de sigX en (PI -ANGLE) sinon erreur en cas de dalpha changeant le signe.*/
          v->ANGLE = ( asin( y / v->NORME ) + (dalpha * PI / 180) ) ;
        }
 }
@@ -357,7 +357,7 @@ void slib_coordonnee(vecteur *v, int grid, double dx, double dy)
     v->X = slib_apply_grid( (dx + v->SIGX * (v->NORME * cos(v->ANGLE)) / grid ) , grid) ;
     v->Y = slib_apply_grid( (dy +           (v->NORME * sin(v->ANGLE)) / grid ) , grid) ;
 
-} // end of slib_coordonnee
+} /* end of slib_coordonnee*/
 
 /******************************************************************************/
 /* FOnction d'appel de symbols                                                */
@@ -370,10 +370,10 @@ symbol_list *slib_getsymbol(library *ptlib, char *name)
   
   for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT) { 
           if(ptsym->NAME == name) break; 
-  } // end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
+  } /* end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)*/
 
   return ptsym ;
-}    // end of slib_getsymbol
+}    /* end of slib_getsymbol*/
 
 void slib_xbounding_box(slib_box *ptm_box, long value)
 {
@@ -381,7 +381,7 @@ void slib_xbounding_box(slib_box *ptm_box, long value)
         { ptm_box->X_MIN = value; }
     if(ptm_box->X_MAX < value)
         { ptm_box->X_MAX = value; }
-}       // end of slib_xbounding_box
+}       /* end of slib_xbounding_box*/
 
 void slib_ybounding_box(slib_box *ptm_box, long value)
 {
@@ -389,7 +389,7 @@ void slib_ybounding_box(slib_box *ptm_box, long value)
         { ptm_box->Y_MIN = value; }
     if(ptm_box->Y_MAX < value)
         { ptm_box->Y_MAX = value; }
-}       // end of slib_ybounding_box
+}       /* end of slib_ybounding_box*/
 
 void slib_flatcalcul(vecteur *name, double dx, double dy, double dalpha, long x, long y)
 {
@@ -465,7 +465,7 @@ void slib_flatsymbol(symbol_list *ptsym, long dx,long dy, long dalpha,symbol_lis
         
         mbkfree(start);
         mbkfree(end);
-      }// end  if(ptdraw->TYPE == SLIB_T_LINE)
+      }/* end  if(ptdraw->TYPE == SLIB_T_LINE)*/
     if(ptdraw->TYPE == SLIB_T_ARC)
       {                     
         arc *ptdata;
@@ -489,7 +489,7 @@ void slib_flatsymbol(symbol_list *ptsym, long dx,long dy, long dalpha,symbol_lis
         mbkfree(start);
         mbkfree(end);
         mbkfree(center);
-      }// end  if(ptdraw->TYPE == SLIB_T_ARC)
+      }/* end  if(ptdraw->TYPE == SLIB_T_ARC)*/
     if(ptdraw->TYPE == SLIB_T_CIRCLE)
       {                     
         circle *ptdata;
@@ -505,7 +505,7 @@ void slib_flatsymbol(symbol_list *ptsym, long dx,long dy, long dalpha,symbol_lis
         slib_circle_box(ptresult,rond->X,rond->Y,ptdata->RADIUS);
 
         mbkfree(rond);
-      }// end  if(ptdraw->TYPE == SLIB_T_CIRCLE)
+      }/* end  if(ptdraw->TYPE == SLIB_T_CIRCLE)*/
     if(ptdraw->TYPE == SLIB_T_PIN)
       {                     
         pin *ptdata;
@@ -519,8 +519,8 @@ void slib_flatsymbol(symbol_list *ptsym, long dx,long dy, long dalpha,symbol_lis
         slib_add_draw_pin(ptresult,ptdata->NAME,connecteur->X,connecteur->Y,ptdata->DIRECTION,1);
 
         mbkfree(connecteur);
-      }// end  if(ptdraw->TYPE == SLIB_T_PIN)
-    }    // end for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)
+      }/* end  if(ptdraw->TYPE == SLIB_T_PIN)*/
+    }    /* end for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)*/
   for(ptsub=ptsym->SUB;ptsub;ptsub=ptsub->NEXT)
     {
       long sub_x, sub_y, sub_alpha;
@@ -530,8 +530,8 @@ void slib_flatsymbol(symbol_list *ptsym, long dx,long dy, long dalpha,symbol_lis
       
       slib_flatsymbol(ptsub->ROOT,sub_x,sub_y,sub_alpha,ptresult);
       
-    }    // end for(ptsub=ptsym->SUB;ptsub;ptsub=ptsub->NEXT)
-}       // end of slib_flatsymbol
+    }    /* end for(ptsub=ptsym->SUB;ptsub;ptsub=ptsub->NEXT)*/
+}       /* end of slib_flatsymbol*/
 
 pin         *slib_getpin(symbol_list *ptsym, char *name)
 {
@@ -561,8 +561,8 @@ void slib_alloc_box(symbol_list *ptresult)
 
 symbol_list *slib_get_flat_symbol(library *ptlib, char *name)
 {
-  symbol_list *ptsym;            //symbol de ptlib que l'on parcourent
-  symbol_list *ptresult = NULL;  // symbol que l'on retourne
+  symbol_list *ptsym;            /*symbol de ptlib que l'on parcourent*/
+  symbol_list *ptresult = NULL;  /* symbol que l'on retourne*/
   
   for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
   {
@@ -577,12 +577,12 @@ symbol_list *slib_get_flat_symbol(library *ptlib, char *name)
         ptresult->MOTIF= NULL;
         slib_alloc_box(ptresult);
         slib_flatsymbol(ptsym,0,0,0,ptresult);      
-     }  // end of if(ptsym->NAME= name)
-  }     // end for(ptsym=ptlib->SYMB:ptsym;ptsym=ptsym->NEXT)
+     }  /* end of if(ptsym->NAME= name)*/
+  }     /* end for(ptsym=ptlib->SYMB:ptsym;ptsym=ptsym->NEXT)*/
   
   return (ptresult);
 
-}       // end of slib_get_flat_symbol
+}       /* end of slib_get_flat_symbol*/
 
 /******************************************************************************/
 /* FOnction de convertion a MOTIF sur un symbol a plat                        */
@@ -602,7 +602,7 @@ void slib_add_motif_line(motif_draw *ptm_draw,long x1,long y1,long x2,long y2)
     ptm_data->END_Y   = y2 ;
 
     ptm_draw->DATA.MLINE = ptm_data ;
-}       // end of slib_add_motif_line
+}       /* end of slib_add_motif_line*/
 
 void slib_add_motif_arc(motif_draw *ptm_draw,long ax,long ay,long bx,long by,long cx,long cy)
 {
@@ -635,7 +635,7 @@ void slib_add_motif_arc(motif_draw *ptm_draw,long ax,long ay,long bx,long by,lon
                     ptm_data->CORNER_Y = ptm_data->CORNER_Y + slib_sign(ptm_data->ALPHA) * 2 * slib_sign(ay-cy) * ( ay - cy ) ;
             else
                     ptm_data->CORNER_Y = ptm_data->CORNER_Y + slib_sign(ptm_data->ALPHA) * 2 * slib_sign(by-cy) * ( by - cy ) ;
-      }  // end of if (ptm_data->ALPHA * ptm_data->DELTA > 0)
+      }  /* end of if (ptm_data->ALPHA * ptm_data->DELTA > 0)*/
     
     delta = abs( ptm_data->ALPHA - ptm_data->DELTA );
     if( ptm_data->DELTA < ptm_data->ALPHA )
@@ -647,7 +647,7 @@ void slib_add_motif_arc(motif_draw *ptm_draw,long ax,long ay,long bx,long by,lon
     mbkfree(vecteur_c2b); 
 
     ptm_draw->DATA.MARC = ptm_data ;
-}       // end of slib_add_motif_arc
+}       /* end of slib_add_motif_arc*/
 
 void slib_add_motif_circle(motif_draw *ptm_draw,long cx, long cy, long rayon)
 {
@@ -663,14 +663,14 @@ void slib_add_motif_circle(motif_draw *ptm_draw,long cx, long cy, long rayon)
     ptm_data->R = rayon ;
 
     ptm_draw->DATA.MARC = ptm_data ;
-}       // end of slib_add_motif_circle
+}       /* end of slib_add_motif_circle*/
     
-// cette fonction prend un ptsym deja a plat
+/* cette fonction prend un ptsym deja a plat*/
 motif_symlist *slib_motifconvert(symbol_list *ptsym) 
 {
-    draw_list     *ptdraw;     // draw du symbol SLIB
-    motif_symlist *ptmotif;    // structutre motif que l'on va affecter
-    motif_draw    *ptm_draw;  // draw du symbol MOTIF
+    draw_list     *ptdraw;     /* draw du symbol SLIB*/
+    motif_symlist *ptmotif;    /* structutre motif que l'on va affecter*/
+    motif_draw    *ptm_draw;  /* draw du symbol MOTIF*/
 
     ptmotif  = (motif_symlist *)mbkalloc(sizeof(motif_symlist));
     
@@ -691,7 +691,7 @@ motif_symlist *slib_motifconvert(symbol_list *ptsym)
         slib_add_motif_line(ptm_draw, ptdata->START_X,ptdata->START_Y,ptdata->END_X,ptdata->END_Y);
         
         ptmotif->DRAW = ptm_draw ;
-      }// end  if(ptdraw->TYPE == SLIB_T_LINE)
+      }/* end  if(ptdraw->TYPE == SLIB_T_LINE)*/
     if(ptdraw->TYPE == SLIB_T_ARC)
       {                     
         arc       *ptdata;
@@ -703,7 +703,7 @@ motif_symlist *slib_motifconvert(symbol_list *ptsym)
         slib_add_motif_arc(ptm_draw, ptdata->START_X,ptdata->START_Y,ptdata->END_X,ptdata->END_Y,ptdata->CENTER_X,ptdata->CENTER_Y);
         
         ptmotif->DRAW = ptm_draw ;
-      }// end  if(ptdraw->TYPE == SLIB_T_ARC)
+      }/* end  if(ptdraw->TYPE == SLIB_T_ARC)*/
     if(ptdraw->TYPE == SLIB_T_CIRCLE)
       {                     
         circle *ptdata;
@@ -715,7 +715,7 @@ motif_symlist *slib_motifconvert(symbol_list *ptsym)
         slib_add_motif_circle(ptm_draw,ptdata->X,ptdata->Y,ptdata->RADIUS);
 
         ptmotif->DRAW = ptm_draw ;
-      }// end  if(ptdraw->TYPE == SLIB_T_CIRCLE)
+      }/* end  if(ptdraw->TYPE == SLIB_T_CIRCLE)*/
     if(ptdraw->TYPE == SLIB_T_PIN)
       {                     
        /* pin *ptdata;
@@ -727,10 +727,10 @@ motif_symlist *slib_motifconvert(symbol_list *ptsym)
         slib_add_motif_pin();
 
         ptmotif->DRAW = ptm_draw ;*/
-      }  // end  if(ptdraw->TYPE == SLIB_T_PIN)
-    }    // end for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)
+      }  /* end  if(ptdraw->TYPE == SLIB_T_PIN)*/
+    }    /* end for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)*/
     return ptmotif;
-}        // end of slib_motifconvert
+}        /* end of slib_motifconvert*/
 
 /******************************************************************************/
 /* Affichage des valeurs SLIB ou MOTIF par thread                             */
@@ -758,9 +758,9 @@ void slib_return_box(symbol_list *pts)
            printf("X : %ld  ",ptdraw->DATA.SPIN->X);
            printf("Y : %ld  ",ptdraw->DATA.SPIN->Y);
            printf("\n");
-         }// end of if(ptdraw->TYPE == SLIB_T_PIN)
-     }    // end for(ptdraw=pts->DRAW;pts;pts=pts->NEXT)
-}         // end of slib_return_box
+         }/* end of if(ptdraw->TYPE == SLIB_T_PIN)*/
+     }    /* end for(ptdraw=pts->DRAW;pts;pts=pts->NEXT)*/
+}         /* end of slib_return_box*/
 
 void slib_view_structslib(library *ptlib)
 {
@@ -782,11 +782,11 @@ void slib_view_structslib(library *ptlib)
                printf("\tARC    : X1 = %ld ; Y1 = %ld ; X2 = %ld ; Y2 = %ld ; X3 = %ld ; Y3 = %ld ;\n",ptdraw->DATA.SARC->START_X,ptdraw->DATA.SARC->START_Y,ptdraw->DATA.SARC->END_X,ptdraw->DATA.SARC->END_Y,ptdraw->DATA.SARC->CENTER_X,ptdraw->DATA.SARC->CENTER_Y);
        if(ptdraw->TYPE == SLIB_T_CIRCLE )
                printf("\tCERCLE : X  = %ld ; Y  = %ld ; RADIUS = %ld ;\n",ptdraw->DATA.SCIRCLE->X,ptdraw->DATA.SCIRCLE->Y,ptdraw->DATA.SCIRCLE->RADIUS);
-       }  // end for(ptdraw=pts->DRAW;ptdraw;ptdraw=ptdraw->NEXT)
+       }  /* end for(ptdraw=pts->DRAW;ptdraw;ptdraw=ptdraw->NEXT)*/
      
      slib_return_box(pts);
-     }    // end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
-}         // end of slib_view_structslib
+     }    /* end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)*/
+}         /* end of slib_view_structslib*/
 
 void slib_view_structmotif(library *ptlib)
 {
@@ -807,9 +807,9 @@ void slib_view_structmotif(library *ptlib)
                 printf("\tLIGNE : X1 = %ld ; Y1 = %ld ; X2 = %ld ; Y2 = %ld ;\n",ptm_draw->DATA.MLINE->START_X,ptm_draw->DATA.MLINE->START_Y,ptm_draw->DATA.MLINE->END_X,ptm_draw->DATA.MLINE->END_Y);  
        if(ptm_draw->TYPE == MOTIF_T_ARC )
                 printf("\tARC   : X  = %ld ; Y  = %ld ; H  = %ld ; W  = %ld ; A1 = %ld ; A2 = %ld ;\n",ptm_draw->DATA.MARC->CORNER_X,ptm_draw->DATA.MARC->CORNER_Y,ptm_draw->DATA.MARC->R *2,ptm_draw->DATA.MARC->R *2,ptm_draw->DATA.MARC->ALPHA,ptm_draw->DATA.MARC->DELTA);
-       } // end for(ptm_draw=ptm->DRAW;ptm_draw;ptm_draw=ptm_draw->NEXT)
-     }   // end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
-}        // end of slib_view_structmotif
+       } /* end for(ptm_draw=ptm->DRAW;ptm_draw;ptm_draw=ptm_draw->NEXT)*/
+     }   /* end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)*/
+}        /* end of slib_view_structmotif*/
 
 void slib_view_all(library *ptlib)
 {
@@ -825,7 +825,7 @@ void slib_view_all(library *ptlib)
     printf("##################################################\n");
     printf("\n");
     slib_view_structmotif(ptlib);
-}    // end of slib_view_all
+}    /* end of slib_view_all*/
 
 /******************************************************************************/
 /* Test d'affichage des symbols par outils graphiques                         */
@@ -842,15 +842,15 @@ void slib_write_motif(FILE *file,motif_symlist *ptm_sym)
         motif_line *ptm_data;
         ptm_data=ptm_draw->DATA.MLINE;
         fprintf(file,"\tXDrawLine(display, win, gc, %f, %f, %f, %f );\n",ptm_data->START_X * SCA + ORG,ptm_data->START_Y * SCA + ORG,ptm_data->END_X * SCA + ORG,ptm_data->END_Y * SCA + ORG); 
-        }  // end of if(ptm_draw->TYPE == MOTIF_T_LINE)
+        }  /* end of if(ptm_draw->TYPE == MOTIF_T_LINE)*/
       if(ptm_draw->TYPE == MOTIF_T_ARC)
        {
         motif_arc *ptm_data;
         ptm_data=ptm_draw->DATA.MARC;
         fprintf(file,"\tXDrawArc(display, win, gc, %f, %f, %f, %f, %ld, %ld );\n",ptm_data->CORNER_X * SCA + ORG,ptm_data->CORNER_Y * SCA + ORG,ptm_data->R * 2 * SCA,ptm_data->R * 2 * SCA,ptm_data->ALPHA,ptm_data->DELTA);
-        }  // end of if(ptm_draw->TYPE == MOTIF_T_ARC)
-    }      // end for(ptm_draw=ptm_sym->DRAW;ptm_draw;ptm_draw=ptm_draw->NEXT)
-}          // end of slib_write_motif
+        }  /* end of if(ptm_draw->TYPE == MOTIF_T_ARC)*/
+    }      /* end for(ptm_draw=ptm_sym->DRAW;ptm_draw;ptm_draw=ptm_draw->NEXT)*/
+}          /* end of slib_write_motif*/
 
 void slib_display_motif(FILE *file, library *ptlib, symbol_list *ptsym)
 {
@@ -861,7 +861,7 @@ void slib_display_motif(FILE *file, library *ptlib, symbol_list *ptsym)
     ptm_sym   = slib_motifconvert(ptflatten);
       
     slib_write_motif(file,ptm_sym);
-}        // end of slib_display_motif
+}        /* end of slib_display_motif*/
 
 void slib_make_motif_file(library *ptlib)
 {
@@ -871,7 +871,7 @@ void slib_make_motif_file(library *ptlib)
     int top_level_symbol;
     FILE *file;
     file = mbkfopen("slib_view_symbol","c",WRITE_TEXT);
-    //debut de redaction du fichier file pour la visualisation avec motif
+    /*debut de redaction du fichier file pour la visualisation avec motif*/
     fprintf(file,"#include </usr/openwin/include/X11/StringDefs.h>\n");
     fprintf(file,"#include </usr/dt/include/Xm/Xm.h>\n");
     fprintf(file,"#include </usr/dt/include/Xm/PushB.h>\n");
@@ -883,10 +883,10 @@ void slib_make_motif_file(library *ptlib)
     fprintf(file,"#include <Xm/ScrolledW.h>\n\n");
     fprintf(file,"Display *display;\nScreen *screen_ptr;\nGC gc; \n\n");
     fprintf(file,"void quit_call()\n{\n\tprintf(\"Quitting program\");\n\texit(0);\n}\n\n");
-    //debut de redaction des fonctions graphiques file pour la visualisation avec motif
+    /*debut de redaction des fonctions graphiques file pour la visualisation avec motif*/
         for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
           {
-             //si le symbol n'a pas de PIN on ne souhaite pas le creer
+             /*si le symbol n'a pas de PIN on ne souhaite pas le creer*/
              top_level_symbol = FALSE ;             
              for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)
              { if(ptdraw->TYPE == SLIB_T_PIN){ top_level_symbol = TRUE; } }
@@ -897,15 +897,15 @@ void slib_make_motif_file(library *ptlib)
             fprintf(file,"\tWindow win = XtWindow(client_data);\n\n");      
             slib_display_motif(file,ptlib,ptsym); //la fonction est récursive
             fprintf(file,"}\n");
-            }       // end  if(top_level_symbol == TRUE)
-          }         // end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
-    //debut de redaction du main pour la visualisation avec motif
+            }       /* end  if(top_level_symbol == TRUE)*/
+          }         /* end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)*/
+    /*debut de redaction du main pour la visualisation avec motif*/
     fprintf(file,"main(argc, argv)\n");
     fprintf(file,"int argc;\nchar *argv[];\n");
     fprintf(file,"{\n");
     fprintf(file,"\tWidget toplevel, select_w, draw_w, scroll_w, form_w, main_w, menu_bar, quit");
           for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
-          { fprintf(file,", %s_button",ptsym->NAME); } // end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
+          { fprintf(file,", %s_button",ptsym->NAME); } /* end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)*/
           fprintf(file,";\n");
     fprintf(file,"\tXtAppContext  app;\n");
     fprintf(file,"\tXmString label;\n");
@@ -925,7 +925,7 @@ void slib_make_motif_file(library *ptlib)
     fprintf(file,"\t\n");    
        for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)
           {
-             //si le symbol n'a pas de PIN on ne souhaite pas le creer
+             /*si le symbol n'a pas de PIN on ne souhaite pas le creer*/
              top_level_symbol = FALSE ;             
              for(ptdraw=ptsym->DRAW;ptdraw;ptdraw=ptdraw->NEXT)
              { if(ptdraw->TYPE == SLIB_T_PIN){ top_level_symbol = TRUE; } }
@@ -936,24 +936,24 @@ void slib_make_motif_file(library *ptlib)
             fprintf(file,"\t\tXmStringFree(label);\n");
             fprintf(file,"\t\tXtAddCallback(%s_button, XmNactivateCallback, %s_symbol, draw_w);\n",ptsym->NAME,ptsym->NAME);
             fprintf(file,"\t\n");
-            }       // end  if(top_level_symbol == TRUE)
-          }         // end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)    
+            }       /* end  if(top_level_symbol == TRUE)*/
+          }         /* end for(ptsym=ptlib->SYMB;ptsym;ptsym=ptsym->NEXT)    */
     fprintf(file,"\tXtRealizeWidget(toplevel);\n");
     fprintf(file,"\tXtAppMainLoop(app);\n");
     fprintf(file,"}\n");
     fclose(file);
-}                   // end of  slib_drawing_test(library *ptlib)
+}                   /* end of  slib_drawing_test(library *ptlib)*/
 
 
 /******************************************************************************/
 /* fonction pour le parse d'un fichier SLIB                                   */
 /******************************************************************************/
 
-//slib_name ne comporte pas l'extension .slib
+/*slib_name ne comporte pas l'extension .slib*/
 library     *slib_get_library()
 {
     static int virgin = 1 ;
-    int slibrestart();
+    int slibrestart(FILE*);
     char *str ;
     char  buff[1024];
     slibdebug = 0;
@@ -996,7 +996,7 @@ library     *slib_get_library()
 library     *slib_load_library(char *buff)
 {
     static int virgin = 1 ;
-    int slibrestart();
+    int slibrestart(FILE*);
     slibdebug = 0;
     
     slibin = fopen(buff,"r");

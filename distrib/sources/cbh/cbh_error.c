@@ -19,15 +19,15 @@ int cbh_error(msg,code)
 char    *msg;
 int      code;
 {
-  //fprintf(stderr,"[CBH_WAR] %s",msg);
+  /*fprintf(stderr,"[CBH_WAR] %s",msg);*/
   switch (code)
   {
     case 0  : 
          avt_errmsg(CBH_ERRMSG,"001",AVT_WARNING,msg); break;
-         // fprintf(stderr,": possible cause library not charged\n"); break;
+         /* fprintf(stderr,": possible cause library not charged\n"); break;*/
     default :
          avt_errmsg(CBH_ERRMSG,"003",AVT_WARNING,msg);
-         // fprintf(stderr,": unknown cause\n");
+         /* fprintf(stderr,": unknown cause\n");*/
   }
   return 1;
 }

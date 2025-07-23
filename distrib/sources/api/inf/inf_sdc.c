@@ -51,7 +51,7 @@ void infsdc_gettimeunit ()
       else if (strcasecmp(tok,"1pf")==0) INFSDC_CAPA_MUL = 1e-12;
       else if (strcasecmp(tok,"pf")==0) INFSDC_CAPA_MUL = 1e-12;
       else avt_errmsg(INF_API_ERRMSG, "021", AVT_ERROR, tok);
-      //avt_error("infapi", -1, AVT_ERR, "bad value '%s' for 'stbUnits'\n",tok);
+      /*avt_error("infapi", -1, AVT_ERR, "bad value '%s' for 'stbUnits'\n",tok);*/
   
       tok=strtok_r(NULL, " ", &c);
     }
@@ -126,10 +126,10 @@ chain_list *infsdc_getclocks (inffig_list * ifl, chain_list * obj_l)
         }
         else {
             for (ch = clock_defined; ch; ch = ch->NEXT)
-                if (mbk_TestREGEX( (char *)ch->DATA, (char *)obj->DATA)) { //obj->DATA == ch->DATA) {
+                if (mbk_TestREGEX( (char *)ch->DATA, (char *)obj->DATA)) { /*obj->DATA == ch->DATA) {*/
                     cklist = addchain (cklist, (char *)ch->DATA);
                     trouve = 1;
-//                    break;
+/*                    break;*/
                 }
             if (!trouve && mbk_isregex_name((char *)obj->DATA))
                cklist = addchain (cklist, obj->DATA), trouve=1;
@@ -359,7 +359,7 @@ void infsdc_addGeneratedClock (char *name, char *source, float factor, infsdc_ed
     ref = infsdc_getclock (ifl, source);
 
     if (ref && inf_GetDouble (ifl, ref, INF_CLOCK_PERIOD, &period)) {                    /* si l'horloge de reference est connue */
-//        inf_GetDouble (ifl, ref, INF_CLOCK_PERIOD, &period);
+/*        inf_GetDouble (ifl, ref, INF_CLOCK_PERIOD, &period);*/
         inf_GetDouble (ifl, ref, INF_MIN_RISE_TIME, &up);
         inf_GetDouble (ifl, ref, INF_MIN_FALL_TIME, &down);
         fedge=0; redge=1;
@@ -541,7 +541,7 @@ void infsdc_addClockSpec (char *name, chain_list * con, double up, double dn, do
     else
       avt_errmsg(INF_API_ERRMSG, "022", AVT_WARNING, name); 
 
-    //avt_error ("sdcapi", 3, AVT_ERR, "Clock '%s' is already defined.\n", name);
+    /*avt_error ("sdcapi", 3, AVT_ERR, "Clock '%s' is already defined.\n", name);*/
 }
 
 /****************************************************************************/
@@ -562,7 +562,7 @@ void infsdc_addClockLatency (chain_list * obj_l, int mode, double delay)
 /*              inf_GetDouble (ifl, (char *)ch->DATA, INF_MIN_FALL_TIME, &val);
                 inf_AddDouble (ifl, INF_LOADED_LOCATION, (char *)ch->DATA, INF_MIN_FALL_TIME,
                                val + (delay * INFSDC_TIME_MUL), NULL);*/
-                val=0; //inf_GetDouble (ifl, (char *)ch->DATA, INF_LATENCY_FALL_MIN, &val);
+                val=0; /*inf_GetDouble (ifl, (char *)ch->DATA, INF_LATENCY_FALL_MIN, &val);*/
                 inf_AddDouble (ifl, INF_LOADED_LOCATION, (char *)ch->DATA, INF_LATENCY_FALL_MIN, val + (delay * INFSDC_TIME_MUL), NULL);
 
             }
@@ -570,7 +570,7 @@ void infsdc_addClockLatency (chain_list * obj_l, int mode, double delay)
 /*              inf_GetDouble (ifl, (char *)ch->DATA, INF_MAX_FALL_TIME, &val);
                 inf_AddDouble (ifl, INF_LOADED_LOCATION, (char *)ch->DATA, INF_MAX_FALL_TIME,
                                val + (delay * INFSDC_TIME_MUL), NULL);*/
-                val=0; //inf_GetDouble (ifl, (char *)ch->DATA, INF_LATENCY_FALL_MAX, &val);
+                val=0; /*inf_GetDouble (ifl, (char *)ch->DATA, INF_LATENCY_FALL_MAX, &val);*/
                 inf_AddDouble (ifl, INF_LOADED_LOCATION, (char *)ch->DATA, INF_LATENCY_FALL_MAX, val + (delay * INFSDC_TIME_MUL), NULL);
             }
         }
@@ -579,14 +579,14 @@ void infsdc_addClockLatency (chain_list * obj_l, int mode, double delay)
 /*              inf_GetDouble (ifl, (char *)ch->DATA, INF_MIN_RISE_TIME, &val);
                 inf_AddDouble (ifl, INF_LOADED_LOCATION, (char *)ch->DATA, INF_MIN_RISE_TIME,
                                val + (delay * INFSDC_TIME_MUL), NULL);*/
-                val=0; //inf_GetDouble (ifl, (char *)ch->DATA, INF_LATENCY_RISE_MIN, &val);
+                val=0; /*inf_GetDouble (ifl, (char *)ch->DATA, INF_LATENCY_RISE_MIN, &val);*/
                 inf_AddDouble (ifl, INF_LOADED_LOCATION, (char *)ch->DATA, INF_LATENCY_RISE_MIN, val + (delay * INFSDC_TIME_MUL), NULL);
             }
             if ((mode & INFSDC_MAX) == INFSDC_MAX) {
 /*                inf_GetDouble (ifl, (char *)ch->DATA, INF_MAX_RISE_TIME, &val);
                 inf_AddDouble (ifl, INF_LOADED_LOCATION, (char *)ch->DATA, INF_MAX_RISE_TIME,
                                val + (delay * INFSDC_TIME_MUL), NULL);*/
-                val=0; //inf_GetDouble (ifl, (char *)ch->DATA, INF_LATENCY_RISE_MAX, &val);
+                val=0; /*inf_GetDouble (ifl, (char *)ch->DATA, INF_LATENCY_RISE_MAX, &val);*/
                 inf_AddDouble (ifl, INF_LOADED_LOCATION, (char *)ch->DATA, INF_LATENCY_RISE_MAX, val + (delay * INFSDC_TIME_MUL), NULL);
             }
         }
@@ -667,7 +667,7 @@ static void infsdc_addstab (inffig_list * ifl, char *name, misc_type * mscdata, 
                         s->NEXT = stab;
                     }
                 }
-                else {            // stability differente et une seule stab memorisee 
+                else {            /* stability differente et une seule stab memorisee */
                     s->NEXT = stab;
                 }
                 ispst->STABILITY = NULL;
@@ -1010,13 +1010,13 @@ static void infsdc_addClockGroups (char *name, chain_list * grp)
     }
 }
 
-// ===========================================================================
-// SDC Functions
-// ===========================================================================
+/* ===========================================================================*/
+/* SDC Functions*/
+/* ===========================================================================*/
 
-// ---------------------------------------------------------------------------
-// set_load
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* set_load*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_set_load (char **argv)
 {
@@ -1058,9 +1058,9 @@ void infsdc_set_load (char **argv)
     ifl->changed|=INF_CHANGED_RECOMP;
 }
 
-// ---------------------------------------------------------------------------
-// set_input_transition
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* set_input_transition*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_set_input_transition (char **argv)
 {
@@ -1117,9 +1117,9 @@ void infsdc_set_input_transition (char **argv)
     ifl->changed|=INF_CHANGED_RECOMP;
 }
 
-// ---------------------------------------------------------------------------
-// create_clock
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* create_clock*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_create_clock (char **argv)
 {
@@ -1154,9 +1154,9 @@ void infsdc_create_clock (char **argv)
     infsdc_addClockSpec (name, con, up, dn, period, 0, NULL, 0, 0);
 }
 
-// ---------------------------------------------------------------------------
-// create_generated_clock
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* create_generated_clock*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_create_generated_clock (char **argv)
 {
@@ -1200,9 +1200,9 @@ void infsdc_create_generated_clock (char **argv)
     freechain(shifts);
 }
 
-// ---------------------------------------------------------------------------
-// set_clock_latency
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* set_clock_latency*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_set_clock_latency (char **argv)
 {
@@ -1250,9 +1250,9 @@ void infsdc_set_clock_latency (char **argv)
     infsdc_addClockLatency (cklist, mode, delay);
 }
 
-// ---------------------------------------------------------------------------
-// set_input_delay
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* set_input_delay*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_set_input_delay (char **argv)
 {
@@ -1307,9 +1307,9 @@ void infsdc_set_input_delay (char **argv)
     }
 }
 
-// ---------------------------------------------------------------------------
-// set_output_delay
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* set_output_delay*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_set_output_delay (char **argv)
 {
@@ -1359,9 +1359,9 @@ void infsdc_set_output_delay (char **argv)
     }
 }
 
-// ---------------------------------------------------------------------------
-// set_case_analysis
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* set_case_analysis*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_set_case_analysis (char **argv)
 {
@@ -1394,9 +1394,9 @@ void infsdc_set_case_analysis (char **argv)
     freechain(con);
 }
 
-// ---------------------------------------------------------------------------
-// set_false_path
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* set_false_path*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_set_false_path (char **argv)
 {
@@ -1439,9 +1439,9 @@ void infsdc_set_false_path (char **argv)
     freechain(through);
 }
 
-// ---------------------------------------------------------------------------
-// set_disable_timing
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* set_disable_timing*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_set_disable_timing (char **argv)
 {
@@ -1458,9 +1458,9 @@ void infsdc_set_disable_timing (char **argv)
     infsdc_addBypass (con, INF_ALL, 0);
 }
 
-// ---------------------------------------------------------------------------
-// set_multicycle_path
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------*/
+/* set_multicycle_path*/
+/* ---------------------------------------------------------------------------*/
 
 void infsdc_set_multicycle_path (char **argv)
 {
@@ -1535,7 +1535,7 @@ void infsdc_not_supported (char *command)
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
-// OBSOLETE
+/* OBSOLETE*/
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
@@ -1558,13 +1558,13 @@ void inf_DefineStability (chain_list * cl)
 
     if (CURRENT_DATA.nom == NULL) {
         avt_errmsg(INF_API_ERRMSG, "023", AVT_ERROR); 
-//        avt_error ("infapi", 6, AVT_ERR, "inf_DefineStability command ignored\n");
+/*        avt_error ("infapi", 6, AVT_ERR, "inf_DefineStability command ignored\n");*/
         return;
     }
 
     if (cl == NULL) {
         avt_errmsg(INF_API_ERRMSG, "024", AVT_ERROR); 
-//        avt_error ("infapi", 5, AVT_ERR, "missing parameter\n");
+/*        avt_error ("infapi", 5, AVT_ERR, "missing parameter\n");*/
         return;
     }
 
@@ -1574,14 +1574,14 @@ void inf_DefineStability (chain_list * cl)
         stabtype = INF_STB_UNSTABLE;
     else {
         avt_errmsg(INF_API_ERRMSG, "025", AVT_ERROR, (char *)cl->DATA); 
-//        avt_error ("infapi", 5, AVT_ERR, "invalid parameter '%s'\n", (char *)cl->DATA);
+/*        avt_error ("infapi", 5, AVT_ERR, "invalid parameter '%s'\n", (char *)cl->DATA);*/
         return;
     }
 
     cl = cl->NEXT;
     if (cl == NULL) {
         avt_errmsg(INF_API_ERRMSG, "024", AVT_ERROR); 
-//        avt_error ("infapi", 5, AVT_ERR, "missing parameter\n");
+/*        avt_error ("infapi", 5, AVT_ERR, "missing parameter\n");*/
         return;
     }
 
@@ -1611,7 +1611,7 @@ void inf_DefineStability (chain_list * cl)
             cl = cl->NEXT;
             if (cl == NULL) {
                 avt_errmsg(INF_API_ERRMSG, "024", AVT_ERROR); 
-//                avt_error ("infapi", 5, AVT_ERR, "missing parameter\n");
+/*                avt_error ("infapi", 5, AVT_ERR, "missing parameter\n");*/
                 return;
             }
 
@@ -1620,7 +1620,7 @@ void inf_DefineStability (chain_list * cl)
             cl = cl->NEXT;
             if (cl == NULL) {
                 avt_errmsg(INF_API_ERRMSG, "024", AVT_ERROR); 
-//                avt_error ("infapi", 5, AVT_ERR, "missing parameter\n");
+/*                avt_error ("infapi", 5, AVT_ERR, "missing parameter\n");*/
                 return;
             }
 
@@ -1630,7 +1630,7 @@ void inf_DefineStability (chain_list * cl)
                 edge = INF_STB_FALLING;
             else {
                 avt_errmsg(INF_API_ERRMSG, "025", AVT_ERROR, (char *)cl->DATA); 
-//                avt_error ("infapi", 5, AVT_ERR, "invalid parameter '%s'\n", (char *)cl->DATA);
+/*                avt_error ("infapi", 5, AVT_ERR, "invalid parameter '%s'\n", (char *)cl->DATA);*/
                 return;
             }
         }
@@ -1638,7 +1638,7 @@ void inf_DefineStability (chain_list * cl)
         cl = cl->NEXT;
         if (cl != NULL) {
             avt_errmsg(INF_API_ERRMSG, "008", AVT_ERROR, (char *)cl->DATA); 
-//            avt_error ("infapi", 5, AVT_WAR, "too many parameters starting at '%s'\n", (char *)cl->DATA);
+/*            avt_error ("infapi", 5, AVT_WAR, "too many parameters starting at '%s'\n", (char *)cl->DATA);*/
         }
     }
 

@@ -8,7 +8,7 @@
 /*    (c) copyright 2002 AVERTEC                                            */
 /*    Tous droits reserves                                                  */
 /*                                                                          */
-/*    Auteur(s) : //Stephane Picault                                        */
+/*    Auteur(s) : /*Stephane Picault                                        */
 /*                  Antony PINTO                                            */
 /*                                                                          */
 /****************************************************************************/
@@ -43,9 +43,9 @@ char        *name;
   }
   else if (zenfig)
     ;
-//  {
-//    if (ZenFig!=zenfig) ZEN_WARNING(0,"attention nouvelle zenfig");
-//  }
+/*  {*/
+/*    if (ZenFig!=zenfig) ZEN_WARNING(0,"attention nouvelle zenfig");*/
+/*  }*/
   else zenfig = ZenFig;
 
   if (!ZEN_HTNOD) ZEN_HTNOD = addht(ZEN_HTSIZE);
@@ -70,7 +70,7 @@ chain_list  *abl;
 
   cct = (abl)?initializeCct(name,1,1) :NULL;
   bdd = (abl)?zen_ablToBddCct(cct,abl):NULL;
-//  if (bdd) addOutputCct(cct,name,bdd);
+/*  if (bdd) addOutputCct(cct,name,bdd);*/
 
   if (!ZEN_HTNOD) ZEN_HTNOD = addht(ZEN_HTSIZE);
 

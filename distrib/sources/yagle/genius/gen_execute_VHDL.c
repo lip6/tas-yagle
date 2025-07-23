@@ -42,7 +42,7 @@ static inline int __Eval_Exp_VHDL(tree_list *tree, ptype_list *env)
   int ope,ope2;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 6);
-//    fprintf(stderr,"__Eval_Exp_VHDL: NULL pointer\n");
+/*    fprintf(stderr,"__Eval_Exp_VHDL: NULL pointer\n");*/
     EXIT(1);
   }
 
@@ -64,7 +64,7 @@ static inline int __Eval_Exp_VHDL(tree_list *tree, ptype_list *env)
     if (ope==UNDEF || ope2==UNDEF)
       return UNDEF;
     return ope - ope2;
-//      return __Eval_Exp_VHDL(tree->NEXT,env)-__Eval_Exp_VHDL(tree->NEXT->NEXT,env);
+/*      return __Eval_Exp_VHDL(tree->NEXT,env)-__Eval_Exp_VHDL(tree->NEXT->NEXT,env);*/
       break;
   case '*': 
     ope=__Eval_Exp_VHDL(tree->NEXT,env);
@@ -72,28 +72,28 @@ static inline int __Eval_Exp_VHDL(tree_list *tree, ptype_list *env)
     if (ope==UNDEF || ope2==UNDEF)
       return UNDEF;
     return ope * ope2;
-    //      return __Eval_Exp_VHDL(tree->NEXT,env)*__Eval_Exp_VHDL(tree->NEXT->NEXT,env);
+    /*      return __Eval_Exp_VHDL(tree->NEXT,env)*__Eval_Exp_VHDL(tree->NEXT->NEXT,env);*/
       break;
   case '/':
       ope2=__Eval_Exp_VHDL(tree->NEXT->NEXT,env);
       if (ope2==0) {
          /*here LINE represents where the 2nd operand ends*/
          avt_errmsg(GNS_ERRMSG, "026", AVT_FATAL, FILE_NAME(tree),LINE(tree));
-//         fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));
+/*         fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));*/
          EXIT(1);        
       }
       ope=__Eval_Exp_VHDL(tree->NEXT,env);
       if (ope==UNDEF || ope2==UNDEF)
 	return UNDEF;
       return ope / ope2;
-//      return __Eval_Exp_VHDL(tree->NEXT,env)/ope;
+/*      return __Eval_Exp_VHDL(tree->NEXT,env)/ope;*/
       break;
   case '%':
       ope=__Eval_Exp_VHDL(tree->NEXT->NEXT,env);
       if (ope==0) {
          /*here LINE represents where the 2nd operand ends*/
          avt_errmsg(GNS_ERRMSG, "026", AVT_FATAL, FILE_NAME(tree),LINE(tree));
-         //fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));
+         /*fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));*/
          EXIT(1);        
       }
       ope2=__Eval_Exp_VHDL(tree->NEXT,env);
@@ -106,7 +106,7 @@ static inline int __Eval_Exp_VHDL(tree_list *tree, ptype_list *env)
       if (ope==0) {
          /*here LINE represents where the 2nd operand ends*/
          avt_errmsg(GNS_ERRMSG, "026", AVT_FATAL, FILE_NAME(tree),LINE(tree));
-         //fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));
+         /*fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));*/
          EXIT(1);
       }
       ope2=__Eval_Exp_VHDL(tree->NEXT,env);
@@ -182,7 +182,7 @@ extern int Eval_Bool_VHDL(tree,env)
 {  
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 7);
-//    fprintf(stderr,"Eval_Bool_VHDL: NULL pointer\n");
+/*    fprintf(stderr,"Eval_Bool_VHDL: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -244,7 +244,7 @@ extern void Solve_Equ_VHDL(tree,result,env)
   int res1=0,res2=0;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 8);
-//    fprintf(stderr,"Solve_Equ_VHDL: NULL pointer\n");
+/*    fprintf(stderr,"Solve_Equ_VHDL: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -263,7 +263,7 @@ extern void Solve_Equ_VHDL(tree,result,env)
   case '%':  case GEN_TOKEN_MOD:  case GEN_TOKEN_POW:
       /* with parser verification we shouldn't have this case */
       avt_errmsg(GNS_ERRMSG, "027", AVT_FATAL);
-//      fprintf(stderr,"Solve_Equ_VHDL: forbidden operators 'mod', 'rem', '**'\n");
+/*      fprintf(stderr,"Solve_Equ_VHDL: forbidden operators 'mod', 'rem', '**'\n");*/
       EXIT(1);
       break;
   /*nodes..*/
@@ -302,7 +302,7 @@ extern void Solve_Equ_VHDL(tree,result,env)
          }   
       } 
       avt_errmsg(GNS_ERRMSG, "028", AVT_FATAL, name);
-//      fprintf(stderr,"Solve_Equ_VHDL: %s not found\n",name);
+/*      fprintf(stderr,"Solve_Equ_VHDL: %s not found\n",name);*/
       EXIT(1);}    
       break;
   default:
@@ -321,7 +321,7 @@ extern char* Getname_Exp_VHDL(tree)
   char* var;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 9);
-//    fprintf(stderr,"Getname_Exp_VHDL: NULL pointer\n");
+/*    fprintf(stderr,"Getname_Exp_VHDL: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -349,14 +349,14 @@ extern char* Getname_Exp_VHDL(tree)
   }
 }
 
-// zinaps
+/* zinaps*/
 extern chain_list *GetnameS_Exp_VHDL(tree)
    tree_list *tree;
 {  
   chain_list * var, *var1;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 10);
-//    fprintf(stderr,"Getname_Exp_VHDL: NULL pointer\n");
+/*    fprintf(stderr,"Getname_Exp_VHDL: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -406,7 +406,7 @@ int __Count_Vars_Exp_VHDL(tree_list *tree)
 {  
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 11);
-    //fprintf(stderr,"__Count_Vars_Exp_VHDL: NULL pointer\n");
+    /*fprintf(stderr,"__Count_Vars_Exp_VHDL: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {
@@ -442,7 +442,7 @@ extern int getsize(tree,env)
   int res1,res2;
   if (!tree) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 12);
-//    fprintf(stderr,"getsize: NULL pointer\n");
+/*    fprintf(stderr,"getsize: NULL pointer\n");*/
     EXIT(1);
   }
   switch (TOKEN(tree)) {

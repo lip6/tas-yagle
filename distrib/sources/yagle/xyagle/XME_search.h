@@ -43,6 +43,6 @@
 |                                                             |
 \------------------------------------------------------------*/
 
-  extern void XyagEditSearchObject();
+extern void XyagEditSearchObject( char *ObjectName );
 
 # endif 

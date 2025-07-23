@@ -7,9 +7,9 @@
 #include CGV_H
 #include XSB_H
 #include XTB_H
+#include XYA_H
 #include XMX_H
 #include XMS_H
-#include XYA_H
 
 #include "XMX_motif.h"
 #include "XMX_graphic.h"

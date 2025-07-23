@@ -54,7 +54,7 @@ typedef struct xtas_tas_param
    char slope[32];
    char use_swc;
    char swc[32];
-//   char nm;
+/*   char nm;*/
    char y;
    char q;
    char mg;

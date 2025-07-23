@@ -14,44 +14,44 @@
 
 #include "beg_gen.h"
 
-// #define BEG_ERR_SING_N_VECT   "001"
-// #define BEG_ERR_BETYPE        "002"
-// #define BEG_ERR_OUT_AS_IN     "003"
-// #define BEG_ERR_NULCND        "004"
-// #define BEG_ERR_CONFLICT_VECT "005"
-// #define BEG_ERR_SIZE          "006"
-// #define BEG_ERR_PARSER        "007"
-// #define BEG_ERR_POR           "008"
-// #define BEG_ERR_BIBUS         "009"
-// #define BEG_ERR_WAY           "010"
-// #define BEG_ERR_SELECT        "011"
-// #define BEG_ERR_EXISTSIG      "012"
-// #define BEG_ERR_UNKNOWN       "016"
-// 
-// #define BEG_WAR_UNDEF_SIG     "013"
-// #define BEG_WAR_INOUTSIG      "014"
-// #define BEG_WAR_WAYENV        "015"
-// #define BEG_WAR_UNKNOWN       "016"
+/* #define BEG_ERR_SING_N_VECT   "001"*/
+/* #define BEG_ERR_BETYPE        "002"*/
+/* #define BEG_ERR_OUT_AS_IN     "003"*/
+/* #define BEG_ERR_NULCND        "004"*/
+/* #define BEG_ERR_CONFLICT_VECT "005"*/
+/* #define BEG_ERR_SIZE          "006"*/
+/* #define BEG_ERR_PARSER        "007"*/
+/* #define BEG_ERR_POR           "008"*/
+/* #define BEG_ERR_BIBUS         "009"*/
+/* #define BEG_ERR_WAY           "010"*/
+/* #define BEG_ERR_SELECT        "011"*/
+/* #define BEG_ERR_EXISTSIG      "012"*/
+/* #define BEG_ERR_UNKNOWN       "016"*/
+/* */
+/* #define BEG_WAR_UNDEF_SIG     "013"*/
+/* #define BEG_WAR_INOUTSIG      "014"*/
+/* #define BEG_WAR_WAYENV        "015"*/
+/* #define BEG_WAR_UNKNOWN       "016"*/
     
-// error and warning
-//long BEG_ERR_SING_N_VECT     ;
-//long BEG_ERR_BETYPE          ;
-//long BEG_ERR_OUT_AS_IN       ;
-//long BEG_ERR_NULCND          ;
-//long BEG_ERR_CONFLICT_VECT   ;
-//long BEG_ERR_SIZE            ;
-//long BEG_ERR_PARSER          ;
-//long BEG_ERR_POR             ;
-//long BEG_ERR_BIBUS           ;
-//long BEG_ERR_WAY             ;
-//long BEG_ERR_SELECT          ;
-//long BEG_ERR_EXISTSIG        ;
-//long BEG_ERR_UNKNOWN         ;
-//
-//long BEG_WAR_UNDEF_SIG       ;
-//long BEG_WAR_INOUTSIG        ;
-//long BEG_WAR_WAYENV          ;
-//long BEG_WAR_UNKNOWN         ;
+/* error and warning*/
+/*long BEG_ERR_SING_N_VECT     ;*/
+/*long BEG_ERR_BETYPE          ;*/
+/*long BEG_ERR_OUT_AS_IN       ;*/
+/*long BEG_ERR_NULCND          ;*/
+/*long BEG_ERR_CONFLICT_VECT   ;*/
+/*long BEG_ERR_SIZE            ;*/
+/*long BEG_ERR_PARSER          ;*/
+/*long BEG_ERR_POR             ;*/
+/*long BEG_ERR_BIBUS           ;*/
+/*long BEG_ERR_WAY             ;*/
+/*long BEG_ERR_SELECT          ;*/
+/*long BEG_ERR_EXISTSIG        ;*/
+/*long BEG_ERR_UNKNOWN         ;*/
+/**/
+/*long BEG_WAR_UNDEF_SIG       ;*/
+/*long BEG_WAR_INOUTSIG        ;*/
+/*long BEG_WAR_WAYENV          ;*/
+/*long BEG_WAR_UNKNOWN         ;*/
     
 /* environment variables    */
 static int               BEG_ALLOW_SELECT;
@@ -78,7 +78,7 @@ static int               BEG_COMPACT    = 0;
 
 
 static int               BEG_RIN_TREAT  = 0;
-//static int               BEG_DONT_TOUCH = 0;
+/*static int               BEG_DONT_TOUCH = 0;*/
 static int               BEG_BLOCK_INV  = 0;
 static int               BEG_PHASE_1;
 static int               BEG_PHASE_2;
@@ -114,7 +114,7 @@ static BEG_OBJ           beg_isPor                      (char *name);
 static BEG_OBJ           beg_isInternalSig              (char *name);
 static void              beg_newPor                     (char *name, BEG_OBJ obj);
 static void              beg_newSig                     (char *name, BEG_OBJ obj);
-//static chain_list       *beg_isAllDeclared              (chain_list *expr,char *var1,char *var2);
+/*static chain_list       *beg_isAllDeclared              (chain_list *expr,char *var1,char *var2);*/
 static void              beg_addBiablToVectBiabl        (BEG_OBJ obj, int left, int right, biabl_list *biabl);
 static void              beg_adjustDomain               (BEG_OBJ obj, int left, int right);
 static int               beg_chkCovering                (vectbiabl_list *vbiabl, int left, int right);
@@ -133,7 +133,7 @@ static void              beg_addBerin                   (berin_list *berin,BEG_O
 static void              beg_addUniqChain               (chain_list **head,void *data);
 static void              beg_chk_befig                  (void);
 static char             *beg_get_loopvar                (char *signame, char **name, char mode);
-//static char             *beg_guessRange                 (char *name,char **opname,int *left,int *right,char *var1,char *var2,char mode);
+/*static char             *beg_guessRange                 (char *name,char **opname,int *left,int *right,char *var1,char *var2,char mode);*/
 static int               beg_getMin                     (int nb, ... );
 static int               beg_getMax                     (int nb, ... );
 static void              beg_invertBound                (BEG_OBJ obj);
@@ -159,8 +159,8 @@ static void              beg_eatBiabl                   (BEG_OBJ (*func)(char*,b
 static void              beg_eatVectBiabl               (BEG_OBJ (*func)(char*,biabl_list*,char,long,long),char *name,vectbiabl_list *vbiabl,long flags);
 static BEG_OBJ           beg_defSig                     (char *name,chain_list *abl,unsigned int time,int,int,long);
 static BEG_OBJ           beg_defBus                     (char *name,biabl_list *biabl,char type, long flags, long biflags);
-//static vectbiabl_list   *beg_sortVectBiablGetSortedTable(vectbiabl_list **vbtable);
-//static vectbiabl_list  **beg_sortVectBiablDoTable       (vectbiabl_list *vbiabl, int cpt, int *way, int *nb);
+/*static vectbiabl_list   *beg_sortVectBiablGetSortedTable(vectbiabl_list **vbtable);*/
+/*static vectbiabl_list  **beg_sortVectBiablDoTable       (vectbiabl_list *vbiabl, int cpt, int *way, int *nb);*/
 static int               beg_sortVectBiablCompare       (const void *vb1, const void *vb2);
 static vectbiabl_list   *beg_sortVectBiabl              (vectbiabl_list *vbiabl);
 static int               beg_way                        (int left,int right);
@@ -187,7 +187,7 @@ static void              beg_performVReg                (bevectreg_list *vreg, v
 static void              beg_performVBux                (bevectbux_list *vbux, vectbiabl_list *(*func)(vectbiabl_list*));
 static void              beg_performVBus                (bevectbus_list *vbus, vectbiabl_list *(*func)(vectbiabl_list*));
 static void              beg_perform                    (vectbiabl_list *(*func)(vectbiabl_list*));
-//static void              beg_getRangeFLoop              (char **opname,int *left,int *right,char *expr, char *var1,char *var2);
+/*static void              beg_getRangeFLoop              (char **opname,int *left,int *right,char *expr, char *var1,char *var2);*/
 static vectbiabl_list   *beg_detectLoopI                (vectbiabl_list *vbiabl);
 static biabl_list       *beg_detectLoopII               (biabl_list *biabl);
 static void              beg_addGuessedRange            (char *opname, int left);
@@ -205,18 +205,18 @@ static vectbiabl_list   *beg_detectLoopI                (vectbiabl_list *vbiabl)
 
 static chain_list       *beg_getAbl                     (BEG_OBJ obj);
 static char             *beg_doLoopVar                  (loop_list *loop);
-//static void              beg_verifyVectPor            (befig_list *befig);
-//static chain_list       *beg_genAblFBitStr            (char *bitstr);
-//static int               beg_canInsertAbl             (int ol,int or,int l,int r,chain_list *abl);
-//static void              beg_eatFigure                (befig_list *eater,befig_list *eaten);
-//static beaux_list       *beg_convertOutToAux          (beaux_list *next,beout_list *out);
-//static bevectaux_list   *beg_convertVectOutToAux      (bevectaux_list *next,bevectout_list *vout);
-//static bebux_list       *beg_convertBusToBux          (bebux_list *next,bebus_list *bus);
-//static bevectbux_list   *beg_convertVectBusToBux      (bevectbux_list *next,bevectbus_list *vbus);
+/*static void              beg_verifyVectPor            (befig_list *befig);*/
+/*static chain_list       *beg_genAblFBitStr            (char *bitstr);*/
+/*static int               beg_canInsertAbl             (int ol,int or,int l,int r,chain_list *abl);*/
+/*static void              beg_eatFigure                (befig_list *eater,befig_list *eaten);*/
+/*static beaux_list       *beg_convertOutToAux          (beaux_list *next,beout_list *out);*/
+/*static bevectaux_list   *beg_convertVectOutToAux      (bevectaux_list *next,bevectout_list *vout);*/
+/*static bebux_list       *beg_convertBusToBux          (bebux_list *next,bebus_list *bus);*/
+/*static bevectbux_list   *beg_convertVectBusToBux      (bevectbux_list *next,bevectbus_list *vbus);*/
 
-//static vectbiabl_list   *beg_holeDetection            (vectbiabl_list *vbiabl);
+/*static vectbiabl_list   *beg_holeDetection            (vectbiabl_list *vbiabl);*/
 static void              beg_specialFreVBiabl         (vectbiabl_list *head, vectbiabl_list *last);
-//static void              beg_newAbl                   (BEG_OBJ obj, chain_list *abl);
+/*static void              beg_newAbl                   (BEG_OBJ obj, chain_list *abl);*/
 static void              beg_calcRange(eqt_ctx *ctx, char *expr, loop_list *loop, long *left, long *right);
 static chain_list       *beg_IsAllDeclared(chain_list *expr,loop_list *loop);
 
@@ -1710,7 +1710,7 @@ static vectbiabl_list **beg_sortVectBiablDoTable(vectbiabl_list *vbiabl,
 /****************************************************************************/
 static int beg_sortVectBiablCompare(const void *vb1,const void *vb2)
 {
-//  int              res;
+/*  int              res;*/
   vectbiabl_list  *vbiabl1 = *(vectbiabl_list **)vb1;
   vectbiabl_list  *vbiabl2 = *(vectbiabl_list **)vb2;
 
@@ -1755,12 +1755,12 @@ static vectbiabl_list *beg_sortVectBiablGetSortedTable(vectbiabl_list **vbtable,
 static vectbiabl_list *beg_sortVectBiabl(vectbiabl_list *vbiabl)
 {
   vectbiabl_list   **vbtable     = NULL;
-  //int                 way        = 1;
-  //int                 eltsize;
+  /*int                 way        = 1;*/
+  /*int                 eltsize;*/
   int                 nbelt;
 
   vbtable   = beg_sortVectBiablDoTable(vbiabl,0,&nbelt);
-  //  eltsize   = sizeof(vectbiabl_list*);
+  /*  eltsize   = sizeof(vectbiabl_list*);*/
   qsort(vbtable,nbelt,sizeof(vectbiabl_list*),beg_sortVectBiablCompare);
   vbiabl    = beg_sortVectBiablGetSortedTable(vbtable,nbelt);
 
@@ -1966,7 +1966,7 @@ void beg_def_befig(char *name)
     BEG_COMPRESS_MAX    = 1;
     BEG_TRACE           = (int)(long)getenv("BEG_TRACE");
     
-    BEG_USER_WAY        = 0; // <= downto
+    BEG_USER_WAY        = 0; /* <= downto*/
     if ((way=V_STR_TAB[__BEG_USER_WAY].VALUE)!=NULL)
     {
       if (!strcasecmp(way,"to"))
@@ -2053,7 +2053,7 @@ beg_updateConsDir(befig_list *befig)
   }
   else
   {
-    // hash table contains yagle pins
+    /* hash table contains yagle pins*/
     if (!conht || !convht)
     {
       conht     = addht(50);
@@ -2143,7 +2143,7 @@ biabl_list *beg_def_mux(char *name, char *cndexpr, char *bitstr, char *valexpr,
     }
   }
 
-  // it's an external bus (case bebus)
+  /* it's an external bus (case bebus)*/
   if ((sig = beg_isPor(opname)))
   {
     beg_chkWay(sig,left,right);
@@ -2155,7 +2155,7 @@ biabl_list *beg_def_mux(char *name, char *cndexpr, char *bitstr, char *valexpr,
       mbkfree(signame);
     }
   }
-  else // (case bebux)
+  else /* (case bebux)*/
     obj       = beg_def_bebux(name,biabl,0,flags,biflags);
 
   beg_addBerins(berins,obj);
@@ -2187,7 +2187,7 @@ biabl_list *beg_def_process(char *name,char *cndexpr,char *valexpr,int time, int
     berinx       = beg_IsAllDeclared(cnd,NULL);
   }
 
-  // biabl construction
+  /* biabl construction*/
   biabl          = beh_addbiabl(NULL,NULL,cnd,val);
   biabl->TIME    = time;
   biabl->TIMER   = timer;
@@ -2273,7 +2273,7 @@ biabl_list * beg_def_biloop(char *name,char *cndexpr,char *valexpr,char *var1,
        !cndexpr)
     beg_error(BEG_ERR_NULCND,NULL);
 
-  // biabl construction
+  /* biabl construction*/
   biabl = beh_addbiabl(NULL,NULL,cnd,val);
   biabl->TIME = time;
   beg_addbiloop(biabl,index,var1,var2);
@@ -2313,12 +2313,12 @@ void beg_assertion(char *expr, char *msg, char level, char *label)
 /****************************************************************************/
 befig_list *beg_get_befigByName(char *name)
 {
-//  befig_list    *ptbefig;
-//
-//  for (ptbefig = BEG_HEAD_BEFIG; ptbefig; ptbefig = ptbefig->NEXT)
-//    if (ptbefig->NAME == name)
-//      break;
-//  return ptbefig;
+/*  befig_list    *ptbefig;*/
+/**/
+/*  for (ptbefig = BEG_HEAD_BEFIG; ptbefig; ptbefig = ptbefig->NEXT)*/
+/*    if (ptbefig->NAME == name)*/
+/*      break;*/
+/*  return ptbefig;*/
   beg_obj_list  *obj;
 
   return ((obj = beg_getEnvByFigName(name))) ? obj->FIG : NULL;
@@ -2804,8 +2804,8 @@ static BEG_OBJ beg_def_bereg(char *name,
   bevectreg_list    *vectreg    = NULL;
   bereg_list        *ptreg      = NULL;
 
-  // type is declared to get compatibility with the other functions
-  // there is no use to type
+  /* type is declared to get compatibility with the other functions*/
+  /* there is no use to type*/
   type      = '®';
   
   
@@ -2814,7 +2814,7 @@ static BEG_OBJ beg_def_bereg(char *name,
     if (abs(left-right)+1 != verifyVectAbl(biabl->VALABL))
       beg_error(BEG_ERR_SIZE,name);
 
-  if ((reg = beg_isInternalSig(shortname)))//||(reg = beg_isPor(shortname)))
+  if ((reg = beg_isInternalSig(shortname)))/*||(reg = beg_isPor(shortname)))*/
   {
     switch (BEG_OBJ_TYPE(reg)&BEG_MASK_TYPE)
     {
@@ -2875,7 +2875,7 @@ static BEG_OBJ beg_defSig(char *name,chain_list *abl,unsigned int time,int timer
   char              *signame;
 
   beg_get_vectname(name,&opname,&left,&right,BEG_SEARCH_NAME);
-  // it's an external signal (case beout)
+  /* it's an external signal (case beout)*/
   if ((sig = beg_isPor(opname)))
   {
     beg_chkWay(sig,left,right);
@@ -2889,7 +2889,7 @@ static BEG_OBJ beg_defSig(char *name,chain_list *abl,unsigned int time,int timer
         mbkfree(signame);
       }
   }
-  // (case beaux)
+  /* (case beaux)*/
   else
     obj = beg_def_beaux(name,abl,time,timer,timef,flags);
   return obj;
@@ -3058,7 +3058,7 @@ static int beg_addBiablToBiablListInt(biabl_list *list,biabl_list *biabl)
 static void beg_adjustDomain(BEG_OBJ obj,int left,int right)
 {
   if ((BEG_OBJ_TYPE(obj) & BEG_MASK_SING) || left == -2 || right == -2)
-    return; // nothing to do
+    return; /* nothing to do*/
   else if (right == -1 || left == -1)
     beg_error(BEG_ERR_SING_N_VECT,beg_getName(obj));
   else if (beg_getLeft(obj) == beg_getRight(obj))
@@ -3135,12 +3135,12 @@ static void beg_resolveExistingSig(int *oldleft,
     beg_invertIntArg(&left,&right);
   }
 
-  if (beg_wayStrict(*oldleft,*oldright)) // downto
+  if (beg_wayStrict(*oldleft,*oldright)) /* downto*/
   {
-    // l > r,ol > or
+    /* l > r,ol > or*/
     if ( beg_way((diff = right-*oldleft-1),0))
       goto solLeft;
-    // ol > or,l > r
+    /* ol > or,l > r*/
     else if ( beg_way((diff = *oldright-1-left), 0))
       goto solRight;
     else if ( beg_wayStrict(left,*oldleft) || beg_wayStrict(*oldright,right))
@@ -3148,12 +3148,12 @@ static void beg_resolveExistingSig(int *oldleft,
     else
       goto solIn;
   }
-  else // to
+  else /* to*/
   {
-    // l < r,ol < or
+    /* l < r,ol < or*/
     if ( beg_way((diff = *oldleft-1-right),0))
       goto solLeft;
-    // ol < or,l < r
+    /* ol < or,l < r*/
     else if ( beg_way((diff = left-*oldright-1),0))
       goto solRight;
     else if (beg_way(right,*oldright) || beg_way(*oldleft,left))
@@ -3628,7 +3628,7 @@ static void beg_treatConflictError(BEG_OBJ obj,int left,int right,
   if (BEG_PHASE_1)
   {
     ptype_list      *newobj;
-    //vectbiabl_list  *vbx, *vb;
+    /*vectbiabl_list  *vbx, *vb;*/
 
     if ((long)(newobj = (ptype_list *)gethtitem(BEG_CON_TABLE,obj)) == EMPTYHT)
     {
@@ -3852,8 +3852,8 @@ static inline void beg_addBerinsInt(char *berin,BEG_OBJ obj)
     {
       if ( gethtitem(BEG_RIN_ADJUS,name) != EMPTYHT && left != right )
         delhtitem(BEG_RIN_ADJUS,name);
-      // ne sert a rien?
-      //beg_adjustDomain(BEG_OBJ_NEW(rin,BEG_MASK_RIN),left,right);
+      /* ne sert a rien?*/
+      /*beg_adjustDomain(BEG_OBJ_NEW(rin,BEG_MASK_RIN),left,right);*/
     }
   }
   if (obj)
@@ -3951,36 +3951,36 @@ static int beg_doITreatThisRin(BEG_OBJ obj, int left, int right)
 /*}}}************************************************************************/
 /*{{{                    Special feature detection                          */
 /****************************************************************************/
-///*{{{                    beg_holeDetection()                                */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static vectbiabl_list *beg_holeDetection(vectbiabl_list *vbiabl)
-//{
-//  vectbiabl_list    *vbiablx    = vbiabl;
-//  vectbiabl_list    *res         = NULL;
-//  int                 way        = 1;
-//
-//  for (; vbiablx; vbiablx = res)
-//  {
-//    if (!(res = vbiablx->NEXT))
-//      break;
-//    else
-//      if ((way &= beg_way(vbiablx->LEFT,vbiablx->RIGHT)))
-//      {
-//        if (vbiablx->LEFT != (vbiablx->NEXT->RIGHT - 1))
-//          break;
-//      }
-//      else
-//      {
-//        if (vbiablx->RIGHT != (vbiablx->NEXT->LEFT - 1))
-//          break;
-//      }
-//  }
-//  return res;
-//}
-//
-///*}}}************************************************************************/
+/*/*{{{                    beg_holeDetection()                                */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static vectbiabl_list *beg_holeDetection(vectbiabl_list *vbiabl)*/
+/*{*/
+/*  vectbiabl_list    *vbiablx    = vbiabl;*/
+/*  vectbiabl_list    *res         = NULL;*/
+/*  int                 way        = 1;*/
+/**/
+/*  for (; vbiablx; vbiablx = res)*/
+/*  {*/
+/*    if (!(res = vbiablx->NEXT))*/
+/*      break;*/
+/*    else*/
+/*      if ((way &= beg_way(vbiablx->LEFT,vbiablx->RIGHT)))*/
+/*      {*/
+/*        if (vbiablx->LEFT != (vbiablx->NEXT->RIGHT - 1))*/
+/*          break;*/
+/*      }*/
+/*      else*/
+/*      {*/
+/*        if (vbiablx->RIGHT != (vbiablx->NEXT->LEFT - 1))*/
+/*          break;*/
+/*      }*/
+/*  }*/
+/*  return res;*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
 /*{{{                    beg_compactAbl()                                   */
 /*                                                                          */
 /* abl compactage                                                           */
@@ -4138,17 +4138,17 @@ char *beg_boolDelNot(chain_list *expr, chain_list **res)
 /****************************************************************************/
 void beg_compact()
 {
-//  BEG_DONT_TOUCH    = 0;
+/*  BEG_DONT_TOUCH    = 0;*/
   BEG_COMPACT   = 1;
   
   do
   {
-    //  beg_compactAbl(BEG_WORK_BEFIG->BEVECTAUX->ABL);
+    /*  beg_compactAbl(BEG_WORK_BEFIG->BEVECTAUX->ABL);*/
     beg_singPerform(beg_detectLoopII);
     beg_perform(beg_detectLoopI);
     beg_perform(beg_detectLoop);
   }
-  //while (BEG_COMPACT);
+  /*while (BEG_COMPACT);*/
   while (0);
 }
 
@@ -4164,8 +4164,8 @@ static vectbiabl_list *beg_detectLoopI(vectbiabl_list *vbiabl)
 
   if (vbiabl)
   {
-//    BEG_DONT_TOUCH      = vbiabl->BIABL->FLAG & BEH_CND_SELECT;
-    // loop detection on biabl
+/*    BEG_DONT_TOUCH      = vbiabl->BIABL->FLAG & BEH_CND_SELECT;*/
+    /* loop detection on biabl*/
     if ((biabl = beg_detectLoopII(vbiabl->BIABL)))
       vbiabl->BIABL     = biabl;
     else
@@ -4195,7 +4195,7 @@ static int beg_hasPrecede(biabl_list *biabl)
 /****************************************************************************/
 static biabl_list *beg_detectLoopII(biabl_list *biabl)
 {
-  // with select are strictly not compacted
+  /* with select are strictly not compacted*/
   if ( ! (biabl->FLAG&BEH_CND_SELECT) || !biabl->NEXT )
   {
     vectbiabl_list  *vbiabl;
@@ -4270,12 +4270,12 @@ void guessMinLoopDetected(beg_ld_list *ld)
           }
 
     minvb           = NULL;
-    // get the min
+    /* get the min*/
     for (vbx = vb, i = 0; vbx; vbx = vbx->NEXT, i ++)
       if (i == min)
         minvb       = vbx;
 
-    // once min found apply it to everything
+    /* once min found apply it to everything*/
     if (minvb)
       for (ldx = ld; ldx; ldx = ldx->NEXT)
       {
@@ -4325,8 +4325,8 @@ static vectbiabl_list *beg_detectLoop(vectbiabl_list *vbiabl)
       basvs         = fullSupportChain_listExpr(val);
       loopdetect    = beg_addLD(loopdetect,base,bascs,basvs,vbiabl,step,loop);
       cpt           = loopdetect->CPTINIT;
-      // first step
-      // detecting loop
+      /* first step*/
+      /* detecting loop*/
       for (vbiablx = vbiabl->NEXT; vbiablx; vbiablx = vbiablx->NEXT)
       {
         biablx      = vbiablx->BIABL;
@@ -4359,8 +4359,8 @@ static vectbiabl_list *beg_detectLoop(vectbiabl_list *vbiabl)
         cpt ++;
       }
 
-      // loop detected
-      // processing modification
+      /* loop detected*/
+      /* processing modification*/
       loopdetect->LAST      = vbiablx;
       loopdetect->REFVS     = refvs;
       loopdetect->REFCS     = refcs;
@@ -4369,7 +4369,7 @@ static vectbiabl_list *beg_detectLoop(vectbiabl_list *vbiabl)
       loopdetect->TIME      = time;
       loopdetect->LVAR      = lvar;
 
-      // detection failed cleanning structure
+      /* detection failed cleanning structure*/
       if (!onepass)
       {
         beg_cleanFreeSupport(bascs,refcs);
@@ -4418,7 +4418,7 @@ static char *beg_changeName(char *bname, char *name, char *loopvar,
     if (opname == bopname)
     {
       if (left == -2 && bleft == -2)
-      { // loop
+      { /* loop*/
         varname  = beg_get_loopvar(name  ,&opname  ,BEG_SEARCH_ALOOP);
         bvarname = beg_get_loopvar(bname ,&bopname ,BEG_SEARCH_ALOOP);
 
@@ -4430,7 +4430,7 @@ static char *beg_changeName(char *bname, char *name, char *loopvar,
 
         if (isint)
         {
-          diff   = diff/(curindex + 1);// + step);
+          diff   = diff/(curindex + 1);/* + step);*/
           sprintf(buf,"%s+%d*%s",bvarname,diff,loopvar);
           eqt    = eqt_getSimpleEquation(buf);
           sprintf(buf,"%s %s",opname,eqt);
@@ -4448,8 +4448,8 @@ static char *beg_changeName(char *bname, char *name, char *loopvar,
       else if (left == right && bleft == bright)
       {
         mul      = (left - bleft) / (curindex + 1);
-        diff     = left - (curindex + 1) * mul; // try to put step
-//        diff     = left - (curindex + step);
+        diff     = left - (curindex + 1) * mul; /* try to put step*/
+/*        diff     = left - (curindex + step);*/
         signe    = (diff > 0) ? '+' :(diff < 0) ? '-' : '\0';
         if (mul - 1)
           sprintf(buf,"%s*%d%c%d",loopvar,mul,signe,abs(diff));
@@ -4463,7 +4463,7 @@ static char *beg_changeName(char *bname, char *name, char *loopvar,
       }
       else/* if ((left - right) == (bleft - right))
       {
-        diff     = left - (curindex + 1); // try to put step
+        diff     = left - (curindex + 1); |* try to put step*|
         signe    = (diff > 0) ? '+' :(diff < 0) ? '-' : '\0';
         sprintf(buf,"%s %s%c%d:%s%c%d",bopname,loopvar,signe,abs(diff),
                 loopvar,signe,right+diff);
@@ -4511,15 +4511,15 @@ static int beg_isSameByLoopVar(biabl_list *bbiabl, biabl_list *biabl,
 {
   chain_list    *curcs;
   chain_list    *curvs;
-  chain_list    *rescs;       // res support
-  chain_list    *resvs;       // res support
+  chain_list    *rescs;       /* res support*/
+  chain_list    *resvs;       /* res support*/
   int            res        = 1;
 
   if ( bbiabl && biabl &&
        equalVarExpr(biabl->CNDABL,bbiabl->CNDABL) &&
        equalVarExpr(biabl->VALABL,bbiabl->VALABL))
   {
-    // condition
+    /* condition*/
     curcs    = fullSupportChain_listExpr(biabl->CNDABL);
     rescs    = beg_cmpSupport(bascs,curcs,lvar,cpt,step);
     if (*refcs)
@@ -4532,7 +4532,7 @@ static int beg_isSameByLoopVar(biabl_list *bbiabl, biabl_list *biabl,
     else
       res = 0;
     freechain(curcs);
-    // value
+    /* value*/
     curvs    = fullSupportChain_listExpr(biabl->VALABL);
     resvs    = beg_cmpSupport(basvs,curvs,lvar,cpt,step);
     if (*refvs)
@@ -4716,7 +4716,7 @@ static beg_ld_list *beg_addLD(beg_ld_list *next, biabl_list *base,
   res->BASCS     = bascs;
   res->BASVS     = basvs;
   res->LOOP      = loop;
-  //  res->CPTINIT  = vbase->LEFT;
+  /*  res->CPTINIT  = vbase->LEFT;*/
   res->CPTINIT   = 0;
   res->VECTORIZE = 0;
   res->STEP      = step;
@@ -4769,13 +4769,13 @@ static int beg_applyLD(beg_ld_list *ld)
     right               = ldx->VBIABL->RIGHT;
     ldx->BASE->TIME     = ldx->TIME;
     if (ldx->VECTORIZE && !ldx->LOOP)
-    { // vectorisation
+    { /* vectorisation*/
       var               = beg_mkName(lvar,ldx->CPTINIT,
                                      ldx->CPT + ldx->CPTINIT);
       beg_modifyAblVect(ldx->BASE->VALABL,ldx->REFVS,var);
     }
     else
-    { // loop
+    { /* loop*/
       if (ldx->LOOP && ldx->LOOP->INDEX)
       {
         sprintf(loopindex,"%s+%s*%d",ldx->LOOP->INDEX,
@@ -4813,7 +4813,7 @@ static int beg_applyLD(beg_ld_list *ld)
     
     ldx->VBIABL->LEFT   = left;
     ldx->VBIABL->RIGHT  = right;
-    // a little shower
+    /* a little shower*/
     beg_cleanFreeSupport(ldx->BASCS,ldx->REFCS);
     beg_cleanFreeSupport(ldx->BASVS,ldx->REFVS);
     freechain(ldx->BASCS);
@@ -5240,39 +5240,39 @@ static inline void eatRenamed(befig_list *eaten)
 /****************************************************************************/
 void beg_eat_figure(befig_list *eaten)
 {
-  // traitement des out
+  /* traitement des out*/
   beg_eatOut    (eaten->BEOUT);
   beg_eatVectOut(eaten->BEVECTOUT);
   eaten->BEOUT     = NULL;
   eaten->BEVECTOUT = NULL;
-  // traitement des aux
+  /* traitement des aux*/
   beg_eatAux    (eaten->BEAUX);
   beg_eatVectAux(eaten->BEVECTAUX);
   eaten->BEAUX     = NULL;
   eaten->BEVECTAUX = NULL;
-  // traitement des reg
+  /* traitement des reg*/
   beg_eatReg    (eaten->BEREG);
   beg_eatVectReg(eaten->BEVECTREG);
   eaten->BEREG     = NULL;
   eaten->BEVECTREG = NULL;
-  //  traitement des assertions
+  /*  traitement des assertions*/
   beg_eatMsg    (eaten->BEMSG);
   eaten->BEMSG     = NULL;
-  // traitement des bux
+  /* traitement des bux*/
   beg_eatBux    (eaten->BEBUX);
   beg_eatVectBux(eaten->BEVECTBUX);
   eaten->BEBUX     = NULL;
   eaten->BEVECTBUX = NULL;
-  // traitement des bus
+  /* traitement des bus*/
   beg_eatBus    (eaten->BEBUS);
   beg_eatVectBus(eaten->BEVECTBUS);
   eaten->BEBUS     = NULL;
   eaten->BEVECTBUS = NULL;
 
-  // traitement des rin
+  /* traitement des rin*/
   beg_eatRin    (&(eaten->BERIN));
 
-  // traitement des renamed
+  /* traitement des renamed*/
   eatRenamed    (eaten);
   
   beg_delBefig(eaten);
@@ -5287,22 +5287,22 @@ void beg_eat_figure(befig_list *eaten)
   {
   bepor_list        *por;
   bevectpor_list    *vpor;
-//  beout_list        *out;
-//  bevectout_list    *vout;
-//  beaux_list        *aux;
-//  bevectaux_list    *vaux;
-//  bereg_list        *reg;
-//  bevectreg_list    *vreg;
+/|  beout_list        *out;|/
+/|  bevectout_list    *vout;|/
+/|  beaux_list        *aux;|/
+/|  bevectaux_list    *vaux;|/
+/|  bereg_list        *reg;|/
+/|  bevectreg_list    *vreg;|/
 bebux_list        *bux;
 bevectbux_list    *vbux;
 bebus_list        *bus;
 bevectbus_list    *vbus;
-//  berin_list        *rin;
+/|  berin_list        *rin;|/
 char                *opname;
-//  BEG_OBJ             obj;
-//  void              *next;
-//biabl_list          *biabl;
-//vectbiabl_list      *vbiabl;
+/|  BEG_OBJ             obj;|/
+/|  void              *next;|/
+/|biabl_list          *biabl;|/
+/|vectbiabl_list      *vbiabl;|/
 
 if (eater != BEG_WORK_BEFIG)
 {
@@ -5345,84 +5345,84 @@ beg_restoreEnv(BEG_HEAD_OBJ);
 /*}}}************************************************************************/
 /*{{{                    Structure conversion                               */
 /****************************************************************************/
-///*{{{                    beg_convertOutToAux()                              */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static beaux_list *beg_convertOutToAux(beaux_list *next,beout_list *out)
-//{
-//  beaux_list *aux;
-//
-//  aux = beh_addbeaux(next,out->NAME,NULL,NULL);
-//  aux->ABL  = out->ABL;
-//  aux->NODE = out->NODE;
-//  aux->TIME = out->TIME;
-//
-//  out->ABL  = NULL;
-//
-//  return aux;
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    beg_convertVectOutToAux()                          */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static bevectaux_list *beg_convertVectOutToAux(bevectaux_list *next,
-//                                        bevectout_list *vout)
-//{
-//  bevectaux_list *vaux;
-//
-//  vaux = beh_addbevectaux(next,vout->NAME,0,0);
-//  vaux->ABL  = vout->ABL;
-//  vaux->LEFT = vout->LEFT;
-//  vaux->RIGHT= vout->RIGHT;
-//  vaux->TIME = vout->TIME;
-//
-//  vout->ABL  = NULL;
-//
-//  return vaux;
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    beg_convertBusToBux()                              */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static bebux_list *beg_convertBusToBux(bebux_list *next,bebus_list *bus)
-//{
-//  bebux_list *bux;
-//
-//  bux = beh_addbebux(next,bus->NAME,NULL,NULL);
-//  bux->BIABL  = bus->BIABL;
-//  bux->BINODE = bus->BINODE;
-//
-//  bus->BIABL  = NULL;
-//
-//  return bux;
-//}
-//
-///*}}}************************************************************************/
-///*{{{                    beg_convertVectBusToBux()                          */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static bevectbux_list *beg_convertVectBusToBux(bevectbux_list *next,
-//                                        bevectbus_list *vbus)
-//{
-//  bevectbux_list *vbux;
-//
-//  vbux = beh_addbevectbux(next,vbus->NAME,0,0);
-//  vbux->VECTBIABL = vbus->VECTBIABL;
-//  vbux->LEFT      = vbus->LEFT;
-//  vbux->RIGHT     = vbus->RIGHT;
-//
-//  vbus->VECTBIABL = NULL;
-//
-//  return vbux;
-//}
-//
-///*}}}************************************************************************/
+/*/*{{{                    beg_convertOutToAux()                              */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static beaux_list *beg_convertOutToAux(beaux_list *next,beout_list *out)*/
+/*{*/
+/*  beaux_list *aux;*/
+/**/
+/*  aux = beh_addbeaux(next,out->NAME,NULL,NULL);*/
+/*  aux->ABL  = out->ABL;*/
+/*  aux->NODE = out->NODE;*/
+/*  aux->TIME = out->TIME;*/
+/**/
+/*  out->ABL  = NULL;*/
+/**/
+/*  return aux;*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    beg_convertVectOutToAux()                          */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static bevectaux_list *beg_convertVectOutToAux(bevectaux_list *next,*/
+/*                                        bevectout_list *vout)*/
+/*{*/
+/*  bevectaux_list *vaux;*/
+/**/
+/*  vaux = beh_addbevectaux(next,vout->NAME,0,0);*/
+/*  vaux->ABL  = vout->ABL;*/
+/*  vaux->LEFT = vout->LEFT;*/
+/*  vaux->RIGHT= vout->RIGHT;*/
+/*  vaux->TIME = vout->TIME;*/
+/**/
+/*  vout->ABL  = NULL;*/
+/**/
+/*  return vaux;*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    beg_convertBusToBux()                              */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static bebux_list *beg_convertBusToBux(bebux_list *next,bebus_list *bus)*/
+/*{*/
+/*  bebux_list *bux;*/
+/**/
+/*  bux = beh_addbebux(next,bus->NAME,NULL,NULL);*/
+/*  bux->BIABL  = bus->BIABL;*/
+/*  bux->BINODE = bus->BINODE;*/
+/**/
+/*  bus->BIABL  = NULL;*/
+/**/
+/*  return bux;*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*{{{                    beg_convertVectBusToBux()                          */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static bevectbux_list *beg_convertVectBusToBux(bevectbux_list *next,*/
+/*                                        bevectbus_list *vbus)*/
+/*{*/
+/*  bevectbux_list *vbux;*/
+/**/
+/*  vbux = beh_addbevectbux(next,vbus->NAME,0,0);*/
+/*  vbux->VECTBIABL = vbus->VECTBIABL;*/
+/*  vbux->LEFT      = vbus->LEFT;*/
+/*  vbux->RIGHT     = vbus->RIGHT;*/
+/**/
+/*  vbus->VECTBIABL = NULL;*/
+/**/
+/*  return vbux;*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
 /*{{{                    beg_convertAuxInOut()                              */
 /*                                                                          */
 /*                                                                          */
@@ -5483,7 +5483,7 @@ void beg_testCalcRange()
     loopx->VARNAME  = namealloc(buf);
     loop            = loopx;
     
-    //printf("%s(%d,%d)\n",loop->VARNAME,loop->LEFT,loop->RIGHT);
+    /*printf("%s(%d,%d)\n",loop->VARNAME,loop->LEFT,loop->RIGHT);*/
   }
   ctx = eqt_init(2);
   beg_calcRange(ctx,namealloc("2+i+6*j+k+l*4"),loop,&left,&right);

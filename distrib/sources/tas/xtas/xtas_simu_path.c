@@ -107,7 +107,7 @@ int      display;
         XtUnmanageChild (XtNameToWidget (XtasSimuMessageWidget,"Cancel"));
         XtUnmanageChild (XtNameToWidget (XtasSimuMessageWidget,"OK"));
         XtUnmanageChild (XmMessageBoxGetChild (XtasSimuMessageWidget,XmDIALOG_SEPARATOR));
-        //XmAddTabGroup( XtasStbInProgressWidget ) ;
+        /*XmAddTabGroup( XtasStbInProgressWidget ) ;*/
         XmStringFree(text);
         
         n = 0 ;
@@ -127,7 +127,7 @@ int      display;
     else {
         if (message) {
             XtVaSetValues(XtasSimuMessageLabel, XmNlabelString, textLabel, NULL);
-//            XtVaSetValues(XtasSimuMessageWidget, XmNwidth, 300, NULL);
+/*            XtVaSetValues(XtasSimuMessageWidget, XmNwidth, 300, NULL);*/
         }
     }
     
@@ -167,7 +167,7 @@ void XtasSimuPath (tas_winfos)
     XtasDetailPathSetStruct *detail_set;
     chain_list              *head;
     ttvcritic_list          *critic;
-//    static char             *prevfigname = NULL;
+/*    static char             *prevfigname = NULL;*/
     static lofig_list       *lofig = NULL;
     static cnsfig_list      *cnsfig = NULL;
     char                    buf[512];
@@ -212,7 +212,7 @@ void XtasSimuPath (tas_winfos)
               XalDrawMessage (tas_winfos->errwidget, buf);
             return;
           }
-          // if a gns file exist, create corresponding table
+          /* if a gns file exist, create corresponding table*/
           if ( gns_exist ) {
             LoadDynamicLibraries (NULL);
             LATEST_GNS_RUN = gnsParseCorrespondanceTables(XtasMainParam->ttvfig->INFO->FIGNAME);
@@ -220,16 +220,16 @@ void XtasSimuPath (tas_winfos)
           }
         }
 
-//        prevfigname = XtasMainParam->ttvfig->INFO->FIGNAME;
+/*        prevfigname = XtasMainParam->ttvfig->INFO->FIGNAME;*/
         XTAS_SIMU_NEW_NETLIST = 'N';
 
         XtasSetLabelString( detail_set->INFO_HELP, XTAS_NULINFO );
         XtasSetLabelString( detail_set->INFO_HELP, "Simulation is running..." );
 
 
-//        XtasCleanStates();
-//        XalSetCursor( detail_set->TOP_LEVEL, WAIT );  
-//        XalForceUpdate( detail_set->TOP_LEVEL );
+/*        XtasCleanStates();*/
+/*        XalSetCursor( detail_set->TOP_LEVEL, WAIT );  */
+/*        XalForceUpdate( detail_set->TOP_LEVEL );*/
 
         tas_simu_set_progression (XtasSimuUpdateMessageWindow);
 
@@ -238,8 +238,8 @@ void XtasSimuPath (tas_winfos)
             res_simu = tas_simu_netlist(XtasMainParam->ttvfig, lofig, cnsfig, NULL, chcritic, SIM_MAX, 1, NULL, NULL, NULL, 0 , 0 );
         else
             res_simu = tas_simu_netlist(XtasMainParam->ttvfig, lofig, cnsfig, NULL, chcritic, SIM_MAX, 1, NULL, NULL, NULL, 0 , 0 );
-        // on appelle toujours avec SIM_MAX car TAS ne gere pas les bons delay min
-        // pour certain design
+        /* on appelle toujours avec SIM_MAX car TAS ne gere pas les bons delay min*/
+        /* pour certain design*/
         freechain( chcritic );
 
     }    
@@ -658,7 +658,7 @@ void    XtasSimuSelectTechnoFileCallback (widget, text_w, call_data)
     Atom            WM_DELETE_WINDOW    ;
     static Widget   file_select = NULL  ;
 
-//    XalLeaveLimitedLoop ();
+/*    XalLeaveLimitedLoop ();*/
 
 
     if (!file_select) {
@@ -1106,7 +1106,7 @@ void    XtasSimuPathCallback (widget, client_data, call_data)
         XtSetArg ( args[n], XmNmarginHeight,    5                       ); n++;
         XtSetArg ( args[n], XmNmarginWidth,     60                      ); n++;
         XtSetArg ( args[n], XmNspacing,         25                      ); n++;
-//        XtSetArg ( args[n], XmNadjustLast,      False                   ); n++;
+/*        XtSetArg ( args[n], XmNadjustLast,      False                   ); n++;*/
         row_w = XtCreateManagedWidget ("XtasRow", xmRowColumnWidgetClass, frame_form, args, n);
 
         motif_str = XmStringCreateSimple ("Eldo");
@@ -1899,7 +1899,7 @@ void    XtasSimuPathCallback (widget, client_data, call_data)
     }
 
     XtManageChild (XtasSimuParamWidget);
-//    XalLimitedLoop (XtasSimuParamWidget);
+/*    XalLimitedLoop (XtasSimuParamWidget);*/
     
 
     

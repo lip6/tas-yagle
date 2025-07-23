@@ -20,8 +20,8 @@
 #include "yag_headers.h"
 
 static long testInfoSupply __P((inffig_list *ifl, losig_list *ptsig));
-//static char *deepest_name __P((char *name));
-//static char *next_name_segment __P((char *name));
+/*static char *deepest_name __P((char *name));*/
+/*static char *next_name_segment __P((char *name));*/
 
 /****************************************************************************
 *                      function yagFindSupplies();                          *
@@ -231,7 +231,7 @@ testInfoSupply(ifl, ptsig)
     inffig_list *ifl;
     losig_list  *ptsig;
 {
-//    infcond_list *ptinf;
+/*    infcond_list *ptinf;*/
     chain_list *cl, *maincl, *ptchain;
     char       *name;
     double      val;

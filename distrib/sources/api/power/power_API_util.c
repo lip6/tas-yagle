@@ -62,7 +62,7 @@ void SwitchingPower (TimingFigure *tf)
         nrjtime = 0.0;
         for (chain = chainevents; chain; chain = chain->NEXT){
           for (chvcdsig = cdl_geteventsig (chain); chvcdsig; chvcdsig = chvcdsig->NEXT){
-//            signame = cdl_geteventsig (chain);
+/*            signame = cdl_geteventsig (chain);*/
             signame = (char*)chvcdsig->DATA;
             name = mbk_devect(signame, "(", ")");
             signame = ttv_revect(name);
@@ -131,16 +131,16 @@ void SwitchingPower (TimingFigure *tf)
                     consototale += nrjmax;
                     nrjtime += nrjmax;
                     nrjsig += nrjmax;
-//                    fprintf(stdout, "%s : %c : %g\n", ttvsig->NAME, value, nrjmax);
+/*                    fprintf(stdout, "%s : %c : %g\n", ttvsig->NAME, value, nrjmax);*/
                 }
-//                vcd_add_trans_nrj((trans_list*)chain->DATA, nrjsig);
+/*                vcd_add_trans_nrj((trans_list*)chain->DATA, nrjsig);*/
             }
           }
         }
         vcd_add_nrj((float)nrjtime);
         for (chain = chainevents; chain; chain = chain->NEXT){
           for (chvcdsig = cdl_geteventsig (chain); chvcdsig; chvcdsig = chvcdsig->NEXT){
-//            signame = cdl_geteventsig (chain);
+/*            signame = cdl_geteventsig (chain);*/
             signame = (char*)chvcdsig->DATA;
             name = mbk_devect(signame, "(", ")");
             signame = ttv_revect(name);
@@ -203,7 +203,7 @@ void SwitchingPower (TimingFigure *tf)
     ttv_free_signals_from_netname(htsig);
     htsig = NULL;
     fclose(ptf);
-//    fprintf(stdout, "\nCONSO TOTALE: %g\n\n", consototale);
+/*    fprintf(stdout, "\nCONSO TOTALE: %g\n\n", consototale);*/
     
 }
 
@@ -431,7 +431,7 @@ float GetSwitchingPowerSignal_sub (TimingFigure *tf, char *signame, double inter
         mbkfree(nrjtab);
     }
     if(strcmp(plot, "NULL")){
-//        sprintf(buf,"%s_%ld", signame, interval);
+/*        sprintf(buf,"%s_%ld", signame, interval);*/
         ptf = mbkfopen( plot, "plt", WRITE_TEXT );
         fprintf(ptf,"set origin 0,0\n") ;
         fprintf(ptf,"set xrange [0.0:*]\n") ;

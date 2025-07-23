@@ -78,7 +78,7 @@ char *mbk_get_reverse_index_regex(char *refname)
 }
 static int mbk_TestJoker(char *testname, char *oldname);
 
-static inline void checkregexmode()
+static  void checkregexmode()
 {
   char *env;
   if (CONFIG_REGEX_MODE==' ')
@@ -350,9 +350,8 @@ static int mbk_TestREGEX_CLIKE(char *testname, char *refname)
   regex_t *cacheregex;
   int index;
 
-  // seule exception aux regex C
+/* seule exception aux regex C */
   if (refname[0]=='*' && refname[1]=='\0') return 1;
-  // ----
 
   if (1/*strchr(refname,'.')!=NULL || strchr(refname,'*')!=NULL
       || strchr(refname,'[')!=NULL || strchr(refname,']')!=NULL*/)

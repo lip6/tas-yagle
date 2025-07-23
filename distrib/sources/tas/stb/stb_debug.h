@@ -84,7 +84,7 @@ stbdebug_list *stb_addstbdebug(stbdebug_list *head,
                                );
 void stb_freestbdebuglist __P((stbdebug_list *head)) ;
 char *getckname __P((stbfig_list *stbfig,char index)) ;
-//void stb_addprechrono __P((stbfig_list *stbfig,stbdebug_list *debug,stbpair_list **tab,stbpair_list **tabout,stbnode *node,char slope,ttvsig_list *ptsig, long *periodemax,long *periodemin)) ;
+/*void stb_addprechrono __P((stbfig_list *stbfig,stbdebug_list *debug,stbpair_list **tab,stbpair_list **tabout,stbnode *node,char slope,ttvsig_list *ptsig, long *periodemax,long *periodemin)) ;*/
 stbdebug_list *stb_debugstberror __P((stbfig_list *stbfig,ttvsig_list *sig,long margin, long computeflags)) ; 
 chain_list *stb_debug_retreive_delays(stbfig_list *stbfig, ttvsig_list *sig, int dir, int forceclockordata, int falseaccessmode, long compflags);
 void stb_compute_common_clock_gap(inffig_list *ifl, stbfig_list *sf, ttvsig_list *input, stbck *inputck, stbnode *node, int trans_involved[4], stbpair_list *start_stab[2][256], stbpair_list **end_stab, stbpair_list **end_stabhz, datamoved_type datamoved, Extended_Setup_Hold_Computation_Data *eshcd, ttvevent_list *directive_setup_ev, int flags, ptype_list *geneclockinfo);

@@ -38,16 +38,15 @@ cgvfig_list    *XyagFigureCgv = (cgvfig_list *) NULL;
 \------------------------------------------------------------*/
 
 static sigjmp_buf  XyagJumpBuffer;
-static void     (*OldExitHandler) () = NULL;
+static void     (*OldExitHandler) (int) = NULL;
 
 /*------------------------------------------------------------\
 |                      XyagExitHandler                        |
 \------------------------------------------------------------*/
 
-void 
-XyagExitHandler()
+void XyagExitHandler( int unused )
 {
-//    XyagFlushErrorMessage();
+/*    XyagFlushErrorMessage();*/
   signal(SIGTERM, OldExitHandler);
   siglongjmp(XyagJumpBuffer, 1);
 }
@@ -76,15 +75,14 @@ XyagResetExitHandler()
 |                          Xyaggetcgvfig                      |
 \------------------------------------------------------------*/
 
-cgvfig_list *
-Xyaggetcgvfig(char *Name, int Mode, char *filename)
+cgvfig_list * Xyaggetcgvfig(char *Name, int Mode, char *filename)
 {
     cgvfig_list    *FigureCgv;
 
 #ifndef __ALL__WARNING__
 	filename = NULL;
 #endif
-//    for (FigureCgv = HEAD_CGVFIG; FigureCgv; FigureCgv = rmvcgvfig(FigureCgv));
+/*    for (FigureCgv = HEAD_CGVFIG; FigureCgv; FigureCgv = rmvcgvfig(FigureCgv));*/
 
     XyagInitFileErr();
     XyagPasqua();   
@@ -93,7 +91,7 @@ Xyaggetcgvfig(char *Name, int Mode, char *filename)
     if (sigsetjmp(XyagJumpBuffer, 1) == 0) {
         XyagSetJmpEnv (&XyagJumpBuffer);
         FigureCgv = getcgvfig(Name, Mode, NULL);
-//        buildcgvfig(FigureCgv);
+/*        buildcgvfig(FigureCgv);*/
         XyagGetWarningMess() ;
         XyagFirePasqua() ;
         XyagResetExitHandler();
@@ -110,9 +108,7 @@ Xyaggetcgvfig(char *Name, int Mode, char *filename)
 |                          Xyaggetbefig                       |
 \------------------------------------------------------------*/
 
-befig_list *
-Xyaggetbefig(FileName)
-    char           *FileName;
+befig_list * Xyaggetbefig( char *FileName )
 {
     befig_list     *FigureBeh;
 

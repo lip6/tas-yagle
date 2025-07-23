@@ -37,10 +37,10 @@
 #include "stb_ctk_noise.h"
 #include "stb_ctk_debug.h"
 
-// Le fichier de trace
+/* Le fichier de trace*/
 FILE *CTK_LOGFILE=NULL;
 
-// Le niveau de log
+/* Le niveau de log*/
 int CTK_LOGLEVEL=10000;
 
 #define REALMALLOC(t) (8+8*((t)/8+((t)%8!=0?1:0)))
@@ -137,9 +137,9 @@ void stb_display_mem( stbfig_list *stbfig )
 void stb_mem_hash( ptype_list *USER, 
                    long pthash, 
                    long ptptype,
-                   unsigned int *util, // Ce qui est réellement utilisé
-                   unsigned int *real, // Ce qui est réellement alloué
-                   unsigned int *lost  // Hash : la taille libre dans table
+                   unsigned int *util, /* Ce qui est réellement utilisé*/
+                   unsigned int *real, /* Ce qui est réellement alloué*/
+                   unsigned int *lost  /* Hash : la taille libre dans table*/
                  )
 {
   ptype_list    *ptl;

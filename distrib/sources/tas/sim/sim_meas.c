@@ -325,10 +325,10 @@ void sim_addMeasSlopeWithoutNameCheck(sim_model *model, char *slope,
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-//int sim_getMeas(sim_model *model, char *label, double *value)
-//{
-//  return !(mfe_labelvalue(model->LLABELS,namealloc(label),value));
-//}
+/*int sim_getMeas(sim_model *model, char *label, double *value)*/
+/*{*/
+/*  return !(mfe_labelvalue(model->LLABELS,namealloc(label),value));*/
+/*}*/
 
 int sim_getMcMeas( sim_model *model, char *label, double *value, int idmc )
 {
@@ -444,7 +444,7 @@ void sim_printMeasCmd(sim_model *model, FILE *fd)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline int getNodeName(sim_model *model, char *signame,
+static  int getNodeName(sim_model *model, char *signame,
                               char **nodename, char *type)
 {
   locon_list    *con;
@@ -701,20 +701,20 @@ static void freeMeasArg_int(sim_meas_arg *arg)
     {
       if (arg->ARG[SIM_MEAS_NTRANS + SIM_MEAS_A4S*i]!=NULL) mbkfree(arg->ARG[SIM_MEAS_NTRANS + SIM_MEAS_A4S*i]);
     }
-//    mbkfree(arg->ARG[SIM_MEAS_NTRANS + SIM_MEAS_A4S]);
+/*    mbkfree(arg->ARG[SIM_MEAS_NTRANS + SIM_MEAS_A4S]);*/
 /*  mbkfree(arg->ARG[SIM_MEAS_VALUE]);
   mbkfree(arg->ARG[SIM_MEAS_VALUE + SIM_MEAS_A4S]);*/
   
   if (arg->ARG[SIM_MEAS_SIG + SIM_MEAS_A4S] == arg->ARG[SIM_MEAS_SIG])
   {
     /* case of slope */
-    //mbkfree(arg->ARG[SIM_MEAS_NTRANS]);
+    /*mbkfree(arg->ARG[SIM_MEAS_NTRANS]);*/
     mbkfree(arg->ARG[SIM_MEAS_SIG]);
   }
   else
   {
     /* case of delay */
-//    mbkfree(arg->ARG[SIM_MEAS_NTRANS]);
+/*    mbkfree(arg->ARG[SIM_MEAS_NTRANS]);*/
     mbkfree(arg->ARG[SIM_MEAS_SIG]);
     mbkfree(arg->ARG[SIM_MEAS_SIG + SIM_MEAS_A4S]);
   }

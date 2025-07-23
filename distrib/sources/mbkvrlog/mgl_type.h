@@ -56,7 +56,7 @@
 #define MGL_ALODFN     60		/* minimal size of allocation	 */
                                 /* for dct_entry and dct_recrd	 */
 /* modifier par Fabrice le 11/2/2002 */
-//#define MGL_HSZDFN     97       /* number of entry points in the */
+/*#define MGL_HSZDFN     97       /* number of entry points in the */
 #define MGL_HSZDFN     HASHVAL       /* number of entry points in the */
   
 #define MGL_IDENT      ((long) 0x00000001 )

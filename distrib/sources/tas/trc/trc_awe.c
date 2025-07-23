@@ -20,7 +20,7 @@ Date     : $Date: 2008/03/27 15:16:20 $
 
 */
 
-//#define AWEDEBUG
+/*#define AWEDEBUG*/
 #define AWE_NORMALISE
 
 #include "trc.h"
@@ -30,7 +30,7 @@ Date     : $Date: 2008/03/27 15:16:20 $
 \******************************************************************************/
 
 int AWECACHE;
-awetabnode_list *AWEHEADTABNODE = NULL ; // Allocation par bloc
+awetabnode_list *AWEHEADTABNODE = NULL ; /* Allocation par bloc*/
 char RCX_AWESTRAIGHT=0;
 char RCX_STEPTANH=0;
 #ifdef AWEDEBUG
@@ -605,8 +605,8 @@ RCXFLOAT aweslope( aweinfo_list *awe,
     return( inputslope );
   }
 
-  // Le calcul s'effectue à partir de la tangente à la tension v, en prenant
-  // deux mesures de la tension séparée de 5%.
+/* Le calcul s'effectue à partir de la tangente à la tension v, en prenant */
+  /* deux mesures de la tension séparée de 5%. */
 
   if( RCX_AWESTRAIGHT ) {
 
@@ -629,12 +629,12 @@ RCXFLOAT aweslope( aweinfo_list *awe,
       return( inputslope );
     }
 
-    // La dérivée
+    /* La dérivée */
     a=(v2-v1)/(t2-t1);
 
-    // Le front calculé à partir de la dérivée. Formule semblabe à celle
-    // décrite dans la thèse d'Amjad Hajjar pIII/9 (3-3-a et 3-3-b), généralisée
-    // à n'importe quelle tension de seuil.
+    /* Le front calculé à partir de la dérivée. Formule semblabe à celle */
+    /* décrite dans la thèse d'Amjad Hajjar pIII/9 (3-3-a et 3-3-b), généralisée */
+    /* à n'importe quelle tension de seuil. */
 
     f = (vmax-v)*(vmax+v-2.0*vt)/(a*(vmax-vt));
   }
@@ -911,8 +911,8 @@ mbk_pwl* awe_tanh_to_pwl( RCXFLOAT inputslope,
     }
   }
 
-  // Calcule l'instant td<0 de départ de la tanh en supposant qu'entre td et 0
-  // le front est une droite dont la pente vaut la dérivée de la tanh en t=0
+  /* Calcule l'instant td<0 de départ de la tanh en supposant qu'entre td et 0 */
+  /* le front est une droite dont la pente vaut la dérivée de la tanh en t=0 */
   if( RCX_STEPTANH )
     data.TR = 0.0 ;
   else
@@ -1122,7 +1122,7 @@ mbk_laplace* awe_pwl_to_laplace( mbk_pwl *lines, aweinfo_list *awe )
 
   l = mbk_pwl_to_laplace( lines, sizeof( mbk_laplace_data ) );
 
-  // Normalise les pentes et les délais.
+  /* Normalise les pentes et les délais. */
   for( i = 0 ; i < l->N ; i++ ) {
     ((mbk_laplace_data*)l->DATA)[i].A = 
                                     ((mbk_laplace_data*)l->DATA)[i].A * awe->K ;
@@ -1207,7 +1207,7 @@ RCXFLOAT awevoltage_pwl( aweinfo_list *awe,
   
   t = t / awe->K ;
 
-  // Calcule la réponse temporelle.
+  /* Calcule la réponse temporelle. */
  
   v = 0.0 ;
   for( i = 0 ; i < laplace->N && t > ((mbk_laplace_data*)laplace->DATA)[i].T ; i++ ) {
@@ -1256,7 +1256,7 @@ RCXFLOAT aweinstant_pwl( aweinfo_list *awe,
   t2  = 2*awe->K;
  
   n = AWE_MAX_ITER ;
-  do { // On vérifie que la solution recherchée est entre t1 et v2.
+  do { /* On vérifie que la solution recherchée est entre t1 et v2. */
     
     v = awevoltage_pwl( awe, t2, laplace );
     
@@ -1281,14 +1281,14 @@ RCXFLOAT aweinstant_pwl( aweinfo_list *awe,
   n = AWE_MAX_ITER ;
   do
   {
-    // tp = (t2+t1)/2.0;
+    /* tp = (t2+t1)/2.0;*/
     tp = (t2-t1)/(v2-v1)*(vf-v1)+t1;
     lt1=t1;
     lt2=t2;
 
     v = awevoltage_pwl( awe, tp, laplace );
    
-    if( v == vf ) { // ça arrive !
+    if( v == vf ) { /* ça arrive ! */
       t1 = tp;
       t2 = tp;
       v1 = v;
@@ -1379,7 +1379,7 @@ RCXFLOAT aweinstant_straight( aweinfo_list *awe,
   t1  = 0.0 ; 
   t2  = 2*awe->K;
   
-  do { // On vérifie que la solution recherchée est entre t1 et v2.
+  do { /* On vérifie que la solution recherchée est entre t1 et v2. */
     
     v = awevoltage_straight( awe, t2, vmax, a, b );
     if( v < 0.0 )
@@ -1397,7 +1397,7 @@ RCXFLOAT aweinstant_straight( aweinfo_list *awe,
   
   do
   {
-    // tp = (t2+t1)/2.0;
+    /* tp = (t2+t1)/2.0;*/
     tp = (t2-t1)/(v2-v1)*(vf-v1)+t1;
     lt1=t1;
     lt2=t2;
@@ -1406,7 +1406,7 @@ RCXFLOAT aweinstant_straight( aweinfo_list *awe,
     if( v < 0.0 )
       return( -1.0 );
    
-    if( v == vf ) { // ça arrive !
+    if( v == vf ) { /* ça arrive ! */
       t1 = tp;
       t2 = tp;
       v1 = v;
@@ -1480,27 +1480,27 @@ RCXFLOAT awemaxmoment( losig_list *losig, lonode_list *node )
   return max ;
 }
 
-// Renvoie le temps de propagation d'un réseau RC calculé avec AWE à l'ordre
-// 3. Comme le calcul des moments est assez long, on ne le fait qu'une fois pour toute
-// pour un émetteur donné, et les moments de tous les récepteurs sont mémorisés.
-// L'évaluation des poles et résidus étant également couteuse, on ne la fait 
-// qu'a la demande.
-// Il faut qu'à tous les appels le réseau et extcapa soient identiques. Sinon, il faut appeler
-// avant la fonction awereset().
-// Renvoie 1 en cas de succès, 0 sinon.
+/* Renvoie le temps de propagation d'un réseau RC calculé avec AWE à l'ordre */
+/* 3. Comme le calcul des moments est assez long, on ne le fait qu'une fois pour toute*/
+/* pour un émetteur donné, et les moments de tous les récepteurs sont mémorisés. */
+/* L'évaluation des poles et résidus étant également couteuse, on ne la fait */
+/* qu'a la demande.*/
+/* Il faut qu'à tous les appels le réseau et extcapa soient identiques. Sinon, il faut appeler */
+/* avant la fonction awereset().*/
+/* Renvoie 1 en cas de succès, 0 sinon. */
 
-int getawedelay( lofig_list *lofig,       // La figure
-                 losig_list *losig,       // Le signal
-                 locon_list *locon_emt,   // L'emetteur
-                 locon_list *locon_rec,   // Le recepteur
-                 rcx_slope  *slopemiller, // Front d'entrée pour miller
-                 RCXFLOAT    vmaxmax,     // Tension max pour delai max
-                 RCXFLOAT    vmaxmin,     // Tension max pour delai min
-                 RCXFLOAT    extcapa,     // La capacité externe
-                 RCXFLOAT    *dmax,       // Le délai maximum calculé
-                 RCXFLOAT    *dmin,       //          minimum
-                 RCXFLOAT    *fmax,       // Le front maximum calculé
-                 RCXFLOAT    *fmin,       //          minimum
+int getawedelay( lofig_list *lofig,       /* La figure*/
+                 losig_list *losig,       /* Le signal*/
+                 locon_list *locon_emt,   /* L'emetteur*/
+                 locon_list *locon_rec,   /* Le recepteur*/
+                 rcx_slope  *slopemiller, /* Front d'entrée pour miller */
+                 RCXFLOAT    vmaxmax,     /* Tension max pour delai max*/
+                 RCXFLOAT    vmaxmin,     /* Tension max pour delai min*/
+                 RCXFLOAT    extcapa,     /* La capacité externe */
+                 RCXFLOAT    *dmax,       /* Le délai maximum calculé */
+                 RCXFLOAT    *dmin,       /*          minimum*/
+                 RCXFLOAT    *fmax,       /* Le front maximum calculé */
+                 RCXFLOAT    *fmin,       /*          minimum*/
                  mbk_pwl     **pwloutmax,
                  mbk_pwl     **pwloutmin
                )
@@ -1574,7 +1574,7 @@ int getawedelay( lofig_list *lofig,       // La figure
       
       flagmin=1;
 
-      v = -1.0 ; // un nombre qui indique qu'on a pas de valeur calculée.
+      v = -1.0 ; /* un nombre qui indique qu'on a pas de valeur calculée. */
       computedfast = 'n' ;
 
       if( dmin ) {
@@ -1647,7 +1647,7 @@ int getawedelay( lofig_list *lofig,       // La figure
     }
    
     awefreeinfolist( headawe );
-    // Pas de connexion entre les deux locons
+    /* Pas de connexion entre les deux locons*/
     if( !flagmin ) {
       avt_log(LOGTRC,2, "can't compute delays for min\n" );
       if( fmin ) *fmin=slopemiller->MIN.slope;
@@ -1679,7 +1679,7 @@ int getawedelay( lofig_list *lofig,       // La figure
 
       flagmax = 1;
       
-      v = -1.0 ; // un nombre qui indique qu'on a pas de valeur calculée.
+      v = -1.0 ; /* un nombre qui indique qu'on a pas de valeur calculée. */
       computedfast = 'n' ;
       
       if( dmax ) {
@@ -1752,7 +1752,7 @@ int getawedelay( lofig_list *lofig,       // La figure
 
     awefreeinfolist( headawe );
     
-    // Pas de connexion entre les deux locons
+    /* Pas de connexion entre les deux locons*/
     if( !flagmax ) {
       avt_log(LOGTRC,2, "can't compute delays for max\n" );
       if( fmax ) *fmax=slopemiller->MAX.slope;
@@ -1947,7 +1947,7 @@ chain_list* getaweinfo( losig_list   *losig,
     }
   }
 
-  // Il faut calculer tous les moments sur les récepteurs à partir de l'emetteur driver.
+  /* Il faut calculer tous les moments sur les récepteurs à partir de l'emetteur driver. */
   if( !driver->PNODE  ) {
     awe_error( 4, AVT_WARNING );
     avt_logexitfunction(LOGTRC,2);
@@ -1984,7 +1984,7 @@ chain_list* getaweinfo( losig_list   *losig,
 
   ptl     = getptype( losig->USER, AWEINFO );
 
-  if( ptl ) { // Cas des composantes connexes
+  if( ptl ) { /* Cas des composantes connexes*/
     
     for( awe = (aweinfo_list*)(ptl->DATA) ; awe ; awe = awe->NEXT ) {
       if( awe->LOCON_DRIVER == driver  &&
@@ -2004,7 +2004,7 @@ chain_list* getaweinfo( losig_list   *losig,
                                          rcx_crosstalkactive( RCX_QUERY )
                                        );
       mbk_cache_update_size( cache, NULL, sizeallocated );
-      // trccheckcachecoherence();
+      /* trccheckcachecoherence();*/
     }
     else {
       awefreeinfolist( removeextra );
@@ -2174,11 +2174,11 @@ void build_awe_moment_without_loop( losig_list *losig,
     avt_log(LOGTRC,2, "from driver %d\n", scan_driver->DATA );
 
     #ifdef AWEDEBUG
-    // On ne compte que les vrais appels. Pas les récursifs.
+    /* On ne compte que les vrais appels. Pas les récursifs. */
     awestatcallmoment++;
     #endif
 
-    // Premiere étape, on reserve la mémoire pour les moments sur tous les noeuds du reseau RC.
+    /* Premiere étape, on reserve la mémoire pour les moments sur tous les noeuds du reseau RC. */
 
     node_driver = getlonode( losig, scan_driver->DATA );
 
@@ -2193,8 +2193,8 @@ void build_awe_moment_without_loop( losig_list *losig,
                    0
                  );
 
-    // Ensuite, on construit le premier moment : il sert à normaliser les résultats pour ne pas
-    // avoir trop d'erreur d'arrondi dans les calculs.
+    /* Ensuite, on construit le premier moment : il sert à normaliser les résultats pour ne pas */
+    /* avoir trop d'erreur d'arrondi dans les calculs.*/
 
     #ifdef AWE_NORMALISE
     avt_log(LOGTRC,2,"normalisation\n");
@@ -2207,21 +2207,21 @@ void build_awe_moment_without_loop( losig_list *losig,
                    type, 
                    coefctc,
                    1
-                 ); // Réinitialise les SUMMOMENTCAPA
+                 ); /* Réinitialise les SUMMOMENTCAPA */
     #else
     k = 1.0;
     #endif
 
     if( k > 1e-6 ) {
       avt_log(LOGTRC,2,"building moment\n");
-      // Enfin, on construit définitivement les moments.
+      /* Enfin, on construit définitivement les moments.*/
       for( n=1;n<=AWE_MAX_MOMENT;n++)
         awemoment( losig, node_driver, n, k, extcapa );
     
-      // On les mémorise finalement dans les structures aweinfo.
+      /* On les mémorise finalement dans les structures aweinfo.*/
       awebuildinfo( losig, driver, node_driver->INDEX, k, extcapa );
     }
-    // Puis on efface ceux qui ne servent à rien.
+    /* Puis on efface ceux qui ne servent à rien.*/
     avt_log(LOGTRC,2,"cleanning\n");
     awecleannodes( losig, node_driver );
     awe_clean_triangle( losig, node_driver );
@@ -2276,8 +2276,8 @@ void awebuildinfo( losig_list *ptsig,
 
         ptnode = getlonode( ptsig, scannode->DATA );
         
-        // lorsqu'on a plusieurs composantes connexes, il est possible
-        // de ne pas avoir de ptype construits.
+        /* lorsqu'on a plusieurs composantes connexes, il est possible*/
+        /* de ne pas avoir de ptype construits.*/
         ptl = getptype( ptnode->USER, AWENODE );
         if( !ptl ) {
           aweaddnodeinfo( ptsig,
@@ -2352,8 +2352,8 @@ aweinfo_list* aweaddnodeinfo( losig_list   *signal,
   pt->K            = k ;
   pt->EXTCAPA      = extcapa ;
 
-  // Cas où tous les moments sont nuls : l'émetteur et le récepteur sont
-  // sur le meme noeud.
+  /* Cas où tous les moments sont nuls : l'émetteur et le récepteur sont*/
+  /* sur le meme noeud.*/
 
   for( i=0 ; i < AWE_MAX_MOMENT ; i++ ) {
     if( moment[i] != 0.0 )
@@ -2434,7 +2434,7 @@ void awemomentfiltre( aweinfo_list *info )
       for( l = 0 ; l < ordre ; l++ )
         MATELEM( c, l, 0 ) = -info->DATA.MOMENT[ordre+l-1];
 
-      // Détermination du dénominateur de la fonction de transfert
+      /* Détermination du dénominateur de la fonction de transfert*/
 
       avt_log(LOGTRC,2,"finding denominator\n" );
 
@@ -2453,8 +2453,8 @@ void awemomentfiltre( aweinfo_list *info )
         continue;
       }
 
-      // Vérifier qu'on a pas de nan :
-      //
+      /* Vérifier qu'on a pas de nan :*/
+      /**/
 
       /* on recupère dans alpha le dénominateur de la fonction de transfert :
        * bn.s^n+...+b2.s^2+b1.s+1  -> (bn,...,b2,b1)
@@ -2464,7 +2464,7 @@ void awemomentfiltre( aweinfo_list *info )
         poly[l+1] = MATELEM(alpha, ordre-1-l, 0);
       poly[0]=1.0;
 
-      // On récupère les racines de ce polynome. Si on a pas pu les obtenir, on abandonne
+      /* On récupère les racines de ce polynome. Si on a pas pu les obtenir, on abandonne*/
       avt_log(LOGTRC,2,"finding root\n");
 
       if( poly_findroot( poly, ordre, poles ) == 0 ) {
@@ -2526,7 +2526,7 @@ void awemomentfiltre( aweinfo_list *info )
         continue;
       }
 
-      // C'est fini : on range le tout.
+      /* C'est fini : on range le tout.*/
 
       avt_log(LOGTRC,2,"parameter determined\n");
       info->FLAG = AWE_FILTER ;

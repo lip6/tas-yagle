@@ -136,7 +136,7 @@ void tlf_gcf2stb (char *file)
     
     if ((gcfin = mbkfopen (file, "tlf", READ_TEXT))) {
         sprintf (filename, "%s.%s", file, "stb") ;
-        //GCF_OUT = fopen (filename, "w+") ;
+        /*GCF_OUT = fopen (filename, "w+") ;*/
         GCF_OUT = mbkfopen (file, "stb", WRITE_TEXT) ;
         GCF_LINE = 1 ;
         GCF_MODE = CLOCK_DETECT ;

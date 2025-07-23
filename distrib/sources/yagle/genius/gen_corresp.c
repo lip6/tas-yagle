@@ -4,8 +4,8 @@
 #include "gen_corresp.h"
 #define VERY_SMALL_PRIME 11
 
-// Globals ____________________________________________________________________
-//_____________________________________________________________________________
+/* Globals ____________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 int CORRESP_DEBUG = 0;
 int NO_UPDATE = 0;
@@ -43,16 +43,16 @@ char *gen_vectorize (char *radix, int index)
   return namealloc (buf);
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 char *gen_losigname (losig_list * sig)
 {
   return (char *)sig->NAMECHAIN->DATA;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 int gen_upper_bound (losig_list * sig)
 {
@@ -68,7 +68,7 @@ int gen_upper_bound (losig_list * sig)
         end = Eval_Exp_VHDL (array_sig->NEXT->DATA, ALL_ENV);
       else {
         avt_errmsg(GNS_ERRMSG, "005", AVT_WARNING, 1);
-        //fprintf (stderr, "warning - no range for %s\n", (char *)sig->NAMECHAIN->DATA);
+        /*fprintf (stderr, "warning - no range for %s\n", (char *)sig->NAMECHAIN->DATA);*/
         end = -1;
       }
     }
@@ -79,8 +79,8 @@ int gen_upper_bound (losig_list * sig)
   return end;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 int gen_lower_bound (losig_list * sig)
 {
@@ -96,7 +96,7 @@ int gen_lower_bound (losig_list * sig)
         begin = Eval_Exp_VHDL (array_sig->NEXT->NEXT->DATA, ALL_ENV);
       else {
         avt_errmsg(GNS_ERRMSG, "005", AVT_WARNING, 2);
-//        fprintf (stderr, "warning - no range for %s\n", (char *)sig->NAMECHAIN->DATA);
+/*        fprintf (stderr, "warning - no range for %s\n", (char *)sig->NAMECHAIN->DATA);*/
         begin = -1;
       }
     }
@@ -122,13 +122,13 @@ void gen_get_bounds (losig_list *sig, int *left, int *right)
         }
       else 
         avt_errmsg(GNS_ERRMSG, "005", AVT_WARNING, 3);
-//        fprintf (stderr, "warning - no range for %s\n", (char *)sig->NAMECHAIN->DATA);
+/*        fprintf (stderr, "warning - no range for %s\n", (char *)sig->NAMECHAIN->DATA);*/
     }
   }
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 char *gen_makesignalname (char *s)
 {
@@ -155,8 +155,8 @@ char *gen_makesignalname (char *s)
   return temp;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 lotrs_list *gen_get_corresponding_transistor (char *name)
 {
@@ -187,7 +187,7 @@ lotrs_list *gen_get_corresponding_transistor (char *name)
     }
 
     if (lilist) {
-      // c'est une requete sur une instance expansee
+      /* c'est une requete sur une instance expansee*/
       char temp[200], *s;
       sprintf (temp, "%s_exp%s", radname, strchr (nname, ' '));
       while ((s = strchr (temp, ' ')))
@@ -238,8 +238,8 @@ lotrs_list *gen_get_corresponding_transistor (char *name)
   return NULL;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 losig_list *gen_get_corresponding_signal (char *name)
 {
@@ -260,7 +260,7 @@ losig_list *gen_get_corresponding_signal (char *name)
 
   if (modells) {
     if (current_lofig->LOINS) {
-      // GENIUS model
+      /* GENIUS model*/
       if ((ptype = getptype (modells->USER, GENSIGCHAIN))) {
         gs = (gensigchain_list *) ptype->DATA;
         if ((cirls = getlosigfrommark (gs, vectorindex (nname)))) {
@@ -273,7 +273,7 @@ losig_list *gen_get_corresponding_signal (char *name)
       }
     }
     else {
-      // FCL model
+      /* FCL model*/
       if ((ptype = getptype (modells->USER, FCL_CORRESP_PTYPE)) != NULL) return (losig_list *)ptype->DATA;
       else return NULL;
     }
@@ -282,8 +282,8 @@ losig_list *gen_get_corresponding_signal (char *name)
   return NULL;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 corresp_t *gen_build_corresp_table (lofig_list * lf, chain_list * loins, chain_list * lotrs)
 {
@@ -299,13 +299,13 @@ corresp_t *gen_build_corresp_table (lofig_list * lf, chain_list * loins, chain_l
   foundins_list *fil;
   long flags;
 
-  level = (corresp_t *) AddHeapItem (&corresp_heap);	//mbkalloc (sizeof (struct corresp_t)); 
+  level = (corresp_t *) AddHeapItem (&corresp_heap);	/*mbkalloc (sizeof (struct corresp_t)); */
   level->SUBINSTS = NULL;
   level->SIGNALS = NULL;
   level->TRANSISTORS = NULL;
   level->FIGNAME = lf->NAME;
   level->FLAGS = 0;
-  //    level->INSNAME=NULL;
+  /*    level->INSNAME=NULL;*/
 
   for (ptype = ALL_ENV; ptype; ptype = ptype->NEXT)
     if (ptype->DATA == namealloc ("instance"))
@@ -314,7 +314,7 @@ corresp_t *gen_build_corresp_table (lofig_list * lf, chain_list * loins, chain_l
   if (CORRESP_DEBUG > 1)
     fprintf (stdout, "\n____________ INSTANCE `%s'\n", level->GENIUS_INSNAME);
 
-  // Circuit - Model corresp for signals
+  /* Circuit - Model corresp for signals*/
 
   n = 0;
   for (sig = lf->LOSIG; sig; sig = sig->NEXT) {
@@ -323,10 +323,10 @@ corresp_t *gen_build_corresp_table (lofig_list * lf, chain_list * loins, chain_l
     if (begin==UNDEF || end==UNDEF)
     {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 2);
-      //fprintf(stderr,"could not compute range of signal '%s' in model '%s'\n",gen_losigname(sig), lf->NAME);
+      /*fprintf(stderr,"could not compute range of signal '%s' in model '%s'\n",gen_losigname(sig), lf->NAME);*/
       EXIT(5);
     }
-    if (begin != -2 && end != -2) {	// GENIUS model
+    if (begin != -2 && end != -2) {	/* GENIUS model*/
       if (begin == -1 && end == -1)
         n++;
       else
@@ -342,7 +342,7 @@ corresp_t *gen_build_corresp_table (lofig_list * lf, chain_list * loins, chain_l
   for (sig = lf->LOSIG; sig; sig = sig->NEXT) {
     begin = gen_lower_bound (sig);
     end = gen_upper_bound (sig);
-    if (begin != -2 && end != -2) {	// GENIUS model
+    if (begin != -2 && end != -2) {	/* GENIUS model*/
       if (begin == -1 && end == -1) {
         if (!(assoc_sig = gen_get_corresponding_signal (gen_losigname (sig))))
           {
@@ -376,7 +376,7 @@ corresp_t *gen_build_corresp_table (lofig_list * lf, chain_list * loins, chain_l
         }
       }
     }
-    else {					// FCL model
+    else {					/* FCL model*/
       if (((index = vectorindex (gen_losigname (sig))) == -1))
         assoc_sig = gen_get_corresponding_signal (gen_losigname (sig));
       else {
@@ -391,17 +391,17 @@ corresp_t *gen_build_corresp_table (lofig_list * lf, chain_list * loins, chain_l
     }
   }
 
-  // Circuit - Model corresp for transistors
+  /* Circuit - Model corresp for transistors*/
 
-  if (lf->LOTRS)				// FCL model
+  if (lf->LOTRS)				/* FCL model*/
     for (n = 0, tr = lf->LOTRS; tr; n++, tr = tr->NEXT);
-  else						// GENIUS model
+  else						/* GENIUS model*/
     for (n = 0, ch = lotrs; ch; n++, ch = ch->NEXT);
 
   if (lf->LOTRS || lotrs)
     level->TRANSISTORS = addht (n * 2);
 
-  if (lf->LOTRS)				// FCL model
+  if (lf->LOTRS)				/* FCL model*/
     for (tr = lf->LOTRS; tr; tr = tr->NEXT) {
       tr->TRNAME = gen_canonize_trname (tr->TRNAME);
       assoc_tr = gen_get_corresponding_transistor (tr->TRNAME);
@@ -413,7 +413,7 @@ corresp_t *gen_build_corresp_table (lofig_list * lf, chain_list * loins, chain_l
           fprintf (stdout, "   TRS %s -> ???\n", (char *)tr->TRNAME);
       }
     }
-  else						// GENIUS model
+  else						/* GENIUS model*/
     for (ch = lotrs; ch; ch = ch->NEXT) {
       tr = (lotrs_list *) ch->DATA;
       if ((ptype = getptype (tr->USER, GEN_VISITED_PTYPE)))
@@ -430,14 +430,14 @@ corresp_t *gen_build_corresp_table (lofig_list * lf, chain_list * loins, chain_l
       }
     }
 
-  // Retrieve sub instances from GEN_USER_PTYPE, store them in level
+  /* Retrieve sub instances from GEN_USER_PTYPE, store them in level*/
 
   for (ch = loins; ch; ch = ch->NEXT) {
     fil = (foundins_list *) ch->DATA;
-    ins = fil->LOINS;		// gen instance
-    name = fil->VISITED->INSNAME;	// mod instance
+    ins = fil->LOINS;		/* gen instance*/
+    name = fil->VISITED->INSNAME;	/* mod instance*/
     if ((ptype = getptype (ins->USER, GEN_LOOP_INDEX_PTYPE)))
-      sprintf (mod_insname, "%s_%ld", name, (long)ptype->DATA);	// TODO parametrize instance vectorization
+      sprintf (mod_insname, "%s_%ld", name, (long)ptype->DATA);	/* TODO parametrize instance vectorization*/
     else
       strcpy (mod_insname, name);
 
@@ -503,8 +503,8 @@ corresp_t *create_blackbox_corresp_table(loins_list *ins)
   return subinst;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_free_corresp_table (corresp_t * dico)
 {
@@ -520,8 +520,8 @@ void gen_free_corresp_table (corresp_t * dico)
 }
 
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_drive_corresp_htable (FILE * f, char *name, char *path, int top, corresp_t * dico)
 {
@@ -571,8 +571,8 @@ void gen_drive_corresp_htable (FILE * f, char *name, char *path, int top, corres
 
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_drive_corresp_table (FILE * f, char *path, int top, subinst_t * sins)
 {
@@ -623,8 +623,8 @@ void gen_drive_corresp_table (FILE * f, char *path, int top, subinst_t * sins)
     gen_drive_corresp_table (f, buf, 0, ch);
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 lotrs_list *gen_hcorresp_trs (char *name, corresp_t * corresp)
 {
@@ -640,10 +640,10 @@ lotrs_list *gen_hcorresp_trs (char *name, corresp_t * corresp)
       if ((trs = gethtitem (corresp->TRANSISTORS, namealloc (buf))) != EMPTYHT)
         return (lotrs_list *) trs;
       else
-        return NULL;	//transistor not found
+        return NULL;	/*transistor not found*/
     }
     else
-      return NULL;		//no transistor in this instance
+      return NULL;		/*no transistor in this instance*/
   }
   else {
     *subname++ = '\0';
@@ -656,15 +656,15 @@ lotrs_list *gen_hcorresp_trs (char *name, corresp_t * corresp)
         if ((trs = gethtitem (corresp->TRANSISTORS, namealloc (name))) != EMPTYHT)
           return (lotrs_list *) trs;
         else
-          return NULL;		//transistor not found
+          return NULL;		/*transistor not found*/
       }
     else
       return gen_hcorresp_trs (subname, ch->CRT);
   }
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 lotrs_list *gen_corresp_trs (char *name, corresp_t * crp_table)
 {
@@ -677,8 +677,8 @@ lotrs_list *gen_corresp_trs (char *name, corresp_t * crp_table)
   }
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 
 losig_list *gen_hcorresp_sig (char *name, corresp_t * corresp)
@@ -698,7 +698,7 @@ losig_list *gen_hcorresp_sig (char *name, corresp_t * corresp)
         return (losig_list *) sig;
       }
     else
-      return NULL;		//signal not found
+      return NULL;		/*signal not found*/
   }
   else {
     *subname++ = '\0';
@@ -714,15 +714,15 @@ losig_list *gen_hcorresp_sig (char *name, corresp_t * corresp)
             return (losig_list *) sig;
           }
         else
-          return NULL;		//instance not found
+          return NULL;		/*instance not found*/
       }
     else
       return gen_hcorresp_sig (subname, ch->CRT);
   }
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 losig_list *gen_corresp_sig (char *name, corresp_t * crp_table)
 {
@@ -735,8 +735,8 @@ losig_list *gen_corresp_sig (char *name, corresp_t * crp_table)
   }
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 static int cnt = 0, max = 0;
 static struct {
   char *name;
@@ -766,13 +766,13 @@ lofig_list *gen_add_real_corresp_ptypes (loins_list * ins, corresp_t * root_tbl,
     tab[j].nb = 0;
   }
   
-  // dump the root
+  /* dump the root*/
   if (CORRESP_DEBUG > 0)
     fprintf (stdout, "\nINSTANCE `%s'\n", ins->INSNAME);
   if (CORRESP_DEBUG > 0)
     fprintf (stdout, "---ROOT\n");
   
-  // get the figure
+  /* get the figure*/
   fig = getlofig (tbl->GENIUS_FIGNAME /*ins->FIGNAME */ , 'A');
   
   for (i_con = ins->LOCON; i_con; i_con = i_con->NEXT) {
@@ -789,7 +789,7 @@ lofig_list *gen_add_real_corresp_ptypes (loins_list * ins, corresp_t * root_tbl,
   }
   
 
-  // create reverse table
+  /* create reverse table*/
   if (CORRESP_DEBUG > 0)
     fprintf (stdout, "---INS\n");
   reverse_ht = addht (VERY_SMALL_PRIME);
@@ -800,7 +800,7 @@ lofig_list *gen_add_real_corresp_ptypes (loins_list * ins, corresp_t * root_tbl,
         if (f_con->NAME!=i_con->NAME) 
             { 
               avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 3);
-              //printf("for %s: %s!=%s\n",tbl->GENIUS_FIGNAME, f_con->NAME,i_con->NAME);
+              /*printf("for %s: %s!=%s\n",tbl->GENIUS_FIGNAME, f_con->NAME,i_con->NAME);*/
               EXIT(77);
             }
         f_corresp = (losig_list *) gethtitem (tbl->SIGNALS, gen_losigname (f_con->SIG));
@@ -815,7 +815,7 @@ lofig_list *gen_add_real_corresp_ptypes (loins_list * ins, corresp_t * root_tbl,
         if (gethtitem (reverse_ht, name)==EMPTYHT)
           addhtitem (reverse_ht, name, (long)f_con);
         else
-          // same signal on multiple symmetric connector
+          /* same signal on multiple symmetric connector*/
           addhtitem (reverse_ht, name, (long)1); 
       }
   }
@@ -836,7 +836,7 @@ lofig_list *gen_add_real_corresp_ptypes (loins_list * ins, corresp_t * root_tbl,
               sprintf(temp,"%s*%d",gen_losigname (i_corresp), i_con->FLAGS);
               name=namealloc(temp);
               ff_con = (locon_list *) gethtitem (reverse_ht, name);
-              if ((long)ff_con!=1) // if so, no swap is needed
+              if ((long)ff_con!=1) /* if so, no swap is needed*/
                 {
                   if ((long)ff_con==EMPTYHT)
                     {
@@ -868,7 +868,7 @@ lofig_list *gen_add_real_corresp_ptypes (loins_list * ins, corresp_t * root_tbl,
           sprintf(temp,"%s*%d",gen_losigname (i_corresp), i_con->FLAGS);
           name=namealloc(temp);
           
-          // we look for a solution
+          /* we look for a solution*/
           for (cl=changed, prev=NULL; cl!=NULL; prev=cl, cl=cl->NEXT)
             {
               ff_con=(locon_list *)cl->DATA;
@@ -893,7 +893,7 @@ lofig_list *gen_add_real_corresp_ptypes (loins_list * ins, corresp_t * root_tbl,
   tab[j].cnt += cnt;
   tab[j].nb++;
   tab[j].tot = tot;
-  // delete reverse ht
+  /* delete reverse ht*/
   delht (reverse_ht);
   
   return fig;
@@ -928,8 +928,8 @@ static void displaycorrespdone(lofig_list *lf, loins_list *li)
         }
     }
 }
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_check_corresp_table (loins_list * ins, corresp_t * root_tbl, corresp_t * tbl)
 {
@@ -939,7 +939,7 @@ void gen_check_corresp_table (loins_list * ins, corresp_t * root_tbl, corresp_t 
   ht *reverse_ht;
   int swapped = 0;
 
-  // dump the root
+  /* dump the root*/
   if (CORRESP_DEBUG > 0)
     fprintf (stdout, "\nCHECK `%s'\n", ins->INSNAME);
   if (CORRESP_DEBUG > 0)
@@ -952,10 +952,10 @@ void gen_check_corresp_table (loins_list * ins, corresp_t * root_tbl, corresp_t 
     }
   }
 
-  // get the figure
+  /* get the figure*/
   fig = getlofig (tbl->GENIUS_FIGNAME, 'A');
 
-  // create reverse table
+  /* create reverse table*/
   if (CORRESP_DEBUG > 0)
     fprintf (stdout, "---INS\n");
   reverse_ht = addht (VERY_SMALL_PRIME);
@@ -966,7 +966,7 @@ void gen_check_corresp_table (loins_list * ins, corresp_t * root_tbl, corresp_t 
     addhtitem (reverse_ht, gen_losigname (f_corresp), (long)f_con);
   }
 
-  // identify swaps
+  /* identify swaps*/
   for (f_con = fig->LOCON; f_con; f_con = f_con->NEXT) {
     for (i_con = ins->LOCON; i_con; i_con = i_con->NEXT)
       if (i_con->NAME == f_con->NAME)
@@ -984,7 +984,7 @@ void gen_check_corresp_table (loins_list * ins, corresp_t * root_tbl, corresp_t 
     }
   }
 
-  // delete reverse ht
+  /* delete reverse ht*/
   delht (reverse_ht);
 
   if (swapped/* && CORRESP_DEBUG > 0*/)
@@ -992,21 +992,21 @@ void gen_check_corresp_table (loins_list * ins, corresp_t * root_tbl, corresp_t 
   //avt_fprintf (stdout, "¤6¤+   !!!!!!!!!!! CHECK FAILED on '%s'\n",ins->INSNAME);
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_clean_real_corresp_ptypes (lofig_list * fig)
 {
   locon_list *f_con;
 
-  // clean ptypes
+  /* clean ptypes*/
   for (f_con = fig->LOCON; f_con; f_con = f_con->NEXT)
     if (getptype (f_con->USER, FCL_REAL_CORRESP_PTYPE))
       f_con->USER = delptype (f_con->USER, FCL_REAL_CORRESP_PTYPE);
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_swap_corresp_table (fclcorresp_list * fcl_clist, corresp_t * tbl, loins_list *li, lofig_list *lf)
 {
@@ -1048,7 +1048,7 @@ void gen_swap_corresp_table (fclcorresp_list * fcl_clist, corresp_t * tbl, loins
             if (corresp == EMPTYHT) 
             {
                avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 4);
-               //      printf("zinaps: internal err 2\n");
+               /*      printf("zinaps: internal err 2\n");*/
                EXIT(5);
             }
             addhtitem (new_sig_ht, n_orig, corresp);
@@ -1101,15 +1101,15 @@ void gen_swap_corresp_table (fclcorresp_list * fcl_clist, corresp_t * tbl, loins
   }
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_delalllofig ()
 {
   lofig_list *head_lofig;
   ht *ht_lofig;
 
-  // Contextualize HEAD_LOFIG ___________________________
+  /* Contextualize HEAD_LOFIG ___________________________*/
 
   head_lofig = HEAD_LOFIG;
   HEAD_LOFIG = GEN_HEAD_LOFIG;
@@ -1120,7 +1120,7 @@ void gen_delalllofig ()
   delalllofig();
 
   
-  // Release HEAD_LOFIG _________________________________
+  /* Release HEAD_LOFIG _________________________________*/
 
   GEN_HEAD_LOFIG = HEAD_LOFIG;
   HEAD_LOFIG = head_lofig;
@@ -1129,8 +1129,8 @@ void gen_delalllofig ()
   HT_LOFIG = ht_lofig;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 void gen_update_corresp_table (lofig_list * lf, corresp_t * crp_table, loins_list *li)
 {
@@ -1140,7 +1140,7 @@ void gen_update_corresp_table (lofig_list * lf, corresp_t * crp_table, loins_lis
   if (NO_UPDATE)
     return;
 
-  // Contextualize HEAD_LOFIG ___________________________
+  /* Contextualize HEAD_LOFIG ___________________________*/
 
   head_lofig = HEAD_LOFIG;
   HEAD_LOFIG = GEN_HEAD_LOFIG;
@@ -1148,8 +1148,8 @@ void gen_update_corresp_table (lofig_list * lf, corresp_t * crp_table, loins_lis
   ht_lofig = HT_LOFIG;
   HT_LOFIG = GEN_HT_LOFIG;
 
-  // top level instances have the connectors in the wrong way
-  // so we invert them just for this operation
+  /* top level instances have the connectors in the wrong way*/
+  /* so we invert them just for this operation*/
 
   li->LOCON=(locon_list *)reverse((chain_list *)li->LOCON);
 
@@ -1157,7 +1157,7 @@ void gen_update_corresp_table (lofig_list * lf, corresp_t * crp_table, loins_lis
 
   li->LOCON=(locon_list *)reverse((chain_list *)li->LOCON);
 
-  // Release HEAD_LOFIG _________________________________
+  /* Release HEAD_LOFIG _________________________________*/
 
   GEN_HEAD_LOFIG = HEAD_LOFIG;
   HEAD_LOFIG = head_lofig;
@@ -1170,7 +1170,7 @@ void gen_add_all_lofig_weight()
 {
   lofig_list *head_lofig, *fig;
   ht *ht_lofig;
-  // Contextualize HEAD_LOFIG ___________________________
+  /* Contextualize HEAD_LOFIG ___________________________*/
 
   head_lofig = HEAD_LOFIG;
   HEAD_LOFIG = GEN_HEAD_LOFIG;
@@ -1190,8 +1190,8 @@ void gen_add_all_lofig_weight()
   HT_LOFIG = ht_lofig;
 }
 
-//_____________________________________________________________________________
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
+/*_____________________________________________________________________________*/
 
 static lofig_list *addtoprealcorrespptype(loins_list *li, corresp_t *tbl, int *swapped)
 {
@@ -1233,7 +1233,7 @@ void gen_update_corresp_table__recursive (lofig_list * lf, corresp_t * root_tbl,
   int swapped;
 
 
-  if (li!=NULL) // top level pour alignement des vecteurs
+  if (li!=NULL) /* top level pour alignement des vecteurs*/
     {
       swapped = 0;
       fig=addtoprealcorrespptype(li, root_tbl, &swapped);
@@ -1292,8 +1292,8 @@ void gen_update_corresp_table__recursive (lofig_list * lf, corresp_t * root_tbl,
       gen_clean_real_corresp_ptypes (fig);
     }
 
-//    gen_check_corresp_table (ins, root_tbl, tbl); // enlever pour l'instant
-    // peut etre remis si on untilise pas les "unused connectors"
+/*    gen_check_corresp_table (ins, root_tbl, tbl); // enlever pour l'instant*/
+    /* peut etre remis si on untilise pas les "unused connectors"*/
 
     gen_update_corresp_table__recursive (fig, tbl, NULL);
   }
@@ -1339,11 +1339,11 @@ void gen_update_alims (lofig_list *lf, corresp_t *root_tbl, chain_list *distrib_
       distrib=NULL;
       for (subins = root_tbl->SUBINSTS; subins!=NULL; subins = subins->NEXT)
         {
-          // -----------------
+          /* -----------------*/
           if (ins->FIGNAME!=subins->CRT->GENIUS_FIGNAME)
             ins->FIGNAME=subins->CRT->GENIUS_FIGNAME;
-          // on profite pour updater les fignames des instances pour que le drive donne des noms prenant en compte les multiples architectures
-          // -----------------
+          /* on profite pour updater les fignames des instances pour que le drive donne des noms prenant en compte les multiples architectures*/
+          /* -----------------*/
 
           if (ins->INSNAME == subins->INSNAME)
             break;
@@ -1369,9 +1369,9 @@ void gen_update_alims (lofig_list *lf, corresp_t *root_tbl, chain_list *distrib_
                   int vdd, vss;
                   i_corresp = (losig_list *) gethtitem (root_tbl->SIGNALS, gen_losigname (lc->SIG));
                   f_corresp = (losig_list *) gethtitem (subins->CRT->SIGNALS, lc->NAME);
-                  // est-ce clean?
-                  // quand il y a une alim sur un signal symmetric mais qu'il a tete swape
-                  // on le recherche une alim parmis les symmetrics
+                  /* est-ce clean?*/
+                  /* quand il y a une alim sur un signal symmetric mais qu'il a tete swape*/
+                  /* on le recherche une alim parmis les symmetrics*/
                   if (!mbk_LosigIsVDD(f_corresp)
                       && !mbk_LosigIsVSS(f_corresp))
                     {
@@ -1402,7 +1402,7 @@ void gen_update_alims (lofig_list *lf, corresp_t *root_tbl, chain_list *distrib_
             }
         }
       /*
-//------------ a supprimer ----------
+|*------------ a supprimer ----------*|
       for (lc=ins->LOCON; lc!=NULL; lc=lc->NEXT)
         {
           if (!mbk_LosigIsVDD(lc->SIG) && !mbk_LosigIsVSS(lc->SIG)) continue;
@@ -1412,8 +1412,7 @@ void gen_update_alims (lofig_list *lf, corresp_t *root_tbl, chain_list *distrib_
               EXIT(44);
             }
         }
-//-----------------------------------
-//
+|*-----------------------------------*|
 */
       if (nbalim!=0) nbins++;
 
@@ -1473,14 +1472,14 @@ chain_list *GrabAllConnectorsThruCorresp(char *con_name, losig_list *realconls, 
 
       if (li==NULL)
         avt_errmsg(GNS_ERRMSG, "011", AVT_WARNING, CRT->GENIUS_INSNAME, CRT->GENIUS_FIGNAME);
-      //avt_error ("GNS", 0, AVT_WAR, " - can't retrieve blackbox instance `%s' (`%s')\n", CRT->GENIUS_INSNAME, CRT->GENIUS_FIGNAME);
+      /*avt_error ("GNS", 0, AVT_WAR, " - can't retrieve blackbox instance `%s' (`%s')\n", CRT->GENIUS_INSNAME, CRT->GENIUS_FIGNAME);*/
       else
         {
           for (lc=li->LOCON; lc!=NULL && lc->NAME!=con_name; lc=lc->NEXT) ;
           if (lc==NULL) 
             {
               avt_errmsg(GNS_ERRMSG, "012", AVT_WARNING, CRT->GENIUS_INSNAME, con_name, CRT->GENIUS_FIGNAME);
-              //avt_error ("GNS", 0, AVT_WAR, " - can't retrieve blackbox connector `%s.%s' (`%s')\n", CRT->GENIUS_INSNAME, con_name, CRT->GENIUS_FIGNAME);
+              /*avt_error ("GNS", 0, AVT_WAR, " - can't retrieve blackbox connector `%s.%s' (`%s')\n", CRT->GENIUS_INSNAME, con_name, CRT->GENIUS_FIGNAME);*/
             }
           else Last=addchain(Last, lc);
         }
@@ -1491,7 +1490,7 @@ chain_list *GrabAllConnectorsThruCorresp(char *con_name, losig_list *realconls, 
   if (lc==NULL) 
     {
       avt_errmsg(GNS_ERRMSG, "005", AVT_WARNING, 7);
-      //fprintf(stderr,"GrabAllConnectorsThruCorresp: connector '%s' not found\n",con_name);
+      /*fprintf(stderr,"GrabAllConnectorsThruCorresp: connector '%s' not found\n",con_name);*/
       return Last;
     }
   cl=getptype(lc->SIG->USER, LOFIGCHAIN)->DATA;
@@ -1513,7 +1512,7 @@ chain_list *GrabAllConnectorsThruCorresp(char *con_name, losig_list *realconls, 
             }
           else if (lc->NAME==MBK_BULK_NAME && lt->BULK!=NULL) Last=addchain(Last, lt->BULK);
 
-          // parallel transistors
+          /* parallel transistors*/
           if ((p=getptype(lt->USER,MBK_TRANS_PARALLEL))!=NULL)
             {
               lt0=lt;
@@ -1592,7 +1591,7 @@ int gen_getvariable(char *name)
   if (val==-1) 
     {
       avt_errmsg(GNS_ERRMSG, "013", AVT_WARNING, name);
-      //avt_error("gns", 1, AVT_WAR, "can not find generic variable '%s', assumed value 0\n", name);
+      /*avt_error("gns", 1, AVT_WAR, "can not find generic variable '%s', assumed value 0\n", name);*/
       val=0;
     }
   return val;
@@ -1639,7 +1638,7 @@ void gen_grab_all_real_corresp(lofig_list *lf, chain_list **lotrs, ptype_list **
         if (ttr!=NULL) 
           {            
             *lotrs=addchain(*lotrs, ttr);
-            // parallel transistors
+            /* parallel transistors*/
             if ((p=getptype(ttr->USER,MBK_TRANS_PARALLEL))!=NULL)
               {
                 for (ch=(chain_list *)p->DATA; ch!=NULL; ch=ch->NEXT)
@@ -1687,7 +1686,7 @@ void recur_gen_getlotrs_and_loins (corresp_t *root_tbl, chain_list **lotrs, chai
           if (l==EMPTYHT)
             {
               avt_errmsg(GNS_ERRMSG, "014", AVT_FATAL, subins->CRT->GENIUS_INSNAME);
-              //printf("could not find black box '%s' in circuit\n",subins->CRT->GENIUS_INSNAME);
+              /*printf("could not find black box '%s' in circuit\n",subins->CRT->GENIUS_INSNAME);*/
               EXIT(7);              
             }
           *loins=addchain(*loins, (void *)l);
@@ -1732,7 +1731,7 @@ void UpdateTransistorsForYagle(ALL_FOR_GNS *all, int fromcns)
   freechain(floins);
 }
 
-//#define NOSINGLE
+/*#define NOSINGLE*/
 
 int check_instances_connections(lofig_list *lf, char *info)
 {
@@ -1760,21 +1759,21 @@ int check_instances_connections(lofig_list *lf, char *info)
                       if (curindex==-1 || idx==-1) 
                         {
 #ifndef NOSINGLE
-                          mask|=1; // single signal connected to a vector
+                          mask|=1; /* single signal connected to a vector*/
                           if (info[0]=='\0')
                             {
                               if (idx==-1)
                                 avt_errmsg(GNS_ERRMSG, "015", AVT_WARNING, lc->NAME,((loins_list *)lc->ROOT)->INSNAME,lastinfo);
-                                //sprintf(info,"single connector '%s' (instance '%s') is linked to a vector connector %s",lc->NAME,((loins_list *)lc->ROOT)->INSNAME,lastinfo);
+                                /*sprintf(info,"single connector '%s' (instance '%s') is linked to a vector connector %s",lc->NAME,((loins_list *)lc->ROOT)->INSNAME,lastinfo);*/
                               else
                                 avt_errmsg(GNS_ERRMSG, "016", AVT_WARNING, lc->NAME,((loins_list *)lc->ROOT)->INSNAME,lastinfo);
-//                                sprintf(info,"vector connector '%s' (instance '%s') is linked to a single connector %s",lc->NAME,((loins_list *)lc->ROOT)->INSNAME,lastinfo);
+/*                                sprintf(info,"vector connector '%s' (instance '%s') is linked to a single connector %s",lc->NAME,((loins_list *)lc->ROOT)->INSNAME,lastinfo);*/
                             }
 #endif
                         }
                       else
                         {
-                          mask|=2; // vector index mismatch
+                          mask|=2; /* vector index mismatch*/
                           sprintf(info,"vector connector index '%s' (instance '%s') mismatchs with index of %s",lc->NAME,((loins_list *)lc->ROOT)->INSNAME,lastinfo);
                         }
                     }

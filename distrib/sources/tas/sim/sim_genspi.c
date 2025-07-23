@@ -121,7 +121,7 @@ char *transition;
    if(((vb <= sfl) && (vx >= sfl)) ||
       ((vb >= sfl) && (vx <= sfl)))
      {
-      //timel = time ;
+      /*timel = time ;*/
       timel = (sfl-vb)/(vx-vb)*(time-timeb)+timeb ;
       if ( sfl_flag && sfh_flag )
        {
@@ -135,7 +135,7 @@ char *transition;
    else if(((vb >= sfh) && (vx <= sfh)) ||
            ((vb <= sfh) && (vx >= sfh)))
      {
-      //timeh = time ;
+      /*timeh = time ;*/
       timeh = (sfh-vb)/(vx-vb)*(time-timeb)+timeb ;
       if ( sfl_flag && sfh_flag ) 
        {
@@ -153,11 +153,11 @@ char *transition;
  return(last) ;
 }
 
-static inline double __interpole(double ax, double ay, double bx, double by, double cy)
+static  double __interpole(double ax, double ay, double bx, double by, double cy)
 {
   return ax+(bx-ax)*(cy-ay)/(by-ay);
 }
-// peut etre ameliore mais je laisse tel quel pour plus de clarte
+/* peut etre ameliore mais je laisse tel quel pour plus de clarte*/
 int sim_getallslopes(double *tabx, double *taby, int tabsize, double seuil, double sfl,
                      double sfh, sim_slopes *slopes)
 {
@@ -213,7 +213,7 @@ void sim_GetDelaySlopeByIndex (tab,delay,slope,vthr,vsthrl,vsthrh,time,step,indi
     double      vsthrh;
     double      time;
     double      step;
-    int        *indice; // indice du tablo pour lekel on a atteind vdd/2
+    int        *indice; /* indice du tablo pour lekel on a atteind vdd/2*/
     char       *transition;
 {
     int      nby;
@@ -457,7 +457,7 @@ void sim_fclose (FILE *file, char *filename)
 {
     if (fclose (file)) {
         avt_errmsg( SIM_ERRMSG, "002", AVT_FATAL, filename);
-//        fprintf (stderr, "\nsim error: can't close file %s\n", filename);
+/*        fprintf (stderr, "\nsim error: can't close file %s\n", filename);*/
         EXIT (1);
     }
 }
@@ -549,7 +549,7 @@ void sim_readspifile (char *fileout, char *argv[], int nbx, int nby, double **ta
         debug = 1;
     if ((file = fopen (fileout, "r")) == NULL) {
         avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, fileout);
-//        fprintf (stderr, "\nsim error: can't open file %s\n", fileout);
+/*        fprintf (stderr, "\nsim error: can't open file %s\n", fileout);*/
         EXIT (1);
     }
 
@@ -694,8 +694,8 @@ void sim_readspifile (char *fileout, char *argv[], int nbx, int nby, double **ta
                         if (flag[x] == 2)
                             continue;
                         if (flag[x] == 1) {
-                          // TODO : interpolation par une droite
-                          // recupere les bornes d'interpolation
+                          /* TODO : interpolation par une droite*/
+                          /* recupere les bornes d'interpolation*/
                             tab[x][y] = tab[x][y - 1];
                         }
                         else
@@ -765,18 +765,16 @@ void sim_readspifile (char *fileout, char *argv[], int nbx, int nby, double **ta
 extern mbk_sem_t simInFork;
 #define MAX_FILENAME_LEN 256
 
-// ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿
 int file_exists(const char *filename) {
     struct stat buffer;
     return (stat(filename, &buffer) == 0);
 }
 
-// ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿
 void generate_unique_filename(const char *base_filename, char *output_filename, size_t max_len) {
     snprintf(output_filename, max_len, "%s", base_filename);
     
     if (!file_exists(output_filename)) {
-        return; // ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿
+        return; 
     }
     
     int counter = 1;
@@ -870,7 +868,7 @@ int sim_execspice (char *filename, int silent, char *spicename, char *spicestrin
 
             avt_fprintf (stdout, "¤.");
 
-//            fprintf (stdout, "\n");
+/*            fprintf (stdout, "\n");*/
             fflush (stdout);
         }
 
@@ -880,7 +878,7 @@ int sim_execspice (char *filename, int silent, char *spicename, char *spicestrin
 
         if ((j = open (unique_filename, O_WRONLY | O_CREAT | O_TRUNC, (S_IRWXU & ~S_IXUSR) | S_IRGRP | S_IROTH)) == -1) {
             avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, unique_filename);
-//            fprintf (stderr, "\nsim error: can't open file %s\n", unique_filename);
+/*            fprintf (stderr, "\nsim error: can't open file %s\n", unique_filename);*/
             exit (1);
         }
         else if (dup2 (j, 1) != 1) {
@@ -893,7 +891,7 @@ int sim_execspice (char *filename, int silent, char *spicename, char *spicestrin
 
 /*        if ((j = open ("/dev/null", O_WRONLY)) == -1) {
             avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, unique_filename);
-            //fprintf (stderr, "\nsim error: can't open file %s\n", fileout);
+            |*fprintf (stderr, "\nsim error: can't open file %s\n", fileout);*|
             exit (1);
         }*/
         if (dup2 (j, 2) != 2) {
@@ -903,7 +901,7 @@ int sim_execspice (char *filename, int silent, char *spicename, char *spicestrin
         close (j);
         if ((j = open ("/dev/null", O_RDONLY)) == -1) {
             avt_errmsg( SIM_ERRMSG, "001", AVT_FATAL, unique_filename);
-            //fprintf (stderr, "\nsim error: can't open file %s\n", fileout);
+            /*fprintf (stderr, "\nsim error: can't open file %s\n", fileout);*/
             exit (1);
         }
         if (dup2 (j, 0) != 0) {

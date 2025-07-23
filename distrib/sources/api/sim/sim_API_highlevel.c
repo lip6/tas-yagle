@@ -10,8 +10,8 @@
 #include "sim_API_lowlevel.h"
 
 
-//_____________________________________________________________________________
-//
+/*_____________________________________________________________________________*/
+/**/
 double sim_ComputeSetup (sim_model *sc, char *data, double tstart_d,
                          double tslope_d, char sens_d, char *cmd,
                          double t_start_min_c, double t_start_max_c, double tslope_c,
@@ -32,7 +32,7 @@ double sim_ComputeSetup (sim_model *sc, char *data, double tstart_d,
         sens_data = SIM_FALL;
     else {
         avt_errmsg(SIM_API_ERRMSG, "005", AVT_ERROR);
-//        avt_error("sim_api", -1, AVT_ERR, "sim_ComputeSetup: sens_d must be 'U' or 'D'\n");
+/*        avt_error("sim_api", -1, AVT_ERR, "sim_ComputeSetup: sens_d must be 'U' or 'D'\n");*/
         return 0.0;
     }
     sens_c=tolower(sens_c);
@@ -42,7 +42,7 @@ double sim_ComputeSetup (sim_model *sc, char *data, double tstart_d,
         sens_cmd = SIM_FALL;
     else {
         avt_errmsg(SIM_API_ERRMSG, "005", AVT_ERROR);
-//        avt_error("sim_api", -1, AVT_ERR, "sim_ComputeSetup: sens_d must be 'U' or 'D'\n");
+/*        avt_error("sim_api", -1, AVT_ERR, "sim_ComputeSetup: sens_d must be 'U' or 'D'\n");*/
         return 0.0;
     }
     setup = sim_get_setup_time ((sim_model*)sc,gen_sim_devect (data),
@@ -57,7 +57,7 @@ double sim_ComputeSetup (sim_model *sc, char *data, double tstart_d,
     return setup;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ComputeHold  (sim_model *sc, char *data, double tstart_d,
                          double tslope_d, char sens_d, char *cmd,
@@ -79,7 +79,7 @@ double sim_ComputeHold  (sim_model *sc, char *data, double tstart_d,
         sens_data = SIM_FALL;
     else {
         avt_errmsg(SIM_API_ERRMSG, "006", AVT_ERROR);
-//        avt_error("sim_api", -1, AVT_ERR, "sim_ComputeHold: sens_d must be 'U' or 'D'\n");
+/*        avt_error("sim_api", -1, AVT_ERR, "sim_ComputeHold: sens_d must be 'U' or 'D'\n");*/
         return 0.0;
     }
     sens_c=tolower(sens_c);
@@ -89,7 +89,7 @@ double sim_ComputeHold  (sim_model *sc, char *data, double tstart_d,
         sens_cmd = SIM_FALL;
     else {
         avt_errmsg(SIM_API_ERRMSG, "006", AVT_ERROR);
-//      avt_error("sim_api", -1, AVT_ERR, "sim_ComputeHold: sens_d must be 'U' or 'D'\n");
+/*      avt_error("sim_api", -1, AVT_ERR, "sim_ComputeHold: sens_d must be 'U' or 'D'\n");*/
       return 0.0;
     }
     hold  = sim_get_hold_time ((sim_model*)sc,gen_sim_devect (data),
@@ -104,7 +104,7 @@ double sim_ComputeHold  (sim_model *sc, char *data, double tstart_d,
     return hold;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ComputeAccess (sim_model *sc, char *dout, int dout_val, char *cmd, double tstart_c,
                           double tslope_c, char sens_c, char *mem, int mem_val, double *out_slope)
@@ -122,7 +122,7 @@ double sim_ComputeAccess (sim_model *sc, char *dout, int dout_val, char *cmd, do
         sens_cmd = SIM_FALL;
     else {
       avt_errmsg(SIM_API_ERRMSG, "007", AVT_ERROR);
-//      avt_error("sim_api", -1, AVT_ERR, "sim_ComputeAccess: sens_c must be 'U' or 'D'\n");
+/*      avt_error("sim_api", -1, AVT_ERR, "sim_ComputeAccess: sens_c must be 'U' or 'D'\n");*/
       return 0.0;
     }
     access = sim_get_access_time ((sim_model*)sc,gen_sim_devect (dout),dout_val,gen_sim_devect (cmd),
@@ -133,7 +133,7 @@ double sim_ComputeAccess (sim_model *sc, char *dout, int dout_val, char *cmd, do
     return access;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 chain_list *sim_ComputeDelay (sim_model *sc, char *input, char sens, chain_list *list_measure)
 {
@@ -147,20 +147,20 @@ chain_list *sim_ComputeDelay (sim_model *sc, char *input, char sens, chain_list 
     SEPAR = SIM_SEPAR;
     
     slope = sim_parameter_get_slope( (sim_model*)sc ); 
-    // positionne le front d entree
+    /* positionne le front d entree*/
     sim_AddSlope (sc, gen_sim_devect(input),0.0,slope,sens);
     
-    // ajoute les mesures sur les points de sortie
+    /* ajoute les mesures sur les points de sortie*/
     for (chain = (chain_list*)list_measure ; chain ; chain = chain->NEXT) {
         name = (char*)chain->DATA;
         sim_AddMeasure (sc, gen_sim_devect(name));
     }
 
-    // Launch simulation
+    /* Launch simulation*/
     sim_RunSimulation (sc, NULL);
     sim_parse_spiceout ((sim_model*)sc);
 
-    // Recupere les delais
+    /* Recupere les delais*/
     for (chain = (chain_list*)list_measure ; chain ; chain = chain->NEXT) {
         name = (char*)chain->DATA;
         if (!sim_find_locon (gen_sim_devect (name), sim_model_get_lofig((sim_model*)sc),NULL,NULL))
@@ -173,7 +173,7 @@ chain_list *sim_ComputeDelay (sim_model *sc, char *input, char sens, chain_list 
     return (chain_list*)SIM_HEAD_TMG;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_compute_delay_transition (sim_model *sc, char dtype,char *input, double input_start,double slope,char *output, char *event)
 {
@@ -198,16 +198,16 @@ double sim_compute_delay_transition (sim_model *sc, char dtype,char *input, doub
         init_output = 0;
 
     input_start = SIM_UNIT_X_TO_Y (input_start, 1.0, SIM_UNIT_TIME);
-    // positionne le front d entree
+    /* positionne le front d entree*/
     sim_AddSlope (sc, gen_sim_devect(input),input_start,slope,in_event);
 
-    // ajoute les mesures sur les points de sortie
+    /* ajoute les mesures sur les points de sortie*/
     sim_AddMeasure (sc, gen_sim_devect(output));
 
-    // initialise la sortie
+    /* initialise la sortie*/
     sim_AddInitLevel (sc, gen_sim_devect(output),init_output);
 
-    // Launch simulation
+    /* Launch simulation*/
     sim_RunSimulation (sc, NULL);
     sim_parse_spiceout ((sim_model*)sc);
 
@@ -219,7 +219,7 @@ double sim_compute_delay_transition (sim_model *sc, char dtype,char *input, doub
 
     sim_get_THR(sc, &th_in, &th_out, NULL, NULL);
 
-    // Retourne le delai
+    /* Retourne le delai*/
     return sim_get_trans_delay ((sim_model*)sc, 
                                 dtype,
                                 'c',
@@ -229,21 +229,21 @@ double sim_compute_delay_transition (sim_model *sc, char dtype,char *input, doub
                                 event, th_in, th_out);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ComputeMaxDelayTransition (sim_model *sc, char *input, double input_start,double input_slope,char *output, char *event)
 {
     return sim_compute_delay_transition (sc, SIM_MAX,input,input_start,input_slope,output,event);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 double sim_ComputeMinDelayTransition (sim_model *sc, char *input, double input_start,double input_slope,char *output, char *event)
 {
     return sim_compute_delay_transition (sc, SIM_MIN,input,input_start,input_slope,output,event);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 void SET_CONTEXT(sim_model *sc)
 {
   sim_set_ctx(sc);

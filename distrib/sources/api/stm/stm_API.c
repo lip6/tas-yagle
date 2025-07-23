@@ -3,21 +3,21 @@
 #define API_USE_REAL_TYPES
 #include "stm_API.h"
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void *stm_AddCell (char *cellname)
 {
     return (timing_cell*)stm_addcell (cellname);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void *stm_ModCreateTable (char *name, int nx, int ny, char xtype, char ytype)
 {
     return (timing_model*)stm_mod_create_table (name,nx,ny,xtype,ytype);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void stm_ModTblSetXrangeVal (void *model, int xpos, double value)
 {
@@ -27,7 +27,7 @@ void stm_ModTblSetXrangeVal (void *model, int xpos, double value)
     stm_modtbl_setXrangeval (table, xpos, value);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void stm_ModTblSetYrangeVal (void *model, int ypos, double value)
 {
@@ -37,7 +37,7 @@ void stm_ModTblSetYrangeVal (void *model, int ypos, double value)
     stm_modtbl_setYrangeval (table, ypos, value);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void stm_ModTblSetXrange (void *model, chain_list *xrange)
 {
@@ -47,7 +47,7 @@ void stm_ModTblSetXrange (void *model, chain_list *xrange)
     stm_modtbl_setXrange (table, (chain_list*)xrange, 1.0);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void stm_ModTblSetYrange (void *model, chain_list *yrange)
 {
@@ -57,7 +57,7 @@ void stm_ModTblSetYrange (void *model, chain_list *yrange)
     stm_modtbl_setXrange (table, (chain_list*)yrange, 1.0);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void stm_ModTblSet2Dval (void *model, int xpos, int ypos, double value)
 {
@@ -67,21 +67,21 @@ void stm_ModTblSet2Dval (void *model, int xpos, int ypos, double value)
     stm_modtbl_set2Dval (table, xpos, ypos, value);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 char *stm_CellAddModel (void *cell, void *model, int noshare)
 {
     return stm_cell_addmodel ((timing_cell*)cell, (timing_model*)model, noshare);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void stm_DriveCell (char *cellname)
 {
     stm_drivecell (cellname);
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 chain_list *stm_ModTblAddRangeVal (chain_list *range, double value)
 {
@@ -94,7 +94,7 @@ chain_list *stm_ModTblAddRangeVal (chain_list *range, double value)
     return (chain_list*)range;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 chain_list *stm_ModTblCreateRange (char *rangevalues)
 {
@@ -121,7 +121,7 @@ chain_list *stm_ModTblCreateRange (char *rangevalues)
     return range;
 }
 
-//_____________________________________________________________________________
+/*_____________________________________________________________________________*/
 
 void stm_FreeTblRange (chain_list *range)
 {
@@ -139,7 +139,7 @@ void stm_FreeTblRange (chain_list *range)
 }
 
 
-// METHO
+/* METHO*/
 
 void SET_DELAY(double value)
 {  

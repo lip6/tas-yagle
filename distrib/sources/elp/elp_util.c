@@ -20,26 +20,26 @@
 #include AVT_H
 #include ELP_H
 
-//int    ELP_CAPA_LEVEL = ELP_CAPA_LEVEL1;
-//double ELP_MULU0_MARGIN = -1.0;
-//double ELP_DELVT0_MARGIN = -1.0;
-//double ELP_SA_MARGIN = -1.0;
-//double ELP_SB_MARGIN = -1.0;
-//double ELP_SD_MARGIN = -1.0;
+/*int    ELP_CAPA_LEVEL = ELP_CAPA_LEVEL1;*/
+/*double ELP_MULU0_MARGIN = -1.0;*/
+/*double ELP_DELVT0_MARGIN = -1.0;*/
+/*double ELP_SA_MARGIN = -1.0;*/
+/*double ELP_SB_MARGIN = -1.0;*/
+/*double ELP_SD_MARGIN = -1.0;*/
 double ELP_NF_MARGIN = -1.0;
 double ELP_M_MARGIN = -1.0;
 double ELP_NRS_MARGIN = -1.0;
 double ELP_NRD_MARGIN = -1.0;
 extern FILE *elpin                                                         ;
 int    ELPLINE                                                             ;
-//int    ELP_DRV_FILE = 0;
+/*int    ELP_DRV_FILE = 0;*/
 int    ELP_GENPARAM = 0 ; 
 int    ELP_LOAD_FILE_TYPE = ELP_LOADELP_FILE ; 
 char  *elpoldtechnofilename = NULL;
 int    elpres_load;
 char   elpTechnoName[elpSTRINGSIZE]                                        ;
 char   elpTechnoFile[elpSTRINGSIZE]                                        ;
-char   elpGenTechnoFile[elpSTRINGSIZE]                                     ; // auto generated techno
+char   elpGenTechnoFile[elpSTRINGSIZE]                                     ; /* auto generated techno*/
 double elpTechnoVersion                                                    ;
 char   elpEsimName[elpSTRINGSIZE]                                          ;
 double elpGeneral[elpGENERALNUM] = {0.0,ELPINITTEMP,200.0,ELPMINVOLTAGE,ELPMINVOLTAGE,ELPMINVOLTAGE,ELPINITTHR,ELPINITTHR,ELPINITTHR} ;
@@ -1284,7 +1284,7 @@ chain_list *longkey;
                                   res = 1 ;
                                  break ;                         
     case elpCaseLevel   : if((tree->DATA1 == (long)transcase) || 
-                             //(tree->DATA1 == elpTYPICAL) || 
+                             /*(tree->DATA1 == elpTYPICAL) || */
                              (transcase == elpTYPICAL))
                            res = 1 ;
                           break ;
@@ -1540,7 +1540,7 @@ double scc;*/
  int type = (MLO_IS_TRANSN(lotrs->TYPE) ? elpNMOS : elpPMOS) ;
 
  modelname = getlotrsmodel (lotrs);
- // first : try to get the same model name...
+ /* first : try to get the same model name...*/
  for(model = ELP_MODEL_LIST ; model != NULL ; model = model->NEXT)
    {
     if((modelname == model->elpModelName) && 
@@ -1576,14 +1576,14 @@ double scc;*/
         elpDouble2Long(model->elpVoltage[elpVBULK]*SCALE_X ) ) &&
         ((transcase == model->elpTransCase) || (model->elpTransCase == elpTYPICAL)))
      {
-//      if (!mbk_isdioden(getlotrsmodel(lotrs)) && !mbk_isdiodep(getlotrsmodel(lotrs)))
+/*      if (!mbk_isdioden(getlotrsmodel(lotrs)) && !mbk_isdiodep(getlotrsmodel(lotrs)))*/
        {
         if(lotrs->TRNAME != NULL)
           avt_errmsg(ELP_ERRMSG, "007", AVT_ERROR, lotrs->TRNAME, model->elpModelName);
-//          elpError(1007,lotrs->TRNAME,model->elpModelName) ;
+/*          elpError(1007,lotrs->TRNAME,model->elpModelName) ;*/
         else
           avt_errmsg(ELP_ERRMSG, "007", AVT_ERROR, modelname, model->elpModelName);
-//          elpError(1007,modelname,model->elpModelName) ;
+/*          elpError(1007,modelname,model->elpModelName) ;*/
        }
       elpDupModel (lotrs,model,type,vdd,transcase,mulu0,delvt0,sa,sb,sd,nf,m,nrs,nrd,vbulk,sc,sca,scb,scc);
       break ;
@@ -1625,14 +1625,14 @@ double scc;*/
         elpDouble2Long(model->elpVoltage[elpVBULK]*SCALE_X ) ) &&
         ((transcase == model->elpTransCase) || (model->elpTransCase == elpTYPICAL)))
          {
-//          if (!mbk_isdioden(getlotrsmodel(lotrs)) && !mbk_isdiodep(getlotrsmodel(lotrs)))
+/*          if (!mbk_isdioden(getlotrsmodel(lotrs)) && !mbk_isdiodep(getlotrsmodel(lotrs)))*/
            {
             if(lotrs->TRNAME != NULL)
               avt_errmsg(ELP_ERRMSG, "007", AVT_ERROR, lotrs->TRNAME, model->elpModelName);
-              //elpError(1007,lotrs->TRNAME,model->elpModelName) ;
+              /*elpError(1007,lotrs->TRNAME,model->elpModelName) ;*/
             else
               avt_errmsg(ELP_ERRMSG, "007", AVT_ERROR, modelname, model->elpModelName);
-              //elpError(1007,modelname,model->elpModelName) ;
+              /*elpError(1007,modelname,model->elpModelName) ;*/
            }
           elpDupModel (lotrs,model,type,vdd,transcase,mulu0,delvt0,sa,sb,sd,nf,m,nrs,nrd,vbulk,sc,sca,scb,scc);
           break ;
@@ -1824,13 +1824,13 @@ double scc;
           if(lotrs->TRNAME != NULL)
            {
             avt_errmsg(ELP_ERRMSG, "009", AVT_ERROR, lotrs->TRNAME);
-            //elpError(1009,lotrs->TRNAME) ;
+            /*elpError(1009,lotrs->TRNAME) ;*/
             EXIT(1);
            }
           else
            {
             avt_errmsg(ELP_ERRMSG, "009", AVT_ERROR, getlotrsmodel(lotrs));
-            //elpError(1009,getlotrsmodel(lotrs)) ;
+            /*elpError(1009,getlotrsmodel(lotrs)) ;*/
             EXIT(1);
            }
          }
@@ -1843,13 +1843,13 @@ double scc;
       if(lotrs->TRNAME != NULL)
        {
         avt_errmsg(ELP_ERRMSG, "009", AVT_ERROR, lotrs->TRNAME);
-        //elpError(1009,lotrs->TRNAME) ;
+        /*elpError(1009,lotrs->TRNAME) ;*/
         EXIT(1);
        }
       else
        {
          avt_errmsg(ELP_ERRMSG, "009", AVT_ERROR, getlotrsmodel(lotrs));
-        //elpError(1009,getlotrsmodel(lotrs)) ;
+        /*elpError(1009,getlotrsmodel(lotrs)) ;*/
         EXIT(1);
        }
      }
@@ -1932,7 +1932,7 @@ int transcase ;
  trsmodel = getlotrsmodel(lotrs);
 /*
  if (mbk_isdioden(trsmodel) || mbk_isdiodep(trsmodel))
-   // don t try to get diode model, get only the equivalent transistor from type of diode
+   |* don t try to get diode model, get only the equivalent transistor from type of diode*|
    return elpGetModelType(lotrs->TYPE);
 */
  elp_lotrs_param_get (lotrs,&mulu0,&delvt0,&sa,&sb,&sd,&nf,&m,&nrs,&nrd,&vbulk,&sc,&sca,&scb,&scc);
@@ -1940,7 +1940,7 @@ int transcase ;
  if ( transcase != elpTYPICAL ) {
    newvdd = elpGetVddFromCorner (lotrs, transcase);
    if (MLO_IS_TRANSP(lotrs->TYPE) )
-     vbulk = newvdd;  // because bulk voltage was also updated to newvdd
+     vbulk = newvdd;  /* because bulk voltage was also updated to newvdd*/
  }
  else
    newvdd = vdd;
@@ -1948,7 +1948,7 @@ int transcase ;
  if ( getptype (lotrs->USER, CNS_UNUSED) && !cns_getlotrsalim(lotrs, 'M', &alim)) {
   newvdd = elpGetVdd4UnusedLotrs(lotrs);
   if (MLO_IS_TRANSP(lotrs->TYPE) )
-    vbulk = newvdd;  // to keep vbs=0.0
+    vbulk = newvdd;  /* to keep vbs=0.0*/
   else 
     vbulk = 0.0; 
  }
@@ -2242,22 +2242,22 @@ elpmodel_list *model ;
    int i ;
   
    for( i=0 ; i<elpSHRINKNUM ; i++ ) 
-     if( !finite(model->elpShrink[i]) ) //elpError(1004,elpTechnoFile) ;
+     if( !finite(model->elpShrink[i]) ) /*elpError(1004,elpTechnoFile) ;*/
         avt_errmsg(ELP_ERRMSG, "004", AVT_ERROR, elpTechnoFile);
    for( i=0 ; i<elpMODELNUM ; i++ )
-     if( !finite(model->elpModel[i]) ) //elpError(1004,elpTechnoFile) ;
+     if( !finite(model->elpModel[i]) ) /*elpError(1004,elpTechnoFile) ;*/
         avt_errmsg(ELP_ERRMSG, "004", AVT_ERROR, elpTechnoFile);
    for( i=0 ; i<elpVOLTNUM ; i++ )
-     if( !finite(model->elpVoltage[i]) ) //elpError(1004,elpTechnoFile) ;
+     if( !finite(model->elpVoltage[i]) ) /*elpError(1004,elpTechnoFile) ;*/
         avt_errmsg(ELP_ERRMSG, "004", AVT_ERROR, elpTechnoFile);
    for( i=0 ; i<elpCAPANUM ; i++ )
-     if( !finite(model->elpCapa[i]) ) //elpError(1004,elpTechnoFile) ;
+     if( !finite(model->elpCapa[i]) ) /*elpError(1004,elpTechnoFile) ;*/
         avt_errmsg(ELP_ERRMSG, "004", AVT_ERROR, elpTechnoFile);
    for( i=0 ; i<elpRSSNUM ; i++ )
-     if( !finite(model->elpRss[i]) ) //elpError(1004,elpTechnoFile) ;
+     if( !finite(model->elpRss[i]) ) /*elpError(1004,elpTechnoFile) ;*/
         avt_errmsg(ELP_ERRMSG, "004", AVT_ERROR, elpTechnoFile);
    for( i=0 ; i<elpRACCNUM ; i++ )
-     if( !finite(model->elpRacc[i]) ) //elpError(1004,elpTechnoFile) ;
+     if( !finite(model->elpRacc[i]) ) /*elpError(1004,elpTechnoFile) ;*/
         avt_errmsg(ELP_ERRMSG, "004", AVT_ERROR, elpTechnoFile);
    
    if( 
@@ -2465,7 +2465,7 @@ if ( elpin )
 if(elpparse() != 0)
     {
       avt_errmsg(ELP_ERRMSG, "002", AVT_ERROR, elpTechnoFile);
-//    elpError(1002,elpTechnoFile) ; /* si erreur chergement => erreur 1002 */
+/*    elpError(1002,elpTechnoFile) ; /* si erreur chergement => erreur 1002 */
     return 1002 ; /* arret de la procedure elp */
     }
 
@@ -2474,7 +2474,7 @@ if ( elpin )
 if( fclose(elpin) != 0)
     {
       avt_errmsg(ELP_ERRMSG, "003", AVT_ERROR, elpTechnoFile);
-     //elpError(1003,elpTechnoFile) ; /* si fermeture ko => erreur 1003 */
+     /*elpError(1003,elpTechnoFile) ; /* si fermeture ko => erreur 1003 */
     }
 
 /*-------------------------------------------------------------------*/
@@ -2605,7 +2605,7 @@ if(model->elpTransModel == elpMOS)
        {
          if( !displayed ) 
           avt_errmsg(ELP_ERRMSG, "005", AVT_ERROR, elpTechnoFile);
-          // elpError(1005,"diffusion") ;
+          /* elpError(1005,"diffusion") ;*/
          displayed = 1 ;
          return 0 ;
        }
@@ -2754,7 +2754,7 @@ if(model->elpTransModel == elpMOS)
        {
          if( !displayed ) 
            avt_errmsg(ELP_ERRMSG, "002", AVT_ERROR, elpTechnoFile);
-   //        elpError(1005,"diffusion") ;
+   /*        elpError(1005,"diffusion") ;*/
          displayed = 1 ;
          return 0 ;
        }
@@ -3866,7 +3866,7 @@ if(elpGeneral[elpACM] == 1.0)
 return ;
 }
 
-//-------------------------------------------------------------------------
+/*-------------------------------------------------------------------------*/
 elpFCT void elpLotrsGetUnShrinkDim( lotrs, length, width, length_s, width_s, transcase )
 struct lotrs *lotrs ;
 long length, width, *length_s, *width_s ;
@@ -4148,8 +4148,8 @@ elpFCT void elpGetDeltaShrinkWidth (lotrs,ptdeff,ptdactive,ptwmlt,transcase)
 return ;
 }
 
-// Func : elpGetShrinkedLength
-// Obtient la longueur shrinkee d'un transistor
+/* Func : elpGetShrinkedLength*/
+/* Obtient la longueur shrinkee d'un transistor*/
 
 long elpGetShrinkedLength (lotrs_list *lotrs, elpmodel_list *model)
 {
@@ -4165,8 +4165,8 @@ long elpGetShrinkedLength (lotrs_list *lotrs, elpmodel_list *model)
     return length_s;
 }
 
-// Func : elpGetShrinkedWidth 
-// Obtient la largueur shrinkee d'un transistor
+/* Func : elpGetShrinkedWidth */
+/* Obtient la largueur shrinkee d'un transistor*/
 
 long elpGetShrinkedWidth (lotrs_list *lotrs, elpmodel_list *model)
 {
@@ -4570,7 +4570,7 @@ void elpDriveModel (char *filename, elpmodel_list *model)
 
  if (fclose(file) != 0)
    avt_errmsg(ELP_ERRMSG, "003", AVT_ERROR, filename);
-//   elpError(1003,filename) ;
+/*   elpError(1003,filename) ;*/
 }
 
 /****************************************************************************\

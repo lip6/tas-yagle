@@ -6,7 +6,6 @@
 #define ECHO /* fprintf(stderr,"\ntoken %s\n",yytext) */
 #define YY_NO_UNPUT
 
-extern double atof() ;
 extern int ELPLINE  ;
 %}
 

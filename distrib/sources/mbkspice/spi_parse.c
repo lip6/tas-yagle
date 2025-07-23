@@ -55,7 +55,7 @@
 #include "spi_hash.h"
 #include "spi_parse.h"
 
-// #define HANDLE_XY
+/* #define HANDLE_XY*/
 
 #define SPICE_UNSOLVED_VCARDS 0xfab60919
 #define SPICE_MULTI_CONNECTOR_NAMES 0xfab70222
@@ -71,7 +71,7 @@ static char SPI_COM_CHAR='$';
 /* Fonctions dynamiques */
 static chain_list *ext_handler_list = NULL;
 static chain_list *cmp_handler_list = NULL;
-static int ext_handlers ();
+static int ext_handlers ( char *line, int process );
 static int cmp_handlers ();
 
 /* Variables globales MSL */
@@ -513,7 +513,7 @@ static void spi_put_topfig_info_in_instance_fig (lofig_list * topfig)
                uvc=(unsolved_vcard_type *)cl->DATA;
                if (uvc!=NULL)
                {
-                 // unsolved message
+                 /* unsolved message*/
                  avt_errmsg (SPI_ERRMSG, "071", AVT_ERROR, 
                             uvc->s[0].name?uvc->s[0].name:getsigname (uvc->s[0].u.sig),
                             uvc->s[1].name?uvc->s[1].name:getsigname (uvc->s[1].u.sig),
@@ -536,7 +536,7 @@ static void spi_put_topfig_info_in_instance_fig (lofig_list * topfig)
      uvc=(unsolved_vcard_type *)cl->DATA;
      if (uvc!=NULL)
      {
-       // unsolved message
+       /* unsolved message*/
        avt_errmsg (SPI_ERRMSG, "072", AVT_ERROR, 
                   uvc->s[0].name?uvc->s[0].name:getsigname (uvc->s[0].u.sig),
                   uvc->s[1].name?uvc->s[1].name:getsigname (uvc->s[1].u.sig),
@@ -611,7 +611,7 @@ char mode;
     char *extention;
     lofig_list *topfig, *lastlofig;
     ptype_list *ptl;
-    ptype_list *exp;            // expression a evaluer a la fin (pour les param globaux)
+    ptype_list *exp;            /* expression a evaluer a la fin (pour les param globaux)*/
     double valeur;
     mbk_options_pack_struct spice_opack[] = {
         {"KeepBBOXContent", SF_KEEP_BBOX},
@@ -838,7 +838,7 @@ char mode;
     ALLINTERF = spi_initpreloadedlib (ALLINTERF);
     lastlofig = HEAD_LOFIG;
 
-    GLOBAL_CTX = spi_init_eqt ();    // with .PARAM
+    GLOBAL_CTX = spi_init_eqt ();    /* with .PARAM*/
 
     eqt_addvar (GLOBAL_CTX, namealloc ("temper"), V_FLOAT_TAB[__SIM_TEMP].VALUE);
 
@@ -866,7 +866,7 @@ char mode;
     /* resolve created top circuit */
     if (SPI_CREATE_TOP_FIGURE && !spi_empty_circuit (SPI_TOPCIR)) {
         if (spi_findfigure (SPI_PARSED_LOFIG, SPI_TOPCIR->NOM)) {
-            // gestion d'un eventuel conflit de nom
+            /* gestion d'un eventuel conflit de nom*/
             char buf[1024];
             sprintf (buf, "top_%s", SPI_TOPCIR->NOM);
             SPI_TOPCIR->NOM = (char *)spiciralloue (SPI_TOPCIR, sizeof (char) * (strlen (buf) + 1));
@@ -940,7 +940,7 @@ char mode;
             cl = eqt_GetVariables (GLOBAL_CTX, (char *)exp->DATA, 0);
             for (ch = cl; ch != NULL; ch = ch->NEXT) {
                 fprintf (stderr, "%s '%s'", ch == cl ? "" : ch->NEXT == NULL ? " and" : ",", (char *)ch->DATA);
-//                eqt_addvar (GLOBAL_CTX, (char *)ch->DATA, 0);
+/*                eqt_addvar (GLOBAL_CTX, (char *)ch->DATA, 0);*/
                 fprintf (stderr, ", assuming 0");
             }
             freechain (cl);
@@ -1102,8 +1102,8 @@ allinterf *spiceloading (lofig_list * ptfig, char *name, char *extension, char m
         }
     }
 
-    // --------- zinaps: 27/9/2004 --------------
-    // dans le cas ou les .model sont en fin de fichier hors de subckt
+    /* --------- zinaps: 27/9/2004 --------------*/
+    /* dans le cas ou les .model sont en fin de fichier hors de subckt*/
     /* Resolve as much as possible */
     ptunresolved = SPI_UNRESOLVED_CIRCUITS;
     changes = FALSE;
@@ -1131,7 +1131,7 @@ allinterf *spiceloading (lofig_list * ptfig, char *name, char *extension, char m
         SPI_UNRESOLVED_CIRCUITS = delchain (SPI_UNRESOLVED_CIRCUITS, ptdelete);
         changes = TRUE;
     }
-    // -----------------------------------------
+    /* -----------------------------------------*/
 
     if (cmp_handler_list) {
         msl_figloaded = FALSE;
@@ -1147,7 +1147,7 @@ allinterf *spiceloading (lofig_list * ptfig, char *name, char *extension, char m
     if (SPI_DRIVE_SPEF_MODE) {
         chain_list *cl;
         SpiceToSpef (name, extension, all_cirs_in_file, SPI_RC_MEMORY_LIMIT);
-        // liberation...
+        /* liberation...*/
         for (cl = all_cirs_in_file; cl != NULL; cl = cl->NEXT) {
             liberecircuit ((circuit *) cl->DATA);
         }
@@ -1164,8 +1164,8 @@ allinterf *spi_resolvecircuit (lofig_list * ptfig, circuit * ptcir, allinterf * 
     lofig_list *newfig;
     locon_list *scanlocon;
 
-//    mbk_debugstat(NULL,1);
-//    fprintf(stderr, "all: %s",ptcir->NOM); fflush(stderr);
+/*    mbk_debugstat(NULL,1);*/
+/*    fprintf(stderr, "all: %s",ptcir->NOM); fflush(stderr);*/
     ALLINTERF = constequi (ptcir, ALLINTERF);
     ALLINTERF = constinterf (ptcir, ALLINTERF);
 
@@ -1778,7 +1778,7 @@ static double eval_and_check (char *expr, spifile * df, int checkneg)
 
 static int spi_parse_pulse (circuit * ptcir, char *aname, chain_list * ligne)
 {
-    // ( v0 v1 t0 tr tf uptime period )
+    /* ( v0 v1 t0 tr tf uptime period )*/
     float period, pulsew, tr, tf, t0, v0, v1, dr, df, rt, ft;
     float VTH, VTH_H, VTH_L;
     char buf[1024];
@@ -1824,7 +1824,7 @@ static int spi_parse_pulse (circuit * ptcir, char *aname, chain_list * ligne)
         rt = t0 + tf + pulsew + dr;
     }
 
-//  printf("%s time: R=%g F=%g, PER=%g, slope: R=%g F=%g\n", aname, rt, ft, period, tr*(VTH_H-VTH_L), tf*(VTH_H-VTH_L));
+/*  printf("%s time: R=%g F=%g, PER=%g, slope: R=%g F=%g\n", aname, rt, ft, period, tr*(VTH_H-VTH_L), tf*(VTH_H-VTH_L));*/
     if ((ifl = getloadedinffig (ptcir->NOM)) == NULL)
         ifl = addinffig (ptcir==SPI_TOPCIR?TOPCIRINFNAME:ptcir->NOM);
 
@@ -1846,7 +1846,7 @@ static int spi_parse_pulse (circuit * ptcir, char *aname, chain_list * ligne)
 
 static int spi_parse_pwl (circuit * ptcir, char *aname, chain_list * ligne)
 {
-    // ( v0 v1 t0 tr tf uptime period )
+    /* ( v0 v1 t0 tr tf uptime period )*/
     float period;
     float VTH, VTH_H, VTH_L;
     char buf[4096];
@@ -1929,7 +1929,7 @@ static int spi_parse_pwl (circuit * ptcir, char *aname, chain_list * ligne)
             if (slopeu == -1) {
                 slopeu = slopes[i].time_high - slopes[i].time_low;
                 risetime = slopes[i].time + shift;
-//              printf("rise transition at %g on %s = %g\n", risetime, aname, slopeu);
+/*              printf("rise transition at %g on %s = %g\n", risetime, aname, slopeu);*/
                 inf_AddDouble (ifl, INF_DEFAULT_LOCATION, aname, INF_PIN_RISING_SLEW, slopeu, buf);
             }
             else if (fabs (slopeu - (slopes[i].time_high - slopes[i].time_low)) >= 1e-12) {
@@ -1940,7 +1940,7 @@ static int spi_parse_pwl (circuit * ptcir, char *aname, chain_list * ligne)
             if (sloped == -1) {
                 sloped = slopes[i].time_low - slopes[i].time_high;
                 falltime = slopes[i].time + shift;
-//              printf("fall transition at %g on %s = %g\n", falltime, aname, sloped);
+/*              printf("fall transition at %g on %s = %g\n", falltime, aname, sloped);*/
                 inf_AddDouble (ifl, INF_DEFAULT_LOCATION, aname, INF_PIN_FALLING_SLEW, sloped, buf);
             }
             else if (fabs (sloped - (slopes[i].time_low - slopes[i].time_high)) >= 1e-12) {
@@ -1957,7 +1957,7 @@ static int spi_parse_pwl (circuit * ptcir, char *aname, chain_list * ligne)
         inf_AddDouble (ifl, INF_DEFAULT_LOCATION, aname, INF_MAX_RISE_TIME, risetime, buf);
         inf_AddDouble (ifl, INF_DEFAULT_LOCATION, aname, INF_MIN_FALL_TIME, falltime, buf);
         inf_AddDouble (ifl, INF_DEFAULT_LOCATION, aname, INF_MAX_FALL_TIME, falltime, buf);
-//      printf("%s time: R=%g F=%g, PER=%g\n", aname, risetime, falltime, period);
+/*      printf("%s time: R=%g F=%g, PER=%g\n", aname, risetime, falltime, period);*/
     }
 
     if (j == 0) avt_errmsg(SPI_ERRMSG, "056", AVT_WARNING, sdf->filename, sdf->msl_line, aname);
@@ -2014,7 +2014,7 @@ int spi_parse_voltage (circuit * ptcir, chain_list * ligne, spifile * df, char *
             freechain (ch);
             return ret;
           }
-          return spi_parse_pwl (ptcir, a_name, elem->NEXT);    // was 'return (0)'
+          return spi_parse_pwl (ptcir, a_name, elem->NEXT);    /* was 'return (0)'*/
         }
         if (strncasecmp ((char *)(elem->DATA), "pulse", 5) == 0) {
           if (elem->NEXT == NULL) {
@@ -2029,7 +2029,7 @@ int spi_parse_voltage (circuit * ptcir, chain_list * ligne, spifile * df, char *
         if (!eqt_resistrue (GLOBAL_CTX))
           {
             expr=mbkstrdup((char *)elem->DATA);
-            //        return 0;
+            /*        return 0;*/
           }
       }
     else
@@ -2049,8 +2049,8 @@ int spi_parse_voltage (circuit * ptcir, chain_list * ligne, spifile * df, char *
       uvc->expr=sensitive_namealloc(expr);
       uvc->s[0].nodename=namealloc(a_name);
       uvc->s[1].nodename=namealloc(b_name);
-      if (a==NULL) uvc->s[0].name=namealloc(a_name); //namealloc((SPICE_KEEP_CARDS & KEEP__INSTANCE)?a_name:a_name+1);
-      if (b==NULL) uvc->s[1].name=namealloc(b_name); //namealloc((SPICE_KEEP_CARDS & KEEP__INSTANCE)?b_name:b_name+1);
+      if (a==NULL) uvc->s[0].name=namealloc(a_name); /*namealloc((SPICE_KEEP_CARDS & KEEP__INSTANCE)?a_name:a_name+1);*/
+      if (b==NULL) uvc->s[1].name=namealloc(b_name); /*namealloc((SPICE_KEEP_CARDS & KEEP__INSTANCE)?b_name:b_name+1);*/
       ptcir->UNSOLVED_VCARDS=addchain(ptcir->UNSOLVED_VCARDS, uvc);
       return 0;
     }
@@ -2203,7 +2203,7 @@ int spi_parse_capa (circuit * ptcir, chain_list * ligne, spifile * df, char *con
         }
     }
     ptcapa->SIG2 = (losig_list *) ptcapa->USER;
-    ptcapa->USER = NULL;        // le USER sert a stocker le nom !!!!
+    ptcapa->USER = NULL;        /* le USER sert a stocker le nom !!!!*/
     if (valuecfound == 'n')
         ptcapa->CAPA = cnom * SPI_SCALE_CAPAFACTOR * 1e12;
 
@@ -2237,7 +2237,7 @@ void spi_rename_instance_model (circuit * ptcir, chain_list *list)
     inst *ptinst;
     long l;
     chain_list *cl;
-    //lofig_list *lf;
+    /*lofig_list *lf;*/
     circuit * ptcirsub;
     
     ht *newht = NULL;
@@ -2363,7 +2363,7 @@ int spi_parse_instance (circuit * ptcir, chain_list * ligne, spifile * df, float
     if (ptinst->PARAM)
         ptinst->PARAM = (insparam_list *) reverse ((chain_list *) ptinst->PARAM);
 
-    // XY coordinates
+    /* XY coordinates*/
 
     ptinst->X = (int)com_x;
     ptinst->Y = (int)com_y;
@@ -2493,7 +2493,7 @@ int spi_parse_wire (circuit * ptcir, chain_list * ligne, spifile * df, char *con
     
     foundrvalue = 'n';
     if (elem->NEXT == NULL || strcmp (elem->NEXT->DATA, "=") != 0) {
-//        elem = elem->NEXT;        /* R value */
+/*        elem = elem->NEXT;        /* R value */
         valeur = spi_eval (ptcir?ptcir->sf:NULL, GLOBAL_CTX, (char *)elem->DATA, &paramexpr, ptcir!=NULL?1:0,1);
         ptresi->RESI = valeur * SPI_SCALE_RESIFACTOR;
         ptresi->CAPA = 0.0;
@@ -2685,7 +2685,7 @@ int spi_parse_transistor (circuit * ptcir, chain_list * ligne, spifile * df, flo
     if (!elem)
         avt_errmsg (SPI_ERRMSG, "027", AVT_FATAL, df->filename, df->linenum);
     ptnoeud = ajoutenoeud (ptcir, (char *)(elem->DATA), 0);
-    pttrans->DRAIN = (locon_list *) ptnoeud;    // [!] ce n'est pas un locon
+    pttrans->DRAIN = (locon_list *) ptnoeud;    /* [!] ce n'est pas un locon*/
     if (SPI_DRIVE_SPEF_MODE)
         _spispef_setnodename (ptcir, ptnoeud, ins, "d" /*MBK_DRAIN_NAME */ );
 
@@ -2693,7 +2693,7 @@ int spi_parse_transistor (circuit * ptcir, chain_list * ligne, spifile * df, flo
     if (!elem)
         avt_errmsg (SPI_ERRMSG, "028", AVT_FATAL, df->filename, df->linenum);
     ptnoeud = ajoutenoeud (ptcir, (char *)(elem->DATA), 0);
-    pttrans->GRID /*LLE*/ = (locon_list *) ptnoeud;    // [!] ce n'est pas un locon
+    pttrans->GRID /*LLE*/ = (locon_list *) ptnoeud;    /* [!] ce n'est pas un locon*/
     if (SPI_DRIVE_SPEF_MODE)
         _spispef_setnodename (ptcir, ptnoeud, ins, "g" /*MBK_GRID_NAME */ );
 
@@ -2701,7 +2701,7 @@ int spi_parse_transistor (circuit * ptcir, chain_list * ligne, spifile * df, flo
     if (!elem)
         avt_errmsg (SPI_ERRMSG, "029", AVT_FATAL, df->filename, df->linenum);
     ptnoeud = ajoutenoeud (ptcir, (char *)(elem->DATA), 0);
-    pttrans->SOURCE = (locon_list *) ptnoeud;    // [!] ce n'est pas un locon
+    pttrans->SOURCE = (locon_list *) ptnoeud;    /* [!] ce n'est pas un locon*/
     if (SPI_DRIVE_SPEF_MODE)
         _spispef_setnodename (ptcir, ptnoeud, ins, "s" /*MBK_SOURCE_NAME */ );
 
@@ -2725,7 +2725,7 @@ int spi_parse_transistor (circuit * ptcir, chain_list * ligne, spifile * df, flo
     else {
         if (SPI_IGNORE_BULK == 'N') {
             ptnoeud = ajoutenoeud (ptcir, (char *)(elem->DATA), 0);
-            pttrans->BULK = (locon_list *) ptnoeud;    // [!] ce n'est pas un locon
+            pttrans->BULK = (locon_list *) ptnoeud;    /* [!] ce n'est pas un locon*/
             if (SPI_DRIVE_SPEF_MODE)
                 _spispef_setnodename (ptcir, ptnoeud, ins, "b");
         }
@@ -2818,9 +2818,9 @@ int spi_parse_jfet (circuit * ptcir, chain_list * ligne, spifile * df, float com
             if ((SPICE_KEEP_NAMES & KEEP__RESISTANCE) == 0)
                 ptresi->USER = addptype (ptresi->USER, RESINAME, spicenamealloc (ptcir, ((char *)(ligne->DATA) + 1)));
             else {
-                if ((SPICE_KEEP_CARDS & KEEP__RESISTANCE) == 0)    // YES
+                if ((SPICE_KEEP_CARDS & KEEP__RESISTANCE) == 0)    /* YES*/
                     ptresi->USER = addptype (ptresi->USER, RESINAME, namealloc (((char *)(ligne->DATA) + 1)));
-                else            // KEEP_R
+                else            /* KEEP_R*/
                     ptresi->USER = addptype (ptresi->USER, RESINAME, namealloc ((char *)ligne->DATA));
             }
 
@@ -2860,7 +2860,7 @@ int spi_parse_jfet (circuit * ptcir, chain_list * ligne, spifile * df, float com
     if (SPI_JFET_RESI)
         ptresi->NODE1 = (long)ptnoeud;
     else {
-        pttrans->DRAIN = (locon_list *) ptnoeud;    // [!] ce n'est pas un locon
+        pttrans->DRAIN = (locon_list *) ptnoeud;    /* [!] ce n'est pas un locon*/
         if (SPI_DRIVE_SPEF_MODE)
             _spispef_setnodename (ptcir, ptnoeud, ins, "d");
     }
@@ -2870,7 +2870,7 @@ int spi_parse_jfet (circuit * ptcir, chain_list * ligne, spifile * df, float com
         avt_errmsg (SPI_ERRMSG, "028", AVT_FATAL, df->filename, df->linenum);
     ptnoeud = ajoutenoeud (ptcir, (char *)(elem->DATA), 0);
     if (!SPI_JFET_RESI) {
-        pttrans->GRID = (locon_list *) ptnoeud;    // [!] ce n'est pas un locon
+        pttrans->GRID = (locon_list *) ptnoeud;    /* [!] ce n'est pas un locon*/
         if (SPI_DRIVE_SPEF_MODE)
             _spispef_setnodename (ptcir, ptnoeud, ins, "g");
     }
@@ -2882,7 +2882,7 @@ int spi_parse_jfet (circuit * ptcir, chain_list * ligne, spifile * df, float com
     if (SPI_JFET_RESI)
         ptresi->NODE2 = (long)ptnoeud;
     else {
-        pttrans->SOURCE = (locon_list *) ptnoeud;    // [!] ce n'est pas un locon
+        pttrans->SOURCE = (locon_list *) ptnoeud;    /* [!] ce n'est pas un locon*/
         if (SPI_DRIVE_SPEF_MODE)
             _spispef_setnodename (ptcir, ptnoeud, ins, "s");
     }
@@ -3244,7 +3244,7 @@ void spi_parse_func (circuit * ptcir, chain_list * ligne, spifile * df)
   }
   else
     avt_errmsg (SPI_ERRMSG, "075", AVT_ERROR, df->filename, df->linenum);
-  ptcir = NULL;                // avoid warning
+  ptcir = NULL;                /* avoid warning*/
 }
 
 int spi_parse_param_or_dist_montecarlo (circuit * ptcir, chain_list * ligne, spifile * df, int isdist)
@@ -3290,7 +3290,7 @@ int spi_parse_param (circuit * ptcir, chain_list *ligne, eqt_ctx * ctx, spifile 
     double valeur;
     char *paramname;
     char *paramexpr;
-    //chain_list *cl, *ch;
+    /*chain_list *cl, *ch;*/
 
     *linestart = NULL;
 
@@ -3415,7 +3415,7 @@ int spi_parse_model (circuit * ptcir, chain_list * ligne, spifile * df)
       }
     }
   }
-  //else if (strcasecmp(typestr, "d") == 0) {
+  /*else if (strcasecmp(typestr, "d") == 0) {*/
   else if (tolower(typestr[0])=='d') {
     if (!mbk_isdioden (modname) && !mbk_isdiodep (modname))
       DNMOS = addchain (DNMOS, modname);
@@ -3572,7 +3572,7 @@ int spi_parse_model_montecarlo (circuit * ptcir, chain_list * ligne, spifile * d
       }
     }
   }
-  //else if (strcasecmp(typestr, "d") == 0) {
+  /*else if (strcasecmp(typestr, "d") == 0) {*/
   else if (tolower(typestr[0])=='d') {
     modtype = MCC_DIODE;
   }
@@ -3875,7 +3875,7 @@ circuit *spi_parse_subckt (chain_list ** line0, spifile * df, int *ptblackboxed,
     ptcir->LOCAL_PARAMS = NULL;
     ptcir->HASMODEL = 0;
     ptcir->FAILNAME = NULL;
-    CreateNameAllocator (100, &ptcir->HASHGNAME, CASE_SENSITIVE);    // = creatthash ();
+    CreateNameAllocator (100, &ptcir->HASHGNAME, CASE_SENSITIVE);    /* = creatthash ();*/
     CreateHeap (sizeof (insparam_list), 8096, &ptcir->INSPARAMLIST);
     ptcir->HASHCAPA = creatthash ();
     ptcir->HASHRESI = creatthash ();
@@ -4065,7 +4065,7 @@ static circuit *spi_create_circuit (char *name)
     ptcir->LOCAL_PARAMS = NULL;
     ptcir->HASMODEL = 0;
     ptcir->FAILNAME = NULL;
-    CreateNameAllocator (100, &ptcir->HASHGNAME, CASE_SENSITIVE);    // = creatthash ();
+    CreateNameAllocator (100, &ptcir->HASHGNAME, CASE_SENSITIVE);    /* = creatthash ();*/
     CreateHeap (sizeof (insparam_list), 8096, &ptcir->INSPARAMLIST);
     ptcir->HASHCAPA = creatthash ();
     ptcir->HASHRESI = creatthash ();
@@ -4146,7 +4146,7 @@ static void spi_create_top_interface (lofig_list * ptfig)
         else
             name = ptlosig->NAMECHAIN->DATA;
         ptnewlocon = addlocon (ptfig, name, ptlosig, UNKNOWN);
-//        freechain (ptlosig->NAMECHAIN);
+/*        freechain (ptlosig->NAMECHAIN);*/
         if (getchain(ptlosig->NAMECHAIN, name)==NULL)
           ptlosig->NAMECHAIN = addchain (ptlosig->NAMECHAIN, name);
         if (ptlosig->PRCN) {
@@ -4227,14 +4227,14 @@ int spi_parse_options (circuit * ptcir, chain_list * ligne, spifile * df)
     do {
         if (ligne == NULL || ligne->NEXT == NULL || ligne->NEXT->NEXT == NULL
             || strcmp ((char *)ligne->NEXT->DATA, "=") != 0) {
-            // .option <item>
+            /* .option <item>*/
             if (ligne != NULL)
                 ligne = ligne->NEXT;
         }
         else {
-            // .option <item>=<expr>
+            /* .option <item>=<expr>*/
             if (strcasecmp (ligne->DATA, "temp") == 0) {
-                // set temperature in INF
+                /* set temperature in INF*/
                 val = spi_eval (ptcir?ptcir->sf:NULL, GLOBAL_CTX, (char *)ligne->NEXT->NEXT->DATA, &paramexpr, ptcir!=NULL?1:0,0);
                 if (paramexpr == NULL) {
                     sprintf (buf, "%s:%d: ", df->filename, df->linenum);
@@ -4247,7 +4247,7 @@ int spi_parse_options (circuit * ptcir, chain_list * ligne, spifile * df)
                 else avt_errmsg(SPI_ERRMSG, "052", AVT_WARNING, df->filename, df->linenum, paramexpr);
             }
             else if (strcasecmp (ligne->DATA, "scale") == 0) {
-                // set scale
+                /* set scale*/
                 val = spi_eval (ptcir?ptcir->sf:NULL, GLOBAL_CTX, (char *)ligne->NEXT->NEXT->DATA, &paramexpr, ptcir!=NULL?1:0,0);
                 if (paramexpr == NULL) {
                     SPI_GLOBAL_SCALE = val;
@@ -4284,7 +4284,7 @@ void spi_parse_global (circuit * ptcir, chain_list * ligne)
         SPI_GLOBAL_NODES = addchain (SPI_GLOBAL_NODES, namealloc (ligne->DATA));
         ligne = ligne->NEXT;
     }
-    ptcir = NULL;                // avoid warning
+    ptcir = NULL;                /* avoid warning*/
 }
 
 
@@ -4320,7 +4320,7 @@ int spi_parse_temp (circuit * ptcir, chain_list * ligne, spifile * df)
     val = spi_eval (ptcir?ptcir->sf:NULL, GLOBAL_CTX, (char *)ligne->DATA, &paramexpr, ptcir!=NULL?1:0,0);
     if (eqt_resistrue(GLOBAL_CTX)) {
         sprintf (buf, "%s:%d: ", df->filename, df->linenum);
-//      printf("temp=%g\n",val);
+/*      printf("temp=%g\n",val);*/
         if (ifl != NULL) {
             inf_AddDouble (ifl, INF_DEFAULT_LOCATION, INF_OPERATING_CONDITION, INF_TEMPERATURE, val, buf);
         }
@@ -4330,7 +4330,7 @@ int spi_parse_temp (circuit * ptcir, chain_list * ligne, spifile * df)
     }
 
     avt_errmsg(SPI_ERRMSG, "052", AVT_WARNING, df->filename, df->linenum, spi_stripquotes((char *)ligne->DATA));
-    ptcir = NULL;                // avoid warning
+    ptcir = NULL;                /* avoid warning*/
     return 1;
 }
 
@@ -4357,7 +4357,7 @@ int spi_parse_dotopt (circuit * ptcir, chain_list * ligne, spifile * df, char *p
         return 1;
     else
         avt_errmsg(SPI_ERRMSG, "052", AVT_WARNING, df->filename, df->linenum, (char *)ligne->DATA);
-    ptcir = NULL;                // avoid warning
+    ptcir = NULL;                /* avoid warning*/
     return 0;
 }
 
@@ -4456,8 +4456,8 @@ spi_load_global *globalinfo;
     spifile *df;
     chain_list *elem;
     char *ptname;
-//    int         blackboxed;
-//    chain_list *ptcir_stack=NULL;
+/*    int         blackboxed;*/
+/*    chain_list *ptcir_stack=NULL;*/
     chain_list *ifelse_stack=NULL;
     int ifactivate = 1;
 
@@ -4521,7 +4521,7 @@ spi_load_global *globalinfo;
             }
 
             if (strcasecmp ((char *)ligne->DATA, ".LIBRARY") == 0 || strcasecmp ((char *)ligne->DATA, ".LIB") == 0) {
-                //spi_parse_library (ptcir, topfig, ligne, ALLINTERF, df, ptactivate);
+                /*spi_parse_library (ptcir, topfig, ligne, ALLINTERF, df, ptactivate);*/
                 spi_parse_library (ptcir, ligne, &df, ptactivate, fifodf);
             }
             else if (*ptactivate == 0) {
@@ -4813,7 +4813,7 @@ spi_load_global *globalinfo;
     fflush (stdout);
 #endif
 
-    spi_rename_instance_model (ptcir, globalinfo->ptcir_stack);    // pour subckt dans un subckt
+    spi_rename_instance_model (ptcir, globalinfo->ptcir_stack);    /* pour subckt dans un subckt*/
 
     if (ptcir != NULL && SPI_GLOBAL_TEMP != -DBL_MAX) {
         inffig_list *ifl;
@@ -4869,7 +4869,7 @@ ht *linksameconnectors (chain_list * ginterf_v, chain_list * iinterf_v)
     return h;
 }
 
-// herez
+/* herez*/
 chain_list *linksameequiconnectors (circuit * ptcir, chain_list * ginterf_v)
 {
     chain_list *lst, *cl, *sc1, *ch, *all;
@@ -4971,7 +4971,7 @@ allinterf *ALLINTERF;
     noeud *node1;
     noeud *node2;
     tableint *htab;
-    //ht            *htinst;
+    /*ht            *htinst;*/
     ht *htcon;
     int i;
     char *ins;
@@ -5085,7 +5085,7 @@ allinterf *ALLINTERF;
 
                 case 1:        /* On reutilise l'equi existante */
 
-                    // pt = getptype( headsig, idsig );
+                    /* pt = getptype( headsig, idsig );*/
                     pt = (ptype_list *) tsttableint (htab, idsig);
 
                     for (sc4 = nodelist; sc4 != NULL; sc4 = sc4->NEXT) {
@@ -5102,7 +5102,7 @@ allinterf *ALLINTERF;
 
                 default:        /* Il y a plus de deux equi existante : il faut
                                    les regrouper en une seule */
-                    // pt = getptype( headsig, idsig );
+                    /* pt = getptype( headsig, idsig );*/
                     pt = (ptype_list *) tsttableint (htab, idsig);
                     l1 = (int)(long)tsttableint (signbnode, pt->TYPE);
 
@@ -5294,7 +5294,7 @@ allinterf *ALLINTERF;
             node1->signal->items = NULL;
         }
 
-//      lst=reverse(lst);
+/*      lst=reverse(lst);*/
 
         grp = linksameequiconnectors (ptcir, ptcir->CINTERF);
 
@@ -5567,7 +5567,7 @@ static int get_equi_separ_pos (char *name)
 }
 
 /******************************************************************************/
-// zinaps
+/* zinaps*/
 static locon_list *createlocon (lotrs_list * pttrs, char *name, losig_list * ptsig)
 {
     locon_list *ptcon;
@@ -5667,7 +5667,7 @@ char mode;
     chain_list *connec_sig;
     chain_list *connec_noeud;
     chain_list *connec_nom;
-//  chain_list    *connec_con;
+/*  chain_list    *connec_con;*/
     lotrs_list *scantrans;
     diode *scandiode;
     inst *scaninst;
@@ -5691,11 +5691,11 @@ char mode;
     char *locksig;
     int maxsig;
     losig_list *scanlosig;
-    //ht            *htinst;
+    /*ht            *htinst;*/
     ht *htmodel;
     insparam_list *ptparam;
     int done;
-    // zinaps
+    /* zinaps*/
     struct s_noeud *DRAIN;
     struct s_noeud *SOURCE;
     struct s_noeud *GRILLE;
@@ -5712,7 +5712,7 @@ char mode;
     char *ptbuf0, *ptbuf1;
     optparam_list *ptopt;
     mcc_explist *ptmccexp = NULL;
-//    xy_struct *xy;
+/*    xy_struct *xy;*/
     inffig_list *ifl;
     ht *htcon;
     long l;
@@ -5795,9 +5795,9 @@ char mode;
     // qui existent déjà.
 
     {
-        // Le tableau destsig contient la correspondance entre l'ancien index de 
-        // signal et le nouveau. Le tableau locksig permet de savoir rapidement
-        // si un index de signal est disponible.
+        /* Le tableau destsig contient la correspondance entre l'ancien index de */
+        /* signal et le nouveau. Le tableau locksig permet de savoir rapidement*/
+        /* si un index de signal est disponible.*/
 
         destsig = (int *)mbkalloc (sizeof (int) * (nbsig + 1));
         locksig = (char *)mbkalloc (sizeof (char) * (nbsig + 1));
@@ -5874,7 +5874,7 @@ char mode;
     else {*/
         if (nbsig > 0)
             setsigsize (ptfig, nbsig > 32 ? nbsig : 32);
-//    }
+/*    }*/
     }
 
     for (e = ptcir->all_equi; e != NULL; e = e->next) {
@@ -6169,7 +6169,7 @@ char mode;
 
     /* Connecteurs de l'interface */
 
-    {                            // ZINAPSHERE
+    {                            /* ZINAPSHERE*/
         locon_list **lc_tab;
         long maxidx = -1;
 
@@ -6253,7 +6253,7 @@ char mode;
                      }
                    if (cl!=NULL) strcat(buf," ...");
                    strcat(buf, " ");
-                   //if (!V_BOOL_TAB[__AVT_ENBALE_MULTI_CON_ON_NET].VALUE) avt_errmsg (SPI_ERRMSG, "073", AVT_WARNING, ptcir->NOM, nom, buf);
+                   /*if (!V_BOOL_TAB[__AVT_ENBALE_MULTI_CON_ON_NET].VALUE) avt_errmsg (SPI_ERRMSG, "073", AVT_WARNING, ptcir->NOM, nom, buf);*/
                    freechain((chain_list *)ptuser->DATA);
                    ptsig->USER=delptype(ptsig->USER, SPICE_MULTI_CONNECTOR_NAMES);
                 }
@@ -6349,7 +6349,7 @@ char mode;
            continue;
        plus_signal = tabsig[scanvalim->N1->signal->b.SIGNAL - 1];
        minus_signal = tabsig[scanvalim->N2->signal->b.SIGNAL - 1];
-       // unsolved vcard
+       /* unsolved vcard*/
        uvc=(unsolved_vcard_type *)mbkalloc(sizeof(unsolved_vcard_type));
        uvc->s[0].name=NULL;
        uvc->s[0].u.sig=plus_signal;
@@ -6428,7 +6428,7 @@ char mode;
         if (scantrans->TYPE == 0) {
             tmp_name = getlotrsmodel (scantrans);
             istrans = mbk_istransn (tmp_name) || mbk_istransp (tmp_name);
-            isdiode = 0; //mbk_isdioden (tmp_name) || mbk_isdiodep (tmp_name);
+            isdiode = 0; /*mbk_isdioden (tmp_name) || mbk_isdiodep (tmp_name);*/
             isjfet = mbk_isjfetn (tmp_name) || mbk_isjfetp (tmp_name);
             if (!istrans && !isdiode && !isjfet) {
                 if (scantrans->TRNAME)
@@ -6482,7 +6482,7 @@ char mode;
                 scandiode->TYPE = NULL;
             }
         }
-        // zinaps : finishing the transistor build
+        /* zinaps : finishing the transistor build*/
 
         scantrans->GRID = createlocon (scantrans, MBK_GRID_NAME, tabsig[GRILLE->signal->b.SIGNAL - 1]);
         scantrans->SOURCE = createlocon (scantrans, MBK_SOURCE_NAME, tabsig[SOURCE->signal->b.SIGNAL - 1]);
@@ -6561,7 +6561,7 @@ char mode;
         sig1 = tabsig[scandiode->N1->signal->b.SIGNAL - 1];
         sig2 = tabsig[scandiode->N2->signal->b.SIGNAL - 1];
 
-        // need to keep diode name in equivalent ptctc
+        /* need to keep diode name in equivalent ptctc*/
         if (ptcir->HASMODEL)
           scandiode->PARAM = addoptparam (scandiode->PARAM, "diode_subckt", 0.0, ptfig->NAME);
     
@@ -6610,7 +6610,7 @@ char mode;
             connec_sig = NULL;
             connec_noeud = NULL;
             connec_nom = NULL;
-//          connec_con   = NULL;
+/*          connec_con   = NULL;*/
 
             sci = (ginterf *) gethtitem (ALLINTERF->h, namealloc (scaninst->MODELE));
 
@@ -6692,7 +6692,7 @@ char mode;
             ptinst->USER = constphinterf (ptinst->USER, sci, 0);
 
 #ifdef HANDLE_XY
-            // XY coordinates
+            /* XY coordinates*/
             xy = (xy_struct *) mbkalloc (sizeof (struct xy_struct));
             xy->X = scaninst->X;
             xy->Y = scaninst->Y;
@@ -6767,12 +6767,12 @@ char mode;
         if (isglobalvss(nom0) || (scanlosig->TYPE==EXTERNAL && isvss(nom0)))
         {
            vssc++;
-//           mbk_addvcardnode(scanlosig, namealloc(nom0), 0, n->RCN);
+/*           mbk_addvcardnode(scanlosig, namealloc(nom0), 0, n->RCN);*/
         }
         if (isglobalvdd(nom0) || (scanlosig->TYPE==EXTERNAL && isvdd(nom0)))
         {
            vddc++;
-//           mbk_addvcardnode(scanlosig, namealloc(nom0), V_FLOAT_TAB[__SIM_POWER_SUPPLY].VALUE, n->RCN);
+/*           mbk_addvcardnode(scanlosig, namealloc(nom0), V_FLOAT_TAB[__SIM_POWER_SUPPLY].VALUE, n->RCN);*/
         }
       }
       if (vssc>0 && vddc>0)
@@ -6840,28 +6840,28 @@ char mode;
 
     lofigchain (ptfig);
 
-    // zinaps was here, direction des connecteurs
+    /* zinaps was here, direction des connecteurs*/
     for (ptnodename = ptcir->INTERF_DIR; ptnodename != NULL; ptnodename = ptnodename->NEXT) {
-        for (scanlocon = ptfig->LOCON; scanlocon && scanlocon->NAME != spi_devect (ptnodename->DATA); scanlocon = scanlocon->NEXT);    // un joli n2 pas trop mechant
+        for (scanlocon = ptfig->LOCON; scanlocon && scanlocon->NAME != spi_devect (ptnodename->DATA); scanlocon = scanlocon->NEXT);    /* un joli n2 pas trop mechant*/
         if (scanlocon != NULL) {
             scanlocon->DIRECTION = ptnodename->TYPE;
         }
     }
 
-    // marquage des signaux globaux
+    /* marquage des signaux globaux*/
     for (ptsig = ptfig->LOSIG; ptsig != NULL; ptsig = ptsig->NEXT)
         if ((best = getsigname (ptsig)) != NULL && (isglobalvss (best) || isglobalvdd (best)))
             ptsig->ALIMFLAGS |= MBK_HAS_GLOBAL_NODE_FLAG;
 
-    // Zinaps: coherence entre les formats mbk, retour a la normal
+    /* Zinaps: coherence entre les formats mbk, retour a la normal*/
 
     ptfig->LOCON = (locon_list *) reverse ((chain_list *) ptfig->LOCON);
-    // Zinaps: c'est tout
+    /* Zinaps: c'est tout*/
 
     spi_post_traitment_connector_direction (ptfig);
     mbk_set_transistor_instance_connector_orientation_info (ptfig);
 
-    // drive du spicedeck
+    /* drive du spicedeck*/
     if ((ifl = getloadedinffig (ptcir->NOM)) != NULL) {
         chain_list *cl, *cl0;
         int oldmode;
@@ -6878,7 +6878,7 @@ char mode;
             freechain (cl0);
         }
     }
-//  mbk_debugstat(" :",0);
+/*  mbk_debugstat(" :",0);*/
     return (ALLINTERF);
 }
 
@@ -7205,7 +7205,7 @@ chain_list *decompligne (spifile * df, int type, char *EXTERNAL_LINE)
                      || ((motencours && df->file_line[i]=='(' && !model_context)
                          || (expect_expression && (df->file_line[decompligne_skipspace(df->file_line, i)] == '(')))) {
                 if (expect_expression) {                  
-                  // cas des fonctions style 'toto ( expr)' avec un espace apres le nom
+                  /* cas des fonctions style 'toto ( expr)' avec un espace apres le nom*/
                   i=decompligne_skipspace(df->file_line, i);                  
                 }
                 switch (df->file_line[i]) {
@@ -7401,7 +7401,7 @@ spifile *df;
 
     ptnoeud->index = AdvancedNameAlloc (ptcir->ana, ptnom);
     if (ptnoeud->index >= ptcir->nbnodes) {
-        // it's not an existing node for now
+        /* it's not an existing node for now*/
         ptnoeud = (noeud *) GetAdvancedTableElem (ptcir->ata, ptnoeud->index);
         ptnoeud->index = -1;
     }
@@ -7514,7 +7514,7 @@ circuit *ptcir;
 
         idx = AdvancedNameAlloc (ptcir->ana, vss);
         if (idx >= ptcir->nbnodes) {
-            // it's not an existing node for now
+            /* it's not an existing node for now*/
             tmp = (noeud *) GetAdvancedTableElem (ptcir->ata, idx);
             tmp->index = -1;
         }
@@ -7646,12 +7646,10 @@ lofig_list *recuperemodele (lofig_list *tetemodel, char *nom, chain_list *interf
     return (ptmod);
 }
 
-static int ext_handlers (line, process)
-char *line;
-int process;
+static int ext_handlers ( char *line, int process )
 {
     chain_list *ptchain;
-    int (*ext_handler) ();
+    int (*ext_handler) (char*,int);
     int handled = FALSE;
 
     for (ptchain = ext_handler_list; ptchain; ptchain = ptchain->NEXT) {
@@ -7676,16 +7674,14 @@ static int cmp_handlers ()
 
 /******************************************************************************/
 
-void mslAddExtension (mslExtHandler)
-int (*mslExtHandler) ();
+void mslAddExtension ( int (*mslExtHandler) (char*,int) )
 {
     ext_handler_list = addchain (ext_handler_list, mslExtHandler);
 }
 
 /******************************************************************************/
 
-void mslRmvExtension (mslExtHandler)
-int (*mslExtHandler) ();
+void mslRmvExtension ( int (*mslExtHandler) (char*,int) )
 {
     chain_list *ptchain, *ptnextchain;
     chain_list *ptprevchain = NULL;
@@ -7716,8 +7712,7 @@ int (*mslCmpHandler) ();
 
 /******************************************************************************/
 
-void mslRmvCompletion (mslCmpHandler)
-int (*mslCmpHandler) ();
+void mslRmvCompletion ( int (*mslCmpHandler) () )
 {
     chain_list *ptchain, *ptnextchain;
     chain_list *ptprevchain = NULL;
@@ -7860,7 +7855,7 @@ circuit *ptcir;
 allinterf *ALLINTERF;
 {
     ginterf *ptinterf;
-//    ht             *htinst=NULL;
+/*    ht             *htinst=NULL;*/
     char *tmp_name;
     chain_list *cl, *ch;
 /*
@@ -7884,14 +7879,14 @@ allinterf *ALLINTERF;
                 avt_errmsg (SPI_ERRMSG, "043", AVT_FATAL, (char *)ch->DATA); 
             }
             else {
-                ptcir->FAILNAME = namealloc ((char *)ch->DATA);    //namealloc(ptins->MODELE);
+                ptcir->FAILNAME = namealloc ((char *)ch->DATA);    /*namealloc(ptins->MODELE);*/
                 break;
             }
         }
     }
     freechain (cl);
 
-//    if( htinst ) delht( htinst );
+/*    if( htinst ) delht( htinst );*/
     if (ch != NULL)
         return FALSE;
 
@@ -7901,7 +7896,7 @@ allinterf *ALLINTERF;
         /*
            for (lt=ptcir->TRANS; lt!=NULL; lt=lt->NEXT)
            { */
-        tmp_name = (char *)ch->DATA;    //getlotrsmodel(lt);
+        tmp_name = (char *)ch->DATA;    /*getlotrsmodel(lt);*/
         if (!(mbk_istransn (tmp_name) || mbk_istransp (tmp_name))) {
             ptcir->FAILNAME = tmp_name;
             break;
@@ -7913,7 +7908,7 @@ allinterf *ALLINTERF;
 
     cl = GetAllHTKeys (ptcir->ALL_DIODE_MODELS);
     for (ch = cl; ch != NULL; ch = ch->NEXT) {
-        tmp_name = (char *)ch->DATA;    //getlotrsmodel(lt);
+        tmp_name = (char *)ch->DATA;    /*getlotrsmodel(lt);*/
         if (!(mbk_isdioden (tmp_name) || mbk_isdiodep (tmp_name))) {
             ptcir->FAILNAME = tmp_name;
             break;

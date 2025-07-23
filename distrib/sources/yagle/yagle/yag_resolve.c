@@ -26,7 +26,7 @@ static pNode enumerateTraverse __P((chain_list *varlist, pNode enumbdd, pNode re
 static pNode electricResolve __P((pNode inbdd, pNode sumbdd));
 static int calcLevel __P((pNode inbdd));
 
-//static pNode unexpand __P((pNode ptbdd, int curindex));
+/*static pNode unexpand __P((pNode ptbdd, int curindex));*/
 
 static pCircuit PRIMARY_CCT;
 static pCircuit DIRECT_CCT;

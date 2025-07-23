@@ -171,7 +171,7 @@ CallbackFileOpenOk(MyWidget, ClientData, FileStruct )
 
     if (FileName != NULL)
     {
-//      removecgvfiles(FileName, updatebacklist);
+/*      removecgvfiles(FileName, updatebacklist);*/
       XyagFileOpen(FileName);
       XyagChangeEditMode(XYAG_EDIT_SELECT);
     }

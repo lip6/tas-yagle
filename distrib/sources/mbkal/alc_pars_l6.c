@@ -868,7 +868,7 @@ void		mal_error( char *fname, ... )
   int		 line;
   
   va_start( index, fname );
-//  fname = va_arg( index, char* );
+/*  fname = va_arg( index, char* );*/
   line  = va_arg( index, int   );
   fmt   = va_arg( index, char* );
   

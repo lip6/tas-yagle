@@ -14,7 +14,7 @@ lofig_list *avt_GetNetlist(char *name)
     
     if (!fig) {
         avt_errmsg(AVT_API_ERRMSG, "001", AVT_WARNING, name);
-//        fprintf (stdout, "ERROR: '%s' is not among the loaded netlists\n", name);
+/*        fprintf (stdout, "ERROR: '%s' is not among the loaded netlists\n", name);*/
         return NULL;
     }
 
@@ -69,11 +69,11 @@ void avt_DriveNetlist(lofig_list *lf, char *filename, char *format)
     }
   else
     avt_errmsg(AVT_API_ERRMSG, "002", AVT_ERROR, format, filename);
-//    avt_error("avtapi", 2, AVT_ERROR, "unknown file format '%s' for '%s'\n", format, filename);
+/*    avt_error("avtapi", 2, AVT_ERROR, "unknown file format '%s' for '%s'\n", format, filename);*/
 
   if (error)
     avt_errmsg(AVT_API_ERRMSG, "003", AVT_ERROR, filename);
-//    avt_error("avtapi", 2, AVT_ERROR, "could not create file '%s'\n", filename);
+/*    avt_error("avtapi", 2, AVT_ERROR, "could not create file '%s'\n", filename);*/
 }
 
 void avt_DriveSignalInfo( lofig_list *lf, char *nameregex, char *filename )
@@ -100,7 +100,7 @@ void avt_DriveSignalInfo( lofig_list *lf, char *nameregex, char *filename )
   ptf = mbkfopen( filename, NULL, WRITE_TEXT );
   if( !ptf ) {
     avt_errmsg(AVT_API_ERRMSG, "003", AVT_ERROR, filename);
-    //avt_error("avtapi", 2, AVT_ERROR, "could not create file '%s'\n", filename);
+    /*avt_error("avtapi", 2, AVT_ERROR, "could not create file '%s'\n", filename);*/
     return ;
   }
   

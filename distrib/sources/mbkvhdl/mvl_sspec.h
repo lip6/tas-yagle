@@ -31,5 +31,5 @@
 /*                                                                      */
 /* ###--------------------------------------------------------------### */
 
-losig_list *mvl_addlosig ();
-locon_list *mvl_addlocon ();
+extern losig_list *mvl_addlosig ( lofig_list*, int, char, char, char*, short, short );
+extern locon_list *mvl_addlocon ( lofig_list*, losig_list*, char, char*, short, short );

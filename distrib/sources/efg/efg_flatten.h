@@ -12,7 +12,7 @@ extern efg_global *EFGCONTEXT;
 FONCTIONS  
 \******************************************************************************/
 
-//=> Allocations
+/*=> Allocations*/
 extern efg_fullsiglist *efg_addchainfullsig ( efg_fullsiglist *head );
 extern void             efg_freechainfullsig ( efg_fullsiglist *head );
 extern efg_srcsiglist  *efg_addchainsrcsig ( efg_srcsiglist* head );
@@ -26,7 +26,7 @@ extern void             efg_setspisig2context ( spisig_list *spisig);
 extern void             efg_setdestlocon( char *context, locon_list *locon, locon_list *newlocon );
 extern locon_list*      efg_getdestlocon( char *context, locon_list *locon );
 
-//=> Gestion du contexte
+/*=> Gestion du contexte*/
 extern void             efg_setfullsig ( char *context,
                                          lofig_list *lofig, 
                                          losig_list *losig, 
@@ -39,17 +39,17 @@ extern void             efg_setloinscopied( char *context, char *insname );
 extern void             efg_set_sig2srcsig ( char *context, losig_list *losig, efg_srcsiglist *srcsig );
 extern efg_srcsiglist*  efg_getsrcsig( char *context, losig_list *losig );
 
-//=> A travers la hierarchie
+/*=> A travers la hierarchie*/
 extern char            *efg_getsigname ( efg_fullsiglist *fullsig );
 extern char             efg_getdir ( efg_fullsiglist *fullsig );
 extern locon_list*      efg_getexternallocon( efg_fullsiglist *fullsig );
 extern efg_srcsiglist*  efg_gettopsig( efg_fullsiglist *fullsig );
-//=>
+/*=>*/
 extern chain_list      *efg_getsigtobecopied ( char *context );
 extern int              efg_isloinsbasic ( char *context );
 extern chain_list      *efg_getloinstobetreated ( char *context );
 
-//=> 
+/*=> */
 extern efg_fullsiglist *efg_buildfullsig( char *context,
                                           char withexternal,
                                           efg_fullsiglist *head,

@@ -17,19 +17,19 @@
 /****************************************************************************/
 
 #define SPEED_UP_ACCESS_ALL
-//#define SPEED_UP_ACCESS_CRITIC  //not done yet
+/*#define SPEED_UP_ACCESS_CRITIC  //not done yet*/
 
 #include "ttv.h"
 #include "ttv_ssta.h"
 
-// defines internes
+/* defines internes*/
 #define SAVE_ALL_LATCH_TAG 1
 #define SAVE_ALL_INPUT_TAG 2
 #define SAVE_ALL_TAG (SAVE_ALL_LATCH_TAG|SAVE_ALL_INPUT_TAG)
-// --------
+/* --------*/
 #define TTV_LOW_RATIO 0.8
 #define TTV_HIGH_RATIO 1.2
-// --------
+/* --------*/
 chain_list  *TTV_FIFO_HEAD = NULL ;
 chain_list  *TTV_FIFO_UP = NULL ;
 chain_list  *TTV_FIFO_B = NULL ;
@@ -145,14 +145,14 @@ void ttv_retreive_search_charac_results(chain_list **delays, chain_list **slopes
 }
 
 /* fonction qui test L<O<=R en modulo */
-static inline int greater_lowerequal(char L, char O, char R)
+static  int greater_lowerequal(char L, char O, char R)
 {
   if (R>L) return L<O && O<=R;
   return O>L || O<=R;
 }
 
 /* fonction qui test L>O>=R en modulo */
-static inline int lower_greaterequal(char L, char O, char R)
+static  int lower_greaterequal(char L, char O, char R)
 {
   if (R<L) return R<=O && O<L;
   return O<L || O>=R;
@@ -190,7 +190,7 @@ int ttv_must_be_excluded(ttvsig_list *tvs, long excludeflag, int exclude_not_clo
       excludeflag&=TTV_SIG_LL|TTV_SIG_LF|TTV_SIG_LR|TTV_SIG_LS|TTV_SIG_LSL;
       excludeflag&=~TTV_SIG_LL;
       if ((tvs->TYPE & excludeflag)!=0) return 1;
-      // cas de ttv_sig_l tout seul
+      /* cas de ttv_sig_l tout seul*/
       if ((tvs->TYPE & TTV_SIG_LF)!=TTV_SIG_LF
           && (tvs->TYPE & TTV_SIG_LR)!=TTV_SIG_LR 
           && (tvs->TYPE & TTV_SIG_LS)!=TTV_SIG_LS
@@ -266,19 +266,19 @@ long ttv_getinittime(ttvfig_list *ttvfig,ttvevent_list *event, char phaseevent, 
   return(time) ;
 }
 
-//----- fonction pour les marquages en vue de detection des boucles ----------
-inline int ttv_isbypassednode(ttvevent_list *ev)
+/*----- fonction pour les marquages en vue de detection des boucles ----------*/
+ int ttv_isbypassednode(ttvevent_list *ev)
 {
   if (ev->FIND==NULL || (ev->FIND->TYPE & TTV_FIND_BYPASS)==0) return 0;
   return 1;
 }
 
-inline void ttv_bypassnode(ttvevent_list *ev)
+ void ttv_bypassnode(ttvevent_list *ev)
 {
   ev->FIND->TYPE|=TTV_FIND_BYPASS;
 }
 
-inline void ttv_donotbypassnode(ttvevent_list *ev)
+ void ttv_donotbypassnode(ttvevent_list *ev)
 {
   ev->FIND->TYPE&=~TTV_FIND_BYPASS;
 }
@@ -336,7 +336,7 @@ static int ttv_check_node_on_path(ttvfig_list *ttvfig, ttvevent_list *root, ttve
 #define ADDACCESS 1
 
 #define THRU_FILTER_ACTIVE 1
-//#define THRU_FILTER_NOCROSS 2
+/*#define THRU_FILTER_NOCROSS 2*/
 
 static int ttv_avoidmaxfilter(ttvevent_list *tve, int filter, char *newval)
 {
@@ -371,7 +371,7 @@ static ttvfind_stb_stuff *ttv_getstb_stuff(ttvfind_stb_stuff *tss, int phase)
   while (tss!=NULL && tss->PHASE!=phase) tss=tss->NEXT;
   return tss;
 }
-inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
+ int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
      ttvfig_list *ttvfig ;
      ttvevent_list *root ;
      ttvevent_list *node ;
@@ -398,7 +398,7 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
   else 
     {
       start=root, end=node;
-//      if ((root->FIND->THRU_FILTER & THRU_FILTER_NOCROSS)!=0) return 0;
+/*      if ((root->FIND->THRU_FILTER & THRU_FILTER_NOCROSS)!=0) return 0;*/
     }
 
   if ((root->FIND->FLAGS & TTV_FINDSTRUCT_FLAGS_LAST_CROSSED_IS_PRECH)!=0)
@@ -472,7 +472,7 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
                           else
                             stb_geteventphase(stbfig, root,&cmdphase,NULL,NULL,1,1) ;
                         }
-                      //                          stb_geteventphase(stbfig,node,&phase,NULL,NULL,0,1) ;
+                      /*                          stb_geteventphase(stbfig,node,&phase,NULL,NULL,0,1) ;*/
                       stb_getlatchslope(stbfig,root,cmd,NULL,&latchminslope,&latchmaxclose,NULL,NULL,ADDACCESS,phase, &move) ;
                         
                       crossdelay = latchminslope - cdelay ;
@@ -549,8 +549,8 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
                       else continue;
                     }
 
-                  // cas min : on cross un latch mais le delai min ne crosse pas
-                  // on calcul un nouveau delai min qui cross
+                  /* cas min : on cross un latch mais le delai min ne crosse pas*/
+                  /* on calcul un nouveau delai min qui cross*/
                   if((type & TTV_FIND_MIN) == TTV_FIND_MIN)
                     {
                       if((root->ROOT->TYPE & TTV_SIG_LL) == TTV_SIG_LL
@@ -574,7 +574,7 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
                   if((node->ROOT->TYPE & TTV_SIG_L) == TTV_SIG_L
                      || (node->ROOT->TYPE & TTV_SIG_R) == TTV_SIG_R)
                     {
-//                      stb_geteventphase(stbfig,node,&phase,NULL,NULL,1,1) ;
+/*                      stb_geteventphase(stbfig,node,&phase,NULL,NULL,1,1) ;*/
                       
                       if (!(activephase_tss->PHASE==phase && (stbfig!=NULL && stbfig->STABILITYMODE & STB_STABILITY_LT) !=0))
                         {
@@ -594,7 +594,7 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
                   newtss=ttv_allocfindstb();
                   newtss->PERIOD_CHANGE=activephase_tss->PERIOD_CHANGE+move;
                   newtss->PHASE = phase ;
-                  newtss->STARTPHASE = activephase_tss->STARTPHASE ; // don't care
+                  newtss->STARTPHASE = activephase_tss->STARTPHASE ; /* don't care*/
                   newtss->FLAGS = aptss_flag ;
                   newtss->CROSSDELAY = crossdelay ;
                   newtss->NOMORECROSSDELAY = crossdelayend ;
@@ -606,7 +606,7 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
                 }
             }
         }
-      else // ----------------DUAL ---------------
+      else /* ----------------DUAL ---------------*/
         {
           ttvfind_stb_stuff *activephase_tsslist;
           if (root->FIND->OUTLINE!=NULL && (root->FIND->OUTLINE->TYPE & TTV_LINE_HZ)!=0) return 0;
@@ -646,7 +646,7 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
                   else
                     {
                       stb_getdelayedge(stbfig,TTV_SEARCH_FIRST_NODE,activephase_tss->STARTPHASE,&time,&mindelay, activephase_tss->STARTPHASE,0,NULL,NULL) ;
-//                      if (phase==TTV_NO_PHASE) stb_geteventphase(stbfig,TTV_SEARCH_FIRST_NODE,&phase,NULL,NULL,1,1) ;
+/*                      if (phase==TTV_NO_PHASE) stb_geteventphase(stbfig,TTV_SEARCH_FIRST_NODE,&phase,NULL,NULL,1,1) ;*/
                       if (getptype(TTV_SEARCH_FIRST_NODE->ROOT->USER, STB_IDEAL_CLOCK)!=NULL) ideal=1, cdelay=0, flag|=TTV_FINDSTRUCT_FLAGS_ISIDEAL;
                       if (!ideal)
                         {
@@ -678,7 +678,7 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
                     }
 
                   stb_getlatchslope(stbfig,node,cmd,NULL,&time,&latchmaxclose,NULL,NULL,ADDACCESS,phase,&move) ;
-//                  if (cmd!=NULL && (n=stb_getstbnode(cmd))!=NULL && n->CK!=NULL)
+/*                  if (cmd!=NULL && (n=stb_getstbnode(cmd))!=NULL && n->CK!=NULL)*/
                     orgphase= cmdphase;
 /*                  else
                     orgphase=phase;*/
@@ -687,7 +687,7 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
                   if(crossdelayend<=time || (!ttv_avoidmaxfilter(root, onfilternode,&nofiltermax) && crossdelay>=latchmaxclose))
                     {
                       aptss_flag|=TTV_TPS_FINDSTRUCT_THRU_FILTER_NOCROSS;
-                      //return(0) ;
+                      /*return(0) ;*/
                     }
                   tmpl=activephase_tss->CROSSDELAY_MIN;
                   if ((type & TTV_FIND_MIN) == TTV_FIND_MIN)
@@ -787,7 +787,7 @@ inline int ttv_transfertnodefindinfo(ttvfig,node,root,line,delay,type)
               if((node->ROOT->TYPE & TTV_SIG_L) == TTV_SIG_L
                  || (node->ROOT->TYPE & TTV_SIG_R) == TTV_SIG_R)
                 {
-                  //              stb_geteventphase(stbfig,node,&phase,NULL,NULL,1,1) ;
+                  /*              stb_geteventphase(stbfig,node,&phase,NULL,NULL,1,1) ;*/
                   
                   if (!(activephase_tss->PHASE==phase && (stbfig!=NULL && stbfig->STABILITYMODE & STB_STABILITY_LT) !=0))
                     {
@@ -881,7 +881,7 @@ static ttvevent_list *ttv_findlatchcommand_notdual(ttvevent_list *root, ttvevent
 /*                                                                           */
 /* dit ce que doit faire la recherche pour un connecteur                     */
 /*****************************************************************************/
-inline long ttv_connectorsearchtype(ttvfig,node,type)
+ long ttv_connectorsearchtype(ttvfig,node,type)
      ttvfig_list *ttvfig ;
      ttvevent_list *node ;
      long type ;
@@ -932,7 +932,7 @@ inline long ttv_connectorsearchtype(ttvfig,node,type)
 /*                                                                           */
 /* dit ce que doit faire la recherche pour un signal donnee                  */
 /*****************************************************************************/
-inline long ttv_signalsearchtype(ttvfig,node,type)
+ long ttv_signalsearchtype(ttvfig,node,type)
      ttvfig_list *ttvfig ;
      ttvevent_list *node ;
      long type ;
@@ -1985,8 +1985,8 @@ chain_list *ttv_findaccess(head,ttvfig,root,cmd,type,level)
   return(chainin) ;
 }
 
-//----- fonction de marquage des noeuds sur le chemin de donnees des access ---
-// action==0 => demarquer , action==1 => marquer
+/*----- fonction de marquage des noeuds sur le chemin de donnees des access ---*/
+/* action==0 => demarquer , action==1 => marquer*/
 void ttv_markdatapath(ttvevent_list *start, ttvevent_list *end, long type, int action)
 {
   ttvevent_list *nodex;
@@ -2407,7 +2407,7 @@ int ttv_iscrosslatch(ttvfig,latch,type)
      latch->FIND->ORGPHASE = phase ;
      }
   */
-  // latch->FIND->PHASE = phase ;
+  /* latch->FIND->PHASE = phase ;*/
   latch->FIND->FLAGS|=flags|TTV_FINDSTRUCT_CROSS_ENABLED;
 
   return(1) ;
@@ -2562,7 +2562,7 @@ chain_list *ttv_findpath(head,ttvfig,root,cmd,type,level)
     {
       ttvline_list  *in ;
 
-      //   if (TTV_MARK_MODE==TTV_MARK_MODE_USE && ??inf->CLOCK!=0?? && getptype(node->ROOT->USER, TTV_SIG_MARKED)==NULL) continue;
+      /*   if (TTV_MARK_MODE==TTV_MARK_MODE_USE && ??inf->CLOCK!=0?? && getptype(node->ROOT->USER, TTV_SIG_MARKED)==NULL) continue;*/
       if (((TTV_SEARCH_STEP & TTV_SEARCH_STEP_IN_CLOCK_PATH)!=0 || (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_MUST_BE_CLOCK)!=0) && ttv_testsigflag(node->ROOT, TTV_SIG_FLAGS_ISDATA)) continue;
 
       if((node->TYPE & TTV_NODE_STOP) == TTV_NODE_STOP) 
@@ -2586,7 +2586,7 @@ chain_list *ttv_findpath(head,ttvfig,root,cmd,type,level)
                    &&
                    (((node->ROOT->TYPE & (TTV_SIG_C | TTV_SIG_N | TTV_SIG_Q)) != TTV_SIG_Q)
                     || ((type & TTV_FIND_CMD) != TTV_FIND_CMD))
-                   //|| ((type & (TTV_FIND_DUAL|TTV_FIND_CMD)) != TTV_FIND_DUAL))
+                   /*|| ((type & (TTV_FIND_DUAL|TTV_FIND_CMD)) != TTV_FIND_DUAL))*/
                    && ((node->ROOT->TYPE & (TTV_SIG_C | TTV_SIG_N | TTV_SIG_B)) != TTV_SIG_B))
                 if((TTV_CHAIN_CLOCK != NULL) || (TTV_FIND_BUILD == 'Y') ||
                    (ttv_iscrosslatch(head,node,type) == 0))
@@ -3062,7 +3062,7 @@ chain_list *ttv_findpath(head,ttvfig,root,cmd,type,level)
               node = (ttvevent_list *)chain->DATA ;
               if(ttv_canbeinfalsepath(node, 'i'))
                 {
-                  // retreive the latch command
+                  /* retreive the latch command*/
                   cmdev=ttv_findlatchcommand_notdual(root, node);
                   if(cmdev!=NULL && ttv_canbeinfalsepath(cmdev, 'o'))
                     {
@@ -3233,7 +3233,7 @@ ttvcritic_list *ttv_getcritic(ttvfig,figpath,root,node,latch,cmdlatch,type)
   if((latch != NULL) && (node != latch))
     {
       int found=0;
-      // BLINDAGE CORE si latch non trouve
+      /* BLINDAGE CORE si latch non trouve*/
       if (latch->FIND==NULL) 
         {
           char buf0[128], buf1[128], buf2[128], buf[1024];
@@ -3252,7 +3252,7 @@ ttvcritic_list *ttv_getcritic(ttvfig,figpath,root,node,latch,cmdlatch,type)
 
           return NULL;
         }
-      //
+      /**/
 
       ttv_fifosave() ;
       chain = ttv_findclockpath(ttvfig,ttvfig,latch,root,type|TTV_FIND_CRITIC,1, cmdlatch) ;
@@ -3293,7 +3293,7 @@ ttvcritic_list *ttv_getcritic(ttvfig,figpath,root,node,latch,cmdlatch,type)
       TTV_CHAIN_CLOCK = NULL ;
     }
 
-  // BLINDAGE CORE si node non trouve
+  /* BLINDAGE CORE si node non trouve*/
   if (node->FIND==NULL)
     {
       char buf0[128], buf1[128], buf[1024], buf3[128];
@@ -3314,7 +3314,7 @@ ttvcritic_list *ttv_getcritic(ttvfig,figpath,root,node,latch,cmdlatch,type)
 
       return NULL;
     }
-  //
+  /**/
 
   if(node->FIND->OUTLINE == NULL && getptype(node->USER,TTV_NODE_LATCH)==NULL) 
     {
@@ -3688,7 +3688,7 @@ ttvpath_list *ttv_savpath(ttvfig,ttvins,path,root,node,type)
           else
             data = datamin;
           clockpathdelay=ttv_GET_FINDDELAY(latch, 0);
-          // modif pour le crossmin non mis en dual raison: pas d'access en dual
+          /* modif pour le crossmin non mis en dual raison: pas d'access en dual*/
         }
       else data = (long)0 ;
 
@@ -3712,14 +3712,14 @@ ttvpath_list *ttv_savpath(ttvfig,ttvins,path,root,node,type)
         }
 
 
-//          start = ttv_getinittime(ttvfig,root,STB_NO_INDEX,type,STB_NO_INDEX,&phase) ;
+/*          start = ttv_getinittime(ttvfig,root,STB_NO_INDEX,type,STB_NO_INDEX,&phase) ;*/
 
 /*          if ((TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_DONT_FILTER_ENDING_NODE)==0 && stb_has_filter_directive(node))
             crossmin=node->FIND->CROSSDELAY_MIN;
           else
             crossmin=node->FIND->OUTLINE->NODE->FIND->CROSSDELAY_MIN;
 */
-//          per_change=node->FIND->PERIOD_CHANGE;
+/*          per_change=node->FIND->PERIOD_CHANGE;*/
 /*
           if (crossmin!=TTV_NOTIME)
             {
@@ -3771,7 +3771,7 @@ ttvpath_list *ttv_savpath(ttvfig,ttvins,path,root,node,type)
           if(nodex->FIND->OUTLINE->TYPE & TTV_LINE_R) typer = TTV_FIND_R ;
           else if(nodex->FIND->OUTLINE->TYPE & TTV_LINE_S) typer = TTV_FIND_S ;
         }
-//      per_change=node->FIND->PERIOD_CHANGE;
+/*      per_change=node->FIND->PERIOD_CHANGE;*/
       tps=ttv_getcrossvalues_notdual(ttvfig, node, type, 1);
       best=ttv_getbestcrossvalues(tps, type);
       if(latch != NULL)
@@ -3802,7 +3802,7 @@ ttvpath_list *ttv_savpath(ttvfig,ttvins,path,root,node,type)
               if (lcrossmin>=start)
                 lcrossmin=TTV_NOTIME;
               if (lcrossmin!=TTV_NOTIME)
-                data=data-(start-lcrossmin); // lag qui cross
+                data=data-(start-lcrossmin); /* lag qui cross*/
             }
           TTV_MORE_SEARCH_OPTIONS=oldmode;
           if ((TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_KEEP_PHASE_INFO)!=0)
@@ -3891,7 +3891,7 @@ ttvpath_list *ttv_savpath(ttvfig,ttvins,path,root,node,type)
 /*                                                                           */
 /* recherche tous les chemins entre ptsig et les signaux de mask             */
 /*****************************************************************************/
-static inline char *getlinemodel(ttvline_list *tl, long type)
+static  char *getlinemodel(ttvline_list *tl, long type)
 {
   if (type & TTV_FIND_MAX)
     return tl->MDMAX;
@@ -3978,7 +3978,7 @@ ttvcritic_list *ttv_savcritic(ttvfig,ttvins,root,node,type,ignorepropagate)
             lcrossmin=TTV_NOTIME;
 
           ttv_freepathstblist(tpslat);
-//lcrossmin=nodex->FIND->CROSSDELAY_MIN;
+/*lcrossmin=nodex->FIND->CROSSDELAY_MIN;*/
           if (lcrossmin!=TTV_NOTIME)
             {
               phase=ttv_getcmdphase(cmdlatch);
@@ -3988,7 +3988,7 @@ ttvcritic_list *ttv_savcritic(ttvfig,ttvins,root,node,type,ignorepropagate)
                   || ((type & TTV_FIND_MIN)!=0 && lcrossmin<=start0))
                 lcrossmin=TTV_NOTIME;
               if (lcrossmin!=TTV_NOTIME)
-                data=data-(start0-lcrossmin); // lag qui cross
+                data=data-(start0-lcrossmin); /* lag qui cross*/
             }
           TTV_MORE_SEARCH_OPTIONS=oldmode;
           nodeflags=TTV_NODE_FLAG_ISLATCH_ACCESS;
@@ -4039,7 +4039,7 @@ ttvcritic_list *ttv_savcritic(ttvfig,ttvins,root,node,type,ignorepropagate)
               
               ttv_freepathstblist(tpslat);
 
-//              lcrossmin=nodex->FIND->OUTLINE->ROOT->FIND->CROSSDELAY_MIN;
+/*              lcrossmin=nodex->FIND->OUTLINE->ROOT->FIND->CROSSDELAY_MIN;*/
               if (lcrossmin!=TTV_NOTIME)
                 {
 
@@ -4049,7 +4049,7 @@ ttvcritic_list *ttv_savcritic(ttvfig,ttvins,root,node,type,ignorepropagate)
                       || ((type & TTV_FIND_MIN)!=0 && lcrossmin<=start0))
                     lcrossmin=TTV_NOTIME;
                   if (lcrossmin!=TTV_NOTIME)
-                    data=data-(start0-lcrossmin); // lag qui cross
+                    data=data-(start0-lcrossmin); /* lag qui cross*/
                 }
               TTV_MORE_SEARCH_OPTIONS=oldmode;
               nodeflags=TTV_NODE_FLAG_ISLATCH_ACCESS;
@@ -4091,7 +4091,7 @@ ttvcritic_list *ttv_savcritic(ttvfig,ttvins,root,node,type,ignorepropagate)
                 lcrossmin=TTV_NOTIME;
               
               ttv_freepathstblist(tpslat);
-//              lcrossmin=nodex->FIND->CROSSDELAY_MIN;
+/*              lcrossmin=nodex->FIND->CROSSDELAY_MIN;*/
               if (lcrossmin!=TTV_NOTIME)
                 {
                   phase=ttv_getcmdphase(cmdlatch);
@@ -4100,7 +4100,7 @@ ttvcritic_list *ttv_savcritic(ttvfig,ttvins,root,node,type,ignorepropagate)
                       || ((type & TTV_FIND_MIN)!=0 && lcrossmin<=start0))
                     lcrossmin=TTV_NOTIME;
                   if (lcrossmin!=TTV_NOTIME)
-                    data=data-(start0-lcrossmin); // lag qui cross
+                    data=data-(start0-lcrossmin); /* lag qui cross*/
                 }
               TTV_MORE_SEARCH_OPTIONS=oldmode;
               nodeflags=TTV_NODE_FLAG_ISLATCH_ACCESS;
@@ -4457,7 +4457,7 @@ ttvpath_list *ttv_savpathlist(ttvfig,figpath,path,root,type,level,chainnode,dela
                     chainin = ttv_findclockpath(ttvfig,ttvfig,node,root,type,1,(ttvevent_list *)thru_command_list->DATA) ;
                   else
                     {
-                      if ((TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_REAL_ACCESS)==0/*(savall & SAVE_ALL_LATCH_TAG)==0*/ || (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_PATH_AND_ACCESS)!=0) // pas de vrai access
+                      if ((TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_REAL_ACCESS)==0/*(savall & SAVE_ALL_LATCH_TAG)==0*/ || (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_PATH_AND_ACCESS)!=0) /* pas de vrai access*/
                         chainin = addchain(NULL,node) ;
                       else
                         chainin = NULL;
@@ -4485,7 +4485,7 @@ ttvpath_list *ttv_savpathlist(ttvfig,figpath,path,root,type,level,chainnode,dela
                       continue;
                     }
 
-                  // repropagate delay
+                  /* repropagate delay*/
             
                   if (V_INT_TAB[__TTV_PRECISION_LEVEL].VALUE==1 && nbcur!=NULL && nb!=-1 && path!=NULL && *nbcur>=nb)
                     {
@@ -4559,7 +4559,7 @@ ttvpath_list *ttv_savpathlist(ttvfig,figpath,path,root,type,level,chainnode,dela
           
               if ((firstnode->ROOT->TYPE & TTV_SIG_R) != 0)
                 {
-                  // precharge
+                  /* precharge*/
                   if((ptype = getptype(node->USER,TTV_NODE_LATCH)) == NULL)
                     node->USER = addptype(node->USER,TTV_NODE_LATCH,firstnode) ;
                   else
@@ -4624,7 +4624,7 @@ ttvpath_list *ttv_savpathlist(ttvfig,figpath,path,root,type,level,chainnode,dela
                         }
                     }
 
-                  // repropagate delay
+                  /* repropagate delay*/
                   if (V_INT_TAB[__TTV_PRECISION_LEVEL].VALUE>=1)
                     line_list=ttv_DoPropagation_PRECISION_LEVEL1(ttvfig, figpath, node, root, type);
 
@@ -4650,7 +4650,7 @@ ttvpath_list *ttv_savpathlist(ttvfig,figpath,path,root,type,level,chainnode,dela
     }
 
   ttv_fiforestore() ;
-  level=0; // avoid warning
+  level=0; /* avoid warning*/
 
   return(path) ;
 }
@@ -4677,9 +4677,9 @@ ttvpath_list *ttv_savallpath(path,nb,nbpath,type,rpth,savall)
      int savall ;
 {
   ttvpath_list *pathx, *npath ;
-  // chain_list *chain ;
+  /* chain_list *chain ;*/
 
-  // if (path==NULL) { *nbpath=countchain((chain_list *)rpth); return rpth;}
+  /* if (path==NULL) { *nbpath=countchain((chain_list *)rpth); return rpth;}*/
  
   for(pathx = rpth ; pathx != NULL ; pathx = npath)
     {
@@ -4705,7 +4705,7 @@ ttvpath_list *ttv_savallpath(path,nb,nbpath,type,rpth,savall)
       if(nbpath != NULL)
         path = ttv_keepnbpath(path,nb,nbpath,type,&upper_sort_info,1) ;
     }
-  savall=0; // avoid warning
+  savall=0; /* avoid warning*/
   return(path) ;
 }
 
@@ -4794,7 +4794,7 @@ ttvpath_list *ttv_savcriticpath(ttvfig,ttvins,path,root,delaymax,delaymin,nb,nbp
                     chainin = ttv_findclockpath(ttvfig,ttvfig,node1,root,type,1,(ttvevent_list *)thru_command_list->DATA) ;
                   else
                     {
-                      if ((TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_REAL_ACCESS)==0/*(savall & SAVE_ALL_LATCH_TAG)==0*/ || (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_PATH_AND_ACCESS)!=0) // pas de vrai access
+                      if ((TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_REAL_ACCESS)==0/*(savall & SAVE_ALL_LATCH_TAG)==0*/ || (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_PATH_AND_ACCESS)!=0) /* pas de vrai access*/
                         chainin = addchain(NULL,node1) ;
                       else
                         chainin = NULL;
@@ -4802,7 +4802,7 @@ ttvpath_list *ttv_savcriticpath(ttvfig,ttvins,path,root,delaymax,delaymin,nb,nbp
                 }
               else if ((TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_REAL_ACCESS)==0)
                 {
-                  // --------- zinaps + ------------
+                  /* --------- zinaps + ------------*/
                   if(((((node1->ROOT->TYPE & TTV_SIG_MASKIN) != TTV_SIG_MASKIN) &&
                        ((type & TTV_FIND_DUAL) != TTV_FIND_DUAL)) ||
                       (((node1->ROOT->TYPE & TTV_SIG_MASKOUT) != TTV_SIG_MASKOUT) &&
@@ -4811,7 +4811,7 @@ ttvpath_list *ttv_savcriticpath(ttvfig,ttvins,path,root,delaymax,delaymin,nb,nbp
                       thru_command_list=delchain(thru_command_list, thru_command_list);
                       continue;
                     }
-                  // -------------------------------
+                  /* -------------------------------*/
                   chainin = addchain(NULL,node1) ;
                 }
               else chainin=NULL;
@@ -4827,7 +4827,7 @@ ttvpath_list *ttv_savcriticpath(ttvfig,ttvins,path,root,delaymax,delaymin,nb,nbp
                   ttvevent_list *node = (ttvevent_list *)chainx->DATA ;
                   node->FIND->TYPE &= ~(TTV_FIND_BEGIN) ;
 
-                  // test des falsepaths pour les critic access
+                  /* test des falsepaths pour les critic access*/
                   abort=0;
                   /*            if (TTV_CHAIN_CLOCK!=NULL)
                                 {
@@ -4856,7 +4856,7 @@ ttvpath_list *ttv_savcriticpath(ttvfig,ttvins,path,root,delaymax,delaymin,nb,nbp
                         }
                     }
 
-                  // repropagate delay
+                  /* repropagate delay*/
                   if (!abort && V_INT_TAB[__TTV_PRECISION_LEVEL].VALUE>=1)
                     line_list=ttv_DoPropagation_PRECISION_LEVEL1(ttvfig, ttvins, node, root, type);
             
@@ -4923,7 +4923,7 @@ ttvpath_list *ttv_savcriticpath(ttvfig,ttvins,path,root,delaymax,delaymin,nb,nbp
           
               if ((firstnode->ROOT->TYPE & TTV_SIG_R) != 0)
                 {
-                  // precharge
+                  /* precharge*/
                   if((ptype = getptype(node->USER,TTV_NODE_LATCH)) == NULL)
                     node->USER = addptype(node->USER,TTV_NODE_LATCH,firstnode) ;
                   else
@@ -5032,7 +5032,7 @@ ttvpath_list *ttv_savcriticpath(ttvfig,ttvins,path,root,delaymax,delaymin,nb,nbp
     }
 
   ttv_fiforestore() ;
-  level=0; // avoid warning
+  level=0; /* avoid warning*/
   return(path) ;
 }
 
@@ -5040,7 +5040,7 @@ static int computesavealltag(chain_list *inputs,int allinterm)
 {
   chain_list *cl;
 
-  //  if (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_REAL_ACCESS) return SAVE_ALL_TAG;
+  /*  if (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_REAL_ACCESS) return SAVE_ALL_TAG;*/
 
   if (allinterm && inputs==NULL) return SAVE_ALL_TAG;
   /* 
@@ -5300,7 +5300,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
   ttvpath_list *path = NULL, *pathx, *npathx, *prevpathx ;
   chain_list *chain ;
   long level, searchsigtype ;
-  // int nbx = 1 ;  changed zinaps
+  /* int nbx = 1 ;  changed zinaps*/
   int nbx = 0 ;
   int i, savealltag, allfailed ;
   char typehz ;
@@ -5340,7 +5340,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
 
       if ((TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_DONT_FILTER_ENDING_NODE)!=0 && stb_getstbfig(ttvfig)!=NULL)
         { 
-          // not possible for filter in dual mode
+          /* not possible for filter in dual mode*/
           for (chain=chaininsav; chain!=NULL; chain=chain->NEXT)
             {
               if (stb_has_filter_directive(((ttvsig_list *)chain->DATA)->NODE)
@@ -5348,7 +5348,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
             }
           if (chain!=NULL)
             {
-              // revert back to not dual mode
+              /* revert back to not dual mode*/
               freechain(chaininsav);
               if (TTV_EXPLICIT_START_NODES==NULL)
                 chaininsav = ttv_getsigbytype_and_netname(ttvfig,figpath,TTV_SIG_C|TTV_SIG_L|TTV_SIG_R|TTV_SIG_B/*|TTV_SIG_Q*/,maskin) ;
@@ -5361,7 +5361,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
         }
     }
 
-  // calcul si on doit ignorer le maskin pour les latchs des access
+  /* calcul si on doit ignorer le maskin pour les latchs des access*/
   savealltag=computesavealltag(chaininsav, 0);
 
   for(chaininx = chaininsav ; chaininx != NULL ; chaininx = chaininx->NEXT)
@@ -5396,7 +5396,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
       else
         {
           searchsigtype=TTV_SIG_C|TTV_SIG_L|TTV_SIG_R|TTV_SIG_B/*|TTV_SIG_Q*/;
-          //     if (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_ENABLE_START_ON_TTV_SIG_Q) searchsigtype|=TTV_SIG_Q;
+          /*     if (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_ENABLE_START_ON_TTV_SIG_Q) searchsigtype|=TTV_SIG_Q;*/
           if (TTV_EXPLICIT_START_NODES==NULL)
             chain = ttv_getsigbytype_and_netname(ttvfig,ttvins,searchsigtype,maskin) ;
           else
@@ -5438,7 +5438,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
                      (((((type & (TTV_FIND_NOT_UPUP|TTV_FIND_NOT_DWUP)) == (TTV_FIND_NOT_UPUP|TTV_FIND_NOT_DWUP)) && (i == 1)) || 
                        (((type & (TTV_FIND_NOT_UPDW|TTV_FIND_NOT_DWDW)) == (TTV_FIND_NOT_UPDW|TTV_FIND_NOT_DWDW)) && (i == 0)))
                       && ((type & TTV_FIND_DUAL) != TTV_FIND_DUAL)
-                      && (ptsig->TYPE & (TTV_SIG_CT|TTV_SIG_CZ))==0 // pour le filtrage HZ                    
+                      && (ptsig->TYPE & (TTV_SIG_CT|TTV_SIG_CZ))==0 /* pour le filtrage HZ                    */
                       ))
                     continue ;
                   TTV_SEARCH_INFORMATIONS&=~TTV_SEARCH_INFORMATIONS_CRITIC_FALSEPATH;
@@ -5449,7 +5449,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
                       allfailed|=1<i;
                       if (typehz=='Y')
                         {
-                          // pour le filtre des HZ il faut les 2 events, donc on recherhera les // pour les 2 events
+                          /* pour le filtre des HZ il faut les 2 events, donc on recherhera les // pour les 2 events*/
                           allfailed=3;
                           if (i==0)
                             {
@@ -5482,7 +5482,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
           ttvevent_list *tve;
 
 
-          // remove signal to retry from the list
+          /* remove signal to retry from the list*/
           for (chain=event_to_retry; chain!=NULL; chain=chain->NEXT) 
             ((ttvevent_list *)chain->DATA)->TYPE|=TTV_NODE_MARQUE;
      
@@ -5525,7 +5525,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
                   pathx = (ttvpath_list *)ttv_findsigpath(ttvfig,ttvins,ttvins,tve,NULL,(ttvevent_list *)chc->DATA,delaymax,delaymin,type|TTV_FIND_ALL,level,pathx,TTV_SEARCH_CRITICPATH,nb,&r_nbx,savealltag,&typehz) ;
                   if(typehz == 'Y')
                     {
-                      if (event_to_retry->NEXT!=NULL && tve->ROOT==((ttvevent_list *)event_to_retry->NEXT->DATA)->ROOT) // test normalement vrai
+                      if (event_to_retry->NEXT!=NULL && tve->ROOT==((ttvevent_list *)event_to_retry->NEXT->DATA)->ROOT) /* test normalement vrai*/
                         {
                           tve = (ttvevent_list *)event_to_retry->NEXT->DATA ;
                           pathx = (ttvpath_list *)ttv_findsigpath(ttvfig,ttvins,ttvins,tve,(ttvevent_list *)chc->DATA,NULL,delaymax,delaymin,type|TTV_FIND_ALL,level,pathx,TTV_SEARCH_CRITICPATH,nb,&r_nbx,savealltag,&typehz) ;
@@ -5534,11 +5534,11 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
 
                       pathx = ttv_filterpathhz(pathx,&r_nbx, nb, NULL, type) ;
                     }
-                  // keep critic only
+                  /* keep critic only*/
            
                   pathx=ttv_keep_critic_paths(pathx, &r_nbx, type, (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_MULTIPLE_COMMAND_CRITIC_ACCESS)!=0?1:0);
 
-                  // merge to list
+                  /* merge to list*/
 
                   retried_list=ttv_mergepathlists(retried_list, retried_nbx, pathx, r_nbx, nb, type, &retried_nbx);
                 }
@@ -5552,7 +5552,7 @@ ttvpath_list *ttv_getcriticpath(ttvfig,figpath,maskin,maskout,delaymax,delaymin,
           TTV_FIND_ALLPATH='N';
           TTV_MORE_SEARCH_OPTIONS&=~TTV_MORE_OPTIONS_CRITIC_PARA_SEARCH;
 
-          // merge to previous list
+          /* merge to previous list*/
           path=ttv_mergepathlists(path, nbx, retried_list, retried_nbx, nb, type, &nbx);
         }
       TTV_SEARCH_INFORMATIONS&=~TTV_SEARCH_INFORMATIONS_CRITIC_FALSEPATH;
@@ -5626,7 +5626,7 @@ ttvpath_list *ttv_getcriticaccess(ttvfig,figpath,maskin,maskout,maskclock,delaym
     chainclock=dupchainlst(TTV_EXPLICIT_CLOCK_NODES);
 
 #ifdef SPEED_UP_ACCESS_CRITIC
-  // speed up all access
+  /* speed up all access*/
   clknames=namefromsig(ttvfig, chainclock);
   if (clknames!=NULL)
     {
@@ -5754,7 +5754,7 @@ ttvpath_list *ttv_getpath(ttvfig,figpath,ptsig,mask,delaymax,delaymin,type)
 
       levelend = level ;
 
-      // calcul si on doit ignorer le maskin pour les latchs des access
+      /* calcul si on doit ignorer le maskin pour les latchs des access*/
       savealltag=computesavealltag(chainin, 0);
 
       if((levelend < ttvfig->INFO->LEVEL) && (levelsig == ttvfig->INFO->LEVEL)) 
@@ -5867,7 +5867,7 @@ ttvpath_list *ttv_getpath(ttvfig,figpath,ptsig,mask,delaymax,delaymin,type)
              (((((type & (TTV_FIND_NOT_UPUP|TTV_FIND_NOT_DWUP)) == (TTV_FIND_NOT_UPUP|TTV_FIND_NOT_DWUP)) && (i == 1)) || 
                (((type & (TTV_FIND_NOT_UPDW|TTV_FIND_NOT_DWDW)) == (TTV_FIND_NOT_UPDW|TTV_FIND_NOT_DWDW)) && (i == 0)))
               && ((type & TTV_FIND_DUAL) != TTV_FIND_DUAL)
-              && (ptsig->TYPE & (TTV_SIG_CT|TTV_SIG_CZ))==0 // pour le filtrage HZ
+              && (ptsig->TYPE & (TTV_SIG_CT|TTV_SIG_CZ))==0 /* pour le filtrage HZ*/
               ))
             continue ;
           TTV_SEARCH_INFORMATIONS&=~TTV_SEARCH_INFORMATIONS_CRITIC_FALSEPATH;
@@ -5877,7 +5877,7 @@ ttvpath_list *ttv_getpath(ttvfig,figpath,ptsig,mask,delaymax,delaymin,type)
               event_to_retry=addchain(event_to_retry, ptsig->NODE+i);
               if (typehz=='Y')
                 {
-                  // pour le filtre des HZ il faut les 2 events, donc on recherhera les // pour les 2 events
+                  /* pour le filtre des HZ il faut les 2 events, donc on recherhera les // pour les 2 events*/
                   if (i==0)
                     {
                       event_to_retry=addchain(event_to_retry, ptsig->NODE+1);
@@ -5897,7 +5897,7 @@ ttvpath_list *ttv_getpath(ttvfig,figpath,ptsig,mask,delaymax,delaymin,type)
           ttvevent_list *tve;
           ttvpath_list *pathx, *npathx, *prevpathx;
 
-          // remove signal to retry from the list
+          /* remove signal to retry from the list*/
           for (chain=event_to_retry; chain!=NULL; chain=chain->NEXT) 
             ((ttvevent_list *)chain->DATA)->TYPE|=TTV_NODE_MARQUE;
      
@@ -5929,7 +5929,7 @@ ttvpath_list *ttv_getpath(ttvfig,figpath,ptsig,mask,delaymax,delaymin,type)
         
               if(typehz == 'Y')
                 {
-                  if (event_to_retry->NEXT!=NULL && tve->ROOT==((ttvevent_list *)event_to_retry->NEXT->DATA)->ROOT) // test normalement vrai
+                  if (event_to_retry->NEXT!=NULL && tve->ROOT==((ttvevent_list *)event_to_retry->NEXT->DATA)->ROOT) /* test normalement vrai*/
                     {
                       event_to_retry=delchain(event_to_retry, event_to_retry);
                       tve = (ttvevent_list *)event_to_retry->DATA ;
@@ -5938,11 +5938,11 @@ ttvpath_list *ttv_getpath(ttvfig,figpath,ptsig,mask,delaymax,delaymin,type)
 
                   pathx = ttv_filterpathhz(pathx,NULL, TTV_MAX_PATHNB, NULL, type) ;
                 }
-              // keep critic only
+              /* keep critic only*/
         
               pathx=ttv_keep_critic_paths(pathx, &r_nbx, type, (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_MULTIPLE_COMMAND_CRITIC_ACCESS)!=0?1:0);
 
-              // merge to list
+              /* merge to list*/
 
               retried_list=ttv_mergepathlists(retried_list, retried_nbx, pathx, r_nbx, TTV_MAX_PATHNB, type, &retried_nbx);
         
@@ -5951,7 +5951,7 @@ ttvpath_list *ttv_getpath(ttvfig,figpath,ptsig,mask,delaymax,delaymin,type)
           TTV_FIND_ALLPATH='N';
           TTV_MORE_SEARCH_OPTIONS&=~TTV_MORE_OPTIONS_CRITIC_PARA_SEARCH;
 
-          // merge to previous list
+          /* merge to previous list*/
           path=ttv_mergepathlists(path, countchain((chain_list *)path), retried_list, retried_nbx, TTV_MAX_PATHNB, type, &r_nbx);
         }
       TTV_SEARCH_INFORMATIONS&=~TTV_SEARCH_INFORMATIONS_CRITIC_FALSEPATH;
@@ -6190,7 +6190,7 @@ ttvpath_list *ttv_getaccess(ttvfig,figpath,ptsig,mask,maskclock,delaymax,delaymi
     chainclock=dupchainlst(TTV_EXPLICIT_CLOCK_NODES);
 
 #ifdef SPEED_UP_ACCESS_CRITIC
-  // speed up access
+  /* speed up access*/
   clknames=namefromsig(ttvfig, chainclock);
   if (clknames!=NULL)
     {
@@ -6267,7 +6267,7 @@ ttvpath_list *ttv_getsigaccess(ttvfig,figpath,ptsig,mask,maskclock,delaymax,dela
     chainclock=dupchainlst(TTV_EXPLICIT_CLOCK_NODES);
 
 #ifdef SPEED_UP_ACCESS_ALL
-  // speed up access
+  /* speed up access*/
   clknames=namefromsig(ttvfig, chainclock);
   if (clknames!=NULL)
     {
@@ -6379,7 +6379,7 @@ ttvpath_list *ttv_getallaccess(ttvfig,figpath,maskin,maskout,maskclock,delaymax,
     chainclock=dupchainlst(TTV_EXPLICIT_CLOCK_NODES);
 
 #ifdef SPEED_UP_ACCESS_ALL
-  // speed up access
+  /* speed up access*/
   clknames=namefromsig(ttvfig, chainclock);
   if (clknames!=NULL)
     {
@@ -6464,7 +6464,7 @@ int ttv_testparamask(inf)
   if (inf->CLOCK)
     {
       ttvevent_list *cmdev;
-      // on check si le chemin de clock est valid : on est en mode non dual normalement
+      /* on check si le chemin de clock est valid : on est en mode non dual normalement*/
       cmdev=ttv_findlatchcommand_notdual(inf->ROOT,inf->CURNODE);
       if (cmdev!=NULL && ttv_isfalsepath(inf->FIG,inf->CURNODE,cmdev,inf->TYPE & ~TTV_FIND_HZ,0,NULL) != 0)
         return(0) ;
@@ -6607,7 +6607,7 @@ void *ttv_findpara(ttvfig,figpath,root,node,max,min,type,level,mask,nb,saveall)
   info.TYPE = type ;
   info.NBPATH = 0 ;
   info.NBMAX = nb ;
-  info.LIST.CHAIN = NULL ; // initialise aussi info.LIST.PATHS
+  info.LIST.CHAIN = NULL ; /* initialise aussi info.LIST.PATHS*/
   info.CHAINFIG = NULL ;
   info.CLOCK = 0 ;
   info.CLOCKTAB = NULL ;
@@ -6856,7 +6856,7 @@ void ttv_savparapath(event,inf)
       if((inf->TYPE & TTV_FIND_DUAL) == TTV_FIND_DUAL)
         {
           if(event->FIND->OUTLINE->NODE == inf->ROOT) break ;
-          // zinaps : pour eviter les boucles
+          /* zinaps : pour eviter les boucles*/
           if((event->FIND->OUTLINE->NODE->TYPE & TTV_NODE_MARQUE) == TTV_NODE_MARQUE)  
             {
               char buf0[128], buf1[128], buf2[128], buf[1024];
@@ -6877,7 +6877,7 @@ void ttv_savparapath(event,inf)
         {
           if(event->FIND->OUTLINE->ROOT == inf->ROOT) break ;
 
-          // zinaps : pour eviter les boucles
+          /* zinaps : pour eviter les boucles*/
           if((event->FIND->OUTLINE->ROOT->TYPE & TTV_NODE_MARQUE) == TTV_NODE_MARQUE)
             {
               char buf0[128], buf1[128], buf2[128], buf[1024];
@@ -6923,7 +6923,7 @@ void ttv_savparapath(event,inf)
         }
       else
         {
-          // est-ce que l'on doit garder le path?
+          /* est-ce que l'on doit garder le path?*/
           if(!(inf->NBPATH >= inf->NBMAX &&
                (((inf->LIST.PATHS->DELAY >= ttv_GET_FINDDELAY(inf->CURNODE, 0)) && 
                  ((inf->TYPE & TTV_FIND_MAX) == TTV_FIND_MAX)) ||
@@ -7329,7 +7329,7 @@ void ttv_findp(root,inf)
          ((nodex->ROOT->TYPE & (TTV_SIG_B|TTV_SIG_L|TTV_SIG_R)) != 0) && (inf->CLOCK == 0))
         {
           int isfalse=0;
-          // on check si le chemin de data est un falsepath
+          /* on check si le chemin de data est un falsepath*/
           if (ttv_canbeinfalsepath(nodex, 'i') && ttv_canbeinfalsepath(inf->ROOT, 'o') && ttv_isfalsepath(inf->FIG,nodex, inf->ROOT,inf->TYPE,0,NULL))
             isfalse=1;
 
@@ -7373,8 +7373,8 @@ void ttv_findp(root,inf)
               || inf->CLOCK
               || (inf->CLOCK==0 && (TTV_MORE_SEARCH_OPTIONS & TTV_MORE_OPTIONS_REAL_ACCESS)==0))
             {
-              // PS: j'utilise 'abort' dans la fonction recursive mais ca
-              // aurait plutot du etre une nouvelle variable 'insert'
+              /* PS: j'utilise 'abort' dans la fonction recursive mais ca*/
+              /* aurait plutot du etre une nouvelle variable 'insert'*/
               if(!(V_INT_TAB[__TTV_PRECISION_LEVEL].VALUE==1 && (abort=ttv_check_insertability(nodex, inf))==0))
                 {
 
@@ -7560,8 +7560,8 @@ ttvpath_list *ttv_getpara(ttvfig,figpath,root,node,max,min,type,mask,nb)
   ttvfig_list *ttvfigx ;
   ttvevent_list *nodex ;
   ttvpath_list *path ;
-  // chain_list *chain ;
-  // chain_list *chainx ;
+  /* chain_list *chain ;*/
+  /* chain_list *chainx ;*/
   long level ;
   long levelroot ;
   long levelnode ;
@@ -8119,7 +8119,7 @@ long ttv_getnodeslew(node, type)
 /*                                                                           */
 /* construit les chemins a partir du parcours en largeur du graphe           */
 /*****************************************************************************/
-//#define CAPASUPMODE
+/*#define CAPASUPMODE*/
 static float ttv_getnodecapa(lofig_list *lofig, ttvevent_list *tve, long type)
 {
   float capa;
@@ -8241,7 +8241,7 @@ static void ttv_getaxisvalues(ht *htslope, ht *htcapa, char *namein, char *nameo
             *slope_axis=addchain(*slope_axis, (void *)mbk_long_round(caracslope->VALUES[i]*TTV_UNIT));
         }
     }else
-      *slope_axis=NULL; //addchain(*slope_axis, (void *)TTV_NOTIME) ;
+      *slope_axis=NULL; /*addchain(*slope_axis, (void *)TTV_NOTIME) ;*/
 
   if(nameout && htcapa)
     {
@@ -8256,7 +8256,7 @@ static void ttv_getaxisvalues(ht *htslope, ht *htcapa, char *namein, char *nameo
             *capa_axis=addchain(*capa_axis, NULL), *(float *)&(*capa_axis)->DATA=caraccapa->VALUES[i];
         }
     }else
-      *capa_axis=NULL; //addchain(*capa_axis, NULL), *(float *)&(*capa_axis)->DATA=-1;
+      *capa_axis=NULL; /*addchain(*capa_axis, NULL), *(float *)&(*capa_axis)->DATA=-1;*/
 
   *slope_axis=reverse(*slope_axis);
   *capa_axis=reverse(*capa_axis);
@@ -8328,7 +8328,7 @@ void ttv_allocpathmodel_propagate (ttvfig_list *ttvfig, ttvfig_list *insfig, ttv
   if ((tl->ROOT->ROOT->TYPE & TTV_SIG_C)!=0)
     {
       lofig = ttv_getrcxlofig (ttvfig);
-      sigcapa=ttv_get_signal_capa(tl->ROOT->ROOT); //ttv_getnodecapa(lofig,tl->ROOT,type);
+      sigcapa=ttv_get_signal_capa(tl->ROOT->ROOT); /*ttv_getnodecapa(lofig,tl->ROOT,type);*/
     }
   if (output_capa==NULL)
     {
@@ -8368,9 +8368,9 @@ void ttv_allocpathmodel_propagate (ttvfig_list *ttvfig, ttvfig_list *insfig, ttv
             }
         }
     }
-  //  ttv_experim_setstopaftergate1(1);
+  /*  ttv_experim_setstopaftergate1(1);*/
   ttv_DoCharacPropagation(ttvfig, insfig, node, root, type, input_slope, real_output_capa, &res_delay, &res_slope, &res_energy, ch);
-  //  ttv_experim_setstopaftergate1(0);
+  /*  ttv_experim_setstopaftergate1(0);*/
 
   freechain(real_output_capa);
 
@@ -8646,9 +8646,9 @@ void ttv_allocpathmodel (ttvfig, path, type)
     else end_line = line;
   }
 
-  //----------------------------------------------------------------------------
-  //----------------------------------------------------------------------------
-  // No models to create
+  /*----------------------------------------------------------------------------*/
+  /*----------------------------------------------------------------------------*/
+  /* No models to create*/
 
   singlerc = (start_line_rc || end_line_rc) && (start_line_rc == end_line_rc);
 
@@ -8697,7 +8697,7 @@ void ttv_allocpathmodel (ttvfig, path, type)
     capa = STM_DONTCARE;
   }
   else {
-    //        capa = start_line->ROOT->ROOT->CAPA;
+    /*        capa = start_line->ROOT->ROOT->CAPA;*/
         
     if(lofig == NULL)
       {
@@ -8788,8 +8788,8 @@ void ttv_allocpathmodel (ttvfig, path, type)
         
   }
 
-  //----------------------------------------------------------------------------
-  // models to create
+  /*----------------------------------------------------------------------------*/
+  /* models to create*/
   if((((path->ROOT->ROOT->TYPE & TTV_SIG_C) == TTV_SIG_C) || ((path->ROOT->ROOT->TYPE & TTV_SIG_N) == TTV_SIG_N))
      &&(((path->NODE->ROOT->TYPE & TTV_SIG_C) == TTV_SIG_C) || ((path->NODE->ROOT->TYPE & TTV_SIG_N) == TTV_SIG_N))){
     stm_addaxisvalues(htslope_axis, htcapa_axis, path->NODE->ROOT->NETNAME, path->ROOT->ROOT->NETNAME);
@@ -8903,10 +8903,10 @@ void ttv_allocpathmodel (ttvfig, path, type)
     modelinslope = NULL;
   }        
     
-  // creation du modele rc + gate  start ------------------------------------------------------------------------
+  /* creation du modele rc + gate  start ------------------------------------------------------------------------*/
   if (start_line_rc && start_line && modelindelay && modelinslope && (start_line != end_line)) {
 
-    // delay model
+    /* delay model*/
     mindelay = stm_mod_reduce(NULL, modelindelay, nodeslew/TTV_UNIT, capa, STM_LOADFIX_RED, STM_DELAY);
     ns = stm_modtbl_getnslew (mindelay->UMODEL.TABLE);
     if (!ns) {
@@ -8933,7 +8933,7 @@ void ttv_allocpathmodel (ttvfig, path, type)
         }
       }
 
-    // slope model
+    /* slope model*/
     minslope = stm_mod_reduce(NULL, modelinslope, nodeslew/TTV_UNIT, capa, STM_LOADFIX_RED, STM_SLEW);
     ns = stm_modtbl_getnslew (minslope->UMODEL.TABLE);
     if (!ns) {
@@ -8965,7 +8965,7 @@ void ttv_allocpathmodel (ttvfig, path, type)
     modelindelay = mindelay;
   }
 
-  // creation du modele rc + gate  end ------------------------------------------------------------------------
+  /* creation du modele rc + gate  end ------------------------------------------------------------------------*/
   if (end_line_rc && end_line && modeloutdelay && modeloutslope && (start_line != end_line)) {
     if (ptlineforslew) {
       if ((type & TTV_FIND_MAX) == TTV_FIND_MAX)
@@ -9052,7 +9052,7 @@ void ttv_allocpathmodel (ttvfig, path, type)
     modelinslope = minslope;
     modelindelay = mindelay;
   }
-  // creation du modele rc + gate  singlerc ------------------------------------------------------------------------
+  /* creation du modele rc + gate  singlerc ------------------------------------------------------------------------*/
   if (singlerc) {
     load = ttv_get_signal_capa(start_line_rc->NODE->ROOT);
     mindelay = stm_mod_create_table (NULL, 3, 0, STM_INPUT_SLEW, STM_NOTYPE);
@@ -9083,7 +9083,7 @@ void ttv_allocpathmodel (ttvfig, path, type)
     modelindelay = mindelay;
   }
 
-  // models assignation ---------------------------------------------------------
+  /* models assignation ---------------------------------------------------------*/
   if (start_line != end_line) {
     if (ptlineforslew) {
       if ((type & TTV_FIND_MAX) == TTV_FIND_MAX)
@@ -9128,7 +9128,7 @@ void ttv_allocpathmodel (ttvfig, path, type)
   stm_mod_update_transition(path->MD, ttype);
   stm_mod_update_transition(path->MF, ttype);
     
-  // temp models destruction ----------------------------------------------------
+  /* temp models destruction ----------------------------------------------------*/
   if (STM_CACHE) {
     if (mbk_cache_islock (STM_CACHE, modelinslope) == YES)
       mbk_cache_unlock (STM_CACHE, modelinslope);

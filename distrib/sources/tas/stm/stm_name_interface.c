@@ -87,9 +87,9 @@ void stm_fctparse (timing_cell *cell)
                 }
                 if (APIExecute_C (func, NULL, &ta, ec, 1)) return;
 
-		        // zinaps: ta = retour de fonction
-		        // .....
-		        // _______
+		        /* zinaps: ta = retour de fonction*/
+		        /* .....*/
+		        /* _______*/
 		
                 if (!(ta = APIGetGlobalVariable (ec, "SC"))) {
                     fprintf (stderr, "Cannot retrieve SC variable\n");
@@ -347,7 +347,7 @@ timing_model *stm_getmodel_sub (char *cellname, char *modelname, int mustexist)
        return NULL;
     }
     model = (timing_model*)gethtitem (cell->MODEL_HT, namealloc (modelname));
-//    model = (timing_model*)gethtitem (cell->MODEL_HT, modelname);
+/*    model = (timing_model*)gethtitem (cell->MODEL_HT, modelname);*/
 
     if (((long)model == EMPTYHT) || ((long)model == DELETEHT))
         return NULL;  

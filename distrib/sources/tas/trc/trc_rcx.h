@@ -21,42 +21,42 @@
 
 extern FILE *RCXFILELOG ;
 
-// USER des lofig
+/* USER des lofig*/
 
 #define RCX_HTAGR 0x5243580E
-// Table de hash pour retrouver la liste des agresseur. rcx_agragrlistfast().
+/* Table de hash pour retrouver la liste des agresseur. rcx_agragrlistfast().*/
 
-// USER des losig
+/* USER des losig*/
 
 #define RCX_BELLOW 0x52435800
-// Lorsque ce ptype est présent, ce signal n'existe pas au niveau courant, mais
-// est défini dans une des instances de la figure courante..
-// Le nom du signal est la chaîne de caractère dans le champs DATA, sous la
-// forme NOMINSTANCE.NOMSIGNAL.
+/* Lorsque ce ptype est présent, ce signal n'existe pas au niveau courant, mais */
+/* est défini dans une des instances de la figure courante.. */
+/* Le nom du signal est la chaîne de caractère dans le champs DATA, sous la */
+/* forme NOMINSTANCE.NOMSIGNAL.*/
 
 #define RCX_COPIED 0x52435806
-// Dans la fonction rcxbuild(), indique que ce signal a été traité, et qu'il
-// est devenu le losig pointé par le champ data.
+/* Dans la fonction rcxbuild(), indique que ce signal a été traité, et qu'il */
+/* est devenu le losig pointé par le champ data */
 
 #define RCXLOSIGFLAG 0x52435812
-// Contient des flags. Ce ptype est utilisé dans rcn_coupledinformation, il 
-// correspond donc aux valeurs 0x52435812 et 0x52435813
+/* Contient des flags. Ce ptype est utilisé dans rcn_coupledinformation, il */
+/* correspond donc aux valeurs 0x52435812 et 0x52435813*/
 
 #define RCX_NODE_BASE 0x52435814
-// Contient le décalage à appliquer sur un noeud de signal d'instance.
+/* Contient le décalage à appliquer sur un noeud de signal d'instance. */
 
-// Flag de couplage.
+/* Flag de couplage.*/
 #define RCX_NI_LOSIG 0x1
 
 extern char RCX_FASTMODE;
 extern char RCX_FREEUNUSEDCTC;
 extern char RCX_USEREALSLOPE;
 
-// Arguments where pour la fonction rcx_get_new_num_node()
+/* Arguments where pour la fonction rcx_get_new_num_node()*/
 #define RCX_LOINS 'i'
 #define RCX_LOFIG 'f'
 
-// Arguments pour la fonction rcx_iscrosstalk
+/* Arguments pour la fonction rcx_iscrosstalk*/
 #define RCX_TEST_ONE    'o'
 #define RCX_TEST_LIMIT  'l'
 

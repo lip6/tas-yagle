@@ -19,8 +19,8 @@
 #include CGV_H
 #include XSB_H
 #include XTB_H
-#include XMX_H
 #include XYA_H
+#include XMX_H
 #include XME_H
 #include XMV_H
 
@@ -75,9 +75,7 @@ XyagEditSearchCompare(Name)
 |                       XyagEditSearchObject                  |
 \------------------------------------------------------------*/
 
-void 
-XyagEditSearchObject(ObjectName)
-    char           *ObjectName;
+void XyagEditSearchObject( char *ObjectName )
 {
     xyagobj_list   *Obj;
     xyagselect_list *Search;

@@ -75,6 +75,6 @@
 
 #define MVL_ALODFN     60		/* minimal size of allocation	 */
 					/* for dct_entry and dct_recrd	 */
-//#define MVL_HSZDFN     97 		/* number of entry points in the */
+/*#define MVL_HSZDFN     97 		/* number of entry points in the */
 #define MVL_HSZDFN     HASHVAL 		/* number of entry points in the */
                                 /* dictionnary			 */

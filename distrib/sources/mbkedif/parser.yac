@@ -58,15 +58,15 @@ static char           *YY_RIPPER_CELL = (char *) NULL;
                      Functions
 \---------------------------------------------------------*/
 static  void        REnamealloc         ( );
-static  void        del_patch           ( );
-static  void        sig_merge           ( );
+static  void        del_patch           ( lofig_list *pt_lofig, char master );
+static  void        sig_merge           ( lofig_list *pt_lofig, long sig1, long sig2 );
 
-static  char        bus_nameref         ( );
-static  char        CheckCadenceBusError( );
-static  char       *CheckCadenceNetError( );
-static  lofig_list *get_figure_pt       ( );
-static  char        is_portinstance     ( );
-extern  char       *edif_busname        ( );
+static  char        bus_nameref         ( locon_list *ptlocon, char *bnameref, int bus_width );
+static  char        CheckCadenceBusError( char *PortName, int *Min, int *Max );
+static  char       *CheckCadenceNetError( char* );
+static  lofig_list *get_figure_pt       ( char* );
+static  char        is_portinstance     ( loins_list *inst_pt, char *Name );
+extern  char       *edif_busname        ( char* );
 
 extern  int 		yyerror				( char *str);
 extern	void 		yyrestart			( void *input);
@@ -306,11 +306,11 @@ r_cell :
 
 			if (YY_NOLOAD_FIG == 0)
 			{
-				//char       *array_cname;
-				//char       *array_sname;
-				//locon_list *ptcon;
+				/*char       *array_cname;*/
+				/*char       *array_sname;*/
+				/*locon_list *ptcon;*/
 				char        new_sig_name[MAXSTRLEN];
-				//char        end;
+				/*char        end;*/
 				locon_list *YY_INS_PTCON  = (locon_list *) NULL;
 				locon_list *YY_PTCON      = (locon_list *) NULL;
                 losig_list *sigvss;
@@ -1113,12 +1113,9 @@ extern  FILE            *yyin;
 /*---------------------------------------------------------\
                      bus_nameref
 \---------------------------------------------------------*/
-static char bus_nameref( ptlocon, bnameref, bus_width )
-locon_list *ptlocon;
-char       *bnameref;
-int         bus_width;
+static char bus_nameref( locon_list *ptlocon, char *bnameref, int bus_width )
 {
-//	int         i, n;
+/*	int         i, n;*/
 	char        port_name[MAXSTRLEN];
 	char       *pname;
 	locon_list *loconp;
@@ -1166,9 +1163,9 @@ char        mode;
 	char        filename[120];
 	lofig_list *pt;
 	losig_list *ptsig;
-//	losig_list *ptsignext;
+/*	losig_list *ptsignext;*/
 	loins_list *ptins;
-//	loins_list *ptinsnext;
+/*	loins_list *ptinsnext;*/
 
 	static char Vierge = 1; /* first time */
 
@@ -1292,8 +1289,7 @@ int yywrap()
 /*---------------------------------------------------------\
                      get_figure_pt
 \---------------------------------------------------------*/
-static lofig_list *get_figure_pt( Name )
-char *Name;
+static lofig_list *get_figure_pt( char *Name )
 {
 	lofig_list *pt;
 
@@ -1308,9 +1304,7 @@ char *Name;
 /*---------------------------------------------------------\
                      is_portinstance
 \---------------------------------------------------------*/
-static char is_portinstance(inst_pt, Name)
-loins_list *inst_pt;
-char       *Name;
+static char is_portinstance( loins_list *inst_pt, char *Name )
 {
 	chain_list      *chain_pt;
 
@@ -1332,8 +1326,7 @@ char       *Name;
 /*---------------------------------------------------------\
                      CheckCadenceNetError
 \---------------------------------------------------------*/
-static char *CheckCadenceNetError( Name )
-char *Name;
+static char *CheckCadenceNetError( char *Name )
 {
 	char  net_name[MAXSTRLEN];
 	char *first;
@@ -1384,10 +1377,7 @@ char *Name;
 /*---------------------------------------------------------\
                      CheckCadenceBusError
 \---------------------------------------------------------*/
-static char CheckCadenceBusError(PortName, Min, Max)
-char *PortName;
-int  *Min;
-int  *Max;
+static char CheckCadenceBusError( char *PortName, int *Min, int *Max )
 {
 	char *array;
 	char *first;
@@ -1441,10 +1431,7 @@ int  *Max;
 /*---------------------------------------------------------\
                      sig_merge
 \---------------------------------------------------------*/
-static void sig_merge(pt_lofig, sig1, sig2)
-lofig_list *pt_lofig;
-long        sig1;
-long        sig2;
+static void sig_merge( lofig_list *pt_lofig, long sig1, long sig2 )
 {
 	losig_list *ls1, *ls2;
 	locon_list *c;
@@ -1550,9 +1537,7 @@ lofig_list *lofig;
 /*---------------------------------------------------------\
                      del_patch
 \---------------------------------------------------------*/
-static void del_patch(pt_lofig, master)
-lofig_list *pt_lofig;
-char        master;
+static void del_patch( lofig_list *pt_lofig, char master )
 {
 	loins_list *i;
 	loins_list *k;

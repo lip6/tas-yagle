@@ -482,7 +482,7 @@ cnsfig_list *cnsfig ;
           }
          else if((incone->UEDGE.CONE->TYPE & CNS_EXT) == CNS_EXT)
           {
-           //if(((locon_list *)getptype(incone->UEDGE.CONE->USER,CNS_EXT)->DATA)->TYPE == EXTERNAL)
+           /*if(((locon_list *)getptype(incone->UEDGE.CONE->USER,CNS_EXT)->DATA)->TYPE == EXTERNAL)*/
            if(cns_get_one_cone_external_connector(incone->UEDGE.CONE)->TYPE == EXTERNAL)
              ptypesig->TYPE |= TTV_SIG_N ;
           }
@@ -496,13 +496,13 @@ cnsfig_list *cnsfig ;
           }
          else if((incone->UEDGE.CONE->TYPE & CNS_EXT) == CNS_EXT)
           {
-           //if(((locon_list *)getptype(incone->UEDGE.CONE->USER, CNS_EXT)->DATA)->TYPE == EXTERNAL)
+           /*if(((locon_list *)getptype(incone->UEDGE.CONE->USER, CNS_EXT)->DATA)->TYPE == EXTERNAL)*/
            if(cns_get_one_cone_external_connector(incone->UEDGE.CONE)->TYPE == EXTERNAL)
              ptypesig->TYPE |= TTV_SIG_N ;
           }
          else if((cone->TYPE & CNS_EXT) == CNS_EXT)
           {
-           //if(((locon_list *)getptype(cone->USER,CNS_EXT)->DATA)->TYPE == EXTERNAL)
+           /*if(((locon_list *)getptype(cone->USER,CNS_EXT)->DATA)->TYPE == EXTERNAL)*/
            if(cns_get_one_cone_external_connector(cone)->TYPE == EXTERNAL)
              ptypesig->TYPE |= TTV_SIG_EXT ;
           }
@@ -935,19 +935,21 @@ long tdnmin ;
                 cl=cns_get_cone_external_connectors(conecmd);
                 while (cl!=NULL)
                 {
-                  //ptype2 = getptype (conecmd->USER, CNS_EXT) ;
-                  locon = (locon_list*)cl->DATA; //ptype2->DATA ;
+                  /*ptype2 = getptype (conecmd->USER, CNS_EXT) ;*/
+                  locon = (locon_list*)cl->DATA; /*ptype2->DATA ;*/
                   ptype2 = getptype (locon->USER, TAS_CON_CARAC) ;
                   if (locon->DIRECTION == CNS_I) {
                     fcarac = ((caraccon_list*)ptype2->DATA)->SLOPEIN ;
                     nfcarac = ((caraccon_list*)ptype2->DATA)->NSLOPE ;
                     if(nfcarac){
-/*                        // ----- evite des memory leaks MAIS code valide?
+#ifdef THIS_IS_DISABLED
+                        /* ----- evite des memory leaks MAIS code valide?*/
                         if (tmodeld1!=NULL) stm_mod_destroy(tmodeld1);
                         if (tmodeld2!=NULL) stm_mod_destroy(tmodeld2);
                         if (tmodeld3!=NULL) stm_mod_destroy(tmodeld3);
-                        if (tmodeld4!=NULL) stm_mod_destroy(tmodeld4);*/
-                        // -----
+                        if (tmodeld4!=NULL) stm_mod_destroy(tmodeld4);
+                        /* -----*/
+#endif
                         tmodeld1 = stm_mod_create_table (stm_mod_name(cone->NAME, sens, conecmd->NAME, 'U', STM_DELAY|STM_SETUP, 'M', 0), nfcarac, 0, STM_CLOCK_SLEW, STM_NOTYPE);
                         tmodeld2 = stm_mod_create_table (stm_mod_name(cone->NAME, sens, conecmd->NAME, 'D', STM_DELAY|STM_SETUP, 'M', 0), nfcarac, 0, STM_CLOCK_SLEW, STM_NOTYPE);
                         tmodeld3 = stm_mod_create_table (stm_mod_name(cone->NAME, sens, conecmd->NAME, 'U', STM_DELAY|STM_HOLD, 'M', 0), nfcarac, 0, STM_CLOCK_SLEW, STM_NOTYPE);
@@ -1030,7 +1032,7 @@ long tdnmin ;
  if(tmodeld1){
      stm_storemodel(CELL, NULL, tmodeld1, 0);
      ttv_addcaracline(ptline,tmodeld1->NAME,NULL,NULL,NULL) ;
-     tmodeld1=NULL; //used
+     tmodeld1=NULL; /*used*/
  }
  }
 
@@ -1040,7 +1042,7 @@ long tdnmin ;
  if(tmodeld2){
      stm_storemodel(CELL, NULL, tmodeld2, 0);
      ttv_addcaracline(ptline,tmodeld2->NAME,NULL,NULL,NULL) ;
-     tmodeld2=NULL; //used
+     tmodeld2=NULL; /*used*/
  }
  }
 
@@ -1050,7 +1052,7 @@ long tdnmin ;
  if(tmodeld3){
      stm_storemodel(CELL, NULL, tmodeld3, 0);
      ttv_addcaracline(ptline,tmodeld3->NAME,NULL,NULL,NULL) ;
-     tmodeld3=NULL; //used
+     tmodeld3=NULL; /*used*/
  }
  }
 
@@ -1060,7 +1062,7 @@ long tdnmin ;
  if(tmodeld4){
      stm_storemodel(CELL, NULL, tmodeld4, 0);
      ttv_addcaracline(ptline,tmodeld4->NAME,NULL,NULL,NULL) ;
-     tmodeld4=NULL; //used
+     tmodeld4=NULL; /*used*/
  }
  }
 
@@ -1917,7 +1919,7 @@ void tas_linkconenode(ttvfig_list *ttvfig,ttvsig_list *in,ttvsig_list *out,chain
        locon=cns_get_one_cone_external_connector(cone);
        if(locon!=NULL/*(ptype = getptype(cone->USER,CNS_EXT)) != NULL*/)
          {
-//          locon = (locon_list *)ptype->DATA ;
+/*          locon = (locon_list *)ptype->DATA ;*/
           if((ptype = getptype(locon->USER,TAS_SIG_CONE)) != NULL)
             {
              outhz = (ttvsig_list *)ptype->DATA ;
@@ -2396,7 +2398,7 @@ int j, oldmode ;
              continue ;
          
          cone = (cone_list *)ptype->DATA ;
-         //hchain = addchain(hchain,cone) ;
+         /*hchain = addchain(hchain,cone) ;*/
 
          if(connect->TYPE != EXTERNAL)
              continue ;
@@ -2472,7 +2474,7 @@ int j, oldmode ;
       {
         edge_list *in ;
 
-        //hchain = addchain(hchain,cone) ;
+        /*hchain = addchain(hchain,cone) ;*/
         for(in = cone->INCONE ; in != NULL ; in = in->NEXT)
           {
            cone_list *conex = in->UEDGE.CONE ;
@@ -2509,7 +2511,7 @@ int j, oldmode ;
              else if((conex->TYPE & TAS_DEJAEMPILE) != TAS_DEJAEMPILE)
                 {
                  conex->TYPE |= (TAS_LCOMMAND | TAS_DEJAEMPILE) ;
-                 //hchain = addchain(hchain,conex) ;
+                 /*hchain = addchain(hchain,conex) ;*/
                 }
             }
           }
@@ -3952,7 +3954,7 @@ int j, oldmode ;
    delete = tas_deleteflatemptyfig(ttvfig,typefile,'Y') ;
    if(TAS_CONTEXT->TAS_CARACMODE == TAS_LUT_INT || TAS_CONTEXT->TAS_CARACMODE == TAS_LUT_CPL)
     tas_transformFCTmodels(ttvfig);
-//   tas_detectloop(ttvfig,TTV_FILE_DTX) ;
+/*   tas_detectloop(ttvfig,TTV_FILE_DTX) ;*/
   }
  else 
   delete = 0 ;

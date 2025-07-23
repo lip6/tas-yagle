@@ -52,9 +52,9 @@ extern void           efg_AddCkSpiSig       ( spisig_list*,
                                               long
                                             );
 extern void           efg_InitSigVolt       ( spisig_list*, char*, float );
-//extern ptype_list    *efg_AddPathEvent      ( ptype_list *, char*, char, int );
+/*extern ptype_list    *efg_AddPathEvent      ( ptype_list *, char*, char, int );*/
 extern ptype_list    *efg_CreatePathByInf   (list_list *infpathsig);
-//extern spisig_list   *efg_BuildSpiSigList   ( lofig_list* , ptype_list*, spisig_list *, char, int *, int);
+/*extern spisig_list   *efg_BuildSpiSigList   ( lofig_list* , ptype_list*, spisig_list *, char, int *, int);*/
 extern spisig_list   *efg_BuildSpiSigFromInf (lofig_list*,list_list*);
 extern chain_list    *efg_GetSig2Print (spisig_list *headspisig);
 extern spisig_list   *efg_GetFirstSpiSig (spisig_list *head);

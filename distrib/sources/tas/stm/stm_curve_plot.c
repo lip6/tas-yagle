@@ -98,7 +98,7 @@ int stm_curve_plot_static( stm_curve *curve, char *nameout )
   char  bufvs[1024] ;
   int   ns,ne;
 
-  // i = f(ve)
+  /* i = f(ve)*/
 
   stm_curve_plot_filename( curve, nameout, "_i=f(ve)", bufve );
 
@@ -116,7 +116,7 @@ int stm_curve_plot_static( stm_curve *curve, char *nameout )
 
   fclose(file) ;
   
-  // i = f(vs)
+  /* i = f(vs)*/
 
   stm_curve_plot_filename( curve, nameout, "_i=f(vs)", bufvs );
 
@@ -134,7 +134,7 @@ int stm_curve_plot_static( stm_curve *curve, char *nameout )
 
   fclose(file) ;
 
-  // Commandes
+  /* Commandes*/
 
   stm_curve_plot_filename( curve, nameout, "_static", buf );
   file = mbkfopen( buf, "plt", WRITE_TEXT) ;

@@ -166,7 +166,7 @@ rcx_list        *vuercx;
     return;
   }
 
-//  ptlofigchain = addchain( NULL, vuercx->RCXEXTERNAL );
+/*  ptlofigchain = addchain( NULL, vuercx->RCXEXTERNAL );*/
   ptlofigchain = NULL;
   for( scanchain = vuercx->RCXEXTERNAL ;
        scanchain ;

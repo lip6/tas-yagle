@@ -24,12 +24,7 @@
 |                        XyagSetIcon                          |
 \------------------------------------------------------------*/
 
-void
-XyagSetIcon(ShellWidget, IconBits, IconWidth, IconHeight )
-    Widget  ShellWidget;
-    char   *IconBits;
-    int     IconWidth;
-    int     IconHeight;
+void XyagSetIcon( Widget ShellWidget, char *IconBits, int IconWidth, int IconHeight )
 {
     Pixmap IconPixmap;
 
@@ -41,10 +36,7 @@ XyagSetIcon(ShellWidget, IconBits, IconWidth, IconHeight )
 |                        XyagSetColorIcon                     |
 \------------------------------------------------------------*/
 
-void
-XyagSetColorIcon(ShellWidget, IconData)
-    Widget  ShellWidget;
-    char  **IconData;
+void XyagSetColorIcon( Widget ShellWidget, char **IconData )
 {
     Display        *Dsp;
     Screen         *Scr;

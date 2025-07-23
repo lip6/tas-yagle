@@ -35,7 +35,7 @@
 
 #define SPIEQUI 1664
 
-//#define RESINAME 300703
+/*#define RESINAME 300703*/
 #define TOPEXTNODE 031003
 #define TOPEXTNAME 111003
 
@@ -67,8 +67,8 @@ typedef struct s_circuit
   struct s_diode        *DIODELIBRE  ;
   chain_list		*CINTERF; 
   chain_list		*FREE;
-//  tableint		*INT_NOEUD;
-//  thash                 *NOM_NOEUD;
+/*  tableint		*INT_NOEUD;*/
+/*  thash                 *NOM_NOEUD;*/
   NameAllocator 	HASHGNAME;
   thash			*HASHCAPA;
   thash			*HASHRESI;
@@ -79,7 +79,7 @@ typedef struct s_circuit
   long                   TAILLE;
   char                  *ALLOUENOM;
   int                    RESTENOM;
-  ptype_list            *INTERF_DIR; // zinaps
+  ptype_list            *INTERF_DIR; /* zinaps*/
   eqt_ctx               *CTX;
   optparam_list         *PARAM;
   optparam_list         *LOCAL_PARAMS;
@@ -88,13 +88,13 @@ typedef struct s_circuit
   ht *ALL_DIODE_MODELS, *ALL_CAPA_MODELS, *ALL_RESI_MODELS;
   ht *ALL_TRANSISTOR_MODELS;
   ht *ALL_INSTANCE_MODELS;
-//zinaps : again?!!?
+/*zinaps : again?!!?*/
   AdvancedNameAllocator *ana;
   AdvancedTableAllocator *ata;
   int nbnodes;
   AdvancedBlockAllocator *aba;
 
-  HeapAlloc INSPARAMLIST; // zinaps
+  HeapAlloc INSPARAMLIST; /* zinaps*/
 
   HeapAlloc ha_equi;
   __equi_ *all_equi;
@@ -136,17 +136,17 @@ typedef struct s_noeud
 {
   struct s_noeud	*SUIV;
   int index;
-//  char			*NOM;
-//  char			*SNOM;
-//  icname		*ICNAME;
-//  int			 SIGNAL;
+/*  char			*NOM;*/
+/*  char			*SNOM;*/
+/*  icname		*ICNAME;*/
+/*  int			 SIGNAL;*/
   int			 RCN;
-//  int			 SPICE;
-//  chain_list            *DIODE ;
-//zinaps:
+/*  int			 SPICE;*/
+/*  chain_list            *DIODE ;*/
+/*zinaps:*/
   struct __equi_ *signal;
   
-//  __names_ *names;
+/*  __names_ *names;*/
   s_noeud_sup_info *SUPINFO;
 } noeud;
 

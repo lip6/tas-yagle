@@ -47,9 +47,13 @@
 #include "mvl_util.h"
 #include "mvl_utdef.h"
 
-// copie de mbk_util.c
-//#define HASH_MULT 314159
-//#define HASH_PRIME 516595003
+/* copie de mbk_util.c*/
+/*#define HASH_MULT 314159*/
+/*#define HASH_PRIME 516595003*/
+
+static struct dct_entry *mvl_addent ( struct dct_entry *head, char *key );
+static struct dct_recrd *mvl_addrcd ( struct dct_recrd *head, char *key );
+
 
 unsigned long mvl_hash(p)
 void *p;
@@ -79,8 +83,8 @@ static int HASH_FUNC(char *inputname, char *name, int code)
 {
    do { 
       while (*inputname) {
-         //if (CASE_SENSITIVE == 'N') *name = tolowertable[(int)*inputname++];
-         //else 
+         /|if (CASE_SENSITIVE == 'N') *name = tolowertable[(int)*inputname++];|/
+         /|else |/
          *name = *inputname++;
          code += (code ^ (code >> 1)) + HASH_MULT * (unsigned char) *name++;
          while (code >= HASH_PRIME)
@@ -111,11 +115,11 @@ char              *ctx_str;
   struct dct_entry *last_entry = NULL;
   struct dct_recrd *recrd_pnt;
   struct dct_recrd *last_recrd = NULL;
-  //char name[500];
+  /*char name[500];*/
   
-  // par Fabrice le 11/2/2002
-  // index     = (int)key_str % MVL_HSZDFN;
-  //index=HASH_FUNC(key_str, name, 0);
+  /* par Fabrice le 11/2/2002*/
+  /* index     = (int)key_str % MVL_HSZDFN;*/
+  /*index=HASH_FUNC(key_str, name, 0);*/
   index=mvl_hash(key_str);
   entry_pnt = head [index];
 
@@ -191,9 +195,7 @@ struct dct_entry **mvl_initab ()
 /*  function : mvl_warning						*/
 /*  content  : print out warning messages on the standard error output  */
 /* ###--------------------------------------------------------------### */
-void mvl_warning (code,str1)
-int   code;
-char *str1;
+void mvl_warning ( int code, char *str1 )
   {
   static char first_time = 0;
 
@@ -225,12 +227,7 @@ char *str1;
 /*  function : mvl_toolbug						*/
 /*  content  : print out bugs messages on the standard error output     */
 /* ###--------------------------------------------------------------### */
-void mvl_toolbug (code,str1,str2,nbr1)
-
-int   code;
-char *str1;
-char *str2;
-int   nbr1;
+void mvl_toolbug ( int code, char *str1, char *str2, int nbr1 )
 
   {
 #ifndef __ALL_WARNING__
@@ -252,11 +249,7 @@ int   nbr1;
 /*  function : mvl_message						*/
 /*  content  : print out messages on the standard error output     	*/
 /* ###--------------------------------------------------------------### */
-void mvl_message (code,str1,nmb1)
-
-int   code;
-char *str1;
-int   nmb1;
+void mvl_message ( int code, char *str1, int nmb1 )
 
   {
 #ifndef __ALL_WARNING__
@@ -273,25 +266,19 @@ int   nmb1;
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_addtab						*/
 /* ###--------------------------------------------------------------### */
-void mvl_addtab (head,key_str,ctx_str,field,valu)
-
-struct dct_entry **head;
-char              *key_str;
-char              *ctx_str;
-int                field;
-long                valu;
+void mvl_addtab ( struct dct_entry **head, char *key_str, char *ctx_str, int field, long valu )
 
   {
   int               found = 0;
   int               index;
   struct dct_entry *entry_pnt;
   struct dct_recrd *recrd_pnt;
-  //char name[500];
+  /*char name[500];*/
   
-  // par Fabrice le 11/2/2002
-  //index=HASH_FUNC(key_str, name, 0);
+  /* par Fabrice le 11/2/2002*/
+  /*index=HASH_FUNC(key_str, name, 0);*/
   index=mvl_hash (key_str);
-  //  index     = (int) key_str % MVL_HSZDFN;
+  /*  index     = (int) key_str % MVL_HSZDFN;*/
   entry_pnt = head[index];
 
   while (entry_pnt != NULL)
@@ -361,24 +348,19 @@ long                valu;
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_chktab						*/
 /* ###--------------------------------------------------------------### */
-long  mvl_chktab (head,key_str,ctx_str,field)
-
-struct dct_entry **head;
-char              *key_str;
-char              *ctx_str;
-int                field;
+long  mvl_chktab ( struct dct_entry **head, char *key_str, char *ctx_str, int field )
 
   {
   int               found = 0;
   long               valu = 0;
   struct dct_entry *entry_pnt;
   struct dct_recrd *recrd_pnt;
-  //char name[500];
+  /*char name[500];*/
   
-  // par Fabrice le 11/2/2002
-  //entry_pnt = head[HASH_FUNC(key_str, name, 0)];
+  /* par Fabrice le 11/2/2002*/
+  /*entry_pnt = head[HASH_FUNC(key_str, name, 0)];*/
   entry_pnt = head[mvl_hash(key_str)];
-  //entry_pnt = head [(int)key_str % MVL_HSZDFN];
+  /*entry_pnt = head [(int)key_str % MVL_HSZDFN];*/
 
   while (entry_pnt != NULL)
     {
@@ -441,9 +423,7 @@ int                field;
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_fretab						*/
 /* ###--------------------------------------------------------------### */
-void mvl_fretab (pt_hash)
-
-struct dct_entry **pt_hash;
+void mvl_fretab ( struct dct_entry **pt_hash )
   {
   struct dct_entry *pt_entry;
   struct dct_entry *pt_nxtentry;
@@ -480,11 +460,7 @@ struct dct_entry **pt_hash;
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_error						*/
 /* ###--------------------------------------------------------------### */
-void mvl_error (code,str1)
-
-int   code;
-char *str1;
-
+void mvl_error ( int code, char *str1 )
   {
   MVL_ERRFLG++;
   if (code < 100)
@@ -597,10 +573,7 @@ char *str1;
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_addent						*/
 /* ###--------------------------------------------------------------### */
-static struct dct_entry *mvl_addent (head , key)
-
-struct dct_entry *head;
-char             *key;
+static struct dct_entry *mvl_addent ( struct dct_entry *head, char *key )
 
   {
   struct dct_entry *entry;
@@ -633,10 +606,7 @@ char             *key;
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_addrcd						*/
 /* ###--------------------------------------------------------------### */
-static struct dct_recrd *mvl_addrcd (head , key)
-
-struct dct_recrd *head;
-char             *key;
+static struct dct_recrd *mvl_addrcd ( struct dct_recrd *head, char *key )
 
   {
   struct dct_recrd *recrd;
@@ -703,9 +673,7 @@ char *mvl_avers ()
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_vhdlname						*/
 /* ###--------------------------------------------------------------### */
-char *mvl_vhdlname (name)
-
-char *name;
+char *mvl_vhdlname (char *name)
 
   {
   char                     *new_name;
@@ -777,11 +745,7 @@ char *name;
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_name							*/
 /* ###--------------------------------------------------------------### */
-void mvl_name (name,new_name)
-
-char *name;
-char *new_name;
-
+void mvl_name ( char *name, char *new_name  )
   {
   char *blank_space;
 
@@ -806,12 +770,7 @@ char *new_name;
 /* ###--------------------------------------------------------------### */
 /*  function : mvl_vectnam						*/
 /* ###--------------------------------------------------------------### */
-void *mvl_vectnam(pt_list,left,right,name,type)
-  
-void *pt_list;
-int *left, *right;
-char **name;
-char type;
+void *mvl_vectnam( void *pt_list, int *left, int *right, char **name, char type )
 
   {
   char *blank_space;
@@ -971,10 +930,7 @@ struct chain *head;
 /*  function : mvl_fill 						*/
 /*  content  : Fill a lofig of mode 'P' with another lofig of mode 'A'  */
 /* ###--------------------------------------------------------------### */
-struct lofig *mvl_fill  (lofig_P, lofig_A)
-
-struct lofig *lofig_P;
-struct lofig *lofig_A;
+struct lofig *mvl_fill  ( struct lofig *lofig_P, struct lofig *lofig_A )
  
   {
   struct locon *ptlocon_P, *ptlocon_A;

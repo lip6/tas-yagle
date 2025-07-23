@@ -42,9 +42,10 @@
 #include <regex.h>
 #include <dirent.h>
 #include <time.h>
+#include <signal.h>
 #include <pthread.h>
 
-// zinaps: to compute the memory consumed
+/* zinaps: to compute the memory consumed*/
 /*
 #ifdef Linux
 #include <asm/page.h>
@@ -147,7 +148,7 @@ char  allowcompress;
   FILE *ptf;
   int   ln, le, i, j;
 
-  // Check name contain extension
+  /* Check name contain extension*/
   if( extension ) {
     ln = strlen( name );
     le = strlen( extension );
@@ -231,7 +232,7 @@ char mbk_getfileacces( FILE *file )
   return (char)getititem( MBK_TAB_FILE_ACCES, fileno( file ) );
 }
 
-// Renvoie 1 en cas de succès, 0 en cas d'echec.
+/* Renvoie 1 en cas de succès, 0 en cas d'echec. */
 int mbkftell( FILE *file, MBK_OFFSET_MAX *offset )
 {
   int r=1;
@@ -255,7 +256,7 @@ int mbkftell( FILE *file, MBK_OFFSET_MAX *offset )
   return r;
 }
 
-// Renvoie 1 en cas de succès, 0 en cas d'echec.
+/* Renvoie 1 en cas de succès, 0 en cas d'echec. */
 int mbkfseek( FILE *file, MBK_OFFSET_MAX *offset, int whence )
 {
   int r;
@@ -355,8 +356,8 @@ FILE *mbksysfopen( const char *name, const char *mode, char access )
 
 /******************************************************************************/
 
-// Ouvre un fichier. Le nom UNIX de ce fichier est stocké dans la variable 
-// global MBKFOPEN_NAME.
+/* Ouvre un fichier. Le nom UNIX de ce fichier est stocké dans la variable */
+/* global MBKFOPEN_NAME.*/
 
 FILE *mbkfopentrace(name, extension, mode, access, allowcompress)
 char *name, *extension, *mode;
@@ -389,8 +390,8 @@ char local ;
   
   if (*mode == 'a') allowcompress=0;
 
-  // Le tableau prefixlist contient la liste des répertoires où acceder les
-  // fichiers.
+/* Le tableau prefixlist contient la liste des répertoires où acceder les */
+  /* fichiers.*/
  
   if( name[0]=='/' ) {
     prefixlist[0]="";
@@ -417,7 +418,7 @@ char local ;
     }
   }
 
-  // Accès aux fichiers
+/* Accès aux fichiers */
   i=0;
   while( prefixlist[i] ) {
   
@@ -467,9 +468,9 @@ char local ;
       }
     }
 
-    // Stratégies différentes selon le mode d'ouverture :
-    // Ecriture : le format preféré est le compressé, l'autre est effacé
-    // Lecture : le format préféré est le non compressé, l'autre est ignoré
+    /* Stratégies différentes selon le mode d'ouverture : */
+    /* Ecriture : le format preféré est le compressé, l'autre est effacé */
+    /* Lecture : le format préféré est le non compressé, l'autre est ignoré */
 
     if( *mode == 'r' ) {
    
@@ -1221,11 +1222,11 @@ pid_t mbkpcreate(int *file_des_write, int *file_des_read)
          *file_des_write    = 0;
          *file_des_read     = 0;
          break;
-    case 0 : // son is the client
+    case 0 : /* son is the client*/
          *file_des_write    = client_to_server[1];
          *file_des_read     = server_to_client[0];
          break;
-    default : // father is the server
+    default : /* father is the server*/
          *file_des_write    = server_to_client[1];
          *file_des_read     = client_to_server[0];
          break;
@@ -1242,8 +1243,7 @@ pid_t mbkpcreate(int *file_des_write, int *file_des_read)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-static inline
-int isGdb(char *name)
+static int isGdb(char *name)
 {
   return !strncmp("gdb",name,3);
 }

@@ -19,11 +19,11 @@
   /*---------------------------+
     | DECLARATION DES PROTOTYPES |
     +--------------------------*/
-  static void checkJokName();
+  static void checkJokName( char * motif, char * name );
   static char *getwhere();
   static double todoublesec(void *val);
 
-  int yyerror();
+  int yyerror(char*);
   int yylex();
 
   static inf_carac * carac = NULL ;
@@ -66,7 +66,7 @@ static ptype_list *finish_falsepath(ptype_list *pt);
 %token <ival> T_JOIN
 %token T_CONSTRAINT T_STOP T_PRECHARGE T_BYPASS T_SUPPLY T_SENSITIVE
 %token T_INTER T_BREAK T_PATHIN T_PATHOUT T_PATHSIGS
-%token T_RC T_NORC // T_ELM T_RCN
+%token T_RC T_NORC /* T_ELM T_RCN*/
 %token T_NORISING T_NOFALLING
 %token T_FALSEPATH T_DELAY T_FALSESLACK
 %token T_UP T_DOWN T_VOID
@@ -86,9 +86,9 @@ static ptype_list *finish_falsepath(ptype_list *pt);
 %token <tab> T_NAME
 %type  <ival> valeur
 %type  <ival> digit
-//%type  <ival> time
+/*%type  <ival> time*/
 %type  <ival> updown pathsigtype .pathtag. .disable_date_delay_dir. .updown. falsehztag .updownfalsehztag.
-//%type  <ival> clockdatatype
+/*%type  <ival> clockdatatype*/
 %type  <falseevent> falsename falsename_list ck falseslack
 %type  <falseevent> clockdetail_list 
 %type  <str> pin
@@ -600,7 +600,7 @@ valeur          : T_VAL
     if ($1 == 1)
       $$ = INF_LL_STUCKVDD;
     else 
-      yyerror() ;
+      yyerror(NULL) ;
 }
 ;
 
@@ -1013,12 +1013,12 @@ falsepath       : falsename_list ';'
 
   if($1 == NULL)
     {
-      yyerror() ;
+      yyerror(NULL) ;
     }
   if($1->NEXT == NULL)
     {
       freeptype($1) ;
-      yyerror() ;
+      yyerror(NULL) ;
     }
   $1=finish_falsepath($1);
   INFCHECKFIG();
@@ -1029,12 +1029,12 @@ falsepath       : falsename_list ';'
 
   if($1 == NULL)
     {
-      yyerror() ;
+      yyerror(NULL) ;
     }
   if($1->NEXT == NULL)
     {
       freeptype($1) ;
-      yyerror() ;
+      yyerror(NULL) ;
     }
 
   $1=finish_falsepath($1);
@@ -1056,7 +1056,7 @@ ck             : T_NAME
   else if (strcasecmp($2,"NOTHZ")==0)
     $$ = addptype(NULL,INF_CK,infTasVectName("°")) ;
   else
-    $$ = addptype(NULL,INF_CK,infTasVectName($2)) ; // error?
+    $$ = addptype(NULL,INF_CK,infTasVectName($2)) ; /* error?*/
 }
 ;
 
@@ -1180,7 +1180,7 @@ falsehztag : '<' T_NAME '>'
   else if (strcasecmp($2,"NOTHZ")==0)
     $$ = INF_FALSESLACK_NOTHZ;
   else
-    $$ = 0 ; // error?
+    $$ = 0 ; /* error?*/
 }
 ;
 
@@ -1496,7 +1496,7 @@ path_delay_margin : pathsigtype T_NAME ':' T_NAME '=' T_VAL T_NAME '=' time_valu
     };
   char section[128];
 
-  if (($10 & 0x800000)==0) //erreur?
+  if (($10 & 0x800000)==0) /*erreur?*/
   {
     if (strcasecmp($4,"factor")!=0 && strcasecmp($4,"f")!=0)
         avt_errmsg(INF_ERRMSG, "002", AVT_ERROR, getwhere(), "'factor' or 'f'");
@@ -2040,7 +2040,7 @@ clocklatencies_list: clocklatencies_list clocklatencies
 clocklatencies: T_NAME ':' time_value time_value time_value time_value ';'
                {
                   char *name=infTasVectName($1);
-                  if ($6+$3+$4+$5!=0) // les 4 egaux a 0? (la latence est positive)
+                  if ($6+$3+$4+$5!=0) /* les 4 egaux a 0? (la latence est positive)*/
                   {
                     inf_AddDouble (INF_FIG, INF_LOADED_LOCATION, name, INF_LATENCY_FALL_MIN, $5, getwhere());
                     inf_AddDouble (INF_FIG, INF_LOADED_LOCATION, name, INF_LATENCY_FALL_MAX, $6, getwhere());
@@ -2170,12 +2170,12 @@ latency         : T_LATENCY edge_up T_LATENCY edge_dn
                 }
                 | T_NAME T_VAL
                 {
-                  if (strcmp($1,"*")!=0) yyerror();
+                  if (strcmp($1,"*")!=0) yyerror(NULL);
                   $$=$2;
                 }
                 | T_NAME
                 {
-                  if ($1[0]!='*') yyerror();
+                  if ($1[0]!='*') yyerror(NULL);
                   $$=atof(&$1[1]);
                 }
                 |
@@ -2254,12 +2254,12 @@ cklocon         : clock_ident ':' clock_spec
 clock_ident     : clock_type T_NAME
                 {
                   $$.nom = infTasVectName($2);
-                  $$.edgetype=$1; // not inverted
+                  $$.edgetype=$1; /* not inverted*/
                 }
                 | clock_type '!' T_NAME
                 {
                   $$.nom = infTasVectName($3);
-                  $$.edgetype=$1|INF_CLOCK_INVERTED; //inverted
+                  $$.edgetype=$1|INF_CLOCK_INVERTED; /*inverted*/
                 }
                 ;
 
@@ -2839,7 +2839,7 @@ directive_name_or_time: T_WITH T_CLOCK T_NAME directive_state_ud
                         }
                         | directive_action T_DELAY time_value .directive_from.
                         {
-                          // not supported yet
+                          /* not supported yet*/
                           $$.nom=$4.nom;
                           $$.reltype=$1;
                           $$.val=$3;
@@ -2939,7 +2939,7 @@ proba           : T_NAME ':' T_VAL ';'
 ;
 	
 %%
-int yyerror ()
+int yyerror (char* unused)
 {
    
   avt_errmsg(INF_ERRMSG, "009", AVT_ERROR, infFile, infParseLine, yytext);
@@ -2960,9 +2960,7 @@ char * infTasVectName(name)
 /***********************************************************************
  *                         fonction checkJokName();                    *
  **********************************************************************/
-static void checkJokName(motif,name)
-     char * motif ;
-     char * name ;
+static void checkJokName( char * motif, char * name )
 {
   short i=0 ;
   char * pt = motif ;
@@ -3022,7 +3020,7 @@ static void addstab(char *name, misc_type *mscdata, misc_type *mscck, int hzopt,
         append((chain_list *)old, (chain_list *)ispst);
       else
         {
-          // on remplace la stabilite existante
+          /* on remplace la stabilite existante*/
           old=exist->NEXT;
           inf_stb_parse_spec_stab_free(exist->STABILITY);
           memcpy(exist, ispst, sizeof(*ispst));

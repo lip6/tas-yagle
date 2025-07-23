@@ -29,9 +29,7 @@
  | function idx2br();                                                         |
  *============================================================================*/
 branch_list *
-idx2br(ptbrstruc, index)
-    sbrstruc       *ptbrstruc;
-    long            index;
+idx2br( sbrstruc *ptbrstruc, long index )
 
 {
     branch_list    *ptbranch = NULL;

@@ -30,13 +30,10 @@
 static char    *XyagPanelButtonDisable = "xxxx";
 
 /*------------------------------------------------------------\
-|                       XyagBuildPanel                       |
+|                       XyagBuildPanel                        |
 \------------------------------------------------------------*/
 
-void 
-XyagBuildPanel(Father, Panel)
-    Widget          Father;
-    XyagPanelItem  *Panel;
+void XyagBuildPanel( Widget Father, XyagPanelItem *Panel )
 {
     Arg             Args[13];
     XyagPanelButtonItem *Button;
@@ -58,7 +55,7 @@ XyagBuildPanel(Father, Panel)
     Panel->PANEL = XmCreateFormDialog(Father, Panel->TITLE, Args, 3);
 
     XtAddCallback(Panel->PANEL, XmNdestroyCallback,
-                  XyagDestroyDialogCallback, NULL);
+                 (XtCallbackProc)XyagDestroyDialogCallback, NULL);
 
     Panel->PANEL_FORM = XtVaCreateManagedWidget("",
                                                 xmFormWidgetClass,
@@ -203,19 +200,19 @@ XyagBuildPanel(Father, Panel)
                     (Button[Counter].BITMAP != (char *) NULL)) {
                     XtAddCallback(Button[Counter].BUTTON,
                                   XmNdefaultActionCallback,
-                                  Button[Counter].CALLBACK,
+                                  (XtCallbackProc)Button[Counter].CALLBACK,
                                   (XtPointer) NULL);
 
                     XtAddCallback(Button[Counter].BUTTON,
                                   XmNmultipleSelectionCallback,
-                                  Button[Counter].CALLBACK,
+                                  (XtCallbackProc)Button[Counter].CALLBACK,
                                   Button[Counter].CALLDATA);
 
                 }
                 else {
                     XtAddCallback(Button[Counter].BUTTON,
                                   XmNactivateCallback,
-                                  Button[Counter].CALLBACK,
+                                  (XtCallbackProc)Button[Counter].CALLBACK,
                                   Button[Counter].CALLDATA);
                 }
             }
@@ -238,22 +235,20 @@ XyagBuildPanel(Father, Panel)
 |                       XyagEnterPanel                        |
 \------------------------------------------------------------*/
 
-void 
-XyagEnterPanel(Panel)
-    XyagPanelItem  *Panel;
+void XyagEnterPanel( XyagPanelItem *Panel )
 {
     XtManageChild(Panel->PANEL);
     XtPopup(XtParent(Panel->PANEL), XtGrabNone);
 
     if (Panel->COMPUTE == 1) {
-//        XtVaSetValues(Panel->PANEL,
-//                      XmNresizable, False,
-//                      XmNx, Panel->X,
-//                      XmNy, Panel->Y,
-//                      XmNheight, Panel->HEIGHT,
-//                      XmNwidth, Panel->WIDTH,
-//                      NULL);
-//
+/*        XtVaSetValues(Panel->PANEL,*/
+/*                      XmNresizable, False,*/
+/*                      XmNx, Panel->X,*/
+/*                      XmNy, Panel->Y,*/
+/*                      XmNheight, Panel->HEIGHT,*/
+/*                      XmNwidth, Panel->WIDTH,*/
+/*                      NULL);*/
+/**/
         Panel->COMPUTE = 0;
     }
 
@@ -264,9 +259,7 @@ XyagEnterPanel(Panel)
 |                        XyagExitPanel                        |
 \------------------------------------------------------------*/
 
-void 
-XyagExitPanel(Panel)
-    XyagPanelItem  *Panel;
+void XyagExitPanel( XyagPanelItem *Panel )
 {
     XtUnmanageChild(Panel->PANEL);
     Panel->MANAGED = 0;

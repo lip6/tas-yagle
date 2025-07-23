@@ -29,9 +29,9 @@ extern char *ctime_r(const time_t *clock, char *buf, int buflen);
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
-//_____________________________________________________
-// Interface for qsort
-//_____________________________________________________
+/*_____________________________________________________*/
+/* Interface for qsort*/
+/*_____________________________________________________*/
 
 static int vcomp (const void *p1, const void *p2)
 {
@@ -413,49 +413,49 @@ int handle_slave_data(FILE *file, mbk_comdata *comdata, execslot *es, chain_list
     {
       switch(i)
         {
-        case 0: // info:
+        case 0: /* info:*/
           avt_log(-1, 0, "  Job %d: %s\n",es->id, data);
           break;
-        case 1: // ask:pwd
+        case 1: /* ask:pwd*/
           res=mbkalloc(1024);
           getcwd(res, 1024);
           break;
-        case 2: // ask:getsetflag:
+        case 2: /* ask:getsetflag:*/
           data=sensitive_namealloc(data);
           if (getchain(*mutex, data)==NULL)
             *mutex=addchain(*mutex, data), ok=1;
           res=mbkstrdup(ok?"ok":"ko");
           break;
-        case 3: // ask:unsetflag:
+        case 3: /* ask:unsetflag:*/
           data=sensitive_namealloc(data);
           if (getchain(*mutex, data)!=NULL)
             *mutex=delchaindata(*mutex, data), ok=1;
           res=mbkstrdup(ok?"ok":"ko");
           break;
-        case 4: // ask:createfile:
+        case 4: /* ask:createfile:*/
           es->myfile=mbkfopen(data, NULL, "w");
           res=mbkstrdup(es->myfile!=NULL?"ok":"ko");
           break;
-        case 5: // ask:closefile:
+        case 5: /* ask:closefile:*/
           if (es->myfile!=NULL)
             ok=(fclose(es->myfile)==0);
           else
             ok=0;
           res=mbkstrdup(ok?"ok":"ko");
           break;
-        case 6: // ask:writefile:
-//          ok=(fputs(data, es->myfile)>=0);   
-          lg=es->size-(data-es->buffer)-1; // -1 pour le 0 final
-//          printf("%d %d %d %d\n",strlen(data), lg, es->size, data-es->buffer);
+        case 6: /* ask:writefile:*/
+/*          ok=(fputs(data, es->myfile)>=0);   */
+          lg=es->size-(data-es->buffer)-1; /* -1 pour le 0 final*/
+/*          printf("%d %d %d %d\n",strlen(data), lg, es->size, data-es->buffer);*/
           if (es->myfile!=NULL)
             ok=(fwrite(data, sizeof(char), lg, es->myfile)==lg);
           else
             ok=0;
           res=mbkstrdup(ok?"ok":"ko");
           break;
-        case 7: // ask:writefile32:
+        case 7: /* ask:writefile32:*/
           lg=es->size-(data-es->buffer);
-//          printf("%d %d %d %d\n",strlen(data), lg, es->size, data-es->buffer);
+/*          printf("%d %d %d %d\n",strlen(data), lg, es->size, data-es->buffer);*/
           if ((lg % sizeof(int))!=0)
             avt_errmsg( AVT_ERRMSG, "061", AVT_FATAL);
           lg/=4;
@@ -465,7 +465,7 @@ int handle_slave_data(FILE *file, mbk_comdata *comdata, execslot *es, chain_list
             ok=0;
           res=mbkstrdup(ok?"ok":"ko");
           break;
-        case 8: // ask:resdir
+        case 8: /* ask:resdir*/
           if (resdir)
             res=strdup(resdir);
           else
@@ -474,7 +474,7 @@ int handle_slave_data(FILE *file, mbk_comdata *comdata, execslot *es, chain_list
         default:
           avt_errmsg( AVT_ERRMSG, "059", AVT_FATAL, data, es->id );
         }
-//      printf("%s\n",es->buffer);
+/*      printf("%s\n",es->buffer);*/
       if (res!=NULL)
         {
           mbk_commputdata( comdata, es->id, res, strlen(res)+1);
@@ -516,7 +516,7 @@ void runStatHiTas_sub( char *numrun, char *script, char *tool, char *resfile, in
 
   file = openstatdatafile( resfile, incremental);
 
-//  printf( "running %d jobs, %d simultaneous jobs\n", jobs, parajobs );
+/*  printf( "running %d jobs, %d simultaneous jobs\n", jobs, parajobs );*/
   avt_log(-1, 0, "Running %d jobs, %d simultaneous jobs\n", jobs, parajobs );
 
 
@@ -563,7 +563,7 @@ void runStatHiTas_sub( char *numrun, char *script, char *tool, char *resfile, in
           sprintf( bufsubid, "%d", i+1 );
           sprintf( connection, "%s:%d:%d", hostname, comdata->port, launch );
 
-//          printf( "starting job %d : %d\n", launch, i+1 );
+/*          printf( "starting job %d : %d\n", launch, i+1 );*/
           avt_log(-1, 0, "Starting job %d : %d\n", launch, i+1 );
           runjob( script, argv );
           
@@ -613,7 +613,7 @@ void runStatHiTas_sub( char *numrun, char *script, char *tool, char *resfile, in
         if( type == MBK_COM_END ) {
           if( execs[i].state != STAT_EXEC_RUN )
             avt_errmsg( AVT_ERRMSG, "054", AVT_FATAL, execs[i].id );
-//          printf( "  job %d completed\n", execs[i].id );
+/*          printf( "  job %d completed\n", execs[i].id );*/
           filltime(buf);
           avt_log(-1, 0, "  Job %d completed [%s]\n", execs[i].id, buf ) ;
           execs[i].state = STAT_EXEC_FREE ;

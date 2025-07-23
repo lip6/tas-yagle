@@ -28,11 +28,10 @@ extern char *BEH_OUT;                   /* output file format  vbe/vhd/vlg   */
 	/*    functions							*/
 	/* ###------------------------------------------------------### */
 
-extern void          savebefig      ();
-extern struct befig *loadbefig      ();
-extern char *findbefig(char *name);
-
-extern char         *bef_getsuffix  ();
+extern void          savebefig(befig_list *ptbefig, unsigned int trace_mode);
+extern struct befig *loadbefig( struct befig *pt_befig, char *figname, unsigned int trace_mode );
+extern char         *findbefig(char *name);
+extern char         *bef_getsuffix();
 
 typedef struct bef_abl
 {
@@ -51,7 +50,7 @@ bef_por;
 
 typedef struct bef_process
 {
-//  void           (*PROCESS)     (FILE*,biabl_list*,char*,char*,int,int*,char*,int);
+/*  void           (*PROCESS)     (FILE*,biabl_list*,char*,char*,int,int*,char*,int);*/
   chain_list    *(*DECLAR)      (FILE*,biabl_list*,char*,int,char*,char**,ptype_list*);
   void           (*WITHSELECT)  (FILE*,biabl_list*,char*,int,char**,int*);
   void           (*BEGIN)       (FILE*,chain_list*);
@@ -106,8 +105,8 @@ void         bef_print_one_beobj(bef_driver *driver, void *be, int *np,long type
 chain_list  *bef_strip_ckedge(chain_list *ptabl, char *clock);
 int          bef_search_stable(chain_list *ptabl, char **clock);
 int          bef_search_notck(chain_list * ptabl, char *clock);
-//void bef_drive_vpor(bef_driver *driver, bevectpor_list *vpor,int cpt);
-//void bef_drive_por(bef_driver *driver, bepor_list *por);
+/*void bef_drive_vpor(bef_driver *driver, bevectpor_list *vpor,int cpt);*/
+/*void bef_drive_por(bef_driver *driver, bepor_list *por);*/
 void bef_initMaxname(void);
 void bef_drive_porDeclaration(bef_driver *driver);
 void bef_drive_sigDeclaration(bef_driver *driver);

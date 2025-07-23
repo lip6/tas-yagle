@@ -26,9 +26,9 @@
 
 #define EPSILON 0.001
 
-#define PSP1038      0  // psp103.8 has more parameters than psp103.6.
+#define PSP1038      0  /* psp103.8 has more parameters than psp103.6.*/
 
-// Operation select  1: extract operational parameter, 0: charge based calculation
+/* Operation select  1: extract operational parameter, 0: charge based calculation*/
 
 #define CalcCGP_OP   0
 #define CalcCGD_OP   0
@@ -166,7 +166,7 @@ void osdi_mcc_addtuneeffect( mcc_modellist *mccmodel,
       tparam->param[ tparam->n   ] = namealloc("PLWCGBOV") ;
       tparam->value[ tparam->n++ ] = 0.0 ;
       break;
-    case 1: // Geometrical scaling
+    case 1: /* Geometrical scaling*/
       tparam->param[ tparam->n   ] = namealloc("LOV") ;    /* p52 #3.108 */
       tparam->value[ tparam->n++ ] = 0.0 ;
       tparam->param[ tparam->n   ] = namealloc("LOVD") ;
@@ -178,7 +178,7 @@ void osdi_mcc_addtuneeffect( mcc_modellist *mccmodel,
       tparam->param[ tparam->n   ] = namealloc("CFRDW") ;
       tparam->value[ tparam->n++ ] = 0.0 ;
       break;
-    default: // Local
+    default: /* Local*/
       tparam->param[ tparam->n   ] = namealloc("CGOV") ;
       tparam->value[ tparam->n++ ] = 0.0 ;
       tparam->param[ tparam->n   ] = namealloc("CGOVD") ;
@@ -374,7 +374,7 @@ void osdi_mcc_getcharge( mcc_modellist   *mccmodel,
          else
             qq[n].charge[node_mapping[node1]] = i_charge[node_mapping[node1]]; 
       }
-      // collapsible node charge added.
+      /* collapsible node charge added.*/
       osdi_terminate( &model );
     }
 
@@ -552,7 +552,7 @@ double mcc_calcCGD_osdi( mcc_modellist *ptmodel,
   return cgd ;
 }
 
-// CGG return the charge to calculate input capa
+/* CGG return the charge to calculate input capa*/
 double mcc_calcCGS_osdi( mcc_modellist *ptmodel, 
                          double L, 
                          double W, 

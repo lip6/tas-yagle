@@ -34,7 +34,7 @@ float stm_modscm_cst_imax (cstparams *params)
     cstparams *tp;
     tp = params;
 
-    //avt_errmsg (STM_ERRMSG, "026", AVT_ERROR);
+    /*avt_errmsg (STM_ERRMSG, "026", AVT_ERROR);*/
     return 0.001;
 }
 
@@ -45,7 +45,7 @@ float stm_modscm_cst_vth (cstparams *params)
     cstparams *tp;
     tp = params;
 
-    //avt_errmsg (STM_ERRMSG, "027", AVT_ERROR);
+    /*avt_errmsg (STM_ERRMSG, "027", AVT_ERROR);*/
     return 0.0;
 }
 
@@ -56,7 +56,7 @@ float stm_modscm_cst_slope (cstparams *params)
     cstparams *tp;
     tp = params;
 
-    //avt_errmsg (STM_ERRMSG, "028", AVT_ERROR);
+    /*avt_errmsg (STM_ERRMSG, "028", AVT_ERROR);*/
     return 0.0;
 }
 

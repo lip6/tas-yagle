@@ -321,7 +321,7 @@ struct befig *pt_befig;
   {
   int         err_flg   = 0;
 
-    //if (!(pt_befig->TYPE & BEH_NODE_VARLIST))
+    /*if (!(pt_befig->TYPE & BEH_NODE_VARLIST))*/
     {
     beh_indexbdd (pt_befig);
 

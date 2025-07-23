@@ -17,7 +17,7 @@ void search(cgvbox_list *depart, int d, int depth, int dir, markobject mark)
   if (IsCgvBoxTransparence(depart)) return;
   if (depart->misc.count==-1/* && !IsCgvBoxTransparence(depart)*/)
     {
-//      printf("B:%s\n",depart->NAME);
+/*      printf("B:%s\n",depart->NAME);*/
       if (mark!=NULL) mark(depart->USER);
       depart->misc.count=d;
       for (cl=box_in_path; cl!=NULL && cl->DATA!=depart; cl=cl->NEXT) ;
@@ -60,7 +60,7 @@ void search(cgvbox_list *depart, int d, int depth, int dir, markobject mark)
           if (con0!=c && IsCgvConExternal(con0) && mark!=NULL) 
             {
               mark(con0->USER);
-//              printf("EC:%s\n",con0->NAME);
+/*              printf("EC:%s\n",con0->NAME);*/
             }
         }
       c=c->NEXT;
@@ -70,7 +70,7 @@ void search(cgvbox_list *depart, int d, int depth, int dir, markobject mark)
 void cgv_hilite(cgvfig_list *Figure, cgvbox_list *box, int mode, int depth, markobject mark)
 {
   cgvbox_list *b;
-//  printf("depth=%d mode=%d p=%d n=%d\n",depth,mode,CGV_SEL_PREC_LOGIC,CGV_SEL_SUCC_LOGIC);
+/*  printf("depth=%d mode=%d p=%d n=%d\n",depth,mode,CGV_SEL_PREC_LOGIC,CGV_SEL_SUCC_LOGIC);*/
   box_in_path=net_in_path=NULL;
   for (b = Figure->BOX; b != NULL; b = b->NEXT) b->misc.count=-1;
 
@@ -84,7 +84,7 @@ void cgv_hilite(cgvfig_list *Figure, cgvbox_list *box, int mode, int depth, mark
 
 void cgv_hilite_net(cgvfig_list *Figure, cgvcon_list *c, int mode, int depth, markobject mark)
 {
-//  cgvbox_list *b;
+/*  cgvbox_list *b;*/
   chain_list *cl;
   cgvcon_list *con0;
 
@@ -107,7 +107,7 @@ static int reset=1;
 void cgv_extract(cgvfig_list *Figure, cgvbox_list *box, int mode, int depth)
 {
   cgvbox_list *b;
-//  printf("extract: depth=%d mode=%d p=%d n=%d\n",depth,mode,CGV_SEL_PREC_LOGIC,CGV_SEL_SUCC_LOGIC);
+/*  printf("extract: depth=%d mode=%d p=%d n=%d\n",depth,mode,CGV_SEL_PREC_LOGIC,CGV_SEL_SUCC_LOGIC);*/
   if (reset)
     {
       box_in_path=net_in_path=NULL;
@@ -118,12 +118,12 @@ void cgv_extract(cgvfig_list *Figure, cgvbox_list *box, int mode, int depth)
   if ((mode & CGV_SEL_PREC_LOGIC)!=0)
     {
       search(box, 0, depth, CGV_SEL_PREC_LOGIC, NULL);
-//      if ((mode & CGV_SEL_SUCC_LOGIC)==0) search(box, 0, 0, CGV_SEL_SUCC_LOGIC, NULL);
+/*      if ((mode & CGV_SEL_SUCC_LOGIC)==0) search(box, 0, 0, CGV_SEL_SUCC_LOGIC, NULL);*/
     }
   if ((mode & CGV_SEL_SUCC_LOGIC)!=0)
     {
       search(box, 0, depth, CGV_SEL_SUCC_LOGIC, NULL);
-//      if ((mode & CGV_SEL_PREC_LOGIC)==0) search(box, 0, 0, CGV_SEL_PREC_LOGIC, NULL);
+/*      if ((mode & CGV_SEL_PREC_LOGIC)==0) search(box, 0, 0, CGV_SEL_PREC_LOGIC, NULL);*/
     }
   AUTOMARK_REVERSE=0;
   
@@ -229,7 +229,7 @@ cgvfig_list *finish_extract(cgvfig_list *parent)
       ncgv->BOX=nb;
 /*      sprintf(name,"%s cut #x", nb->NAME);
       nb->NAME=namealloc(name);*/
-//      printf("-box-> %s \n",nb->NAME);
+/*      printf("-box-> %s \n",nb->NAME);*/
     }
 
   for (cl=net_in_path; cl!=NULL; cl=cl->NEXT)
@@ -248,7 +248,7 @@ cgvfig_list *finish_extract(cgvfig_list *parent)
 
       nn->NEXT=ncgv->NET;
       ncgv->NET=nn;
-//      printf("--- new net\n");
+/*      printf("--- new net\n");*/
       done=state=0;
 
       for (ch=nn->CON_NET; ch!=NULL; ch=ch->NEXT)
@@ -293,7 +293,7 @@ cgvfig_list *finish_extract(cgvfig_list *parent)
                 }
               SetCgvConExternal(c0);
               if (IsCgvConFake(c)) SetCgvConFake(c0);
-//              printf("external %s to %s\n",c->NAME,c0->NAME);
+/*              printf("external %s to %s\n",c->NAME,c0->NAME);*/
             }
           else
             {
@@ -307,7 +307,7 @@ cgvfig_list *finish_extract(cgvfig_list *parent)
                   else pred->NEXT=ch->NEXT;
                   ch->NEXT=NULL;
                   freechain(ch);                  
-//                  printf("transparence %s.%s removed\n",b->NAME,c->NAME);
+/*                  printf("transparence %s.%s removed\n",b->NAME,c->NAME);*/
                   continue;
                 }
               else
@@ -359,12 +359,12 @@ cgvfig_list *finish_extract(cgvfig_list *parent)
                       sprintf(name,"%s.%s",b->NAME,c0->NAME);
                       unselcon=c0;
                       c0->NAME=namealloc(name);
-//                      printf("external tagged box %s.%s %s\n",b->NAME,c->NAME,c0->TYPE==CGV_CON_IN?"in":"out");
+/*                      printf("external tagged box %s.%s %s\n",b->NAME,c->NAME,c0->TYPE==CGV_CON_IN?"in":"out");*/
                       done++;
                     }
                   else
                     {
-//                      printf("internal box %s.%s %s\n",b->NAME,c->NAME,c0->TYPE==CGV_CON_IN?"in":"out");
+/*                      printf("internal box %s.%s %s\n",b->NAME,c->NAME,c0->TYPE==CGV_CON_IN?"in":"out");*/
                       if (IsCgvConIn(c)) state|=1;
                       else state|=2;
 
@@ -375,7 +375,7 @@ cgvfig_list *finish_extract(cgvfig_list *parent)
                       if (c0==NULL) 
               {
                 avt_errmsg(CGV_ERRMSG, "002", AVT_FATAL, 3);
-                //fprintf(stderr,"internal: connector  %s.%s not found\n",b->NAME,c->NAME);
+                /*fprintf(stderr,"internal: connector  %s.%s not found\n",b->NAME,c->NAME);*/
                 EXIT(1);
               }
                       
@@ -445,7 +445,7 @@ void complete_extract_list(cgvfig_list *cgvf, cgv_interaction *itr, int complete
     {
       if (it->object_type==CGV_BOX_TYPE && (b=(cgvbox_list *)gethtitem(netht, it->name))!=(cgvbox_list *)EMPTYHT)
         {
-          search(b, 0, 0, CGV_SEL_SUCC_LOGIC, mark); //<-fonc
+          search(b, 0, 0, CGV_SEL_SUCC_LOGIC, mark); /*<-fonc*/
         }
     }
   delht(boxht);
@@ -464,7 +464,7 @@ void complete_extract_list(cgvfig_list *cgvf, cgv_interaction *itr, int complete
   for (it=itr; it!=NULL; it=it->NEXT)
     {
       if (it->object_type==CGV_NET_TYPE && (n=(cgvnet_list *)gethtitem(netht, it->name))!=(cgvnet_list *)EMPTYHT)
-//          (n->NAME!=NULL && (it->name==n->NAME || it->name==vectname(n->NAME))))
+/*          (n->NAME!=NULL && (it->name==n->NAME || it->name==vectname(n->NAME))))*/
         {
           for (cl = n->CON_NET; cl!=NULL; cl=cl->NEXT) 
             {
@@ -478,7 +478,7 @@ void complete_extract_list(cgvfig_list *cgvf, cgv_interaction *itr, int complete
           if (mark!=NULL && n->USER!=NULL) mark(n->USER);
           for (cl=net_in_path; cl!=NULL && cl->DATA!=n; cl=cl->NEXT) ;
           if (cl==NULL) net_in_path=addchain(net_in_path, n);
-          // |_ fonc
+          /* |_ fonc*/
         }
     }
 
@@ -509,7 +509,7 @@ void complete_extract_list(cgvfig_list *cgvf, cgv_interaction *itr, int complete
       for (it=itr; it!=NULL; it=it->NEXT)
         if (it->object_type==CGV_BOX_TYPE && (it->name==b->NAME  || it->name==vectname(b->NAME)))
           {
-            search(b, 0, 0, CGV_SEL_SUCC_LOGIC, mark); //<-fonc
+            search(b, 0, 0, CGV_SEL_SUCC_LOGIC, mark); /*<-fonc*/
           }
     }
 
@@ -532,7 +532,7 @@ void complete_extract_list(cgvfig_list *cgvf, cgv_interaction *itr, int complete
               if (mark!=NULL && n->USER!=NULL) mark(n->USER);
               for (cl=net_in_path; cl!=NULL && cl->DATA!=n; cl=cl->NEXT) ;
               if (cl==NULL) net_in_path=addchain(net_in_path, n);
-              // |_ fonc
+              /* |_ fonc*/
               break;
             }
         }
@@ -581,7 +581,7 @@ void parsecorresp(char *name)
   if ((f=fopen(name,"rt"))==NULL) 
    { 
      avt_errmsg(CGV_ERRMSG, "004", AVT_ERROR, name);
-     // fprintf(stderr,"could not open file '%s'\n", name);
+     /* fprintf(stderr,"could not open file '%s'\n", name);*/
      return; 
    }
   if (corresp==NULL) corresp=addht(100);
@@ -591,7 +591,7 @@ void parsecorresp(char *name)
   while (i>0) 
     {
       gatename=namealloc(temp);
-//      printf("->%s",gatename);
+/*      printf("->%s",gatename);*/
       i=fscanf(f,"%d",&nbcon);
       for (k=1;k<=nbcon;k++) 
         {
@@ -601,10 +601,10 @@ void parsecorresp(char *name)
               fclose(f); 
               return; 
             }
-//          printf(" %s",temp);
+/*          printf(" %s",temp);*/
           names[k]=namealloc(temp);
         }
-//      printf("\n");
+/*      printf("\n");*/
       i=fscanf(f,"%s",temp);
       while (i>=0)
         {
@@ -612,27 +612,27 @@ void parsecorresp(char *name)
           if (fscanf(f," %s",temp)<=0) 
             {
               avt_errmsg(CGV_ERRMSG, "005", AVT_ERROR, name);
-              //fprintf(stderr,"could not parse file '%s'\n", name);
+              /*fprintf(stderr,"could not parse file '%s'\n", name);*/
               fclose(f);
               return; 
             }
           addhtitem(corresp,gatename0=namealloc(temp), (long)gatename);
-//          printf("-+>%s",gatename0);
+/*          printf("-+>%s",gatename0);*/
           for (k=1;k<=nbcon;k++) 
             {
               if (fscanf(f,"%s",temp0)<=0) 
                 {
                   avt_errmsg(CGV_ERRMSG, "005", AVT_ERROR, name);
-                  // fprintf(stderr,"could not parse file '%s'\n", name);
+                  /* fprintf(stderr,"could not parse file '%s'\n", name);*/
                   fclose(f);
                   return; 
                 }
               conname=namealloc(temp0);
-//              printf(" %s",temp0);
+/*              printf(" %s",temp0);*/
               sprintf(temp0,"%s.%s",gatename0, conname);
               addhtitem(corresp,namealloc(temp0),(long)names[k]);
             }
-//          printf("\n");
+/*          printf("\n");*/
           i=fscanf(f,"%s",temp);
         }
     }

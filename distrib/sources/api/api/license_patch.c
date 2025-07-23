@@ -39,7 +39,7 @@ int main(int ac, char *av[])
                   trigger=0;
                 }
               else if (endpatch>0) endpatch++;
-//              printf("<%d>",endpatch);
+/*              printf("<%d>",endpatch);*/
             }
           break;
         case '}':
@@ -53,7 +53,7 @@ int main(int ac, char *av[])
                   endpatch--;
                   if (endpatch==0) deact=0;
                 }
-//              printf("<%d>",endpatch);
+/*              printf("<%d>",endpatch);*/
             }
           break;
         case '\n':

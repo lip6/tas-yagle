@@ -30,7 +30,7 @@ void SwapHeap_Manage(int mode)
     {
       radindexht=addht(1500);
       radtable=(char **)mbkalloc(sizeof(char *)*10000);
-      curradindex=1; // 1 to avoid pnode=0
+      curradindex=1; /* 1 to avoid pnode=0*/
       CreateHeap(sizeof(undoswap), 0, &swap_heap);
     }
   else
@@ -141,7 +141,7 @@ SymInfoItem *AreYouMySymmetric(SymInfoItem *ch, locon_list *you/*, locon_list *m
   return ch1;
 }
 
-// zinaps : a commenter
+/* zinaps : a commenter*/
 void SwapLoconWithSym(locon_list *syms_locon, locon_list *circuit_con)
 {
   losig_list *tmpsig;
@@ -157,7 +157,7 @@ void SwapLoconWithSym(locon_list *syms_locon, locon_list *circuit_con)
 
   UpdatePendingLofigChain(circuit_con, syms_locon);
 
-  // it's another than myself, we need to swap the fields
+  /* it's another than myself, we need to swap the fields*/
   tmpsig=syms_locon->SIG; syms_locon->SIG=circuit_con->SIG; circuit_con->SIG=tmpsig;
   user=syms_locon->USER; syms_locon->USER=circuit_con->USER; circuit_con->USER=user;
 
@@ -166,7 +166,7 @@ void SwapLoconWithSym(locon_list *syms_locon, locon_list *circuit_con)
   fastswaplofigchain(syms_locon->SIG, circuit_con, syms_locon, 0);
   fastswaplofigchain(circuit_con->SIG, syms_locon, circuit_con, 0);
 
-  // fixed tag update
+  /* fixed tag update*/
   if ((lfc=getptype(syms_locon->USER,GEN_FIXED_PTYPE))!=NULL) setfixed0=1;
   if ((lfc=getptype(circuit_con->USER,GEN_FIXED_PTYPE))!=NULL) setfixed1=1;
   if (setfixed0 || setfixed1) EXIT(110);
@@ -184,7 +184,7 @@ void SwapLoconWithSym(locon_list *syms_locon, locon_list *circuit_con)
         }
     }
 
-  // marks update
+  /* marks update*/
   mark0=NULL; 
   if ((lfc=getptype(syms_locon->USER,GEN_LOCON_MARK_PTYPE))!=NULL)
     {
@@ -196,13 +196,13 @@ void SwapLoconWithSym(locon_list *syms_locon, locon_list *circuit_con)
     {
       mark1=(mark_list *)lfc->DATA;
     }
-  //  gen_printf(5,"<%p %p>",mark0, mark1);
+  /*  gen_printf(5,"<%p %p>",mark0, mark1);*/
   if (mark0 && mark1)
     {
       int type;
       top=getptype(circuit_con->SIG->USER,GEN_VISITED_PTYPE);
       top1=getptype(syms_locon->SIG->USER,GEN_VISITED_PTYPE);
-      //      gen_printf(5,"(%s %s)",mark0->LOSIG->NAMECHAIN->DATA, mark1->LOSIG->NAMECHAIN->DATA);
+      /*      gen_printf(5,"(%s %s)",mark0->LOSIG->NAMECHAIN->DATA, mark1->LOSIG->NAMECHAIN->DATA);*/
       if (mark0->COUNT>1) EXIT(55);
       if (mark1->COUNT>1) EXIT(56);
       for (model_sig_last=(ptype_list*)top->DATA; model_sig_last && model_sig_last->DATA!=mark1; model_sig_last=model_sig_last->NEXT) ;
@@ -211,12 +211,12 @@ void SwapLoconWithSym(locon_list *syms_locon, locon_list *circuit_con)
       for (model_sig_last1=(ptype_list*)top1->DATA; model_sig_last1 && model_sig_last1->DATA!=mark0; model_sig_last1=model_sig_last1->NEXT) ;
       if (model_sig_last1==NULL) EXIT(36);
 
-      // inversement des mark dans les LOSIGs du circuit
+      /* inversement des mark dans les LOSIGs du circuit*/
       model_sig_last->DATA=mark0;
       model_sig_last1->DATA=mark1;
       type=model_sig_last->TYPE; model_sig_last->TYPE=model_sig_last1->TYPE;model_sig_last1->TYPE=type;
 
-      // remise en place des marks dans les LOCONs
+      /* remise en place des marks dans les LOCONs*/
       top=getptype(circuit_con->USER, GEN_LOCON_MARK_PTYPE);
       top1=getptype(syms_locon->USER, GEN_LOCON_MARK_PTYPE);
       if (top->DATA==mark0) EXIT(54);
@@ -228,7 +228,7 @@ void SwapLoconWithSym(locon_list *syms_locon, locon_list *circuit_con)
     }
   else if (mark0 || mark1) EXIT(123);
 
-  //    gen_printf(5,"\n");
+  /*    gen_printf(5,"\n");*/
 }
 
 locon_list *FindConWithSym(chain_list *locons, locon_list *me)
@@ -249,7 +249,7 @@ locon_list *FindConWithSym(chain_list *locons, locon_list *me)
       if (syms==NULL) 
         {
         avt_errmsg(GNS_ERRMSG, "115", AVT_FATAL, ((loins_list *)lc->ROOT)->INSNAME,lc->NAME);
-//          fprintf(stderr,"connector %s.%s is in coupled list but has no symetric\n",((loins_list *)lc->ROOT)->INSNAME,lc->NAME);
+/*          fprintf(stderr,"connector %s.%s is in coupled list but has no symetric\n",((loins_list *)lc->ROOT)->INSNAME,lc->NAME);*/
           EXIT(2);
         }
 
@@ -269,9 +269,9 @@ locon_list *FindConWithSym(chain_list *locons, locon_list *me)
       if (ch!=NULL) return lc;
     }
         avt_errmsg(GNS_ERRMSG, "116", AVT_FATAL, lc->NAME);
-//  fprintf(stderr,"no symmetry found for connector %s in coupled connector list (1)\n",lc->NAME);
+/*  fprintf(stderr,"no symmetry found for connector %s in coupled connector list (1)\n",lc->NAME);*/
   EXIT(2);
-  return NULL; // pour la forme
+  return NULL; /* pour la forme*/
 }
 
 static int  COUPLED_VECTOR_MODE;
@@ -283,7 +283,7 @@ chain_list *GrabConnectors(loins_list *li, SymInfoItem *syms, int index)
   locon_list *lc;
   int hasone=0/*, hasnone=0*/;
   /*
-  // new
+  |* new*|
   for (cl=syms;cl!=NULL; cl=cl->NEXT)
   if (cl->FLAGS==1) hasone=1;
   else if (cl->FLAGS==0) hasnone=1;
@@ -304,37 +304,37 @@ chain_list *GrabConnectors(loins_list *li, SymInfoItem *syms, int index)
   else
     {
       COUPLED_VECTOR_MODE=0;
-      //
+      /**/
       if (syms->FLAGS!=1)
         {
           if (index==-1)
             {
               for (lc=li->LOCON;lc!=NULL;lc=lc->NEXT)
                 {
-                  for (cl=syms;cl!=NULL && cl->ConnectorRadical!=lc->NAME;cl=cl->NEXT) ; // ne marche pas pour les vecteurs
+                  for (cl=syms;cl!=NULL && cl->ConnectorRadical!=lc->NAME;cl=cl->NEXT) ; /* ne marche pas pour les vecteurs*/
                   if (cl!=NULL)
                     found=addchain(found, lc);
                 }
             }
           else
             {
-              //          printf("grab:");
+              /*          printf("grab:");*/
               for (lc=li->LOCON;lc!=NULL;lc=lc->NEXT)
                 {
-                  for (cl=syms;cl!=NULL && !(cl->ConnectorRadical==fastradical(lc) && index==fastindex(lc));cl=cl->NEXT) ; // ne marche pas pour les vecteurs
+                  for (cl=syms;cl!=NULL && !(cl->ConnectorRadical==fastradical(lc) && index==fastindex(lc));cl=cl->NEXT) ; /* ne marche pas pour les vecteurs*/
                   if (cl!=NULL)
                     {
                       found=addchain(found, lc);
-                      //                  printf(" '%s'",lc->NAME);
+                      /*                  printf(" '%s'",lc->NAME);*/
                     }
                 }
-              //          printf("\n");
+              /*          printf("\n");*/
             }
         }
       else
         {
         avt_errmsg(GNS_ERRMSG, "117", AVT_FATAL);
-//          fprintf(stderr,"coupling won't work with vectors ... yet...\n");
+/*          fprintf(stderr,"coupling won't work with vectors ... yet...\n");*/
           EXIT(2);
         }
     }
@@ -352,7 +352,7 @@ chain_list *GrabVectorConnectors(loins_list *li, SymInfoItem *syms, char *radica
   */
   for (lc=li->LOCON;lc!=NULL;lc=lc->NEXT)
     {
-      for (cl=syms; cl!=NULL && !(cl->ConnectorRadical==fastradical(lc) && fastindex(lc)==index); cl=cl->NEXT) ; // ne marche pas pour les vecteurs
+      for (cl=syms; cl!=NULL && !(cl->ConnectorRadical==fastradical(lc) && fastindex(lc)==index); cl=cl->NEXT) ; /* ne marche pas pour les vecteurs*/
       if (cl!=NULL)
         found=addchain(found, lc);
     }
@@ -366,7 +366,7 @@ chain_list *GrabVectorConnectors(loins_list *li, SymInfoItem *syms, char *radica
   radical = NULL;
 }
 
-// check if all the connectors are not fixed
+/* check if all the connectors are not fixed*/
 int CheckConnectorFreedom(chain_list *cl) 
 {
   for (;cl!=NULL;cl=cl->NEXT)
@@ -385,10 +385,10 @@ chain_list *BuildCorrespondance(chain_list *me, chain_list *you)
       found=FindConWithSym(you, lc);
       if (found==NULL)
         {
-          // zinaps : la fonction FindConWithSym fait le exit
-          // cette erreur ne sert donc a rien, mais je la laisse quant meme
+          /* zinaps : la fonction FindConWithSym fait le exit*/
+          /* cette erreur ne sert donc a rien, mais je la laisse quant meme*/
         avt_errmsg(GNS_ERRMSG, "118", AVT_FATAL, lc->NAME);
-//          fprintf(stderr,"can not find coupled connector for '%s'\n",lc->NAME);
+/*          fprintf(stderr,"can not find coupled connector for '%s'\n",lc->NAME);*/
           EXIT(2);
         }
       cp=addchain(addchain(NULL,found), lc);
@@ -397,7 +397,7 @@ chain_list *BuildCorrespondance(chain_list *me, chain_list *you)
   if (testyou!=NULL)
     {
         avt_errmsg(GNS_ERRMSG, "116", AVT_FATAL, ((locon_list *)testyou->DATA)->NAME);
-//      fprintf(stderr,"no symmetry found for connector %s in coupled connector list (2)\n",((locon_list *)testyou->DATA)->NAME);
+/*      fprintf(stderr,"no symmetry found for connector %s in coupled connector list (2)\n",((locon_list *)testyou->DATA)->NAME);*/
       EXIT(2);
     }
   return cl;
@@ -434,13 +434,13 @@ int CheckForCrossSymmetry(locon_list *lc, SymInfoItem *syms, char *v0, int index
           if ((pa=FindLoconWithIndex(lc, v0, index1))==NULL)
             {
               avt_errmsg(GNS_ERRMSG, "119", AVT_FATAL, v0, index1, ((loins_list *)lc->ROOT)->INSNAME);
-//              fprintf(stderr,"Could not find connector '%s(%d)' for instance '%s'\n", v0, index1, ((loins_list *)lc->ROOT)->INSNAME);
+/*              fprintf(stderr,"Could not find connector '%s(%d)' for instance '%s'\n", v0, index1, ((loins_list *)lc->ROOT)->INSNAME);*/
               EXIT(1);
             }
           if ((pb=FindLoconWithIndex(lc, v1, index0))==NULL)
             {
               avt_errmsg(GNS_ERRMSG, "119", AVT_FATAL, v1, index0, ((loins_list *)lc->ROOT)->INSNAME);
-//              fprintf(stderr,"Could not find connector '%s(%d)' for instance '%s'\n", v1, index0, ((loins_list *)lc->ROOT)->INSNAME);
+/*              fprintf(stderr,"Could not find connector '%s(%d)' for instance '%s'\n", v1, index0, ((loins_list *)lc->ROOT)->INSNAME);*/
               EXIT(1);
             }
 
@@ -452,7 +452,7 @@ int CheckForCrossSymmetry(locon_list *lc, SymInfoItem *syms, char *v0, int index
           *con_cl=addchain(*con_cl, addchain(addchain(NULL,pb), pa));
         }
 
-      // implicit coupling for the other signal in symmetric list
+      /* implicit coupling for the other signal in symmetric list*/
       for (ch=syms;ch!=NULL;ch=ch->NEXT)
         {
           if (strcmp(ch->ConnectorRadical, v0)!=0 && 
@@ -462,13 +462,13 @@ int CheckForCrossSymmetry(locon_list *lc, SymInfoItem *syms, char *v0, int index
               if ((pa=FindLoconWithIndex(lc, ch->ConnectorRadical, index1))==NULL)
                 {
               avt_errmsg(GNS_ERRMSG, "119", AVT_FATAL, ch->ConnectorRadical, index1, ((loins_list *)lc->ROOT)->INSNAME);
-//                  fprintf(stderr,"Could not find connector '%s(%d)' for instance '%s'\n", ch->ConnectorRadical, index1, ((loins_list *)lc->ROOT)->INSNAME);
+/*                  fprintf(stderr,"Could not find connector '%s(%d)' for instance '%s'\n", ch->ConnectorRadical, index1, ((loins_list *)lc->ROOT)->INSNAME);*/
                   EXIT(1);
                 }
               if ((pb=FindLoconWithIndex(lc, ch->ConnectorRadical, index0))==NULL)
                 {
               avt_errmsg(GNS_ERRMSG, "119", AVT_FATAL, ch->ConnectorRadical, index0, ((loins_list *)lc->ROOT)->INSNAME);
-//                  fprintf(stderr,"Could not find connector '%s(%d)' for instance '%s'\n", ch->ConnectorRadical, index0, ((loins_list *)lc->ROOT)->INSNAME);
+/*                  fprintf(stderr,"Could not find connector '%s(%d)' for instance '%s'\n", ch->ConnectorRadical, index0, ((loins_list *)lc->ROOT)->INSNAME);*/
                   EXIT(1);
                 }
               
@@ -513,11 +513,11 @@ static void bit_swapping(chain_list *bi_list, char *radi, int index0, int index1
   if (a0==NULL || b0==NULL) 
     {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 191);
-//      avt_error("gns", 1, AVT_ERR, "Internal error\n");
+/*      avt_error("gns", 1, AVT_ERR, "Internal error\n");*/
       EXIT(44);
     }
   temp=a0->DATA; a0->DATA=b0->DATA; b0->DATA=temp;
-  //  temp=a1->DATA; a1->DATA=b1->DATA; b1->DATA=temp;
+  /*  temp=a1->DATA; a1->DATA=b1->DATA; b1->DATA=temp;*/
 }
 #endif
 
@@ -540,7 +540,7 @@ int TryToSwapWithAConnectorWithTheSameName(locon_list **circuit_c, locon_list *m
     {
       chain_list *circuit_list, *sym_list;
       SymInfoItem *circuit_list_p, *sym_list_p;
-      // search for the symmetric locon
+      /* search for the symmetric locon*/
 
       gen_printf(3,"symmetry (A): '%s' found instead of '%s(%d)'\n",circuit_con->NAME,model_con->NAME, bit_wanted);
 
@@ -548,19 +548,19 @@ int TryToSwapWithAConnectorWithTheSameName(locon_list **circuit_c, locon_list *m
         {
           gen_printf(3,"*** fixed *** %s.%s\n",((loins_list *)circuit_con->ROOT)->INSNAME,circuit_con->NAME);
           return 0;
-        } // can't be moved
+        } /* can't be moved*/
 
       sym=FindALoconPlusIndexInChain(ch, ((loins_list *)circuit_con->ROOT)->LOCON, bit_wanted);
 
       if (sym==NULL) 
         {
-          // not an error
-          // it simply means that the instance won't match because its
-          // paramaters don't match
+          /* not an error*/
+          /* it simply means that the instance won't match because its*/
+          /* paramaters don't match*/
           gen_printf(3,"connector '%s(%d)' not found\n",model_con->NAME,bit_wanted);
           return 0;
         }
-      // it's fixed, we can do nothing about the swap
+      /* it's fixed, we can do nothing about the swap*/
 
       if (isfixed(sym)) 
         {
@@ -573,13 +573,13 @@ int TryToSwapWithAConnectorWithTheSameName(locon_list **circuit_c, locon_list *m
       if (!((circuit_list_p==NULL && sym_list_p==NULL) || (sym_list_p!=NULL && circuit_list_p!=NULL)))
         {
               avt_errmsg(GNS_ERRMSG, "120", AVT_FATAL, circuit_con->NAME,sym->NAME);
-//          fprintf(stderr,"while swapping %s and %s, one of the connector did not have coupled connector list while the other has\n",circuit_con->NAME,sym->NAME);
+/*          fprintf(stderr,"while swapping %s and %s, one of the connector did not have coupled connector list while the other has\n",circuit_con->NAME,sym->NAME);*/
           EXIT(2);
         }
 
-      if (circuit_list_p!=NULL)// && (fastindex(circuit_con)==-1 || (fastindex(circuit_con)!=-1 && fastradical(circuit_con)!=fastradical(sym))))
+      if (circuit_list_p!=NULL)/* && (fastindex(circuit_con)==-1 || (fastindex(circuit_con)!=-1 && fastradical(circuit_con)!=fastradical(sym))))*/
         {
-          // there are coupled connectors
+          /* there are coupled connectors*/
           circuit_list=GrabConnectors((loins_list *)circuit_con->ROOT, circuit_list_p, fastindex(circuit_con));
           sym_list=GrabConnectors((loins_list *)circuit_con->ROOT, sym_list_p, fastindex(sym));
 
@@ -587,7 +587,7 @@ int TryToSwapWithAConnectorWithTheSameName(locon_list **circuit_c, locon_list *m
             {
               freechain(circuit_list);
               freechain(sym_list);
-              return 0; // at list one the connectors can't be moved
+              return 0; /* at list one the connectors can't be moved*/
             }
           con_cl=BuildCorrespondance(circuit_list, sym_list);
           /*          if (COUPLED_VECTOR_MODE==1)
@@ -600,7 +600,7 @@ int TryToSwapWithAConnectorWithTheSameName(locon_list **circuit_c, locon_list *m
         }
       else
         {
-          // we already know that the connectors can be freely moved
+          /* we already know that the connectors can be freely moved*/
           con_cl=addchain(NULL, addchain(addchain(NULL,sym), circuit_con));
         }
 
@@ -633,8 +633,8 @@ int TryToSwapWithAConnectorWithTheSameName(locon_list **circuit_c, locon_list *m
   return 1;
 }
 
-// return the next unfixed symmetric connector
-// last==NULL => begin of the search
+/* return the next unfixed symmetric connector*/
+/* last==NULL => begin of the search*/
 locon_list *GetNextSymmetric(locon_list *me, locon_list *last)
 {
   locon_list *syms_locon;
@@ -643,12 +643,12 @@ locon_list *GetNextSymmetric(locon_list *me, locon_list *last)
   syms=GetSymmetricChain(me);
 
   if (syms==NULL) return NULL;
-  if (last==NULL) last=((loins_list *)me->ROOT)->LOCON; // me->NEXT? pour etre + rapide ???
+  if (last==NULL) last=((loins_list *)me->ROOT)->LOCON; /* me->NEXT? pour etre + rapide ???*/
   else last=last->NEXT;
 
   for (syms_locon=last;syms_locon!=NULL;syms_locon=syms_locon->NEXT)
     {
-      // we look in this locon is a symmetric
+      /* we look in this locon is a symmetric*/
       char *temp_name;
       int v_you, v_me;
       
@@ -688,8 +688,8 @@ locon_list *GetNextSymmetric(locon_list *me, locon_list *last)
     }
   return NULL;
 }
-// return the next unfixed symmetric connector
-// last==NULL => begin of the search
+/* return the next unfixed symmetric connector*/
+/* last==NULL => begin of the search*/
 locon_list *GetNextSymmetric2(locon_list *me, locon_list *last)
 {
   locon_list *syms_locon;
@@ -698,12 +698,12 @@ locon_list *GetNextSymmetric2(locon_list *me, locon_list *last)
   syms=GetSymmetricChain(me);
 
   if (syms==NULL) return NULL;
-  if (last==NULL) last=me->NEXT;// pour etre + rapide ???
+  if (last==NULL) last=me->NEXT;/* pour etre + rapide ???*/
   else last=last->NEXT;
 
   for (syms_locon=last;syms_locon!=NULL;syms_locon=syms_locon->NEXT)
     {
-      // we look in this locon is a symmetric
+      /* we look in this locon is a symmetric*/
       char *temp_name;
       int v_you, v_me;
 
@@ -757,13 +757,13 @@ int TryToSwapConnectors(locon_list *circuit_con, locon_list *sym)
   if (!((circuit_list_p==NULL && sym_list_p==NULL) || (sym_list_p!=NULL && circuit_list_p!=NULL)))
     {
               avt_errmsg(GNS_ERRMSG, "120", AVT_FATAL, circuit_con->NAME,sym->NAME);
-//      fprintf(stderr,"while swapping %s and %s, one of the connector did not have coupled connector list while the other has\n",circuit_con->NAME,sym->NAME);
+/*      fprintf(stderr,"while swapping %s and %s, one of the connector did not have coupled connector list while the other has\n",circuit_con->NAME,sym->NAME);*/
       EXIT(2);
     }
   
   if (circuit_list_p!=NULL)
     {
-      // there are coupled connectors
+      /* there are coupled connectors*/
       circuit_list=GrabConnectors((loins_list *)circuit_con->ROOT, circuit_list_p, fastindex(circuit_con));
       sym_list=GrabConnectors((loins_list *)circuit_con->ROOT, sym_list_p, fastindex(sym));
       
@@ -771,18 +771,18 @@ int TryToSwapConnectors(locon_list *circuit_con, locon_list *sym)
         {
           freechain(circuit_list);
           freechain(sym_list);
-          return 0; // at list one the connectors can't be moved
+          return 0; /* at list one the connectors can't be moved*/
         }
 
       con_cl=BuildCorrespondance(circuit_list, sym_list);
-      // were commented ---
+      /* were commented ---*/
       freechain(circuit_list);
       freechain(sym_list);
-      // ------------------
+      /* ------------------*/
     }
   else
     {
-      // we already know that the connectors can be freely moved
+      /* we already know that the connectors can be freely moved*/
       con_cl=addchain(NULL, addchain(addchain(NULL,sym), circuit_con));
     }
 
@@ -795,7 +795,7 @@ int TryToSwapConnectors(locon_list *circuit_con, locon_list *sym)
           two=(locon_list *)((chain_list *)ch->DATA)->NEXT->DATA;
           SwapLoconWithSym(two, one);
           addswap(two, one);
-          // they won't be moved anymore, except if Backward() is called
+          /* they won't be moved anymore, except if Backward() is called*/
         }
     
       free_double_chain(con_cl);
@@ -838,8 +838,8 @@ int TryToSwapWithAConnectorWithTheSameSignalAndWithOneMark(locon_list *circuit_c
   SymInfoItem *circuit_list_p, *sym_list_p;
   mark_list *cmark, *cmark1;
 
-  //  if (isfixed(circuit_con)) { printf("*** fixed *** %s.%s\n",((loins_list *)circuit_con->ROOT)->INSNAME,circuit_con->NAME);} // can't be moved
-  //  syms=getptype(circuit_con->USER,GEN_SYM_INFO_PTYPE);
+  /*  if (isfixed(circuit_con)) { printf("*** fixed *** %s.%s\n",((loins_list *)circuit_con->ROOT)->INSNAME,circuit_con->NAME);} // can't be moved*/
+  /*  syms=getptype(circuit_con->USER,GEN_SYM_INFO_PTYPE);*/
 
   syms=GetSymmetricChain(circuit_con);
   if (syms==NULL) return 0;
@@ -881,7 +881,7 @@ int TryToSwapWithAConnectorWithTheSameSignalAndWithOneMark(locon_list *circuit_c
 
   if (circuit_list_p!=NULL)
     {
-      // there are coupled connectors
+      /* there are coupled connectors*/
       circuit_list=GrabConnectors((loins_list *)circuit_con->ROOT, circuit_list_p, fastindex(circuit_con));
       sym_list=GrabConnectors((loins_list *)circuit_con->ROOT, sym_list_p, fastindex(sym));
       
@@ -889,7 +889,7 @@ int TryToSwapWithAConnectorWithTheSameSignalAndWithOneMark(locon_list *circuit_c
         {
           freechain(circuit_list);
           freechain(sym_list);
-          return 0; // at list one the connectors can't be moved
+          return 0; /* at list one the connectors can't be moved*/
         }
       con_cl=BuildCorrespondance(circuit_list, sym_list);
       freechain(circuit_list);
@@ -897,7 +897,7 @@ int TryToSwapWithAConnectorWithTheSameSignalAndWithOneMark(locon_list *circuit_c
     }
   else
     {
-      // we already know that the connectors can be freely moved
+      /* we already know that the connectors can be freely moved*/
       con_cl=addchain(NULL, addchain(addchain(NULL,sym), circuit_con));
     }
 
@@ -931,7 +931,7 @@ int TryToSwapWithAConnectorWithTheSameSignalAndWithOneMark(locon_list *circuit_c
   setfixed(circuit_con);
 
   gen_printf(4,"2. now fixed %s.%s(%s)\n",((loins_list *)circuit_con->ROOT)->INSNAME,circuit_con->NAME,circuit_con->SIG->NAMECHAIN->DATA);  
-  *newmark=cmark1; ///*cmark; //*/getloconmark(sym);
+  *newmark=cmark1; /*|*cmark; //*|getloconmark(sym);*/
   return 1;
 }
 
@@ -945,7 +945,7 @@ int TryToSwapWithAConnectorWithTheMarkedSignal(locon_list *circuit_con, mark_lis
 {
   locon_list *lc;
   SymInfoItem *ch;
-  //  char *temp_name;
+  /*  char *temp_name;*/
 
   if (failedmark==NULL) return 0;
 
@@ -954,8 +954,8 @@ int TryToSwapWithAConnectorWithTheMarkedSignal(locon_list *circuit_con, mark_lis
       for (lc=(*last)->NEXT;lc!=NULL && lc->SIG!=failedmark->LOSIG; lc=lc->NEXT) ;
       if (lc!=NULL)
         {
-          // we've found a locon connected to this signal,
-          // now we checked if it's a sym of the locon
+          /* we've found a locon connected to this signal,*/
+          /* now we checked if it's a sym of the locon*/
           *last=lc;
           if (!isfixed(lc))
             {
@@ -964,7 +964,7 @@ int TryToSwapWithAConnectorWithTheMarkedSignal(locon_list *circuit_con, mark_lis
 
               if (ch!=NULL)
                 {
-                  // yes there's one, we exchange the connector signals
+                  /* yes there's one, we exchange the connector signals*/
                   if (TryToSwapConnectors(circuit_con, lc)) return 1;
                 }
             } else gen_printf(4,"-fixed %s-",lc->NAME);
@@ -1032,7 +1032,7 @@ static char *getkey(char *a, char *b)
   char r[1000];
   strcpy(r,a);
   for (i=0;r[i]!='\0' && r[i]!='_'; i++) ;
-  if (r[i]=='_' && r[i+1]>='0' && r[i+1]<='9') r[i]='\0'; // 'toto_5_4' is model 'toto'
+  if (r[i]=='_' && r[i+1]>='0' && r[i+1]<='9') r[i]='\0'; /* 'toto_5_4' is model 'toto'*/
   strcat(r,".");strcat(r,b);
   return namealloc(r);
 }
@@ -1087,7 +1087,7 @@ biinfo *getorcreateinfo(char *model, char *con)
     {
             
               avt_errmsg(GNS_ERRMSG, "121", AVT_FATAL, MAX_SYMLIST);
-//      fprintf(stderr,"INTERNAL LIMITATION: too much symmetric informations.\n\tActual limit is %d.\n", MAX_SYMLIST);
+/*      fprintf(stderr,"INTERNAL LIMITATION: too much symmetric informations.\n\tActual limit is %d.\n", MAX_SYMLIST);*/
       EXIT(1);
     }
   myallocs=addchain(myallocs, bf);
@@ -1101,7 +1101,7 @@ void addSymmetricInfo(char *figname, char *conname, SymInfoItem *syms)
 {
   biinfo *bf;
   bf=getorcreateinfo(figname, vectorradical(conname));
-  if (bf->syms!=NULL) return; //EXIT(112);
+  if (bf->syms!=NULL) return; /*EXIT(112);*/
   bf->syms=syms;
 }
 
@@ -1109,7 +1109,7 @@ void addCoupledInfo(char *figname, char *conname, SymInfoItem *coupl)
 {
   biinfo *bf;
   bf=getorcreateinfo(figname, vectorradical(conname));
-  if (bf->coupl!=NULL) return; //EXIT(112);
+  if (bf->coupl!=NULL) return; /*EXIT(112);*/
   bf->coupl=coupl;
 }
 
@@ -1148,24 +1148,24 @@ void AddSymsOfLofig(lofig_list *lf)
   locon_list *lc;
   SymInfoItem *sii, *mysyms;
 
-  // retreive instance model
+  /* retreive instance model*/
   syms=getptype(lf->USER,GEN_SYM_INFO_PTYPE);
   if (syms==NULL) return;
 
   for (lc=lf->LOCON;lc!=NULL;lc=lc->NEXT)
     {
       mysyms=NULL;
-      // connector has sims?
+      /* connector has sims?*/
       for (ch=(chain_list *)syms->DATA;ch!=NULL;ch=ch->NEXT)
         {
           sii=FindVectorRadicalSymInChain((SymInfoItem *)ch->DATA, lc);
           if (sii!=NULL)
             {
-              // found, we add the sims
+              /* found, we add the sims*/
               if (mysyms!=NULL) 
                 {
               avt_errmsg(GNS_ERRMSG, "122", AVT_FATAL);
-//                  fprintf(stderr,"AddSymsOfLofig: same signal in different symmetry list\n");
+/*                  fprintf(stderr,"AddSymsOfLofig: same signal in different symmetry list\n");*/
                   EXIT(1);
                 }
 
@@ -1199,24 +1199,24 @@ void AddCoupledOfLofig(lofig_list *lf)
   locon_list *lc;
   SymInfoItem *sii, *mysyms;
 
-  // retreive instance model
+  /* retreive instance model*/
   syms=getptype(lf->USER,GEN_COUPLED_INFO_PTYPE);
   if (syms==NULL) return;
 
   for (lc=lf->LOCON;lc!=NULL;lc=lc->NEXT)
     {
       mysyms=NULL;
-      // connector has sims?
+      /* connector has sims?*/
       for (ch=(chain_list *)syms->DATA;ch!=NULL;ch=ch->NEXT)
         {
           for (sii=(SymInfoItem *)ch->DATA;sii!=NULL && sii->ConnectorName!=vectorradical(lc->NAME);sii=sii->NEXT) ;
           if (sii!=NULL)
             {
-              // found, we add the sims
+              /* found, we add the sims*/
               if (mysyms!=NULL) 
                 {
               avt_errmsg(GNS_ERRMSG, "123", AVT_FATAL);
-//                  fprintf(stderr,"AddCoupledOfLofig: same signal in different coupled list\n");
+/*                  fprintf(stderr,"AddCoupledOfLofig: same signal in different coupled list\n");*/
                   EXIT(1);
                 }
             
@@ -1351,7 +1351,7 @@ static int compare_locon(const void *a, const void *b)
   locon_list *a0=*(locon_list **)a, *b0=*(locon_list **)b;
   if (fastindex(a0)<fastindex(b0)) return -1;
   else if (fastindex(a0)>fastindex(b0)) return 1;
-  EXIT(4); // a enlever
+  EXIT(4); /* a enlever*/
   return 0;
 }
 
@@ -1412,9 +1412,9 @@ void TrytoArrangeSymmetricConnectors(loins_list *li)
               for (i=0; i<nb; i++)
                 {
                   lcs[i]->SIG=lss[i];
-              //    printf("con %s -> sig %s\n", lcs[i]->NAME, (char *)lss[i]->NAMECHAIN->DATA);
+              /*    printf("con %s -> sig %s\n", lcs[i]->NAME, (char *)lss[i]->NAMECHAIN->DATA);*/
                 }
-             // printf("---\n");
+             /* printf("---\n");*/
             }
         }
       mbkfree(lcs); mbkfree(lss);
@@ -1497,7 +1497,7 @@ chain_list *GetLoinsSymmetryTables(loins_list *li)
   groups=addht(10);
 
   
-  //  printf("(1) *%s* %s\n",li->INSNAME, li->FIGNAME);
+  /*  printf("(1) *%s* %s\n",li->INSNAME, li->FIGNAME);*/
   temp0=li->FIGNAME;
   li->FIGNAME=modelradical(li->FIGNAME);
   AddRadicalInfoInPNODE(li);
@@ -1558,7 +1558,7 @@ chain_list *GetLoinsSymmetryTables(loins_list *li)
       lc->PNODE=NULL;
     }
 
-  //  for (lc=li->LOCON, cc=1; lc!=NULL; lc=lc->NEXT, cc++) lc->FLAGS=cc;
+  /*  for (lc=li->LOCON, cc=1; lc!=NULL; lc=lc->NEXT, cc++) lc->FLAGS=cc;*/
 
   cl=GetAllHTElems(groups);
   delht(groups);
@@ -1608,8 +1608,8 @@ static int advanced_compare(char *a, char *b)
   return strcmp(ai,bi);
 }
 
-//#define BRUTE_FORCE
-//#define BETTER
+/*#define BRUTE_FORCE*/
+/*#define BETTER*/
 
 static int compare_mat_line(const void *a, const void *b)
 {
@@ -1618,7 +1618,7 @@ static int compare_mat_line(const void *a, const void *b)
 #ifdef BRUTE_FORCE
   lca=a0[SORT_INDEX].lc;
   lcb=b0[SORT_INDEX].lc;
-  //  printf("%s - %s\n",(char *)lca->SIG->NAMECHAIN->DATA,(char *)lcb->SIG->NAMECHAIN->DATA);
+  /*  printf("%s - %s\n",(char *)lca->SIG->NAMECHAIN->DATA,(char *)lcb->SIG->NAMECHAIN->DATA);*/
   if (strcmp((char *)lca->SIG->NAMECHAIN->DATA, (char *)lcb->SIG->NAMECHAIN->DATA)<0) return -1;
   if (strcmp((char *)lca->SIG->NAMECHAIN->DATA, (char *)lcb->SIG->NAMECHAIN->DATA)>0) return 1;  
   return 0;
@@ -1651,8 +1651,8 @@ static void swap_locon(locon_list *syms_locon, locon_list *circuit_con)
   ptype_list *user;
 
 #ifdef ZINAPS_DUMP
-  //  if (GEN_DEBUG_LEVEL>3)
-  //    gen_printf(-1,"sort: for %s Swapping connector %s(%s) %s(%s)\n",((loins_list *)circuit_con->ROOT)->INSNAME,syms_locon->NAME,syms_locon->SIG->NAMECHAIN->DATA,circuit_con->NAME,circuit_con->SIG->NAMECHAIN->DATA);
+  /*  if (GEN_DEBUG_LEVEL>3)*/
+  /*    gen_printf(-1,"sort: for %s Swapping connector %s(%s) %s(%s)\n",((loins_list *)circuit_con->ROOT)->INSNAME,syms_locon->NAME,syms_locon->SIG->NAMECHAIN->DATA,circuit_con->NAME,circuit_con->SIG->NAMECHAIN->DATA);*/
 #endif  
 
   tmpsig=syms_locon->SIG; syms_locon->SIG=circuit_con->SIG; circuit_con->SIG=tmpsig;
@@ -1682,7 +1682,7 @@ void ArrangeInstanceConnectors(loins_list *li)
       duptable=(MatElem *)mbkalloc(sm->width*sm->height*sizeof(MatElem));
       memcpy(duptable, sm->table, sm->width*sm->height*sizeof(MatElem));
       
-      SORT_INDEX=0; // devrait passer par un appel de fonction pour etre determine
+      SORT_INDEX=0; /* devrait passer par un appel de fonction pour etre determine*/
 
       if ((GEN_OPTIONS_PACK & GEN_DEBUG_REMAPPING)!=0)
         disp_mat(sm->width, sm->height, duptable);
@@ -1701,7 +1701,7 @@ void ArrangeInstanceConnectors(loins_list *li)
                   && sm->table[j*sm->width+i].ls!=duptable[j*sm->width+i].ls
                   )
                 {
-                  //              dest=duptable[j*sm->width+i].lc;
+                  /*              dest=duptable[j*sm->width+i].lc;*/
                   
                   orig->SIG=duptable[j*sm->width+i].ls;
                   orig->USER=duptable[j*sm->width+i].user;

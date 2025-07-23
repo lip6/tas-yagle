@@ -63,12 +63,10 @@
   extern            int  incataloggds __P((char *figname));
   extern            int  incatalogfeed __P((char *figname));
   extern            int  incatalogdelete __P((char *figname));
-static void loadcatalog();
   extern           void  mbkenv __P(());
   extern           void  readlibfile __P((char *type,void (*fonc)(char *),int reload));
   extern          char * namealloc __P((const char *inputname));
   extern          char * nameindex __P((char *name, long index));
-static void read_lib();
   extern    chain_list * reverse __P((chain_list *head));
   extern           void  upstr __P((char *s, char *t));
   extern            ht * addht __P((unsigned long len));
@@ -76,12 +74,8 @@ int gethtelm() ;
 int addhtelm() ;
 int sethtelm() ;
 int delhtelm();
-  extern           void  viewht __P((ht *pTable, char *(*pout)()));
+  extern           void  viewht __P((ht *pTable, char *(*pout)(void*)));
   extern           void  delht __P((ht *pTable));
-static void reallocht();
-static void banner();
-static void cartouche();
-static int indx();
 
 /* Font definition for the banner
 

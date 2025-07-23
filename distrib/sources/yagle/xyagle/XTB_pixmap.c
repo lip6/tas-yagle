@@ -25,12 +25,7 @@
 |                     XyagCreatePixmap                        |
 \------------------------------------------------------------*/
 
-Pixmap 
-XyagCreatePixmap(MainWidget, IconBits, IconWidth, IconHeight)
-    Widget          MainWidget;
-    char           *IconBits;
-    int             IconWidth;
-    int             IconHeight;
+Pixmap XyagCreatePixmap( Widget MainWidget, char *IconBits, int IconWidth, int IconHeight )
 {
     Pixel           Foreground;
     Pixel           Background;
@@ -54,10 +49,7 @@ XyagCreatePixmap(MainWidget, IconBits, IconWidth, IconHeight)
 |                     XyagCreateColorPixmap                   |
 \------------------------------------------------------------*/
 
-Pixmap 
-XyagCreateColorPixmap(MainWidget, IconData)
-    Widget          MainWidget;
-    char          **IconData;
+Pixmap XyagCreateColorPixmap( Widget MainWidget, char **IconData )
 {
     Display        *Dsp;
     Screen         *Scr;

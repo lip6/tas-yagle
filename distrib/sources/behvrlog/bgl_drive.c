@@ -48,7 +48,7 @@ static char         *CLOCKSTR;
 /****************************************************************************/
 static void writelist(FILE *fp, chain_list *ptchain, int indent, int posEdge, int negEdge);
 static void print_value(FILE *fp,chain_list *abl, char type, int time, int,int,char **buffer, int *bufsize);
-//static void          begen_treatment          (FILE *fp, befig_list *figure);
+/*static void          begen_treatment          (FILE *fp, befig_list *figure);*/
 
 static void print_withselect(FILE *fp, biabl_list *biabl, char *name, int vectsize, char **buffer, int *bufsize);
 static void print_affected(FILE *fp, char indent, char type, int time, int,int,char *name, char *vname, loop_list *loop,long);
@@ -118,8 +118,8 @@ writelist(FILE *fp, chain_list *ptchain, int indent, int posEdge, int negEdge)
   }
   else
   {
-    // pre-treatment to delete twice word
-    // and clock in case of posedge or negedge
+    /* pre-treatment to delete twice word*/
+    /* and clock in case of posedge or negedge*/
     for (; ptchain; ptchain = delchain(ptchain,ptchain))
     {
       chain_list    *tail;
@@ -346,7 +346,7 @@ print_process_declaration(FILE *fp, biabl_list *biabl, char *name,
           loopchain = addchain(loopchain,loop->VARNAME);
       }
     }
-    if (biablx->VALABL == NULL)// || biablx->CNDABL == NULL)
+    if (biablx->VALABL == NULL)/* || biablx->CNDABL == NULL)*/
       beh_toolbug(20, "print_process_declaration", name, 0);
 /*    if ( biablx->CNDABL &&
          (isEdgeCondition = bef_search_stable(biablx->CNDABL,&CLOCKSTR)) > 0)
@@ -404,7 +404,7 @@ print_process_declaration(FILE *fp, biabl_list *biabl, char *name,
   
   return loopchain;
 
-  //
+  /**/
   np        = 0;
   head      = NULL;
   buffer    = NULL;
@@ -441,7 +441,7 @@ static void print_procIf(FILE *fp, char *buffer)
 {
   if (buffer[0]=='@')
   {
-   // iprint(fp,'+',"%s\n",buffer);
+   /* iprint(fp,'+',"%s\n",buffer);*/
    iprint(fp,'+',"");
   }
   else
@@ -567,10 +567,10 @@ print_withselect(FILE *fp, biabl_list *biabl, char *name,
   int                cpt     = 1;
   char               buf[4096];
 
-  // sensibility list
+  /* sensibility list*/
   print_process_declaration(fp,biabl,name,cpt,"BUS",buffer,NULL);
 
-  // process
+  /* process*/
   iprint(fp,'i',"begin\n");
 
   *buffer[0]    = '\0';
@@ -776,36 +776,36 @@ static void print_interassign(FILE *fp, char *dest, char *src, int mode)
 
 /*}}}************************************************************************/
 /*}}}************************************************************************/
-///*{{{                    Traitement de la begen                             */
-///****************************************************************************/
-///*{{{                    begen_treatment()                                  */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//static void
-//begen_treatment(FILE *fp, befig_list *figure)
-//{
-//  begen_list     *gen;
-//
-//  gen       = figure->BEGEN;
-//
-//  iprint(fp,'i',NULL);
-//  if (gen)
-//  {
-//    iprint(fp,'+',"GENERIC (\n");
-//    
-//    for (gen = figure->BEGEN; gen->NEXT; gen = gen->NEXT)
-//      iprint(fp,'0',"CONSTANT  %s : %s := %ld ;\t-- %s\n",
-//             gen->NAME,gen->TYPE,*((long *)gen->VALUE),gen->NAME);
-//    
-//    iprint(fp,'-',"CONSTANT  %s : %s := %ld  \t-- %s\n",
-//           gen->NAME,gen->TYPE,*((long *)gen->VALUE),gen->NAME);
-//    iprint(fp,'-',"); \n");
-//  }
-//}
-//
-///*}}}************************************************************************/
-///*}}}************************************************************************/
+/*/*{{{                    Traitement de la begen                             */
+/*/****************************************************************************/
+/*/*{{{                    begen_treatment()                                  */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*static void*/
+/*begen_treatment(FILE *fp, befig_list *figure)*/
+/*{*/
+/*  begen_list     *gen;*/
+/**/
+/*  gen       = figure->BEGEN;*/
+/**/
+/*  iprint(fp,'i',NULL);*/
+/*  if (gen)*/
+/*  {*/
+/*    iprint(fp,'+',"GENERIC (\n");*/
+/*    */
+/*    for (gen = figure->BEGEN; gen->NEXT; gen = gen->NEXT)*/
+/*      iprint(fp,'0',"CONSTANT  %s : %s := %ld ;\t-- %s\n",*/
+/*             gen->NAME,gen->TYPE,*((long *)gen->VALUE),gen->NAME);*/
+/*    */
+/*    iprint(fp,'-',"CONSTANT  %s : %s := %ld  \t-- %s\n",*/
+/*           gen->NAME,gen->TYPE,*((long *)gen->VALUE),gen->NAME);*/
+/*    iprint(fp,'-',"); \n");*/
+/*  }*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
+/*/*}}}************************************************************************/
 /*{{{                    Traitement des messages                            */
 /****************************************************************************/
 /*{{{                    bgl_initDriver()                                   */
@@ -891,7 +891,7 @@ vlogsavebefig(befig_list *pthedbefig, unsigned int trace_mode)
   }
 
   vlgportht                 = addht(40);
-  // imported
+  /* imported*/
   bgl_initDriver(&driver,fp,pthedbefig,vlgportht,&buffer,&bufsize);
   str           = getenv("BGL_DRIVE_PRIMITIVES");
   if (str != NULL)
@@ -902,7 +902,7 @@ vlogsavebefig(befig_list *pthedbefig, unsigned int trace_mode)
   else
     BGL_DRIVE_PRIMITIVES    = 0;
 
-  //BGL_LOOP_CPT              = 0;
+  /*BGL_LOOP_CPT              = 0;*/
 
   if ((trace_mode & BGL_TRACE) != 0)
     (void) fprintf(stdout, "Saving '%s' in a verilog file (%s)\n",

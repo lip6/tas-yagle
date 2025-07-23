@@ -24,22 +24,22 @@
 #include <tcl.h>
 
 #include MUT_H
-//#include MLO_H
+/*#include MLO_H*/
 #include API_H
 #include AVT_H
 #include "gen_tree_utils.h"
-//#include "gen_env.h"
+/*#include "gen_env.h"*/
 #include "gen_tree_errors.h"
-//#include "gen_tree_parser.h"
+/*#include "gen_tree_parser.h"*/
 #include "gen_verif_C.h"
 #include "gen_execute_C.h"
 
 
 
-// maximum number of arguments in a function call, it should be sufficient, no?
+/* maximum number of arguments in a function call, it should be sufficient, no?*/
 #define MAX_ARGS 64
 
-// intermediate variable types
+/* intermediate variable types*/
 #define INTERM "intermediate result"
 #define CONDITION "condition result"
 #define CONSTANTE "constant value"
@@ -48,7 +48,7 @@ static
 struct EXE_CTX
 {
   int STATIC_FLAG;                /* are we static? */
-  //static static_list* STATIC_LIST;        /*list of static variable with value*/
+  /*static static_list* STATIC_LIST;        /*list of static variable with value*/
   int RETURN_FLAG;        /* to count loop for return */
   t_arg *RETURN_VALUE;        /* to count loop for return */
   tree_list *RETURN_TREE;
@@ -101,7 +101,7 @@ void addupdate(chain_list **pt, void *zone, int type, int inc)
 
 
 
-// gen_info() is accessible to the dynamic library functions
+/* gen_info() is accessible to the dynamic library functions*/
 extern char *gen_info()
 {
   static char r[255];
@@ -112,7 +112,7 @@ extern char *gen_info()
   return r;
 }
 
-// _________________________________________________
+/* _________________________________________________*/
 
 static int STR2TYPE(char *name)
 {
@@ -123,7 +123,7 @@ static int STR2TYPE(char *name)
   return T_POINTER;
 }
 
-static int allocfortarg_multiplier=0; // for arrays
+static int allocfortarg_multiplier=0; /* for arrays*/
 void *allocfortarg(char *type, int pointer)
 {
   int tmp=allocfortarg_multiplier;
@@ -144,7 +144,7 @@ void *allocfortarg(char *type, int pointer)
       return mbkalloc(sizeof(double)*tmp);
     default:
       avt_errmsg(API_ERRMSG, "020", AVT_FATAL, FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),type);
-//      fprintf(stderr,"%s:%d: undefined type '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),type);
+/*      fprintf(stderr,"%s:%d: undefined type '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),type);*/
       EXIT(1); return NULL;
     }
 }
@@ -166,7 +166,7 @@ int sizeoftarg(char* type, int pointer)
       return sizeof(double);
     default:
       avt_errmsg(API_ERRMSG, "020", AVT_FATAL, FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),type);
-      //fprintf(stderr,"%s:%d: sizeoftarg: undefined type\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
+      /*fprintf(stderr,"%s:%d: sizeoftarg: undefined type\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));*/
       EXIT(1); return 0;
     }
 }
@@ -189,7 +189,7 @@ int sizeofpointed(char* type, int pointer)
         return sizeof(double);
       default:
       avt_errmsg(API_ERRMSG, "021", AVT_FATAL, FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),type);
-      //  fprintf(stderr,"%s:%d: sizeof(%s) is unknown\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),type);
+      /*  fprintf(stderr,"%s:%d: sizeof(%s) is unknown\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),type);*/
         EXIT(1);
       }
   return 0;
@@ -328,7 +328,7 @@ void assigntargtab(t_arg *env, t_arg *p, int index)
   memcpy(&elem[sizeoftarg(p->TYPE,p->POINTER)*index],p->VALUE,sizeoftarg(p->TYPE,p->POINTER));
 }
 
-// search for a t_arg defined in the block scope, the block is starting at limit
+/* search for a t_arg defined in the block scope, the block is starting at limit*/
 t_arg *blocklimited_gettarg(char *name, chain_list *env, chain_list *limit)
 {
   chain_list *cl;
@@ -341,7 +341,7 @@ t_arg *blocklimited_gettarg(char *name, chain_list *env, chain_list *limit)
 /****************************************************************************/
 /*                   erase recursively a static chain                       */
 /****************************************************************************/
-static inline void freestatic(static_list *list)
+static  void freestatic(static_list *list)
 {
   if (!list) return;
 
@@ -353,7 +353,7 @@ static inline void freestatic(static_list *list)
 /****************************************************************************/
 /*           return the last value of static variable                       */
 /****************************************************************************/
-static inline void *addstatic(tree_list* tree, t_arg *env)
+static  void *addstatic(tree_list* tree, t_arg *env)
 {
   static_list *p;
   int line;
@@ -361,7 +361,7 @@ static inline void *addstatic(tree_list* tree, t_arg *env)
    
   if (!tree || !env) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 86);
-    //fprintf(stderr,"addstatic: NULL pointer\n");
+    /*fprintf(stderr,"addstatic: NULL pointer\n");*/
     EXIT(1);
   }
   line=LINE(tree);
@@ -402,13 +402,13 @@ static inline void *addstatic(tree_list* tree, t_arg *env)
 /****************************************************************************/
 /*            memorize last value to static variable                        */
 /****************************************************************************/
-static inline void refresh_static(t_arg /*ptype_list*/ *env)
+static  void refresh_static(t_arg /*ptype_list*/ *env)
 {
   static_list *p;
    
   if (!env) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 87);
-//    fprintf(stderr,"addstatic: NULL pointer\n");
+/*    fprintf(stderr,"addstatic: NULL pointer\n");*/
     EXIT(1);
   }
 
@@ -425,7 +425,7 @@ static inline void refresh_static(t_arg /*ptype_list*/ *env)
 /*   return the new env with modififications of UPDATE                      */
 /*modif is list with field DATA is an elem of env and TYPE the number to add*/
 /****************************************************************************/
-static inline chain_list *Update_Var(chain_list /*ptype_list*/ *env) {
+static  chain_list *Update_Var(chain_list /*ptype_list*/ *env) {
   chain_list *p;
   update_s *s;
   for (p=CTX.UPDATE;p;p=p->NEXT) {
@@ -454,7 +454,7 @@ static inline chain_list *Update_Var(chain_list /*ptype_list*/ *env) {
   return env;
 }
 
-// Add a numeric value to a t_arg
+/* Add a numeric value to a t_arg*/
 static void addtarg(t_arg *ta, int value) 
 {
   if (ta->POINTER>0)
@@ -477,7 +477,7 @@ static void addtarg(t_arg *ta, int value)
       }
 }
 
-// create a t_arg given its type
+/* create a t_arg given its type*/
 t_arg *newtarg(char *type, int pointer, char *name)
 {
   t_arg *tmp=(t_arg *)mbkalloc(sizeof(t_arg));
@@ -496,7 +496,7 @@ t_arg *newtarg(char *type, int pointer, char *name)
   return tmp;
 }
 
-// if flag is not set, free only intermediate variable
+/* if flag is not set, free only intermediate variable*/
 void freetarg(t_arg *ta, int flag)
 {
   if (flag || (!flag && (ta->NAME==CONSTANTE || ta->NAME==INTERM || ta->NAME==CONDITION || strcmp(ta->NAME,"NULL")==0 || strcmp(ta->NAME,"?")==0)))
@@ -506,7 +506,7 @@ void freetarg(t_arg *ta, int flag)
     }
 }
 
-// pour le cast implicite des donnees
+/* pour le cast implicite des donnees*/
 
 static char *getbesttype(t_arg *ta, t_arg *tb)
 {
@@ -594,9 +594,9 @@ static void setsametype(t_arg **ta, t_arg **tb)
   *tb=setvalue(*tb, bt);
 }
 
-// ----------------
+/* ----------------*/
 
-// verify the type of a t_arg
+/* verify the type of a t_arg*/
 void asserttargistype(t_arg *ta,int type, int pointerflag)
 {
   if (STR2TYPE(ta->TYPE)!=type)
@@ -613,7 +613,7 @@ void asserttargistype(t_arg *ta,int type, int pointerflag)
     }
 }
 
-// verify 2 t_args are compatible (same type)
+/* verify 2 t_args are compatible (same type)*/
 void asserttargsametype(t_arg *ta, t_arg *ta0, int pointerflag)
 {
   if (strcmp(ta->TYPE,ta->TYPE)!=0 || ta->POINTER!=ta0->POINTER)
@@ -629,7 +629,7 @@ void asserttargsametype(t_arg *ta, t_arg *ta0, int pointerflag)
       EXIT(1);
     }
 }
-// check if a t_arg is not of a certain type
+/* check if a t_arg is not of a certain type*/
 void asserttargisnottype(t_arg *ta,int type)
 {
   if (STR2TYPE(ta->TYPE)==type)
@@ -668,7 +668,7 @@ t_arg *gettarg(char *name, chain_list *env)
 }
 
 
-// transparent IF condition testing of a t_arg (t_arg->value!=0)
+/* transparent IF condition testing of a t_arg (t_arg->value!=0)*/
 int testtarg(t_arg *left)
 {
   if (left->POINTER>0)
@@ -817,7 +817,7 @@ int GenCatchFunction(t_arg **ret, t_arg **tab, int nb, char *name)
   chain_list *ch;
 #if 0
   chain_list *cl;
-#endif // ..anto..
+#endif /* ..anto..*/
   int i;
   t_arg *ret_value;
 
@@ -826,13 +826,13 @@ int GenCatchFunction(t_arg **ret, t_arg **tab, int nb, char *name)
       if (nb<1)
         {
           avt_errmsg(API_ERRMSG, "033", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
-          // fprintf(stderr,"%s:%d: too few arguments for function 'malloc'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
+          /* fprintf(stderr,"%s:%d: too few arguments for function 'malloc'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));*/
           EXIT(1);
         }
       if (nb>1)
         {
           avt_errmsg(API_ERRMSG, "034", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
-//          fprintf(stderr,"%s:%d: too many arguments in function 'malloc'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
+/*          fprintf(stderr,"%s:%d: too many arguments in function 'malloc'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));*/
           EXIT(1);
         }
       tab[0]=setvalue(tab[0], "int");
@@ -847,7 +847,7 @@ int GenCatchFunction(t_arg **ret, t_arg **tab, int nb, char *name)
       if (nb<1)
         {
           avt_errmsg(API_ERRMSG, "035", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
-          //fprintf(stderr,"%s:%d: too few arguments for function 'callfunc'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
+          /*fprintf(stderr,"%s:%d: too few arguments for function 'callfunc'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));*/
           EXIT(1);
         }
       asserttargistype(tab[0], T_CHAR, 1);
@@ -864,7 +864,7 @@ int GenCatchFunction(t_arg **ret, t_arg **tab, int nb, char *name)
               else
                 {
                   avt_errmsg(API_ERRMSG, "036", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
-                  //fprintf(stderr,"%s:%d: callfunc: only 'char *' pointer type can be used in function call\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
+                  |*fprintf(stderr,"%s:%d: callfunc: only 'char *' pointer type can be used in function call\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));*|
                   EXIT(3);
                 }
             }
@@ -883,8 +883,8 @@ int GenCatchFunction(t_arg **ret, t_arg **tab, int nb, char *name)
     {
 #if 0
       int count;
-#endif // ..anto..
-      //      printf("found tree for '%s'\n",name);
+#endif /* ..anto..*/
+      /*      printf("found tree for '%s'\n",name);*/
       ch=APIPrepareFunctionARGS(tree, tab, nb, CTX.current_tree);
       
       if (APIExecute_C(tree, ch, &ret_value, CTX.GLOBAL_EC, 1)) EXIT(1);
@@ -941,7 +941,7 @@ void ZoneAdd(void *zone, char *type, int pointer, int inc)
         *((double *)zone)+=(double)inc; break;
       default:
         avt_errmsg(API_ERRMSG, "025", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
-        //fprintf(stderr,"%s:%d: Update_Var: forbiden operation on this variable type\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
+        /*fprintf(stderr,"%s:%d: Update_Var: forbiden operation on this variable type\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));*/
         EXIT(1);
       }
 }
@@ -968,11 +968,11 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
   char *ident;
   void *indexed;
   
-  CTX.current_tree=tree; // to specify file:line
+  CTX.current_tree=tree; /* to specify file:line*/
 
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 87);
-            //fprintf(stderr,"Eval_Exp_C: NULL pointer\n");
+            /*fprintf(stderr,"Eval_Exp_C: NULL pointer\n");*/
     EXIT(1);
   }
   
@@ -989,7 +989,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
     elem=gettarg(ident, env);
     if (!elem) {
       avt_errmsg(API_ERRMSG, "038", AVT_FATAL, FILE_NAME(tree),LINE(tree),ident);
-      //fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);
+      /*fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);*/
       EXIT(2);
     }
     if ((indexed=GetIndexedZone(elem,tree,env))==NULL)
@@ -1022,7 +1022,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
     elem=gettarg(ident, env);
     if (!elem) {
       avt_errmsg(API_ERRMSG, "038", AVT_FATAL, FILE_NAME(tree),LINE(tree),ident);
-      //fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);
+      /*fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);*/
       EXIT(2);
     }
     if ((indexed=GetIndexedZone(elem,tree,env))==NULL)
@@ -1055,7 +1055,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
     elem=gettarg(ident, env);
     if (!elem) {
       avt_errmsg(API_ERRMSG, "038", AVT_FATAL, FILE_NAME(tree),LINE(tree),ident);
-      //fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);
+      /*fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);*/
       EXIT(2);
     }  
     if ((indexed=GetIndexedZone(elem,tree,env))==NULL)
@@ -1096,7 +1096,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
     elem=gettarg(ident, env);
     if (!elem) {
       avt_errmsg(API_ERRMSG, "038", AVT_FATAL, FILE_NAME(tree),LINE(tree),ident);
-      //fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);
+      /*fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);*/
       EXIT(2);
     }  
       
@@ -1139,7 +1139,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
     
     if (left->POINTER==0 && right->POINTER>0)
       {
-        // type* a + int
+        /* type* a + int*/
         asserttargistype(left, T_INT, 0);
         tmp=newtarg(right->TYPE, right->POINTER, INTERM);
         *((char **)tmp->VALUE) = *((char **)right->VALUE) + sizeofpointed(right->TYPE, right->POINTER)* *((int *)left->VALUE);
@@ -1149,7 +1149,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
     else
       if (left->POINTER>0 && right->POINTER==0)
         {
-          // type* a + int
+          /* type* a + int*/
           asserttargistype(right, T_INT, 0);
           tmp=newtarg(left->TYPE, left->POINTER, INTERM);
           *((char **)tmp->VALUE) = *((char **)left->VALUE) + sizeofpointed(left->TYPE, left->POINTER)* *((int *)right->VALUE);
@@ -1160,7 +1160,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         if (left->POINTER>0 && right->POINTER>0)
           {
             avt_errmsg(API_ERRMSG, "039", AVT_FATAL, FILE_NAME(tree),LINE(tree));
-            //fprintf(stderr,"%s:%d: Unautorized operation on pointers\n",FILE_NAME(tree),LINE(tree));
+            /*fprintf(stderr,"%s:%d: Unautorized operation on pointers\n",FILE_NAME(tree),LINE(tree));*/
             EXIT(1);
           }
     setsametype(&left, &right);
@@ -1180,11 +1180,11 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((double *)tmp->VALUE) = *((double *)left->VALUE) + *((double *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL, FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
-    return tmp; //Eval_Exp_C(tree->NEXT,env)+Eval_Exp_C(tree->NEXT->NEXT,env);
+    return tmp; /*Eval_Exp_C(tree->NEXT,env)+Eval_Exp_C(tree->NEXT->NEXT,env);*/
   case '-': 
     left=Eval_Exp_C(tree->NEXT,env);
     right=Eval_Exp_C(tree->NEXT->NEXT,env);
@@ -1192,13 +1192,13 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
     if (left->POINTER==0 && right->POINTER>0)
       {
         avt_errmsg(API_ERRMSG, "039", AVT_FATAL, FILE_NAME(tree),LINE(tree));
-        //fprintf(stderr,"%s:%d: Unautorized operation on pointers\n",FILE_NAME(tree),LINE(tree));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on pointers\n",FILE_NAME(tree),LINE(tree));*/
         EXIT(1);
       }
     else
       if (left->POINTER>0 && right->POINTER==0)
         {
-          // type* a + int
+          /* type* a + int*/
           asserttargisnottype(right, T_CHAR);
           asserttargisnottype(right, T_DOUBLE);
           tmp=newtarg(left->TYPE, left->POINTER, INTERM);
@@ -1208,7 +1208,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
             }
           else
             {
-              // LONG
+              /* LONG*/
               *((char **)tmp->VALUE) = *((char **)left->VALUE) - sizeofpointed(left->TYPE, left->POINTER)* *((long *)right->VALUE);
             }
           freetarg(left,0); freetarg(right,0);
@@ -1241,7 +1241,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((double *)tmp->VALUE) = *((double *)left->VALUE) - *((double *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1267,7 +1267,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((double *)tmp->VALUE) = *((double *)left->VALUE) * *((double *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        // fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /* fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1292,14 +1292,14 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        // fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /* fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
 
     if (error)
       {
         avt_errmsg(API_ERRMSG, "041", AVT_FATAL,FILE_NAME(tree),LINE(tree));
-//        fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));
+/*        fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));*/
         EXIT(1);
       }
 
@@ -1322,7 +1322,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((double *)tmp->VALUE) = *((double *)left->VALUE) / *((double *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "042", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),left->TYPE);
-        //fprintf(stderr,"%s:%d: Unautorized operation on type '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),left->TYPE);
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),left->TYPE);*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1347,14 +1347,14 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
 
     if (error)
       {
         avt_errmsg(API_ERRMSG, "041", AVT_FATAL,FILE_NAME(tree),LINE(tree));
-        //fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));
+        /*fprintf(stderr,"%s:%d: division by zero\n",FILE_NAME(tree),LINE(tree));*/
         EXIT(1);
       }
 
@@ -1376,7 +1376,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((char *)tmp->VALUE) = *((char *)left->VALUE) % *((char *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1402,7 +1402,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((int *)tmp->VALUE) = *((double *)left->VALUE) < *((double *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-//        fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+/*        fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1428,7 +1428,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((int *)tmp->VALUE) = *((double *)left->VALUE) > *((double *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1453,7 +1453,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((char *)tmp->VALUE) = *((char *)left->VALUE) & *((char *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1478,7 +1478,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((char *)tmp->VALUE) = *((char *)left->VALUE) | *((char *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1503,7 +1503,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((char *)tmp->VALUE) = *((char *)left->VALUE) ^ *((char *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1571,7 +1571,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
           *((int *)tmp->VALUE) = *((double *)left->VALUE) == *((double *)right->VALUE); break;
         default:
           avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //  fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*  fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
           EXIT(1);
         }
     freetarg(left,0); freetarg(right,0);
@@ -1600,7 +1600,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
           *((int *)tmp->VALUE) = *((double *)left->VALUE) >= *((double *)right->VALUE); break;
         default:
           avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-          //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+          /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
           EXIT(1);
         }
     freetarg(left,0); freetarg(right,0);
@@ -1629,7 +1629,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
           *((int *)tmp->VALUE) = *((double *)left->VALUE) <= *((double *)right->VALUE); break;
         default:
           avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-          // fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+          /* fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
           EXIT(1);
         }
     freetarg(left,0); freetarg(right,0);
@@ -1658,7 +1658,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
           *((int *)tmp->VALUE) = *((double *)left->VALUE) != *((double *)right->VALUE); break;
         default:
           avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-          // fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+          /* fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
           EXIT(1);
         }
     freetarg(left,0); freetarg(right,0);
@@ -1683,7 +1683,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((char *)tmp->VALUE) = *((char *)left->VALUE) >> *((char *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1708,7 +1708,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((char *)tmp->VALUE) = *((char *)left->VALUE) << *((char *)right->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),left->TYPE);
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),left->TYPE);*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1730,7 +1730,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((double *)tmp->VALUE) = - *((double *)left->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE, deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE, deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0);
@@ -1755,7 +1755,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((char *)tmp->VALUE) = ~ *((char *)left->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0); freetarg(right,0);
@@ -1763,7 +1763,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
   case GEN_TOKEN_NOT: 
     left=Eval_Exp_C(tree->NEXT,env);
 
-    tmp=newtarg("int", 0, CONDITION); //tmp=newtarg(left->TYPE, left->POINTER, INTERM);
+    tmp=newtarg("int", 0, CONDITION); /*tmp=newtarg(left->TYPE, left->POINTER, INTERM);*/
 
     switch(STR2TYPE(left->TYPE))
       {
@@ -1777,7 +1777,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         *((int *)tmp->VALUE) = ! *((void **)left->VALUE); break;
       default:
         avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-        //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+        /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
         EXIT(1);
       }
     freetarg(left,0);
@@ -1807,7 +1807,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
       if (left->POINTER==0 || left->POINTER>(int)(long)tree->NEXT->NEXT->DATA || (left->POINTER==(int)(long)tree->NEXT->NEXT->DATA && i!=T_LONG && i!=T_INT && i!=T_DOUBLE && i!=T_CHAR))
         {
           avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-         // fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+         /* fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
           EXIT(1);
         }
       
@@ -1849,7 +1849,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
           break;
         default:
           avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-          //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+          /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
           EXIT(1);
         }
       freetarg(left,0);
@@ -1860,7 +1860,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
     elem=gettarg(ident, env);
     if (!elem) {
       avt_errmsg(API_ERRMSG, "038", AVT_FATAL,FILE_NAME(tree),LINE(tree),ident);
-      //fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);
+      /*fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);*/
       EXIT(2);
     }
     if (TOKEN(tree->NEXT->DATA)!=GEN_TOKEN_ARRAY)
@@ -1897,7 +1897,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
               }
             else
               {
-                // LONG
+                /* LONG*/
                 long index;
                 index=*(long *)tmp->VALUE;
                 freetarg(tmp,0);
@@ -1909,7 +1909,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         else
           {
             avt_errmsg(API_ERRMSG, "027", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);
-//            fprintf(stderr,"%s:%d: '%s' should not be pointers\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);
+/*            fprintf(stderr,"%s:%d: '%s' should not be pointers\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);*/
             EXIT(1);
           }
         return tmp;
@@ -1923,7 +1923,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
     elem=gettarg(ident, env);
     if (!elem) {
       avt_errmsg(API_ERRMSG, "038", AVT_FATAL,FILE_NAME(tree),LINE(tree),ident);
-      //fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);
+      /*fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);*/
       EXIT(2);
     }   
     return elem;
@@ -1934,7 +1934,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
       elem=gettarg(ident, env);
       if (!elem) {
         avt_errmsg(API_ERRMSG, "038", AVT_FATAL,FILE_NAME(tree),LINE(tree),ident);
-        //fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);
+        /*fprintf(stderr,"%s:%d: Eval_Exp_C: unknown variable '%s'\n",FILE_NAME(tree),LINE(tree),ident);*/
         EXIT(2);
       }   
       if (elem->POINTER==0)
@@ -1962,7 +1962,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
             }
           else
             {
-              // LONG
+              /* LONG*/
               long index;
               index=*(long *)tmp->VALUE;
               freetarg(tmp,0);
@@ -1974,7 +1974,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
       else
         {
           avt_errmsg(API_ERRMSG, "027", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);
-          //fprintf(stderr,"%s:%d: '%s' should not be pointers\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);
+          /*fprintf(stderr,"%s:%d: '%s' should not be pointers\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);*/
           EXIT(1);
         }
 
@@ -1993,7 +1993,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
             *((double *)tmp->VALUE) = *(double *)elm; break;
           default:
             avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),elem->TYPE,deref(elem->POINTER));
-            //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),elem->TYPE,deref(elem->POINTER));
+            /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),elem->TYPE,deref(elem->POINTER));*/
             EXIT(1);
           }
       return tmp;
@@ -2018,7 +2018,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         elem=gettarg(ident, env);
         if (!elem) {
           avt_errmsg(API_ERRMSG, "038", AVT_FATAL,FILE_NAME(tree),LINE(tree),ident);
-          //fprintf(stderr,"%s:%d: unknown variable '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),ident);
+          /*fprintf(stderr,"%s:%d: unknown variable '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),ident);*/
           EXIT(2);
         }   
         right=Eval_Exp_C(tree->NEXT->NEXT,env);
@@ -2050,7 +2050,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
                   }
                 else
                   {
-                    // LONG
+                    /* LONG*/
                     long index;
                     index=*(long *)tmp->VALUE;
                     freetarg(tmp,0);
@@ -2064,7 +2064,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
             else
               {
                 avt_errmsg(API_ERRMSG, "027", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);
-                //fprintf(stderr,"%s:%d: '%s' should not be pointers\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);
+                /*fprintf(stderr,"%s:%d: '%s' should not be pointers\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);*/
                 EXIT(1);
               }
             return tmp;
@@ -2079,7 +2079,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         elem=gettarg(ident, env);
         if (!elem) {
           avt_errmsg(API_ERRMSG, "038", AVT_FATAL,FILE_NAME(tree),LINE(tree),ident);
-          //fprintf(stderr,"%s:%d: unknown variable '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),ident);
+          /*fprintf(stderr,"%s:%d: unknown variable '%s'\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),ident);*/
         }   
         left=Eval_Exp_C(tree->NEXT->NEXT,env);
         if (TOKEN(tree->NEXT->DATA->NEXT->DATA)==GEN_TOKEN_ARRAY)
@@ -2105,20 +2105,20 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
         if (elem->POINTER-red<nbref)
           {
             avt_errmsg(API_ERRMSG, "043", AVT_FATAL,FILE_NAME(tree),LINE(tree),elem->TYPE,deref(elem->POINTER));
-//            fprintf(stderr,"%s:%d: can not make the requested dereference of '%s%s'\n",FILE_NAME(tree),LINE(tree),elem->TYPE,deref(elem->POINTER));
+/*            fprintf(stderr,"%s:%d: can not make the requested dereference of '%s%s'\n",FILE_NAME(tree),LINE(tree),elem->TYPE,deref(elem->POINTER));*/
             EXIT(1);
           }
         i=STR2TYPE(left->TYPE);
         if (left->POINTER>nbref || (left->POINTER==nbref && (i!=T_LONG || i!=T_INT || i!=T_DOUBLE || i!=T_CHAR)))
           {
             avt_errmsg(API_ERRMSG, "044", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE);
-            // fprintf(stderr,"%s:%d: can not make the dereference of '%s'\n",FILE_NAME(tree),LINE(tree),left->TYPE);
+            /* fprintf(stderr,"%s:%d: can not make the dereference of '%s'\n",FILE_NAME(tree),LINE(tree),left->TYPE);*/
             EXIT(1);
           }
         if (elem->POINTER-red-nbref!=left->POINTER)
           {
             avt_errmsg(API_ERRMSG, "037", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER),elem->TYPE,deref(elem->POINTER-red-nbref));
-//            fprintf(stderr,"%s:%d: can not assign %s%s to %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER),elem->TYPE,deref(elem->POINTER-red-nbref));
+/*            fprintf(stderr,"%s:%d: can not assign %s%s to %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER),elem->TYPE,deref(elem->POINTER-red-nbref));*/
             EXIT(1);
           }
     
@@ -2144,7 +2144,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
                   }
                 else
                   {
-                    // LONG
+                    /* LONG*/
                     long index;
                     index=*(long *)tmp->VALUE;
                     freetarg(tmp,0);
@@ -2155,7 +2155,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
             else
               {
                 avt_errmsg(API_ERRMSG, "027", AVT_FATAL,FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);
-                // fprintf(stderr,"%s:%d: '%s' should not be pointers\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);
+                /* fprintf(stderr,"%s:%d: '%s' should not be pointers\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree),tmp->NAME);*/
                 EXIT(1);
               }
           }
@@ -2197,7 +2197,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
             break;
           default:
             avt_errmsg(API_ERRMSG, "040", AVT_FATAL,FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
-            //fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));
+            /*fprintf(stderr,"%s:%d: Unautorized operation on type %s%s\n",FILE_NAME(tree),LINE(tree),left->TYPE,deref(left->POINTER));*/
             EXIT(1);
           }
         return left; 
@@ -2242,7 +2242,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
       if (i>=MAX_ARGS)
         {
           avt_errmsg(API_ERRMSG, "045", AVT_FATAL,FILE_NAME(tree),LINE(tree),MAX_ARGS);
-          //fprintf(stderr,"%s:%d: Can not call functions with more then %d arguments\n",FILE_NAME(tree),LINE(tree),MAX_ARGS);
+          /*fprintf(stderr,"%s:%d: Can not call functions with more then %d arguments\n",FILE_NAME(tree),LINE(tree),MAX_ARGS);*/
           EXIT(1);
         }
     
@@ -2281,7 +2281,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
           if (libfunc==NULL)
             {
               avt_errmsg(API_ERRMSG, "046", AVT_FATAL,FILE_NAME(tree),LINE(tree),function_name);
-              //fprintf(stderr,"%s:%d: function '%s' can't be found in the dynamic libraries\n",FILE_NAME(tree),LINE(tree),function_name);
+              /*fprintf(stderr,"%s:%d: function '%s' can't be found in the dynamic libraries\n",FILE_NAME(tree),LINE(tree),function_name);*/
               EXIT(3);
             }
           
@@ -2290,17 +2290,17 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
             {
             case 1:
               avt_errmsg(API_ERRMSG, "047", AVT_FATAL,FILE_NAME(tree),LINE(tree),function_name);
-              //fprintf(stderr,"%s:%d: %s\n",FILE_NAME(tree),LINE(tree),function_name);
+              /*fprintf(stderr,"%s:%d: %s\n",FILE_NAME(tree),LINE(tree),function_name);*/
               EXIT(2);
             case 2:
             case 3:
               avt_errmsg(API_ERRMSG, "048", AVT_FATAL,FILE_NAME(tree),LINE(tree));
-              //fprintf(stderr," error happens at %s:%d\n",FILE_NAME(tree),LINE(tree));
+              /*fprintf(stderr," error happens at %s:%d\n",FILE_NAME(tree),LINE(tree));*/
               EXIT(2);
             }
 
           ret->NAME=INTERM;
-          // free the known types
+          /* free the known types*/
           findandresettype(ret);
         }
       for (j=0;j<i;j++)
@@ -2322,7 +2322,7 @@ static t_arg *Eval_Exp_C(tree_list *tree, chain_list *env)
 /****************************************************************************/
 
 
-static inline chain_list* Decl_Var(tree_list *tree, chain_list *env, char *type, int pointer)
+static  chain_list* Decl_Var(tree_list *tree, chain_list *env, char *type, int pointer)
 {
   char *ident;
   t_arg *tmp, *right;
@@ -2332,7 +2332,7 @@ static inline chain_list* Decl_Var(tree_list *tree, chain_list *env, char *type,
 
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 88);
-//    fprintf(stderr,"Decl_Var: NULL pointer\n");
+/*    fprintf(stderr,"Decl_Var: NULL pointer\n");*/
     EXIT(1);
   }
   
@@ -2397,13 +2397,13 @@ static inline chain_list* Decl_Var(tree_list *tree, chain_list *env, char *type,
     if (tmp!=NULL) 
       {
         avt_errmsg(API_ERRMSG, "049", AVT_FATAL,FILE_NAME(tree),LINE(tree),ident);
-        //fprintf(stderr,"%s:%d: variable '%s' already declared in this scope\n",FILE_NAME(tree),LINE(tree),ident);
+        /*fprintf(stderr,"%s:%d: variable '%s' already declared in this scope\n",FILE_NAME(tree),LINE(tree),ident);*/
         EXIT(2);
       }   
     if (STR2TYPE(type)==T_POINTER && pointer==0)
       {
         avt_errmsg(API_ERRMSG, "050", AVT_FATAL,FILE_NAME(tree),LINE(tree),type);
-        //fprintf(stderr,"%s:%d: type '%s' must be used as pointer\n",FILE_NAME(tree),LINE(tree),type);
+        /*fprintf(stderr,"%s:%d: type '%s' must be used as pointer\n",FILE_NAME(tree),LINE(tree),type);*/
         EXIT(2);
       }
  
@@ -2432,7 +2432,7 @@ static inline chain_list* Decl_Var(tree_list *tree, chain_list *env, char *type,
 /*                    execute instructions in tree                          */
 /* return the new environment                                               */
 /****************************************************************************/
-static char *lastflow=NULL; // about sprintf, to know the first cut_tree
+static char *lastflow=NULL; /* about sprintf, to know the first cut_tree*/
 
 extern chain_list *Eval_Inst_C(tree_list *tree,chain_list *env)
 {
@@ -2444,7 +2444,7 @@ extern chain_list *Eval_Inst_C(tree_list *tree,chain_list *env)
 
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 89);
-//    fprintf(stderr,"Eval_Inst_C: NULL pointer\n");
+/*    fprintf(stderr,"Eval_Inst_C: NULL pointer\n");*/
     EXIT(1);
   }
   
@@ -2477,7 +2477,7 @@ extern chain_list *Eval_Inst_C(tree_list *tree,chain_list *env)
       }
       if (!p) {
         avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 90);
-//        fprintf(stderr,"Eval_Inst_C: NULL pointer\n");
+/*        fprintf(stderr,"Eval_Inst_C: NULL pointer\n");*/
         EXIT(1);
       }
       p->NEXT=NULL;
@@ -2546,7 +2546,7 @@ extern chain_list *Eval_Inst_C(tree_list *tree,chain_list *env)
       if (strcmp(tmp->TYPE,"FILE")!=0)
         {
           avt_errmsg(API_ERRMSG, "051", AVT_FATAL, FILE_NAME(tree),LINE(tree),tmp->NAME);
-          //fprintf(stderr,"%s:%d: Eval_Inst_C: type of '%s' must be 'FILE *'\n",FILE_NAME(tree),LINE(tree),tmp->NAME);
+          /*fprintf(stderr,"%s:%d: Eval_Inst_C: type of '%s' must be 'FILE *'\n",FILE_NAME(tree),LINE(tree),tmp->NAME);*/
           EXIT(2);
         }
       flow=*(FILE **)tmp->VALUE;
@@ -2771,7 +2771,7 @@ extern chain_list *Eval_Global_Decl(tree_list *tree,chain_list *env)
 
   if (!tree) {
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 91);
-//    fprintf(stderr,"Eval_Global_Decl: NULL pointer\n");
+/*    fprintf(stderr,"Eval_Global_Decl: NULL pointer\n");*/
     EXIT(1);
   }
     
@@ -2811,7 +2811,7 @@ extern chain_list *Eval_Global_Decl(tree_list *tree,chain_list *env)
     /*other cases are expressions*/
   default:
     avt_errmsg(API_ERRMSG, "004", AVT_FATAL, 92);
-    //fprintf(stderr,"Eval_Global_Decl: unknown token %d\n",TOKEN(tree));
+    /*fprintf(stderr,"Eval_Global_Decl: unknown token %d\n",TOKEN(tree));*/
     EXIT(1);
      
   }
@@ -2848,7 +2848,7 @@ int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, Execution
   libfunc_type func;
   t_arg *ret;
   char buf[128];
-#endif // ..anto..
+#endif /* ..anto..*/
   struct EXE_CTX LASTCTX;
   ExecutionContext *prev=CUR_CTX;
 
@@ -2871,7 +2871,7 @@ int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, Execution
   if (setjmp(sj_env))
     {
       avt_errmsg(API_ERRMSG, "052", AVT_ERROR, FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
-      //fprintf(stderr,"%s:%d: Fatal error while executing program\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));
+      /*fprintf(stderr,"%s:%d: Fatal error while executing program\n",FILE_NAME(CTX.current_tree),LINE(CTX.current_tree));*/
       memcpy(&CTX, &LASTCTX, sizeof(struct EXE_CTX));
       CUR_CTX=prev;
       return 1;
@@ -2879,7 +2879,7 @@ int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, Execution
 
   if (!tree)
     {
-      //fprintf(stderr,"Exec_C: NULL pointer\n");
+      /*fprintf(stderr,"Exec_C: NULL pointer\n");*/
       memcpy(&CTX, &LASTCTX, sizeof(struct EXE_CTX));
       CUR_CTX=prev;
       return 1;
@@ -2887,7 +2887,7 @@ int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, Execution
   if ((fatal_err=Get_Error())!=0)
     {
       avt_errmsg(API_ERRMSG, "053", AVT_ERROR, fatal_err);
-      //fprintf(stderr,"Exec_C: %d errors. Cannot execute\n",fatal_err);
+      /*fprintf(stderr,"Exec_C: %d errors. Cannot execute\n",fatal_err);*/
       memcpy(&CTX, &LASTCTX, sizeof(struct EXE_CTX));
       CUR_CTX=prev;
       return 1;
@@ -2902,7 +2902,7 @@ int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, Execution
   CTX.BLOCK_ENV_LIMIT=NULL;
   CTX.RETURN_VALUE=NULL;
    
-  //  basevar=NULL;
+  /*  basevar=NULL;*/
   basevar=ec->globalvars;
 
   for (tmp=APIGetCFunctionARGS(tree);tmp!=NULL;tmp=tmp->NEXT)
@@ -2913,21 +2913,21 @@ int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, Execution
           ta=(t_arg *)p->DATA;
           if (strcasecmp(ta->NAME, ta0->NAME)==0) break;
         }
-      //      for (p0=env;p0!=NULL && p0->DATA!=tmp->DATA;p0=p0->NEXT) ;
+      /*      for (p0=env;p0!=NULL && p0->DATA!=tmp->DATA;p0=p0->NEXT) ;*/
       if (p==NULL)
         {
           avt_errmsg(API_ERRMSG, "054", AVT_WARNING, FILE_NAME(tree), LINE(tree), ta0->NAME);
-          //fprintf(stderr,"%s:%d: parameter '%s' is uninitialised\n",FILE_NAME(tree), LINE(tree), ta0->NAME);
+          /*fprintf(stderr,"%s:%d: parameter '%s' is uninitialised\n",FILE_NAME(tree), LINE(tree), ta0->NAME);*/
           ta=newtarg(ta0->TYPE, ta0->POINTER, sensitive_namealloc(ta0->NAME));
           basevar=addchain(basevar,ta);
         }
       else
         {
-          // check types
+          /* check types*/
           if (strcmp(ta0->TYPE, ta->TYPE)!=0 || ta0->POINTER!=ta->POINTER)
             {
               avt_errmsg(API_ERRMSG, "055", AVT_WARNING, FILE_NAME(tree), LINE(tree),ta0->NAME, ta->TYPE,deref(ta->POINTER), ta0->TYPE, deref(ta0->POINTER));
-              //fprintf(stderr,"%s:%d: conflicting type for parameter '%s' : '%s%s'!='%s%s'\n",FILE_NAME(tree), LINE(tree),ta0->NAME, ta->TYPE,deref(ta->POINTER), ta0->TYPE, deref(ta0->POINTER));
+              /*fprintf(stderr,"%s:%d: conflicting type for parameter '%s' : '%s%s'!='%s%s'\n",FILE_NAME(tree), LINE(tree),ta0->NAME, ta->TYPE,deref(ta->POINTER), ta0->TYPE, deref(ta0->POINTER));*/
             }
         }
     }
@@ -2941,11 +2941,11 @@ int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, Execution
   ta=(t_arg *)tmp->DATA;
   if (strcmp(ta->TYPE, "void")==0 && ta->POINTER==0 && CTX.RETURN_VALUE!=NULL)
     avt_errmsg(API_ERRMSG, "056", AVT_WARNING, FILE_NAME(CTX.RETURN_TREE), LINE(CTX.RETURN_TREE));
-    //fprintf(stderr,"%s:%d: return value for void function\n",FILE_NAME(CTX.RETURN_TREE), LINE(CTX.RETURN_TREE));
+    /*fprintf(stderr,"%s:%d: return value for void function\n",FILE_NAME(CTX.RETURN_TREE), LINE(CTX.RETURN_TREE));*/
   else
     if (!(strcmp(ta->TYPE, "void")==0 && ta->POINTER==0) && CTX.RETURN_VALUE==NULL)
       avt_errmsg(API_ERRMSG, "057", AVT_WARNING, FILE_NAME(tree), LINE(tree));
-      //fprintf(stderr,"%s:%d: no return value for function\n",FILE_NAME(tree), LINE(tree));
+      /*fprintf(stderr,"%s:%d: no return value for function\n",FILE_NAME(tree), LINE(tree));*/
     else
       {
         if (CTX.RETURN_VALUE!=NULL)
@@ -2953,7 +2953,7 @@ int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, Execution
             if (!(ta->POINTER!=0 && CTX.RETURN_VALUE->POINTER!=0 && (strcmp(ta->TYPE,"void")==0 || strcmp(CTX.RETURN_VALUE->TYPE,"void")==0)) &&
                 (strcmp(ta->TYPE, CTX.RETURN_VALUE->TYPE)!=0 || ta->POINTER!=CTX.RETURN_VALUE->POINTER))
               avt_errmsg(API_ERRMSG, "058", AVT_WARNING, FILE_NAME(CTX.RETURN_TREE), LINE(CTX.RETURN_TREE), ta->TYPE,deref(ta->POINTER), CTX.RETURN_VALUE->TYPE, deref(CTX.RETURN_VALUE->POINTER));
-              //fprintf(stderr,"%s:%d: conflicting type for return value : '%s%s'!='%s%s'\n",FILE_NAME(CTX.RETURN_TREE), LINE(CTX.RETURN_TREE), ta->TYPE,deref(ta->POINTER), CTX.RETURN_VALUE->TYPE, deref(CTX.RETURN_VALUE->POINTER));
+              /*fprintf(stderr,"%s:%d: conflicting type for return value : '%s%s'!='%s%s'\n",FILE_NAME(CTX.RETURN_TREE), LINE(CTX.RETURN_TREE), ta->TYPE,deref(ta->POINTER), CTX.RETURN_VALUE->TYPE, deref(CTX.RETURN_VALUE->POINTER));*/
           }
       }
 
@@ -2967,7 +2967,7 @@ int APIExecute_C(tree_list *tree, chain_list *args, t_arg **ret_value, Execution
       if (p->NEXT==basevar) break;
     }
     if (!p) {
-//      fprintf(stderr,"Eval_Inst_C: NULL pointer\n");
+/*      fprintf(stderr,"Eval_Inst_C: NULL pointer\n");*/
       memcpy(&CTX, &LASTCTX, sizeof(struct EXE_CTX));
       return 1;
     }
@@ -3014,8 +3014,8 @@ extern void Free_Exec_C(ExecutionContext *ec)
   for (st=ec->STATIC_LIST;st!=NULL;st=st->NEXT) mbkfree(st->VALUE);
 
   freestatic(ec->STATIC_LIST);
-  //  freechain(ModelTrace);
-  //  ModelTrace=NULL;
+  /*  freechain(ModelTrace);*/
+  /*  ModelTrace=NULL;*/
   for (p=ec->globalvars; p!=NULL; p=p->NEXT) freetarg((t_arg *)p->DATA,1);
   freechain(ec->globalvars);
 }
@@ -3099,7 +3099,7 @@ int APICheckCFunctions(ExecutionContext *ec)
                   notfound++;
                   if (notfound==1) fprintf(stderr,"\n");
                   avt_errmsg(API_ERRMSG, "059", AVT_ERROR, uf->name);
-//                  fprintf(stderr,"Function '%s' used in action was not found\nLocation(s):\n", uf->name);
+/*                  fprintf(stderr,"Function '%s' used in action was not found\nLocation(s):\n", uf->name);*/
                   for (ch=uf->where; ch!=NULL; ch=ch->NEXT)
                     {
                       fprintf(stderr,"\t%s:%d\n",FILE_NAME((tree_list *)ch->DATA), LINE((tree_list *)ch->DATA));
@@ -3279,14 +3279,14 @@ chain_list *APIPrepareFunctionARGS(tree_list *func, t_arg **tab, int nb, tree_li
       if (count<nb)
         {
           avt_errmsg(API_ERRMSG, "060", AVT_FATAL, FILE_NAME(where!=NULL?where:func),LINE(where!=NULL?where:func),APIGetCName(func));
-//          fprintf(stderr,"%s:%d: too many arguments in function '%s'\n",FILE_NAME(where!=NULL?where:func),LINE(where!=NULL?where:func),APIGetCName(func));
+/*          fprintf(stderr,"%s:%d: too many arguments in function '%s'\n",FILE_NAME(where!=NULL?where:func),LINE(where!=NULL?where:func),APIGetCName(func));*/
           EXIT(1);
         }
       else
         if (count>nb)
           {
             avt_errmsg(API_ERRMSG, "061", AVT_FATAL, FILE_NAME(where!=NULL?where:func),LINE(where!=NULL?where:func),APIGetCName(func));
-            //fprintf(stderr,"%s:%d: too few arguments for function '%s'\n",FILE_NAME(where!=NULL?where:func),LINE(where!=NULL?where:func),APIGetCName(func));
+            /*fprintf(stderr,"%s:%d: too few arguments for function '%s'\n",FILE_NAME(where!=NULL?where:func),LINE(where!=NULL?where:func),APIGetCName(func));*/
             EXIT(1);
           }
     }
@@ -3337,7 +3337,7 @@ int APIExecAPICallFunc(ExecutionContext *ec, APICallFunc *cf, t_arg **ret, int n
 
   if (ec!=NULL && (func = APIGetCFunction (ec, cf->NAME, 'y'))!=NULL) 
     {
-      //      printf("found tree for '%s'\n",cf->NAME);
+      /*      printf("found tree for '%s'\n",cf->NAME);*/
       for (nb=0, ch=cf->ARGS; ch!=NULL; nb++, ch=ch->NEXT) tab[nb]=(t_arg *)ch->DATA;
 
       ch=APIPrepareFunctionARGS(func, tab, nb, NULL);
@@ -3379,7 +3379,7 @@ int APIExecAPICallFunc(ExecutionContext *ec, APICallFunc *cf, t_arg **ret, int n
      }
   }
   
-  // .so
+  /* .so*/
   sprintf(function_name,"wrap_%s",cf->NAME);
   
   libfunc=(libfunc_type)GetDynamicFunction(function_name);
@@ -3388,7 +3388,7 @@ int APIExecAPICallFunc(ExecutionContext *ec, APICallFunc *cf, t_arg **ret, int n
     {
       if (noerr) return 1;
       avt_errmsg(API_ERRMSG, "062", AVT_FATAL, function_name);
-     // fprintf(stderr,"somewhere: function '%s' can't neither be found in interpreter nor in the dynamic libraries\n", function_name);
+     /* fprintf(stderr,"somewhere: function '%s' can't neither be found in interpreter nor in the dynamic libraries\n", function_name);*/
       EXIT(3);
     }
   
@@ -3398,17 +3398,17 @@ int APIExecAPICallFunc(ExecutionContext *ec, APICallFunc *cf, t_arg **ret, int n
     {
     case 1:
       avt_errmsg(API_ERRMSG, "063", AVT_FATAL, function_name);
-//      fprintf(stderr,"somewhere executing %s\n",function_name);
+/*      fprintf(stderr,"somewhere executing %s\n",function_name);*/
       EXIT(2);
     case 2:
     case 3:
       avt_errmsg(API_ERRMSG, "064", AVT_FATAL, function_name);
-//      fprintf(stderr," error happens at somewhere when executing '%s'\n",function_name);
+/*      fprintf(stderr," error happens at somewhere when executing '%s'\n",function_name);*/
       EXIT(2);
     }
   
   ret_value->NAME=INTERM;
-  // free the known types
+  /* free the known types*/
   if (strcmp(ret_value->TYPE,"int")==0) { mbkfree(ret_value->TYPE); ret_value->TYPE="int"; }
   else if (strcmp(ret_value->TYPE,"void")==0) { mbkfree(ret_value->TYPE); ret_value->TYPE="void"; }
   else if (strcmp(ret_value->TYPE,"double")==0) { mbkfree(ret_value->TYPE); ret_value->TYPE="double"; }

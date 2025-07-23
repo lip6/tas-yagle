@@ -52,7 +52,7 @@ vhdloadbefig (befig_list *pt_befig, char *figname, unsigned int trace_mode)
   char                 *str        ;
   static unsigned int   call_nbr   = 0   ;
 
-  // added to prevent warning
+  /* added to prevent warning*/
   if (pt_befig) call_nbr =0 ;
 
   suffix = V_STR_TAB[__BVL_FILE_SUFFIX].VALUE;
@@ -117,6 +117,6 @@ vhdloadbefig (befig_list *pt_befig, char *figname, unsigned int trace_mode)
   if (BVL_HEDFIG->ERRFLG == 0)
     BVL_HEDFIG->ERRFLG = beh_chkbefig (BVL_HEDFIG, check_mode);
 
-  // fprintf( stdout, "BVL (vhd) : parse completed\n");
+  /* fprintf( stdout, "BVL (vhd) : parse completed\n");*/
   return (BVL_HEDFIG);
 }

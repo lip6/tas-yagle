@@ -51,7 +51,7 @@ $(TARGET_LIB)/$(TRC_LIB) : $(TRC_OBJ)
 	$(RANLIB) $(TARGET_LIB)/$(TRC_LIB)
 
 $(TARGET_INCLUDE)/$(TRC_H) : trc_lib.h $(TRC_INC)
-	( echo "/* This is a generated file. Do not edit */" ; echo ; cat trc_lib.h ; ( for FILE in $(TRC_INC) ; do echo "// Externals from file $$FILE" ; echo ; cat $$FILE | grep "^extern" ; echo ; done ) ; echo "#endif" ) > $(TARGET_INCLUDE)/$(TRC_H)
+	( echo "/* This is a generated file. Do not edit */" ; echo ; cat trc_lib.h ; ( for FILE in $(TRC_INC) ; do echo "/* Externals from file $$FILE */" ; echo ; cat $$FILE | grep "^extern" ; echo ; done ) ; echo "#endif" ) > $(TARGET_INCLUDE)/$(TRC_H)
 
 .c.o :
 	$(CC) $(LOCAL_CFLAGS) $(LOCAL_CPPFLAGS)  $<

@@ -33,14 +33,14 @@
 /*ptsignode = (signode_ctc*)mbkalloc (sizeof (struct signode_ctc));*/
 
 static int ignore=0;
-int yyerror();
+int yyerror(char*);
 int yylex();
 char *vss = NULL;
 it *namemaptable = NULL;
 ht *portmap_ht = NULL;
 chain_list *ctclist = NULL;
 spef_info *SPEF_INFO;
-// static void clean_SPEF_INFO();
+/* static void clean_SPEF_INFO();*/
  static int SPEF_ERROR;
 %}
 
@@ -658,10 +658,10 @@ cnumber: '(' number number ')' ;
 
 extern char *speftext ;
 
-int yyerror()
+int yyerror(char* unused)
 {
   avt_errmsg(SPE_ERRMSG, "004", AVT_FATAL, spef_ParsedFile, Line, speftext);
-//  printf("\nSPEF Parser:%s:%d: Syntax Error.\n", spef_ParsedFile, Line) ;
+/*  printf("\nSPEF Parser:%s:%d: Syntax Error.\n", spef_ParsedFile, Line) ;*/
   EXIT(1);
   return 0;
 }
@@ -669,7 +669,7 @@ int yyerror()
 void spef_parser_error(char *message)
 {
   avt_errmsg(SPE_ERRMSG, "003", AVT_FATAL, spef_ParsedFile, Line, message);
-//fprintf(stderr,"\nSPEF Parser:%s:%d: %s\n", spef_ParsedFile, Line, message) ;
+/*fprintf(stderr,"\nSPEF Parser:%s:%d: %s\n", spef_ParsedFile, Line, message) ;*/
   EXIT(1);
 }
 /*

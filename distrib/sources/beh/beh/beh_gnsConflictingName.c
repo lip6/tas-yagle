@@ -14,7 +14,7 @@
 
 #include "beh_gnsConflictingName.h"
 
-//#define BEH_AVT_SUPPORT(num) (stderr,"[BEH_ERR] %d please contact Avertec support\n",(num))
+/*#define BEH_AVT_SUPPORT(num) (stderr,"[BEH_ERR] %d please contact Avertec support\n",(num))*/
 #define BEH_UNDO_NAME (long)(-9)
         
 static ht   *HTSIGREF;
@@ -109,14 +109,14 @@ void beh_dumpHTName(ht *nameht, int mode)
         if (mode)
         {
           beh_warning(312,oldname,(char*)listname->DATA);
-          //(stderr,"%20s -> %s\n",oldname,(char*)listname->DATA);
+          /*(stderr,"%20s -> %s\n",oldname,(char*)listname->DATA);*/
           for (chainx = listname->NEXT; chainx; chainx = chainx->NEXT)
             beh_warning(313," ",(char*)chainx->DATA);
-            //(stderr,"%23s %s\n"," ",(char*)chainx->DATA);
+            /*(stderr,"%23s %s\n"," ",(char*)chainx->DATA);*/
         }
         else
           beh_warning(312,oldname,(char*)listname);
-          //(stderr,"%20s -> %s\n",oldname,(char*)listname);
+          /*(stderr,"%20s -> %s\n",oldname,(char*)listname);*/
       }
     }
 }
@@ -138,10 +138,10 @@ void beh_changeNameInside(ht *signalht, befig_list *fig)
 
       sprintf(buf,"%d",__LINE__);
       beh_toolbug(199,buf,NULL,0);
-      //BEH_AVT_SUPPORT(__LINE__);
-      //EXIT(0);
+      /*BEH_AVT_SUPPORT(__LINE__);*/
+      /*EXIT(0);*/
     }
-    // discard top level interface renaming
+    /* discard top level interface renaming*/
     for (por = fig->BEPOR; por; por = por->NEXT)
       addhtitem(signalht,por->NAME,(long)por->NAME);
     

@@ -4,7 +4,7 @@
 #include "stb.tab.h"
 
 #define ECHO
-//fprintf(stderr,"\n-=<{oo}>=- %s\n",yytext)
+/*fprintf(stderr,"\n-=<{oo}>=- %s\n",yytext)*/
 #define YY_NO_UNPUT
 /* ###--------------------------------------------------------------### */
 /* function      : search                                               */

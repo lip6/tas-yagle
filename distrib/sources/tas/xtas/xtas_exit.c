@@ -86,7 +86,7 @@ Widget  widget;
 XtPointer  client_data;
 XtPointer call_data;
 {
-// XalLeaveLimitedLoop();
+/* XalLeaveLimitedLoop();*/
 }
 
 
@@ -155,7 +155,7 @@ XmAddWMProtocolCallback(XtParent(question), WM_DELETE_WINDOW, XalCancelExit, (Xt
 
 XtManageChild( question );
 
-// XalLimitedLoop(question);  
+/* XalLimitedLoop(question);  */
 
 }
 

@@ -12,5 +12,5 @@
 /*                                                                          */
 /****************************************************************************/
 
-extern void find_mem(); /* Cherche un model dans un circuit */
+extern void fclFind( lofig_list *ptlofig_c, lofig_list *ptlofig_m, befig_list *ptbefig_m );
 

@@ -93,8 +93,8 @@ ablError (expr, func)
   if (oper < MIN_OPER || oper > MAX_OPER)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"162");
-//      printf ("\nablError :\n%s: error - bad operator\n", func);
-//      EXIT (-1);
+/*      printf ("\nablError :\n%s: error - bad operator\n", func);*/
+/*      EXIT (-1);*/
     }
   func = NULL;
 }
@@ -136,11 +136,11 @@ createExpr (oper)
   else
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"163");
-//      printf ("\ncreateExpr: error - unknown operator %d\n", oper);
-//      EXIT (-1);
+/*      printf ("\ncreateExpr: error - unknown operator %d\n", oper);*/
+/*      EXIT (-1);*/
     }
 #ifndef __ALL__WARNING__
-  return 0; // ..anto..
+  return 0; /* ..anto..*/
 #endif
 }
 
@@ -183,8 +183,8 @@ createBinExpr (oper, expr1, expr2)
   if (oper < MIN_OPER || oper > MAX_OPER || oper == NOT)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"164");
-//      printf ("\ncreateBinExpr: error - bad operator %d\n", oper);
-//      EXIT (-1);
+/*      printf ("\ncreateBinExpr: error - bad operator %d\n", oper);*/
+/*      EXIT (-1);*/
     }
 
   if (ATOM (expr1) || (OPER (expr1) != oper) ||
@@ -217,7 +217,7 @@ createBinExpr (oper, expr1, expr2)
       expr->NEXT = expr2->NEXT;
       expr2->NEXT = NULL;        /* desa. de la tete de expr2 */
       freechain(expr2->DATA); freechain(expr2);
-//      freeExpr (expr2);
+/*      freeExpr (expr2);*/
     }
   return (expr);
 }
@@ -323,11 +323,11 @@ operToChar (oper)
   else
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"165");
-//      printf ("\nablError - operToChar: unknown operator %d\n", oper);
-//      EXIT (-1);
+/*      printf ("\nablError - operToChar: unknown operator %d\n", oper);*/
+/*      EXIT (-1);*/
     }
 #ifndef __ALL__WARNING__
-  return 0; // ..anto..
+  return 0; /* ..anto..*/
 #endif
 }
 
@@ -804,10 +804,7 @@ profAOExpr (expr)
              func sur les ss-expr. de expr.
   ------------------------------------------------------------------*/
 chain_list *
-mapCarExpr (func, oper, expr)
-     chain_list *(*func) ();
-     short oper;
-     chain_list *expr;
+mapCarExpr ( chain_list *(*func) (chain_list*), short oper, chain_list *expr )
 {
   chain_list *pt;
 
@@ -824,10 +821,7 @@ mapCarExpr (func, oper, expr)
              func doit renvoye un void et prendre comme argument un 
              pointeur de chain_list.
   ------------------------------------------------------------------*/
-void 
-mapExpr (func, expr)
-     void (*func) ();
-     chain_list *expr;
+void mapExpr ( void (*func) (chain_list*), chain_list *expr )
 {
   while ((expr = CDR (expr)))
     (*func) (CAR (expr));
@@ -840,10 +834,7 @@ mapExpr (func, expr)
              renvoie 1 s'il y a eu au moins un appel de func qui a
              renvoye 1. (OU  logique)
   ------------------------------------------------------------------*/
-int 
-anyExpr (func, expr)
-     int (*func) ();
-     chain_list *expr;
+int anyExpr ( int (*func) (chain_list*), chain_list *expr )
 {
   while ((expr = CDR (expr)))
     if ((*func) (CAR (expr)))
@@ -860,9 +851,7 @@ anyExpr (func, expr)
             (ET logique)
   ------------------------------------------------------------------*/
 int 
-everyExpr (func, expr)
-     int (*func) ();
-     chain_list *expr;
+everyExpr ( int (*func) (chain_list*), chain_list *expr )
 {
   while ((expr = CDR (expr)))
     if (!((*func) (CAR (expr))))
@@ -1108,11 +1097,11 @@ copyExpr (expr)
 
           /* remplace : addQExpr(auxExpr,copyExpr(CAR(expr))); */
         }
-      //
-      // warning CDR(CAR(expr)) can contain a *pNode or *chain_list
-      // to treat the two cases i make a test on the value pointed
-      // by CDR(CAR(expr))
-      //                                                anto
+      /**/
+      /* warning CDR(CAR(expr)) can contain a *pNode or *chain_list*/
+      /* to treat the two cases i make a test on the value pointed*/
+      /* by CDR(CAR(expr))*/
+      /*                                                anto*/
 
       if (OPER(oldExpr)==REPLICATE)
       {
@@ -1199,7 +1188,7 @@ devXorExpr (expr)
   else
     {
       if (OPER (expr) != XOR)
-      {// modified by anto to compute vectabl
+      {/* modified by anto to compute vectabl*/
         tmp = mapCarExpr (devXorExpr, OPER (expr), expr);
         if (OPER (expr) == REPLICATE)
         {
@@ -1346,7 +1335,7 @@ flatPolarityExpr (expr, signe)
         freeExpr (pt);
         return (expr);
       }
-      // added by anto to compute vectabl
+      /* added by anto to compute vectabl*/
       else if (oper == CAT || oper == REPLICATE)
       {
         pt = createExpr(oper);
@@ -1359,14 +1348,14 @@ flatPolarityExpr (expr, signe)
           addQExpr (pt, flatPolarityExpr (CAR (expr), signe));
         return (pt);
       }
-      ///////////////////////////////////
+      /*/////////////////////////////////*/
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"167");
-//      printf ("flatPolarityExpr: error - unknown operator %s\n", operToChar (oper));
-//      EXIT (-1);
+/*      printf ("flatPolarityExpr: error - unknown operator %s\n", operToChar (oper));*/
+/*      EXIT (-1);*/
     }
   }
 #ifndef __ALL__WARNING__
-  return 0; // ..anto..
+  return 0; /* ..anto..*/
 #endif
 }
 
@@ -1448,7 +1437,7 @@ supportChain_listExprInt (expr, ppCL)
           strcmp (VALUE_ATOM (expr), "'z'") &&
           strcmp (VALUE_ATOM (expr), "'1'") &&
           strcmp (VALUE_ATOM (expr), "'0'") &&
-        // added by anto for bitstring
+        /* added by anto for bitstring*/
       !isBitStr(VALUE_ATOM (expr))
       )
         {
@@ -1481,12 +1470,12 @@ supportChain_listExpr (expr)
   chain_list *ppCL;
   chain_list *res;
 
-//  ppCL = (chain_list **) mbkalloc (sizeof (chain_list *));
-//  *
+/*  ppCL = (chain_list **) mbkalloc (sizeof (chain_list *));*/
+/*  **/
   ppCL = NULL;
   supportChain_listExprInt (expr, &ppCL);
   res = reverse (ppCL);
-//  mbkfree (ppCL);
+/*  mbkfree (ppCL);*/
 
   return res;
 }
@@ -1520,13 +1509,13 @@ fullSupportChain_listExpr (expr)
   chain_list *ppCL;
   chain_list *res;
 
-//  ppCL = (chain_list **) mbkalloc (sizeof (chain_list *));
-//  *
+/*  ppCL = (chain_list **) mbkalloc (sizeof (chain_list *));*/
+/*  **/
   ppCL = NULL;
   fullSupportChain_listExprInt (expr, &ppCL);
   res = reverse (ppCL);
-//  res = reverse (*ppCL);
-//  mbkfree (ppCL);
+/*  res = reverse (*ppCL);*/
+/*  mbkfree (ppCL);*/
 
   return res;
 }
@@ -1594,10 +1583,7 @@ supportPtype_listExpr (expr)
   FUNCTION : renvoie le max des arguments d'une expression avec une
   fonction de comparaison func renvoyant un int.
   ------------------------------------------------------------------ */
-chain_list *
-maxExpr (expr, func)
-     chain_list *expr;
-     int (*func) ();
+chain_list * maxExpr ( chain_list *expr, int (*func) (chain_list*) )
 {
   chain_list *expr1;
 
@@ -1618,9 +1604,7 @@ maxExpr (expr, func)
   ------------------------------------------------------------------ */
 
 chain_list *
-minExpr (expr, func)
-     chain_list *expr;
-     int (*func) ();
+minExpr ( chain_list *expr, int (*func) (chain_list*) )
 {
   chain_list *expr1;
 
@@ -1641,10 +1625,7 @@ minExpr (expr, func)
             direction = 1 croissant  ;  direction = 0 decroissant
   ------------------------------------------------------------------ */
 void 
-sortExpr (expr, func, direction)
-     chain_list *expr;
-     long (*func) ();
-     int direction;
+sortExpr ( chain_list *expr, long (*func) (chain_list*), int direction )
 {
   chain_list *expr1;
   int okPermu = 1;
@@ -1739,9 +1720,9 @@ deleteNumExpr (expr, i)
   if (lengthExpr (expr) <= i)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"168");
-//      printf ("deleteNumExpr : error - index %d out of bound for \n", i);
-//      displayExpr (e);
-//      EXIT (-1);
+/*      printf ("deleteNumExpr : error - index %d out of bound for \n", i);*/
+/*      displayExpr (e);*/
+/*      EXIT (-1);*/
     }
 
   pt = expr;
@@ -1775,7 +1756,7 @@ searchNumExpr (expr, i)
      int i;
 {
   int co = 0;
-//  chain_list *e = expr;
+/*  chain_list *e = expr;*/
 
   while ((expr = CDR (expr)))
     {
@@ -1785,11 +1766,11 @@ searchNumExpr (expr, i)
     }
 
   avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"169");
-//  printf ("\nsearchNumExpr : error - index %d out of bound for \n", i);
-//  displayExpr (e);
-//  EXIT (-1);
+/*  printf ("\nsearchNumExpr : error - index %d out of bound for \n", i);*/
+/*  displayExpr (e);*/
+/*  EXIT (-1);*/
 #ifndef __ALL__WARNING__
-  return 0; // ..anto..
+  return 0; /* ..anto..*/
 #endif
 }
 
@@ -1839,8 +1820,8 @@ changeOperExpr (expr, oper)
   if (ATOM (expr))
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"170");
-//      printf ("changeOperExpr : error - atomic expression\n");
-//      EXIT (-1);
+/*      printf ("changeOperExpr : error - atomic expression\n");*/
+/*      EXIT (-1);*/
     }
   else
     {
@@ -1921,7 +1902,7 @@ simplif10Expr (expr)
                return auxExpr;
                break;
                
-              // added by anto to compute vectabl 
+              /* added by anto to compute vectabl */
           case CAT:
                addQExpr (auxExpr, res);
                break;
@@ -1932,7 +1913,7 @@ simplif10Expr (expr)
                  addQExpr (auxExpr, copyExpr(res));
                freeExpr(res);
                break;
-              ////////////////////////////////////
+              /*//////////////////////////////////*/
                
           case STABLE:
                addQExpr (auxExpr, res);
@@ -2102,11 +2083,11 @@ simplif10Expr (expr)
   }
 
   avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"171");
-//  printf ("## ERROR in simplif10Expr, %s.%d\n", __FILE__, __LINE__);
-//  EXIT (-1);
+/*  printf ("## ERROR in simplif10Expr, %s.%d\n", __FILE__, __LINE__);*/
+/*  EXIT (-1);*/
 
 #ifndef __ALL__WARNING__
-  return 0; // ..anto..
+  return 0; /* ..anto..*/
 #endif
 }
 
@@ -2156,16 +2137,16 @@ charToExprInt (stringExpr, cptCar)
 {
   char *tokOper;
   char *tok;
-//  char *tokenExpr ();
+/*  char *tokenExpr ();*/
   chain_list *expr;
 
   tok = tokenExpr (stringExpr, cptCar);
   if (!tok)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"172");
-//      printf ("charToExpr : error - bad string to convert\n");
-//      printf ("%s\n", stringExpr);
-//      EXIT (-1);
+/*      printf ("charToExpr : error - bad string to convert\n");*/
+/*      printf ("%s\n", stringExpr);*/
+/*      EXIT (-1);*/
     }
 
   if (strcmp (tok, "("))        /* noeud terminal direct */
@@ -2179,9 +2160,9 @@ charToExprInt (stringExpr, cptCar)
   if (!tokOper)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"173");
-//      printf ("charToExpr : error - bad string to convert\n");
-//      printf ("%s\n", stringExpr);
-//      EXIT (-1);
+/*      printf ("charToExpr : error - bad string to convert\n");*/
+/*      printf ("%s\n", stringExpr);*/
+/*      EXIT (-1);*/
     }
   switch (*tokOper)
     {
@@ -2214,14 +2195,14 @@ charToExprInt (stringExpr, cptCar)
           break;
         default:
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"174");
-//          printf ("charToExpr : error - bad operator %s\n", tokOper);
-//          EXIT (-1);
+/*          printf ("charToExpr : error - bad operator %s\n", tokOper);*/
+/*          EXIT (-1);*/
         }
       break;
     default:
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"175");
-//      printf ("charToExpr : error - bad operator %s\n", tokOper);
-//      EXIT (-1);
+/*      printf ("charToExpr : error - bad operator %s\n", tokOper);*/
+/*      EXIT (-1);*/
     }
   mbkfree (tokOper);
 
@@ -2229,9 +2210,9 @@ charToExprInt (stringExpr, cptCar)
   if (!tok)
     {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"176");
-//      printf ("charToExpr : error - bad string to convert\n");
-//      printf ("%s\n", stringExpr);
-//      EXIT (-1);
+/*      printf ("charToExpr : error - bad string to convert\n");*/
+/*      printf ("%s\n", stringExpr);*/
+/*      EXIT (-1);*/
     }
 
   do
@@ -2257,9 +2238,9 @@ charToExprInt (stringExpr, cptCar)
       if (!tok)
         {
       avt_errmsg(LOG_ERRMSG,"000",AVT_FATAL,"177");
-//          printf ("charToExpr : error - bad string to convert\n");
-//          printf ("%s\n", stringExpr);
-//          EXIT (-1);
+/*          printf ("charToExpr : error - bad string to convert\n");*/
+/*          printf ("%s\n", stringExpr);*/
+/*          EXIT (-1);*/
         }
     }
   while (strcmp (tok, ")"));

@@ -14,7 +14,7 @@
 
 chain_list     *yagExpandExpr __P((gnode_list *ptnode, chain_list *rootexpr, int negate));
 chain_list     *yagExpandTerm __P((gnode_list *ptnode, chain_list *headarg));
-biabl_list     *yagMakeBiabl __P((abl_pair *constexpr));
+biabl_list     *yagMakeBiabl __P((abl_pair *));
 biabl_list     *yagMakeLatchExpr __P((cone_list *ptcone));
 biabl_list     *yagMakeTristateExpr __P((cone_list *ptcone));
 chain_list     *yagMakeDualExpr __P((cone_list *ptcone));

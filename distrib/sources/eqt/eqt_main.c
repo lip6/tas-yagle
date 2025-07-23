@@ -73,10 +73,10 @@ double mycos (double p)
 int main (int argc, char **argv)
 {
   char          *str, *str2;
-  //    char *string ;
-  //    chain_list *abl ;
-  //    chain_list *expr1;
-  //    chain_list *expr2;
+  /*    char *string ;*/
+  /*    chain_list *abl ;*/
+  /*    chain_list *expr1;*/
+  /*    chain_list *expr2;*/
   eqt_node      *node = NULL ;
   int            doTree, i;
   eqt_ctx *ecx;
@@ -146,11 +146,11 @@ int main (int argc, char **argv)
         eqt_printTree(ecx,node,0);
       printf("\ndrived\n");
       eqt_drive(ecx,node);
-      //eqt_print(node) ;
+      /*eqt_print(node) ;*/
       eqt_eval (ecx, str,EQTFAST);
     }
-    //    fprintf (stdout, "\n*** Normal = %g ***\n", eqt_eval (str, EQTNORMAL)) ;
-    //    fprintf (stdout, "\n*** Fast = %g ***\n", eqt_eval (str, EQTFAST)) ;
+    /*    fprintf (stdout, "\n*** Normal = %g ***\n", eqt_eval (str, EQTNORMAL)) ;*/
+    /*    fprintf (stdout, "\n*** Fast = %g ***\n", eqt_eval (str, EQTFAST)) ;*/
     eqt_freenode(node);
     eqt_term (ecx);
 

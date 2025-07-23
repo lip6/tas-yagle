@@ -100,20 +100,20 @@
 |                          Functions                          |
 \------------------------------------------------------------*/
 
-  void XyagInitializeRessources();
-  void XyagChangeTopLevelTitle();
+extern void XyagInitializeRessources( int *argc, char *argv[], Colormap *ptcolormap );
+extern void XyagChangeTopLevelTitle( char *Title );
 
   void XyagChangeEditMode();
 
-  void XyagClearGraphicWindow();
+extern void XyagClearGraphicWindow( long GraphicX, long GraphicY, long GraphicDx, long GraphicDy );
   void XyagResizeGraphicWindow();
-  void XyagRefreshGraphicWindow();
+extern void XyagRefreshGraphicWindow( Dimension GraphicX, Dimension GraphicY, Dimension GraphicDx, Dimension GraphicDy );
 
   void XyagComputeUnitGrid();
   void XyagResizeUnitGrid();
 
-  void XyagDisplayFigure();
-  void XyagDisplayObject();
+extern void XyagDisplayFigure( long GraphicX1, long GraphicY1, long GraphicX2, long GraphicY2 );
+extern void XyagDisplayObject( xyagobj_list *Obj );
 
   void XyagDisplayCursor();
   void XyagUndisplayCursor();

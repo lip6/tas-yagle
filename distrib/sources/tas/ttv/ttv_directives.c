@@ -37,7 +37,7 @@ static chain_list *ttv_getsiglist(ttvfig_list *tvf, ht *h, char *name, NameAlloc
   chains.DATA = name ;
   chains.NEXT = NULL ;
      
-  // a faire: filtrer les noeuds rc
+  /* a faire: filtrer les noeuds rc*/
   chainsig = ttv_getsigbytype_and_netname(tvf,NULL,TTV_SIG_TYPEALL,&chains) ;
   if (chainsig==NULL) avt_errmsg(TTV_ERRMSG, "060", AVT_WARNING, name);
   return chainsig;
@@ -166,7 +166,7 @@ chain_list *ttv_get_signal_with_directives(ttvfig_list *tvf, int clocks, int dat
       for (i=0; i<1; i++)
       {
         pt=ttv_get_directive_slopes(&tvs->NODE[j], i, -1, -1);
-//        pt=(ptype_list *)append((chain_list *)ttv_get_directive_slopes(&tvs->NODE[j], i, 1), (chain_list *)pt);
+/*        pt=(ptype_list *)append((chain_list *)ttv_get_directive_slopes(&tvs->NODE[j], i, 1), (chain_list *)pt);*/
         for (pt0=pt; pt0!=NULL; pt0=pt0->NEXT)
         {
           tvs0=((ttvevent_list *)pt0->DATA)->ROOT;

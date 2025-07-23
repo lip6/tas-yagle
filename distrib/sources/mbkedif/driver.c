@@ -72,22 +72,22 @@ char *EdifTime();
 
 /* Global Functions*/
 
-static void         port_ext         ( );
-static void         edit_sig         ( );
-static void         edit_ins         ( );
-static void         edit_con         ( );
-static void         connect          ( );
-static void         view             ( );
-static void         drive_cell       ( );
-static void         r_drive_cell     ( );
-static int          edif_busindex    ( );
-static int          drive_basic_cells( );
-static locon_list  *edif_found_array ( );
-static void         check_fig_portref( );
-static void         r_found_suffixed_cells( );
+static void         port_ext         ( locon_list *sig_con, int sig_index );
+static void         edit_sig         ( lofig_list* );
+static void         edit_ins         ( loins_list* );
+static void         edit_con         ( locon_list* );
+static void         connect          ( locon_list *conn, int index, loins_list *instance );
+static void         view             ( char*, char );
+static void         drive_cell       ( char*, char );
+static void         r_drive_cell     ( lofig_list* );
+static int          edif_busindex    ( char* );
+static int          drive_basic_cells( lofig_list* );
+static locon_list  *edif_found_array (locon_list *ptcon, char *name, int *begin, int *end );
+static void         check_fig_portref( char *lofig_name, locon_list *ptcon, int sig_index );
+static void         r_found_suffixed_cells( lofig_list* );
 static void         save_libraries_cells( );
 
-       char        *edif_busname     ( );
+       char        *edif_busname     ( char* );
 
 /*---------------------------------------------------------\
                      ParseSuffixes
@@ -356,8 +356,7 @@ int   insert;
 /*---------------------------------------------------------\
                      r_found_suffixed_cells
 \---------------------------------------------------------*/
-static void r_found_suffixed_cells( ptlofig )
-lofig_list *ptlofig;
+static void r_found_suffixed_cells( lofig_list *ptlofig )
 {
 	chain_list *ptchain;
 
@@ -377,8 +376,7 @@ lofig_list *ptlofig;
 /*---------------------------------------------------------\
                      r_drive_cell
 \---------------------------------------------------------*/
-static void r_drive_cell(ptlofig)
-lofig_list *ptlofig;
+static void r_drive_cell( lofig_list *ptlofig )
 {
 	chain_list *ptchain;
 	lofig_list *ptlfig;
@@ -404,8 +402,7 @@ lofig_list *ptlofig;
 /*---------------------------------------------------------\
                      drive_basic_cells
 \---------------------------------------------------------*/
-static int drive_basic_cells( ptlofig )
-lofig_list *ptlofig;
+static int drive_basic_cells( lofig_list *ptlofig )
 {
 	chain_list *ptchain;
 	char       *cell_model_name;
@@ -423,9 +420,7 @@ lofig_list *ptlofig;
 /*---------------------------------------------------------\
                      drive_cell
 \---------------------------------------------------------*/
-static void drive_cell(figname, c)
-char *figname;
-char  c;
+static void drive_cell( char *figname, char  c )
 {
 	if (in_chain_list(already_drived, figname))
 		return;
@@ -490,10 +485,7 @@ char viewtype;
 /*---------------------------------------------------------\
                      connect
 \---------------------------------------------------------*/
-static void connect(conn, index, instance)
-locon_list *conn;
-int         index;
-loins_list *instance;
+static void connect( locon_list *conn, int index, loins_list *instance )
 {
 	locon_list *ptcon;
 	locon_list *ptcon2;
@@ -569,8 +561,7 @@ loins_list *instance;
 /*---------------------------------------------------------\
                      edit_con
 \---------------------------------------------------------*/
-static void edit_con( ptcon )
-locon_list *ptcon;
+static void edit_con( locon_list *ptcon )
 {
 	char         direction[ 7 ];
 	char         cadence_array_name[ 1000 ];
@@ -634,8 +625,7 @@ locon_list *ptcon;
 /*---------------------------------------------------------\
                      edit_ins
 \---------------------------------------------------------*/
-static void edit_ins(ptins)
-loins_list *ptins;
+static void edit_ins( loins_list *ptins )
 {
 	char  cellref_type;
 	char *name;
@@ -672,8 +662,7 @@ loins_list *ptins;
 /*---------------------------------------------------------\
                      edit_sig
 \---------------------------------------------------------*/
-static void edit_sig(ptlofig)
-lofig_list *ptlofig;
+static void edit_sig( lofig_list *ptlofig )
 {
 	losig_list *ptsig;
 	loins_list *sig_ins;
@@ -743,10 +732,7 @@ lofig_list *ptlofig;
 /*---------------------------------------------------------\
                      check_fig_portref
 \---------------------------------------------------------*/
-static void check_fig_portref( lofig_name, ptcon, sig_index )
-char        *lofig_name;
-locon_list  *ptcon;
-int     sig_index;
+static void check_fig_portref( char *lofig_name, locon_list *ptcon, int sig_index )
 {
 	int nb = 0;
 
@@ -767,9 +753,7 @@ int     sig_index;
 /*---------------------------------------------------------\
                      port_ext
 \---------------------------------------------------------*/
-static void port_ext( sig_con, sig_index )
-locon_list *sig_con;
-int         sig_index;
+static void port_ext( locon_list *sig_con, int sig_index )
 {
 	losig_list *sig_con_sig;
 	locon_list *connector, *fig_con;
@@ -805,11 +789,7 @@ int         sig_index;
 /*---------------------------------------------------------\
                      edif_found_array
 \---------------------------------------------------------*/
-static locon_list *edif_found_array( ptcon, name, begin, end )
-locon_list *ptcon;
-char       *name;
-int        *begin;
-int        *end;
+static locon_list *edif_found_array( locon_list *ptcon, char *name, int *begin, int *end )
 {
 	locon_list *ptcon_first_bus;
 	char       *array_name;
@@ -848,8 +828,7 @@ int        *end;
 /*---------------------------------------------------------\
                      edif_busindex
 \---------------------------------------------------------*/
-static int edif_busindex(s)
-char *s;
+static int edif_busindex( char *s )
 {
 	char *t;
 
@@ -863,8 +842,7 @@ char *s;
 /*---------------------------------------------------------\
                      edif_busname
 \---------------------------------------------------------*/
-char *edif_busname( name )
-char *name;
+char *edif_busname( char *name )
 {
 	char *s;
 	char c[100];

@@ -8,7 +8,7 @@
 /*    (c) copyright 2002 AVERTEC                                            */
 /*    Tous droits reserves                                                  */
 /*                                                                          */
-/*    Auteur(s) : //Stephane Picault                                        */
+/*    Auteur(s) : /*Stephane Picault                                        */
 /*                  Antony PINTO                                            */
 /*                                                                          */
 /****************************************************************************/
@@ -143,7 +143,7 @@ char        *name2;
   zennod_list   *NewZenNod;
 
   if (!(NewZenNod=zen_searchzennod(ZenFig,name1)) )
-  { // si le node n'existe pas
+  { /* si le node n'existe pas*/
     if ((be=searchBeOut(BeFigure,name1)))
       NewZenNod = zen_addNodeToZenfig(ZenFig,name1,NULL,be,ZEN_BEOUT,&Abl);
     else if ((be=searchBeReg(BeFigure,name1)))
@@ -151,7 +151,7 @@ char        *name2;
     else if ((be=searchBeAux(BeFigure,name1)))
       NewZenNod = zen_addNodeToZenfig(ZenFig,name1,NULL,be,ZEN_BEAUX,&Abl);
     if (NewZenNod)
-    { // si on l'a trouve
+    { /* si on l'a trouve*/
       chainx = reverse(supportChain_listExpr(Abl));
       for (;chainx;chainx=chainx->NEXT)
         if ((nodx=zen_newNode(BeFigure,ZenFig,(chainx->DATA),NULL)))
@@ -159,7 +159,7 @@ char        *name2;
            NewZenNod->INNOD = addchain(NewZenNod->INNOD,nodx);
            nodx->OUTNOD = addchain(nodx->OUTNOD,NewZenNod);
         }
-//      NewZenNod->INDEX = searchInputCct(ZenFig->CIRCUI,name1);
+/*      NewZenNod->INDEX = searchInputCct(ZenFig->CIRCUI,name1);*/
     }
     else if ((be=searchBeRin(BeFigure,name1)))
       NewZenNod = zen_addNodeToZenfig(ZenFig,name1,NULL,NULL,ZEN_BERIN,NULL);
@@ -201,7 +201,7 @@ ptype_list  *Path;
   }
   else if ((BeAux=searchBeAux(BeFigure,Path->DATA)))
     zen_newNode(BeFigure,NewZenFig,BeAux->NAME,NULL);
-  // on positionne les fronts sur le chemin
+  /* on positionne les fronts sur le chemin*/
   for (;Path;Path=Path->NEXT)
   {
     if ((ScanNod=zen_searchzennod(NewZenFig,Path->DATA)))
@@ -215,12 +215,12 @@ ptype_list  *Path;
       ZEN_ERROR(0,buf);
     }
   }
-  // test
+  /* test*/
   for (ScanChain=NewZenFig->NOD_PATH;ScanChain;ScanChain=ScanChain->NEXT)
   {
     ScanNod = ScanChain->DATA;
     sprintf(buf,"%-15s -> %c",ScanNod->NAME,ScanNod->VALUE);
-//    ZEN_TST(0,buf);
+/*    ZEN_TST(0,buf);*/
   }
 
   NewZenFig->NOD_PATH = reverse(NewZenFig->NOD_PATH);

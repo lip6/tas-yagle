@@ -9,7 +9,7 @@ char              *bgl_abl2strbool (chain_list *expr, char *chaine, int *size_pn
 char              *bgl_oper2char (short oper);
 char              *bgl_oper2charbool (short oper);
 int                bgl_writeprimitives (FILE *fp, char *name, chain_list *ptabl, unsigned int delay);
-//struct begen      *bgl_addgen (struct begen *lastgeneric, chain_list *nat_lst, chain_list *nam_lst, char *type, short left, short right, bgl_bcompcontext *context);
+/*struct begen      *bgl_addgen (struct begen *lastgeneric, chain_list *nat_lst, chain_list *nam_lst, char *type, short left, short right, bgl_bcompcontext *context);*/
 struct chain      *bgl_cpyabllst (chain_list *abllst);
 bgl_expr           bgl_cpyablstr (bgl_expr ablstr);
 void bgl_freenames(void);

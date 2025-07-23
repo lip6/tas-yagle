@@ -31,7 +31,7 @@ static char *MAIN_TOKEN_AVT = "AVT";
 
 static inline int givetoken_flex(char *env, char *tool, int nbtoken);
 
-// Les fonctions FLEXLM doivent etre comprises dans ce IF pour etre excluses
+/* Les fonctions FLEXLM doivent etre comprises dans ce IF pour etre excluses*/
 /*}}}************************************************************************/
 /*{{{                         deltoken_flex()                               */
 /*                                                                          */
@@ -43,7 +43,7 @@ int deltoken_flex(LM_HANDLE *job,chain_list *tokens)
   chain_list *chain;
   for (chain = tokens ; chain != NULL; chain = chain->NEXT) {
     lc_checkin(job,(char *)chain->DATA,0);
-  } // display info
+  } /* display info*/
   lc_free_job(job);
   return (1);
 }
@@ -150,7 +150,7 @@ int flex_newjob(char *env, char *tool, int nbtoken)
         givetoken_flex(env,MAIN_TOKEN_AVT,nbtoken);
     }
 
- // check if a token is already taken for this tool
+ /* check if a token is already taken for this tool*/
     for (chain = lm_token_used ; chain != NULL; chain = chain->NEXT) {
         if (strcmp((char *)chain->DATA,tool) == 0) {
             addtool=0;

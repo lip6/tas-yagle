@@ -37,7 +37,7 @@ extern chain_list *put_inlist(ident,list)
    char *name;
    if (!ident) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 252);
-//      fprintf(stderr,"put_inlist: NULL pointer\n");
+/*      fprintf(stderr,"put_inlist: NULL pointer\n");*/
       EXIT(1);
    }   
    name=getname(ident);
@@ -45,7 +45,7 @@ extern chain_list *put_inlist(ident,list)
    for (p=list;p;p=p->NEXT) {
       if (!p->DATA) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 253);
-//         fprintf(stderr,"put_inlist: NULL pointer\n");
+/*         fprintf(stderr,"put_inlist: NULL pointer\n");*/
          EXIT(1);
       }  
       if (getname(p->DATA)==name) {
@@ -74,7 +74,7 @@ extern tree_list *fetch_inlist(ident,list)
    char *name;
    if (!ident) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 254);
-//      fprintf(stderr,"fetch_inlist: NULL pointer\n");
+/*      fprintf(stderr,"fetch_inlist: NULL pointer\n");*/
       EXIT(1);
    }  
    name=getname(ident);
@@ -82,7 +82,7 @@ extern tree_list *fetch_inlist(ident,list)
    for (p=list;p;p=p->NEXT) {
       if (!p->DATA) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 254);
-//         fprintf(stderr,"fetch_inlist: NULL pointer\n");
+/*         fprintf(stderr,"fetch_inlist: NULL pointer\n");*/
          EXIT(1);
       }  
       if (strcasecmp(getname(p->DATA),name)==0) {
@@ -90,7 +90,7 @@ extern tree_list *fetch_inlist(ident,list)
    }
    
     avt_errmsg(GNS_ERRMSG, "164", AVT_ERROR, FILE_NAME(ident),LINE(ident), name);
-//   fprintf(stderr,"%s:%d: '%s' not defined\n",FILE_NAME(ident),LINE(ident), name);
+/*   fprintf(stderr,"%s:%d: '%s' not defined\n",FILE_NAME(ident),LINE(ident), name);*/
    Inc_Error();
    return NULL;
 }
@@ -110,7 +110,7 @@ extern ptype_list *put_value(ident,value,list)
    char *name;
    if (!ident) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 255);
-//      fprintf(stderr,"put_value: NULL pointer\n");
+/*      fprintf(stderr,"put_value: NULL pointer\n");*/
       EXIT(1);
    }   
    name=getname(ident);
@@ -118,7 +118,7 @@ extern ptype_list *put_value(ident,value,list)
    for (p=list;p;p=p->NEXT) {
       if (!p->DATA) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 256);
-//         fprintf(stderr,"put_value: NULL pointer\n");
+/*         fprintf(stderr,"put_value: NULL pointer\n");*/
          EXIT(1);
       }  
       if (getname(p->DATA)==name) {
@@ -147,7 +147,7 @@ extern int fetch_value(ident,list)
    char *name;
    if (!ident) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 257);
-//      fprintf(stderr,"fetch_value: NULL pointer\n");
+/*      fprintf(stderr,"fetch_value: NULL pointer\n");*/
       EXIT(1);
    }  
    name=getname(ident);
@@ -155,7 +155,7 @@ extern int fetch_value(ident,list)
    for (p=list;p;p=p->NEXT) {
       if (!p->DATA) {
     avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 258);
-//         fprintf(stderr,"fetch_value: NULL pointer\n");
+/*         fprintf(stderr,"fetch_value: NULL pointer\n");*/
          EXIT(1);
       }  
       if (getname(p->DATA)==name) {
@@ -163,7 +163,7 @@ extern int fetch_value(ident,list)
    }
    
     avt_errmsg(GNS_ERRMSG, "164", AVT_ERROR, FILE_NAME(ident),LINE(ident), name);
-   //fprintf(stderr,"%s:%d: '%s' not defined (v2)\n",FILE_NAME(ident),LINE(ident), name);
+   /*fprintf(stderr,"%s:%d: '%s' not defined (v2)\n",FILE_NAME(ident),LINE(ident), name);*/
    Inc_Error();
    return -1;
 }

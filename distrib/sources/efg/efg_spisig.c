@@ -51,7 +51,7 @@ spisig_list *efg_GetSpiSigByName (spisig_list *head,char *name)
     spisig_list *ptspisig = NULL ;
     
     for (ptspisig = head ; ptspisig ; ptspisig = ptspisig->NEXT) {
-        //if (efg_GetSpiSigName (ptspisig) == name)
+        /*if (efg_GetSpiSigName (ptspisig) == name)*/
         if (efg_getlosigname(ptspisig->SRCSIG) == name)
             break;
     }
@@ -155,7 +155,7 @@ long efg_GetSpiSigEvent (spisig_list *spisig)
         return spisig->EVENT;
     else {
         avt_errmsg(EFG_ERRMSG, "005", AVT_ERROR);
-        //fprintf (stderr,"[EFG ERR] efg_GetSpiSigEvent : spisig is NULL ! \n");
+        /*fprintf (stderr,"[EFG ERR] efg_GetSpiSigEvent : spisig is NULL ! \n");*/
         return 0;
     }
 }
@@ -170,7 +170,7 @@ long efg_GetSpiSigEvent (spisig_list *spisig)
                                                                            
 \*****************************************************************************/
 void efg_SetSpiSigLoconRc (spisig_list *spisig,char *name, char dir,lotrs_list *mytrs)
-  // dir is 'I' for In or 'O' for Out
+  /* dir is 'I' for In or 'O' for Out*/
 {
   int goodtrs=0;
   if (!spisig ) return;
@@ -211,7 +211,7 @@ char *efg_GetSpiSigLoconRc (spisig_list *spisig, char dir)
       return spisig->INCONRC;
     else
       return spisig->OUTCONRC;
-    //return spisig->LOCONRC;
+    /*return spisig->LOCONRC;*/
 }
 
 /*****************************************************************************/
@@ -286,7 +286,7 @@ spisig_list *efg_AddSpiSig (spisig_list *head,losig_list *srcsig,char *name,int 
     ptspisig->critic_NAME = NULL;
     ptspisig->SRCSIG   = srcsig;
     ptspisig->DESTSIG  = NULL;
-    //ptspisig->LOCONRC  = NULL;
+    /*ptspisig->LOCONRC  = NULL;*/
     ptspisig->INCONRC  = NULL;
     ptspisig->OUTCONRC  = NULL;
     ptspisig->INCONRC_NODE  = -1;
@@ -355,7 +355,7 @@ spisig_list *efg_GetSpiSig (head,name)
     char        *name;
 {
     spisig_list *ptspisig = NULL ;
-    ptype_list  *origname; // nom original du spisig
+    ptype_list  *origname; /* nom original du spisig*/
     
     name = namealloc (name);
 
@@ -636,7 +636,7 @@ spisig_list *efg_BuildSpiSigList (lofig_list *lofig,chain_list *event_list,spisi
                   spisig->PREVIOUS=pei->previous;
                   if (pei2!=NULL && pei2->DATA!=NULL && strcmp((char *)pei->DATA, (char *)pei2->DATA)==0)
                   {
-                    // line rc
+                    /* line rc*/
                     spisig->INCONRC_NODE = pei2->innode; 
                     spisig->OUTCONRC_NODE = pei2->outnode; 
                     spisig->HASRCLINE=1;
@@ -669,7 +669,7 @@ spisig_list *efg_BuildSpiSigList (lofig_list *lofig,chain_list *event_list,spisi
               else {
                   if (!quiet)
                     avt_errmsg(EFG_ERRMSG, "006", AVT_ERROR, (char*)pei->DATA,lofig->NAME);
-//                   printf ("\n!!! efg warning : signal %s is not in figure %s !!!\n", (char*)pei->DATA,lofig->NAME);
+/*                   printf ("\n!!! efg warning : signal %s is not in figure %s !!!\n", (char*)pei->DATA,lofig->NAME);*/
                   (*error)++;
               }
             }
@@ -680,7 +680,7 @@ spisig_list *efg_BuildSpiSigList (lofig_list *lofig,chain_list *event_list,spisi
               if((prevpath->TYPE & EFG_SIG_SET_MASK)!= (pei->TYPE & EFG_SIG_SET_MASK)) {
                 if (!quiet)
                   avt_errmsg(EFG_ERRMSG, "007", AVT_WARNING, (char*)pei->DATA);
-//                  fprintf( stderr, "[TAS WAR] event %s appear with different slopes\n", (char*)pei->DATA );
+/*                  fprintf( stderr, "[TAS WAR] event %s appear with different slopes\n", (char*)pei->DATA );*/
                 (*error)++;
               }
             }

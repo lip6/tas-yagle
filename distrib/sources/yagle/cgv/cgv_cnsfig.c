@@ -26,8 +26,8 @@
 #include INF_H
 #include YAG_H
 
-symbol_list    *cgv_getcnssymbol();
-symbol_list    *cgv_getcellsymbol();
+static symbol_list *cgv_getcnssymbol( library *ptlib, cone_list *ptcone );
+static symbol_list *cgv_getcellsymbol( library *ptlib, cell_list *ptcell );
 static chain_list *all_sigs;
 
 /*------------------------------------------------------------\
@@ -295,7 +295,7 @@ loc_add_conincell(cgvfig_list * CgvFigure, cell_list * CnsCell)
             return (CgvFigure);
         }
 
-        //connecteurs d entree +
+        /*connecteurs d entree +*/
         for (CnsEdge = CnsCone->INCONE; CnsEdge; CnsEdge = CnsEdge->NEXT) {
             if (inputofcell(CnsEdge, CnsCell) == 0)
                 continue;
@@ -414,7 +414,7 @@ loc_add_conin(CgvFigure, CnsCone, CnsFigure)
     cone_list      *CnsConeIn;
     char           *name;
 
-    //locon_list * lc;
+    /*locon_list * lc;*/
 #ifndef __ALL__WARNING__
     CnsFigure = NULL;
 #endif
@@ -430,7 +430,7 @@ loc_add_conin(CgvFigure, CnsCone, CnsFigure)
 
     CgvBox = (cgvbox_list *) getptype(CnsCone->USER, CGV_BOX_TYPE)->DATA;
 
-    //connecteurs d entree +
+    /*connecteurs d entree +*/
     for (CnsEdge = CnsCone->INCONE; CnsEdge; CnsEdge = CnsEdge->NEXT) {
         if ((CnsEdge->TYPE & CNS_EXT) == CNS_EXT) {
             LoCon = CnsEdge->UEDGE.LOCON;
@@ -959,7 +959,7 @@ loc_getcgvfig_from_cnsfig(CgvFigure, CnsFigure)
     long            counter = 0;
     long           *ptlong;
 
-    //connecteurs externes +
+    /*connecteurs externes +*/
 
         all_sigs = NULL;
 
@@ -974,15 +974,15 @@ loc_getcgvfig_from_cnsfig(CgvFigure, CnsFigure)
     CgvFigure->CON_IN = (cgvcon_list *) reverse((chain_list *) CgvFigure->CON_IN);
     CgvFigure->CON_OUT = (cgvcon_list *) reverse((chain_list *) CgvFigure->CON_OUT);
 
-    //box
+    /*box*/
 
-        // box a partir des cones sans cells
+        /* box a partir des cones sans cells*/
         for (CnsCone = CnsFigure->CONE; CnsCone; CnsCone = CnsCone->NEXT) {
         if (CnsCone->CELLS == NULL || !CGV_MAKE_CELLS)
             loc_add_cone(CgvFigure, CnsCone);
     }
 
-    //box a partir des cells
+    /*box a partir des cells*/
         if (CGV_MAKE_CELLS) {
         for (CnsCell = CnsFigure->CELL; CnsCell; CnsCell = CnsCell->NEXT) {
             counter++;
@@ -995,7 +995,7 @@ loc_getcgvfig_from_cnsfig(CgvFigure, CnsFigure)
         }
     }
 
-    //box a partir des cones sans cells
+    /*box a partir des cones sans cells*/
         for (CnsCone = CnsFigure->CONE; CnsCone; CnsCone = CnsCone->NEXT) {
         if (CnsCone->CELLS == NULL || !CGV_MAKE_CELLS)
             loc_add_conin(CgvFigure, CnsCone, CnsFigure);
@@ -1008,13 +1008,13 @@ loc_getcgvfig_from_cnsfig(CgvFigure, CnsFigure)
         CgvBox->SOURCE = (void *) li;
         CgvBox->SOURCE_TYPE = CGV_SOURCE_LOINS;
         n = getcorrespgate(li->FIGNAME);
-        //printf("%s is %s\n", li->FIGNAME, n != NULL ? n : "?");
+        /*printf("%s is %s\n", li->FIGNAME, n != NULL ? n : "?");*/
         if (n == NULL)
             n = li->FIGNAME;
         CgvBox->SYMBOL = cgv_getlofigcellsymbol(CgvFigure->LIBRARY, n);
         if (CgvBox->SYMBOL == NULL)
             CgvBox->SYMBOL = cgv_getselfcellsymbol(CgvFigure->LIBRARY, n);
-        //printf("i:%s\n", CgvBox->NAME);
+        /*printf("i:%s\n", CgvBox->NAME);*/
         for (LoCon = li->LOCON; LoCon; LoCon = LoCon->NEXT) {
             if (!((mbk_LosigIsVDD(LoCon->SIG)) || (mbk_LosigIsVSS(LoCon->SIG)))) {
                 if (LoCon->DIRECTION == IN)
@@ -1030,7 +1030,7 @@ loc_getcgvfig_from_cnsfig(CgvFigure, CnsFigure)
                         CgvCon->SUB_NAME = getcorrespgatepin(li->FIGNAME, LoCon->NAME);
                     else
                         avt_errmsg(CGV_ERRMSG, "002", AVT_WARNING, 1);
-                    //printf("warning: can find corresponding pin for %s.%s\n", li->FIGNAME, LoCon->NAME);
+                    /*printf("warning: can find corresponding pin for %s.%s\n", li->FIGNAME, LoCon->NAME);*/
                 }
                 LoSig = LoCon->SIG;
                 PType = getptype(LoSig->USER, CGV_NET_TYPE);
@@ -1047,11 +1047,11 @@ loc_getcgvfig_from_cnsfig(CgvFigure, CnsFigure)
                 else
                     CgvNet = (cgvnet_list *) PType->DATA;
                 addcgvnetcon(CgvNet, CgvCon);
-                //printf("\t%s => %s | %s => %s\n", CgvCon->NAME, CgvNet->NAME, LoCon->NAME, LoSig->NAMECHAIN->DATA);
+                /*printf("\t%s => %s | %s => %s\n", CgvCon->NAME, CgvNet->NAME, LoCon->NAME, LoSig->NAMECHAIN->DATA);*/
             }
         }
     }
-    //box a partir des cells
+    /*box a partir des cells*/
         if (CGV_MAKE_CELLS) {
         for (CnsCell = CnsFigure->CELL; CnsCell; CnsCell = CnsCell->NEXT) {
             loc_add_conincell(CgvFigure, CnsCell);
@@ -1073,7 +1073,7 @@ loc_getcgvfig_from_cnsfig(CgvFigure, CnsFigure)
 char           *
 cgv_mapcell(cell_list * ptcell)
 {
-    //extern char  *cgv_cellmapping_table[][3];
+    /*extern char  *cgv_cellmapping_table[][3];*/
     unsigned int    i = 0;
     int             j = 0;
 
@@ -1097,7 +1097,7 @@ cgv_mapcell(cell_list * ptcell)
 char           *
 cgv_mapcone(cone_list *ptcone)
 {
-    //extern char  *cgv_mapping_table[][3];
+    /*extern char  *cgv_mapping_table[][3];*/
     ptype_list     *ptuser = NULL;
     edge_list      *ptin;
     unsigned int    i = 0;
@@ -1131,10 +1131,7 @@ cgv_mapcone(cone_list *ptcone)
 |         Get symbol name from cell and return symbol         |
 \------------------------------------------------------------*/
 
-symbol_list    *
-cgv_getcellsymbol(ptlib, ptcell)
-    library        *ptlib;
-    cell_list      *ptcell;
+static symbol_list * cgv_getcellsymbol( library *ptlib, cell_list *ptcell )
 {
     symbol_list    *ptsym;
     char           *symname;
@@ -1161,10 +1158,7 @@ cgv_getcellsymbol(ptlib, ptcell)
 |          Get symbol name from cone and return symbol        |
 \------------------------------------------------------------*/
 
-symbol_list    *
-cgv_getcnssymbol(ptlib, ptcone)
-    library        *ptlib;
-    cone_list      *ptcone;
+static symbol_list * cgv_getcnssymbol( library *ptlib, cone_list *ptcone )
 {
     symbol_list    *ptsym;
     char           *symname;
@@ -1234,7 +1228,7 @@ getcgvfig_from_cnsfig(char *FileName, char *filename)
     else
         scale = 1024;
 
-    //printf("scale=%d\n", scale);
+    /*printf("scale=%d\n", scale);*/
 
     CgvFigure = addcgvfig(CnsFigure->NAME, scale);
     CgvFigure->SOURCE = CnsFigure;

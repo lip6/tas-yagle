@@ -505,9 +505,9 @@ ALL_FOR_GNS *gnsParseCorrespondanceTables(char *name)
   char *oldconfig;
 
   oldconfig=V_STR_TAB[__MBK_SPICE_KEEP_NAMES].VALUE;
-//  if (oldconfig==NULL) oldconfig="";
+/*  if (oldconfig==NULL) oldconfig="";*/
   V_STR_TAB[__MBK_SPICE_KEEP_NAMES].VALUE=strdup("All");
-//  avt_sethashvar("avtSpiKeepNames", "All");
+/*  avt_sethashvar("avtSpiKeepNames", "All");*/
   /*
   tzmp=MBK_NO_TRNAME;
   tymp=SPI_PARSE_ALLNAME;
@@ -538,9 +538,9 @@ ALL_FOR_GNS *gnsParseCorrespondanceTables(char *name)
   prepht(all->GLOBAL_LOFIG);
   dicotab=NULL; dicoindex=0;
 
-  mslAddExtension(ParseCorresp); // --->
+  mslAddExtension(ParseCorresp); /* --->*/
   parsespice(temp);
-  mslRmvExtension(ParseCorresp); // <---
+  mslRmvExtension(ParseCorresp); /* <---*/
 
   delht(ALL_CRT);
   delht(ALL_TRS);
@@ -556,7 +556,7 @@ ALL_FOR_GNS *gnsParseCorrespondanceTables(char *name)
   
   free(V_STR_TAB[__MBK_SPICE_KEEP_NAMES].VALUE);
   V_STR_TAB[__MBK_SPICE_KEEP_NAMES].VALUE=oldconfig;
-//  avt_sethashvar("avtSpiKeepNames", oldconfig);
+/*  avt_sethashvar("avtSpiKeepNames", oldconfig);*/
 /*
   MBK_NO_TRNAME=tzmp;
   SPI_PARSE_ALLNAME=tymp;

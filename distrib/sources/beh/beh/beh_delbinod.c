@@ -58,7 +58,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
       {
         if ((ptbinode->VALNODE != NULL) || (ptbinode->CNDNODE != NULL))
           beh_warning(311,NULL,NULL);
-        //(stderr,"BEH_warning : binode not empty\n");
+        /*(stderr,"BEH_warning : binode not empty\n");*/
       }
 
       ptlastnode->NEXT = ptbinode->NEXT;

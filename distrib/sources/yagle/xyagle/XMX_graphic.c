@@ -19,6 +19,8 @@
 #include MLO_H
 #include XSB_H
 #include XTB_H
+#include CGV_H
+#include XYA_H
 #include XMX_H
 
 #include "XMX_graphic.h"
@@ -68,12 +70,7 @@ XyagInitializeGraphicWindow()
 |                      XyagClearGraphicWindow                 |
 \------------------------------------------------------------*/
 
-void 
-XyagClearGraphicWindow(GraphicX, GraphicY, GraphicDx, GraphicDy)
-    long            GraphicX;
-    long            GraphicY;
-    long            GraphicDx;
-    long            GraphicDy;
+void XyagClearGraphicWindow( long GraphicX, long GraphicY, long GraphicDx, long GraphicDy )
 {
     XFillRectangle(XyagGraphicDisplay, XyagGraphicPixmap,
                    XyagBackgroundGC,
@@ -84,12 +81,7 @@ XyagClearGraphicWindow(GraphicX, GraphicY, GraphicDx, GraphicDy)
 |                      XyagRefreshGraphicWindow               |
 \------------------------------------------------------------*/
 
-void 
-XyagRefreshGraphicWindow(GraphicX, GraphicY, GraphicDx, GraphicDy)
-    Dimension       GraphicX;
-    Dimension       GraphicY;
-    Dimension       GraphicDx;
-    Dimension       GraphicDy;
+void XyagRefreshGraphicWindow( Dimension GraphicX, Dimension GraphicY, Dimension GraphicDx, Dimension GraphicDy )
 {
     XCopyArea(XyagGraphicDisplay, XyagGraphicPixmap,
               XtWindow(XyagGraphicWindow),

@@ -33,36 +33,36 @@
 #define INF_LL_RC             10
 #define INF_LL_NORC           11
 #define INF_LL_FLIPFLOP       12
-//#define INF_LL_RCN            13
+/*#define INF_LL_RCN            13*/
 #define INF_LL_NORISING       15
 #define INF_LL_NOFALLING      16
 #define INF_LL_BREAK          17
 #define INF_LL_ONLYEND        18
-//#define INF_LL_CAPAOUT        19
-//#define INF_LL_SLOPEIN        20
+/*#define INF_LL_CAPAOUT        19*/
+/*#define INF_LL_SLOPEIN        20*/
 #define INF_LL_CLOCK          21
 #define INF_LL_ASYNCHRON      22
 
-// INF TYPES
+/* INF TYPES*/
 #define INF_ASSOCLIST      "{Association list}"
 #define INF_LISTOFLIST     "{List of list}"
 #define INF_MISCDATA       "{Misc data}"
 
-// operation condition
+/* operation condition*/
 #define INF_OPERATING_CONDITION "+Operating Conditions+"
 #define INF_TEMPERATURE         "Temperature"
 
-// power definition
+/* power definition*/
 #define INF_POWER               "Supply"
 
-// ckprech
+/* ckprech*/
 #define INF_CKPRECH             "CkPrech"
 
 #define INF_SENSITIVE           "Sensitive Timing Point"
 #define INF_SUPPRESS            "Suppress From Behaviour"
 #define INF_FLIPFLOP            "FlipFlop"
 
-// stb informations
+/* stb informations*/
 #define INF_STBOUT_SPECIN       "Result Input Stability"
 #define INF_STBOUT_SPECOUT      "Result Output Stability"
 #define INF_STBOUT_SPECMEM      "Result Memory Stability"
@@ -74,12 +74,12 @@
 #define INF_VERIFFALL                "Falling"
 #define INF_NOVERIF                  "No verification"
 #define INF_DISABLE_PATH             "+Disabled Paths+"
-//#define INF_FALSE_PATH             "+False Paths+"
+/*#define INF_FALSE_PATH             "+False Paths+"*/
 #define INF_MULTICYCLE_PATH          "+Multicycle Paths+"
 
 #define INF_NOCHECK                  "No Stb Error Check"
 
-// other inf types
+/* other inf types*/
 #define INF_YES            "Yes"
 #define INF_NO             "No"
 #define INF_ALL            "All"
@@ -88,9 +88,9 @@
 #define INF_ONLYEND        "Only End"
 
 
-// some infsiglist elements
-//#define INF_RCN            "RCN"
-//#define INF_ELM            "ELM"
+/* some infsiglist elements*/
+/*#define INF_RCN            "RCN"*/
+/*#define INF_ELM            "ELM"*/
 #define INF_DONTCROSS      "Don't Cross"
 #define INF_TRANSPARENT    "Transparent"
 
@@ -114,15 +114,15 @@
 #define INF_INIT_VAL (float) -1e31
 #define INF_MIN_VAL  (float) -1e30
 
-//
-// added sections of documentation for each token
-//  Hitas Reference Guide 2.7 (08/18/2005)
-//
-// x.x.x.x  [I|II|III|??|--]
-// doc id    level of verification
-//
+/**/
+/* added sections of documentation for each token*/
+/*  Hitas Reference Guide 2.7 (08/18/2005)*/
+/**/
+/* x.x.x.x  [I|II|III|??|--]*/
+/* doc id    level of verification*/
+/**/
 
-// ??
+/* ??*/
 #define INF_IGNORE_INSTANCE    "+Ignore Instances+"
 #define INF_IGNORE_TRANSISTOR  "+Ignore Transistors+"
 #define INF_IGNORE_CAPACITANCE "+Ignore Capacitances+"
@@ -131,65 +131,65 @@
 #define INF_IGNORE_DIODE       "+Ignore Diodes+"
 #define INF_IGNORE_NAMES       "+Ignore Names+"
     
-// I
+/* I*/
 #define INF_STUCK              "Stuck To Value"
 #define INF_DISABLE_GATE_DELAY "Disabled Gate Delay"
 
-// I
+/* I*/
 #define INF_MUXU           "+Mux UP MUTEX+"
 #define INF_MUXD           "+Mux DOWN MUTEX+"
 #define INF_CMPU           "+Cmp UP MUTEX+"
 #define INF_CMPD           "+Cmp DOWN MUTEX+"
 
-// NM
+/* NM*/
 #define INF_RENAME         "+Signal Renaming+"
 
-// I
+/* I*/
 #define INF_INPUTS              "Circuit Input"
 
-// II
+/* II*/
 #define INF_STOP                "Functional Analysis Stop Point"
 
-// II
+/* II*/
 #define INF_DIROUT              "Transistor Orientation"
 
-// III
+/* III*/
 #define INF_DLATCH              "Dynamic Latch"
 #define INF_MEMSYM              "Memsyms"
 #define INF_PRECHARGE      "Precharge"
 #define INF_MODELLOOP      "Model Latch Loop"
 
-// II
+/* II*/
 #define INF_CKLATCH             "CkLatch"
 
-// II
+/* II*/
 #define INF_NOTLATCH             "NotLatch"
 #define INF_KEEP_TRISTATE_BEHAVIOUR "KeepTristateBehaviour"
 
-// II
+/* II*/
 #define INF_BREAK          "Break Point"
 #define INF_STRICT_SETUP   "Strict Setup"
 
-// III
+/* III*/
 #define INF_BYPASS         "Bypass"
 
-// III
+/* III*/
 #define INF_INTER          "Inter"
 
-// I
+/* I*/
 #define INF_PIN_RISING_SLEW   "Rising slope"
 #define INF_PIN_FALLING_SLEW  "Falling slope"
 #define INF_PIN_LOW_VOLTAGE   "Low Voltage"
 #define INF_PIN_HIGH_VOLTAGE  "High Voltage"
 
-// III
+/* III*/
 #define INF_LL_PATHSIGS       14
 
-// III
+/* III*/
 #define INF_PATHIN              "Input of path"
 #define INF_PATHOUT             "Output of path"
 
-// III
+/* III*/
 #define INF_PATHDELAYMARGINPREFIX "Path Delay Margin"
 #define INF_PATHDELAYMARGINCLOCK "Clock"
 #define INF_PATHDELAYMARGINDATA "Data"
@@ -198,32 +198,32 @@
 #define INF_PATHDELAYMARGINRISE "Rise"
 #define INF_PATHDELAYMARGINFALL "Fall"
 
-// III
+/* III*/
 #define INF_NORISING       "No Rising"
 #define INF_NOFALLING      "No Falling"
 
-// I
+/* I*/
 #define INF_CONNECTOR_DIRECTION "Connector Direction"
 
-// II
+/* II*/
 #define INF_RC             "RC"
 
-// 1.4.6.a --
+/* 1.4.6.a --*/
 
-// I
+/* I*/
 #define INF_SLOPEIN        "SlopeIN"
 
-// I
+/* I*/
 #define INF_CAPAOUT        "CapaOUT"
 #define INF_CAPAOUT_LW     "CapaOUT_LW"
 #define INF_CAPAOUT_L      "CapaOUT_L"
 
 #define INF_OUTPUT_CAPACITANCE "Output Capacitance"
 
-// I
+/* I*/
 #define INF_ASYNCHRON      "Asynchron"
 
-// II
+/* II*/
 #define INF_CLOCK_TYPE          "Clock"
 #define INF_MIN_RISE_TIME       "Min rise time"
 #define INF_MAX_RISE_TIME       "Max rise time"
@@ -252,13 +252,13 @@
 
 #define INF_PREFERED_CLOCK           "Prefered clock"
 
-// I
+/* I*/
 #define INF_SPECIN              "SpecIn Stability"
 
-// I
+/* I*/
 #define INF_SPECOUT             "SpecOut Stability"
 
-// III
+/* III*/
 #define INF_CROSSTALKMUXU  "+Mux UP Crosstalk MUTEX+"
 #define INF_CROSSTALKMUXD  "+Mux DOWN Crosstalk MUTEX+"
 
@@ -270,7 +270,7 @@
 #define INF_SWITCHING_PROBABILITY "Switching Proba"
 #define INF_STB_NODE_FLAGS "StbNode flags"
 
-// Marking of FCL types by INF
+/* Marking of FCL types by INF*/
 #define INF_MARKSIG              "Signal Marking"
 #define INF_MARKTRANS            "Transistor Marking"
 #define INF_MARKRS               "RS Marking"
@@ -298,7 +298,7 @@
 #define INF_TRANS_SHORT            ((int) 0x00000010 )
 #define INF_TRANS_UNUSED           ((int) 0x00000020 )
 
-// characteristics
+/* characteristics*/
 #define INF_CHARAC_DATA "Is a Data"
 
 #define INF_RS_ILLEGAL     1
@@ -307,7 +307,7 @@
 
 #define INF_CONDITIONS         "+Config/Conditions+"
 
-// clock uncertainty
+/* clock uncertainty*/
 #define INF_CLOCK_UNCERTAINTY "Clock Uncertainty"
 #define INF_CLOCK_UNCERTAINTY_SETUP       0x1
 #define INF_CLOCK_UNCERTAINTY_HOLD        0x2
@@ -325,7 +325,7 @@ typedef union
   } cval;
 } splitint;
 
-// parser related structure
+/* parser related structure*/
 typedef struct 
 {
   char *nom;
@@ -365,7 +365,7 @@ typedef struct inf_carac {
 #define INF_FALSEPATH_INFO  14
 #define INF_SIGLIST_INFO    18
 
-// delay margin
+/* delay margin*/
 #define INF_MARGIN_ON_LATCH     0x001
 #define INF_MARGIN_ON_BREAK     0x002
 #define INF_MARGIN_ON_CONNECTOR 0x004
@@ -465,7 +465,7 @@ typedef struct inffig_list
   int changed;
 } inffig_list;
 
-//extern ht *INF_HT;
+/*extern ht *INF_HT;*/
 
 extern int INF_ERROR, inf_ignorename;
 extern inffig_list *INF_FIG;
@@ -479,7 +479,7 @@ extern list_list *infAddList(inffig_list *ifl, int location, char *data,long lev
 
 void    infDrive_filtered (inffig_list *myfig, char *filename, int locations, FILE *outputfile, char *section);
 void    infDrive (inffig_list *myfig, char *filename, int locations, FILE *outputfile);
-//extern char * infTasVectName(char *name);
+/*extern char * infTasVectName(char *name);*/
 
 inffig_list *getloadedinffig(char *name);
 inffig_list *addinffig(char *name);
@@ -490,7 +490,7 @@ void infclone(char *name, inffig_list *ifig);
 chain_list *infGetInfo(inffig_list *myfig, int type);
 int infHasInfo(inffig_list *myfig, int type);
 
-// que viva la revolución
+/* que viva la revolución */
 void inf_RemoveKey(inffig_list *ifl, int location, char *key, char *type);
 
 chain_list *inf_GetEntriesByType(inffig_list *ifl, char *type, char *val);

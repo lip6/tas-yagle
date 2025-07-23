@@ -20,7 +20,7 @@
 
 char *CELL ;
 
-//extern char* yagGetName          __P(( losig_list* ));
+/*extern char* yagGetName          __P(( losig_list* ));*/
 
 /*****************************************************************************/
 /*                          fonction tas_isnowire()                          */
@@ -680,7 +680,7 @@ cnsfig_list *cnsfig ;
       /*ptype = getptype(cone->USER,CNS_EXT) ;
       if(ptype != NULL)*/
          
-//         locon = (locon_list *)ptype->DATA ;
+/*         locon = (locon_list *)ptype->DATA ;*/
          locon = (locon_list *)cl->DATA ;
          if((locon->DIRECTION == CNS_O) ||
          (locon->DIRECTION == CNS_B) ||
@@ -1257,7 +1257,7 @@ long nbfront;
       cl=cns_get_cone_external_connectors(cone);
       if (cl!=NULL)
       {
-        locon = (locon_list *)cl->DATA;//getptype(cone->USER,CNS_EXT)->DATA ; 
+        locon = (locon_list *)cl->DATA;/*getptype(cone->USER,CNS_EXT)->DATA ; */
         if(locon->TYPE == EXTERNAL)
           nbfront = tas_tprcincone(ifl,cone,NULL,'Y','N',nbfront) ;
         freechain(cl);
@@ -1442,7 +1442,7 @@ long nbfront ;
                  chain_list *cl;
                  cl=cns_get_cone_external_connectors(incone->UEDGE.CONE);
     
-//                 ptype = getptype(incone->UEDGE.CONE->USER,CNS_EXT) ;
+/*                 ptype = getptype(incone->UEDGE.CONE->USER,CNS_EXT) ;*/
                  if(cl!=NULL/*ptype != NULL*/){
                      if(((locon_list *)cl->DATA)->DIRECTION == CNS_T){
                          locont = (locon_list *)cl->DATA ;
@@ -2215,7 +2215,7 @@ long nbfront ;
          cl=cns_get_cone_external_connectors(cone);
          while (cl!=NULL)
          {
-           //loconincone = (locon_list *)getptype(cone->USER,CNS_EXT)->DATA ;
+           /*loconincone = (locon_list *)getptype(cone->USER,CNS_EXT)->DATA ;*/
            loconincone = (locon_list *)cl->DATA;
            if((loconincone->DIRECTION == CNS_O) || 
              (loconincone->DIRECTION == CNS_B) ||
@@ -2716,9 +2716,9 @@ ttvfig_list *ttvfig ;
     for(i = 0 ; i < 3 ; i++)
      for(; branch[i] != NULL ; branch[i] = branch[i]->NEXT)
        {
-        // ajout 15/9/2005
+        /* ajout 15/9/2005*/
         if (!forceit && (branch[i]->TYPE & CNS_NOT_FUNCTIONAL)==CNS_NOT_FUNCTIONAL) continue;
-        //
+        /**/
         lotrs = NULL ;
         for(link = branch[i]->LINK ; link != NULL ; link=link->NEXT)
          {
@@ -3752,7 +3752,7 @@ if((cone->TYPE & CNS_EXT) == CNS_EXT)
    {
     chain_list *cl;
     cl=cns_get_cone_external_connectors(cone);
-    locon = (locon_list *)cl->DATA; //getptype(cone->USER,CNS_EXT)->DATA ;
+    locon = (locon_list *)cl->DATA; /*getptype(cone->USER,CNS_EXT)->DATA ;*/
     freechain(cl);
     ptype = getptype(locon->SIG->USER,LOFIGCHAIN) ;
     chain = NULL ;
@@ -4375,7 +4375,7 @@ cone_list *cone ;
    cl=cns_get_cone_external_connectors(cone);
    while (cl!=NULL)
    {
-     locon_list *locon = (locon_list *)cl->DATA; //getptype(cone->USER,CNS_EXT)->DATA ;
+     locon_list *locon = (locon_list *)cl->DATA; /*getptype(cone->USER,CNS_EXT)->DATA ;*/
      caraccon_list *carac = (caraccon_list *)getptype(locon->USER,
                                                       TAS_CON_CARAC)->DATA ;
      branch_list *pathvdd ;
@@ -5940,8 +5940,8 @@ cone_list *cone ;
         cone->USER = addptype(cone->USER, TAS_DELAY_UP_MIN, (void*)delay_up_min);
         cone->USER = addptype(cone->USER, TAS_DELAY_DOWN_MIN, (void*)delay_down_min);
     }
-//    printf("\ncone=%s   delayupmax=%ld   delaydownmax=%ld\n", cone->NAME, delay_up_max, delay_down_max);
-//    printf("cone=%s   delayupmin=%ld   delaydownmin=%ld\n", cone->NAME, delay_up_min, delay_down_min);
+/*    printf("\ncone=%s   delayupmax=%ld   delaydownmax=%ld\n", cone->NAME, delay_up_max, delay_down_max);*/
+/*    printf("cone=%s   delayupmin=%ld   delaydownmin=%ld\n", cone->NAME, delay_up_min, delay_down_min);*/
 }
 
 /*****************************************************************************
@@ -5992,7 +5992,7 @@ long counter;
      }
    }
 /* else
-     return (nbfront) ;*//* pour ne pas calculer 2 fois le meme cone */
+     return (nbfront) ; |* pour ne pas calculer 2 fois le meme cone */
 
  if(TAS_CONTEXT->TAS_CALCRCX == 'Y')
      nbfront = tas_tprc_ext(ifl,cone,nbfront);
@@ -6145,7 +6145,7 @@ delay_list *delay;
 ptype_list *ptype;
 long nbfront ;
 inffig_list *ifl;
-//long nbcone = 0, n_cone = 0 ;
+/*long nbcone = 0, n_cone = 0 ;*/
 
 mbk_comcheck( 0, cns_signcns(cnsfig), 0 );
 
@@ -6199,12 +6199,12 @@ tas_flatrcx(lofig,cnsfig,ttvfig) ;
 mbk_debugstat("  flatrcx:",0);
 #endif
 
-//for(cone = cnsfig->CONE ; cone != NULL ; cone = cone->NEXT) nbcone++;
+/*for(cone = cnsfig->CONE ; cone != NULL ; cone = cone->NEXT) nbcone++;*/
 tas_AffectConnectorsInputSlew (ifl, cnsfig);
 
 for(cone = cnsfig->CONE ; cone != NULL ; cone = cone->NEXT)
     {
-    //if (!((nbcone / ++n_cone) % 10)) fprintf (stdout, "%ld p.cent done\n", nbcone / n_cone);
+    /*if (!((nbcone / ++n_cone) % 10)) fprintf (stdout, "%ld p.cent done\n", nbcone / n_cone);*/
 
     if((getptype(cone->USER,CNS_PARALLEL)) != NULL) tas_para(cone) ;
     if((getptype(cone->USER,CNS_SWITCH)) != NULL) tas_switch_cmos(cone) ;

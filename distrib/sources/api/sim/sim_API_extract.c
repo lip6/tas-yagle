@@ -38,7 +38,7 @@ static void checkdelaytype(char *delay_type)
   if (tolower(*delay_type)!='m')
   {
     avt_errmsg(SIM_API_ERRMSG, "004", AVT_ERROR);
-//    fprintf(stderr,"[SIM] sim_AddSpiceMeasure: authorized type for delay type are SIM_MAX and SIM_MIN\n");
+/*    fprintf(stderr,"[SIM] sim_AddSpiceMeasure: authorized type for delay type are SIM_MAX and SIM_MIN\n");*/
     *delay_type='M';
   }
 }
@@ -60,16 +60,16 @@ void sim_AddSpiceMeasure(sim_model *model, char *delay, char *slope,
 }
 
 /*}}}************************************************************************/
-///*{{{                    sim_GetSpiceMeasure()                              */
-///*                                                                          */
-///*                                                                          */
-///****************************************************************************/
-//int sim_GetSpiceMeasure(sim_model *model, char *label, double *value)
-//{
-//  return sim_getMeas(model,label,value);
-//}
-//
-///*}}}************************************************************************/
+/*/*{{{                    sim_GetSpiceMeasure()                              */
+/*/*                                                                          */
+/*/*                                                                          */
+/*/****************************************************************************/
+/*int sim_GetSpiceMeasure(sim_model *model, char *label, double *value)*/
+/*{*/
+/*  return sim_getMeas(model,label,value);*/
+/*}*/
+/**/
+/*/*}}}************************************************************************/
 /*{{{                    sim_GetSpiceMeasureSlope()                         */
 /*                                                                          */
 /*                                                                          */
@@ -154,7 +154,7 @@ void sim_GetAllMeasure(sim_model *model)
 /*                                                                          */
 /*                                                                          */
 /****************************************************************************/
-// should be named stripunwantedcharacters
+/* should be named stripunwantedcharacters*/
 static char *suc(char *name, char *buf)
 {
   int i;

@@ -57,7 +57,7 @@ char          mode     ;	/* recursive delete or not (Y or N)	*/
         {
         if ((ptbeder->BDD != NULL) )
           beh_warning(303,NULL,NULL);
-         //(stderr,"BEH_warning : beder not empty\n");
+         /*(stderr,"BEH_warning : beder not empty\n");*/
         }
 
       ptlastder->NEXT = ptbeder->NEXT;

@@ -293,8 +293,8 @@ cbh_oper2char(short oper)
          return (namealloc("^"));
     default:
          avt_errmsg(CBH_ERRMSG,"000",AVT_FATAL,"002");
-         //printf("\nablError - cbh_oper2char: unknown operator %d\n", oper);
-         //EXIT(-1);
+         /*printf("\nablError - cbh_oper2char: unknown operator %d\n", oper);*/
+         /*EXIT(-1);*/
   }
   return NULL;
 }
@@ -1729,7 +1729,7 @@ int          type;
            if (inout)
              inout[CBH_OUT] = addchain(inout[CBH_OUT],loconlist);
            break;
-           //  case 'X' : ;
+           /*  case 'X' : ;*/
     }
 }
 
@@ -1829,7 +1829,7 @@ void cbh_applyBefToLof(lofig_list *lofig, befig_list *befig)
   copy          = beh_duplicate(befig);
   beh_biterize(copy);
   cbh_suppressaux(copy);
-  // single register treatment
+  /* single register treatment*/
   for ( regx = copy->BEREG; regx; regx = regx->NEXT)
   {
     seqx        = cbh_newseq();
@@ -1837,7 +1837,7 @@ void cbh_applyBefToLof(lofig_list *lofig, befig_list *befig)
     seqx->NEXT  = seq;
     seq         = seqx;
   }
-  // single bux treatment
+  /* single bux treatment*/
   for ( buxx = copy->BEBUX; buxx; buxx = buxx->NEXT)
   {
     seqx        = cbh_newseq();

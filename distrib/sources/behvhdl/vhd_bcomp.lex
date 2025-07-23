@@ -203,9 +203,7 @@ int yywrap ()
 /* called func.	: addht, addhtitem, gethtitem, namealloc		*/
 /* ###--------------------------------------------------------------### */
 
-static int search (key)
-
-char  *key;
+static int search (char* key)
 
   {
   static ht *pt_hash = NULL;

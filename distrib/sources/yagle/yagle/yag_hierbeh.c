@@ -87,7 +87,7 @@ yagBuildHierarchy(cnsfig_list *ptcnsfig, lofig_list *ptlofig, lofig_list **ptptr
       strcpy(buf, ptlofig->NAME);
       strcat(buf, "_yagroot");
       outname = buf;
-      // because it's a ugly definition
+      /* because it's a ugly definition*/
       avt_sethashvar("yagleOutputName",outname);
     }
     else
@@ -426,7 +426,7 @@ yagGuessRootConnectorDirections(lofig_list *ptrootlofig)
                     l=(long)pt->DATA;
                     if ((l & ALIMSIG)==ALIMSIG) lc->DIRECTION=IN;
                     else if ((l & (DIRONSIG_IN|DIRONSIG_OUT))==(DIRONSIG_IN|DIRONSIG_OUT))
-                        lc->DIRECTION=TRANSCV; //INOUT;
+                        lc->DIRECTION=TRANSCV; /*INOUT;*/
                     else if ((l & DIRONSIG_IN)==DIRONSIG_IN)
                         if ((l & EXTDIRONSIG_IN)==EXTDIRONSIG_IN)
                             lc->DIRECTION=IN;
@@ -438,7 +438,7 @@ yagGuessRootConnectorDirections(lofig_list *ptrootlofig)
                         else
                             lc->DIRECTION=IN;
                     else
-                        lc->DIRECTION=IN; // i don't know
+                        lc->DIRECTION=IN; /* i don't know*/
                 }
                 lc->USER=delptype(lc->USER, DIRONSIG_PTYPE);
             }

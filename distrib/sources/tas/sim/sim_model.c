@@ -49,7 +49,7 @@ sim_model* sim_model_alloc( void )
   newmodel->HTINPUT     = NULL;
   newmodel->OUTPUT_FILE = NULL;
   newmodel->OUTPUT_READ = 0;
-//  newmodel->CONTEXT_HT  = NULL;
+/*  newmodel->CONTEXT_HT  = NULL;*/
   newmodel->USER        = NULL;
   /* extraction fields */
   newmodel->LLABELS     = NULL;
@@ -209,11 +209,11 @@ void sim_update_model_locon_name (sim_model *model,
        sim_measure_set_locon (model,newname);
   }
 
-  // update init
+  /* update init*/
   if ((ic = sim_ic_get (model, oldname, SIM_IC_LOCON)))
     ic->WHERE.LOCON_NAME = newname;
 
-  // update input slope or out capa
+  /* update input slope or out capa*/
   if ((input = sim_input_get (model,oldname)))
     input->LOCON_NAME = newname;
 }
@@ -230,7 +230,7 @@ void sim_update_model_signal_name (sim_model *model, char *prefix)
   sim_measure *measure = NULL;
   sim_ic      *ic = NULL;
   
-  // update measure
+  /* update measure*/
   while( (measure = sim_measure_scan( model, measure )) ) {
     switch( sim_measure_get_what( measure ) ) {
       case SIM_MEASURE_VOLTAGE :
@@ -243,7 +243,7 @@ void sim_update_model_signal_name (sim_model *model, char *prefix)
     }
   }
 
-  // update ic
+  /* update ic*/
   while( (ic = sim_ic_scan( model, ic )) ) {
     switch( sim_ic_get_locate( ic ) ) {
       case SIM_IC_SIGNAL :
@@ -405,7 +405,7 @@ void sim_model_merge_input (sim_model *srcmodel, sim_model *model,char *insname)
     }
     if (sim_input_get(srcmodel,newinputname)) {
       sim_input_clear ( srcmodel,newinputname);
-      //continue;
+      /*continue;*/
     }
 
     switch( type ) {
@@ -466,13 +466,13 @@ Le modele merge est srcmodel
 \*****************************************************************************/
 void sim_model_merge (sim_model *srcmodel, sim_model *model, char *insname)
 {
-  // merge ic
+  /* merge ic*/
   sim_model_merge_ic (srcmodel,model);
 
-  // merge measure
+  /* merge measure*/
   sim_model_merge_measure (srcmodel,model);
   
-  // merge input
+  /* merge input*/
   sim_model_merge_input (srcmodel,model,insname);
 }
 

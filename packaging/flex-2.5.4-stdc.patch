@@ -1,0 +1,105 @@
+--- flex-2.5.4/flexdef.h.orig	2024-12-28 12:02:48.237611697 +0100
++++ flex-2.5.4/flexdef.h	2024-12-28 12:03:06.586211690 +0100
+@@ -61,9 +61,9 @@
+ #include <malloc.h>
+ #endif
+ 
+-#ifdef STDC_HEADERS
++//#ifdef STDC_HEADERS
+ #include <stdlib.h>
+-#endif
++//#endif
+ 
+ /* As an aid for the internationalization patch to flex, which
+  * is maintained outside this distribution for copyright reasons.
+--- flex-2.5.4/main.c.orig	2025-07-23 11:32:10.373033889 +0200
++++ flex-2.5.4/main.c	2025-07-23 11:32:53.994629436 +0200
+@@ -353,7 +353,7 @@
+ 
+ 	{
+ 	int tblsiz;
+-	int unlink();
++	int unlink(const char*);
+ 
+ 	if ( skelfile != NULL )
+ 		{
+--- flex-2.5.4/initscan.c.orig	2025-07-23 11:42:26.129724955 +0200
++++ flex-2.5.4/initscan.c	2025-07-23 11:55:26.675505043 +0200
+@@ -1491,7 +1491,7 @@
+ 
+ 	int doing_codeblock = false;
+ 	int i;
+-	Char nmdef[MAXLINE], myesc();
++	Char nmdef[MAXLINE], myesc(Char[]);
+ 
+ 
+ #line 1498 "scan.c"
+@@ -2291,7 +2291,7 @@
+ #line 435 "scan.l"
+ {
+ 			register Char *nmdefptr;
+-			Char *ndlookup();
++			Char *ndlookup(char[]);
+ 
+ 			strcpy( nmstr, yytext + 1 );
+ 			nmstr[yyleng - 2] = '\0';  /* chop trailing brace */
+--- flex-2.5.4/scan.l.orig	2025-07-23 11:42:46.538553254 +0200
++++ flex-2.5.4/scan.l	2025-07-23 11:55:39.140826486 +0200
+@@ -98,7 +98,7 @@
+ 
+ 	int doing_codeblock = false;
+ 	int i;
+-	Char nmdef[MAXLINE], myesc();
++	Char nmdef[MAXLINE], myesc(Char[]);
+ 
+ 
+ <INITIAL>{
+@@ -434,7 +434,7 @@
+ 
+ 	"{"{NAME}"}"	{
+ 			register Char *nmdefptr;
+-			Char *ndlookup();
++			Char *ndlookup(char[]);
+ 
+ 			strcpy( nmstr, yytext + 1 );
+ 			nmstr[yyleng - 2] = '\0';  /* chop trailing brace */
+--- flex-2.5.4/sym.c.orig	2025-07-23 12:10:47.453548975 +0200
++++ flex-2.5.4/sym.c	2025-07-23 12:20:02.676436774 +0200
+@@ -40,7 +40,7 @@
+ struct hash_entry *sctbl[START_COND_HASH_SIZE];
+ struct hash_entry *ccltab[CCL_HASH_SIZE];
+ 
+-struct hash_entry *findsym();
++struct hash_entry *findsym(register char[], hash_table, int);
+ 
+ 
+ /* addsym - add symbol and definitions to symbol table
+@@ -105,7 +105,7 @@
+ 	/* We don't bother checking the return status because we are not
+ 	 * called unless the symbol is new.
+ 	 */
+-	Char *copy_unsigned_string();
++	Char *copy_unsigned_string PROTO((register Char *));
+ 
+ 	(void) addsym( (char *) copy_unsigned_string( ccltxt ),
+ 			(char *) 0, cclnum,
+@@ -179,8 +179,8 @@
+ char name[];
+ Char definition[];
+ 	{
+-	char *copy_string();
+-	Char *copy_unsigned_string();
++	char *copy_string PROTO((register const char *));
++	Char *copy_unsigned_string PROTO((register Char *));
+ 
+ 	if ( addsym( copy_string( name ),
+ 			(char *) copy_unsigned_string( definition ), 0,
+@@ -227,7 +227,7 @@
+ char str[];
+ int xcluflg;
+ 	{
+-	char *copy_string();
++	char *copy_string PROTO((register const char *));
+ 
+ 	/* Generate start condition definition, for use in BEGIN et al. */
+ 	action_define( str, lastsc );

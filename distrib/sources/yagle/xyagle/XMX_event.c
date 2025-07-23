@@ -67,7 +67,7 @@ static int      XyagMaxEventEditTable[] =
     1,                          /* XYAG_VIEW           */
     1,                          /* XYAG_VIEW           */
     1,                          /* XYAG_VIEW           */
-    1 // go thru hierarchy
+    1 /* go thru hierarchy*/
 };
 
 static int      XyagInputEventEditTable[] =

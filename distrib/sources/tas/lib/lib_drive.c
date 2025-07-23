@@ -26,7 +26,7 @@ int FLAGBUS = 0;
 char buftunit[1024];
 static ptype_list *libpowerptype=NULL;
 
-static inline ttvline_list *lib_getnodeinputline(ttvevent_list *ev, int ttx)
+static  ttvline_list *lib_getnodeinputline(ttvevent_list *ev, int ttx)
 {
    if (ttx) return ev->INPATH;
    else return ev->IN_LINE;
@@ -1985,7 +1985,7 @@ char *lib_get_timing_sense (ttvsig_list *outsig, ttvsig_list *ptsig)
     int neg = 0 ;
     int pos = 0 ;
     
-    // a ajouter si utilise un jour: prise en compte ttvfig en dtx
+    /* a ajouter si utilise un jour: prise en compte ttvfig en dtx*/
     
 	for (ev = 0 ; ev < 2 ; ev++)
     	for(line = (&outsig->NODE[ev])->INPATH ; line ; line = line->NEXT)
@@ -2356,7 +2356,7 @@ void lib_driveheader (FILE *f, char *libname, ttvinfo_list *ttvinfo)
     fprintf(f,"technology (%s) ;\n",tecname);
     tab(f);
     fprintf(f,"date                          : \"%s\" ;\n",date);
-//    if(STM_TEMPLATES_CHAIN){
+/*    if(STM_TEMPLATES_CHAIN){*/
         tab(f);
         fprintf(f,"delay_model                   : %s ;\n",dmname);
         if(V_BOOL_TAB[__TUT_CALC_DERATE].VALUE) {
@@ -2737,7 +2737,7 @@ void lib_drivelut (FILE *f, timing_model *tmodel, char type)
 /****************************************************************************/
 void lib_drivelutconst (FILE *f, float value, char type)
 {
-//    int x,y;
+/*    int x,y;*/
     
 
     space(f,20);
@@ -2797,16 +2797,16 @@ int lib_drive_rail_connection(FILE *f, ttvfig_list *ttvfig)
                     alim = high - low;
                     if(!mbk_cmpdouble(*(float*)&ptype->DATA, alim, 1e6)){
                         if(flagdefault){
-//                            space(f,8);
-//                            fprintf(f, "rail_connection (PV0, VDD0) ;\n");
+/*                            space(f,8);*/
+/*                            fprintf(f, "rail_connection (PV0, VDD0) ;\n");*/
                             nbrail++;
                             flagdefault = 0;
                         }
                         i++;
                         sprintf (buf, "PV%d", i);
                         name = namealloc(buf);
-//                        space(f,8);
-//                        fprintf(f, "rail_connection (%s, %s) ;\n", name, (char*)ptype->TYPE);
+/*                        space(f,8);*/
+/*                        fprintf(f, "rail_connection (%s, %s) ;\n", name, (char*)ptype->TYPE);*/
                         nbrail++;
                         break;
                     }
@@ -3190,7 +3190,7 @@ void lib_driveslewmodel (FILE *f, ttvfig_list *ttvfig, char* name, char type, fl
 void lib_drive_cst_constraint(FILE *f, float value, char type)
 {
     space(f,16);
-//    if(STM_TEMPLATES_CHAIN){
+/*    if(STM_TEMPLATES_CHAIN){*/
         if(type=='R')
             fprintf(f,"rise_constraint (scalar) {\n");
         else if(type=='F')
@@ -3216,7 +3216,7 @@ void lib_drive_cst_constraint(FILE *f, float value, char type)
 void lib_driveintrinsic (FILE *f, float value, char type)
 {
     space(f,16);
-//    if(STM_TEMPLATES_CHAIN){
+/*    if(STM_TEMPLATES_CHAIN){*/
         if(type=='R')
             fprintf(f,"cell_rise (scalar) {\n");
         else if(type=='F')
@@ -3240,7 +3240,7 @@ void lib_driveintrinsic (FILE *f, float value, char type)
 void lib_driveslew (FILE *f, float value, char type)
 {
     space(f,16);
-//    if(STM_TEMPLATES_CHAIN){
+/*    if(STM_TEMPLATES_CHAIN){*/
         if(type=='R')
             fprintf(f,"rise_transition (scalar) {\n");
         else if(type=='F')

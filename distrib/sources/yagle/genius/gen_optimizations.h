@@ -13,7 +13,7 @@ extern int fastaddlofigchainconnector(losig_list *ls, locon_list *lc);
 extern void fastswaplofigchain(losig_list *ls, locon_list *lc, locon_list *newcl, int nooptim);
 extern void checklofig(losig_list *ls);
 extern void fastremovestaycoherent(chain_list *me, void *pred, void **head);
-//int updatefastlofigchain(losig_list *ls);
+/*int updatefastlofigchain(losig_list *ls);*/
 
 extern void UpdateSignalStatistics(losig_list *ls, locon_list *lc, int mode);
 extern void ProcessSignalStatistics();

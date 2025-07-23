@@ -129,7 +129,7 @@ void mcc_optim_addspidata(int type, elp_lotrs_param *lotrsparam_n,
   k2_vdd = MCC_VDDmax/6.0 ;
   if((type == MCC_TRANS_N) || (type == MCC_TRANS_B)) {   
     vdddeg =  mcc_spicevdeg(MCC_TRANS_N,lotrsparam_n) ;
-    //=> Create mcc_trans_spice
+    /*=> Create mcc_trans_spice*/
     tr_nmos.MODELFILE  = MCC_MODELFILE;
     tr_nmos.MODELTYPE  = mcc_getmodeltype (MCC_MODELFILE);
     tr_nmos.TRANSNAME  = MCC_TNMODEL;
@@ -145,7 +145,7 @@ void mcc_optim_addspidata(int type, elp_lotrs_param *lotrsparam_n,
     tr_nmos.VDD        = MCC_VDDmax;
     tr_nmos.PARAM      = lotrsparam_n;
     
-    //=> Create nmos simu condition
+    /*=> Create nmos simu condition*/
     nmos_cond.TRS = &tr_nmos;
     nmos_cond.VGS = MCC_VDDmax;
     nmos_cond.VDS = MCC_VDDmax;
@@ -160,7 +160,7 @@ void mcc_optim_addspidata(int type, elp_lotrs_param *lotrsparam_n,
                                         MCC_VDDmax
                                       );
     param->PARAM.DEFAULT.DELTAXMIN = MCC_VDDmax*MCC_DC_STEP;
-    // NB : le delta y par defaut tolere une erreur de 2% de Imax, on la passe a 1%
+    /* NB : le delta y par defaut tolere une erreur de 2% de Imax, on la passe a 1%*/
     param->PARAM.DEFAULT.DELTAYMAX /= V_FLOAT_TAB[ __AVT_OPTIM_STEP ].VALUE ;
     mbk_pwl_add_param_point( param, half_vdd );
     mbk_pwl_add_param_point( param, k_vdd );
@@ -210,7 +210,7 @@ void mcc_optim_addspidata(int type, elp_lotrs_param *lotrsparam_n,
         step += MCC_DC_STEP ;
       }
 #else
-//      MCC_IDNSAT=MCC_IDNRES=MCC_IDNVGS=NULL; //(void *)1; // bus error
+/*      MCC_IDNSAT=MCC_IDNRES=MCC_IDNVGS=NULL; //(void *)1; // bus error*/
       MCC_VDDDEG[1]=vdddeg;
 #endif
     }
@@ -219,7 +219,7 @@ void mcc_optim_addspidata(int type, elp_lotrs_param *lotrsparam_n,
   }
   if((type == MCC_TRANS_P) || (type == MCC_TRANS_B)) {   
     vssdeg =  mcc_spicevdeg(MCC_TRANS_P,lotrsparam_p) ;
-    //=> Create mcc_trans_spice
+    /*=> Create mcc_trans_spice*/
     tr_pmos.MODELFILE  = MCC_MODELFILE;
     tr_pmos.MODELTYPE  = mcc_getmodeltype (MCC_MODELFILE);
     tr_pmos.TRANSNAME  = MCC_TPMODEL;
@@ -235,7 +235,7 @@ void mcc_optim_addspidata(int type, elp_lotrs_param *lotrsparam_n,
     tr_pmos.VDD        = MCC_VDDmax;
     tr_pmos.PARAM      = lotrsparam_p;
 
-    //=> Create pmos simu condition
+    /*=> Create pmos simu condition*/
     pmos_cond.TRS = &tr_pmos;
     pmos_cond.VGS = -MCC_VDDmax;
     pmos_cond.VDS = -MCC_VDDmax;
@@ -250,7 +250,7 @@ void mcc_optim_addspidata(int type, elp_lotrs_param *lotrsparam_n,
                                         MCC_VDDmax
                                       );
     param->PARAM.DEFAULT.DELTAXMIN = MCC_VDDmax*MCC_DC_STEP;
-    // NB : le delta y par defaut tolere une erreur de 2% de Imax , on la passe a 1%
+    /* NB : le delta y par defaut tolere une erreur de 2% de Imax , on la passe a 1%*/
     param->PARAM.DEFAULT.DELTAYMAX /= V_FLOAT_TAB[ __AVT_OPTIM_STEP ].VALUE ;
     mbk_pwl_add_param_point( param, half_vdd );
     mbk_pwl_add_param_point( param, k_vdd );
@@ -301,7 +301,7 @@ void mcc_optim_addspidata(int type, elp_lotrs_param *lotrsparam_n,
         step += MCC_DC_STEP ;
       }
 #else
-//      MCC_IDPSAT=MCC_IDPRES=MCC_IDPVGS=NULL; //(void *)1; // bus error
+/*      MCC_IDPSAT=MCC_IDPRES=MCC_IDPVGS=NULL; //(void *)1; // bus error*/
       MCC_VSSDEG[1]=vssdeg;
 #endif
     }
@@ -326,8 +326,8 @@ void mcc_add_print_meas (FILE *file, char *filename)
 
   if ( !file || !filename )
     return;
-  // Positionnement des seuils de mesure des fronts
-  // NB : on divise par VDDmax car ce sont des ratios
+  /* Positionnement des seuils de mesure des fronts*/
+  /* NB : on divise par VDDmax car ce sont des ratios*/
   sfl_ud = (MCC_VTN / MCC_VDDmax);
   sfl_du = (MCC_VDDmax - MCC_VTP)/(4.0*MCC_VDDmax);
   sfh_ud = (3.0*MCC_VDDmax+MCC_VTN)/(4.0*MCC_VDDmax);

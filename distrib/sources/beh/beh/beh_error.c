@@ -49,7 +49,7 @@ char *str1;
 
     default:
          avt_errmsg(BEH_ERRMSG,"0",AVT_ERROR);
-    case 3: // do nothing
+    case 3: /* do nothing*/
          break;
   }
 

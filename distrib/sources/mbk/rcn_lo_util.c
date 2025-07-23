@@ -745,7 +745,7 @@ void rcn_dumprcn( losig_list *losig,
   }
 }
 
-// Marque un noeud. Renvoie 1 si il état déjà marqué, et 0 sinon.
+/* Marque un noeud. Renvoie 1 si il état déjà marqué, et 0 sinon.*/
 
 int rcn_testandmarknode( lonode_list *ptnode )
 {

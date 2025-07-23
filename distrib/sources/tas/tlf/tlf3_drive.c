@@ -736,9 +736,9 @@ void tlf3_driveheader (FILE *f, char *libname, ttvinfo_list *ttvinfo)
     */
 	fprintf (f, "header (\n") ;
 	fprintf (f, "\tlibrary (\"%s\")\n", libname) ;
-	//fprintf (f, "\tdate (\"%s\")\n", date) ;
+	/*fprintf (f, "\tdate (\"%s\")\n", date) ;*/
 	fprintf (f, "\ttlf_version (\"3.0\")\n") ;
-    //fprintf (f, "\tgenerated_by(\"TMA\")\n") ;
+    /*fprintf (f, "\tgenerated_by(\"TMA\")\n") ;*/
 	fprintf (f, ")\n\n") ;
 
     if(V_BOOL_TAB[__TUT_CALC_DERATE].VALUE) {

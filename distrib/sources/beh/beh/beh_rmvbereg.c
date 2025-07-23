@@ -65,7 +65,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
         {
         if ((ptbereg->BIABL != NULL) || (ptbereg->BINODE != NULL))
           beh_warning(309,beregname,NULL);
-          //(stderr,"BEH_warning : bereg `%s` not empty\n", beregname);
+          /*(stderr,"BEH_warning : bereg `%s` not empty\n", beregname);*/
         }
       else
         {

@@ -89,7 +89,7 @@ static int recursive_CHAIN(tree_list* tree, foundins_list *begin_foundins, loins
          if (bound->DATA==bound_ident) break;
       if (!bound) {
          avt_errmsg(GNS_ERRMSG, "028", AVT_FATAL, bound_ident);
-         //fprintf(stderr,"recursive_CHAIN: Variable %s not defined\n",bound_ident);
+         /*fprintf(stderr,"recursive_CHAIN: Variable %s not defined\n",bound_ident);*/
          EXIT(1);
       }  
       begin_value=Eval_Exp_VHDL(tree->NEXT->NEXT,env);
@@ -211,7 +211,7 @@ end_label:
      gen_printf(0,"no unit match from %s\n", sav_begin_foundins->LOINS->INSNAME);
       }
       
-//      if (sav_begin_foundins->LOWER) gen_printf(0,"\n");
+/*      if (sav_begin_foundins->LOWER) gen_printf(0,"\n");*/
          
       /*erase local var 'i' */
       p=env;
@@ -255,7 +255,7 @@ static int recursive_CHOICE(tree_list* tree, foundins_list *begin_foundins, loin
          if (bound->DATA==bound_ident) break;
       if (!bound) {
          avt_errmsg(GNS_ERRMSG, "028", AVT_FATAL, bound_ident);
-         //fprintf(stderr,"recursive_CHOICE: Variable %s not defined\n",bound_ident);
+         /*fprintf(stderr,"recursive_CHOICE: Variable %s not defined\n",bound_ident);*/
          EXIT(1);
       }  
       begin_value=Eval_Exp_VHDL(tree->NEXT->NEXT,env);
@@ -357,7 +357,7 @@ label_end:
      gen_printf(0,"no unit match from %s\n", begin_foundins->LOINS->INSNAME);
       }
 
-//      if (begin_foundins->LOWER) gen_printf(0,"\n");
+/*      if (begin_foundins->LOWER) gen_printf(0,"\n");*/
          
       /*erase local var 'i' */
       p=env;
@@ -398,7 +398,7 @@ static  int recursive_FOR(tree_list* tree, foundins_list *begin_foundins, loins_
    case GEN_TOKEN_FOR:
       if (!tree || !begin_foundins) {
         avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 43);
-//        fprintf(stderr,"recursive_FOR: NULL pointer\n");
+/*        fprintf(stderr,"recursive_FOR: NULL pointer\n");*/
         EXIT(1);
       }
 /*
@@ -469,7 +469,7 @@ extern int continue_search_on(tree_list* tree, foundins_list *circuit_foundins, 
    offsets=addptype(offsets,distance,last);
    if (!found) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 45);
-//      fprintf(stderr,"continue_search_on: NULL pointer\n");
+/*      fprintf(stderr,"continue_search_on: NULL pointer\n");*/
       EXIT(1);
    }
    match = recursive_FOR(tree, found, modelins, offsets, env);   
@@ -490,7 +490,7 @@ static inline int begin_search_on(foundins_list *circuit_foundins, loins_list* m
   
    if (!circuit_foundins || !model_ins) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 46);
-      //fprintf(stderr,"begin_search_on: NULL pointer\n");
+      /*fprintf(stderr,"begin_search_on: NULL pointer\n");*/
       EXIT(1);
    }
    
@@ -504,7 +504,7 @@ static inline int begin_search_on(foundins_list *circuit_foundins, loins_list* m
    p=getptype(model_ins->USER,GENERIC_PTYPE);
    if (!p) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 47);
-      //fprintf(stderr,"begin_search_on: PTYPE not found\n");
+      /*fprintf(stderr,"begin_search_on: PTYPE not found\n");*/
       EXIT(1);
    }
    tree=(tree_list*)p->DATA;  
@@ -528,7 +528,7 @@ static inline int begin_search_on(foundins_list *circuit_foundins, loins_list* m
 /*      if (occur % 100==0) 
         gen_printf(-1,"\tmatch (#%d)\n",occur);*/
       gen_printf(0,"\tmatch (#%d)\n",occur);
-//      if (occur>1100) EXIT(4);
+/*      if (occur>1100) EXIT(4);*/
     }
       else 
     {
@@ -581,7 +581,7 @@ static  void Sort_foundins(chain_list* for_foundins)
     if (!local->HIGHER) {
       break;
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 51);
-//      fprintf(stderr,"error %s\n",local->LOINS->INSNAME);
+/*      fprintf(stderr,"error %s\n",local->LOINS->INSNAME);*/
       EXIT(3);
     }
     local_high=local->HIGHER;
@@ -603,7 +603,7 @@ static  void Sort_foundins(chain_list* for_foundins)
     if (!local->HIGHER) {
       break;
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 52);
-      //fprintf(stderr,"error %s\n",local->LOINS->INSNAME);
+      /*fprintf(stderr,"error %s\n",local->LOINS->INSNAME);*/
       EXIT(3);
     }
     local_high=local->HIGHER;
@@ -647,7 +647,7 @@ static  void Sort_foundins(chain_list* for_foundins)
     if (!local->HIGHER) {
       break;
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 54);
-//      fprintf(stderr,"error %s\n",local->LOINS->INSNAME);
+/*      fprintf(stderr,"error %s\n",local->LOINS->INSNAME);*/
       EXIT(3);
     }
     local_high=local->HIGHER;
@@ -669,7 +669,7 @@ static  void Sort_foundins(chain_list* for_foundins)
     if (!local->HIGHER) {
       break;
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 55);
-//      fprintf(stderr,"error %s\n",local->LOINS->INSNAME);
+/*      fprintf(stderr,"error %s\n",local->LOINS->INSNAME);*/
       EXIT(3);
     }
     local_high=local->HIGHER;
@@ -706,7 +706,7 @@ static  void Sort_foundins(chain_list* for_foundins)
 /****************************************************************************/
 /* PHASe 1: SHIFT: take the maximum of instances in model if match the loop */
 /****************************************************************************/
-//#define LLEV -1
+/*#define LLEV -1*/
 #define LLEV 2
 extern int nbget, nbhit;
 char *FOR_VARIABLE;
@@ -722,7 +722,7 @@ static inline void Search_Generic_FOR(foundins_list *foundins, loins_list *model
 
    if (!foundins || !model_ins) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 56);
-//      fprintf(stderr,"Search_Generic_FOR: NULL pointer\n");
+/*      fprintf(stderr,"Search_Generic_FOR: NULL pointer\n");*/
       EXIT(1);
    }
    
@@ -746,7 +746,7 @@ static inline void Search_Generic_FOR(foundins_list *foundins, loins_list *model
        for (p=env, i=0; p!=NULL; p=p->NEXT, i++) oldenv[i]=p->TYPE;
        nbget=nbhit=0;
        gen_printf(LLEV,"%s __ New Loop Search: start __ %s\n",tabs,load->LOINS->INSNAME);
-//       printf("%d\n",load->FLAG);
+/*       printf("%d\n",load->FLAG);*/
        first_instance_in_for=load;
        signal_to_grab_instance_from=NULL;
        
@@ -757,10 +757,10 @@ static inline void Search_Generic_FOR(foundins_list *foundins, loins_list *model
          {
            /*this instance match*/
      
-           //     printf("is %d %s\n",load->FLAG,load->LOINS->INSNAME);
+           /*     printf("is %d %s\n",load->FLAG,load->LOINS->INSNAME);*/
            if (!load->FLAG) load->FLAG=HEAD;
            /*so the next instance linked to this one isn't the beginning*/
-           //     printf(" env->TYPE=%d ",env->TYPE);
+           /*     printf(" env->TYPE=%d ",env->TYPE);*/
            next_generics=get_Generic_foundins();
 
            if (isparal)
@@ -774,7 +774,7 @@ static inline void Search_Generic_FOR(foundins_list *foundins, loins_list *model
            env->TYPE++;
            pred=load;
            not_the_first=0;
-           //     printf("hit=%d get=%d ",nbhit,nbget);
+           /*     printf("hit=%d get=%d ",nbhit,nbget);*/
            nbhit=0;
 
            gen_printf(LLEV,"%s __ New Loop Search: join __\n",tabs);
@@ -783,16 +783,16 @@ static inline void Search_Generic_FOR(foundins_list *foundins, loins_list *model
                join=(foundins_list*) l->DATA;
                if (join!=load) 
                  {
-                   // printf("%d -> %d",load->FLAG, join->FLAG);
+                   /* printf("%d -> %d",load->FLAG, join->FLAG);*/
                    if (join->FLAG==SELECT) 
                      {
                        avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 57);
-                //       fprintf(stderr,"Search_Generic_FOR: %s already flag SELECT\n", join->LOINS->INSNAME);
+                /*       fprintf(stderr,"Search_Generic_FOR: %s already flag SELECT\n", join->LOINS->INSNAME);*/
                        EXIT(2);
                      } 
                    if (Search_Phase(0,join,model_ins,env)) 
                      {
-                       //gen_printf(LLEV,"*",tabs); fflush(GENIUS_OUTPUT);
+                       /*gen_printf(LLEV,"*",tabs); fflush(GENIUS_OUTPUT);*/
                        for ( ; pred->AFTER; pred=pred->AFTER) if (load->BEFORE==pred) break;
                        join->BEFORE=pred;
                        pred->AFTER=join;
@@ -802,7 +802,7 @@ static inline void Search_Generic_FOR(foundins_list *foundins, loins_list *model
                            load->BEFORE=join;
                          }   
                        pred=join;
-                       //             printf("%d\n",join->FLAG);
+                       /*             printf("%d\n",join->FLAG);*/
                        if (join->FLAG==PRESEL) 
                          {
                            join->FLAG=CHOICE;
@@ -834,11 +834,11 @@ static inline void Search_Generic_FOR(foundins_list *foundins, loins_list *model
                            count++;
                          }
                        nbhit++;
-                       //             printf("->%d\n",join->FLAG);
+                       /*             printf("->%d\n",join->FLAG);*/
                      }
                    else 
                      {
-                       //             gen_printf(LLEV,".",tabs); fflush(GENIUS_OUTPUT);
+                       /*             gen_printf(LLEV,".",tabs); fflush(GENIUS_OUTPUT);*/
                        if (join->FLAG==PRESEL) {join->FLAG=0;}
                        else if (join->FLAG==PRESEL_HEAD) join->FLAG=HEAD;
                        else 
@@ -851,7 +851,7 @@ static inline void Search_Generic_FOR(foundins_list *foundins, loins_list *model
                      }
                  }
              }
-           //     printf(" phit=%d\n",nbhit);
+           /*     printf(" phit=%d\n",nbhit);*/
            if (isparal)
              {
                int end_value=env->TYPE-1, old=isparal_bound->TYPE;
@@ -862,7 +862,7 @@ static inline void Search_Generic_FOR(foundins_list *foundins, loins_list *model
                if (isparal_bound->TYPE==UNDEF) isparal_bound->TYPE=env->TYPE-1;
 
                hider=env; 
-               env=env->NEXT; // remove local variable
+               env=env->NEXT; /* remove local variable*/
                gen_printf(0,"HEAD %s = ",load->LOINS->INSNAME);
                count=end_value-orig_bound+1;
                if (count==1) gen_printf(0,"%d unit\n",count);
@@ -980,13 +980,13 @@ static inline loins_list* iterative_FOR(tree_list* tree, ptype_list *env)
   char *index_ident,*bound_ident;
   foundins_list *foundins,*begin_foundins;
   static int inloop=0;
-//  const int X=10;
+/*  const int X=10;*/
   ptype_list *bound,*q;
   loins_list *ins_model;
 
    if (!tree) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 62);
-//     fprintf(stderr,"iterative_FOR: NULL pointer\n");
+/*     fprintf(stderr,"iterative_FOR: NULL pointer\n");*/
      EXIT(1);
    }
    
@@ -1004,7 +1004,7 @@ static inline loins_list* iterative_FOR(tree_list* tree, ptype_list *env)
          ptype_list *var,*del;
          if (mbk_istransn(ins_model->FIGNAME) || mbk_istransp(ins_model->FIGNAME)) {
             avt_errmsg(GNS_ERRMSG, "085", AVT_FATAL);
-            //fprintf(stderr,"iterative_FOR: transistor in center of loop forbidden\n");
+            /*fprintf(stderr,"iterative_FOR: transistor in center of loop forbidden\n");*/
             EXIT(3);
          }
          var=env;
@@ -1045,7 +1045,7 @@ static inline loins_list* iterative_FOR(tree_list* tree, ptype_list *env)
             q=getptype(foundins->LOINS->USER,GEN_FOUNDINS_PTYPE);
             if (!q) {
                avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 63);
-//               fprintf(stderr,"iterative_FOR: PTYPE not found\n");
+/*               fprintf(stderr,"iterative_FOR: PTYPE not found\n");*/
                EXIT(1);
             }
             q->DATA=foundins;
@@ -1076,7 +1076,7 @@ static inline loins_list* iterative_FOR(tree_list* tree, ptype_list *env)
          if (bound->DATA==bound_ident) break;
       if (!bound) {
          avt_errmsg(GNS_ERRMSG, "035", AVT_FATAL, bound_ident);
-         //fprintf(stderr,"iterative_FOR: Variable %s not defined\n",bound_ident);
+         /*fprintf(stderr,"iterative_FOR: Variable %s not defined\n",bound_ident);*/
          EXIT(1);
       }  
       /*local environment 'i' */
@@ -1088,7 +1088,7 @@ static inline loins_list* iterative_FOR(tree_list* tree, ptype_list *env)
       isparal_bound=bound;
       isparal_tree=tree;
       /*iterations*/
-//      printf("%s=%d %s=%d\n",index_ident, index_value, bound_ident, bound->TYPE);
+/*      printf("%s=%d %s=%d\n",index_ident, index_value, bound_ident, bound->TYPE);*/
       ins_model=iterative_FOR(tree->NEXT->NEXT->NEXT->NEXT,env);
       /*environment*/
       bound->TYPE=UNDEF;
@@ -1122,7 +1122,7 @@ static loins_list* choose_loins(tree_list* tree, char *rarest, ptype_list *env)
 
    if (!tree) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 64);
-//     fprintf(stderr,"choose_loins: NULL pointer\n");
+/*     fprintf(stderr,"choose_loins: NULL pointer\n");*/
      EXIT(1);
    }
    switch(TOKEN(tree)) {
@@ -1136,12 +1136,12 @@ static loins_list* choose_loins(tree_list* tree, char *rarest, ptype_list *env)
      loins=(loins_list*)tree->DATA;
      if (((long)getptype(loins->USER, GENIUS_LOINS_FLAGS_PTYPE)->DATA & LOINS_IS_WITHOUT)!=0)
        return NULL;
-     // a mathed without loins can not reduce results
+     /* a mathed without loins can not reduce results*/
      return (loins_list*)tree->DATA;
      break;
    case GEN_TOKEN_IF:  /*at this state of development if aren't supported by searching*/
       avt_errmsg(GNS_ERRMSG, "029", AVT_FATAL, FILE_NAME(tree),LINE(tree));
-      //fprintf(stderr,"%s:%d: IF forbidden for GENIUS\n",FILE_NAME(tree),LINE(tree));
+      /*fprintf(stderr,"%s:%d: IF forbidden for GENIUS\n",FILE_NAME(tree),LINE(tree));*/
       EXIT(1);
       return choose_loins(tree->NEXT->NEXT,rarest,env);
       break;
@@ -1201,7 +1201,7 @@ extern int genFindInstances(lofig_list *circuit, model_list *model, char *select
    
    if (!model || !select_model || !circuit) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 65);
-//      fprintf(stderr,"genFindInstances: NULL pointer\n");
+/*      fprintf(stderr,"genFindInstances: NULL pointer\n");*/
       EXIT(1);
    }   
 
@@ -1239,12 +1239,12 @@ extern int genFindInstances(lofig_list *circuit, model_list *model, char *select
      {
        ExpandFOR(model->GENERIC, circuit, env, &expansedloins, &originalloins, "", 0, 1);
        
-       // now we really add the new loins to the lofig
+       /* now we really add the new loins to the lofig*/
        FinishExpansion(originalloins);
      }
        
        best_loins=choose_loins(model->GENERIC, select_model, env);
-       // prechoose
+       /* prechoose*/
        if (best_loins==NULL)
      for (cl=expansedloins;cl!=NULL;cl=cl->NEXT)
        {
@@ -1255,7 +1255,7 @@ extern int genFindInstances(lofig_list *circuit, model_list *model, char *select
        p=getptype(best_loins->USER,GENERIC_PTYPE);
        if (!p) {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 66);
-//     fprintf(stderr,"genFindInstances: PTYPE not found\n");
+/*     fprintf(stderr,"genFindInstances: PTYPE not found\n");*/
      EXIT(1);
        }
        tree=(tree_list*) p->DATA;
@@ -1274,7 +1274,7 @@ extern int genFindInstances(lofig_list *circuit, model_list *model, char *select
            if (!p) 
          {
      avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 67);
-//           fprintf(stderr,"genFindInstances: NULL pointer\n");
+/*           fprintf(stderr,"genFindInstances: NULL pointer\n");*/
            EXIT(1);
          }
            p->DATA=foundins;
@@ -1295,7 +1295,7 @@ extern int genFindInstances(lofig_list *circuit, model_list *model, char *select
      {
        /*clean memory*/
        foundins_list *tmp=NULL;
-       //       freeptype(env);
+       /*       freeptype(env);*/
        
        for (l=FOUNDINS_FOR; l; l=l->NEXT) 
          {
@@ -1305,7 +1305,7 @@ extern int genFindInstances(lofig_list *circuit, model_list *model, char *select
        free_foundins(tmp,0);
        freechain(FOUNDINS_FOR);
        FOUNDINS_FOR=NULL;
-       //       return 0;
+       /*       return 0;*/
      }
        else
      {
@@ -1334,13 +1334,13 @@ extern int genFindInstances(lofig_list *circuit, model_list *model, char *select
            /*search around found instances for the others loins of lofig*/
            for (foundins=getfoundins(model_ins->FIGNAME); foundins; ){
          if (!foundins->NOT_MATCH && foundins->FLAG!=UNSELECT) {
-           //SetVariableToFindtoUNDEF(env);
+           /*SetVariableToFindtoUNDEF(env);*/
            
            done=0;
            do 
              {
                for (p=env; p; p=p->NEXT) p->TYPE=UNDEF;
-               //extern            int eeadd, eeremove;
+               /*extern            int eeadd, eeremove;*/
 
                if (begin_search_on(foundins, model_ins, env)) {
              /*erase all marks and lower loins and build the new one*/
@@ -1392,7 +1392,7 @@ extern int genFindInstances(lofig_list *circuit, model_list *model, char *select
          }
 
        ClearQuickMatchChanceHashTables();
-       finish_erase_foundins(); // Zinaps optim 2
+       finish_erase_foundins(); /* Zinaps optim 2*/
        
        /*clean memory*/
        {
@@ -1412,7 +1412,7 @@ extern int genFindInstances(lofig_list *circuit, model_list *model, char *select
        
        if (countFOR || launchexpansion)
      {
-       // we put back the lofig as it was before the expansion
+       /* we put back the lofig as it was before the expansion*/
        UndoExpansion(expansedloins);
      }
 

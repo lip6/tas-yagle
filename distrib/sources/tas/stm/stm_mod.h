@@ -30,10 +30,10 @@ extern void stm_mod_update_transition (timing_model *model, char transition);
 
 /* destructors */
 extern void stm_mod_destroy (timing_model *model);
-// only destroy the model ..anto..
+/* only destroy the model ..anto..*/
 extern void stm_mod_destroy_model(timing_model *model);
 
-// zinaps:
+/* zinaps:*/
 void stm_mod_update_dynamic_info (timing_model *model, char *newinsname);
 
 

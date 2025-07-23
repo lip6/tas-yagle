@@ -22,15 +22,15 @@
 #define UNDEF 0x0FFFFFFF       /*improbable value: variable not defined*/
 
 /* possible values of FLAG field in foundins for phase 2*/
-#define ALONE 1 //0x97555        
-#define SELECT 2 //0x97123        
-#define UNSELECT 3 //0x52001
-#define SELECT_HEAD 4 //0x21235
-#define HEAD 5 //0x57132          /* head of chain */
-#define PRESEL_HEAD 6 //0x455677    /*during algorithm in phase 1*/
-#define PRESEL  7 //0x142361     /*during algorithm in phase 1*/
-#define CHOICE 8 //0x45679       /*after phase 1*/
-#define CHAIN  9 //0x12315       /*after phase 1*/
+#define ALONE 1 /*0x97555        */
+#define SELECT 2 /*0x97123        */
+#define UNSELECT 3 /*0x52001*/
+#define SELECT_HEAD 4 /*0x21235*/
+#define HEAD 5 /*0x57132          /* head of chain */
+#define PRESEL_HEAD 6 /*0x455677    /*during algorithm in phase 1*/
+#define PRESEL  7 /*0x142361     /*during algorithm in phase 1*/
+#define CHOICE 8 /*0x45679       /*after phase 1*/
+#define CHAIN  9 /*0x12315       /*after phase 1*/
 
 
 #define TO_DELETE_MARK_PTYPE 0x1f2e3a
@@ -141,7 +141,7 @@ extern void Build_loins(model_list *model, ptype_list *env);
 /****************************************************************************/
 extern chain_list* Build_loins_list();
 
-// zinaps
+/* zinaps*/
 extern void displaymodels();
 
 /****************************************************************************/
@@ -162,7 +162,7 @@ extern void SearchInit();
 extern void FinishCleanLofigMarks(lofig_list *lf);
 extern void CleanUPMarkEA(lofig_list *lf);
 
-extern char tabs[200]; // pour indenter les traces
+extern char tabs[200]; /* pour indenter les traces*/
 
 extern char *modelradical(char *name);
 extern void UpdateNewInstanceLofigChain();

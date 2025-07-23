@@ -10,8 +10,8 @@
 #include GEN_H
 #include STB_H
 #include "api_common_structures.h"
-//#include "gen_API.h"
-//#define GENIUS_HEADER
+/*#include "gen_API.h"*/
+/*#define GENIUS_HEADER*/
 #define API_USE_REAL_TYPES
 #include "ctk_api_local.h"
 #include "ctk_API.h"
@@ -68,7 +68,7 @@ void ctk_DriveStatCtk( stbfig_list *stbfig )
   stat = stb_ctk_get_stat( stbfig );
   if( !stat ) {
     avt_errmsg(CTK_API_ERRMSG, "001", AVT_WARNING);
-//    fprintf( stderr, "No crosstalk statistics to drive in report.\n");
+/*    fprintf( stderr, "No crosstalk statistics to drive in report.\n");*/
   }
   else {
     report = stb_info_open( stbfig );
@@ -128,13 +128,13 @@ ptype_list* ctk_GetStatNodeProperty( stbfig_list *stbfig, int index, char *prope
   stat = stb_ctk_get_stat( stbfig );
   if( !stat ) {
     avt_errmsg(CTK_API_ERRMSG, "001", AVT_WARNING);
-    //fprintf( stderr, "No crosstalk statistics to drive in report.\n");
+    /*fprintf( stderr, "No crosstalk statistics to drive in report.\n");*/
     return addptype (NULL, TYPE_CHAR, strdup ("No crosstalk statistics to drive in report"));
   }
 
   if( index < 1 || index > stat->NBELEM ) {
     avt_errmsg(CTK_API_ERRMSG, "002", AVT_WARNING);
-    //fprintf( stderr, "No crosstalk statistics available for this event.\n" );
+    /*fprintf( stderr, "No crosstalk statistics available for this event.\n" );*/
     return addptype (NULL, TYPE_CHAR, strdup ("No crosstalk statistics available for this event"));
   }
 
@@ -205,7 +205,7 @@ ptype_list* ctk_GetStatNodeProperty( stbfig_list *stbfig, int index, char *prope
   }
 
   avt_errmsg(CTK_API_ERRMSG, "003", AVT_ERROR, property);
-//  sprintf( buf, "error : unknown property %s\n", property ); 
+/*  sprintf( buf, "error : unknown property %s\n", property ); */
   fprintf( stderr, "%s\n", buf ); 
   return addptype (NULL, TYPE_CHAR, strdup (buf));
 
@@ -270,8 +270,8 @@ ptype_list* ctk_GetAggressorProperty( ctk_aggressor *agressor, char *property )
   }
 
   if( !strcasecmp( property, "CAPA_CTK" ) ) {
-  //  sprintf( buf, "%g", agressor->CC );
-    return fitdouble(agressor->CC*1e-12); //addptype( NULL, TYPE_CHAR, strdup(buf) );
+  /*  sprintf( buf, "%g", agressor->CC );*/
+    return fitdouble(agressor->CC*1e-12); /*addptype( NULL, TYPE_CHAR, strdup(buf) );*/
   }
 
   if( !strcasecmp( property, "DELAYBESTAGR" ) ) {
@@ -348,7 +348,7 @@ void ctk_SortCtkStatNode( stbfig_list *stbfig, char *criterion )
   stat = stb_ctk_get_stat( stbfig );
   if( !stat ) {
     avt_errmsg(CTK_API_ERRMSG, "001", AVT_WARNING);
-//    fprintf( stderr, "No crosstalk statistics available.\n");
+/*    fprintf( stderr, "No crosstalk statistics available.\n");*/
     return ;
   }
 
@@ -395,7 +395,7 @@ int ctk_GetCtkStatNodeFromEvent( stbfig_list *stbfig, ttvevent_list *event )
   stat = stb_ctk_get_stat( stbfig );
   if( !stat ) {
     avt_errmsg(CTK_API_ERRMSG, "001", AVT_WARNING);
-    //fprintf( stderr, "No crosstalk statistics available.\n");
+    /*fprintf( stderr, "No crosstalk statistics available.\n");*/
     return -1 ;
   }
 
@@ -423,7 +423,7 @@ void ctk_SortCtkStatLine( stbfig_list *stbfig, char *criterion )
   stat = stb_ctk_get_stat( stbfig );
   if( !stat ) {
     avt_errmsg(CTK_API_ERRMSG, "001", AVT_WARNING);
-    //fprintf( stderr, "No crosstalk statistics available.\n");
+    /*fprintf( stderr, "No crosstalk statistics available.\n");*/
     return ;
   }
 
@@ -452,7 +452,7 @@ int ctk_GetNumberOfCtkStatLine( stbfig_list *stbfig )
   stat = stb_ctk_get_stat( stbfig );
   if( !stat ) {
     avt_errmsg(CTK_API_ERRMSG, "001", AVT_WARNING);
-    //fprintf( stderr, "No crosstalk statistics available.\n");
+    /*fprintf( stderr, "No crosstalk statistics available.\n");*/
     return -1 ;
   }
   
@@ -470,13 +470,13 @@ ptype_list *ctk_GetStatLineProperty( stbfig_list *stbfig, int index, char *prope
   stat = stb_ctk_get_stat( stbfig );
   if( !stat ) {
     avt_errmsg(CTK_API_ERRMSG, "001", AVT_WARNING);
-    //fprintf( stderr, "No crosstalk statistics to drive in report.\n");
+    /*fprintf( stderr, "No crosstalk statistics to drive in report.\n");*/
     return NULL ;
   }
 
   if( index < 1 || index > stat->NBELEM ) {
     avt_errmsg(CTK_API_ERRMSG, "002", AVT_WARNING);
-//    fprintf( stderr, "No crosstalk statistics available for this event.\n" );
+/*    fprintf( stderr, "No crosstalk statistics available for this event.\n" );*/
     return NULL ;
   }
 
@@ -491,47 +491,47 @@ ptype_list *ctk_GetStatLineProperty( stbfig_list *stbfig, int index, char *prope
   }
 
   if( ! strcasecmp( property, "DELAY_MAX_STA" ) ) {
-    //sprintf( buf, "%g", ((float)stat->TABD[index].LINE->VALMAX)/TTV_UNIT );
-    return fitdouble(((float)stat->TABD[index].LINE->VALMAX)*1e-12/TTV_UNIT); //addptype( NULL, TYPE_CHAR, strdup(buf) ) ;
+    /*sprintf( buf, "%g", ((float)stat->TABD[index].LINE->VALMAX)/TTV_UNIT );*/
+    return fitdouble(((float)stat->TABD[index].LINE->VALMAX)*1e-12/TTV_UNIT); /*addptype( NULL, TYPE_CHAR, strdup(buf) ) ;*/
   }
 
   if( ! strcasecmp( property, "DELAY_MIN_STA" ) ) {
-//    sprintf( buf, "%g", ((float)stat->TABD[index].LINE->VALMIN)/TTV_UNIT );
-    return fitdouble(((float)stat->TABD[index].LINE->VALMIN)*1e-12/TTV_UNIT); //addptype( NULL, TYPE_CHAR, strdup(buf) ) ;
+/*    sprintf( buf, "%g", ((float)stat->TABD[index].LINE->VALMIN)/TTV_UNIT );*/
+    return fitdouble(((float)stat->TABD[index].LINE->VALMIN)*1e-12/TTV_UNIT); /*addptype( NULL, TYPE_CHAR, strdup(buf) ) ;*/
   }
 
   if( ! strcasecmp( property, "SLOPE_MAX_STA" ) ) {
-//    sprintf( buf, "%g", ((float)stat->TABD[index].LINE->FMAX)/TTV_UNIT );
-    return fitdouble(((float)stat->TABD[index].LINE->FMAX)*1e-12/TTV_UNIT); //addptype( NULL, TYPE_CHAR, strdup(buf) ) ;
+/*    sprintf( buf, "%g", ((float)stat->TABD[index].LINE->FMAX)/TTV_UNIT );*/
+    return fitdouble(((float)stat->TABD[index].LINE->FMAX)*1e-12/TTV_UNIT); /*addptype( NULL, TYPE_CHAR, strdup(buf) ) ;*/
   }
 
   if( ! strcasecmp( property, "SLOPE_MIN_STA" ) ) {
-//    sprintf( buf, "%g", ((float)stat->TABD[index].LINE->FMIN)/TTV_UNIT );
-    return fitdouble(((float)stat->TABD[index].LINE->FMIN)*1e-12/TTV_UNIT); //addptype( NULL, TYPE_CHAR, strdup(buf) ) ;
+/*    sprintf( buf, "%g", ((float)stat->TABD[index].LINE->FMIN)/TTV_UNIT );*/
+    return fitdouble(((float)stat->TABD[index].LINE->FMIN)*1e-12/TTV_UNIT); /*addptype( NULL, TYPE_CHAR, strdup(buf) ) ;*/
   }
 
   if( ! strcasecmp( property, "DELAY_MAX_CTK" ) ) {
-//    sprintf( buf, "%g", ((float)ttv_getdelaymax(stat->TABD[index].LINE))/TTV_UNIT );
-    return fitdouble(((float)ttv_getdelaymax(stat->TABD[index].LINE))*1e-12/TTV_UNIT); //addptype( NULL, TYPE_CHAR, strdup(buf) ) ;
+/*    sprintf( buf, "%g", ((float)ttv_getdelaymax(stat->TABD[index].LINE))/TTV_UNIT );*/
+    return fitdouble(((float)ttv_getdelaymax(stat->TABD[index].LINE))*1e-12/TTV_UNIT); /*addptype( NULL, TYPE_CHAR, strdup(buf) ) ;*/
   }
 
   if( ! strcasecmp( property, "DELAY_MIN_CTK" ) ) {
-//    sprintf( buf, "%g", ((float)ttv_getdelaymin(stat->TABD[index].LINE))/TTV_UNIT );
-    return fitdouble(((float)ttv_getdelaymin(stat->TABD[index].LINE))*1e-12/TTV_UNIT); //addptype( NULL, TYPE_CHAR, strdup(buf) ) ;
+/*    sprintf( buf, "%g", ((float)ttv_getdelaymin(stat->TABD[index].LINE))/TTV_UNIT );*/
+    return fitdouble(((float)ttv_getdelaymin(stat->TABD[index].LINE))*1e-12/TTV_UNIT); /*addptype( NULL, TYPE_CHAR, strdup(buf) ) ;*/
   }
 
   if( ! strcasecmp( property, "SLOPE_MAX_CTK" ) ) {
-//    sprintf( buf, "%g", ((float)ttv_getslopemax(stat->TABD[index].LINE))/TTV_UNIT );
-    return fitdouble(((float)ttv_getslopemax(stat->TABD[index].LINE))*1e-12/TTV_UNIT); //addptype( NULL, TYPE_CHAR, strdup(buf) ) ;
+/*    sprintf( buf, "%g", ((float)ttv_getslopemax(stat->TABD[index].LINE))/TTV_UNIT );*/
+    return fitdouble(((float)ttv_getslopemax(stat->TABD[index].LINE))*1e-12/TTV_UNIT); /*addptype( NULL, TYPE_CHAR, strdup(buf) ) ;*/
   }
 
   if( ! strcasecmp( property, "SLOPE_MIN_CTK" ) ) {
-//    sprintf( buf, "%g", ((float)ttv_getslopemin(stat->TABD[index].LINE))/TTV_UNIT );
-    return fitdouble(((float)ttv_getslopemin(stat->TABD[index].LINE))*1e-12/TTV_UNIT); //addptype( NULL, TYPE_CHAR, strdup(buf) ) ;
+/*    sprintf( buf, "%g", ((float)ttv_getslopemin(stat->TABD[index].LINE))/TTV_UNIT );*/
+    return fitdouble(((float)ttv_getslopemin(stat->TABD[index].LINE))*1e-12/TTV_UNIT); /*addptype( NULL, TYPE_CHAR, strdup(buf) ) ;*/
   }
 
   avt_errmsg(CTK_API_ERRMSG, "003", AVT_ERROR, property);
   return addptype (NULL, TYPE_CHAR, strdup ("error_unknown_property"));
-//  fprintf( stderr, "error : unknown property %s\n", property ); 
-//  return NULL ;
+/*  fprintf( stderr, "error : unknown property %s\n", property ); */
+/*  return NULL ;*/
 }

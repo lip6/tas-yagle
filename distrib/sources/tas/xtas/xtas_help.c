@@ -1406,7 +1406,7 @@ Widget    widget;
 XtPointer client_data;
 XtPointer call_data;
 {
-	//HelpFather = NULL ;
+	/*HelpFather = NULL ;*/
 }
 
 /*---------------------------------------------------------------------------*/

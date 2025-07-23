@@ -73,8 +73,8 @@ vlogloadbefig(befig_list *pt_lastbefig, char *figname, unsigned int trace_mode)
         if (suffix == NULL) sprintf(buffer, "%s", figname);
         else sprintf(buffer, "%s.%s", figname, suffix);
         avt_errmsg(BGL_ERRMSG,"033",AVT_FATAL,buffer);
-//        fprintf(stderr, "\n*** beh error *** file does not exist : %s\n", buffer);
-//        EXIT(1);
+/*        fprintf(stderr, "\n*** beh error *** file does not exist : %s\n", buffer);*/
+/*        EXIT(1);*/
     }
 
     /* Initialization of some variables */
@@ -102,11 +102,11 @@ vlogloadbefig(befig_list *pt_lastbefig, char *figname, unsigned int trace_mode)
         BGL_AUXMOD = 0;
 
     if (bgl_bcompparse(ptparser) != 0) {
-//        fprintf(stderr, "\n*** bgl error *** abnormal parsing for : %s\n", ptcontext->FILENAME);
+/*        fprintf(stderr, "\n*** bgl error *** abnormal parsing for : %s\n", ptcontext->FILENAME);*/
         bgl_bcompclean(ptcontext);
         bgl_delparser(ptparser);
         fclose(fp);
-//        EXIT(1);
+/*        EXIT(1);*/
         avt_errmsg(BGL_ERRMSG,"034",AVT_FATAL,ptcontext->FILENAME);
     }
 

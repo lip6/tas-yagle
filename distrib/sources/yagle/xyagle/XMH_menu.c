@@ -18,6 +18,8 @@
 # include XTB_H
 # include XSB_H
 # include XMH_H
+# include CGV_H
+# include XYA_H
 # include XMX_H
 
 # include "XMH_menu.h"

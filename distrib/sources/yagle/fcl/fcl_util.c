@@ -19,8 +19,7 @@ void fclExit()
     EXIT(1);
 }
 
-fcl_label      CountChain(pthead)
-chain_list *pthead;
+fcl_label      CountChain( chain_list *pthead )
 {
     chain_list *pt;
     fcl_label      i = 0;
@@ -30,8 +29,7 @@ chain_list *pthead;
     return ((fcl_label) i);
 }
 
-fcl_label getlabellocon(ptlocon)
-locon_list *ptlocon;
+fcl_label getlabellocon( locon_list *ptlocon )
 {
    if (ptlocon == NULL) return (fcl_label)0;
    if (ptlocon->TYPE == 'T') {
@@ -46,8 +44,7 @@ locon_list *ptlocon;
    return (fcl_label)POID_INS;
 }
 
-fcl_label getlabeltrs(ptlotrs)
-lotrs_list *ptlotrs;
+fcl_label getlabeltrs( lotrs_list *ptlotrs )
 {
    ptype_list *ptype;
 
@@ -59,8 +56,7 @@ lotrs_list *ptlotrs;
    return ((fcl_label) (long)ptype->DATA);
 }
 
-fcl_label getlabelsig(ptlosig)
-losig_list *ptlosig;
+fcl_label getlabelsig( losig_list *ptlosig )
 {
    ptype_list *ptype;
 
@@ -72,9 +68,7 @@ losig_list *ptlosig;
    return ((fcl_label) (long)ptype->DATA);
 }
 
-void
-fclCorruptLotrs(ptlotrs)
-    lotrs_list *ptlotrs;
+void fclCorruptLotrs( lotrs_list *ptlotrs )
 {
     ptype_list *ptuser;
 
@@ -86,9 +80,7 @@ fclCorruptLotrs(ptlotrs)
     }
 }
 
-void
-fclCorruptLosig(ptlosig)
-    losig_list *ptlosig;
+void fclCorruptLosig( losig_list *ptlosig )
 {
     ptype_list *ptuser;
 
@@ -100,9 +92,7 @@ fclCorruptLosig(ptlosig)
     }
 }
 
-fcl_label getlabelsigtrs(ptlotrs,ptlosig)
-lotrs_list *ptlotrs;
-losig_list *ptlosig;
+fcl_label getlabelsigtrs( lotrs_list *ptlotrs, losig_list *ptlosig )
 {
    if (ptlotrs->DRAIN->SIG == ptlosig)
       return getlabellocon(ptlotrs->DRAIN);
@@ -121,9 +111,7 @@ losig_list *ptlosig;
    return 0;
 }
 
-lotrs_list *whichtrs(ptlofig,ptlocon)
-lofig_list *ptlofig;
-locon_list *ptlocon;
+lotrs_list *whichtrs( lofig_list *ptlofig, locon_list *ptlocon )
 {
     lotrs_list *ptr;
 
@@ -138,9 +126,7 @@ locon_list *ptlocon;
     return (lotrs_list *) NULL;
 }
 
-void
-fclMarkTrans(transchain)
-    chain_list *transchain;
+void fclMarkTrans( chain_list *transchain )
 {
     chain_list *ptchain;
     lotrs_list *pttrans;
@@ -155,9 +141,7 @@ fclMarkTrans(transchain)
     }
 }
 
-void
-fclUnmarkTrans(transchain)
-    chain_list *transchain;
+void fclUnmarkTrans( chain_list *transchain )
 {
     chain_list *ptchain;
     lotrs_list *pttrans;
@@ -171,9 +155,7 @@ fclUnmarkTrans(transchain)
     }
 }
 
-void
-fclCleanShareMarks(ptlofig)
-    lofig_list *ptlofig;
+void fclCleanShareMarks( lofig_list *ptlofig )
 {
     lotrs_list *ptlotrs;
     loins_list *ptloins;
@@ -190,9 +172,7 @@ fclCleanShareMarks(ptlofig)
     } 
 }
 
-void
-fclCleanTransferMarks(ptlofig)
-    lofig_list *ptlofig;
+void fclCleanTransferMarks( lofig_list *ptlofig )
 {
     ptype_list *ptuser;
     lotrs_list *ptlotrs;
@@ -220,9 +200,7 @@ fclCleanTransferMarks(ptlofig)
     }
 }
 
-void
-fclCleanCouplingMarks(ptlofig)
-    lofig_list *ptlofig;
+void fclCleanCouplingMarks( lofig_list *ptlofig )
 {
     losig_list *ptlosig;
     ptype_list *ptuser;
@@ -235,8 +213,7 @@ fclCleanCouplingMarks(ptlofig)
     } 
 }
 
-void fclCleanTransList(ptloins)
-    loins_list *ptloins;
+void fclCleanTransList( loins_list *ptloins )
 {
     ptype_list *ptuser;
 
@@ -251,9 +228,7 @@ void fclCleanTransList(ptloins)
 
 }
 
-void
-fclDeleteInstance(ptloins)
-    loins_list *ptloins;
+void fclDeleteInstance( loins_list *ptloins )
 {
     ptype_list *ptuser;
     locon_list *ptlocon, *ptnextlocon;
@@ -273,9 +248,7 @@ fclDeleteInstance(ptloins)
     mbkfree(ptloins);
 }
 
-void
-fclFreeCorrespList(ptlist)
-    fclcorresp_list *ptlist;
+void fclFreeCorrespList( fclcorresp_list *ptlist )
 {
     fclcorresp_list *ptcorresp;
     fclcorresp_list *ptnext;
@@ -289,11 +262,7 @@ fclFreeCorrespList(ptlist)
 /* display system and user time */
 extern long NUM_PTYPE;
 
-void
-fclPrintTime(start, end, rstart, rend)
-    struct rusage  *start, *end;
-    time_t          rstart, rend;
-
+void fclPrintTime( struct rusage *start, struct rusage *end, time_t rstart, time_t rend )
 {
     unsigned long   temps;
     unsigned long   user, syst;
@@ -322,10 +291,7 @@ fclPrintTime(start, end, rstart, rend)
     fflush(stdout);
 }
 
-void
-fclChrono(t, rt)
-    struct rusage  *t;
-    time_t         *rt;
+void fclChrono( struct rusage *t, time_t *rt )
 {
     getrusage(RUSAGE_SELF, t);
     time(rt);

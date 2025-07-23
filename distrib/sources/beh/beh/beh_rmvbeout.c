@@ -64,7 +64,7 @@ char          mode;		/* recursive delete or not (Y or N)	*/
         {
         if (ptbeout->ABL != NULL)
           beh_warning(307,beoutname,NULL);
-          //(stderr,"BEH_warning : beout `%s` not empty\n", beoutname);
+          /*(stderr,"BEH_warning : beout `%s` not empty\n", beoutname);*/
         }
       else
         freeExpr (ptbeout->ABL);

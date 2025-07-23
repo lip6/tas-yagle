@@ -134,7 +134,7 @@ chain_list *sigchain,*sigtreechain;
       p = getptype(ptcon->USER, GENCONCHAIN);
       if (!p) {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 1);
-//    fprintf(stderr,"gen_addloins: PTYPE not found on locon %s for loins %s\n",ptcon->NAME,insname);
+/*    fprintf(stderr,"gen_addloins: PTYPE not found on locon %s for loins %s\n",ptcon->NAME,insname);*/
     EXIT(1);
       }
       /* TOKEN(tree_con)=GEN_TOKEN_DIGIT or TOKEN(tree_con)=GEN_TOKEN_TO or GEN_TOKEN_DOWNTO */
@@ -570,7 +570,7 @@ void transfert_needed_lofigs(lofig_list *lf, mbkContext *ctx)
           if (getloadedlofig(li->FIGNAME)==NULL)
             {
               mbkSwitchContext(ctx);
-              addhtitem(ctx->HT_LOFIG, nlf->NAME, (long)nlf); // duplofig??
+              addhtitem(ctx->HT_LOFIG, nlf->NAME, (long)nlf); /* duplofig??*/
               transfert_needed_lofigs(nlf, ctx);
             }
           else

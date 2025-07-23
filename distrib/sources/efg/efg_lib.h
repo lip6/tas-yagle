@@ -76,9 +76,9 @@
 #define EFG_SIG_SET_NUM    ((long) 0x2000000a ) /*                           */
 #define EFG_SIG_CLK        ((long) 0x2000000b ) /*                           */
 #define EFG_FORCE_IC       ((long) 0x2000000c ) /*                           */
-                                                //               locon
-                                                // desc : correspondance orig 
-                                                // et extrait
+                                                /*               locon*/
+                                                /* desc : correspondance orig */
+                                                /* et extrait*/
 #define EFG_CONE_STUCK_GSP        0x2000000d                                      
 
 #define EFG_SIG_SET_HIER   ((long)0x3F000000 ) /* */
@@ -87,18 +87,18 @@
 #define EFG_INS_OUTPATH    ((long)0x3F000003 ) /* */
 #define EFG_CONFIG_CONINS  ((long)0x3F000004 ) /* sig fig <=> sig ins */
 
-#define EFG_INS_NO_COPY    ((long)0x40000000 ) // instance a ne pas dupliquer
-#define EFG_INS_FIG        ((long)0x40000001 ) // special lofig linked to loins
-#define EFG_INS_CTXT       ((long)0x40000002 ) // contexte de l'instance
+#define EFG_INS_NO_COPY    ((long)0x40000000 ) /* instance a ne pas dupliquer*/
+#define EFG_INS_FIG        ((long)0x40000001 ) /* special lofig linked to loins*/
+#define EFG_INS_CTXT       ((long)0x40000002 ) /* contexte de l'instance*/
 
-#define EFG_SPISIG_ORG_NAME ((long)0x50000000 ) // Nom original du spisig s'il
-                                                // a ete modifie entre temps
-#define EFG_SPISIG_LOOP_SPISIG 0x50000001 // Nom original du spisig s'il
+#define EFG_SPISIG_ORG_NAME ((long)0x50000000 ) /* Nom original du spisig s'il*/
+                                                /* a ete modifie entre temps*/
+#define EFG_SPISIG_LOOP_SPISIG 0x50000001 /* Nom original du spisig s'il*/
 
-#define EFG_ALIAS_ORG  ((long)0x60000000 ) // Nom original des signaux / lotrs
-#define EFG_CONE_FCT   ((long)0x70000000 ) // le cone est sur le critic path
+#define EFG_ALIAS_ORG  ((long)0x60000000 ) /* Nom original des signaux / lotrs*/
+#define EFG_CONE_FCT   ((long)0x70000000 ) /* le cone est sur le critic path*/
 
-#define EFG_LOCON_CAPA ((long)0x80000000 ) // equivalent capa for a locon
+#define EFG_LOCON_CAPA ((long)0x80000000 ) /* equivalent capa for a locon*/
 #define EFG_SIG2CONE   ((long)0x80000001 )  
 #define EFG_SIG2CONE   ((long)0x80000001 )  
 
@@ -124,30 +124,28 @@
 typedef struct spisig
         {
          struct spisig  *NEXT;
-         char           *NAME;              // nom hierarchique du signal    
-         char           *critic_NAME;       // nom dans le detail du chemin    
-         losig_list     *SRCSIG;            // signal de la figure originale 
-         losig_list     *DESTSIG;           // signal de la figure extraite  
-         //chain_list     *LOCONRC;           // si RC on sig                  
-         char           *INCONRC;           // si RC on sig                  
-         char           *OUTCONRC;           // si RC on sig                  
-         long INCONRC_NODE, OUTCONRC_NODE;  // node num from rcx                  
-         int             MINDATE, NUM;               // num du signal pr le chemin    
-         long            EVENT;             // type de transition du front   
-         /*
-         long            TPCKUP;            // temps de montee de ck         
-         long            TPCKDN;            // temps de descente de ck       
-         long            TCKSTAB;           // temps de stabilite de ck      
-         */
-         float           ADDCAPA;           // capa additionnelle sur le sig 
-         float           INITVOLT;          // init de la tension du sig     
-         float           VTHLOW;            // seuil de mesure low du front
-         float           VTHHIGH;           // seuil de mesure high du front
-         float           VTH;               // VT pour le front d entree
-         float           VTHHZ;               // VT pour les hz
-         char            START;             // 1 : c'est un noeud de départ, 0 : non
-         char            END;               // 1 : c'est un noeud d'arrivée, 0 : non
-         char            CLK;               // 1 : c'est un noeud sur un chemin de command, 0 : non
+         char           *NAME;              /* nom hierarchique du signal    */
+         char           *critic_NAME;       /* nom dans le detail du chemin    */
+         losig_list     *SRCSIG;            /* signal de la figure originale */
+         losig_list     *DESTSIG;           /* signal de la figure extraite  */
+         /*chain_list     *LOCONRC;           // si RC on sig                  */
+         char           *INCONRC;           /* si RC on sig                  */
+         char           *OUTCONRC;           /* si RC on sig                  */
+         long INCONRC_NODE, OUTCONRC_NODE;  /* node num from rcx                  */
+         int             MINDATE, NUM;               /* num du signal pr le chemin    */
+         long            EVENT;             /* type de transition du front   */
+         /* long            TPCKUP;             * temps de montee de ck         */
+         /* long            TPCKDN;             * temps de descente de ck       */
+         /* long            TCKSTAB;            * temps de stabilite de ck      */
+         float           ADDCAPA;           /* capa additionnelle sur le sig */
+         float           INITVOLT;          /* init de la tension du sig     */
+         float           VTHLOW;            /* seuil de mesure low du front*/
+         float           VTHHIGH;           /* seuil de mesure high du front*/
+         float           VTH;               /* VT pour le front d entree*/
+         float           VTHHZ;               /* VT pour les hz*/
+         char            START;             /* 1 : c'est un noeud de départ, 0 : non */
+         char            END;               /* 1 : c'est un noeud d'arrivée, 0 : non */
+         char            CLK;               /* 1 : c'est un noeud sur un chemin de command, 0 : non*/
          char            GOODRC;
          char            HASRCLINE;
          char            ADDIC;
@@ -180,7 +178,7 @@ typedef struct efg_ctx {
   struct efg_ctx *NEXT;
   ht             *LOCONS;
   ht             *SRCSIG;
-  ht             *LOINSCOPIED;   // corresp locon fig source -> fig destination
+  ht             *LOINSCOPIED;   /* corresp locon fig source -> fig destination*/
 } efg_ctxlist;
 
 typedef struct efgglobal {
@@ -256,7 +254,7 @@ extern void           efg_extract_fig       ( lofig_list  *lofig,
                                               int          markfig
                                             );
 
-// => spisig
+/* => spisig*/
 extern spisig_list   *efg_GetSpiSigByName (spisig_list *head,char *name);
 extern void           efg_UpdateSpiSigName (spisig_list *spisig, char *name);
 extern losig_list    *efg_GetHierSigByName (lofig_list*,char*,char**,loins_list**,char);
@@ -295,7 +293,7 @@ int efg_GetSpiSigNum (spisig_list *spisig);
 extern void           efg_add_lotrs_capa_dup (lofig_list *fig, locon_list *con);
 char *efg_getlosigname(losig_list *ls);
 
-// temp
+/* temp*/
 chain_list *efg_getcone_onpath (spisig_list *hdspisig,cnsfig_list *cnsfig );
 void efg_createcontext();
 void efg_setsrcfig2context (lofig_list *fig);

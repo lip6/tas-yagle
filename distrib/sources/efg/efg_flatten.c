@@ -332,7 +332,7 @@ locon_list* efg_getexternallocon( efg_fullsiglist *fullsig )
 
 char efg_getdir( efg_fullsiglist *fullsig )
 {
-    // je sens ke c est pas bon
+    /* je sens ke c est pas bon*/
     char dir;
     char *context;
     losig_list *losig;
@@ -358,7 +358,7 @@ efg_srcsiglist* efg_gettopsig( efg_fullsiglist *fullsig )
   efg_srcsiglist *topsig = NULL;
 
   // Construction des tables de conversion des index des noeuds, à partir du
-  // signal de plus haut niveau.
+  /* signal de plus haut niveau.*/
   for( siglist = fullsig->SIGLIST; siglist ; siglist = siglist->NEXT ) {
     if( siglist->LEVEL < minlevel ) {
       minlevel = siglist->LEVEL;

@@ -55,7 +55,7 @@ char *VST_OUT = NULL;
 /* ###--------------------------------------------------------------### */
 void vhdlsavelofig (lofig_list *ptfig, FILE *outputfile)
   {
-  extern char  *getsigname ();
+  extern char  *getsigname (losig_list*);
   struct loins *ptins        = NULL;
   struct locon *ptcon        = NULL;
   struct locon *tmp_ptcon    = NULL;
@@ -154,7 +154,7 @@ void vhdlsavelofig (lofig_list *ptfig, FILE *outputfile)
           mode = namealloc ("linkage");
           break;
         case 'I':
-        default : // ..anto..
+        default : /* ..anto..*/
           mode = namealloc ("in");
           break;
         }
@@ -233,7 +233,7 @@ void vhdlsavelofig (lofig_list *ptfig, FILE *outputfile)
           mode = namealloc ("linkage");
           break;
         case 'I':
-        default : // ..anto..
+        default : /* ..anto..*/
           mode = namealloc ("in");
           break;
         }
@@ -395,7 +395,7 @@ void vhdlsavelofig (lofig_list *ptfig, FILE *outputfile)
               }
             }
           }
-        freechain(sig_list); //zinaps: 22/4/2003
+        freechain(sig_list); /*zinaps: 22/4/2003*/
         }
       else
         {

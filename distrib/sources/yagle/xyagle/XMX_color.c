@@ -15,6 +15,8 @@
 #include MUT_H
 #include MLO_H
 #include XSB_H
+#include CGV_H
+#include XYA_H
 #include XMX_H
 
 #include "XMX_color.h"
@@ -50,9 +52,7 @@ static int      XyagColor[XYAG_MAX_COLOR];
 |                      XyagSwitchColormap                     |
 \------------------------------------------------------------*/
 
-void 
-XyagSetColorMap(map)
-    Colormap map;
+void XyagSetColorMap( Colormap map )
 {
     XyagColorMap = map;
 }
@@ -113,7 +113,7 @@ XyagInitializeColors()
         else XyagColor[Counter] = XyagColor[0];
     }
 
-    //if (Error == True) XyagExit(1);
+    /*if (Error == True) XyagExit(1);*/
 }
 
 /*------------------------------------------------------------\

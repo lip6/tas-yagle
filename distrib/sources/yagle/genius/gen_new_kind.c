@@ -63,7 +63,7 @@ void **GetExpandableArrayItem(ExpandableArray *ea, int index, ExpandableArrayUpd
       return &ea->Array[index - ea->StartIndex];
     }
 
-//  if (index>ea->EndIndex)
+/*  if (index>ea->EndIndex)*/
   {
     int r=index + (index-ea->EndIndex)*5, i;
     void **newarray;

@@ -31,7 +31,7 @@ static int getnameindex(char *name)
   if ((l=gethtitem_v2(NAMETOLONG, name))==EMPTYHT)
     {
       avt_errmsg(GNS_ERRMSG, "004", AVT_FATAL, 5);
-      //printf("%s not found\n",name);
+      /*printf("%s not found\n",name);*/
       EXIT(5);
     }
 
@@ -268,7 +268,7 @@ static void _DriveSignals(FILE *f, corresp_t *crt, lofig_list *lf)
               {
                 avt_errmsg(GNS_ERRMSG, "019", AVT_FATAL, gen_losigname(ls));
                 //avt_fprintf(stderr,"[¤3¤+Error¤.][¤2crt driver¤.] could not find correspondance for signal '%s'\n",gen_losigname(ls));
-                //EXIT(1);
+                /*EXIT(1);*/
               }
           if (count>15)
             {

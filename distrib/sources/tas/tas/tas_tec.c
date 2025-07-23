@@ -173,7 +173,7 @@ int param ;
  float alim;
 
  if(cns_getlotrsalim(lotrs, TAS_PATH_TYPE, &alim))
-     model = elpGetModel(lotrs,alim,elpTYPICAL) ; // typical case if a there is a specific voltage...
+     model = elpGetModel(lotrs,alim,elpTYPICAL) ; /* typical case if a there is a specific voltage...*/
  else
      model = elpGetModel(lotrs,elpGeneral[elpGVDDMAX],type) ;
 
@@ -313,7 +313,7 @@ elpmodel_list *model ;
    rdd /= (a*(vmax-vt1));
    rdd *= (kt+1.0);
  }
- //setdtitem(TAB_RDD,index,rdd) ;
+ /*setdtitem(TAB_RDD,index,rdd) ;*/
 
  if(model->elpTransType==elpPMOS)
    rud = seuil * (b+(1.0/(vmax-vt)))/(a*(vmax-vt)) ;
@@ -328,7 +328,7 @@ elpmodel_list *model ;
    rud /= (a*(vmax-vt1)) ;
    rud *= (kt+1.0);
  }
- //setdtitem(TAB_RUD,index,rud) ;
+ /*setdtitem(TAB_RUD,index,rud) ;*/
 
  if(model->elpTransType==elpPMOS){
    ruf = rt ;
@@ -347,11 +347,11 @@ elpmodel_list *model ;
    else
        vt1 = (vt + 2*vdeg)/3.0 ;
    b1 = /*1.0+*/b*(vmax-vt1);
-   //kdd = rdd*((vmax*(1.0-kt)-2*vt1)*(1.0+b1)) / (rt*(2*(vmax-vt1) + b1*(vmax*(1.0-kt)-2*vt1))) ;
+   /*kdd = rdd*((vmax*(1.0-kt)-2*vt1)*(1.0+b1)) / (rt*(2*(vmax-vt1) + b1*(vmax*(1.0-kt)-2*vt1))) ;*/
    rpo = (rt*(2*(vmax-vt1) + b1*(vmax*(1.0-kt)-2*vt1))) / ((vmax*(1.0-kt)-2*vt1)*(1.0+b1)) ;
 /* pour revenir comme avant mettre en commentaire ce qui suit: */
    rdd = (rdd + rpo) / 2.0; /* a mettre en commentaire */
-   //kdd = 1.0;
+   /*kdd = 1.0;*/
    rpo = rdd * 1.0; /* a mettre en commentaire */
    rdd = rdd * 1.3; /* a mettre en commentaire */
    kdd = rdd / rpo;
@@ -384,11 +384,11 @@ elpmodel_list *model ;
    else
        vt1 = (vt + 2*(vmax-vdeg))/3.0 ;
    b1 = /*1.0+*/b*(vmax-vt1);
-   //kud = rud*((vmax*(1.0-kt)-2*vt1)*(1.0+b1)) / (rt*(2*(vmax-vt1) + b1*(vmax*(1.0-kt)-2*vt1))) ;
+   /*kud = rud*((vmax*(1.0-kt)-2*vt1)*(1.0+b1)) / (rt*(2*(vmax-vt1) + b1*(vmax*(1.0-kt)-2*vt1))) ;*/
    rno = (rt*(2*(vmax-vt1) + b1*(vmax*(1.0-kt)-2*vt1))) / ((vmax*(1.0-kt)-2*vt1)*(1.0+b1)) ;
 /* pour revenir comme avant mettre en commentaire ce qui suit: */
    rud = (rud + rno) / 2.0; /* a mettre en commentaire */
-   //kud = 1.0;
+   /*kud = 1.0;*/
    rno = rud * 1.0; /* a mettre en commentaire */
    rud = rud * 1.3; /* a mettre en commentaire */
    kud = rud / rno;

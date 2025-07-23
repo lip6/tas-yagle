@@ -52,18 +52,18 @@ void mbk_cache_refresh( mbkcache *cache, void *root, void *elem )
   
   if( incache ) {
     avt_log(LOGMBKCACHE,2,"element already loaded\n");
-    // L'élément est présent dans le cache, on le met en tête des éléments les
-    // derniers accédés.
+    /* L'élément est présent dans le cache, on le met en tête des éléments les */
+    /* derniers accédés. */
     if( incache != cache->FIRST )
       mbk_cache_makeitfirst( cache, incache );
   }
   else {
   
-    // L'élément n'est pas dans le cache. On fait du ménage si necéssaire, puis
-    // on lit le nouvel élément.
+    /* L'élément n'est pas dans le cache. On fait du ménage si necéssaire, puis */
+    /* on lit le nouvel élément. */
  
-    // si le cache est limité en nb d'éléments, on réserve un éléments pour
-    // celui qui va être lu.
+    /* si le cache est limité en nb d'éléments, on réserve un éléments pour */
+    /* celui qui va être lu. */
     if( cache->MAXELEM )
       cache->CURELEM++;
 
