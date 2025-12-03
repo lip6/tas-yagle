@@ -749,7 +749,7 @@ expandTokenArray(parsePtr)
 
     newCount = parsePtr->tokensAvailable*2;
     newPtr = (ElTclToken *) ckalloc((unsigned)(newCount*sizeof(ElTclToken)));
-    memcpy((VOID *) newPtr, (VOID *) parsePtr->tokenPtr,
+    memcpy((void *) newPtr, (void *) parsePtr->tokenPtr,
 	    (size_t) (parsePtr->tokensAvailable * sizeof(ElTclToken)));
     if (parsePtr->tokenPtr != parsePtr->staticTokens) {
 	ckfree((char *) parsePtr->tokenPtr);
