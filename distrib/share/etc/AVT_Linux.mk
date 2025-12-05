@@ -51,9 +51,15 @@ else
               SAXON       = $(JAVA) -jar ${AVERTEC_TOP}/../distrib_extras/saxon9.jar
               LIB_TERMCAP = /usr/lib64/libtermcap.so.2
             else
-              JAVA_HOME = /usr/lib/jvm/java-1.6.0-openjdk
-              JAVA      = $(JAVA_HOME)/bin/java
-              SAXON     = $(JAVA) -jar /usr/share/java/saxon9.jar
+              ifeq ($(BUILD_VARIANT),Linux.Debian)
+                JAVA_HOME   = /usr
+                JAVA        = $(JAVA_HOME)/bin/java
+                SAXON       = $(JAVA) -jar ${AVERTEC_TOP}/../distrib_extras/saxon9.jar
+              else
+                JAVA_HOME = /usr/lib/jvm/java-1.6.0-openjdk
+                JAVA      = $(JAVA_HOME)/bin/java
+                SAXON     = $(JAVA) -jar /usr/share/java/saxon9.jar
+              endif
             endif
           endif
         endif

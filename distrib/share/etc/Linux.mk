@@ -17,44 +17,60 @@ ifeq ($(BUILD_VARIANT),)
   UNAME_S = $(shell uname -s)
   UNAME_R = $(shell uname -r)
   UNAME_M = $(shell uname -m)
-  
+  DISTRIBUTION  = $(strip $(shell lsb_release -a | grep Distributor | sed 's,Distributor ID:,,'))
+  RELEASE       = $(strip $(shell lsb_release -a | grep Release     | sed 's,Release:,,'))
+  RELEASE_MAJOR = $(shell echo "$(RELEASE)" | sed 's,\..*,,')
+  RELEASE_MINOR = $(shell echo "$(RELEASE)" | sed 's,.*\.,,')
+  $(info Distribution: "$(DISTRIBUTION)")
+  $(info Release:      "$(RELEASE)" (major: $(RELEASE_MAJOR), minor: $(RELEASE_MINOR)))
+
   LIB_SUFFIX  = ""
   LIB_SUFFIX_ = ""
   ifeq ($(UNAME_M),x86_64)
     LIB_SUFFIX  = 64
     LIB_SUFFIX_ = _64
   endif
-  
+
   BUILD_VARIANT = Linux
-  ifeq ($(UNAME_S),Linux)
-    $(info Configuring for a Linux system "$(UNAME_R)".)
-    ifneq ($(findstring .el6.,$(UNAME_R)),)
-      BUILD_VARIANT    = Linux.slsoc6x
-      $(info Configuring for RHEL 6 (and clones).)
-    endif
-    ifneq ($(findstring .slsoc6.,$(UNAME_R)),)
-      BUILD_VARIANT    = Linux.slsoc6x
-      $(info Configuring for LIP6 / RHEL 6 (and clones).)
-    endif
-    ifneq ($(findstring .el7.,$(UNAME_R)),)
-      BUILD_VARIANT    = Linux.el7
-      $(info Configuring for RHEL 7 (and clones).)
-    endif
-    ifneq ($(findstring .el8,$(UNAME_R)),)
-      BUILD_VARIANT    = Linux.el8
-      $(info Configuring for RHEL 8 (and clones).)
-    endif
-    ifneq ($(findstring .el9,$(UNAME_R)),)
-      BUILD_VARIANT    = Linux.el9
-      $(info Configuring for RHEL 9 (and clones).)
-    endif
-    ifneq ($(findstring ubuntu.,$(UNAME_R)),)
-      BUILD_VARIANT    = Linux.ubuntu
+  ifeq ($(DISTRIBUTION),Debian)
+    BUILD_VARIANT = Linux.Debian
+    $(info Configuring for Debian.)
+  else
+    ifeq ($(DISTRIBUTION),Ubuntu)
+      BUILD_VARIANT = Linux.ubuntu
       $(info Configuring for Ubuntu.)
-    endif
-    ifneq ($(findstring openSUSE.,$(shell lsb_release -i)),)
-      BUILD_VARIANT    = Linux.openSUSE
-      $(info Configuring for openSUSE.)
+    else
+      ifeq ($(UNAME_S),Linux)
+        $(info Configuring for a Linux system "$(UNAME_R)".)
+        ifneq ($(findstring .el6.,$(UNAME_R)),)
+          BUILD_VARIANT    = Linux.slsoc6x
+          $(info Configuring for RHEL 6 (and clones).)
+        endif
+        ifneq ($(findstring .slsoc6.,$(UNAME_R)),)
+          BUILD_VARIANT    = Linux.slsoc6x
+          $(info Configuring for LIP6 / RHEL 6 (and clones).)
+        endif
+        ifneq ($(findstring .el7.,$(UNAME_R)),)
+          BUILD_VARIANT    = Linux.el7
+          $(info Configuring for RHEL 7 (and clones).)
+        endif
+        ifneq ($(findstring .el8,$(UNAME_R)),)
+          BUILD_VARIANT    = Linux.el8
+          $(info Configuring for RHEL 8 (and clones).)
+        endif
+        ifneq ($(findstring .el9,$(UNAME_R)),)
+          BUILD_VARIANT    = Linux.el9
+          $(info Configuring for RHEL 9 (and clones).)
+        endif
+        ifneq ($(findstring ubuntu.,$(UNAME_R)),)
+          BUILD_VARIANT    = Linux.ubuntu
+          $(info Configuring for Ubuntu.)
+        endif
+        ifneq ($(findstring openSUSE.,$(shell lsb_release -i)),)
+          BUILD_VARIANT    = Linux.openSUSE
+          $(info Configuring for openSUSE.)
+        endif
+      endif
     endif
   endif
 else
