@@ -163,7 +163,7 @@ LEXFLAGS         =
 AR               = /usr/bin/ar
 ARFLAGS          = rv
 
-SWIG             = /usr/bin/swig
+SWIG             = swig
 
 WHOLE            = -Xlinker --whole-archive
 NOWHOLE          = -Xlinker --no-whole-archive
