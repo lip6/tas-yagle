@@ -7,6 +7,7 @@ Maintainer:        Jean-Paul.Chaput <Jean-Paul.Chaput@lip6.fr>
 Homepage:          https://coriolis.lip6.fr/
 Standards-Version: 3.4.6
 Build-Depends:     debhelper-compat (= 13),
+                   lsb-release,
                    tcsh,
 		   build-essential,
 		   pkg-config,

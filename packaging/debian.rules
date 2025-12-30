@@ -43,7 +43,6 @@ binary:
 	echo "CXXFLAGS=$${CXXFLAGS}"; \
 	cd obj; \
 	make WITH_FLEXLM=NOFLEX               \
-	     BUILD_VARIANT=Linux.ubuntu       \
 	     LIB_SUFFIX=64                    \
 	     LIB_SUFFIX_=_64                  \
 	     ALLIANCE_TOP=$${buildDir}        \

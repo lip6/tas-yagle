@@ -3,6 +3,7 @@ Section: Science/Electronics
 Priority: optional
 Maintainer: Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
 Build-Depends: debhelper-compat (= 13),
+               lsb-release,
                tcsh,
                build-essential,
                pkg-config,
@@ -21,7 +22,6 @@ Build-Depends: debhelper-compat (= 13),
                texlive-latex-recommended,
                graphviz,
                xpdf,
-               openjdk-17-jre-headless,
 Standards-Version: 3.4.6
 Homepage: https://coriolis.lip6.fr/
 Rules-Requires-Root: no

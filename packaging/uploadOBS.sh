@@ -53,6 +53,7 @@
                     packaging/flex-2.5.4-exit.patch        \
                     tas-yagle-${version}.tar.gz            \
 		    packaging/tas-yagle.dsc                \
+		    packaging/tas-yagle-Debian_13.dsc      \
 		    packaging/debian.copyright             \
 		    packaging/debian.changelog             \
 		    packaging/debian.control               \

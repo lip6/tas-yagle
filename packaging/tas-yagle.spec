@@ -10,6 +10,7 @@ Group:          Applications/Engineering
 License:        GPL-2.0-only         
 URL:            https://coriolis.lip6.fr/
 Source0:        %{name}-%{version}.tar.gz
+Source1:        swig-4.1.1.tar.gz
 Patch0:         flex-2.5.4-stdc.patch 
 #Packager:       Jean-Paul Chaput <Jean-Paul.Chaput@lip6.fr>
 #BuildRequires:  texlive-scheme-tetex
@@ -24,7 +25,6 @@ BuildRequires:  libXpm-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  byacc
 BuildRequires:  bison
-BuildRequires:  swig >= 1.3.27
 BuildRequires:  lua
 #BuildRequires:  fop >= 0.95 
 #BuildRequires:  saxon9 >= 9.3.0.4
@@ -35,31 +35,70 @@ Requires:       libedit >= 2.11
 %if 0%{?rhel} || 0%{?fedora}
 %global  build_variant  Linux.el9
 
-BuildRequires:  lsb_release
 %endif
 
+# ALmaLinux 8
+%if 0%{?rhel} == 8
+BuildRequires: temurin-8-jdk
+# For swig
+BuildRequires: coreutils
+BuildRequires: findutils
+BuildRequires: make 
+BuildRequires: perl-interpreter, pcre2-devel
+BuildRequires: autoconf, automake, gawk, dos2unix
+BuildRequires: gcc-c++
+BuildRequires: help2man
+BuildRequires: sed
+BuildRequires: perl-devel
+BuildRequires: perl(base)
+BuildRequires: perl(Config)
+BuildRequires: perl(Devel::Peek)
+BuildRequires: perl(ExtUtils::MakeMaker)
+BuildRequires: perl(fields)
+BuildRequires: perl(Math::BigInt)
+BuildRequires: perl(strict)
+BuildRequires: perl(Test::More)
+BuildRequires: perl(vars)
+BuildRequires: perl(warnings)
+BuildRequires: boost-devel
+
+%endif
+
+# ALmaLinux 9
 %if 0%{?rhel} >= 9 || 0%{?fedora} >= 39
+BuildRequires:  lsb_release
+BuildRequires:  swig >= 1.3.27
 BuildRequires:  java-1.8.0-openjdk-headless
 %endif
 
 # All openSUSE.
 %if 0%{?is_opensuse}
 BuildRequires:  lsb-release
-BuildRequires:  java-1_8_0-openjdk-headless
+BuildRequires:  swig >= 1.3.27
 %endif
 
-#opensuse_leap-15.6
+# openSUSE Leap 15.6
 %if 0%{?sle_version} == 150600 && 0%{?is_opensuse}
 %global  build_variant  Linux.openSUSE
 
 BuildRequires:  termcap
+BuildRequires:  java-1_8_0-openjdk-headless
 %endif
 
-#opensuse_Tumbleweed
-%if 0%{?suse_version} > 1600 && 0%{?is_opensuse}
+# openSUSE Leap 16.0
+%if 0%{?suse_version} == 1600 && 0%{?is_opensuse}
 %global  build_variant  Linux.openSUSE
 
 BuildRequires:  libtermcap2
+BuildRequires:  java-1.8.0-openjdk-headless
+%endif
+
+# openSUSE Tumbleweed
+%if 0%{?suse_version} >= 1699 && 0%{?is_opensuse}
+%global  build_variant  Linux.openSUSE
+
+BuildRequires:  libtermcap2
+BuildRequires:  java-1.8.0-openjdk-headless
 %endif
 
 
@@ -126,6 +165,19 @@ full-chip verification, with virtually no limit of capacity in design size.
  popd
  PATH=${localInstall}/bin:$PATH
  export PATH
+
+# Use own copy of Swig under RHEL8 (pb with modularization)
+%if 0%{?rhel} == 8
+ tar zxf %{_sourcedir}/swig-4.1.1.tar.gz
+ pushd swig-4.1.1
+ ./autogen.sh
+ ./configure --prefix=${localInstall} --with-tcl \
+                                      --without-python3 \
+	                                  --disable-ccache
+ make
+ make install
+ popd
+%endif
 
 # Setting up the build layout.
 # tas/yag uses an old fashioned Makefile.
