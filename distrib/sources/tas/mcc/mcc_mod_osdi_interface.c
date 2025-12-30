@@ -551,13 +551,27 @@ int osdi_initialize( osdi_trs             *ptr,
   ptr->mdata = NULL ;
   ptr->idata = NULL ;
   
-  if( mccmodel->MODELTYPE == MCC_PSPVA )
+  if( mccmodel->MODELTYPE == MCC_PSPVA ) {
+    if (dyn_osdi_psp103va == NULL) {
+      avt_errmsg( MCC_ERRMSG, "046", AVT_ERROR, "psp103");
+      EXIT(1);
+    }
     ptr->model = dyn_osdi_psp103va ;
-  else
-  if( mccmodel->MODELTYPE == MCC_PSPTVA )
-    ptr->model = dyn_osdi_psp103tva ;
-  else
-    ptr->model = dyn_osdi_pspnqs103va ;
+  } else {
+    if( mccmodel->MODELTYPE == MCC_PSPTVA ) {
+      if (dyn_osdi_psp103tva == NULL) {
+        avt_errmsg( MCC_ERRMSG, "046", AVT_ERROR, "psp103t");
+        EXIT(1);
+      }
+      ptr->model = dyn_osdi_psp103tva ;
+    } else {
+      if (dyn_osdi_pspnqs103va == NULL) {
+        avt_errmsg( MCC_ERRMSG, "046", AVT_ERROR, "psp103nqs");
+        EXIT(1);
+      }
+      ptr->model = dyn_osdi_pspnqs103va ;
+    }
+  }
 
   ptr->mccmodel = mccmodel ;
 
@@ -724,10 +738,10 @@ int osdi_loaddynamiclibrary( void )
 
   Dl_info m ;
 
-  printf( "Scanning dynamic libraries .\n" );
+  printf( "Scanning dynamic libraries.\n" );
   curr = OSDI_HANDLE;
   if( !curr ) {
-    printf( "can't load dynamic library \n" );
+    printf( "can't load dynamic library\n" );
     return 0 ;
   }
   while ( curr ) {
@@ -746,8 +760,8 @@ int osdi_loaddynamiclibrary( void )
       if( strcmp(handle->name, "PSP103TVA") == 0) dyn_osdi_psp103tva = handle;
       if( strcmp(handle->name, "PSPNQS103VA") == 0) dyn_osdi_pspnqs103va = handle;
    
-       addchain(OSDI_HEAD, handle);
-       handle++;
+      addchain(OSDI_HEAD, handle);
+      handle++;
      }
      curr = curr->NEXT;
   }

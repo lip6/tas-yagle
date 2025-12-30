@@ -269,5 +269,10 @@
    <msg>Can't parse transistor definition file. Search in %s : %s\n</msg>
    <doc></doc>
 </err>
+<err>
+   <lib>MCC-</lib><num>046</num>
+   <msg>Missing OSDI (Verilog-A) model %s\n</msg>
+   <doc></doc>
+</err>
 
 </messages>
