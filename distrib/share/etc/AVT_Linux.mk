@@ -57,7 +57,7 @@ else
                 SAXON       = $(JAVA) -jar ${AVERTEC_TOP}/../distrib_extras/saxon9.jar
               else
                 ifeq ($(BUILD_VARIANT),Linux.Mageia)
-                  JAVA_HOME = /usr/lib/jvm/java-1.8.0-openjdk
+                  JAVA_HOME = /usr
                   JAVA      = $(JAVA_HOME)/bin/java
                   SAXON     = $(JAVA) -jar ${AVERTEC_TOP}/../distrib_extras/saxon9.jar
                 else
