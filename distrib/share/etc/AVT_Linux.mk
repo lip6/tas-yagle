@@ -56,9 +56,15 @@ else
                 JAVA        = $(JAVA_HOME)/bin/java
                 SAXON       = $(JAVA) -jar ${AVERTEC_TOP}/../distrib_extras/saxon9.jar
               else
-                JAVA_HOME = /usr/lib/jvm/java-1.6.0-openjdk
-                JAVA      = $(JAVA_HOME)/bin/java
-                SAXON     = $(JAVA) -jar /usr/share/java/saxon9.jar
+                ifeq ($(BUILD_VARIANT),Linux.Mageia)
+                  JAVA_HOME = /usr/lib/jvm/java-1.8.0-openjdk
+                  JAVA      = $(JAVA_HOME)/bin/java
+                  SAXON     = $(JAVA) -jar ${AVERTEC_TOP}/../distrib_extras/saxon9.jar
+                else
+                  JAVA_HOME = /usr/lib/jvm/java-1.6.0-openjdk
+                  JAVA      = $(JAVA_HOME)/bin/java
+                  SAXON     = $(JAVA) -jar /usr/share/java/saxon9.jar
+                endif
               endif
             endif
           endif

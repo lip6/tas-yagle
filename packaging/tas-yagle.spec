@@ -19,9 +19,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  tcsh
 BuildRequires:  tcl-devel >= 8.5.3
 BuildRequires:  motif-devel
-BuildRequires:  libXt-devel
-BuildRequires:  libXp-devel
-BuildRequires:  libXpm-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  byacc
 BuildRequires:  bison
@@ -30,6 +27,21 @@ BuildRequires:  lua
 #BuildRequires:  saxon9 >= 9.3.0.4
 BuildRequires:  libedit-devel >= 2.11
 Requires:       libedit >= 2.11
+
+%if 0%{?rhel} || 0%{?fedora} || 0%{?is_opensuse}
+BuildRequires:  libXt-devel
+BuildRequires:  libXp-devel
+BuildRequires:  libXpm-devel
+%endif
+
+%if 0%{?mageia}
+BuildRequires:	lib64xt-devel
+BuildRequires:	x11-proto-devel
+BuildRequires:	lib64xpm-devel
+BuildRequires:  java-1.8.0-openjdk-headless
+
+%global  build_variant  Linux.Mageia
+%endif
 
 # All RHEL clones.
 %if 0%{?rhel} || 0%{?fedora}
