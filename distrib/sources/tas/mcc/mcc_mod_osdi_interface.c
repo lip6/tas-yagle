@@ -547,6 +547,8 @@ int osdi_initialize( osdi_trs             *ptr,
   OsdiInitInfo  *info_inst, *info_model;
   double *charge, *solve, *info_state;
   uint32_t from, to, tmp;
+  static char *empty_names[] = { NULL };
+  static double empty_vals[] = { 0.0 };
 
   ptr->mdata = NULL ;
   ptr->idata = NULL ;
@@ -580,6 +582,11 @@ int osdi_initialize( osdi_trs             *ptr,
   charge = (double*)calloc(ptr->model->num_nodes, sizeof(double));
   solve  = (double*)calloc(ptr->model->num_nodes, sizeof(double));
   info_state = (double*)calloc(ptr->model->num_states, sizeof(double));
+
+  ptr->simdata.paras.names = empty_names;
+  ptr->simdata.paras.vals = empty_vals;
+  ptr->simdata.paras.names_str = empty_names;
+  ptr->simdata.paras.vals_str = empty_names;
 
   ptr->simdata.prev_solve = solve ;
   ptr->simdata.prev_state = ptr->simdata.next_state = info_state ;
